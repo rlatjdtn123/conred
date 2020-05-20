@@ -1,5 +1,7 @@
 package com.hk.conred.dtos;
 
+import java.util.Date;
+
 public class replyDto {
 	
 	private int reply_seq;
@@ -10,6 +12,8 @@ public class replyDto {
 	private int reply_price;
 	private int reply_service;
 	private String reply_answer;
-	
+	private String reply_read;
+	private Date reply_regdate;
+	private String reply_delflag;
 	
 }
