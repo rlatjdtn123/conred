@@ -37,17 +37,17 @@ public class Yoonho {
 		return "test/header"; 
 	}
 	
+	@RequestMapping(value = "container.do", method = RequestMethod.GET)
+	public String container(Locale locale, Model model) {
+		logger.info("Welcome home! The client locale is {}.", locale);
+		
+		return "test/container"; 
+	}
 	@RequestMapping(value = "template.do", method = RequestMethod.GET)
 	public String template(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		return "test/template"; 
-	}
-	@RequestMapping(value = "template2.do", method = RequestMethod.GET)
-	public String template2(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		return "test/template2"; 
 	}
 	
 }
