@@ -41,7 +41,8 @@
 </head>
 <body>
 	<h1>푸터 페이지</h1>
-	<a href="user_regist.do">유저 회원가입 페이지로 이동</a>
+	<a href="user_regist.do">유저 회원가입 페이지로 이동</a><br>
+	<a href="user_regist_category.do">유저 관심사 등록 페이지로 이동</a>
 </body>
 <footer>
 	<div id="main1">
