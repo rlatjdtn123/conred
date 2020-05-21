@@ -16,7 +16,7 @@ public class Yoonho {
 	
 	private static final Logger logger = LoggerFactory.getLogger(Yoonho.class);
 	
-	@RequestMapping(value = "home.do", method = RequestMethod.GET)
+	@RequestMapping(value = ".do", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
@@ -27,7 +27,7 @@ public class Yoonho {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "test/home"; 
+		return "test/yoonho"; 
 	}
 	
 }
