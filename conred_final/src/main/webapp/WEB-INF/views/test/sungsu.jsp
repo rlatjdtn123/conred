@@ -40,7 +40,8 @@
 </style>
 </head>
 <body>
-	<h1>푸터</h1>
+	<h1>푸터 페이지</h1>
+	<a href="user_regist.do">유저 회원가입 페이지로 이동</a>
 </body>
 <footer>
 	<div id="main1">
