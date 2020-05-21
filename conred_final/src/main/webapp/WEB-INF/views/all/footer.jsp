@@ -40,7 +40,6 @@
 </style>
 </head>
 <body>
-	<h1>푸터</h1>
 </body>
 <footer>
 	<div id="main1">
