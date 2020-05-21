@@ -30,7 +30,7 @@
 <!-- 		비회원 -->
 <!-- 			<div id="toregist" class="navis">회원가입</div> -->
 <!-- 			<div id="tologin" class="navis">로그인</div> -->
-<!-- 		점주 -->
+<!-- 		점주 --> 
 <!-- 			<div id="tologin" class="navis">로그아웃</div> -->
 <!-- 			<div id="tologin" class="navis">나의정보</div> -->
 <!-- 			<div id="tologin" class="navis">매장관리</div> -->
