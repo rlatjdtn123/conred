@@ -11,17 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-/**
- * Handles requests for the application home page.
- */
+
 @Controller
 public class Sungsu {
 	
 	private static final Logger logger = LoggerFactory.getLogger(Sungsu.class);
 	
-	/** 
-	 * Simply selects the home view to render by returning its name.
-	 */
+	
 	@RequestMapping(value = "home.do", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
@@ -34,6 +30,19 @@ public class Sungsu {
 		model.addAttribute("serverTime", formattedDate );
 		
 		return "test/home"; 
+	}
+	
+	
+
+	
+	
+	@RequestMapping(value = "sungsu.do", method = RequestMethod.GET)
+	public String sungsu(Locale locale, Model model) {
+		logger.info("테스트용 푸터 접근 {}.", locale);
+		
+		
+		
+		return "test/sungsu"; 
 	}
 	
 }
