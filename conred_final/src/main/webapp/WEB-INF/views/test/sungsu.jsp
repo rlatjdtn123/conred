@@ -9,22 +9,22 @@
 <style type="text/css">
 	footer{
 		height: 300px;
-		background-color: #D8D8D8;
+		background-color: #E6E6E6;
 	}
-	div{
-		
-	}
+	#main.
 </style>
 </head>
 <body>
 	<h1>푸터</h1>
 </body>
 <footer>
-	<div>
-		<span>어디가냥?<br>저기가게!</span>
-	</div>
-	<div>
-		
+	<div id="main1">
+		<div>
+			<span style="background-color: white;">어디가냥?<br>저기가게!</span>
+		</div>
+		<div>
+			
+		</div>
 	</div>
 </footer>
 </html>
