@@ -57,15 +57,28 @@ public class Sungsu {
 		
 		
 			
-			@RequestMapping(value = "user_regist_category.do", method = RequestMethod.GET)
-		public String user_regist_category(Locale locale, Model model) {
-			logger.info("테스트용 유저 회원가입 접근 {}.", locale);
+	@RequestMapping(value = "user_regist_category.do", method = RequestMethod.GET)
+	public String user_regist_category(Locale locale, Model model) {
+		logger.info("테스트용 유저 회원가입 접근 {}.", locale);
 		
-			return "user/user_regist_category"; 
+		return "user/user_regist_category"; 
+	}
+		
+		
+			
+		@RequestMapping(value = "login.do", method = RequestMethod.GET)
+		public String login(Locale locale, Model model) {
+			logger.info("공통 로그인폼 접근 {}.", locale);
+		
+			return "all/login"; 
 		}
 		
 		
-		
-		
+		@RequestMapping(value = "user_login.do", method = RequestMethod.GET)
+		public String user_login(Locale locale, Model model) {
+			logger.info("유저 로그인접근 {}.", locale);
+				
+			return ""; 
+		}
 		
 }
