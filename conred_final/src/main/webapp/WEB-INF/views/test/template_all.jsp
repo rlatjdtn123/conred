@@ -1,3 +1,4 @@
+<jsp:include page="header.jsp" />
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=utf-8"); %>
@@ -6,10 +7,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+	#container{border:1px solid grey; width:60%;height:900px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+</style>
 </head>
 <body>
-<h1><a href="header.do">헤더</a></h1>
-<h1><a href="template.do">템플릿</a></h1>
-<h1><a href="template2.do">헤더+템플릿</a></h1>
+<div id="container">
+	
+</div>
 </body>
 </html>

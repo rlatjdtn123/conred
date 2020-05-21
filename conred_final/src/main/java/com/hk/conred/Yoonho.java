@@ -33,15 +33,21 @@ public class Yoonho {
 	@RequestMapping(value = "header.do", method = RequestMethod.GET)
 	public String header(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
+
 		return "test/header"; 
+	}
+	
+	@RequestMapping(value = "template.do", method = RequestMethod.GET)
+	public String template(Locale locale, Model model) {
+		logger.info("Welcome home! The client locale is {}.", locale);
+		
+		return "test/template"; 
+	}
+	@RequestMapping(value = "template2.do", method = RequestMethod.GET)
+	public String template2(Locale locale, Model model) {
+		logger.info("Welcome home! The client locale is {}.", locale);
+		
+		return "test/template2"; 
 	}
 	
 }

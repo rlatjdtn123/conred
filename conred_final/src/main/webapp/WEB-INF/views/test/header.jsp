@@ -9,14 +9,13 @@
 <style type="text/css">
 	body{margin:0;}
 	header{border:1px solid grey; height:200px;width:100%;}
-	#logo{border:1px solid grey; height:50px;width:100px;margin:0 auto;}
+	#logo{width:200px; display: block; margin: 0 auto;position:relative; top:50px;}
+	
 </style>
 </head>
 <body>
 <header>
-	<div id="logo">
-		<img alt="logo1" src="./img/logo1.png">
-	</div>
+		<img id="logo" alt="logo1" src="./img/logo1.png">
 </header>
 </body>
 </html>
