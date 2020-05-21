@@ -12,7 +12,9 @@
 	}
 	footer{
 		height: 300px;
-		background-color: #E6E6E6;
+		background-color: #F2F2F2;  
+		font-size: 12px;
+		color: #BDBDBD; 
 	}
 	#main1{
 		position:relative;
@@ -20,20 +22,20 @@
 		width: 800px;
 		margin: 0 auto;
 		height: 260px;
-		border:1px solid black;
+/* 		border:1px solid black; */
 	}
 	#f1{
 		position:absolute;
-		left:20px;
+		left:110px;
 		top:100px;
 		width:200px;
-		border: 1px solid black;
 	}
-	#f2{
-		position: absolute;
-		left: 220px;
-		top:100px;
-		border: 1px solid black;
+	#f2{ 
+		position: absolute; 
+		left: 270px;
+		top:50px;
+		border-left: 2px solid gray;
+		padding: 20px;
 	}
 </style>
 </head>
@@ -43,11 +45,15 @@
 <footer>
 	<div id="main1">
 		<div id="f1">
-			<span style="background-color: white;">어디가냥?<br>저기가게!</span>
+			<img alt="" src="./img/logo1.png" style="width: 140px;">
 		</div>
 		<div id="f2">
 			(주)어디가개|대표이사:신윤호|사업자 등록번호 :220-87-42885|통신판매업신고:양평동 000호 <br/>
-			메일:syhnz1102@gmail.com
+			메일:syhnz1102@gmail.com|관광사업자 등록번호:제2016-31호|주소:서울 양평동 한경닷컴 401호<br/>
+			호스팅서비스 제공자:주식회사 어디가개|고객센터 :1644-1346(오전 9시~익일 새벽3시)<br>
+			<br>
+			(주)어디가개는 통신판매 중개자로서 통신판매의 당사자가 아니며<br>
+			상품의 예약, 이용 및 환불 등과 관련한 의무와 책임은 각 판매자에게 있습니다.
 		</div>
 	</div>
 </footer>
