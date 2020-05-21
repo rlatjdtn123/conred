@@ -7,15 +7,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	body{margin:0;}
-	header{border:1px solid grey; height:200px;width:100%;}
-	#logo{width:200px; display: block; margin: 0 auto;position:relative; top:50px;}
-	
+	#container{border:1px solid grey; width:60%;height:900px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 </style>
 </head>
 <body>
-<header>
-		<img id="logo" alt="logo1" src="./img/logo1.png">
-</header>
+<div id="container">
+	
+</div>
 </body>
 </html>
