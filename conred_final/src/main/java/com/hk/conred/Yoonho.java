@@ -49,5 +49,17 @@ public class Yoonho {
 		
 		return "test/template"; 
 	}
+	@RequestMapping(value = "header2.do", method = RequestMethod.GET)
+	public String header2(Locale locale, Model model) {
+		logger.info("Welcome home! The client locale is {}.", locale);
+		
+		return "test/header2"; 
+	}
+	@RequestMapping(value = "header_map.do", method = RequestMethod.GET)
+	public String header_map(Locale locale, Model model) {
+		logger.info("Welcome home! The client locale is {}.", locale);
+		
+		return "test/header_map"; 
+	}
 	
 }
