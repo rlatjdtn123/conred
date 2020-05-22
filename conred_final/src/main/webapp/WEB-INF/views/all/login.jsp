@@ -46,7 +46,7 @@
 					<input type="text" name="user_id" required="required"/><br/>
 					<input type="password" name="user_password" required="required"/><br/>
 					<input type="submit" value="로그인"/><br/>
-					<input type="button" value="회원가입"/><br/>
+					<input type="button" value="회원가입" onclick="location.href='user_regist.do'"/><br/>
 					<input type="button" value="네이버 아이디로 로그인"/> 
 				</div>
 			</div>
@@ -59,7 +59,7 @@
 				<input type="text" name="owner_id" required="required"/><br/>
 				<input type="password" name="owner_password" required="required"/><br/>
 				<input type="submit" value="로그인"/><br/>
-				<input type="button" value="회원가입"/><br/>
+				<input type="button" value="회원가입" onclick="location.href='owner_regist.do'"/><br/>
 				<input type="button" value="네이버 아이디로 로그인"/>
 			</div>
 		</div>

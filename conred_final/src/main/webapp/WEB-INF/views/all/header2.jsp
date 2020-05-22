@@ -18,6 +18,7 @@
 	body{margin:0;}
 	header{border:1px solid grey;border-top-width:0px;border-bottom-color:lightgrey; height:70px;width:100%;}
 	#logo{width:400px; display: block; margin: 0 auto;position:relative; top:13px;}
+	#logo:hover{cursor: pointer;}
 	#secondheader{border:1px solid grey;border-top-width:0px; height:71px;width:100%;box-shadow: 0px 0.5px 3px grey;position:relative;}
 	#categorybox{margin:0 auto; width:548px;}
 	.categories{border:1px solid grey; border-radius: 10px; width:60px; height:60px;position:relative;top:4px;float: left;margin-left:5px;}
@@ -31,7 +32,7 @@
 </head>
 <body>
 <header>
-	<img id="logo" alt="logo2" src="./img/logo2.png">
+	<img id="logo" alt="logo2" src="./img/logo2.png" onclick="location.href='index.jsp'"><!-- 나중에 세션에따라 이동되는페이지 달라지게 바꾸기 -->
 	<div id="profilebox">
 		<!--????부분에는 회원이름 출력-->
 		<!--뒷부분에는 삼항식으로 '회원님,사장님,관리자님' 출력/ -->

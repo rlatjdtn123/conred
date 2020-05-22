@@ -19,8 +19,8 @@
 	
 	#category{padding-top:50px; height:auto;width:100%;position:relative;}
 	.categorybox{overflow:auto; margin:0 auto; width:665px;padding-bottom: 30px;overflow-y: hidden;}
-	.categories{border-radius: 10px; width:60px; height:60px;position:relative;top:4px;float: left;margin-left:60px;box-shadow: 0px 0.5px 3px grey;}
-	.categories:hover{cursor:pointer;}
+	.categories{border-radius: 10px; width:60px; height:60px;position:relative;top:4px;float: left;margin-left:60px;border:1px solid lightgrey;}
+	.categories:hover{cursor:pointer;box-shadow: 0px 0.5px 3px grey;}
 	.categories_invisible{border-radius: 10px; width:60px; height:60px;position:relative;top:4px;float: left;margin-left:60px;}
 	.categories_last{width:60px; height:60px;position:relative;top:4px;float: left;margin-left:60px;}
 	.categories_last{cursor:pointer;}

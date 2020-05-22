@@ -18,6 +18,7 @@
 	body{margin:0;}
 	header{border:1px solid grey;border-top-width:0px; height:90px;width:100%;box-shadow: 0px 0.5px 3px grey;}
 	#logo{width:400px; display: block; margin: 0 auto;position:relative; top:20px;}
+	#logo:hover{cursor: pointer;}
 	#profilebox{width:200px;height:30px;float:right;position: relative; bottom:12px;left:-10px;}
 	.profile{float:right; height:100%;line-height: 23px;padding-right:10px;}
 	#navibox{width:380px;height:30px;float:right;position: relative; padding-right:5px;left:190px;bottom:-10px}
@@ -28,7 +29,7 @@
 </head>
 <body>
 <header>
-		<img id="logo" alt="logo2" src="./img/logo2.png">
+		<img id="logo" alt="logo2" src="./img/logo2.png" onclick="location.href='index.jsp'"><!-- 나중에 세션에따라 이동되는페이지 달라지게 바꾸기 -->
 		
 		<div id="profilebox">
 			<!--????부분에는 회원이름 출력-->

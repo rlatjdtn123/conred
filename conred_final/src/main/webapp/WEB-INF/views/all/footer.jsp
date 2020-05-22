@@ -15,6 +15,7 @@
 		background-color: #F2F2F2;  
 		font-size: 12px;
 		color: #BDBDBD; 
+		
 	}
 	#main1{
 		position:relative;
