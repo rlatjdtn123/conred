@@ -73,36 +73,29 @@ public class Sungsu {
 	}
 		
 		
-			
-		@RequestMapping(value = "login.do", method = RequestMethod.GET)
-		public String login(Locale locale, Model model) {
-			logger.info("공통 로그인폼 접근 {}.", locale);
+		
+		
+	@RequestMapping(value = "user_login.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String user_login(Locale locale, Model model,HttpServletRequest request,UDto dto) {
+		logger.info("유저 로그인접근 {}.", locale);
+		HttpSession session=request.getSession();
+		UDto ldto=uService.getLogin(dto.getUser_id(),dto.getUser_password());
+		
+		if(ldto.getUser_out().equals("Y")){
+			System.out.println("탈퇴한 회원 입니다");
+			return "";
+		}else if(ldto.getUser_black().equals("Y")) {
+			System.out.println("블랙된 회원입니다");
+			return "";
+		}else if(!ldto.getUser_role().equals("USER")||ldto.getUser_id()==null||ldto.getUser_id().equals("")) {
+			System.out.println("아이디 다시한번 확인해주세요");
+			return "";
+		}else{
+			return "all/users_main"; 
+		}
+		
 		 
-			return "all/login"; 
-		}
 		
-		
-		@RequestMapping(value = "user_login.do", method = {RequestMethod.GET,RequestMethod.POST})
-		public String user_login(Locale locale, Model model,HttpServletRequest request,UDto dto) {
-			logger.info("유저 로그인접근 {}.", locale);
-			HttpSession session=request.getSession();
-			UDto ldto=uService.getLogin(dto.getUser_id(),dto.getUser_password());
-			
-			if(ldto.getUser_out().equals("Y")){
-				System.out.println("탈퇴한 회원 입니다");
-				return "";
-			}else if(ldto.getUser_black().equals("Y")) {
-				System.out.println("블랙된 회원입니다");
-				return "";
-			}else if(!ldto.getUser_role().equals("USER")||ldto.getUser_id()==null||ldto.getUser_id().equals("")) {
-				System.out.println("아이디 다시한번 확인해주세요");
-				return "";
-			}else{
-				return "all/users_main"; 
-			}
-			
-			
-			
-		}
+	}
 		
 }
