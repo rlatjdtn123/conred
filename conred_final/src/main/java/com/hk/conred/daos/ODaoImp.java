@@ -7,36 +7,33 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.hk.conred.dtos.UDto;
+import com.hk.conred.dtos.ODto;
 
 @Repository
-public class UDaoImp implements IUDao{
-
-	private String nameSpace="com.hk.conred.U.";
+public class ODaoImp implements IODao {
+	
+	private String nameSpace="com.hk.conred.O.";
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	
 	@Override
-	public boolean insertUser(UDto dto) {
-		int count =0;
-		count=sqlSession.insert(nameSpace+"insertUser", dto);
+	public boolean insertOwner(ODto dto) {
+		int count=0;
+		count=sqlSession.insert(nameSpace+"insertOwner", dto);
 		return count>0?true:false;
 	}
 
 	@Override
-	public UDto getLogin(String user_id, String user_password) {
-		
-		UDto dto=null;
+	public ODto getLogin(String Owner_id, String Owner_password) {
+		ODto dto=null;
 		Map<String, String> map=new HashMap<>();
-		map.put("user_id", user_id);
-		map.put("user_password", user_password);
+		map.put("Owner_id", Owner_id);
+		map.put("Owner_password", Owner_password);
 		dto=sqlSession.selectOne(nameSpace+"getLogin", map);
-		System.out.println(dto);
 		return dto;
 	}
+
 	
 	
-	 
 }

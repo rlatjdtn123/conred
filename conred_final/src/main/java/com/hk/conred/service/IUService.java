@@ -8,7 +8,7 @@ public interface IUService {
 		//1.회원가입
 		public boolean insertUser(UDto dto);
 		//2.로그인
-		public UDto getLogin(String id,String password);
+		public UDto getLogin(String user_id,String user_password);
 		//3.나의정보조회
 		
 		//4.나의정보수정

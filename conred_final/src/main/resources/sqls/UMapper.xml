@@ -17,8 +17,8 @@
 		SELECT USER_ID,USER_NAME ,USER_BIRTH ,USER_SEX ,USER_REGDATE,USER_OUT,USER_BLACK ,USER_ROLE ,USER_POINT 
 		FROM CON_USER
 		WHERE USER_ID =#{user_id} AND USER_PASSWORD =#{user_password}
-	</select>
+	</select> 
 	
 	
 </mapper>
-	
+	 

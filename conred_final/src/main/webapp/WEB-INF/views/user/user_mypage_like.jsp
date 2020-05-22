@@ -8,6 +8,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<h1>사용자 좋아요</h1>
 </body>
 </html>

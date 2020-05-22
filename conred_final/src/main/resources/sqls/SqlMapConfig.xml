@@ -9,6 +9,7 @@
 <!-- 	Dto객체의 변수 설정 -->
 	<typeAliases>
 		<typeAlias type="com.hk.conred.dtos.UDto" alias="UDto"/>
+		<typeAlias type="com.hk.conred.dtos.ODto" alias="ODto"/>
 	</typeAliases>
 
 
@@ -17,6 +18,7 @@
   
   	<mappers>
     	<mapper resource="./sqls/UMapper.xml"/>
+    	<mapper resource="./sqls/OMapper.xml"/>
   	</mappers>
 </configuration>
 
