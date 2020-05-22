@@ -6,6 +6,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style type="text/css">
 	body{margin:0;}
 	header{border:1px solid grey;border-top-width:0px;border-bottom-color:lightgrey; height:70px;width:100%;}
@@ -13,12 +21,12 @@
 	#secondheader{border:1px solid grey;border-top-width:0px; height:71px;width:100%;box-shadow: 0px 0.5px 3px grey;position:relative;}
 	#categorybox{margin:0 auto; width:548px;}
 	.categories{border:1px solid grey; border-radius: 10px; width:60px; height:60px;position:relative;top:4px;float: left;margin-left:5px;}
-	#profilebox{width:200px;height:40px;float:right;position: relative; bottom:32px;left:-10px;}
-	.profile{float:right; height:100%;line-height: 40px;padding-right:10px;}
+	#profilebox{width:200px;height:30px;float:right;position: relative; bottom:22px;left:-10px;}
+	.profile{float:right; height:100%;line-height: 23px;padding-right:10px;}
 	#navibox{float:right;width:380px;height:30px; padding-right:15px;clear:both;position: relative; bottom:40px;}
 	.navis{float:right; padding-right: 5px;padding-left: 5px;height:100%;line-height: 30px;border-radius: 50px;}
 	.navis:hover{cursor: pointer; background-color: lightgrey;}
-	#profilepic{width:40px;float:right;padding-right:10px;}
+	#profilepic{width:30px;float:right;padding-right:10px;}
 </style>
 </head>
 <body>
