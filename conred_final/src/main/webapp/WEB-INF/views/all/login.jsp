@@ -1,3 +1,4 @@
+<%@page import="com.hk.conred.dtos.UDto"%>
 <jsp:include page="../all/header.jsp" />
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
@@ -42,8 +43,8 @@
 			<div id="tle1" class="fo">
 				<h1 class="hd">사용자 로그인</h1>
 				<div id="user">
-					<input type="text" /><br/>
-					<input type="text" /><br/>
+					<input type="text" id="user_id" required="required"/><br/>
+					<input type="password" id="user_password" required="required"/><br/>
 					<input type="submit" value="로그인"/><br/>
 					<input type="button" value="회원가입"/><br/>
 					<input type="button" value="네이버 아이디로 로그인"/>
@@ -55,8 +56,8 @@
 		<div id="tle2" class="fo">
 			<h1 class="hd">점주 로그인</h1>
 			<div id="owner">
-				<input type="text" /><br/>
-				<input type="text" /><br/>
+				<input type="text" id="owner_id" required="required"/><br/>
+				<input type="password" id="owner_password" required="required"/><br/>
 				<input type="submit" value="로그인"/><br/>
 				<input type="button" value="회원가입"/><br/>
 				<input type="button" value="네이버 아이디로 로그인"/>

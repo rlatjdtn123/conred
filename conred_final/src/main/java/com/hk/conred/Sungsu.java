@@ -77,12 +77,12 @@ public class Sungsu {
 		@RequestMapping(value = "login.do", method = RequestMethod.GET)
 		public String login(Locale locale, Model model) {
 			logger.info("공통 로그인폼 접근 {}.", locale);
-		
+		 
 			return "all/login"; 
 		}
 		
 		
-		@RequestMapping(value = "user_login.do", method = RequestMethod.GET)
+		@RequestMapping(value = "user_login.do", method = {RequestMethod.GET,RequestMethod.POST})
 		public String user_login(Locale locale, Model model,HttpServletRequest request,UDto dto) {
 			logger.info("유저 로그인접근 {}.", locale);
 			HttpSession session=request.getSession();
