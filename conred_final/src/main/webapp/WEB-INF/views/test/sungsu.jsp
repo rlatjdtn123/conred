@@ -15,7 +15,7 @@
 		background-color: #F2F2F2;  
 		font-size: 12px;
 		color: #BDBDBD; 
-	}asd
+	}
 	#main1{
 		position:relative;
 		top:20px; 
@@ -23,8 +23,8 @@
 		margin: 0 auto;
 		height: 260px;
 /* 		border:1px solid black; */
-	}
-	#f1{   
+	}bsd
+	#f1{
 		position:absolute;
 		left:110px;
 		top:100px;
