@@ -43,6 +43,8 @@
 			<div id="tologin" class="navis">좋아요</div>
 			<div id="tologin" class="navis">내 예약</div>
 <!-- 		관리자 -->
+			<div id="tologin" class="navis">좋아요</div>
+			<div id="tologin" class="navis">내 예약</div>
 		</div>
 </header>
 </body>

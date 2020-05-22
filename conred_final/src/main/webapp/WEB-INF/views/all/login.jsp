@@ -55,6 +55,7 @@
 		</div>
 	</form>
 </div>
+<input></
 </body>
 </html>
 <jsp:include page="../all/footer.jsp" />
