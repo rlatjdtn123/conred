@@ -2,7 +2,7 @@ package com.hk.conred.dtos;
 
 import java.util.Date;
 
-public class reportDto {
+public class ReportDto {
 	private int report_seq;
 	private int reply_seq;
 	private String report_why;
@@ -12,10 +12,10 @@ public class reportDto {
 	private Date report_regdate;
 	private String report_id;
 	
-	public reportDto() {
+	public ReportDto() {
 	}
 
-	public reportDto(int report_seq, int reply_seq, String report_why, String report_content, String report_read,
+	public ReportDto(int report_seq, int reply_seq, String report_why, String report_content, String report_read,
 			String report_black, Date report_regdate, String report_id) {
 		super();
 		this.report_seq = report_seq;

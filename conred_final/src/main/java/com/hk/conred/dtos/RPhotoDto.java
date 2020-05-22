@@ -1,16 +1,16 @@
 package com.hk.conred.dtos;
 
-public class rPhotoDto {
+public class RPhotoDto {
 
 	private int reply_photo_seq;
 	private int reply_seq;
 	private String reply_photo_origin;
 	private String reply_photo_stored;
 	
-	public rPhotoDto() {
+	public RPhotoDto() {
 	}
 
-	public rPhotoDto(int reply_photo_seq, int reply_seq, String reply_photo_origin, String reply_photo_stored) {
+	public RPhotoDto(int reply_photo_seq, int reply_seq, String reply_photo_origin, String reply_photo_stored) {
 		super();
 		this.reply_photo_seq = reply_photo_seq;
 		this.reply_seq = reply_seq;

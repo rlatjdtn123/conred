@@ -2,7 +2,7 @@ package com.hk.conred.dtos;
 
 import java.util.Date;
 
-public class qnaDto {
+public class QnaDto {
 
 	private int qna_seq;
 	private int store_seq;
@@ -14,10 +14,10 @@ public class qnaDto {
 	private Date qna_regdate;
 	private String qna_delflag;
 	
-	public qnaDto() {
+	public QnaDto() {
 	}
 
-	public qnaDto(int qna_seq, int store_seq, String user_id, String qna_content, String answer, String qna_hide,
+	public QnaDto(int qna_seq, int store_seq, String user_id, String qna_content, String answer, String qna_hide,
 			String qna_read, Date qna_regdate, String qna_delflag) {
 		super();
 		this.qna_seq = qna_seq;

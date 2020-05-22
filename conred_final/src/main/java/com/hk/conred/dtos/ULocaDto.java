@@ -1,6 +1,6 @@
 package com.hk.conred.dtos;
 
-public class uLocaDto {
+public class ULocaDto {
 
 	private int user_location_seq;
 	private String user_id;
@@ -8,11 +8,11 @@ public class uLocaDto {
 	private String user_longitude;
 	
 	
-	public uLocaDto() {
+	public ULocaDto() {
 	}
 
 
-	public uLocaDto(int user_location_seq, String user_id, String user_latitude, String user_longitude) {
+	public ULocaDto(int user_location_seq, String user_id, String user_latitude, String user_longitude) {
 		super();
 		this.user_location_seq = user_location_seq;
 		this.user_id = user_id;

@@ -2,7 +2,7 @@ package com.hk.conred.dtos;
 
 import java.util.Date;
 
-public class replyDto {
+public class ReplyDto {
 	
 	private int reply_seq;
 	private String user_id;
@@ -16,10 +16,10 @@ public class replyDto {
 	private Date reply_regdate;
 	private String reply_delflag;
 	
-	public replyDto() {
+	public ReplyDto() {
 	}
 
-	public replyDto(int reply_seq, String user_id, int store_seq, String reply_content, int reply_clean,
+	public ReplyDto(int reply_seq, String user_id, int store_seq, String reply_content, int reply_clean,
 			int reply_price, int reply_service, String reply_answer, String reply_read, Date reply_regdate,
 			String reply_delflag) {
 		super();

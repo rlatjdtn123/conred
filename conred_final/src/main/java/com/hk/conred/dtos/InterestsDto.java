@@ -1,15 +1,15 @@
 package com.hk.conred.dtos;
 
-public class interestsDto {
+public class InterestsDto {
 
 	private int interests_seq;
 	private String user_id;
 	private int category_seq;
 	
-	public interestsDto() {
+	public InterestsDto() {
 	}
 
-	public interestsDto(int interests_seq, String user_id, int category_seq) {
+	public InterestsDto(int interests_seq, String user_id, int category_seq) {
 		super();
 		this.interests_seq = interests_seq;
 		this.user_id = user_id;

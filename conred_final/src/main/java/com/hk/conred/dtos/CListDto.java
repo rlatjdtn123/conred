@@ -1,14 +1,14 @@
 package com.hk.conred.dtos;
 
-public class cListDto {
+public class CListDto {
 	private int category_list_seq;
 	private String category_code;
 	private int store_seq;
 	
-	public cListDto() {
+	public CListDto() {
 	}
 
-	public cListDto(int category_list_seq, String category_code, int store_seq) {
+	public CListDto(int category_list_seq, String category_code, int store_seq) {
 		super();
 		this.category_list_seq = category_list_seq;
 		this.category_code = category_code;

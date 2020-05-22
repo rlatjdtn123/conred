@@ -1,15 +1,15 @@
 package com.hk.conred.dtos;
 
-public class sPhotoDto {
+public class SPhotoDto {
 	private int store_photo_seq;
 	private int store_seq;
 	private String store_photo_origin;
 	private String store_photo_stored;
 	
-	public sPhotoDto() {
+	public SPhotoDto() {
 	}
 
-	public sPhotoDto(int store_photo_seq, int store_seq, String store_photo_origin, String store_photo_stored) {
+	public SPhotoDto(int store_photo_seq, int store_seq, String store_photo_origin, String store_photo_stored) {
 		super();
 		this.store_photo_seq = store_photo_seq;
 		this.store_seq = store_seq;

@@ -1,6 +1,6 @@
 package com.hk.conred.dtos;
 
-public class sDto {
+public class SDto {
 	private int store_seq;
 	private String owner_id;
 	private String store_name;
@@ -20,10 +20,10 @@ public class sDto {
 	private String store_license_sales;
 	private String store_admin_state;
 	
-	public sDto() {
+	public SDto() {
 	}
 
-	public sDto(int store_seq, String owner_id, String store_name, String store_owner_name, String store_path,
+	public SDto(int store_seq, String owner_id, String store_name, String store_owner_name, String store_path,
 			String store_simple_intro, String store_intro, String store_state, String store_phone,
 			String store_owner_phone, String store_address, String store_detail_address, String store_time_other,
 			String store_bank, String store_account, String store_license_owner, String store_license_sales,

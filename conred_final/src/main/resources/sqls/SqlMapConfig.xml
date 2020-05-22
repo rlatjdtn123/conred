@@ -7,21 +7,16 @@
 
 
 <!-- 	Dto객체의 변수 설정 -->
-<!-- 	<typeAliases> -->
-<!-- 		<typeAlias type="com.hk.conred.?.?" alias="?"/> -->
-<!-- 		<typeAlias type="com.hk.conred.?.?" alias="?"/> -->
-<!-- 		<typeAlias type="com.hk.conred.?.?" alias="?"/> -->
-<!-- 		<typeAlias type="com.hk.conred.?.?" alias="?"/> -->
-<!-- 	</typeAliases> -->
+	<typeAliases>
+		<typeAlias type="com.hk.conred.dtos.UDto" alias="UDto"/>
+	</typeAliases>
 
 
   
   
   
-<!--   	<mappers> -->
-<!--     	<mapper resource="./sqls/?.xml"/> -->
-<!--     	<mapper resource="./sqls/?.xml"/> -->
-<!--     	<mapper resource="./sqls/?.xml"/> -->
-<!--   	</mappers> -->
+  	<mappers>
+    	<mapper resource="./sqls/UMapper.xml"/>
+  	</mappers>
 </configuration>
 

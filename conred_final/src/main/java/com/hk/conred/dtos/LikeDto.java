@@ -1,17 +1,17 @@
 package com.hk.conred.dtos;
 
-public class likeDto {
+public class LikeDto {
 	
 	private int like_seq;
 	private String user_id;
 	private int store_seq;
 	
 	
-	public likeDto() {
+	public LikeDto() {
 	}
 
 
-	public likeDto(int like_seq, String user_id, int store_seq) {
+	public LikeDto(int like_seq, String user_id, int store_seq) {
 		super();
 		this.like_seq = like_seq;
 		this.user_id = user_id;

@@ -1,6 +1,6 @@
 package com.hk.conred.dtos;
 
-public class menuDto {
+public class MenuDto {
 	private int menu_seq;
 	private int store_seq;
 	private String menu_name;
@@ -8,10 +8,10 @@ public class menuDto {
 	private String menu_price;
 	private String menu_state;
 	
-	public menuDto() {
+	public MenuDto() {
 	}
 
-	public menuDto(int menu_seq, int store_seq, String menu_name, String menu_content, String menu_price,
+	public MenuDto(int menu_seq, int store_seq, String menu_name, String menu_content, String menu_price,
 			String menu_state) {
 		super();
 		this.menu_seq = menu_seq;

@@ -2,7 +2,7 @@ package com.hk.conred.dtos;
 
 import java.util.Date;
 
-public class oDto {
+public class ODto {
 	private String owner_id;
 	private String owner_password;
 	private String owner_name;
@@ -12,10 +12,10 @@ public class oDto {
 	private Date owner_regdate;
 	private String owner_agreement;
 	
-	public oDto() {
+	public ODto() {
 	}
 
-	public oDto(String owner_id, String owner_password, String owner_name, String owner_email, String owner_birth,
+	public ODto(String owner_id, String owner_password, String owner_name, String owner_email, String owner_birth,
 			String owner_sex, Date owner_regdate, String owner_agreement) {
 		super();
 		this.owner_id = owner_id;

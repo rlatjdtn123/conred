@@ -2,7 +2,7 @@ package com.hk.conred.dtos;
 
 import java.util.Date;
 
-public class uDto {
+public class UDto {
 
 	private String user_id;
 	private String user_password;
@@ -18,11 +18,11 @@ public class uDto {
 	private int user_point;
 	private String user_phone;
 	
-	public uDto() {
+	public UDto() {
 		super();
 	}
 
-	public uDto(String user_id, String user_password, String user_name, String user_email, String user_birth,
+	public UDto(String user_id, String user_password, String user_name, String user_email, String user_birth,
 			String user_sex, Date user_regdate, String user_agreement, String user_out, String user_black,
 			String user_role, int user_point, String user_phone) {
 		super();

@@ -1,15 +1,15 @@
 package com.hk.conred.dtos;
 
-public class sLocaDto {
+public class SLocaDto {
 	private int store_location_seq;
 	private int store_seq;
 	private String store_latitude;
 	private String store_longitude;
 	
-	public sLocaDto() {
+	public SLocaDto() {
 	}
 
-	public sLocaDto(int store_location_seq, int store_seq, String store_latitude, String store_longitude) {
+	public SLocaDto(int store_location_seq, int store_seq, String store_latitude, String store_longitude) {
 		super();
 		this.store_location_seq = store_location_seq;
 		this.store_seq = store_seq;

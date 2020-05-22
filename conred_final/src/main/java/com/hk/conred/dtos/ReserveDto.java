@@ -2,7 +2,7 @@ package com.hk.conred.dtos;
 
 import java.util.Date;
 
-public class reserveDto {
+public class ReserveDto {
 
 	private int reservation_seq;
 	private String user_id;
@@ -13,10 +13,10 @@ public class reserveDto {
 	private String reservation_price;
 	private Date reservation_regdate; 
 	
-	public reserveDto() {
+	public ReserveDto() {
 	}
 
-	public reserveDto(int reservation_seq, String user_id, int menu_seq, int store_seq, String reservation_time,
+	public ReserveDto(int reservation_seq, String user_id, int menu_seq, int store_seq, String reservation_time,
 			String reservation_state, String reservation_price, Date reservation_regdate) {
 		super();
 		this.reservation_seq = reservation_seq;

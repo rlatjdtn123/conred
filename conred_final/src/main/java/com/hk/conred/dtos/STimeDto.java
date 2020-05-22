@@ -1,15 +1,15 @@
 package com.hk.conred.dtos;
 
-public class sTimeDto {
+public class STimeDto {
 	private int store_time_seq;
 	private int store_seq;
 	private String store_time_day;
 	private String store_time_time;
 	
-	public sTimeDto() {
+	public STimeDto() {
 	}
 
-	public sTimeDto(int store_time_seq, int store_seq, String store_time_day, String store_time_time) {
+	public STimeDto(int store_time_seq, int store_seq, String store_time_day, String store_time_time) {
 		super();
 		this.store_time_seq = store_time_seq;
 		this.store_seq = store_seq;
