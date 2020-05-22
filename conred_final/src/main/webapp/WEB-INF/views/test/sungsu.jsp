@@ -23,7 +23,7 @@
 		margin: 0 auto;
 		height: 260px;
 /* 		border:1px solid black; */
-	}
+	}bsd
 	#f1{
 		position:absolute;
 		left:110px;
