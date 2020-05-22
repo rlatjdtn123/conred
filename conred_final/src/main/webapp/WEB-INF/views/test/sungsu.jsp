@@ -24,7 +24,7 @@
 		height: 260px;
 /* 		border:1px solid black; */
 	}
-	#f1{
+	#f1{   
 		position:absolute;
 		left:110px;
 		top:100px;
