@@ -10,9 +10,9 @@
 	body{margin:0;}
 	header{border:1px solid grey;border-top-width:0px;box-shadow: 0px 0.5px 3px grey; height:200px;width:100%;}
 	#logo{width:200px; display: block; margin: 0 auto;position:relative; top:40px;}
-	#profilebox{width:200px;height:40px;float:right;position: relative; bottom:-10px;left:-10px;}
+	#profilebox{width:200px;height:40px;float:right;position: relative; bottom:-5px;left:-10px;}
 	.profile{float:right; height:100%;line-height: 40px;padding-right:10px;}
-	#navibox{width:380px;height:30px;float:right;position: relative; bottom:-50px;left:190px;padding-right:5px;}
+	#navibox{width:380px;height:30px;float:right;position: relative; bottom:-10px;right:10px; padding-right:5px;clear:both;}
 	.navis{float:right; padding-right: 5px;padding-left: 5px;height:100%;line-height: 30px;border-radius: 50px;}
 	.navis:hover{cursor: pointer; background-color: lightgrey;}
 	#profilepic{width:40px;float:right;padding-right:10px;}
@@ -24,7 +24,7 @@
 		
 		<div id="profilebox">
 			<!--????부분에는 회원이름 출력-->
-			<!--뒷부분에는 삼항식으로 '회원님,사장님,관리자님' 출력/ -->
+			<!--뒷부분에는 삼항식으로 '회원님,사장님,관리자님' 출력/비회원일때는 '비회원입니다' 출력 -->
 			<div id="tologin" class="profile">김성수<span>관리자님</span></div>
 			<img id="profilepic" src="./img/profile_default.png"/><!-- 해당 유저의 프로필사진 -->
 		</div>
