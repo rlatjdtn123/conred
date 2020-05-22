@@ -57,7 +57,7 @@
 	
 	<div id="category">
 		<div class="categorybox">
-			<div class="categories"></div>
+			<div class="categories" onclick="location.href='map.do'"></div>
 			<div class="categories"></div>
 			<div class="categories"></div>
 			<div class="categories"></div>

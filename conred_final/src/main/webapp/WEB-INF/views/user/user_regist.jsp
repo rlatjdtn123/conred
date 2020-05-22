@@ -60,7 +60,7 @@
 <div id="container">
 	<div id="form">
 		<div id="regist" >
-			회원가입
+			사용자 회원가입
 		</div> 
 		<table class="table table-hover" >
 			<tr>

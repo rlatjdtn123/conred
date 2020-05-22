@@ -38,7 +38,7 @@
 		</div>
 		<div id="navibox">
 <!-- 		비회원 -->
-			<div id="toregist" class="navis">회원가입</div>
+			<div id="toregist" class="navis" onclick="location.href='select_regist.do'">회원가입</div>
 			<div id="tologin" class="navis" onclick="location.href='login.do'">로그인</div>
 <!-- 		점주 --> 
 <!-- 			<div id="logout" class="navis">로그아웃</div> -->
