@@ -23,8 +23,8 @@
 	</repositories>
 	
 	<dependencies>
-	 
-		<!-- file-upload관련 라이브러리 설정 -->
+	  
+		<!-- file-upload관련 라이브러리 설정 --> 
 		<dependency>
 		    <groupId>commons-io</groupId>
 		    <artifactId>commons-io</artifactId>
