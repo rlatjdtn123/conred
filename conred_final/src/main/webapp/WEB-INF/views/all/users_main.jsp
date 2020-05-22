@@ -16,6 +16,7 @@
 <body>
 <h1>사용자</h1>
 	<ul>
+		<li><%=ldto.getUser_id()%></li>	
 		<li><a href="user_mypage_reservation.do">예약관리</a></li>
 		<li><a href="user_mypage_like.do">좋아요</a></li>
 		<li><a href="user_mypage.do">마이페이지</a></li>
