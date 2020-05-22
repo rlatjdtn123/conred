@@ -13,7 +13,7 @@
 
 
   
-  
+   
   
   	<mappers>
     	<mapper resource="./sqls/UMapper.xml"/>

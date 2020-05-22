@@ -14,7 +14,7 @@ public class UServiceImp implements IUService{
 	@Override
 	public boolean insertUser(UDto dto) {
 		return UDaoImp.insertUser(dto);
-	}
+	} 
 
 	@Override
 	public UDto getLogin(String id, String password) {

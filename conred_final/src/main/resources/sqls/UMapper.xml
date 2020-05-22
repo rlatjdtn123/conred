@@ -8,12 +8,15 @@
 	
 	<insert id="insertUser" parameterType="UDto">
 		INSERT INTO CON_USER values(
-		#{user_id},#{user_password},#{user_name},#{user_email},#{user_birth},#{user_sex},SYSDATE,#{user_agreement},'N','N','user',null,'010-0000-0000');
+		#{user_id},#{user_password},#{user_name},#{user_email},#{user_birth},#{user_sex},
+		SYSDATE,#{user_agreement},'N','N','USER',0);
 	</insert>
 	
 	
 	<select id="getLogin" resultType="UDto" parameterType="Map">
-		
+		SELECT USER_ID,USER_NAME ,USER_BIRTH ,USER_SEX ,USER_REGDATE,USER_OUT,USER_BLACK ,USER_ROLE ,USER_POINT 
+		FROM CON_USER
+		WHERE USER_ID =#{user_id} AND USER_PASSWORD =#{user_password}
 	</select>
 	
 	

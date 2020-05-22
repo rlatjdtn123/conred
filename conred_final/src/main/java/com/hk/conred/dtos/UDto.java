@@ -16,7 +16,6 @@ public class UDto {
 	private String user_black;
 	private String user_role;
 	private int user_point;
-	private String user_phone;
 	
 	public UDto() {
 		super();
@@ -24,7 +23,7 @@ public class UDto {
 
 	public UDto(String user_id, String user_password, String user_name, String user_email, String user_birth,
 			String user_sex, Date user_regdate, String user_agreement, String user_out, String user_black,
-			String user_role, int user_point, String user_phone) {
+			String user_role, int user_point) {
 		super();
 		this.user_id = user_id;
 		this.user_password = user_password;
@@ -38,7 +37,6 @@ public class UDto {
 		this.user_black = user_black;
 		this.user_role = user_role;
 		this.user_point = user_point;
-		this.user_phone = user_phone;
 	}
 
 	public String getUser_id() {
@@ -137,22 +135,16 @@ public class UDto {
 		this.user_point = user_point;
 	}
 
-	public String getUser_phone() {
-		return user_phone;
-	}
-
-	public void setUser_phone(String user_phone) {
-		this.user_phone = user_phone;
-	}
-
 	@Override
 	public String toString() {
-		return "uDto [user_id=" + user_id + ", user_password=" + user_password + ", user_name=" + user_name
+		return "UDto [user_id=" + user_id + ", user_password=" + user_password + ", user_name=" + user_name
 				+ ", user_email=" + user_email + ", user_birth=" + user_birth + ", user_sex=" + user_sex
 				+ ", user_regdate=" + user_regdate + ", user_agreement=" + user_agreement + ", user_out=" + user_out
-				+ ", user_black=" + user_black + ", user_role=" + user_role + ", user_point=" + user_point
-				+ ", user_phone=" + user_phone + "]";
+				+ ", user_black=" + user_black + ", user_role=" + user_role + ", user_point=" + user_point + "]";
 	}
+
+
+	
 	
 	
 	
