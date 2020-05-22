@@ -8,9 +8,15 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<div>
 <h1><a href="login.do">로그인</a></h1>
 <h1><a href="home.do">테스트</a></h1>
 <h1><a href="sungsu.do">성수입장</a></h1>
 <h1><a href="yoonho.do">윤호입장</a></h1>
+</div>
+
+
+
 </body>
 </html>

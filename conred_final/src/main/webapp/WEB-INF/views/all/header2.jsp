@@ -43,6 +43,7 @@
 		<div class="categories"></div>
 	</div>
 
+
 	<div id="navibox">
 <!-- 		비회원 -->
 <!-- 		<div id="toregist" class="navis">회원가입</div> -->
