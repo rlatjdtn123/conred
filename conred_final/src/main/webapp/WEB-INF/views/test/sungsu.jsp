@@ -9,7 +9,7 @@
 <style type="text/css">
 	body{
 		margin: 0px;
-	}
+	}       
 	footer{
 		height: 300px;
 		background-color: #F2F2F2;  
