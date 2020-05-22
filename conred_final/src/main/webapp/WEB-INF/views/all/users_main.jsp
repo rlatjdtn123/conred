@@ -32,7 +32,7 @@
 	</ul>
 	
 	<div id="logout" class="navis">로그아웃</div> -->
-<!-- 			<div id="o_info" class="navis">나의정보</div> -->
+<!-- 			<div id="o_info" class="navis">나의정보</div>ㄹㄹ -->
 <!-- 			<div id="o_tore" class="navis">매장관리</div> -->
 <!-- 			<div id="o_storeinfo" class="navis">매장정보</div> -->
 <!-- 			<div id="o_reserve" class="navis">예약</div> -->
