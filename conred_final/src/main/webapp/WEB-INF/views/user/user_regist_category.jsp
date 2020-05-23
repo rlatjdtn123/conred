@@ -28,41 +28,43 @@
 <body>
 <div id="container">
 		<h1 id="hd">관심있는 매장을 선택해주세요!</h1>
-	<div id="tle">
-		<div id="t">
-			<div id="d1" class="cate">
-				병원
+	<form action="user_regist_category.do" method="post">
+		<div id="tle">
+			<div id="t">
+				<div id="d1" class="cate">
+					동물병원<input type="radio" value="A" class="ct" name="category_code"/>
+				</div>
+				<div id="d2" class="cate">
+					미용실<input type="radio" value="B" class="ct" name="category_code"/>
+				</div>
+				<div id="d3" class="cate">
+					카페<input type="radio" value="C" class="ct" name="category_code"/>
+				</div>
+				<div id="d4" class="cate">
+					식품<input type="radio" value="D" class="ct" name="category_code"/>
+				</div>
 			</div>
-			<div id="d2" class="cate">
-				미용실
-			</div>
-			<div id="d3" class="cate">
-				카페
-			</div>
-			<div id="d4" class="cate">
-				식품
+			<div id="m">
+				<div>
+					<div id="d5" class="cate">
+						용퓸<input type="radio" value="E" class="ct" name="category_code"/>
+					</div>
+					<div id="d6" class="cate">
+						관리<input type="radio" value="F" class="ct" name="category_code"/>
+					</div>
+					<div id="d7" class="cate">
+						호텔<input type="radio" value="G" class="ct" name="category_code"/>
+					</div>
+					<div id="d8" class="cate">
+						유치원<input type="radio" value="H" class="ct" name="category_code"/>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div id="m">
-			<div>
-				<div id="d5" class="cate">
-					용퓸
-				</div>
-				<div id="d6" class="cate">
-					관리
-				</div>
-				<div id="d7" class="cate">
-					호텔
-				</div>
-				<div id="d8" class="cate">
-					유치원
-				</div>
-			</div>
+		<div id="bt">
+			<input type="submit" value="버튼"/>
 		</div>
-	</div>
-	<div id="bt">
-		<button>완료</button>
-	</div>
+	</form>
 </div>
 </body>
 </html>

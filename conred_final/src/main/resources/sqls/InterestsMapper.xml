@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+  
+<mapper namespace="com.hk.conred.Interests">
+
+	<insert id="insertInterests" parameterType="InterestsDto">
+		INSERT INTO CON_INTERESTS VALUES(CON_INTERESTS_SEQ.NEXTVAL,#{user_id},#{category_code})
+	</insert>
+	
+</mapper>
+	 

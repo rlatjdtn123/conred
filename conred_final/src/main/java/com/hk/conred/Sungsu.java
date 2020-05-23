@@ -65,9 +65,21 @@ public class Sungsu {
 		return "user/user_regist"; 
 	}
 		
-		
-		
-			
+	@RequestMapping(value = "user_insert.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String user_insert(Locale locale, Model model,UDto dto,String user_email1,String user_email2,String user_email3) {
+		logger.info("테스트용 유저 회원가입 완료 {}.", locale);
+		dto.setUser_email(user_email1+user_email2+user_email3);
+		boolean isS=uService.insertUser(dto);
+		//동의여부도 화면쪽에서 AJAX로 Y,N처리하기
+		if(isS&&dto.getUser_agreement().equals("Y")) {
+			return "user/user_regist_category";
+		}else {
+			System.out.println("실패!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+			return "";
+		}
+	}	 
+		 
+			 
 	@RequestMapping(value = "user_regist_category.do", method = RequestMethod.GET)
 	public String user_regist_category(Locale locale, Model model) {
 		logger.info("테스트용 유저 회원가입 접근 {}.", locale);
