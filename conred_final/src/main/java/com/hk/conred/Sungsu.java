@@ -15,7 +15,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.hk.conred.dtos.InterestsDto;
 import com.hk.conred.dtos.UDto;
+import com.hk.conred.service.IInterestsService;
 import com.hk.conred.service.IOService;
 import com.hk.conred.service.IUService;
 
@@ -47,6 +49,9 @@ public class Sungsu {
 	@Autowired
 	private IOService oService;
 	
+	@Autowired
+	private IInterestsService interestsService;
+	
 	@RequestMapping(value = "sungsu.do", method = RequestMethod.GET)
 	public String sungsu(Locale locale, Model model) {
 		logger.info("테스트용 푸터 접근 {}.", locale);
@@ -70,8 +75,11 @@ public class Sungsu {
 		logger.info("테스트용 유저 회원가입 완료 {}.", locale);
 		dto.setUser_email(user_email1+user_email2+user_email3);
 		boolean isS=uService.insertUser(dto);
+		
+		//회원가입할때 적은아이디 가지고 다음단계(관심사)쪽으로 이동 // InterestsMapper #{user_id},#{category_code} 
 		//동의여부도 화면쪽에서 AJAX로 Y,N처리하기
 		if(isS&&dto.getUser_agreement().equals("Y")) {
+			model.addAttribute("dto", dto );
 			return "user/user_regist_category";
 		}else {
 			System.out.println("실패!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
@@ -79,12 +87,36 @@ public class Sungsu {
 		}
 	}	 
 		 
-			 
-	@RequestMapping(value = "user_regist_category.do", method = RequestMethod.GET)
-	public String user_regist_category(Locale locale, Model model) {
-		logger.info("테스트용 유저 회원가입 접근 {}.", locale);
 		
-		return "user/user_regist_category"; 
+	
+	@RequestMapping(value = "user_regist_category_test.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String user_regist_category_test(Locale locale, Model model) {
+		logger.info("관심사 선택 페이지로 옴 {}.", locale);
+			return "user/user_regist_category"; 				
+	}
+	
+	@RequestMapping(value = "user_regist_category_test2.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String user_regist_category_test2(Locale locale, Model model,String category_code) {
+		logger.info("관심사 선택완료후 가입완료 메시지 출력페이지로 이동{}.", locale);
+			for (int i = 0; i < 8; i++) {
+					System.out.println("@@@@@@@@@@@@@@ :: "+category_code);
+				
+			} 
+			 
+			return "user/user_regist_finish"; 				
+	}
+	 
+	 
+	@RequestMapping(value = "user_regist_category.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String user_regist_category(Locale locale, Model model,InterestsDto dto,String user_id) {
+		logger.info("테스트용 유저 회원가입 접근 {}.", locale);
+		boolean isS=interestsService.insertInterests(dto);
+		if(isS) {
+			return "user/user_regist_finish"; 			
+		}else {
+			return "";
+		}
+		
 	}
 		
 		

@@ -8,6 +8,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<h1>사용자 회원가입완료!</h1>
 </body>
 </html>

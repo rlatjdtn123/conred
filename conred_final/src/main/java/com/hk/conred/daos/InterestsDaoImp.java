@@ -9,6 +9,7 @@ import com.hk.conred.dtos.InterestsDto;
 @Repository
 public class InterestsDaoImp implements IInterestsDao{
 
+	
 	private String nameSpace="com.hk.conred.Interests.";
 	
 	@Autowired
