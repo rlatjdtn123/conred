@@ -7,6 +7,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.junit.internal.matchers.SubstringMatcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,10 +99,9 @@ public class Sungsu {
 	@RequestMapping(value = "user_regist_category_test2.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String user_regist_category_test2(Locale locale, Model model,String category_code) {
 		logger.info("관심사 선택완료후 가입완료 메시지 출력페이지로 이동{}.", locale);
-					System.out.println("@@@@@@@@@@@@@@ :: "+category_code);
-			category_code.charAt(0);
-			
-			 
+		
+				System.out.println("@@@@@@@@@@@@@@ :: "+category_code);	
+		 
 			return "user/user_regist_finish"; 				
 	}
 	 
