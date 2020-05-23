@@ -98,10 +98,9 @@ public class Sungsu {
 	@RequestMapping(value = "user_regist_category_test2.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String user_regist_category_test2(Locale locale, Model model,String category_code) {
 		logger.info("관심사 선택완료후 가입완료 메시지 출력페이지로 이동{}.", locale);
-			for (int i = 0; i < 8; i++) {
 					System.out.println("@@@@@@@@@@@@@@ :: "+category_code);
-				
-			} 
+			category_code.charAt(0);
+			
 			 
 			return "user/user_regist_finish"; 				
 	}
