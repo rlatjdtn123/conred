@@ -14,9 +14,10 @@
 </head>
 
 
-<body id="container">
+<body>
+	 
 	<a href="user_mypage_review.do">내 리뷰</a>
-	<a href="user_mypage_qna.do">내 문의</a> 
+	<a href="user_mypage_qna.do">내 문의</a>  
 </body>
 </html>
 <jsp:include page="../all/footer.jsp" /> 
