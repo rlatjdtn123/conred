@@ -116,17 +116,17 @@ public class Yoonho {
 		logger.info("점주 로그인후 test 공통메인으로 {}.", locale);
 		
 		HttpSession session=request.getSession();
-		ODto ldto=oService.getLogin(dto.getOwner_id(),dto.getOwner_password());
+		ODto oldto=oService.getLogin(dto.getOwner_id(),dto.getOwner_password());
 		
-		System.out.println(ldto.getOwner_id());
+		System.out.println(oldto.getOwner_id());
 		
 		/*탈퇴컬럼 만들기 owner_out*/
-		if(ldto.getOwner_id()==null||ldto.getOwner_id().equals("")) {
+		if(oldto.getOwner_id()==null||oldto.getOwner_id().equals("")) {
 			System.out.println("아이디 다시한번 확인해주세요");
 			return "";
 		}else{
-			session.setAttribute("oldto", ldto);
-			return "test/users_main_test"; 
+			session.setAttribute("oldto", oldto);
+			return "all/users_main"; 
 		}	
 	}
 
