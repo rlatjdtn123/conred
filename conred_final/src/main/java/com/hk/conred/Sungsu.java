@@ -184,7 +184,7 @@ public class Sungsu {
 		
 	@RequestMapping(value = "user_mypage_reservation.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String user_mypage_reservation(Locale locale, Model model) {
-		logger.info("사용자 마이페이지_문의{}.", locale);
+		logger.info("사용자 마이페이지_예약{}.", locale);
 		
 		return "user/user_mypage_reservation";  
 	}
@@ -192,7 +192,7 @@ public class Sungsu {
 	
 	@RequestMapping(value = "user_mypage_like.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String user_mypage_like(Locale locale, Model model) {
-		logger.info("사용자 마이페이지_문의{}.", locale);
+		logger.info("사용자 마이페이지_좋아요{}.", locale);
 		
 		return "user/user_mypage_like";  
 	}
