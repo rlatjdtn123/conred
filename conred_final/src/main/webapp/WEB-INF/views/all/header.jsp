@@ -18,7 +18,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style type="text/css">
 	body{margin:0;}
-	header{border:1px solid grey;border-top-width:0px;box-shadow: 0px 0.5px 3px grey; height:200px;width:100%;}
+	header{border:1px solid grey;border-top-width:0px;box-shadow: 0px 0.5px 2px grey; height:200px;width:100%;}
 	#logo{width:200px; display: block; margin: 0 auto;position:relative; top:40px;}
 	#logo:hover{cursor: pointer;}
 	#profilebox{width:200px;height:30px;float:right;position: relative; bottom:-25px;left:-10px;}
@@ -30,9 +30,6 @@
 </style>
 
 <script type="text/javascript">
-	function () {
-		
-	}
 </script>
 </head>
 <body>

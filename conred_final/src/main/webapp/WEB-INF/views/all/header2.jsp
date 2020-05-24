@@ -19,7 +19,7 @@
 	header{border:1px solid grey;border-top-width:0px;border-bottom-color:lightgrey; height:70px;width:100%;}
 	#logo{width:400px; display: block; margin: 0 auto;position:relative; top:13px;}
 	#logo:hover{cursor: pointer;}
-	#secondheader{border:1px solid grey;border-top-width:0px; height:71px;width:100%;box-shadow: 0px 0.5px 3px grey;position:relative;}
+	#secondheader{border:1px solid grey;border-top-width:0px; height:71px;width:100%;box-shadow: 0px 0.5px 2px grey;position:relative;}
 	#categorybox{margin:0 auto; width:548px;}
 	.categories{border:1px solid grey; border-radius: 10px; width:60px; height:60px;position:relative;top:4px;float: left;margin-left:5px;}
 	#profilebox{width:200px;height:30px;float:right;position: relative; bottom:22px;left:-10px;}
