@@ -23,12 +23,12 @@
 	a:link { color: black; text-decoration: none;}
  	a:visited { color: black; text-decoration: none;}
  	a:hover { color: black; text-decoration: underline;}
- 	.md{margin-left: 100px; width: 800px; border: 1px solid black; height: 200px; clear: left;  }
+ 	.md{margin-left: 100px; width: 800px; border: 1px solid black; height: 200px; clear: left; margin-top: 200px; }
  	span{font-size: 20px;}
-	#md1{margin-top: 400px; position: relative;}
+	#md1{margin-top: 400px; }
 	
 </style>      
-</head>  
+</head>   
   
 
 <body>    
@@ -50,6 +50,7 @@
 			<a href="user_mypage_qna.do">내 문의</a>
 		</div>
 	</div>
+	<div></div>
 	<div class="md" id="md1">
 		<span style="font-weight: bold;">??회원님 환영합니다.</span><br/><br/>
 		<span>닉네임:??</span><br/>
