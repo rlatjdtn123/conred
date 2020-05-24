@@ -1,5 +1,7 @@
 package com.hk.conred.daos;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,9 +18,9 @@ public class InterestsDaoImp implements IInterestsDao{
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public boolean insertInterests(InterestsDto dto) {
+	public boolean insertInterests(String category_code) {
 		int count=0;
-		count=sqlSession.insert(nameSpace+"insertInterests", dto);
+		count=sqlSession.insert(nameSpace+"insertInterests", category_code);
 		return count>0?true:false;
 	}
 

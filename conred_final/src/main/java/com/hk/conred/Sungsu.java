@@ -79,7 +79,7 @@ public class Sungsu {
 		
 		//회원가입할때 적은아이디 가지고 다음단계(관심사)쪽으로 이동 // InterestsMapper #{user_id},#{category_code} 
 		//동의여부도 화면쪽에서 AJAX로 Y,N처리하기
-		if(isS&&dto.getUser_agreement().equals("Y")) {
+		if(isS) {
 			model.addAttribute("dto", dto );
 			return "user/user_regist_category";
 		}else {
@@ -99,17 +99,22 @@ public class Sungsu {
 	@RequestMapping(value = "user_regist_category_test2.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String user_regist_category_test2(Locale locale, Model model,String category_code) {
 		logger.info("관심사 선택완료후 가입완료 메시지 출력페이지로 이동{}.", locale);
+		String [] cate=category_code.split(",");
 		
-				System.out.println("@@@@@@@@@@@@@@ :: "+category_code);	
-		 
-			return "user/user_regist_finish"; 				
+		for (int i = 0; i < cate.length; i++) {
+			System.out.println("@@@@@@@@@@@@@@@@@ ::"+ cate[i]);
+//			boolean isS=interestsService.insertInterests(cate[i]);
+			
+		}
+	 
+			return "user/user_regist_finish";		
 	}
 	 
 	 
 	@RequestMapping(value = "user_regist_category.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_regist_category(Locale locale, Model model,InterestsDto dto,String user_id) {
+	public String user_regist_category(Locale locale, Model model,String category_code,String user_id) {
 		logger.info("테스트용 유저 회원가입 접근 {}.", locale);
-		boolean isS=interestsService.insertInterests(dto);
+		boolean isS=interestsService.insertInterests(category_code);
 		if(isS) {
 			return "user/user_regist_finish"; 			
 		}else {

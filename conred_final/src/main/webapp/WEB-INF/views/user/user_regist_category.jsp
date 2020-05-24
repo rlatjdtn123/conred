@@ -36,7 +36,7 @@
 <div id="container">
 		<h1 id="hd">관심있는 매장을 선택해주세요!</h1>
 	<form action="user_regist_category_test2.do" method="post">
-<%-- 		<input type="hidden" name="user_id" value="<%=dto.getUser_id()%>"/> --%>
+<%-- 		<input type="hidden" name="dto" value="<%=dto%>"/> --%>
 		<div id="tle">
 			<div id="t">
 				<div id="d1" class="cate">

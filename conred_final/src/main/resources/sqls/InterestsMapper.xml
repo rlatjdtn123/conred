@@ -8,8 +8,11 @@
 
 
 	<!-- 임시로 아이디 test로 넣어줌 #{user_id}로 바꿔야됨 -->
-	<insert id="insertInterests" parameterType="InterestsDto">
-		INSERT INTO CON_INTERESTS VALUES(CON_INTERESTS_SEQ.NEXTVAL,'test',#{category_code})
+	<insert id="insertInterests" parameterType="String">
+		INSERT INTO CON_INTERESTS 
+		<foreach collection="array" separator=",">
+			VALUES(CON_INTERESTS_SEQ.NEXTVAL,'test',#{category_code})			
+		</foreach>
 	</insert>
 	
 </mapper>

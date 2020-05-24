@@ -46,7 +46,7 @@
 	<a href="login.do">로그인 페이지로 이동(공통)</a>
 </body>
 <footer> 
-	<div id="main1">
+	<div id="main1"> 
 		<div id="f1">
 			<img alt="" src="./img/logo1.png" style="width: 140px;">
 		</div>
@@ -58,6 +58,6 @@
 			(주)어디가개는 통신판매 중개자로서 통신판매의 당사자가 아니며<br>
 			상품의 예약, 이용 및 환불 등과 관련한 의무와 책임은 각 판매자에게 있습니다.
 		</div>
-	</div>
+	</div> 
 </footer>
 </html>

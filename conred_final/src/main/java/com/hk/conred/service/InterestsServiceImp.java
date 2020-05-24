@@ -14,8 +14,8 @@ public class InterestsServiceImp implements IInterestsService{
 	private IInterestsDao InterestsDaoImp;
 	
 	@Override
-	public boolean insertInterests(InterestsDto dto) {
-		return InterestsDaoImp.insertInterests(dto);
+	public boolean insertInterests(String category_code) {
+		return InterestsDaoImp.insertInterests(category_code);
 	}
 
 }
