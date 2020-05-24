@@ -54,6 +54,11 @@
 		margin-left: 10px;
 	} 
 	
+	.req{
+		color: red;
+		font-weight: bold;
+		font-size:20px;
+	}
 </style>
 </head>
 <body>
@@ -65,23 +70,23 @@
 			</div> 
 				<table class="table table-hover" >
 					<tr>
-						<td>id</td>
+						<td><span class="req">* </span>아이디</td>
 						<td><input type="text" name="user_id"/></td>
 					</tr>
 					<tr>
-						<td>pw</td>
+						<td><span class="req">* </span>비밀번호</td>
 						<td><input type="password" name="user_password"/></td>
 					</tr>
 					<tr>
-						<td>pw확인</td>
+						<td><span class="req">* </span>비밀번호 확인</td>
 						<td><input type="password" name="user_password2"/></td>
 					</tr>
 					<tr>
-						<td>이름</td>
+						<td><span class="req">* </span>이름</td>
 						<td><input type="text" name="user_name"/></td>
 					</tr>
 					<tr>
-						<td>이메일</td>
+						<td><span class="req">* </span>이메일</td>
 						<td>
 							<input type="text" name="user_email1"/>
 							@<input type="hidden"  name="user_email2" value="@"/>

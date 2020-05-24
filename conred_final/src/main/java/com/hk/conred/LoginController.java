@@ -23,12 +23,5 @@ public class LoginController {
 	 
 		return "all/login"; 
 	}
-
-	@RequestMapping(value = "owner_regist.do", method = RequestMethod.GET)
-	public String owner_regist(Locale locale, Model model) {
-		logger.info("점주 회원가입폼 접근 {}.", locale);
-		
-		return "owner/owner_regist"; 
-	}
 	
 }

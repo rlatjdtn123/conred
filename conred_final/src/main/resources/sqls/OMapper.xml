@@ -7,15 +7,16 @@
 <mapper namespace="com.hk.conred.O">
 	
 	<insert id="insertOwner" parameterType="ODto">
-		INSERT INTO CON_OWNER VALUES(#{owner_id},#{owner_password},#{owner_name},
-		#{owner_email},#{owner_birth},#{owner_sex},SYSDATE,#{owner_agreement});
+		INSERT INTO CON_OWNER
+		VALUES(#{owner_id},#{owner_password},#{owner_name},
+		#{owner_email},#{owner_birth},#{owner_sex},SYSDATE,#{owner_agreement})
 	</insert>
 	
 	
 	<select id="getLogin" resultType="ODto" parameterType="Map">
 		SELECT OWNER_ID ,OWNER_NAME ,OWNER_EMAIL ,OWNER_BIRTH ,OWNER_SEX ,OWNER_REGDATE 
 		FROM CON_OWNER 
-		WHERE OWNER_ID =#{owner_id} AND OWNER_PASSWORD =#{owner_password};
+		WHERE OWNER_ID =#{owner_id} AND OWNER_PASSWORD =#{owner_password}
 	</select> 
 	
 	

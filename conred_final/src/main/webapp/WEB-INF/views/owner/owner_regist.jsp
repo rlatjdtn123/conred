@@ -26,7 +26,7 @@
 		margin-bottom: 40px;
 	}
 	 
-	#form{
+	#tle{
 		margin:0 auto;
 		padding-top:40px;
 		width: 700px;
@@ -46,62 +46,87 @@
 		
 	}
 	
-	button {
+	.bt {
 		background-color: #6E6E6E;
 		color: white;
 		border-radius: 10px;
 		height: 30px;
 		margin-left: 10px;
 	} 
+	.req{
+		color: red;
+		font-weight: bold;
+		font-size:20px;
+	}
 	
 </style>
 </head>
 <body>
 <div id="container">
-	<div id="form">
-		<div id="regist" >
-			점주 회원가입
-		</div> 
-		<table class="table table-hover" >
-			<tr>
-				<td>id</td>
-				<td><input type="text" /></td>
-			</tr>
-			<tr>
-				<td  >pw</td>
-				<td><input type="password" /></td>
-			</tr>
-			<tr>
-				<td>pw확인</td>
-				<td><input type="password" /></td>
-			</tr>
-			<tr>
-				<td>이름</td>
-				<td><input type="text" /></td>
-			</tr>
-			<tr>
-				<td>이메일</td>
-				<td>
-					<input type="text" name="user_email1"/>
-					@<input type="hidden"  name="user_email2" value="@"/>
-					<input type="text" name="user_email3"/>
-					<button>이메일인증</button>
-				</td>
-			</tr>
-			<tr>
-				<td>생일</td>
-				<td><input type="text" /></td>
-			</tr>
-			<tr>
-				<td>성별</td>
-				<td><input type="text" /></td>
-			</tr>
-		</table>
-	</div>
-	<div id="bot">
-		<button>취소</button>
-		<button>회원가입 완료</button>
-	</div>
+	<form action="owner_insert.do" method="post">
+		<div id="tle">
+			<div id="regist">
+				점주 회원가입
+			</div> 
+			<table class="table table-hover" >
+				<tr>
+					<td><span class="req">* </span>아이디</td>
+					<td><input type="text" name="owner_id" required="required"/></td>
+				</tr>
+				<tr>
+					<td><span class="req">* </span>비밀번호</td>
+					<td><input type="password" name="owner_password" required="required"/></td>
+				</tr>
+				<tr>
+					<td><span class="req">* </span>비밀번호 확인</td>
+					<td><input type="password" name="owner_password2" required="required"/></td>
+				</tr>
+				<tr>
+					<td><span class="req">* </span>이름</td>
+					<td><input type="text" name="owner_name" required="required"/></td>
+				</tr>
+				<tr>
+					<td><span class="req">* </span>이메일</td>
+					<td>
+						<input type="text" name="owner_email1" required="required"/>@
+						<input type="text" name="owner_email2" style="width:120px;" required="required"/>
+						<select style="height:26px;">
+							<!-- 직접입력처리 -->
+							<option>직접입력</option>
+							<option>gmail.com</option>
+							<option>naver.com</option>
+							<option>hanmail.net</option>
+						</select>
+						<input class="bt" value="이메일인증" type="button"/>
+					</td>
+				</tr>
+				<tr>
+					<td>생일</td>
+					<td>
+						<input style="height:26px;" type="date" name="owner_birth"/>
+					</td>
+				</tr>
+				<tr>
+					<td>성별</td>
+					<td>
+						<input type="radio" name="owner_sex" value="남자"/>남
+						<input type="radio" name="owner_sex" value="여자"/>여
+					</td>
+				</tr>
+				<tr>
+					<td><span class="req">* </span>이용약관</td>
+					<td>
+						이용약관에 동의하시겠습니까? <input name="owner_agreement" value="Y" type="checkbox" required="required"/>
+						<button type="button"  class="bt"> 이용약관</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div id="bot">
+			<input class="bt" value="취소" onclick="location.href='index.jsp'" type="button"/>
+			<input class="bt" value="회원가입 완료" type="submit"/> 
+		</div>
+	</form>
 </div>
 </body>
 </html>
