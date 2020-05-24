@@ -13,5 +13,6 @@
 <h1><a href="header_map.do">헤더(지도용)</a></h1>
 <h1><a href="container.do">컨테이너</a></h1>
 <h1><a href="template.do">컨테이너(인클루드:헤더)</a></h1>
+<h1><a href="users_main_test.do">유저공통메인</a></h1>
 </body>
 </html>

@@ -4,6 +4,9 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.hk.conred.dtos.ODto;
+import com.hk.conred.dtos.UDto;
 import com.hk.conred.service.IOService;
 import com.hk.conred.service.OServiceImp;
 
@@ -23,7 +27,7 @@ public class Yoonho {
 	
 	@RequestMapping(value = "yoonho.do", method = RequestMethod.GET)
 	public String yoonho(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
+		logger.info("윤호입장 {}.", locale);
 		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
@@ -37,32 +41,32 @@ public class Yoonho {
 	
 	@RequestMapping(value = "header.do", method = RequestMethod.GET)
 	public String header(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
+		logger.info("헤더1로 이동 {}.", locale);
 
 		return "all/header"; 
 	}
 	@RequestMapping(value = "header2.do", method = RequestMethod.GET)
 	public String header2(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
+		logger.info("헤더2로 이동 {}.", locale);
 		
 		return "all/header2"; 
 	}
 	@RequestMapping(value = "header_map.do", method = RequestMethod.GET)
 	public String header_map(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
+		logger.info("헤더_맵으로 {}.", locale);
 		
 		return "all/header_map"; 
 	}
 	
 	@RequestMapping(value = "container.do", method = RequestMethod.GET)
 	public String container(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
+		logger.info("컨테이너로 이동 {}.", locale);
 		
 		return "test/container"; 
 	}
 	@RequestMapping(value = "template.do", method = RequestMethod.GET)
 	public String template(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
+		logger.info("템플릿으로이동 {}.", locale);
 		
 		return "test/template"; 
 	}
@@ -70,7 +74,7 @@ public class Yoonho {
 	
 	@RequestMapping(value = "owner_regist.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String owner_regist(Locale locale, Model model) {
-		logger.info("점주 회원가입폼 접근 {}.", locale);
+		logger.info("점주 회원가입폼으로 이동 {}.", locale);
 		
 		return "owner/owner_regist"; 
 	}
@@ -79,7 +83,7 @@ public class Yoonho {
 	private IOService oService;
 	@RequestMapping(value = "owner_insert.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String owner_insert(Locale locale, Model model, ODto dto, String owner_email1, String owner_email2) {
-		logger.info("점주 회원가입폼 접근 {}.", locale);
+		logger.info("점주 회원정보 db에 입력 {}.", locale);
 		dto.setOwner_email(owner_email1+"@"+owner_email2);
 		
 		//성별 null일경우 String타입으로 값 받을수 있게 수정(*왜 null값이 입력이 안되는지 모르겠음)
@@ -108,12 +112,31 @@ public class Yoonho {
 	}
 
 	@RequestMapping(value = "owner_login.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String owner_login(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
+	public String owner_login(Locale locale, Model model, HttpServletRequest request, ODto dto) {
+		logger.info("점주 로그인후 test 공통메인으로 {}.", locale);
 		
-		return "owner/owner_login"; 
+		HttpSession session=request.getSession();
+		ODto ldto=oService.getLogin(dto.getOwner_id(),dto.getOwner_password());
+		
+		System.out.println(ldto.getOwner_id());
+		
+		/*탈퇴컬럼 만들기 owner_out*/
+		if(ldto.getOwner_id()==null||ldto.getOwner_id().equals("")) {
+			System.out.println("아이디 다시한번 확인해주세요");
+			return "";
+		}else{
+			session.setAttribute("oldto", ldto);
+			return "test/users_main_test"; 
+		}	
 	}
 
+	@RequestMapping(value = "users_main_test.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String users_main_test(Locale locale, Model model) {
+		logger.info("공통메인(사용자별메인)테스트로 이동  {}.", locale);
+		
+		return "test/users_main_test"; 
+	}
 
+	
 	
 }

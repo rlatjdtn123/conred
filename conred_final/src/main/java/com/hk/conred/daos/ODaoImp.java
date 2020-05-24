@@ -28,8 +28,8 @@ public class ODaoImp implements IODao {
 	public ODto getLogin(String Owner_id, String Owner_password) {
 		ODto dto=null;
 		Map<String, String> map=new HashMap<>();
-		map.put("Owner_id", Owner_id);
-		map.put("Owner_password", Owner_password);
+		map.put("owner_id", Owner_id);
+		map.put("owner_password", Owner_password);
 		dto=sqlSession.selectOne(nameSpace+"getLogin", map);
 		return dto;
 	}

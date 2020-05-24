@@ -13,6 +13,7 @@
 </head>
 <body>
 <div id="container">
+<br>
 <h1>점주 회원가입완료!</h1>
 </div>
 </body>
