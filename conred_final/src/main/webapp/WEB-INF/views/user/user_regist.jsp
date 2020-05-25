@@ -71,11 +71,11 @@
 				<table class="table table-hover" >
 					<tr>
 						<td><span class="req">* </span>아이디</td>
-						<td><input type="text" name="user_id"/></td>
+						<td><input type="text" name="user_id" value="test2"/></td>
 					</tr>
 					<tr>
 						<td><span class="req">* </span>비밀번호</td>
-						<td><input type="password" name="user_password"/></td>
+						<td><input type="password" name="user_password" value="123"/></td>
 					</tr>
 					<tr>
 						<td><span class="req">* </span>비밀번호 확인</td>
@@ -83,7 +83,7 @@
 					</tr>
 					<tr>
 						<td><span class="req">* </span>이름</td>
-						<td><input type="text" name="user_name"/></td>
+						<td><input type="text" name="user_name" value="테스트"/></td>
 					</tr>
 					<tr>
 						<td><span class="req">* </span>이메일</td>
@@ -96,11 +96,11 @@
 					</tr>
 					<tr>
 						<td>생일</td>
-						<td><input type="text" name="user_birth"/></td>
+						<td><input type="text" name="user_birth" value="1994-03-15"/></td>
 					</tr>
 					<tr>
 						<td>성별</td>
-						<td><input type="text" name="user_sex"/></td>
+						<td><input type="text" name="user_sex" value="남자"/></td>
 					</tr>
 					<tr>
 						<td>이용약관</td>

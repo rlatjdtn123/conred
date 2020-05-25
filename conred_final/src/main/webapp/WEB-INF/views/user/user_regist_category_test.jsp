@@ -28,6 +28,7 @@
 		float: left;
 		margin: 10px;
 		background-color: gray;width: 200px;height: 200px;
+		border: 1px solid black;
 	}
 	#m{
 		clear: both;
@@ -35,9 +36,29 @@
 	#hd{margin-left: 270px; margin-bottom: 50px;}
 	
 	#bt input{width: 100px; height:60px; margin-left: 445px; font-size: 20px; font-weight: bold;border-radius: 10xp;}
-</style>
-<script type="text/javascript">
 	
+	label{width: 200px; height: 200px; border: 1px solid red; background: url("img/main.jpg");}
+	
+	input:checked + label {
+		cursor: wait;
+	}
+	input[type="checkbox"] {display: none;}
+	
+</style>
+<script type="text/javascript">   
+	function checkcheck(){
+		var chks=document.getElementsByTagName("label");
+		for (var i = 0; i < chks.length; i++) {
+			chks[i].onclick=function(){
+				var chksresult=document.querySelectorAll("labe:checked");
+				if(chksresult!=3){ 
+					alert("3개선택");
+				}else{
+					alert("ㅁㄴㅇ");
+				}			
+			}
+		}
+	}
 </script>
 </head>
 <%
@@ -49,38 +70,54 @@
 	<form action="user_regist_category.do" method="post">
 		<div id="tle">
 			<div id="t">
+<!-- 				동물병원 -->
 				<div id="d1" class="cate">
-					동물병원<input type="checkbox" value="A" class="ct" name="category_code"/>
+					<input type="checkbox" value="A" class="ct" name="category_code" id="c1"/>
+					<label for="c1" ></label>
 				</div>
+<!-- 				미용실 -->
 				<div id="d2" class="cate">
-					미용실<input type="checkbox" value="B" class="ct" name="category_code" />
+					<input type="checkbox" value="B" class="ct" name="category_code" id="c2"/>
+					<label for="c2" ></label>
 				</div>
+<!-- 				카페 -->
 				<div id="d3" class="cate">
-					카페<input type="checkbox" value="C" class="ct" name="category_code" />
+					<input type="checkbox" value="C" class="ct" name="category_code" id="c3"/>
+					<label for="c3" ></label>
 				</div>
+<!-- 				식품 -->
 				<div id="d4" class="cate">
-					식품<input type="checkbox" value="D" class="ct" name="category_code" />
+					<input type="checkbox" value="D" class="ct" name="category_code" id="c4"/>
+					<label for="c4" ></label>
 				</div>
 			</div>
 			<div id="m">
 				<div>
+<!-- 				용퓸 -->
 					<div id="d5" class="cate">
-						용퓸<input type="checkbox" value="E" class="ct" name="category_code" />
+						<input type="checkbox" value="E" class="ct" name="category_code" id="c5"/>
+						<label for="c5"></label>
 					</div>
+<!-- 					관리 -->
 					<div id="d6" class="cate">
-						관리<input type="checkbox" value="F" class="ct" name="category_code" />
+						<input type="checkbox" value="F" class="ct" name="category_code" id="c6"/>
+						<label for="c6"></label>
 					</div>
+<!-- 					호텔 -->
 					<div id="d7" class="cate">
-						호텔<input type="checkbox" value="G" class="ct" name="category_code" />
+						<input type="checkbox" value="G" class="ct" name="category_code" id="c7"/>
+						<label for="c7"></label>
 					</div>
+<!-- 					유치원 -->
 					<div id="d8" class="cate">
-						유치원<input type="checkbox" value="H" class="ct" name="category_code" />
+						<input type="checkbox" value="H" class="ct" name="category_code" id="c8"/>
+						<label for="c8"></label>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div id="bt">
-			<input type="submit" value="선택완료"/>
+		<div id="bt"> 
+			<input type="submit" value="선택완료" onclick="checkcheck()"/>
 		</div>
 	</form>
 </div>

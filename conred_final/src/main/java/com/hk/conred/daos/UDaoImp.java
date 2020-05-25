@@ -21,8 +21,9 @@ public class UDaoImp implements IUDao{
 	@Override
 	public boolean insertUser(UDto dto) {
 		int count =0;
+		
 		count=sqlSession.insert(nameSpace+"insertUser", dto);
-		return count>0?true:false;
+		return count>0?true:false; 
 	}
 
 	@Override

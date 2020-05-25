@@ -52,6 +52,7 @@ public class Sungsu {
 	
 	@Autowired
 	private IInterestsService interestsService;
+
 	
 	@RequestMapping(value = "sungsu.do", method = RequestMethod.GET)
 	public String sungsu(Locale locale, Model model) {
@@ -72,60 +73,40 @@ public class Sungsu {
 	}
 		
 	@RequestMapping(value = "user_insert.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_insert(Locale locale, Model model,UDto dto,String user_email1,String user_email2,String user_email3) {
-		logger.info("테스트용 유저 회원가입 완료 {}.", locale);
-		dto.setUser_email(user_email1+user_email2+user_email3);
-		boolean isS=uService.insertUser(dto);
-		
-		//회원가입할때 적은아이디 가지고 다음단계(관심사)쪽으로 이동 // InterestsMapper #{user_id},#{category_code} 
-		//동의여부도 화면쪽에서 AJAX로 Y,N처리하기
-		if(isS) {
-			model.addAttribute("dto", dto );
-			return "user/user_regist_category";
-		}else {
-			System.out.println("실패!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-			return "";
-		}
+	public String user_insert(Locale locale, Model model,UDto dto,String user_email1,String user_email3,HttpServletRequest request) {
+		logger.info("테스트용 유저 회원가입 폼 {}.", locale);
+		dto.setUser_email(user_email1+"@"+user_email3);
+		System.out.println("전달파라미터:"+dto);
+		HttpSession session=request.getSession();
+		session.setAttribute("udto", dto);
+		return "user/user_regist_category";
 	}	 
 		 
 		
 	
-	@RequestMapping(value = "user_regist_category_test.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_regist_category_test(Locale locale, Model model) {
-		logger.info("관심사 선택 페이지로 옴 {}.", locale);
-			return "user/user_regist_category"; 				
-	}
 	
-	@RequestMapping(value = "user_regist_category_test2.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_regist_category_test2(Locale locale, Model model,String category_code) {
-		logger.info("관심사 선택완료후 가입완료 메시지 출력페이지로 이동{}.", locale);
-		String [] cate=category_code.split(",");
-		
-		for (int i = 0; i < cate.length; i++) {
-			System.out.println("@@@@@@@@@@@@@@@@@ ::"+ cate[i]);
-//			boolean isS=interestsService.insertInterests(cate[i]);
-			
-		}
-	 
-			return "user/user_regist_finish";		
-	}
-	 
-	 
+	
 	@RequestMapping(value = "user_regist_category.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_regist_category(Locale locale, Model model,String category_code,String user_id) {
-		logger.info("테스트용 유저 회원가입 접근 {}.", locale);
-		boolean isS=interestsService.insertInterests(category_code);
-		if(isS) {
-			return "user/user_regist_finish"; 			
-		}else {
-			return "";
-		}
-		
+	public String user_regist_category(Locale locale, Model model,String []category_code,String user_id,HttpServletRequest request) {
+		logger.info("관심사 선택완료후 가입완료 메시지 출력페이지로 이동{}.", locale);
+			
+			HttpSession session=request.getSession();
+			UDto dto=(UDto)session.getAttribute("udto");
+//			for (int i = 0; i < category_code.length; i++) {
+//				System.out.println("@@@@@@@@@@@@@@@@@::"+category_code[i]);
+//				System.out.println("!!!!!!!!!!!!!!!!!::"+user_id[i]);
+//			}
+			
+			boolean isS=uService.insertUser(dto, category_code,dto.getUser_id());
+			if(isS){ 
+				return "user/user_regist_finish";						
+			}else {
+				return "";
+			}
 	}
+	 
 		
-		
-		
-		
+		 
 	@RequestMapping(value = "user_login.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String user_login(Locale locale, Model model,HttpServletRequest request,UDto dto) {
 		logger.info("유저 로그인접근 {}.", locale);
@@ -232,7 +213,12 @@ public class Sungsu {
 	
 	
 	
-	
+		@RequestMapping(value = "user_regist_category_test.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String user_regist_category_test(Locale locale, Model model) {
+		logger.info("사용자 카테고리 틀 만들기{}.", locale);
+		
+		return "user/user_regist_category_test";  
+	}
 	
 	
 	

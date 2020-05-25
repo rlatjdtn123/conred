@@ -8,12 +8,13 @@
 
 
 	<!-- 임시로 아이디 test로 넣어줌 #{user_id}로 바꿔야됨 -->
-	<insert id="insertInterests" parameterType="String">
-		INSERT INTO CON_INTERESTS 
-		<foreach collection="array" separator=",">
-			VALUES(CON_INTERESTS_SEQ.NEXTVAL,'test',#{category_code})			
-		</foreach>
+	<insert id="insertInterests" parameterType="InterestsDto">
+		INSERT ALL  
+		<foreach collection="category_codes" item="codename">
+			INTO CON_INTERESTS
+			VALUES(get_interests_seq,#{user_id},#{codename})
+		</foreach> 
+		SELECT *FROM DUAL	
 	</insert>
-	
 </mapper>
-	 
+	   
