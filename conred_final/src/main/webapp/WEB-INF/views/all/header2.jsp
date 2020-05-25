@@ -19,7 +19,7 @@
 	header{border:1px solid grey;border-top-width:0px;border-bottom-color:lightgrey; height:70px;width:100%;}
 	#logo{width:400px; display: block; margin: 0 auto;position:relative; top:13px;}
 	#logo:hover{cursor: pointer;}
-	#secondheader{border:1px solid grey;border-top-width:0px; height:71px;width:100%;box-shadow: 0px 0.5px 2px grey;position:relative;}
+	#secondheader{background-color:#fff; z-index:1;border:1px solid grey;border-top-width:0px; height:71px;width:100%;box-shadow: 0px 0.5px 2px grey;position:sticky;top:0px;}
 	#categorybox{margin:0 auto; width:548px;}
 	.categories{border:1px solid grey; border-radius: 10px; width:60px; height:60px;position:relative;top:4px;float: left;margin-left:5px;}
 	#profilebox{width:200px;height:30px;float:right;position: relative; bottom:22px;left:-10px;}
@@ -28,6 +28,11 @@
 	.navis{float:right; padding-right: 5px;padding-left: 5px;height:100%;line-height: 30px;border-radius: 50px;}
 	.navis:hover{cursor: pointer; background-color: lightgrey;}
 	#profilepic{width:30px;float:right;padding-right:10px;}
+	
+	#search{padding-top:18px;width:25%;position:absolute;left:20px;}
+	#searchbar{width:80%;}
+	#searchbtn{padding:3px;width:40px;height:35px;}
+	#magnifyglass{width:20px;}
 </style>
 </head>
 <body>
@@ -41,6 +46,11 @@
 	</div>
 </header>
 <div id="secondheader">
+			<form id="search">
+			  <input type="text" id="searchbar" class="form-control pull-left" placeholder="지역명, 지하철역, 매장명으로 검색">
+			  <button type="submit" id="searchbtn" class="btn"><img id="magnifyglass" src="./img/magnifyglass.png"></button>
+			</form>
+
 	<div id="categorybox">
 		<div class="categories"></div>
 		<div class="categories"></div>

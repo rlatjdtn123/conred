@@ -136,6 +136,13 @@ public class Yoonho {
 		
 		return "test/users_main_test"; 
 	}
+	
+	@RequestMapping(value = "store.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String store(Locale locale, Model model) {
+		logger.info("공통메인(사용자별메인)테스트로 이동  {}.", locale);
+		
+		return "all/store"; 
+	}
 
 	
 	

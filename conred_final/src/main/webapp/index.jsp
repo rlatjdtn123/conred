@@ -51,7 +51,7 @@
 	<div id="message1">더 넓은 세상을 선물하세요<img id="footprint1" src="./img/footprint1.png"></div>
 	
 	<form id="search">
-	  <input type="text" id="searchbar" class="form-control pull-left" placeholder="검색">
+	  <input type="text" id="searchbar" class="form-control pull-left" placeholder="지역명, 지하철역, 매장명으로 검색">
 	  <button type="submit" id="searchbtn" class="btn"><img id="magnifyglass" src="./img/magnifyglass.png"></button>
 	</form>
 	
