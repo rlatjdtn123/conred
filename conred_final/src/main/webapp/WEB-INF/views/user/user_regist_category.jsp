@@ -28,6 +28,7 @@
 		float: left;
 		margin: 10px;
 		background-color: gray;width: 200px;height: 200px;
+		border: 1px solid black;
 	}
 	#m{
 		clear: both;
@@ -35,8 +36,50 @@
 	#hd{margin-left: 270px; margin-bottom: 50px;}
 	
 	#bt input{width: 100px; height:60px; margin-left: 445px; font-size: 20px; font-weight: bold;border-radius: 10xp;}
+	
+	.dd{width: 200px; height: 200px; background: url("img/main.jpg");}
+	
+/* 	input:checked + .dd { */
+/* 		background: orange;  */
+/* 	} */
+	input[type="checkbox"] {display: none;}
+	
 </style>
-<script type="text/javascript">
+<script type="text/javascript">   
+	window.onload= function () {
+		var form=document.getElementsByTagName("form")[0];
+		form.onsubmit=function(){
+			var chks=document.querySelectorAll("input[name=category_code]");
+			var count= 0;
+			for (var i = 0; i < chks.length; i++) {
+				if(chks[i].getAttribute("checked")=="checked"){
+					count++;
+				}
+			}
+			if(count>3){
+				alert("3개넘엇음");
+				return false;
+			}else if(count==0){
+				alert("최소 한개이상 선택");
+				return false;
+			}
+		}
+	}
+	
+	$(function(){
+		var cate=$(".dd");
+		cate.click(function(){ 
+			if($(this).prev().prop("checked")==true){
+				$(this).css("border", "1px solid black");
+				$(this).prev().attr("checked", false);
+			}else{
+				$(this).prev().attr("checked", "checked");
+				$(this).css("border", "1px solid blue");
+			}
+		});
+	});
+			
+	
 	
 </script>
 </head>
@@ -46,41 +89,57 @@
 <body>
 <div id="container">
 		<h1 id="hd">관심있는 매장을 선택해주세요!</h1>
-	<form action="user_regist_category.do" method="post">
+	<form action="user_regist_category.do" method="post" >
 		<div id="tle">
 			<div id="t">
+<!-- 				동물병원 -->
 				<div id="d1" class="cate">
-					동물병원<input type="checkbox" value="A" class="ct" name="category_code"/>
+					<input type="checkbox" value="A" class="ct" name="category_code" id="c1"/>
+					<div class="dd"> </div>
 				</div>
+<!-- 				미용실 -->
 				<div id="d2" class="cate">
-					미용실<input type="checkbox" value="B" class="ct" name="category_code" />
+					<input type="checkbox" value="B" class="ct" name="category_code" id="c2"/>
+					<div class="dd"> </div>
 				</div>
+<!-- 				카페 -->
 				<div id="d3" class="cate">
-					카페<input type="checkbox" value="C" class="ct" name="category_code" />
+					<input type="checkbox" value="C" class="ct" name="category_code" id="c3"/>
+					<div class="dd"> </div>
 				</div>
+<!-- 				식품 -->
 				<div id="d4" class="cate">
-					식품<input type="checkbox" value="D" class="ct" name="category_code" />
+					<input type="checkbox" value="D" class="ct" name="category_code" id="c4"/>
+					<div class="dd"> </div>
 				</div>
 			</div>
 			<div id="m">
 				<div>
+<!-- 				용퓸 -->
 					<div id="d5" class="cate">
-						용퓸<input type="checkbox" value="E" class="ct" name="category_code" />
+						<input type="checkbox" value="E" class="ct" name="category_code" id="c5"/>
+						<div class="dd"> </div>
 					</div>
+<!-- 					관리 -->
 					<div id="d6" class="cate">
-						관리<input type="checkbox" value="F" class="ct" name="category_code" />
+						<input type="checkbox" value="F" class="ct" name="category_code" id="c6"/>
+						<div class="dd"> </div>
 					</div>
+<!-- 					호텔 -->
 					<div id="d7" class="cate">
-						호텔<input type="checkbox" value="G" class="ct" name="category_code" />
+						<input type="checkbox" value="G" class="ct" name="category_code" id="c7"/>
+						<div class="dd"> </div>
 					</div>
+<!-- 					유치원 -->
 					<div id="d8" class="cate">
-						유치원<input type="checkbox" value="H" class="ct" name="category_code" />
+						<input type="checkbox" value="H" class="ct" name="category_code" id="c8"/>
+						<div class="dd"> </div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div id="bt">
-			<input type="submit" value="선택완료"/>
+		<div id="bt"> 
+			<input type="submit" value="선택완료"/>  
 		</div>
 	</form>
 </div>
