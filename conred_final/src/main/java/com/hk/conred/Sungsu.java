@@ -131,21 +131,21 @@ public class Sungsu {
 		logger.info("유저 로그인접근 {}.", locale);
 		System.out.println("ddddddddddddddddddd:   "+dto.getUser_id());
 		HttpSession session=request.getSession();
-		UDto ldto=uService.getLogin(dto.getUser_id(),dto.getUser_password());
+		UDto uldto=uService.getLogin(dto.getUser_id(),dto.getUser_password());
 		
-		System.out.println(ldto.getUser_id());
+		System.out.println(uldto.getUser_id());
 		
-		if(ldto.getUser_out().equals("Y")){
+		if(uldto.getUser_out().equals("Y")){
 			System.out.println("탈퇴한 회원 입니다");
 			return "";
-		}else if(ldto.getUser_black().equals("Y")) {
+		}else if(uldto.getUser_black().equals("Y")) {
 			System.out.println("블랙된 회원입니다");
 			return "";
-		}else if(!ldto.getUser_role().equals("user")||ldto.getUser_id()==null||ldto.getUser_id().equals("")) {
+		}else if(uldto.getUser_id()==null||uldto.getUser_id().equals("")) {
 			System.out.println("아이디 다시한번 확인해주세요");
 			return "";
 		}else{
-			session.setAttribute("ldto", ldto);
+			session.setAttribute("uldto", uldto);
 			return "all/users_main"; 
 		}	
 	}
