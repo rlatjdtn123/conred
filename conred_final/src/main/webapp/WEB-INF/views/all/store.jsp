@@ -8,15 +8,24 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	#container{text-align:center; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:900px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{text-align:center; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:1800px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	#photozone{width:100%; height:400px;border:1px solid grey;}
-	.section{width:900px;margin-top:40px;display: inline-block;}
-	#infobox1{ height:200px;}
-	#info1{width:449px;background-color:lightblue; text-align: left;float: left; }
-	#info2{width:449px;background-color:lightpink;text-align: right;float: right; }
+	
+	.section{width:900px;display: inline-block;}
+	#infobox1{ height:200px;margin-top:40px;}
+	#infobox2{ height:200px;border:0px solid grey;border-top-width: 0.5px;}
+	.info1{width:449.5px;height:100%; text-align: left;float: left;margin-bottom: 0px;}
+	.info2{width:449.5px;height:100%; text-align: right;float: right;margin-bottom: 0px; }
+	.seroline{border-left: 1px solid grey }
 	ul{list-style: none;padding-left:0px;}
-	.icons{width:30px;}
-	# state
+	.icons{width:35px;}
+	.medal{width:30px;padding-bottom:7px}
+	#s_state{padding-left:35px;font-size:15px;color:#3ADF00;font-weight: bold;display: inline-block;}
+	#s_title{font-size:20px;display: inline-block;}
+	#s_tinfo{padding-top:10px;padding-bottom:10px;font-size:15px;display: inline-block;}
+	#s_star{padding-top:10px;font-size:25px;display: inline-block;}
+	#s_review{font-size:15px;display: inline-block;background-color: lightgrey;padding:0px 5px; border-radius: 10px;text-align: center;}
+	hr{width:900px;border:0.5px solid grey;}
 </style>
 </head>
 <body>
@@ -25,29 +34,35 @@
 	carousel
 	</div>
 	<div id="infobox1" class="section">
-		<ul id="info1" >
-			<li><span id="state">영업중</span></li>
-			<li><span>댕댕미용실</span><span>|미용실</span></li>
-			<li>고양이도 개처럼 만들어주는 댕댕미용실</li>
+		<ul class="info1" >
+			<li><span id="s_state">영업중</span></li>
+			<li><img class="medal" alt="" src="./img/gold.png"> <span id="s_title">댕댕미용실</span><span>|미용실</span></li>
+			<li id="s_tinfo">고양이도 개처럼 만들어주는 댕댕미용실</li>
 			<li>
 				<img class="icons" alt="" src="./img/profile_default.png">
 				<img class="icons" alt="" src="./img/profile_default.png">
 				<img class="icons" alt="" src="./img/profile_default.png">
 			</li>
-			<li>★★★★☆<span>4.7</span>/5</li>
-			<li>리뷰 | 999+</li>
+			<li><span id="s_star">★★★★☆ 4.7</span>/5</li>
+			<li id="s_review"><span>리뷰 | 999+</span></li>
 		</ul>
-		<ul id="info2" >
-			<li>영업중</li>
-			<li><span>댕댕미용실</span><span>|미용실</span></li>
-			<li>고양이도 개처럼 만들어주는 댕댕미용실</li>
-			<li>
-				<img class="icons" alt="" src="./img/profile_default.png">
-				<img class="icons" alt="" src="./img/profile_default.png">
-				<img class="icons" alt="" src="./img/profile_default.png">
-			</li>
-			<li>★★★★☆<span>4.7</span>/5</li>
-			<li>리뷰 | 999+</li>
+		<ul class="info2" >
+			<li><span>매장번호 :</span><span>02-111-1111</span></li>
+			<li><span>담당자번호 :</span><span>010-1111-1111</span></li>
+		</ul>
+	</div>
+<!-- 	<hr> -->
+	<div id="infobox2" class="section">
+		<ul class="info1" >
+			<li>영업시간</li>
+			<li>평일</li>
+			<li>토요일</li>
+			<li>매주 월요일, 일요일 휴무</li>
+		</ul>
+		<ul class="info2 seroline" >
+			<li>주소</li>
+			<li>한경한경시 한경구 한경동</li>
+			<li>한경빌딩 404호</li>
 		</ul>
 	</div>
 </div>
