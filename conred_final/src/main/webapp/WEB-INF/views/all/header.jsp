@@ -37,7 +37,7 @@
 	<img id="logo" alt="logo1" src="./img/logo1.png" onclick="location.href='index.jsp'"><!-- 나중에 세션에따라 이동되는페이지 달라지게 바꾸기 -->
 	
 	<%
-		UDto uldto=(UDto)session.getAttribute("ldto");
+		UDto uldto=(UDto)session.getAttribute("uldto");
 		ODto oldto=(ODto)session.getAttribute("oldto");
 		
 		if(uldto==null&&oldto==null){/* 어떤 등급도 로그인이 되어있지 않으면 */
