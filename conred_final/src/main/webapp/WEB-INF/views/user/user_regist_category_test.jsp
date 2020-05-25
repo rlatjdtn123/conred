@@ -50,8 +50,8 @@
 		var chks=document.getElementsByTagName("label");
 		for (var i = 0; i < chks.length; i++) {
 			chks[i].onclick=function(){
-				var chksresult=document.querySelectorAll("labe:checked");
-				if(chksresult!=3){ 
+				var chksresult=document.querySelectorAll("label:checked");
+				if(chksresult!=3){  
 					alert("3개선택");
 				}else{
 					alert("ㅁㄴㅇ");
