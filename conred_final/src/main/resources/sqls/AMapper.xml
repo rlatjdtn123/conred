@@ -5,6 +5,29 @@
    
   
 <mapper namespace="com.hk.conred.A">
-
-
+     
+     <select id="admin_site_userlist" resultType="UDto">
+     	<![CDATA[ 
+     	SELECT *
+     	FROM CON_USER
+     	]]>
+     </select>
+     
+     <select id="admin_site_ownerlist" resultType="UDto">
+     	<![CDATA[
+     	SELECT * 
+     	FROM CON_OWNER
+     	]]>
+     </select>
+     
+     <select id="admin_site_storelist" resultType="UDto">
+     	<![CDATA[
+     	SELECT *
+     	FROM CON_STORE
+     	]]>
+     </select>
+     
+    
+     
+   
 </mapper>
