@@ -243,8 +243,8 @@ public class Sungsu {
 	@RequestMapping(value = "test_reserve_success.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String test_reserve_success(String msg, Locale locale, Model model,HttpServletRequest request,String imp_uid,String merchant_uid) {
 		logger.info("테스트 결제2{}.", locale);
-		System.out.println(imp_uid);
-		System.out.println(merchant_uid); 
+//		System.out.println(imp_uid);
+//		System.out.println(merchant_uid); 
 		model.addAttribute("msg", msg);
 		return "test/test_reserve_success";  
 	}
