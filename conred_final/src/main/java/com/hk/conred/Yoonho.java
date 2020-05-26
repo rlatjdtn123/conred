@@ -143,6 +143,34 @@ public class Yoonho {
 		
 		return "all/store"; 
 	}
+	
+	@RequestMapping(value = "owner_mystore_update.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String owner_mystore_update(Locale locale, Model model) {
+		logger.info("매장 업데이트 폼으로 이동  {}.", locale);
+		
+		return "owner/owner_mystore_update"; 
+	}
+	
+	@RequestMapping(value = "owner_mystore_reservation.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String owner_mystore_reservation(Locale locale, Model model) {
+		logger.info("매장관리> 예약으로 이동  {}.", locale);
+		
+		return "owner/owner_mystore_reservation"; 
+	}
+	
+	@RequestMapping(value = "owner_mystore_review.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String owner_mystore_review(Locale locale, Model model) {
+		logger.info("매장관리> 리뷰로 이동  {}.", locale);
+		
+		return "owner/owner_mystore_review"; 
+	}
+	
+	@RequestMapping(value = "owner_mystore_qna.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String owner_mystore_qna(Locale locale, Model model) {
+		logger.info("매장관리> 문의로 이동  {}.", locale);
+		
+		return "owner/owner_mystore_qna"; 
+	}
 
 	
 	
