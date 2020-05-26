@@ -12,7 +12,7 @@
 		<typeAlias type="com.hk.conred.dtos.ODto" alias="ODto"/>
 		<typeAlias type="com.hk.conred.dtos.InterestsDto" alias="InterestsDto"/>
 	</typeAliases>
-
+ 
 
   
    
