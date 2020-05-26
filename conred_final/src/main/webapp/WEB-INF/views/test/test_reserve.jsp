@@ -22,7 +22,7 @@ function requestPay(){
 	    pg : 'kakaopay',
 	    pay_method : 'card',
 	    merchant_uid : 'merchant_' + new Date().getTime(),
-	    name : '주문명:결제테스트',
+	    name : '주문명:결제테스트asd',
 	    amount : 1, 
 	    buyer_email : 'sdasdff4@naver.com',
 	    buyer_name : '<%=uldto.getUser_name()%>',
@@ -31,13 +31,14 @@ function requestPay(){
 	    if ( rsp.success ) {
 	    	//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
 	    	jQuery.ajax({
-	    		url: "test_reserve_success", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
+	    		url: "test_reserve2.do", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
 	    		type: 'POST',
 	    		dataType: 'json',
+	    		async:false,
 	    		data: { 
-		    		imp_uid : rsp.imp_uid
+	    			imp_uid : rsp.imp_uid,
 		    		merchant_uid: rsp.merchant_uid
-		    		//기타 필요한 데이터가 있으면 추가 전달
+		    		//기타 필요한 데이터가 있으면 추가 전달  
 	    		} 
 	    	}).done(function(data) {
 	    		//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
@@ -55,7 +56,7 @@ function requestPay(){
 	    		}
 	    	});
 	    	//성공시 이동할 페이지
-            location.href='test_reserve_success.do'+msg;
+            location.href='test_reserve_success.do?msg='+msg;
 	    } else {
 	        var msg = '결제에 실패하였습니다.';
 	        msg += '에러내용 : ' + rsp.error_msg;
