@@ -25,8 +25,10 @@
 	.section{width:900px;display: inline-block;}
 	#infobox_title{ height:290px;}
 	#infobox_timeaddr{ height:230px;border:0px solid grey;border-top-width: 0.5px;border-bottom-width: 0.5px;}
-	#infobox_intro{text-align: left; height:auto;border:0px solid grey;border-bottom-width: 0.5px;padding:30px 15px;}
-	#infobox_menu{text-align: left; height:auto;border:0px solid grey;border-bottom-width: 0.5px;padding:30px 15px;}
+	
+/* 	#infobox_intro{text-align: left; height:auto;border:0px solid grey;border-bottom-width: 0.5px;padding:30px 15px;} */
+/* 	#infobox_menu{text-align: left; height:auto;border:0px solid grey;border-bottom-width: 0.5px;padding:30px 15px;} */
+	
 	.infobox{text-align: left; height:auto;border:0px solid grey;border-bottom-width: 0.5px;padding:30px 15px;}
 	.infobox:last-child{text-align: left; border-bottom-width: 0px;height:auto;padding:30px 15px 80px;}
 	
@@ -47,7 +49,7 @@
 
 	#s_reviews{width:auto;}
 	#s_star{font-size:25px;display:block;width:190px;}
-	.s_btn{font-size:15px;display: inline-block; width:190px;background-color: #F2F2F2;padding:0px 5px; border-radius: 10px;text-align: center;}
+	.s_btn{height:28px;line-height:28px;font-size:15px;display: inline-block; width:190px;background-color: #F2F2F2;padding:0px 5px; border-radius: 5px;text-align: center;}
 	.s_btn:hover{cursor: pointer;background-color: lightgrey}
 	
 	#addr{height:60px;font-size:15px;}
@@ -115,7 +117,7 @@
 			<div id="s_tinfo">고양이도 개처럼 만들어주는 댕댕미용실</div>
 			<div id="s_reviews">
 				<div id="s_star">★★★★☆ 4.7<span>/5</span></div>
-				<div class="s_btn">리뷰 | 999+</div>
+				<div class="s_btn" onclick="location.href='review.do'">리뷰 | 999+</div>
 			</div>
 		</div>
 		<div class="info2 width2" >
@@ -153,7 +155,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="infobox_intro" class="section">
+	<div class="infobox section">
 		<div class="s_bold">매장소개</div>
 		<br>
 		<div class="s_content">고양이도 개처럼 만들어주는 댕댕미용실고양이도 개처럼 만들어주는 댕댕미용실고양이도 개처럼
@@ -202,7 +204,7 @@
 	</div>
 	<div class="infobox section">
 		<div class="s_bold flleft">리뷰</div>
-		<div class="s_btn flright" onclick="location.href='user_store_qna.do'">전체보기</div>
+		<div class="s_btn flright" onclick="location.href='review.do'">전체보기</div>
 			<div id="s_reviews" class="clrboth">
 				<div id="s_star">★★★★☆ 4.7<span>/5</span></div>
 				<table>
@@ -228,7 +230,7 @@
 	</div>
 	<div class="infobox section">
 		<div class="s_bold flleft">문의</div>
-		<div class="s_btn flright">전체보기</div>
+		<div class="s_btn flright" onclick="location.href='qna.do'">전체보기</div>
 		<div class="info1 replyqna flleft clrboth">
 		</div>
 		<div class="info1 replyqna marginleft flright">

@@ -89,7 +89,7 @@
 			</div>
 		</div>
 	</div>
-
+	<h1>문의관리페이지</h1>
 </div>
 </body>
 </html>

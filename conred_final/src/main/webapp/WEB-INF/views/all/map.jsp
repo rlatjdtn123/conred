@@ -6,10 +6,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="js/jquery-3.4.1.js"></script>
 <title>Insert title here</title>
 <style type="text/css">
-	#container{width:100%;height:700px;}
-	#mapbox{border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:100%;height:auto;position:absolute;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{height:100%;overflow: auto;}
+	#mapbox{border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:100%;height:100%;position:absolute;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	#show{width:407.5px;height:90.5%;background-color: blue;position:absolute;right:0px;overflow: auto;}
 	#rightbox{background-color:lightblue;opacity:0.5; border-top-width:0px; border-bottom-width:0px; width:390px;height:auto;position:absolute;right:0px;}
 	.storelist{width:auto;height:140px;border:1px solid grey;margin:10px;}
@@ -25,6 +26,23 @@
 	.categories:first-child{border:1px solid grey; border-radius: 10px; width:50px; height:50px;position:relative;float: left;margin-left:0px;}
 	.categories{border:1px solid grey; border-radius: 10px; width:50px; height:50px;position:relative;float: left;margin-left:20px;}
 </style>
+<script type="text/javascript">
+	function divToFit() {
+		var $body = window.innerHeight-90;
+		$('#container').css("height",$body);
+		$('#mapbox').css("height",$body);
+		$('#show').css("height",$body);
+	}
+	$(document).ready(function(){
+		divToFit();
+		$(window).resize(function() {
+			divToFit();
+	    });
+	});
+// 	$(function() {
+// 		divToFit();
+// 	});
+</script>
 </head>
 <body>
 <div id="container">

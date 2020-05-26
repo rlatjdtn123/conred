@@ -89,7 +89,7 @@
 			</div>
 		</div>
 	</div>
-
+	<h1>매장정보 수정 페이지</h1>
 </div>
 </body>
 </html>

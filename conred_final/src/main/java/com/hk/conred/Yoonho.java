@@ -171,6 +171,20 @@ public class Yoonho {
 		
 		return "owner/owner_mystore_qna"; 
 	}
+	
+	@RequestMapping(value = "qna.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String qna(Locale locale, Model model) {
+		logger.info("문의로 이동  {}.", locale);
+		
+		return "all/qna"; 
+	}
+	
+	@RequestMapping(value = "review.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String review(Locale locale, Model model) {
+		logger.info("리뷰로 이동  {}.", locale);
+		
+		return "all/review"; 
+	}
 
 	
 	
