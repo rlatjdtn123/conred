@@ -202,7 +202,7 @@
 	</div>
 	<div class="infobox section">
 		<div class="s_bold flleft">리뷰</div>
-		<div class="s_btn flright">전체보기</div>
+		<div class="s_btn flright" onclick="location.href='user_store_qna.do'">전체보기</div>
 			<div id="s_reviews" class="clrboth">
 				<div id="s_star">★★★★☆ 4.7<span>/5</span></div>
 				<table>
