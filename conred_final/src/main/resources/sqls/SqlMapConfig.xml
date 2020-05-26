@@ -20,6 +20,7 @@
   	<mappers>
     	<mapper resource="./sqls/UMapper.xml"/>
     	<mapper resource="./sqls/OMapper.xml"/>
+    	<mapper resource="./sqls/AMapper.xml"/>
     	<mapper resource="./sqls/InterestsMapper.xml"/>
   	</mappers>
 </configuration>
