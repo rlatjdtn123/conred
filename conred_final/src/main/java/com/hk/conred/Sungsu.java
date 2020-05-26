@@ -82,6 +82,10 @@ public class Sungsu {
 	public String user_insert(Locale locale, Model model,UDto dto,String user_email1,String user_email3,HttpServletRequest request) {
 		logger.info("테스트용 유저 회원가입 폼 {}.", locale);
 		dto.setUser_email(user_email1+"@"+user_email3);
+		//성별 null일경우 String타입으로 값 받을수 있게 수정(*왜 null값이 입력이 안되는지 모르겠음)
+		if(dto.getUser_sex()==null) {
+			dto.setUser_sex("");
+		}
 		System.out.println("전달파라미터:"+dto);
 		HttpSession session=request.getSession();
 		session.setAttribute("udto", dto);
@@ -245,6 +249,15 @@ public class Sungsu {
 	
 	
 	
+	
+		
+	@RequestMapping(value = "test_menu.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String test_menu(Locale locale, Model model) {
+		logger.info("테스트 결제{}.", locale);
+		
+		return "test/test_menu";  
+	}
+	
 	@RequestMapping(value = "test_reserve_success.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String test_reserve_success(String msg, Locale locale, Model model,HttpServletRequest request,String imp_uid,String merchant_uid) {
 		logger.info("테스트 결제2{}.", locale);
@@ -255,8 +268,8 @@ public class Sungsu {
 	}
 	
 	
-	@RequestMapping(value = "test_menu.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String test_menu(Locale locale, Model model,HttpServletRequest request,ReserveDto dto) {
+	@RequestMapping(value = "test_menu2.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String test_menu2(Locale locale, Model model,HttpServletRequest request,ReserveDto dto) {
 		logger.info("사용자_예약{}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");

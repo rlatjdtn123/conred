@@ -24,7 +24,7 @@ function requestPay(){
 	IMP.request_pay({
 	    pg : 'kakaopay',
 	    pay_method : 'card',
-	    merchant_uid : 'merchant_' + new Date().getTime(),
+	    merchant_uid : <%=dto.getReserve_seq()%>,
 	    name : '주문명:결제테스트asd',
 	    amount : 1, 
 	    buyer_email : 'sdasdff4@naver.com',
@@ -82,7 +82,6 @@ function requestPay(){
 </head>
 <body>
 <h1><%=uldto.getUser_id()%>님</h1>
-<input type="hidden" name="reserve_seq" value="<%=dto.getReservation_seq()%>"/>
 <button onclick="requestPay()">결제하기</button>
 </body>
 </html>

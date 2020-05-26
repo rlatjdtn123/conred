@@ -4,37 +4,37 @@ import java.util.Date;
 
 public class ReserveDto {
 
-	private int reservation_seq;
+	private int reserve_seq;
 	private String user_id;
 	private int menu_seq;
 	private int store_seq;
-	private String reservation_time;
-	private String reservation_state;
-	private String reservation_price;
-	private Date reservation_regdate; 
+	private String reserve_time;
+	private String reserve_state;
+	private String reserve_price; 
+	private Date reserve_regdate; 
 	
 	public ReserveDto() {
 	}
 
-	public ReserveDto(int reservation_seq, String user_id, int menu_seq, int store_seq, String reservation_time,
-			String reservation_state, String reservation_price, Date reservation_regdate) {
+	public ReserveDto(int reserve_seq, String user_id, int menu_seq, int store_seq, String reserve_time,
+			String reserve_state, String reserve_price, Date reserve_regdate) {
 		super();
-		this.reservation_seq = reservation_seq;
+		this.reserve_seq = reserve_seq;
 		this.user_id = user_id;
 		this.menu_seq = menu_seq;
 		this.store_seq = store_seq;
-		this.reservation_time = reservation_time;
-		this.reservation_state = reservation_state;
-		this.reservation_price = reservation_price;
-		this.reservation_regdate = reservation_regdate;
+		this.reserve_time = reserve_time;
+		this.reserve_state = reserve_state;
+		this.reserve_price = reserve_price;
+		this.reserve_regdate = reserve_regdate;
 	}
 
-	public int getReservation_seq() {
-		return reservation_seq;
+	public int getReserve_seq() {
+		return reserve_seq;
 	}
 
-	public void setReservation_seq(int reservation_seq) {
-		this.reservation_seq = reservation_seq;
+	public void setReserveve_seq(int reserveve_seq) {
+		this.reserve_seq = reserveve_seq;
 	}
 
 	public String getUser_id() {
@@ -61,45 +61,46 @@ public class ReserveDto {
 		this.store_seq = store_seq;
 	}
 
-	public String getReservation_time() {
-		return reservation_time;
+	public String getReserve_time() {
+		return reserve_time;
 	}
 
-	public void setReservation_time(String reservation_time) {
-		this.reservation_time = reservation_time;
+	public void setReserve_time(String reserve_time) {
+		this.reserve_time = reserve_time;
 	}
 
-	public String getReservation_state() {
-		return reservation_state;
+	public String getReserve_state() {
+		return reserve_state;
 	}
 
-	public void setReservation_state(String reservation_state) {
-		this.reservation_state = reservation_state;
+	public void setReserve_state(String reserve_state) {
+		this.reserve_state = reserve_state;
 	}
 
-	public String getReservation_price() {
-		return reservation_price;
+	public String getReserve_price() {
+		return reserve_price;
 	}
 
-	public void setReservation_price(String reservation_price) {
-		this.reservation_price = reservation_price;
+	public void setReserve_price(String reserve_price) {
+		this.reserve_price = reserve_price;
 	}
 
-	public Date getReservation_regdate() {
-		return reservation_regdate;
+	public Date getReserve_regdate() {
+		return reserve_regdate;
 	}
 
-	public void setReservation_regdate(Date reservation_regdate) {
-		this.reservation_regdate = reservation_regdate;
+	public void setReserve_regdate(Date reserve_regdate) {
+		this.reserve_regdate = reserve_regdate;
 	}
-
+  
 	@Override
 	public String toString() {
-		return "reserveDto [reservation_seq=" + reservation_seq + ", user_id=" + user_id + ", menu_seq=" + menu_seq
-				+ ", store_seq=" + store_seq + ", reservation_time=" + reservation_time + ", reservation_state="
-				+ reservation_state + ", reservation_price=" + reservation_price + ", reservation_regdate="
-				+ reservation_regdate + "]";
+		return "ReserveDto [reserveve_seq=" + reserve_seq + ", user_id=" + user_id + ", menu_seq=" + menu_seq
+				+ ", store_seq=" + store_seq + ", reserve_time=" + reserve_time + ", reserve_state=" + reserve_state
+				+ ", reserve_price=" + reserve_price + ", reserve_regdate=" + reserve_regdate + "]";
 	}
+
+	
 	
 	
 }

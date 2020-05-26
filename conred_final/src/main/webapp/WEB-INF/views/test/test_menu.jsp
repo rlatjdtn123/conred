@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>메뉴</h1>
-<form action="test_menu.do" method="post">
+<form action="test_menu2.do" method="post">
 	<label>asd</label>
 	<input type="submit" value="선택"/>
 </form>
