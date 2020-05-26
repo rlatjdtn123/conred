@@ -33,7 +33,7 @@ public class ODaoImp implements IODao {
 		dto=sqlSession.selectOne(nameSpace+"getLogin", map);
 		return dto;
 	}
-
+ 
 	
 	
 }
