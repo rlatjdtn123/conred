@@ -1,5 +1,6 @@
 package com.hk.conred;
 
+import java.rmi.server.RemoteServer;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -18,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hk.conred.dtos.InterestsDto;
+import com.hk.conred.dtos.ReserveDto;
 import com.hk.conred.dtos.UDto;
 import com.hk.conred.service.IInterestsService;
 import com.hk.conred.service.IOService;
+import com.hk.conred.service.IReserveService;
 import com.hk.conred.service.IUService;
 
 
@@ -53,6 +56,8 @@ public class Sungsu {
 	
 	@Autowired
 	private IInterestsService interestsService;
+	
+	private IReserveService reserveService;
 
 	
 	@RequestMapping(value = "sungsu.do", method = RequestMethod.GET)
@@ -247,5 +252,23 @@ public class Sungsu {
 //		System.out.println(merchant_uid); 
 		model.addAttribute("msg", msg);
 		return "test/test_reserve_success";  
+	}
+	
+	
+	@RequestMapping(value = "test_menu.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String test_menu(Locale locale, Model model,HttpServletRequest request,ReserveDto dto) {
+		logger.info("사용자_예약{}.", locale);
+		HttpSession session=request.getSession();
+		UDto uldto=(UDto)session.getAttribute("uldto");
+		dto.setUser_id(uldto.getUser_id());
+		boolean isS=reserveService.insertReserve(dto);
+		if(isS) {
+			model.addAttribute("dto", dto);
+			return "test/test_reserve";	
+		}else {
+			return "";
+		}
+		
+		
 	}
 }

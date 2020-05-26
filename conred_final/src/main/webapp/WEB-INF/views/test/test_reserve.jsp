@@ -1,3 +1,4 @@
+<%@page import="com.hk.conred.dtos.ReserveDto"%>
 <%@page import="com.hk.conred.dtos.UDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8");%>
@@ -12,6 +13,7 @@
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <%
 	UDto uldto=(UDto)session.getAttribute("uldto");
+	ReserveDto dto=(ReserveDto)request.getAttribute("dto");
 	
 %>
 <script type="text/javascript">
@@ -78,9 +80,9 @@ function requestPay(){
 }
 </script>
 </head>
-
 <body>
 <h1><%=uldto.getUser_id()%>님</h1>
+<input type="hidden" name="reserve_seq" value="<%=dto.getReservation_seq()%>"/>
 <button onclick="requestPay()">결제하기</button>
 </body>
 </html>

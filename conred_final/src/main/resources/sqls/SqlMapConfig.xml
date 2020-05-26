@@ -11,6 +11,7 @@
 		<typeAlias type="com.hk.conred.dtos.UDto" alias="UDto"/>
 		<typeAlias type="com.hk.conred.dtos.ODto" alias="ODto"/>
 		<typeAlias type="com.hk.conred.dtos.InterestsDto" alias="InterestsDto"/>
+		<typeAlias type="com.hk.conred.dtos.ReserveDto" alias="ReserveDto"/>
 	</typeAliases>
  
 
@@ -21,7 +22,8 @@
     	<mapper resource="./sqls/UMapper.xml"/>
     	<mapper resource="./sqls/OMapper.xml"/>
     	<mapper resource="./sqls/AMapper.xml"/>
-    	<mapper resource="./sqls/InterestsMapper.xml"/>
+    	<mapper resource="./sqls/InterestsMapper.xml"/>   	
+    	<mapper resource="./sqls/ReserveMapper.xml"/>
   	</mappers>
 </configuration>
 

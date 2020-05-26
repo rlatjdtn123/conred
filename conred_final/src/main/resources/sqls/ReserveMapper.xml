@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+  
+	<mapper namespace="com.hk.conred.Reserve">
+		
+		
+																	<!-- menu일렬번호 #{}으로 바꿔야함 -->
+		<insert id="insertReserve" parameterType="ReserveDto">
+			INSERT INTO CON_RESERVE VALUES(CON_RESERVE_SEQ.NEXTVAL,#{user_id},1,1,'16시 40분','Y','1원','2020년0월0일 16시00분'); 
+		</insert>
+		
+		
+		
+	</mapper>
+		 
