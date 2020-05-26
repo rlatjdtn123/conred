@@ -213,13 +213,29 @@ public class Sungsu {
 	
 	
 	
-		@RequestMapping(value = "user_regist_category_test.do", method = {RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value = "user_regist_category_test.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String user_regist_category_test(Locale locale, Model model) {
 		logger.info("사용자 카테고리 틀 만들기{}.", locale);
 		
 		return "user/user_regist_category_test";  
 	}
 	
+		
+	@RequestMapping(value = "test_reserve.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String test_reserve(Locale locale, Model model,HttpServletRequest request) {
+		logger.info("테스트 결제{}.", locale);
+		
+		
+		return "test/test_reserve";  
+	}
 	
 	
+	
+	@RequestMapping(value = "test_reserve_success.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String test_reserve_success(Locale locale, Model model,HttpServletRequest request,String imp_uid) {
+		logger.info("테스트 결제2{}.", locale);
+		System.out.println(imp_uid);
+		
+		return "test/test_reserve_success";  
+	}
 }
