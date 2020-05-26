@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hk.conred.dtos.InterestsDto;
 import com.hk.conred.dtos.UDto;
@@ -110,11 +111,9 @@ public class Sungsu {
 	@RequestMapping(value = "user_login.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String user_login(Locale locale, Model model,HttpServletRequest request,UDto dto) {
 		logger.info("유저 로그인접근 {}.", locale);
-		System.out.println("ddddddddddddddddddd:   "+dto.getUser_id());
 		HttpSession session=request.getSession();
 		UDto uldto=uService.getLogin(dto.getUser_id(),dto.getUser_password());
 		
-		System.out.println(uldto.getUser_id());
 		
 		if(uldto.getUser_out().equals("Y")){
 			System.out.println("탈퇴한 회원 입니다");
@@ -229,13 +228,24 @@ public class Sungsu {
 		return "test/test_reserve";  
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "test_reserve2.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public void test_reserve2(Locale locale, Model model,String imp_uid,String merchant_uid) {
+		logger.info("가맹점쪽 상황{}.", locale);
+		logger.info("imp_uid:"+imp_uid);
+		logger.info("주문번호:"+merchant_uid);
+		
+//		return "test/test_reserve2";  
+	}
+	
 	
 	
 	@RequestMapping(value = "test_reserve_success.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String test_reserve_success(Locale locale, Model model,HttpServletRequest request,String imp_uid) {
+	public String test_reserve_success(String msg, Locale locale, Model model,HttpServletRequest request,String imp_uid,String merchant_uid) {
 		logger.info("테스트 결제2{}.", locale);
 		System.out.println(imp_uid);
-		
+		System.out.println(merchant_uid); 
+		model.addAttribute("msg", msg);
 		return "test/test_reserve_success";  
 	}
 }
