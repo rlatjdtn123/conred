@@ -12,20 +12,23 @@
 	#photozone{width:100%; height:400px;border:1px solid grey;}
 	
 	.section{width:900px;display: inline-block;}
-	#infobox1{ height:200px;margin-top:40px;}
+	#infobox1{ height:250px;margin-top:40px;}
 	#infobox2{ height:200px;border:0px solid grey;border-top-width: 0.5px;}
 	.info1{width:449.5px;height:100%; text-align: left;float: left;margin-bottom: 0px;}
 	.info2{width:449.5px;height:100%; text-align: right;float: right;margin-bottom: 0px; }
 	.seroline{border-left: 1px solid grey }
 	ul{list-style: none;padding-left:0px;}
 	.icons{width:35px;}
-	.medal{width:30px;padding-bottom:7px}
-	#s_state{padding-left:35px;font-size:15px;color:#3ADF00;font-weight: bold;display: inline-block;}
-	#s_title{font-size:20px;display: inline-block;}
-	#s_tinfo{padding-top:10px;padding-bottom:10px;font-size:15px;display: inline-block;}
-	#s_star{padding-top:10px;font-size:25px;display: inline-block;}
-	#s_review{font-size:15px;display: inline-block;background-color: lightgrey;padding:0px 5px; border-radius: 10px;text-align: center;}
+	.medal{width:30px;padding-bottom:13px}
+	#s_state{font-size:15px;color:#3ADF00;font-weight: bold;display: inline-block;}
+	#s_title{font-size:30px;display: inline-block;}
+	#s_tinfo{padding-top:10px;padding-bottom:10px;font-size:15px;display:block;}
+	#s_star{font-size:25px;display: inline-block;}
+	#s_review{font-size:15px;display: inline-block;background-color: #F2F2F2;padding:0px 5px; border-radius: 10px;text-align: center;}
+	.s_phone{font-size:15px;}
+	.s_cate{float:left; font-size:12px;width:60px;text-align: center;}
 	hr{width:900px;border:0.5px solid grey;}
+	li{overflow: auto;}
 </style>
 </head>
 <body>
@@ -36,19 +39,28 @@
 	<div id="infobox1" class="section">
 		<ul class="info1" >
 			<li><span id="s_state">영업중</span></li>
-			<li><img class="medal" alt="" src="./img/gold.png"> <span id="s_title">댕댕미용실</span><span>|미용실</span></li>
-			<li id="s_tinfo">고양이도 개처럼 만들어주는 댕댕미용실</li>
+			<li><img class="medal" alt="" src="./img/gold.png"> <span id="s_title">댕댕미용실</span><span> | 미용실, 애견용품</span></li>
 			<li>
-				<img class="icons" alt="" src="./img/profile_default.png">
-				<img class="icons" alt="" src="./img/profile_default.png">
-				<img class="icons" alt="" src="./img/profile_default.png">
+				<div class="s_cate">
+					<img class="icons" alt="" src="./img/profile_default.png">
+					<div>미용실</div>
+				</div>
+				<div class="s_cate">
+					<img class="icons" alt="" src="./img/profile_default.png">
+					<div>동물병원</div>
+				</div>
+				<div class="s_cate">
+					<img class="icons" alt="" src="./img/profile_default.png">
+					<div>애견글램핑</div>
+				</div>
 			</li>
-			<li><span id="s_star">★★★★☆ 4.7</span>/5</li>
+			<li id="s_star">★★★★☆ 4.7<span>/5</span></li>
 			<li id="s_review"><span>리뷰 | 999+</span></li>
+			<li id="s_tinfo">고양이도 개처럼 만들어주는 댕댕미용실</li>
 		</ul>
 		<ul class="info2" >
-			<li><span>매장번호 :</span><span>02-111-1111</span></li>
-			<li><span>담당자번호 :</span><span>010-1111-1111</span></li>
+			<li><span  class="s_phone">매장번호 :</span><span>02-111-1111</span></li>
+			<li><span class="s_phone">담당자번호 :</span><span>010-1111-1111</span></li>
 		</ul>
 	</div>
 <!-- 	<hr> -->
