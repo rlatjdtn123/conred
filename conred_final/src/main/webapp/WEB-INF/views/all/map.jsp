@@ -9,6 +9,7 @@
 <script src="js/jquery-3.4.1.js"></script>
 <title>Insert title here</title>
 <style type="text/css">
+	body{margin:0px;padding:0px;}
 	#container{height:100%;overflow: auto;}
 	#mapbox{border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:100%;height:100%;position:absolute;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	#show{width:407.5px;height:90.5%;background-color: blue;position:absolute;right:0px;overflow: auto;}
