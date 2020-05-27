@@ -1,5 +1,5 @@
-<%@page import="com.hk.conred.dtos.ReserveDto"%>
 <%@page import="com.hk.conred.dtos.UDto"%>
+<%@page import="com.hk.conred.dtos.ReserveDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8");%>
 <%response.setContentType("text/html; charset=utf-8");%>
@@ -12,9 +12,8 @@
 <!-- <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-x.y.z.js"></script> -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <%
-	UDto uldto=(UDto)session.getAttribute("uldto");
 	ReserveDto dto=(ReserveDto)request.getAttribute("dto");
-	
+	UDto uldto=(UDto)session.getAttribute("uldto");
 %>
 <script type="text/javascript">
 function requestPay(){
@@ -81,7 +80,14 @@ function requestPay(){
 </script>
 </head>
 <body>
-<h1><%=uldto.getUser_id()%>님</h1>
+<h1>예약 상세페이지</h1>	
+<label>아이디:<%=dto.getUser_id()%></label>
+<label>매뉴일렬번호:<%=dto.getMenu_seq()%></label>
+<label>매장일렬번호:<%=dto.getStore_seq()%></label>
+<label>예약시간:<%=dto.getReserve_time()%></label>
+<label>예약상태:<%=dto.getReserve_state()%></label>
+<label>메뉴(서비스)가격:<%=dto.getReserve_price()%></label>
+<label>예약등록일:<%=dto.getReserve_regdate()%></label>
 <button onclick="requestPay()">결제하기</button>
 </body>
 </html>

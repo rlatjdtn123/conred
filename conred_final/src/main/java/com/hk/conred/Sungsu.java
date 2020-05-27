@@ -3,6 +3,7 @@ package com.hk.conred;
 import java.rmi.server.RemoteServer;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -57,6 +58,7 @@ public class Sungsu {
 	@Autowired
 	private IInterestsService interestsService;
 	
+	@Autowired
 	private IReserveService reserveService;
 
 	
@@ -240,7 +242,7 @@ public class Sungsu {
 	@ResponseBody
 	@RequestMapping(value = "test_reserve2.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public void test_reserve2(Locale locale, Model model,String imp_uid,String merchant_uid) {
-		logger.info("가맹점쪽 상황{}.", locale);
+		logger.info("가맹점쪽 상황 << 여기서 해당주문건에 대한 정보 받기{}.", locale);
 		logger.info("imp_uid:"+imp_uid);
 		logger.info("주문번호:"+merchant_uid);
 		
@@ -266,22 +268,59 @@ public class Sungsu {
 		model.addAttribute("msg", msg);
 		return "test/test_reserve_success";  
 	}
-	
+	 
 	
 	@RequestMapping(value = "test_menu2.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String test_menu2(Locale locale, Model model,HttpServletRequest request,ReserveDto dto) {
-		logger.info("사용자_예약{}.", locale);
+	public String test_menu2(Locale locale, Model model,HttpServletRequest request) {
+		logger.info("사용자_메뉴 선택폼{}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
-		dto.setUser_id(uldto.getUser_id());
-		boolean isS=reserveService.insertReserve(dto);
+//		dto.setUser_id(uldto.getUser_id());
+		boolean isS=reserveService.insertReserve(uldto.getUser_id());
+		
+		
 		if(isS) {
-			model.addAttribute("dto", dto);
-			return "test/test_reserve";	
+			
+			return "redirect:sungsu.do";	
 		}else {
-			return "";
+			return ""; 
 		}
+ 
+	} 
+	
+	
+	
+	@RequestMapping(value = "test_menu_success.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String test_menu_success(Locale locale, Model model,int reserve_seq) {
+		logger.info("사용자_예약{}.", locale);
+//		ReserveDto dto=reserveService.getReserve(reserve_seq);
+	
 		
+	
+		return "";
+	} 
+	
+	
+	@RequestMapping(value = "test_reserve_list.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String test_reserve_list(Locale locale, Model model,HttpServletRequest request) {
+		logger.info("사용자_예약목록{}.", locale);
+		HttpSession session=request.getSession();
+		UDto uldto=(UDto)session.getAttribute("uldto");
+		List<ReserveDto> list=reserveService.reserveList(uldto.getUser_id());
+		model.addAttribute("list", list);
 		
-	}
+	 
+		return "test/test_reserve_list"; 
+	} 
+	
+	
+	@RequestMapping(value = "test_reserve_detail.do", method = {RequestMethod.GET,RequestMethod.POST})
+		public String test_reserve_detail(Locale locale, Model model,int reserve_seq) {
+		logger.info("사용자_예약목록2{}.", locale);
+		ReserveDto dto=reserveService.getReserve(reserve_seq);
+		model.addAttribute("dto", dto);
+		System.out.println("detail:"+dto);
+		
+		return "test/test_reserve_detail";
+	} 
 }

@@ -7,9 +7,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+<%
+	
+%>
 <body>
-<h1>결제성공</h1>
-<h2>${msg}</h2>
-<a href="sungsu.do">돌아가기</a>
+
 </body>
 </html>

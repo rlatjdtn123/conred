@@ -8,11 +8,22 @@
 		
 		
 																	<!-- menu일렬번호 #{}으로 바꿔야함 -->
-		<insert id="insertReserve" parameterType="ReserveDto">
-			INSERT INTO CON_RESERVE VALUES(CON_RESERVE_SEQ.NEXTVAL,#{user_id},1,1,'16시 40분','Y','1원','2020년0월0일 16시00분'); 
+		<insert id="insertReserve" parameterType="String">
+			INSERT INTO CON_RESERVE VALUES(CON_RESERVE_SEQ.NEXTVAL,#{user_id},1,2,'16시 40분','Y','1원',SYSDATE)
 		</insert>
 		
+		<select id="reserveList" parameterType="String" resultType="ReserveDto">
+			SELECT RESERVE_SEQ ,USER_ID ,MENU_SEQ ,STORE_SEQ ,RESERVE_TIME ,RESERVE_STATE ,RESERVE_PRICE ,RESERVE_REGDATE 
+			FROM CON_RESERVE 
+			WHERE USER_ID =#{user_id}
+		</select>
+		
+		<select id="getReserve" parameterType="Int" resultType="ReserveDto">
+			SELECT RESERVE_SEQ ,USER_ID ,MENU_SEQ ,STORE_SEQ ,RESERVE_TIME ,RESERVE_STATE ,RESERVE_PRICE ,RESERVE_REGDATE 
+			FROM CON_RESERVE 
+			WHERE RESERVE_SEQ =#{reserve_seq}
+		</select>
 		
 		
 	</mapper>
-		 
+		  

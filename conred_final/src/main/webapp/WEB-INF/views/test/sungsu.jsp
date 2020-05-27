@@ -46,6 +46,7 @@
 	<a href="login.do">로그인 페이지로 이동(공통)</a>
 	<a href="test_reserve.do">결제창이동</a>
 	<a href="test_menu.do">메뉴선택</a>
+	<a href="test_reserve_list.do">예약목록</a>
 </body>
 <footer> 
 	<div id="main1"> 

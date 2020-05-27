@@ -1,5 +1,7 @@
 package com.hk.conred.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +17,19 @@ public class ReserveServiceImp implements IReserveService{
 	private IReserveDao reserveDaoImp;
 	
 	@Override
-	public boolean insertReserve(ReserveDto dto) {
-		return reserveDaoImp.insertReserve(dto);
+	public boolean insertReserve(String user_id) {
+		System.out.println("ㅋㅋㅋㅋㅋ:  "+user_id);
+		return reserveDaoImp.insertReserve(user_id);
+	}
+
+	@Override
+	public List<ReserveDto> reserveList(String user_id) {	
+		return reserveDaoImp.reserveList(user_id);
+	}
+
+	@Override
+	public ReserveDto getReserve(int reserve_seq) {
+		return reserveDaoImp.getReserve(reserve_seq);
 	}
 
 }
