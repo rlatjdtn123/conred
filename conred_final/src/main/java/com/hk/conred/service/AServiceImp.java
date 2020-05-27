@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.hk.conred.daos.IADao;
 import com.hk.conred.dtos.ODto;
+import com.hk.conred.dtos.SDto;
 import com.hk.conred.dtos.UDto;
 
 @Service
@@ -26,6 +27,10 @@ public class AServiceImp implements IAService{
 		// TODO Auto-generated method stub
 		return ADaoImp.admin_site_ownerlist();
 	}
-	
+	@Override
+	public List<SDto> admin_site_storelist() {
+		// TODO Auto-generated method stub
+		return ADaoImp.admin_site_storelist();
+	}
 	
 }

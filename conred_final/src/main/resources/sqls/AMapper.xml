@@ -13,14 +13,14 @@
      	]]>
      </select>
      
-     <select id="admin_site_ownerlist" resultType="UDto">
+     <select id="admin_site_ownerlist" resultType="ODto">
      	<![CDATA[
      	SELECT * 
      	FROM CON_OWNER
      	]]>
      </select>
      
-     <select id="admin_site_storelist" resultType="UDto">
+     <select id="admin_site_storelist" resultType="SDto">
      	<![CDATA[
      	SELECT *
      	FROM CON_STORE

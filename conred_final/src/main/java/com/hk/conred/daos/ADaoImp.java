@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.hk.conred.dtos.ODto;
+import com.hk.conred.dtos.SDto;
 import com.hk.conred.dtos.UDto;
 
 
@@ -29,11 +30,17 @@ public class ADaoImp implements IADao {
 //		List<UDto> list=new ArrayList<>(); 사용할 필요 없다.
 		
 		return admin_site_userlist();
-  }
+	}
 	public List<ODto> admin_site_ownerlist(){
 		sqlSession.selectList(nameSpace+"admin_site_ownerlist");
 		
 		return admin_site_ownerlist();
 	}
+	public List<SDto> admin_site_storelist(){
+		sqlSession.selectList(nameSpace+"admin_site_storelist");
+		
+		return admin_site_storelist();
+	}
+	
 	
 }
