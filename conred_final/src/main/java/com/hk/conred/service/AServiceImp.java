@@ -17,9 +17,9 @@ public class AServiceImp implements IAService{
 	private IADao ADaoImp;
 
 	@Override
-	public List<UDto> admin_site_userlist() {
+	public List<UDto> admin_site_userlist(String keyword) {
 		// TODO Auto-generated method stub
-		return ADaoImp.admin_site_userlist();
+		return ADaoImp.admin_site_userlist(keyword);
 	}
 
 	@Override

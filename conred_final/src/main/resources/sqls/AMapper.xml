@@ -6,10 +6,14 @@
   
 <mapper namespace="com.hk.conred.A">
      
-     <select id="admin_site_userlist" resultType="UDto">
+     <select id="admin_site_userlist" resultType="UDto" parameterType="String">
      	<![CDATA[ 
-     	SELECT *
-     	FROM CON_USER
+     	SELECT USER_ID, USER_NAME, USER_EMAIL, USER_BIRTH, USER_SEX, USER_REGDATE, USER_AGREEMENT,
+     	USER_OUT, USER_BLACK, USER_ROLE, USER_POINT        
+		FROM CON_USER   
+		WHERE USER_ID LIKE '%'||#{keyword}||'%' OR USER_NAME LIKE '%'||#{keyword}||'%' OR USER_EMAIL LIKE '%'||#{keyword}||'%' OR USER_BIRTH LIKE '%'||#{keyword}||'%' 
+		OR USER_SEX LIKE '%'||#{keyword}||'%' OR USER_REGDATE LIKE '%'||#{keyword}||'%' OR USER_AGREEMENT LIKE '%'||#{keyword}||'%' OR USER_OUT LIKE '%'||#{keyword}||'%' OR 
+		USER_BLACK LIKE '%'||#{keyword}||'%' OR USER_ROLE LIKE '%'||#{keyword}||'%' OR USER_POINT LIKE '%'||#{keyword}||'%'
      	]]>
      </select>
      
