@@ -72,7 +72,7 @@
 </head>
 <body>
 <div id="container">
-	<form action="owner_insert.do" method="post">
+	<form action="owner_regist_store.do" method="post">
 		<div id="tle">
 			<div id="regist">
 				사업자등록번호 인증
@@ -81,10 +81,14 @@
 				<tr>
 					<td>사업자등록번호</td>
 					<td>
-						<input class="numbers" type="text" name="biz_num1" required="required"/> -
-						<input class="numbers" type="text" name="biz_num2" required="required"/> -
-						<input class="numbers" type="text" name="biz_num3" required="required"/>
-						<button class="btn"  type="button" name="certify" required="required">
+						<input class="numbers" type="text" name="store_biznum1"/> -
+						<input class="numbers" type="text" name="store_biznum2"/> -
+						<input class="numbers" type="text" name="store_biznum3"/>
+						<button class="btn"  type="button" name="certify">
+<!-- 						<input class="numbers" type="text" name="store_biznum1" required="required"/> - -->
+<!-- 						<input class="numbers" type="text" name="store_biznum2" required="required"/> - -->
+<!-- 						<input class="numbers" type="text" name="store_biznum3" required="required"/> -->
+<!-- 						<button class="btn"  type="button" name="certify" required="required"> -->
 							조회
 						</button>
 					</td>
@@ -95,7 +99,8 @@
 						<div class="filebox">
 							<input class="upload-name" value="파일선택" disabled="disabled">
 							<label class="btn" for="filename01">업로드</label>
-							<input type="file" id="filename01" class="upload-hidden" required="required">
+							<input type="file" id="filename01" class="upload-hidden">
+<!-- 							<input type="file" id="filename01" class="upload-hidden" required="required"> -->
 						</div>
 					</td>
 					
@@ -106,34 +111,41 @@
 						<div class="filebox">
 							<input class="upload-name" value="파일선택" disabled="disabled">
 							<label class="btn" for="filename02">업로드</label>
-							<input type="file" id="filename02" class="upload-hidden" required="required">
+							<input type="file" id="filename02" class="upload-hidden">
+<!-- 							<input type="file" id="filename02" class="upload-hidden" required="required"> -->
 						</div>
 					</td>
 				</tr>
 				<tr>
 					<td>사업자명</td>
-					<td><input type="text" name="store_owner_name" required="required"/></td>
+					<td><input type="text" name="store_owner_name"/></td>
+<!-- 					<td><input type="text" name="store_owner_name" required="required"/></td> -->
 				</tr>
 				<tr>
 					<td>사업자 휴대폰번호</td>
 					<td>
-						<input class="numbers" type="text" name="store_owner_phone1" required="required"/>- 
-						<input class="numbers" type="text" name="store_owner_phone2" required="required"/>- 
-						<input class="numbers" type="text" name="store_owner_phone3" required="required"/>
+						<input class="numbers" type="text" name="store_owner_phone1"/>- 
+						<input class="numbers" type="text" name="store_owner_phone2"/>- 
+						<input class="numbers" type="text" name="store_owner_phone3"/>
+<!-- 						<input class="numbers" type="text" name="store_owner_phone1" required="required"/>-  -->
+<!-- 						<input class="numbers" type="text" name="store_owner_phone2" required="required"/>-  -->
+<!-- 						<input class="numbers" type="text" name="store_owner_phone3" required="required"/> -->
 						<input class="btn" value="인증번호 발송" type="button" onclick=""/><!-- 온클릭안에 펑션명 + 스크립트로 펑션 만들기 -->
 					</td>
 				</tr>
 				<tr>
 					<td>인증번호 입력</td>
 					<td>
-						<input type="text" name="store_owner_phone_certify" required="required"/>
+						<input type="text" name="store_owner_phone_certify"/>
+<!-- 						<input type="text" name="store_owner_phone_certify" required="required"/> -->
 						<input class="btn" value="인증완료" type="button" onclick=""/><!-- 온클릭안에 펑션명 + 스크립트로 펑션 만들기 -->
 					</td>
 				</tr>
 				<tr>
 					<td>입점 약관</td>
 					<td>
-						입점 약관에 동의하시겠습니까? <input name="owner_agreement" value="Y" type="checkbox" required="required"/>
+						입점 약관에 동의하시겠습니까? <input name="store_owner_agreement" value="Y" type="checkbox"/>
+<!-- 						입점 약관에 동의하시겠습니까? <input name="owner_agreement" value="Y" type="checkbox" required="required"/> -->
 						<button type="button"  class="btn"> 이용약관</button>
 					</td>
 				</tr>

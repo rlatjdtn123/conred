@@ -139,14 +139,14 @@ public class Yoonho {
 	
 	@RequestMapping(value = "owner_regist_certify.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String owner_regist_certify(Locale locale, Model model) {
-		logger.info("공통메인(사용자별메인)테스트로 이동  {}.", locale);
+		logger.info("점주: 매장등록(사업자정보 입력)으로 이동  {}.", locale);
 		
 		return "owner/owner_regist_certify"; 
 	}
 
 	@RequestMapping(value = "owner_regist_store.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String owner_regist_store(Locale locale, Model model) {
-		logger.info("공통메인(사용자별메인)테스트로 이동  {}.", locale);
+		logger.info("점주: 매장등록(매장정보 입력)으로 이동  {}.", locale);
 		
 		return "owner/owner_regist_store"; 
 	}

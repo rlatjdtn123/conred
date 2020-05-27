@@ -41,7 +41,7 @@
 	#s_state{font-size:15px;color:#3ADF00;font-weight: bold;display: inline-block;}
 	.medal{width:30px;padding-bottom:13px}
 	#s_title{font-size:30px;display: inline-block;}
-	#s_tinfo{height:60px;font-size:15px;display:inline-block;}
+	#s_intro_small{height:60px;font-size:15px;display:inline-block;}
 
 	#s_cates{overflow: auto;}
 	.s_cate{float:left; font-size:12px;width:45px;text-align: center;}
@@ -114,7 +114,7 @@
 					<img class="icons" title="애견카페" src="./img/profile_default.png">
 				</div>
 			</div>
-			<div id="s_tinfo">고양이도 개처럼 만들어주는 댕댕미용실</div>
+			<div id="s_intro_small">고양이도 개처럼 만들어주는 댕댕미용실</div>
 			<div id="s_reviews">
 				<div id="s_star">★★★★☆ 4.7<span>/5</span></div>
 				<div class="s_btn" onclick="location.href='review.do'">리뷰 | 999+</div>
@@ -158,7 +158,7 @@
 	<div class="infobox section">
 		<div class="s_bold">매장소개</div>
 		<br>
-		<div class="s_content">고양이도 개처럼 만들어주는 댕댕미용실고양이도 개처럼 만들어주는 댕댕미용실고양이도 개처럼
+		<div class="s_intro_big">고양이도 개처럼 만들어주는 댕댕미용실고양이도 개처럼 만들어주는 댕댕미용실고양이도 개처럼
 		 만들어주는 댕댕미용실고양이도 개처럼 만들어주는 댕댕미용실고양이도 개처럼 만들어주는 댕댕미용실고
 		 양이도 개처럼 만들어주는 댕댕미용실고양이도 개처럼 만들어주는 댕댕미용실고양이도 개처럼 만들어주는 
 		 댕댕미용실고양이도 개처럼 만들어주는 댕댕미용실고양이도 개처럼 만들어주는 댕댕미용실고양이도 개처럼
