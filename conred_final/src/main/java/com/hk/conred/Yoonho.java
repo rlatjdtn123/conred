@@ -137,6 +137,20 @@ public class Yoonho {
 		return "test/users_main_test"; 
 	}
 	
+	@RequestMapping(value = "owner_regist_certify.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String owner_regist_certify(Locale locale, Model model) {
+		logger.info("공통메인(사용자별메인)테스트로 이동  {}.", locale);
+		
+		return "owner/owner_regist_certify"; 
+	}
+
+	@RequestMapping(value = "owner_regist_store.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String owner_regist_store(Locale locale, Model model) {
+		logger.info("공통메인(사용자별메인)테스트로 이동  {}.", locale);
+		
+		return "owner/owner_regist_store"; 
+	}
+	
 	@RequestMapping(value = "store.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String store(Locale locale, Model model) {
 		logger.info("공통메인(사용자별메인)테스트로 이동  {}.", locale);

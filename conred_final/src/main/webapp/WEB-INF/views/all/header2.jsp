@@ -1,3 +1,5 @@
+<%@page import="com.hk.conred.dtos.ODto"%>
+<%@page import="com.hk.conred.dtos.UDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=utf-8"); %>
@@ -37,13 +39,49 @@
 </head>
 <body>
 <header>
+	<%
+		UDto uldto=(UDto)session.getAttribute("uldto");
+		ODto oldto=(ODto)session.getAttribute("oldto");
+	%>
+	
 	<img id="logo" alt="logo2" src="./img/logo2.png" onclick="location.href='index.jsp'"><!-- 나중에 세션에따라 이동되는페이지 달라지게 바꾸기 -->
-	<div id="profilebox">
-		<!--????부분에는 회원이름 출력-->
-		<!--뒷부분에는 삼항식으로 '회원님,사장님,관리자님' 출력/ -->
-		<div id="tologin" class="profile">김성수<span>관리자님</span></div>
-		<img id="profilepic" src="./img/profile_default.png"/><!-- 해당 유저의 프로필사진 -->
-	</div>
+	
+	
+	<%
+		if(uldto==null&&oldto==null){/* 어떤 등급도 로그인이 되어있지 않으면 */
+	%>
+			<!-- 비회원 -->
+			<div id="profilebox">
+				<div id="tologin" class="profile">비회원<span>입니다.</span></div>
+				<img id="profilepic" src="./img/profile_default.png"/><!-- 해당 유저의 프로필사진 -->
+			</div>
+	<%
+		}else if(uldto!=null&&oldto==null&&uldto.getUser_role().equals("user")){/*사용자는 로그인, 점주는 비로그인, 사용자등급==user인 경우 */
+	%>
+			<!-- 사용자 -->
+			<div id="profilebox">
+				<div id="tologin" class="profile"><%=uldto.getUser_name() %><span>회원님</span></div>
+				<img id="profilepic" src="./img/profile_default.png"/><!-- 해당 유저의 프로필사진 -->
+			</div>
+	<%
+		}else if(uldto==null&&oldto!=null){/*사용자는 비로그인, 점주는 로그인인 경우 */
+	%>
+			<!-- 점주 --> 
+			<div id="profilebox">
+				<div id="tologin" class="profile"><%=oldto.getOwner_name() %><span>사장님</span></div>
+				<img id="profilepic" src="./img/profile_default.png"/><!-- 해당 유저의 프로필사진 -->
+			</div>
+	<%
+		}else if(uldto!=null&&oldto==null&&uldto.getUser_role().equals("admin")){/*사용자는 로그인, 점주는 비로그인, 사용자등급==admin인 경우 */
+	%>
+			<!-- 관리자 -->
+			<div id="profilebox">
+				<div id="tologin" class="profile"><%=uldto.getUser_name() %><span>관리자님</span></div>
+				<img id="profilepic" src="./img/profile_default.png"/><!-- 해당 유저의 프로필사진 -->
+			</div>
+	<%
+		}
+	%>
 </header>
 <div id="secondheader">
 			<form id="search">
@@ -64,25 +102,40 @@
 
 
 	<div id="navibox">
+	<%
+		if(uldto==null&&oldto==null){/* 어떤 등급도 로그인이 되어있지 않으면 */
+	%>
 <!-- 		비회원 -->
-<!-- 		<div id="toregist" class="navis">회원가입</div> -->
-<!-- 		<div id="tologin" class="navis">로그인</div> -->
-<!-- 		점주 --> 
-		<div id="logout" class="navis">로그아웃</div>
-		<div id="o_info" class="navis">나의정보</div>
-		<div id="o_tore" class="navis">매장관리</div>
-		<div id="o_storeinfo" class="navis">매장정보</div>
-		<div id="o_reserve" class="navis">예약</div>
+		<div id="toregist" class="navis"  onclick="location.href='select_regist.do'">회원가입</div>
+		<div id="tologin" class="navis" onclick="location.href='login.do'">로그인</div>
+	<%
+		}else if(uldto!=null&&oldto==null&&uldto.getUser_role().equals("user")){/*사용자는 로그인, 점주는 비로그인, 사용자등급==user인 경우 */
+	%>
 <!-- 		사용자 -->
-<!-- 		<div id="logout" class="navis">로그아웃</div> -->
-<!-- 		<div id="u_info" class="navis">나의정보</div> -->
-<!-- 		<div id="u_mypage" class="navis">마이페이지</div> -->
-<!-- 		<div id="u_like" class="navis">좋아요</div> -->
-<!-- 		<div id="u_reserve" class="navis">내 예약</div> -->
+		<div id="logout" class="navis" onclick="location.href='user_logout.do'">로그아웃</div>
+		<div id="u_info" class="navis" onclick="location.href='user_myinfo.do'">나의정보</div>
+		<div id="u_mypage" class="navis" onclick="location.href='user_mypage.do'">마이페이지</div>
+		<div id="u_like" class="navis" onclick="location.href='user_mypage_like.do'">좋아요</div>
+		<div id="u_reserve" class="navis" onclick="location.href='user_mypage_reservation.do'">내 예약</div>
+	<%
+		}else if(uldto==null&&oldto!=null){/*사용자는 비로그인, 점주는 로그인인 경우 */
+	%>
+<!-- 		점주 --> 
+		<div id="logout" class="navis" onclick="location.href='user_logout.do'">로그아웃</div>
+		<div id="o_info" class="navis" onclick="location.href='owner_myinfo.do'">나의정보</div>
+		<div id="o_tore" class="navis" onclick="location.href='store.do'">매장관리</div>
+		<div id="o_storeinfo" class="navis" onclick="location.href='owner_mystore_info.do'">매장정보</div>
+		<div id="o_reserve" class="navis" onclick="location.href='owner_mystore_reservation.do'">예약</div>
+	<%
+		}else if(uldto!=null&&oldto==null&&uldto.getUser_role().equals("admin")){/*사용자는 로그인, 점주는 비로그인, 사용자등급==admin인 경우 */
+	%>
 <!-- 		관리자 -->
-<!-- 		<div id="logout" class="navis">로그아웃</div> -->
-<!-- 		<div id="a_mypage" class="navis">나의정보</div> -->
-<!-- 		<div id="a_site" class="navis">사이트관리</div> -->
+		<div id="logout" class="navis" onclick="location.href='user_logout.do'">로그아웃</div>
+		<div id="a_mypage" class="navis" onclick="location.href='user_myinfo.do'">나의정보</div>
+		<div id="a_site" class="navis" onclick="location.href='admin_site.do'">사이트관리</div>
+	<%
+		}
+	%>
 	</div>
 </div>
 </body>

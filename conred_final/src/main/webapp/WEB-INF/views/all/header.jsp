@@ -77,9 +77,19 @@
 			<div id="navibox">
 				<div id="logout" class="navis" onclick="location.href='user_logout.do'">로그아웃</div>
 				<div id="o_info" class="navis" onclick="location.href='owner_myinfo.do'">나의정보</div>
-				<div id="o_tore" class="navis" onclick="location.href='store.do'">매장관리</div>
-				<div id="o_storeinfo" class="navis" onclick="location.href='owner_mystore_info.do'">매장정보</div>
-				<div id="o_reserve" class="navis" onclick="location.href='owner_mystore_reservation.do'">예약</div>
+				<%
+				if(uldto==null&&oldto!=null){/*  점포가 있는 점주에게만 표시  uldto==null&&oldto!=null 이거 안에 점주의 매장유무 쿼리를 해줘야함.*/ 
+				%>
+					<div id="o_reserve" class="navis" onclick="location.href='owner_regist_certify.do'">점포등록</div>
+				<%
+				}else{/*  점포가 아직 없는 점주에게만 표시 */ 
+				%>
+					<div id="o_tore" class="navis" onclick="location.href='store.do'">매장관리</div>
+					<div id="o_storeinfo" class="navis" onclick="location.href='owner_mystore_info.do'">매장정보</div>
+					<div id="o_reserve" class="navis" onclick="location.href='owner_mystore_reservation.do'">예약</div>
+				<%
+				}
+				%>
 			</div>
 	<%
 		}else if(uldto!=null&&oldto==null&&uldto.getUser_role().equals("admin")){/*사용자는 로그인, 점주는 비로그인, 사용자등급==admin인 경우 */
@@ -89,7 +99,7 @@
 				<div id="tologin" class="profile"><%=uldto.getUser_name() %><span>관리자님</span></div>
 				<img id="profilepic" src="./img/profile_default.png"/><!-- 해당 유저의 프로필사진 -->
 			</div>
-			<div id="navibox">
+			<div id="navibox"> 
 				<div id="logout" class="navis" onclick="location.href='user_logout.do'">로그아웃</div>
 				<div id="a_mypage" class="navis"  onclick="location.href='user_myinfo.do'">나의정보</div>
 				<div id="a_site" class="navis"  onclick="location.href='admin_site.do'">사이트관리</div>
