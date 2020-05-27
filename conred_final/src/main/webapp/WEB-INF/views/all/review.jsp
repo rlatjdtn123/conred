@@ -31,7 +31,7 @@
 		<span id="main1">리뷰 ★★★★★ &nbsp;<b style="font-size: 25px;">4.7</b>/5 &nbsp; &nbsp; &nbsp;후기2343개|답변2033개</span><br/><br/>
 		<span>최근6개월 누적평점</span>
 		<table>
-				<col width="50px;">
+				<col width="50px;"> 
 					<tr>
 						<td><span>서비스</span></td>
 						<td>★★★★☆ 4.5<span>/5</span></td>
