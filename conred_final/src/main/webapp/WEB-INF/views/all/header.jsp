@@ -91,8 +91,8 @@
 			</div>
 			<div id="navibox">
 				<div id="logout" class="navis" onclick="location.href='user_logout.do'">로그아웃</div>
-				<div id="a_mypage" class="navis">나의정보</div>
-				<div id="a_site" class="navis">사이트관리</div>
+				<div id="a_mypage" class="navis"  onclick="location.href='user_myinfo.do'">나의정보</div>
+				<div id="a_site" class="navis"  onclick="location.href='admin_site.do'">사이트관리</div>
 			</div>
 	<%
 		}
