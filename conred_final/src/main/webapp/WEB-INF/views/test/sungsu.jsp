@@ -47,6 +47,9 @@
 	<a href="test_reserve.do">결제창이동</a>
 	<a href="test_menu.do">메뉴선택</a>
 	<a href="test_reserve_list.do">예약목록</a>
+	<a href="test_scroll.do">스크롤 테스트</a>
+	<a href="test_modal.do">모달 테스트</a>
+	
 </body>
 <footer> 
 	<div id="main1"> 

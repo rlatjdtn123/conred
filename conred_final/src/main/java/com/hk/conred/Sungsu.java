@@ -323,4 +323,17 @@ public class Sungsu {
 		
 		return "test/test_reserve_detail";
 	} 
+	
+	@RequestMapping(value = "test_scroll.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String test_scroll(Locale locale, Model model) {
+		logger.info("스크롤 테스트{}.", locale);
+		return "test/test_scroll";
+	} 
+	
+	@RequestMapping(value = "test_modal.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String test_modal(Locale locale, Model model) {
+		logger.info("모달 테스트{}.", locale);
+		return "test/test_modal";
+	} 
+	
 }
