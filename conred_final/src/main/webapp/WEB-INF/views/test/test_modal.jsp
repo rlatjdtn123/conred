@@ -28,14 +28,14 @@
 	
 	
 	$(document).ready(function(){
-		   var fileTarget = $('.filebox .upload-hidden');
+		   var fileTarget = $('.filebox .upload-hidden'); // -> 사진이 들어갈 경로  input태그(아이디input_file) -> 라벨로 연결함  /// 그밑에 input태그(클래스 upload-name)으로 같이나옴
 
 		    fileTarget.on('change', function(){
 		        if(window.FileReader){
 		            // 파일명 추출
 		            var filename = $(this)[0].files[0].name;
 		        } 
-
+ 
 		        else {
 		            // Old IE 파일명 추출
 		            var filename = $(this).val().split('/').pop().split('\\').pop();
@@ -45,9 +45,12 @@
 		    });
 
 		    //preview image 
-		    var imgTarget = $('.preview-image .upload-hidden');
-
-		    imgTarget.on('change', function(){
+		    var imgTargets = new Array(5);
+		    for (var i = 0; i < imgTargets.length; i++) {
+			    var imgTargets[i] = $('.preview-image .upload-hidden');
+			}
+			
+		    imgTargets.on('change', function(){
 		        var parent = $(this).parent();
 		        parent.children('.upload-display').remove();
 
@@ -58,13 +61,13 @@
 		            var reader = new FileReader();
 		            reader.onload = function(e){
 		                var src = e.target.result;
-		                parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
+		                parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');							
 		            }
 		            reader.readAsDataURL($(this)[0].files[0]);
 		        }
 
 		        else {
-		            $(this)[0].select();
+		            $(this)[0].select(); 
 		            $(this)[0].blur();
 		            var imgSrc = document.selection.createRange().text;
 		            parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img class="upload-thumb"></div></div>');
@@ -86,7 +89,7 @@
 	.modal-title{margin-left: 400px;}
 	.modal-body span{margin: 85px;}
 	textarea:focus::-webkit-input-placeholder { color: transparent; }
-	.modal-footer  div{border: 1px solid black;width: 153px; height: 110px; float: left; margin: 10px;}
+	.modal-footer  div{border: 1px solid black;width: 153px; height: 110px; float: left;}
 	
 	
 	
@@ -98,7 +101,7 @@
 	  display: block;
 	  margin: 25px 15px;
 	  font-size: 11px;
-	  color: #000;
+	  color: #000;  
 	  text-decoration: none;
 	  font-family: verdana;
 	  font-style: italic;
@@ -132,19 +135,19 @@
 	/* named upload */
 	.filebox .upload-name {
 	    display: inline-block;
-	    padding: .5em .75em;
-	    font-size: inherit;
+/* 	    padding: .5em .75em; */
+	    font-size: inherit; 
 	    font-family: inherit;
 	    line-height: normal;
-	    vertical-align: middle;
-	    background-color: #f5f5f5;
+	    vertical-align: middle; 
+	    background-color: #f5f5f5;  
 	  border: 1px solid #ebebeb;
 	  border-bottom-color: #e2e2e2;
-	  border-radius: .25em;
+/* 	  border-radius: .25em; */
 	  -webkit-appearance: none; /* 네이티브 외형 감추기 */
 	  -moz-appearance: none;
 	  appearance: none;
-	  width: 50px;
+	  width: 98px;
 	}
 	
 	/* imaged preview */
@@ -154,20 +157,17 @@
 	@media(min-width: 768px) {
 	    .filebox .upload-display {
 	        display: inline-block;
-	        margin-right: 5px;
-	        margin-bottom: 0;
 	    }
 	}
 	
 	.filebox .upload-thumb-wrap {
 	    display: inline-block;
-	    width: 54px;
-	    height:50px;
-	    padding: 2px;
+	    width: 150px;
+	    height:110px; 
 	    vertical-align: middle;
 	    border: 1px solid #ddd;
-	    border-radius: 5px;
-	    background-color: #fff;
+/* 	    border-radius: 5px; */
+	    background-color: #fff; 
 	    float: left;
 	}
 	
@@ -175,7 +175,7 @@
 	    display: block;
 	    max-width: 100%;
 	    width: 100% \9;
-	    height: auto;
+	    height: 100px;    
 	}
 	
 	.filebox.bs3-primary label {
@@ -207,15 +207,29 @@
      			
        			<span>서비스 ☆☆☆☆☆</span>|<span>가격 ☆☆☆☆☆</span>|<span>청결도 ☆☆☆☆☆</span>
      		</div> 
-     		<div class="modal-footer">
-     			<div class="filebox bs3-primary preview-image">
+     		<div class="modal-footer">   
+     			<div class="filebox bs3-primary preview-image" style="margin-bottom: 30px;"> 
      				<input type="file" id="input_file" class="upload-hidden"> 
      				<input class="upload-name"  disabled="disabled" style="background-color: white;border: 0;" >
      			</div>
-     			<div class="filebox bs3-primary preview-image"></div>
-     			<div class="filebox bs3-primary preview-image"></div>
-     			<div class="filebox bs3-primary preview-image"></div>
-     			<div class="filebox bs3-primary preview-image"></div>
+     			
+     			
+<!--      			<div class="filebox bs3-primary preview-image"> -->
+<!--      				<input type="file" id="input_file" class="upload-hidden">  -->
+<!--      				<input class="upload-name"  disabled="disabled" style="background-color: white;border: 0;" > -->
+<!--      			</div> -->
+<!--      			<div class="filebox bs3-primary preview-image"> -->
+<!--      				<input type="file" id="input_file" class="upload-hidden">  -->
+<!--      				<input class="upload-name"  disabled="disabled" style="background-color: white;border: 0;" > -->
+<!--      			</div> -->
+<!--      			<div class="filebox bs3-primary preview-image"> -->
+<!--      				<input type="file" id="input_file" class="upload-hidden">  -->
+<!--      				<input class="upload-name"  disabled="disabled" style="background-color: white;border: 0;" > -->
+<!--      			</div> -->
+<!--      			<div class="filebox bs3-primary preview-image"> -->
+<!--      				<input type="file" id="input_file" class="upload-hidden">  -->
+<!--      				<input class="upload-name"  disabled="disabled" style="background-color: white;border: 0;" > -->
+<!--      			</div> -->
        			<textarea rows="20" cols="120" style="resize: none;" placeholder="리뷰 작성 해주세요."></textarea>
        			<div class="filebox bs3-primary preview-image" style="width: 600px;height: 30px;border: 0;">
 				    <input class="upload-name" value="파일선택" disabled="disabled" >
