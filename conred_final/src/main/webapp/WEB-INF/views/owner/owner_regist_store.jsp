@@ -17,27 +17,31 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style type="text/css">
+	.greenbtn:hover{background-color: #04B404;color:white} 
+	.redbtn:hover{background-color: #FE2E2E;color:white} 
 	.clrboth{clear: both;}
 	.flright{float: right;}
 	.flleft{float: left;}
 	.btn{background-color: #f0f0f0;margin-left:10px;}
+	.btn2{background-color: #f0f0f0;margin-left:0px;}
 
 	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:auto;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	
 	#regist{font-weight: bold; font-size: 20px;margin-bottom: 40px;}
 	 
-	#tle{margin:0 auto;padding-top:40px;width: 700px;}
-	
-	.inputbox{margin-top:15px;margin-bottom:15px;height:auto;display: inline-block;}
-	.inputtitle{float:left;height:auto;line-height: 200%;padding-right:20px;width:170px;}
+	#tle{margin:0 auto;padding-top:40px;width: 800px;}
+	.inputbox{margin-top:0px;margin-bottom:-5px; padding:26px 10px 26px;height:auto;width:800px; display: inline-block;border: 0px solid lightgrey;border-bottom-width: 1px;}
+	.inputbox:hover{background-color: #f3f3f3;}
+	.lastbox{border: 0px solid lightgrey;}
+	.inputtitle{float:left;height:auto;line-height: 200%;padding-right:20px;width:140px;}
 	input{margin-top:2px;}
-	textarea{margin-top:2px;}
+	textarea{margin-top:2px;resize: none;}
 	select {margin-top:3px;height:26px;}
-	.inputs{width:530px;float: left;height:auto;}
+	.inputs{width:500px;float: left;height:auto;}
 	
 	textarea[name=s_time_etc]{width:310px;}
-	textarea[name=s_intro_small]{width:520px;}
-	textarea[name=s_intro_big]{width:520px;height:100px;}
+	textarea[name=s_intro_small]{width:500px;}
+	textarea[name=s_intro_big]{width:500px;height:100px;}
 	textarea[name=s_addr]{width:220px;height:100px;}
 	
 	.catechkboxes{padding-bottom:10px;}
@@ -57,9 +61,12 @@
 						
 	.timebox{display: inline-block;width:50px;text-align: center;}
 	.timebox2{display: inline-block; width:80px;text-align: center;}
+	.menubox{display: inline-block; width:300px;text-align: center;}
 	ul{list-style: none;padding:0px;}
+ 	li{width:600px;} 
 	.hidmenu{display: none;}
 	
+	#bot{margin:30px 10px 30px;}
 </style>
 <script type="text/javascript">
 
@@ -140,7 +147,7 @@
     </div>
   </div>
 </div>
-	<form action="owner_regist_store.do" method="post">
+	<form action="owner_regist_finish.do" method="post">
 		<div id="tle">
 			<div id="regist" class="testmod">
 				매장 정보 입력
@@ -155,13 +162,13 @@
 					<div class="inputs"><input type="text" readonly/></div>
 				</div>
 				<div class="inputbox">
-					<div class="inputtitle">간단소개(30자이내)</div>
+					<div class="inputtitle">간단소개<br>(30자이내)</div>
 					<div class="inputs">
 						<textarea name="s_intro_small"></textarea>
 					</div>
 				</div>
 				<div class="inputbox">
-					<div class="inputtitle">매장소개(500자이내)</div>
+					<div class="inputtitle">매장소개<br>(500자이내)</div>
 					<div class="inputs">
 						<textarea name="s_intro_big"></textarea>
 					</div>
@@ -195,11 +202,11 @@
 					</div>
 				</div>
 				<div class="inputbox">
-					<div class="inputtitle">매장 전화번호</div>
+					<div class="inputtitle">매장<br>전화번호</div>
 					<div class="inputs"><input type="text" name="s_s_phone" placeholder="'-' 없이 입력"/></div>
 				</div>
 				<div class="inputbox">
-					<div class="inputtitle">담당자 전화번호</div>
+					<div class="inputtitle">담당자<br>전화번호</div>
 					<div class="inputs">
 						<input type="text" name="s_o_phone" placeholder="'-' 없이 입력"/>
 						<button type="button" class="btn">휴대폰 인증</button>
@@ -248,43 +255,43 @@
 							</ul>
 							<ul>
 								<li>
-									<input class="timebox" type="checkbox" name="s_time"/><span class="timebox2"><b>평일</b></span>
-									<input id="t1" class="timebox2 ronly" type="text" name="s_time"/> - <input id="t2" class="timebox2 ronly" type="text" name="s_time"/>
+									<input class="timebox" type="checkbox" name="s_week"/><span class="timebox2"><b>평일</b></span>
+									<input id="t1" class="timebox2 ronly" type="text" name="s_time1" placeholder="0900"/> - <input id="t2" class="timebox2 ronly" type="text" name="s_time2" placeholder="1800"/>
 									<span id="show_time" class="btn timebox2" style="height:24px; width:48px;line-height: 10px">
 										▼
 									</span>
 								</li> 
 								<li class="hidmenu">
-									<input class="timebox" type="checkbox" name="s_time"/><span class="timebox2">월요일</span>
-									<input class="timebox2 t1" type="text" name="s_time"/> - <input class="timebox2 t2" type="text" name="s_time"/>
+									<input class="timebox" type="checkbox" name="s_week"/><span class="timebox2">월요일</span>
+									<input class="timebox2 t1" type="text" name="s_time1"/> - <input class="timebox2 t2" type="text" name="s_time2"/>
 								</li> 
 								<li class="hidmenu">
-									<input class="timebox" type="checkbox" name="s_time"/><span class="timebox2">화요일</span>
-									<input class="timebox2 t1" type="text" name="s_time"/> - <input class="timebox2 t2" type="text" name="s_time"/>
+									<input class="timebox" type="checkbox" name="s_week"/><span class="timebox2">화요일</span>
+									<input class="timebox2 t1" type="text" name="s_time1"/> - <input class="timebox2 t2" type="text" name="s_time2"/>
 								</li> 
 								<li class="hidmenu">
-									<input class="timebox" type="checkbox" name="s_time"/><span class="timebox2">수요일</span>
-									<input class="timebox2 t1" type="text" name="s_time"/> - <input class="timebox2 t2" type="text" name="s_time"/>
+									<input class="timebox" type="checkbox" name="s_week"/><span class="timebox2">수요일</span>
+									<input class="timebox2 t1" type="text" name="s_time1"/> - <input class="timebox2 t2" type="text" name="s_time2"/>
 								</li> 
 								<li class="hidmenu">
-									<input class="timebox" type="checkbox" name="s_time"/><span class="timebox2">목요일</span>
-									<input class="timebox2 t1" type="text" name="s_time"/> - <input class="timebox2 t2" type="text" name="s_time"/>
+									<input class="timebox" type="checkbox" name="s_week"/><span class="timebox2">목요일</span>
+									<input class="timebox2 t1" type="text" name="s_time1"/> - <input class="timebox2 t2" type="text" name="s_time2"/>
 								</li> 
 								<li class="hidmenu">
-									<input class="timebox" type="checkbox" name="s_time"/><span class="timebox2">금요일</span>
-									<input class="timebox2 t1" type="text" name="s_time"/> - <input class="timebox2 t2" type="text" name="s_time"/>
+									<input class="timebox" type="checkbox" name="s_week"/><span class="timebox2">금요일</span>
+									<input class="timebox2 t1" type="text" name="s_time1"/> - <input class="timebox2 t2" type="text" name="s_time2"/>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="s_time"/><span class="timebox2"><b>토요일</b></span>
-									<input class="timebox2" type="text" name="s_time"/> - <input class="timebox2" type="text" name="s_time"/>
+									<input class="timebox" type="checkbox" name="s_week"/><span class="timebox2"><b>토요일</b></span>
+									<input class="timebox2" type="text" name="s_time1"/> - <input class="timebox2" type="text" name="s_time2"/>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="s_time"/><span class="timebox2"><b>일요일</b></span>
-									<input class="timebox2" type="text" name="s_time"/> - <input class="timebox2" type="text" name="s_time"/>
+									<input class="timebox" type="checkbox" name="s_week"/><span class="timebox2"><b>일요일</b></span>
+									<input class="timebox2" type="text" name="s_time1"/> - <input class="timebox2" type="text" name="s_time2"/>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="s_time"/><span class="timebox2"><b>공휴일</b>	</span>
-									<input class="timebox2" type="text" name="s_time"/> - <input class="timebox2" type="text" name="s_time"/>
+									<input class="timebox" type="checkbox" name="s_week"/><span class="timebox2"><b>공휴일</b>	</span>
+									<input class="timebox2" type="text" name="s_time1"/> - <input class="timebox2" type="text" name="s_time2"/>
 								</li> 
 								<li>
 									<br>
@@ -300,32 +307,34 @@
 					<ul>
 						<li>
 							<span class="timebox2">메뉴명</span>
-							<span class="timebox2">설명</span>
+							<span class="menubox">설명</span>
 							<span class="timebox2">가격</span>
-							<span class="timebox2">예약가능여부</span>
+							<span class="timebox" title="체크하시면 예약기능이 활성화됩니다.">예약</span>
 						</li> 
 					</ul>
 					<ul>
 						<li>
 							<span class="timebox2"><input class="timebox2 t1" type="text" name="s_time"/></span>
-							<input id="t1" class="timebox2 ronly" type="text" name="s_time"/><input id="t2" class="timebox2 ronly" type="text" name="s_time"/>
-							<input class="timebox2" type="checkbox" name="s_time"/>
-							<span id="show_time" class="btn timebox2" style="height:24px; width:48px;line-height: 10px">
+							<input id="t1" class="menubox" type="text" name="s_time"/>
+							<input id="t2" class="timebox2" type="text" name="s_time"/>
+							<input class="settime" class="timebox" type="button" style=" width:48px;" value="설정"/>
+							<span id="show_menu" class="btn btn2 timebox2" style="height:24px; width:48px;line-height: 10px">
 								+
 							</span>
 						</li> 
-						<li class="hidmenu">
-							<span class="timebox2">월요일</span>
-							<input class="timebox2 t1" type="text" name="s_time"/> <input class="timebox2 t2" type="text" name="s_time"/>
-							<input class="timebox" type="checkbox" name="s_time"/>
+						<li>
+							<span class="timebox2"><input class="timebox2 t1" type="text" name="s_time"/></span>
+							<input class="menubox t1" type="text" name="s_time"/>
+							<input class="timebox2 t2" type="text" name="s_time"/>
+							<input class="settime" class="timebox" type="button" style=" width:48px;" value="설정"/>
 						</li> 
 					</ul>
 					</div>
 				</div>
-				<div class="inputbox">
+				<div class="inputbox lastbox">
 					<div class="inputtitle">계좌등록</div>
 					<div class="inputs">
-						<select>
+						<select name="s_bank">
 							<option>--은행선택--</option>
 							<option>신한</option>
 							<option>기업</option>
@@ -333,18 +342,21 @@
 							<option>우리</option>
 							<option>농협</option>
 						</select>
-						<input name="s_indivo_small"/>
+						<input name="s_account"/>
 					</div>
-					<br>
-					<br>
-					<br>
-					<br>
-
+					
+				</div>
+				<br>
 					<div id="bot" class="flright" >
 						<input class="btn redbtn" value="취소" onclick="location.href='index.jsp'" type="button"/>
 						<input class="btn greenbtn" value="입점신청" type="submit"/>
 					</div>
-				</div>
+					<br>
+					<br>
+					<br><br>
+					<br>
+					<br>
+				
 			</div>
 		</div>
 	</form>
