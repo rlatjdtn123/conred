@@ -32,7 +32,7 @@
 	.inputtitle{float:left;height:auto;line-height: 200%;padding-right:20px;width:170px;}
 	input{margin-top:2px;}
 	textarea{margin-top:2px;}
-	select {margin-top:10px;}
+	select {margin-top:3px;height:26px;}
 	.inputs{width:530px;float: left;height:auto;}
 	
 	textarea[name=s_time_etc]{width:310px;}
@@ -59,6 +59,7 @@
 	.timebox2{display: inline-block; width:80px;text-align: center;}
 	ul{list-style: none;padding:0px;}
 	.hidmenu{display: none;}
+	
 </style>
 <script type="text/javascript">
 
@@ -88,7 +89,6 @@
 		$("#show_time").click(function(){
 			$(".hidmenu").toggle();
 			if($(".ronly").attr("readonly")=="readonly"){
-				alert("d");
 				$(".ronly").removeAttr("readonly");
 				$(".ronly").css("background-color","white");
 			}else{
@@ -145,7 +145,7 @@
 			<div id="regist" class="testmod">
 				매장 정보 입력
 			</div> 
-			<div class="table table-hover" >
+			<div>
 				<div class="inputbox">
 					<div class="inputtitle">매장명</div>
 					<div class="inputs"><input type="text" name="s_title"/></div>
@@ -242,8 +242,8 @@
 								<li>
 									<span class="timebox">휴점일</span>
 									<span class="timebox2">요일</span>
-									<span class="timebox2">오픈시간</span> -
-									<span class="timebox2">마감시간</span>
+									<span class="timebox2">오픈시간</span>
+									<span class="timebox2">&nbsp;&nbsp;마감시간</span>
 								</li> 
 							</ul>
 							<ul>
@@ -287,6 +287,7 @@
 									<input class="timebox2" type="text" name="s_time"/> - <input class="timebox2" type="text" name="s_time"/>
 								</li> 
 								<li>
+									<br>
 									<div class="inputs"><textarea class="" name="s_time_etc" placeholder="영업시간 관련된 공지사항이 추가로 있으실경우 이곳에 적어주세요."></textarea></div>
 								</li>
 							</ul>
@@ -295,16 +296,55 @@
 				
 				<div class="inputbox">
 					<div class="inputtitle">메뉴등록</div>
-					<div class="inputs"><input name="s_indivo_small"/></div>
+					<div class="inputs">
+					<ul>
+						<li>
+							<span class="timebox2">메뉴명</span>
+							<span class="timebox2">설명</span>
+							<span class="timebox2">가격</span>
+							<span class="timebox2">예약가능여부</span>
+						</li> 
+					</ul>
+					<ul>
+						<li>
+							<span class="timebox2"><input class="timebox2 t1" type="text" name="s_time"/></span>
+							<input id="t1" class="timebox2 ronly" type="text" name="s_time"/><input id="t2" class="timebox2 ronly" type="text" name="s_time"/>
+							<input class="timebox2" type="checkbox" name="s_time"/>
+							<span id="show_time" class="btn timebox2" style="height:24px; width:48px;line-height: 10px">
+								+
+							</span>
+						</li> 
+						<li class="hidmenu">
+							<span class="timebox2">월요일</span>
+							<input class="timebox2 t1" type="text" name="s_time"/> <input class="timebox2 t2" type="text" name="s_time"/>
+							<input class="timebox" type="checkbox" name="s_time"/>
+						</li> 
+					</ul>
+					</div>
 				</div>
 				<div class="inputbox">
 					<div class="inputtitle">계좌등록</div>
-					<div class="inputs"><input name="s_indivo_small"/></div>
+					<div class="inputs">
+						<select>
+							<option>--은행선택--</option>
+							<option>신한</option>
+							<option>기업</option>
+							<option>하나</option>
+							<option>우리</option>
+							<option>농협</option>
+						</select>
+						<input name="s_indivo_small"/>
+					</div>
+					<br>
+					<br>
+					<br>
+					<br>
+
+					<div id="bot" class="flright" >
+						<input class="btn redbtn" value="취소" onclick="location.href='index.jsp'" type="button"/>
+						<input class="btn greenbtn" value="입점신청" type="submit"/>
+					</div>
 				</div>
-			</div>
-			<div id="bot">
-				<input class="btn redbtn" value="취소" onclick="location.href='index.jsp'" type="button"/>
-				<input class="btn greenbtn" value="입점신청" type="submit"/>
 			</div>
 		</div>
 	</form>
