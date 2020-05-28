@@ -7,6 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script src="js/jquery-3.4.1.js"></script>
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
@@ -15,7 +16,6 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<script src="js/jquery-3.4.1.js"></script>
 <style type="text/css">
 	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 /* 	#sticky{position: sticky; top:71px;} */
@@ -34,10 +34,17 @@
 	.contents{display:inline-block; width: 750px;height:40px;text-overflow: ellipsis; overflow: hidden;}     
 	.info2{background-color: #F2F2F2; margin-top: 50px; height: 100px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 770px;}
 	.bot{margin: 0 auto; text-align: center;}
+	
+	#modal_Btn{margin-left: 440px; height: 50px; width: 100px;background-color: #F2F2F2; border: 0;}
+	.modal-title{margin-left: 400px;}
+	.modal-body span{margin: 85px;}
+	textarea:focus::-webkit-input-placeholder { color: transparent; } 
+	.modal-footer  div{border: 1px solid black;width: 153px; height: 110px; float: left; margin: 10px;}
+	
 </style>
-<script type="text/javascript">	  
+<script type="text/javascript">	   
 	//Javascript
-	var count = 0;
+	var count = 0; 
 	//스크롤 바닥 감지
 	window.onscroll = function(e) {
 	    //추가되는 임시 콘텐츠
@@ -65,13 +72,35 @@
 			}
 	    }
 	};
+	
+	$(document).ready(function(){
+	    $("#modal_Btn").click(function(){
+	        $("div.modal").modal(); 
+	    });
+	});
  
 </script> 
 </head>
 <body>
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+
+	<div class="modal-dialog modal-lg">
+  		<!-- Modal content-->
+   		<div class="modal-content">
+     		<div class="modal-header">
+       			<button type="button" class="close" data-dismiss="modal">문의 작성 완료</button>
+       			<h4 class="modal-title">가게이름</h4>
+     		</div>
+     		<div class="modal-footer"> 
+       			<textarea rows="20" cols="120" style="resize: none;" placeholder="문의 작성 해주세요."></textarea>
+     		</div>
+   		</div>
+	</div>
+</div>
 <div id="container"> 
 	<div id="main">
-		<span id="main2"><b>문의</b> &nbsp; &nbsp; &nbsp; &nbsp;전체2343개|답변2033개</span><br/><br/> 
+		<span id="main2"><b>문의</b> &nbsp; &nbsp; &nbsp; &nbsp;전체2343개|답변2033개</span><button id="modal_Btn">문의 작성</button><br/><br/> 
 	</div>  
     <div class="mybox">         
 		<img src="./img/profile_default.png" class="pf"/>
@@ -101,7 +130,6 @@
 		</div>
 	</div>      
 	<br><br>
-	<textarea rows="" cols=""></textarea>
 </div> 
 </body>
 </html>

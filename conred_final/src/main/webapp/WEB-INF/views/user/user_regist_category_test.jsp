@@ -139,7 +139,7 @@
 			</div>
 		</div>
 		<div id="bt"> 
-			<input type="submit" value="선택완료"/>  
+			<input type="submit" />  
 		</div>
 	</form>
 </div>
