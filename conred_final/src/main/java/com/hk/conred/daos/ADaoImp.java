@@ -34,16 +34,27 @@ public class ADaoImp implements IADao {
 		return sqlSession.selectList(nameSpace+"admin_site_userlist",keyword);
 	}
 	
+	public List<UDto> admin_blackuser_search(String blackuser) {
+		
+		return sqlSession.selectList(nameSpace+"admin_blackuser_search",blackuser);
+	}
+	
+	
 	public List<ODto> admin_site_ownerlist(){
 		
 		
 		return sqlSession.selectList(nameSpace+"admin_site_ownerlist");
 	}
 	
-	public List<SDto> admin_site_storelist(){
+	public List<SDto> admin_site_storelist(String keywordstore){
 		
 		
-		return sqlSession.selectList(nameSpace+"admin_site_storelist");
+		return sqlSession.selectList(nameSpace+"admin_site_storelist",keywordstore);
+	}
+	
+	public List<SDto> admin_store_state_search(String adminstate) {
+		
+		return sqlSession.selectList(nameSpace+"admin_store_state_search",adminstate);
 	}
 
 	

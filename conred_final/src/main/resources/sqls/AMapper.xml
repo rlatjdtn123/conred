@@ -17,6 +17,15 @@
      	]]>
      </select>
      
+      <select id="admin_blackuser_search" resultType="UDto" parameterType="String">
+     	<![CDATA[ 
+     	SELECT *
+     	FROM CON_USER
+     	WHERE USER_BLACK = 'Y' AND (USER_ID LIKE '%'||#{keyword}||'%' OR USER_NAME LIKE '%'||#{keyword}||'%')
+     	]]>
+     </select>
+     
+     
      <select id="admin_site_ownerlist" resultType="ODto">
      	<![CDATA[
      	SELECT * 
@@ -25,9 +34,28 @@
      </select>
      
      <select id="admin_site_storelist" resultType="SDto">
-     	<![CDATA[
+     	<![CDATA[ 
+     	SELECT STORE_SEQ, OWNER_ID, STORE_NAME, STORE_OWNER_NAME, STORE_PATH, STORE_OWNER_NAME, STORE_PATH, STORE_SIMPLE_INTRO, 
+     	STORE_INTRO, STORE_STATE, STORE_PHONE, STORE_OWNER_PHONE, STORE_ADDRESS, STORE_DETAIL_ADDRESS, STORE_TIME_OTHER, 
+     	STORE_BANK, , , ,      
+		FROM CON_USER   
+		WHERE STORE_SEQ LIKE '%'||#{keyword}||'%' OR OWNER_ID LIKE '%'||#{keyword}||'%' 
+		OR STORE_NAME LIKE '%'||#{keyword}||'%' OR STORE_OWNER_NAME LIKE '%'||#{keyword}||'%' 
+		OR STORE_PATH LIKE '%'||#{keyword}||'%' OR STORE_SIMPLE_INTRO LIKE '%'||#{keyword}||'%' 
+		OR STORE_INTRO LIKE '%'||#{keyword}||'%' OR STORE_STATE LIKE '%'||#{keyword}||'%' 
+		OR STORE_PHONE LIKE '%'||#{keyword}||'%' OR STORE_OWNER_PHONE LIKE '%'||#{keyword}||'%' 
+		OR STORE_ADDRESS LIKE '%'||#{keyword}||'% OR STORE_DETAIL_ADDRESS LIKE '%'||#{keyword}||'%'
+		OR STORE_TIME_OTHER LIKE '%'||#{keyword}||'%'OR STORE_BANK LIKE '%'||#{keyword}||'%'
+		OR STORE_ACCOUNT LIKE '%'||#{keyword}||'%'OR STORE_LICENSE_OWNER LIKE '%'||#{keyword}||'%'
+		OR STORE_LICENSE_SALES LIKE '%'||#{keyword}||'%'OR STORE_ADMIN_STATE LIKE '%'||#{keyword}||'%'
+     	]]>
+     </select>
+     
+      <select id="admin_blackuser_search" resultType="UDto" parameterType="String">
+     	<![CDATA[ 
      	SELECT *
-     	FROM CON_STORE
+     	FROM CON_USER
+     	WHERE USER_BLACK = 'Y' AND (USER_ID LIKE '%'||#{keyword}||'%' OR USER_NAME LIKE '%'||#{keyword}||'%')
      	]]>
      </select>
      

@@ -13,7 +13,8 @@
 </head>
 <body>
 <div id="container">
-<a href="admin_site_userlist.do">전체 유저 목록 조회 페이지로 이동</a><br>
+<a href="admin_site_userlist.do">유저 조회</a><br>
+<a href="admin_site_storelist.do">매장 조회</a><br>
 </div>
 </body>
 </html>

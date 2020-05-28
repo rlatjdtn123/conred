@@ -21,16 +21,29 @@ public class AServiceImp implements IAService{
 		// TODO Auto-generated method stub
 		return ADaoImp.admin_site_userlist(keyword);
 	}
-
+	@Override
+	public List<UDto> admin_blackuser_search(String blackuser) {
+		// TODO Auto-generated method stub
+		return ADaoImp.admin_blackuser_search(blackuser);
+	}
+	
+	
 	@Override
 	public List<ODto> admin_site_ownerlist() {
 		// TODO Auto-generated method stub
 		return ADaoImp.admin_site_ownerlist();
 	}
 	@Override
-	public List<SDto> admin_site_storelist() {
+	public List<SDto> admin_site_storelist(String keywordstore) {
 		// TODO Auto-generated method stub
-		return ADaoImp.admin_site_storelist();
+		return ADaoImp.admin_site_storelist(keywordstore);
 	}
+	
+	@Override
+	public List<SDto> admin_store_state_search(String adminstate) {
+		// TODO Auto-generated method stub
+		return ADaoImp.admin_store_state_search(adminstate);
+	}
+	
 	
 }

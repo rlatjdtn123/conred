@@ -4,36 +4,98 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=utf-8"); %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+// 	function allSel(bool) {
+// 		var chks = document.getElementsByName("chk");//[checkbox,checkbox..]
+// 		for (var i = 0; i < chks.length; i++) {
+// 			chks[i].checked = bool;
+// 		}
+
+// 		//		$("input[name=chk]").prop("checked",bool);
+// 	}
+
+// 	$(
+// 			function() {
+// 				//form태그에서 submit이벤트가 발생하면 함수실행
+// 				$("form").submit(function() {
+// 					var bool = true;
+// 					var count = $(this).find("input[name=chk]:checked").length;
+// 					if (count == 0) {
+// 						alert("최소하나이상 체크해야 됩니다.!!");
+// 						bool = false;
+// 					}
+// 					return bool;
+// 				});
+
+// 				//체크박스 처리: 체크가 하나라도 안되면 전체선택체크박스 해제, 모두 선택되면 체크
+// 				var chks = document.getElementsByName("chk");
+// 				for (var i = 0; i < chks.length; i++) {
+// 					chks[i].onclick = function() {
+// 						var checkedObjs = document
+// 								.querySelectorAll("input[name=chk]:checked");
+// 						if (checkedObjs.length == chks.length) {
+// 							document.getElementsByName("all")[0].checked = true;
+// 						} else {
+// 							document.getElementsByName("all")[0].checked = false;
+// 						}
+// 					}
+// 				}
+// 			})
+</script>
 <style type="text/css">
-	#container{border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:900px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1900px;height:900px;margin: 0 auto; text-align: center;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#searchbar1{width:80%;}
+	#sel{height: 34px; }
+	#searchbtn1{padding:3px;width:40px;height:35px; }
+	#magnifyglass1{width:20px;}
+	
+	th{text-align: center;}
+	
+/* 	#search{padding-top:18px;width:25%;position:absolute;left:20px;} */
+/* 	#searchbar{width:80%;} */
+/* 	#searchbtn{padding:3px;width:40px;height:35px;} */
+/* 	#magnifyglass{width:20px;} */
+	
 </style>
+<!-- <script type="text/javascript"> -->
+<!--  $('#sel').on('change', function() { -->
+<!--      location.href= this.value; -->
+<!--  }); -->
+<!--  $('#sel').val(location.href); -->
+<!-- </script> -->
 </head> 
 <%
 List<UDto>list=(List<UDto>)request.getAttribute("list"); 
 %>
 <body>
+
 <div id="container">
+<br>
 <form action="admin_user_search.do" method="post">
-		<table border="0" cellpadding="0" cellspacing="0" width="1206" align="center">
+		<table id="serchtable" border="0" cellpadding="0" cellspacing="0" width="970" align="center">
 			<tr>
-<!-- 			검색창은 임시로 했어... -->
+
 				<td align="left">
-					<select	name="userSearch">
-						<option value="keyWord">키워드 검색</option> 
-						<option value
-">테스트</option> 
+					<select	name="userSearch" id="sel">
+						<option value="keyWord" ${userSearch eq "keyWord"?"selected":""}>키워드 검색</option>
+						<option value="blackUser" ${userSearch eq "blackUser"?"selected":""}>블랙유저 검색</option> 
 					</select>
-					<input name="searchWord" type="text" style="width:300px">
-					<input type="image" src="img/dogicon1.png" ></td>
+					<input name="searchWord" type="text" id="searchbar1" class="form-control pull-left" placeholder="안녕하세요 관리자님! 유저 관련 키워드로 검색 하시면 되십니다.">
+					<button type="submit" id="searchbtn1" class="btn"><img id="magnifyglass1" src="./img/magnifyglass.png"></button>
+			</td>
 			</tr>
 			</table>
 		</form>
-<table border="0" align="center">
+		<br>
+<form>
+<table id="table2" class="table table-striped">
 	<tr>
 		<th>아이디</th>
 		<th>비밀번호</th>
@@ -47,6 +109,7 @@ List<UDto>list=(List<UDto>)request.getAttribute("list");
 		<th>블랙여부</th>
 		<th>유저등급</th>
 		<th>포인트</th>
+		<th><input type="checkbox" name="all" onclick="allSel(this.checked)"/></th>
 	</tr>
 <%
 		if(list==null||list.size()==0){
@@ -68,12 +131,14 @@ List<UDto>list=(List<UDto>)request.getAttribute("list");
 					<td><%=dto.getUser_black()%></td>
 					<td><%=dto.getUser_role()%></td>
 					<td><%=dto.getUser_point()%></td>
+					<td><input type="checkbox" name="chk" value="${dto.getUser_id}"/></td>
 				</tr>
 				<%
 			}
 		}
 	%>	
 </table>
+</form>
 </div>
 </body>
 </html>
