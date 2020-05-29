@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.hk.conred.dtos.ODto;
+import com.hk.conred.dtos.SDto;
 import com.hk.conred.dtos.UDto;
 import com.hk.conred.service.IOService;
 import com.hk.conred.service.OServiceImp;
@@ -145,8 +146,10 @@ public class Yoonho {
 	}
 
 	@RequestMapping(value = "owner_regist_store.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String owner_regist_store(Locale locale, Model model) {
+	public String owner_regist_store(Locale locale, Model model,SDto sdto) {
 		logger.info("점주: 매장등록(매장정보 입력)으로 이동  {}.", locale);
+		
+		
 		
 		return "owner/owner_regist_store"; 
 	}
