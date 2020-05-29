@@ -51,7 +51,6 @@
      	]]>
      </select>
 
-
 <!--       <select id="admin_blackuser_search" resultType="UDto" parameterType="String"> -->
 <!--      	<![CDATA[  -->
 <!--      	SELECT * -->
@@ -60,5 +59,5 @@
 <!--      	]]> -->
 <!--      </select> -->
      
-    
+
 </mapper>
