@@ -29,11 +29,6 @@ public class AServiceImp implements IAService{
 	
 	
 	@Override
-	public List<ODto> admin_site_ownerlist() {
-		// TODO Auto-generated method stub
-		return ADaoImp.admin_site_ownerlist();
-	}
-	@Override
 	public List<SDto> admin_site_storelist(String keywordstore) {
 		// TODO Auto-generated method stub
 		return ADaoImp.admin_site_storelist(keywordstore);
@@ -45,5 +40,10 @@ public class AServiceImp implements IAService{
 		return ADaoImp.admin_store_state_search(adminstate);
 	}
 	
+//	@Override
+//	public List<ODto> admin_site_ownerlist() {
+//		// TODO Auto-generated method stub
+//		return ADaoImp.admin_site_ownerlist();
+//	}
 	
 }

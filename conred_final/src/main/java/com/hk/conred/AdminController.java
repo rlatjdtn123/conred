@@ -71,9 +71,9 @@ public class AdminController {
 	
 	@RequestMapping(value = "admin_store_search.do", method = RequestMethod.POST)
 	public String admin_store_search(Locale locale, Model model, SDto sdto, String searchWordStore, String storeSearch) {
-		logger.info("관리자 - 유저 목록 전체 및 키워드 조회 기능 {}.", locale); 
+		logger.info("관리자 - 매장 목록 전체 및 키워드 조회 기능 {}.", locale); 
 		
-		if(storeSearch.equals("keyWordStore")) {
+		if(storeSearch.equals("keywordStore")) {
 			List<SDto> list = aService.admin_site_storelist(searchWordStore);
 			model.addAttribute("list",list);
 			

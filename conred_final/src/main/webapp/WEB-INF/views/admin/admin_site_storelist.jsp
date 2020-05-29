@@ -70,8 +70,8 @@ List<SDto>list=(List<SDto>)request.getAttribute("list");
 			<tr>
 				<td align="left">
 					<select	name="storeSearch" id="sel">
-						<option value="keyWordStore" ${storeSearch eq "keyWordStore"?"selected":""}>키워드 검색</option>
-						<option value="adminState" ${userSearch eq "adminState"?"selected":""}>관리자 승인 여부</option> 
+						<option value="keywordStore" ${storeSearch eq "keywordStore"?"selected":""}>키워드 검색</option>
+						<option value="adminState" ${storeSearch eq "adminState"?"selected":""}>관리자 승인 여부</option> 
 					</select>
 					<input name="searchWordStore" type="text" id="searchbar1" class="form-control pull-left" placeholder="안녕하세요 관리자님! 매점 관련 키워드로 검색 하세요">
 					<button type="submit" id="searchbtn" class="btn"><img id="magnifyglass1" src="./img/magnifyglass.png"></button>
@@ -105,7 +105,7 @@ List<SDto>list=(List<SDto>)request.getAttribute("list");
 	</tr>
 <%
 		if(list==null||list.size()==0){
-			out.print("<tr><td colspan='8'>"
+			out.print("<tr><td colspan='19'>"
 			         +"---등록된 매장이 존재하지 않습니다.---</td></tr>");
 		}else{
 			for(SDto dto:list){
