@@ -275,9 +275,7 @@ public class Sungsu {
 		logger.info("사용자_메뉴 선택폼{}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
-//		dto.setUser_id(uldto.getUser_id());
 		boolean isS=reserveService.insertReserve(uldto.getUser_id());
-		
 		
 		if(isS) {
 			
@@ -334,6 +332,13 @@ public class Sungsu {
 	public String test_modal(Locale locale, Model model) {
 		logger.info("모달 테스트{}.", locale);
 		return "test/test_modal";
+	} 
+	
+	
+	@RequestMapping(value = "test_file.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String test_file(Locale locale, Model model) {
+		logger.info("다중업로드 테스트{}.", locale);
+		return "test/test_file";
 	} 
 	
 }

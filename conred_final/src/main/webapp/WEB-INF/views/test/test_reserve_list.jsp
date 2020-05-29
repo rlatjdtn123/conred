@@ -45,14 +45,16 @@
 </table>
 <%!
 	public String isY(String m){
-		if(m.equals("Y")){
-			return "진행중";
-		}else if(m.equals("N")){
-			return "결제완료";
-		}else if(m.equals("C")){
-			return "예약취소";
+		if(m.equals("R")){				//Reservation
+			return "진행중";				//예약은했지만 결제는 안한 상태
+		}else if(m.equals("P")){		//Payed
+			return "결제완료";				//결제가 완료된 상태
+		}else if(m.equals("C")){		//Canceled
+			return "예약취소";				//예약을 취소했거나, 결제를 하지않아 취소된 상태
+		}else if(m.equals("O")){		//Over
+			return "리뷰 남기거나 리뷰 기간만료";	//예약후 결제까지 한 사람이 리뷰을 남기거나 리뷰기간(2주)이 만료된 상태
 		}else{
-			return "뭐지?";
+			return "";
 		}
 	}
 %>

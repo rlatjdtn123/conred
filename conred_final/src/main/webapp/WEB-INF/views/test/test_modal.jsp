@@ -5,8 +5,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<title>Insert title here</title> 
+<script src="js/jquery-3.4.1.js"></script>
+<!-- <script  src="http://code.jquery.com/jquery-latest.min.js"></script> -->
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
@@ -15,6 +16,8 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+
 <script type="text/javascript">   
 	$(document).ready(function(){
 	    $("#modal_Btn").click(function(){
@@ -24,64 +27,70 @@
 	
 	
 	
-	
-	
-	
-	$(document).ready(function(){
-		   var fileTarget = $('.filebox .upload-hidden'); // -> 사진이 들어갈 경로  input태그(아이디input_file) -> 라벨로 연결함  /// 그밑에 input태그(클래스 upload-name)으로 같이나옴
+	// 이미지 정보들을 담을 배열
+    var sel_files = [];
 
-		    fileTarget.on('change', function(){
-		        if(window.FileReader){
-		            // 파일명 추출
-		            var filename = $(this)[0].files[0].name;
-		        } 
- 
-		        else {
-		            // Old IE 파일명 추출
-		            var filename = $(this).val().split('/').pop().split('\\').pop();
-		        };
 
-		        $(this).siblings('.upload-name').val(filename);
-		    });
+    $(document).ready(function() {
+        $("#input_imgs").on("change", handleImgFileSelect);
+    }); 
 
-		    //preview image 
-		    var imgTargets = new Array(5);
-		    for (var i = 0; i < imgTargets.length; i++) {
-			    var imgTargets[i] = $('.preview-image .upload-hidden');
-			}
-			
-		    imgTargets.on('change', function(){
-		        var parent = $(this).parent();
-		        parent.children('.upload-display').remove();
+    function fileUploadAction() {
+        console.log("fileUploadAction");
+        $("#input_imgs").trigger('click');
+    }
 
-		        if(window.FileReader){
-		            //image 파일만
-		            if (!$(this)[0].files[0].type.match(/image\//)) return;
-		            
-		            var reader = new FileReader();
-		            reader.onload = function(e){
-		                var src = e.target.result;
-		                parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');							
-		            }
-		            reader.readAsDataURL($(this)[0].files[0]);
-		        }
+    function handleImgFileSelect(e) {
 
-		        else {
-		            $(this)[0].select(); 
-		            $(this)[0].blur();
-		            var imgSrc = document.selection.createRange().text;
-		            parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img class="upload-thumb"></div></div>');
+        // 이미지 정보들을 초기화
+        sel_files = [];
+        $(".imgs_wrap").empty();
 
-		            var img = $(this).siblings('.upload-display').find('img');
-		            img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")";        
-		        }
-		    }); 
-		});
+        var files = e.target.files;
+        var filesArr = Array.prototype.slice.call(files);
+
+        var index = 0;
+        filesArr.forEach(function(f) {
+            if(!f.type.match("image.*")) {
+                alert("확장자는 이미지 확장자만 가능합니다.");
+                return;
+            }
+  
+            sel_files.push(f);
+
+            var reader = new FileReader();
+            var imges;
+            reader.onload = function(e) {
+                var html = "<a href=\"javascript:void(0);\" onclick=\"deleteImageAction("+index+")\" id=\"img_id_"+index+"\"><img src=\"" + e.target.result + "\" data-file='"+f.name+"' class='selProductFile' title='Click to remove'></a>";
+                imges=$(".imgs_wrap");
+	                imges.append(html);
+	                index++;
+					alert(imges.children().length);
+            }
+            alert(imges.children().length);
+            reader.readAsDataURL(f);
+            
+        });
+    }
+
+
+
+    function deleteImageAction(index) {
+        console.log("index : "+index);
+        console.log("sel length : "+sel_files.length);
+
+        sel_files.splice(index, 1);
+
+        var img_id = "#img_id_"+index;
+        $(img_id).remove(); 
+    }
+
+    function fileUploadAction() {
+        console.log("fileUploadAction");
+        $("#input_imgs").trigger('click');
+    }
 	
-	
-	
-	
-	
+
 	 
 	
 </script>  
@@ -91,103 +100,35 @@
 	textarea:focus::-webkit-input-placeholder { color: transparent; }
 	.modal-footer  div{border: 1px solid black;width: 153px; height: 110px; float: left;}
 	
+	input[type=file] {
+            display: none;
+     }
+
+     .my_button {
+         display: inline-block;
+         width: 200px;
+         text-align: center;
+         padding: 10px;
+         background-color: #006BCC;
+         color: #fff;
+         text-decoration: none;
+         border-radius: 5px;
+     }
+
+
+
+     .imgs_wrap {
+
+         width: 700px;
+ 
+     }
+     .imgs_wrap img {   
+         max-width: 150px;
+         margin-left: 10px;
+         margin-right: 10px;
+     }
 	
-	
-	
-	
-	
-	
-	.where {
-	  display: block;
-	  margin: 25px 15px;
-	  font-size: 11px;
-	  color: #000;  
-	  text-decoration: none;
-	  font-family: verdana;
-	  font-style: italic;
-	} 
-	
-	.filebox input[type="file"] {
-	    position: absolute;
-	    width: 1px;
-	    height: 1px;
-	    padding: 0;
-	    margin: -1px;
-	    overflow: hidden;
-	    clip:rect(0,0,0,0);
-	    border: 0;
-	}
-	
-	.filebox label {
-	    display: inline-block;
-	    padding: .5em .75em;
-	    color: #999;
-	    font-size: inherit;
-	    line-height: normal;
-	    vertical-align: middle;
-	    background-color: #fdfdfd;
-	    cursor: pointer;
-	    border: 1px solid #ebebeb;
-	    border-bottom-color: #e2e2e2;
-	    border-radius: .25em;
-	}
-	
-	/* named upload */
-	.filebox .upload-name {
-	    display: inline-block;
-/* 	    padding: .5em .75em; */
-	    font-size: inherit; 
-	    font-family: inherit;
-	    line-height: normal;
-	    vertical-align: middle; 
-	    background-color: #f5f5f5;  
-	  border: 1px solid #ebebeb;
-	  border-bottom-color: #e2e2e2;
-/* 	  border-radius: .25em; */
-	  -webkit-appearance: none; /* 네이티브 외형 감추기 */
-	  -moz-appearance: none;
-	  appearance: none;
-	  width: 98px;
-	}
-	
-	/* imaged preview */
-	.filebox .upload-display {
-	}
-	
-	@media(min-width: 768px) {
-	    .filebox .upload-display {
-	        display: inline-block;
-	    }
-	}
-	
-	.filebox .upload-thumb-wrap {
-	    display: inline-block;
-	    width: 150px;
-	    height:110px; 
-	    vertical-align: middle;
-	    border: 1px solid #ddd;
-/* 	    border-radius: 5px; */
-	    background-color: #fff; 
-	    float: left;
-	}
-	
-	.filebox .upload-display img {
-	    display: block;
-	    max-width: 100%;
-	    width: 100% \9;
-	    height: 100px;    
-	}
-	
-	.filebox.bs3-primary label {
-	  color: #fff;
-	  background-color: #337ab7;
-	    border-color: #2e6da4;
-	}
-		
-	
-	
-	
-	
+	.input_wrap {clear: both;}
 	
 	  
 </style> 
@@ -203,52 +144,27 @@
        			<button type="button" class="close" data-dismiss="modal">리뷰 작성 완료</button>
        			<h4 class="modal-title">가게이름</h4>
      		</div>
-     		<div class="modal-body">
-     			
+     		<div class="modal-body"> 
        			<span>서비스 ☆☆☆☆☆</span>|<span>가격 ☆☆☆☆☆</span>|<span>청결도 ☆☆☆☆☆</span>
-     		</div> 
-     		<div class="modal-footer">   
-     			<div class="filebox bs3-primary preview-image" style="margin-bottom: 30px;"> 
-     				<input type="file" id="input_file" class="upload-hidden"> 
-     				<input class="upload-name"  disabled="disabled" style="background-color: white;border: 0;" >
-     			</div>
-     			
-     			
-<!--      			<div class="filebox bs3-primary preview-image"> -->
-<!--      				<input type="file" id="input_file" class="upload-hidden">  -->
-<!--      				<input class="upload-name"  disabled="disabled" style="background-color: white;border: 0;" > -->
-<!--      			</div> -->
-<!--      			<div class="filebox bs3-primary preview-image"> -->
-<!--      				<input type="file" id="input_file" class="upload-hidden">  -->
-<!--      				<input class="upload-name"  disabled="disabled" style="background-color: white;border: 0;" > -->
-<!--      			</div> -->
-<!--      			<div class="filebox bs3-primary preview-image"> -->
-<!--      				<input type="file" id="input_file" class="upload-hidden">  -->
-<!--      				<input class="upload-name"  disabled="disabled" style="background-color: white;border: 0;" > -->
-<!--      			</div> -->
-<!--      			<div class="filebox bs3-primary preview-image"> -->
-<!--      				<input type="file" id="input_file" class="upload-hidden">  -->
-<!--      				<input class="upload-name"  disabled="disabled" style="background-color: white;border: 0;" > -->
-<!--      			</div> -->
-       			<textarea rows="20" cols="120" style="resize: none;" placeholder="리뷰 작성 해주세요."></textarea>
-       			<div class="filebox bs3-primary preview-image" style="width: 600px;height: 30px;border: 0;">
-				    <input class="upload-name" value="파일선택" disabled="disabled" >
-				    <label for="input_file" style="float: left;">업로드</label>  
-				  	<input type="file" id="input_file" class="upload-hidden"> 
+     		</div>  
+     		<div class="modal-footer"> 
+     			<div style="margin-bottom: 50px; width: 870px;  ">   
+				    <div class="imgs_wrap" style="width: 800px; border: 0;">   
+				        <img id="img" />  
+				    </div>   
+				    <div class="input_wrap" style="border: 0;"> 
+				        <a href="javascript:" onclick="fileUploadAction();" class="my_button">파일 업로드</a>
+				        <input type="file" id="input_imgs" multiple/>
+				    </div>   
 				</div>
+       			<textarea rows="20" cols="120" style="resize: none;" placeholder="리뷰 작성 해주세요."></textarea>
      		</div>
    		</div>  
 	</div> 
-</div>
+</div>  
 <div>
 	<button id="modal_Btn">모달 실행하기</button>
 </div>
 
-
-<div class="filebox bs3-primary preview-image">
-    <input class="upload-name" value="파일선택" disabled="disabled" style="width: 200px;">
-    <label for="input_file">업로드</label> 
-  	<input type="file" id="input_file" class="upload-hidden"> 
-</div>
 </body>
 </html>
