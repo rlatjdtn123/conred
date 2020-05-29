@@ -45,5 +45,10 @@ public class AServiceImp implements IAService{
 //		// TODO Auto-generated method stub
 //		return ADaoImp.admin_site_ownerlist();
 //	}
+	@Override
+	public boolean adminMulchk(String[] store_seqs) {
+		return ADaoImp.adminMulchk(store_seqs);
+	}
+	
 	
 }

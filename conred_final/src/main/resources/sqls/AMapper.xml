@@ -56,7 +56,16 @@
      	WHERE STORE_ADMIN_STATE = 'Y' AND (OWNER_ID LIKE '%'||#{keywordstore}||'%' OR STORE_NAME LIKE '%'||#{keywordstore}||'%'
      	OR STORE_OWNER_NAME LIKE '%'||#{keywordstore}||'%')
      	]]>
-     </select>
+  </select>
+     
+  <update id="adminMulchk" parameterType="map">
+		UPDATE CON_STORE SET STORE_ADMIN_STATE='Y'
+		WHERE STORE_SEQ IN 
+		<foreach collection="store_seqs" open="(" close=")"
+		          separator="," item="store_seq" >
+			#{store_seq}
+		</foreach>
+   </update>
      
 
 </mapper>

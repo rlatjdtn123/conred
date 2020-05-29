@@ -18,4 +18,6 @@ public interface IADao {
 	public List<SDto> admin_site_storelist(String keywordstore);
 	//5.전체 승인매장 조회 기능
 	public List<SDto> admin_store_state_search(String adminstate);
+	//6.점포 선택 및 다중선택 기능
+	public boolean adminMulchk(String[] store_seqs) ;
 }

@@ -18,7 +18,7 @@
 // 			chks[i].checked = bool;
 // 		}
 
-// 		//		$("input[name=chk]").prop("checked",bool);
+		//		$("input[name=chk]").prop("checked",bool);
 // 	}
 
 // 	$(
@@ -34,7 +34,7 @@
 // 					return bool;
 // 				});
 
-// 				//체크박스 처리: 체크가 하나라도 안되면 전체선택체크박스 해제, 모두 선택되면 체크
+				//체크박스 처리: 체크가 하나라도 안되면 전체선택체크박스 해제, 모두 선택되면 체크
 // 				var chks = document.getElementsByName("chk");
 // 				for (var i = 0; i < chks.length; i++) {
 // 					chks[i].onclick = function() {
@@ -47,7 +47,7 @@
 // 						}
 // 					}
 // 				}
-// 			})
+// 			});
 </script>
 <style type="text/css">
 	#container{border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1900px;height:900px;margin: 0 auto; text-align: center;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
@@ -71,7 +71,7 @@ List<SDto>list=(List<SDto>)request.getAttribute("list");
 				<td align="left">
 					<select	name="storeSearch" id="sel">
 						<option value="keywordStore" ${storeSearch eq "keywordStore"?"selected":""}>키워드 검색</option>
-						<option value="adminState" ${storeSearch eq "adminState"?"selected":""}>관리자 승인 여부</option> 
+						<option value="adminState" ${storeSearch eq "adminState"?"selected":""}>관리자 승인 점포</option> 
 					</select>
 					<input name="searchWordStore" type="text" id="searchbar1" class="form-control pull-left" placeholder="안녕하세요 관리자님! 매점 관련 키워드로 검색 하세요">
 					<button type="submit" id="searchbtn" class="btn"><img id="magnifyglass1" src="./img/magnifyglass.png"></button>
@@ -100,7 +100,6 @@ List<SDto>list=(List<SDto>)request.getAttribute("list");
 		<th>사업자등록증</th>
 		<th>영업신고증</th>
 		<th>관리자승인매장여부</th>
-		
 		<th><input type="checkbox" name="all" onclick="allSel(this.checked)"/></th>
 	</tr>
 <%
@@ -129,7 +128,7 @@ List<SDto>list=(List<SDto>)request.getAttribute("list");
 					<td><%=dto.getStore_license_owner()%></td>
 					<td><%=dto.getStore_license_sales()%></td>
 					<td><%=dto.getStore_admin_state()%></td>
-					<td><input type="checkbox" name="chk" value="${dto.getStore_seq}"/></td>
+					<td><input type="checkbox" name="adminMulchk" value="${dto.getStore_seq}"/></td>
 				</tr>
 				<%
 			}

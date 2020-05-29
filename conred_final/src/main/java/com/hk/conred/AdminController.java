@@ -63,7 +63,7 @@ public class AdminController {
 	}
 	@RequestMapping(value = "admin_site_storelist.do", method = RequestMethod.GET)
 	public String admin_site_storelist(Locale locale, Model model, UDto udto) {
-		logger.info("관리자 - 매장 조회로 이동 {}.", locale); 
+		logger.info("관리자 - 매장 조회로 페이지로 이동 {}.", locale); 
 		
 	
 		return "admin/admin_site_storelist";
@@ -87,6 +87,21 @@ public class AdminController {
 		return "admin/admin_site_storelist";
 	}
 	
+	@RequestMapping(value = "adminMulchk.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String adminMulchk(String[] store_seqs, Locale locale, Model model) {
+		 
+		logger.info("관리자 - 점포 선택기능 {}.", locale);
+		
+		boolean isS=aService.adminMulchk(store_seqs);
+		
+		if(isS) {
+			return "redirect:admin_site_storelist.do";			
+		}else {
+			model.addAttribute("msg", "글삭제실패");
+			return "error";
+		}
+		
+	}
 	
 	
 	
