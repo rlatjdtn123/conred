@@ -50,16 +50,16 @@
 		OR STORE_LICENSE_SALES LIKE '%'||#{keyword}||'%'OR STORE_ADMIN_STATE LIKE '%'||#{keyword}||'%'
      	]]>
      </select>
-     
-      <select id="admin_blackuser_search" resultType="UDto" parameterType="String">
-     	<![CDATA[ 
-     	SELECT *
-     	FROM CON_USER
-     	WHERE USER_BLACK = 'Y' AND (USER_ID LIKE '%'||#{keyword}||'%' OR USER_NAME LIKE '%'||#{keyword}||'%')
-     	]]>
-     </select>
-     
-    
-     
-   
+
+<!--       <select id="admin_blackuser_search" resultType="UDto" parameterType="String"> -->
+<!--      	<![CDATA[  -->
+<!--      	SELECT * -->
+<!--      	FROM CON_USER -->
+<!--      	WHERE USER_BLACK = 'Y' AND (USER_ID LIKE '%'||#{keyword}||'%' OR USER_NAME LIKE '%'||#{keyword}||'%') -->
+<!--      	]]> -->
+<!--      </select> -->
+
+
+
+
 </mapper>
