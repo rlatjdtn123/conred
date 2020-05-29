@@ -51,6 +51,7 @@
      	]]>
      </select>
 
+
 <!--       <select id="admin_blackuser_search" resultType="UDto" parameterType="String"> -->
 <!--      	<![CDATA[  -->
 <!--      	SELECT * -->
@@ -58,8 +59,6 @@
 <!--      	WHERE USER_BLACK = 'Y' AND (USER_ID LIKE '%'||#{keyword}||'%' OR USER_NAME LIKE '%'||#{keyword}||'%') -->
 <!--      	]]> -->
 <!--      </select> -->
-
-
-
-
+     
+    
 </mapper>
