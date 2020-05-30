@@ -9,5 +9,6 @@
 </head>
 <body>
 <h1>사용자 회원가입완료!</h1>
+<input type="button" value="돌아가기" onclick="location.href='login.do'"/>
 </body>
 </html>

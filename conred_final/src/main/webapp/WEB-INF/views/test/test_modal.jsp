@@ -65,9 +65,7 @@
                 imges=$(".imgs_wrap");
 	                imges.append(html);
 	                index++;
-					alert(imges.children().length);
             }
-            alert(imges.children().length);
             reader.readAsDataURL(f);
             
         });
@@ -124,8 +122,8 @@
      }
      .imgs_wrap img {   
          max-width: 150px;
-         margin-left: 10px;
-         margin-right: 10px;
+         margin-left: 5px;
+         margin-right: 5px;
      }
 	
 	.input_wrap {clear: both;}
@@ -149,8 +147,8 @@
      		</div>  
      		<div class="modal-footer"> 
      			<div style="margin-bottom: 50px; width: 870px;  ">   
-				    <div class="imgs_wrap" style="width: 800px; border: 0;">   
-				        <img id="img" />  
+				    <div class="imgs_wrap" style="width: 850px; border: 0;">    
+<!-- 				        <img id="img" />   -->  
 				    </div>   
 				    <div class="input_wrap" style="border: 0;"> 
 				        <a href="javascript:" onclick="fileUploadAction();" class="my_button">파일 업로드</a>

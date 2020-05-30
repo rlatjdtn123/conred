@@ -87,7 +87,6 @@ public class Sungsu {
 		if(dto.getUser_sex()==null) {
 			dto.setUser_sex("");
 		}
-		System.out.println("전달파라미터:"+dto);
 		HttpSession session=request.getSession();
 		session.setAttribute("udto", dto);
 		return "user/user_regist_category";
