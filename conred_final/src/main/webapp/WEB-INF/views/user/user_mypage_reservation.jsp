@@ -57,6 +57,7 @@
 	 		<a>메뉴명 : ?????? </a><br><br>  
 	 		<span>가격 정보 : 2000원 </span><br><br>
 	 		<span>예약 날짜 : 2020년 5월 30일 </span><br><br>
+	 		<span>예약 시간 : 13:00 ~ 14:00 </span><br><br>
 	 		<span>주소 : 서울 영등포 </span><br><br>
 	 		<div style="margin-left: 300px; margin-top: 80px;">
 		 		<button>예약취소</button>&nbsp;&nbsp;       

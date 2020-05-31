@@ -9,7 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:900px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;margin: 0 auto; }/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	#sticky{position: sticky; top:71px;}
 	#navi2{width:998px;background-color: lightblue;clear:both;position:relative;top:-20px;text-align: center;line-height: 40px;border-top: 1px solid grey;}
 	.navis2{border-bottom:1px solid grey; font-size:15px; float:left;width:199.6px;height:40px;background-color: #D8D8D8;}
@@ -17,13 +17,15 @@
 	.home{border-bottom:1px solid white;background-color: white;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
 	
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
-	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:800px;height:200px; margin:0 auto;}
+	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:800px;height:200px; margin:0 auto; margin-top: 20px;}
 	.myboxmargin{margin-top:30px;}
-</style>
-</head>
+	.mybox_infoes{width: 130px;height: 130px; border: 1px solid black; float: left; margin-left: 60px; margin: 0 auto;}
+	
+</style>   
+</head>        
 <%
-	UDto uldto=(UDto)session.getAttribute("uldto");
-%>
+	UDto uldto=(UDto)session.getAttribute("uldto");   
+%> 
 <body>
 <div id="container">
 	<div id="sticky">
@@ -46,19 +48,55 @@
 		</div>
 	</div>
 	<div id="pagename">
-		<b><%=uldto.getUser_id()%></b>님 환영합니다
+		<b><%=uldto.getUser_id()%></b>님 환영합니다<br><br>
+		<span style="font-size: 15px;">닉네임 : <%=uldto.getUser_name()%></span>
 	</div>
-	
+	  
+	<div class="mybox" > 
+		<div style="font-weight: bold;">내 통계</div><br/>
+		<div class="mybox_infoes"> 
+		 
+		</div>  
+		<div class="mybox_infoes">  
+		    
+		</div>    
+		<div class="mybox_infoes">
+		  
+		</div> 
+	</div>    
+	<div class="mybox"> 
+		<div style="font-weight: bold;">내가 쓴 글</div><br/>
+		<div class="mybox_infoes">
+			  
+		</div>
+		<div class="mybox_infoes">
+			  
+		</div>
+	</div> 
 	<div class="mybox">
-		<span style="font-weight: bold;">내 통계</span><br/><br/>
-		<span>닉네임:??</span><br/>
-		<span>핸드폰:???</span><br/>
+		<div style="font-weight: bold;">내 관심사</div><br/>
+		<div class="mybox_infoes">
+			  
+		</div>
+		<div class="mybox_infoes">
+			  
+		</div>
+		<div class="mybox_infoes">
+			  
+		</div>
 	</div>
-	<div class="mybox myboxmargin">
-		<span style="font-weight: bold;">??회원님 환영합니다.</span><br/><br/>
-		<span>닉네임:??</span><br/>
-		<span>핸드폰:???</span><br/>
-	</div>
+	<div class="mybox">
+		<div style="font-weight: bold;">최근본 매장</div><br/>
+		<div class="mybox_infoes">
+			  
+		</div>
+		<div class="mybox_infoes">
+			  
+		</div>
+		<div class="mybox_infoes">
+			  
+		</div>
+	</div> 
 </div>
 </body>
 </html>
