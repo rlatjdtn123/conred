@@ -218,7 +218,7 @@
 								*대표 매장종류에 해당되지 않아도 선택 가능합니다<br>
 								*
 								
-							</div>
+							</div> 
 							<div class="catechkbox">
 								<input type="checkbox" name="s_cate" value="B"/>종합
 								<input type="checkbox" name="s_cate" value="C"/>내과
