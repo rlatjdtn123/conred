@@ -37,14 +37,16 @@
 	input{margin-top:2px;}
 	textarea{margin-top:2px;resize: none;}
 	select {margin-top:3px;height:26px;}
-	.inputs{width:500px;float: left;height:auto;}
+	.inputs{width:600px;float: left;height:auto;}
 	
 	textarea[name=s_time_etc]{width:310px;}
 	textarea[name=s_intro_small]{width:500px;}
 	textarea[name=s_intro_big]{width:500px;height:100px;}
 	textarea[name=s_addr]{width:220px;height:100px;}
 	
-	.catechkboxes{padding-bottom:10px;}
+	.catechkboxes_big{width:150px;height:100px;float: left;}
+	.catechkboxes{float: left;}
+	.catechkbox{padding-bottom:10px;}
 	input[name=s_cate]{margin-left:10px;}
 	
 	.filebox input[type="file"] { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }
@@ -176,27 +178,89 @@
 				<div class="inputbox">
 					<div class="inputtitle">매장종류</div>
 					<div class="inputs">
-						<div>
-							<div class="catechkboxes">
+						<div class="catechkboxes_big">
+							<div class="catechkbox">
+								대표 매장종류<br>
+								*한가지만 선택<br>
+								*지도위의 아이콘용
+							</div>
+							<div class="catechkbox">
 								<input type="checkbox" name="s_cate" value="A"/>동물병원
-								<input type="checkbox" name="s_cate" value="B"/>동물병원
-								<input type="checkbox" name="s_cate" value="C"/>동물병원
-								<input type="checkbox" name="s_cate" value="D"/>동물병원
-								<input type="checkbox" name="s_cate" value="E"/>동물병원
 							</div>
-							<div class="catechkboxes">
-								<input type="checkbox" name="s_cate" value="F"/>동물병원
-								<input type="checkbox" name="s_cate" value="G"/>동물병원
-								<input type="checkbox" name="s_cate" value="H"/>동물병원
-								<input type="checkbox" name="s_cate" value="I"/>동물병원
-								<input type="checkbox" name="s_cate" value="J"/>동물병원
+							<div class="catechkbox">
+								<input type="checkbox" name="s_cate" value="A"/>카페/식당
 							</div>
-							<div class="catechkboxes">
-								<input type="checkbox" name="s_cate" value="F"/>동물병원
-								<input type="checkbox" name="s_cate" value="G"/>동물병원
-								<input type="checkbox" name="s_cate" value="H"/>동물병원
-								<input type="checkbox" name="s_cate" value="I"/>동물병원
-								<input type="checkbox" name="s_cate" value="J"/>동물병원
+							<div class="catechkbox">
+								<input type="checkbox" name="s_cate" value="A"/>식품/용품
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="s_cate" value="A"/>숙박
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="s_cate" value="A"/>돌봄서비스
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="s_cate" value="A"/>미용
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="s_cate" value="A"/>체험
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="s_cate" value="A"/>분양/교배
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="s_cate" value="A"/>장례
+							</div>
+						</div>
+						<div class="catechkboxes">
+							<div class="catechkbox">
+								해당되는 항목을 모두 체크해주세요<br>
+								*대표 매장종류에 해당되지 않아도 선택 가능합니다<br>
+								*
+								
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="s_cate" value="B"/>종합
+								<input type="checkbox" name="s_cate" value="C"/>내과
+								<input type="checkbox" name="s_cate" value="D"/>외과
+								<input type="checkbox" name="s_cate" value="E"/>치과
+								<input type="checkbox" name="s_cate" value="E"/>24시
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="s_cate" value="G"/>동반가능 카페
+								<input type="checkbox" name="s_cate" value="H"/>동반가능 식당
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="s_cate" value="G"/>용품
+								<input type="checkbox" name="s_cate" value="H"/>식품
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="s_cate" value="G"/>글램핑/카라반
+								<input type="checkbox" name="s_cate" value="H"/>펜션
+								<input type="checkbox" name="s_cate" value="I"/>풀빌라
+								<input type="checkbox" name="s_cate" value="I"/>호텔
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="s_cate" value="G"/>호텔
+								<input type="checkbox" name="s_cate" value="H"/>펫시터
+								<input type="checkbox" name="s_cate" value="I"/>유치원
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="s_cate" value="G"/>미용
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="s_cate" value="G"/>운동장
+								<input type="checkbox" name="s_cate" value="H"/>놀이터
+								<input type="checkbox" name="s_cate" value="I"/>훈련
+								<input type="checkbox" name="s_cate" value="J"/>수영장
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="s_cate" value="G"/>분양 
+								<input type="checkbox" name="s_cate" value="H"/>교배
+								<input type="checkbox" name="s_cate" value="H"/>유기견
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="s_cate" value="G"/>장례
 							</div>
 						</div>
 					</div>
