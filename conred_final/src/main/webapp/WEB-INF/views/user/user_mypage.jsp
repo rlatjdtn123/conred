@@ -1,3 +1,4 @@
+<%@page import="com.hk.conred.dtos.UDto"%>
 <jsp:include page="../all/header2.jsp" />
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
@@ -20,6 +21,9 @@
 	.myboxmargin{margin-top:30px;}
 </style>
 </head>
+<%
+	UDto uldto=(UDto)session.getAttribute("uldto");
+%>
 <body>
 <div id="container">
 	<div id="sticky">
@@ -42,11 +46,11 @@
 		</div>
 	</div>
 	<div id="pagename">
-		마이페이지
+		<b><%=uldto.getUser_id()%></b>님 환영합니다
 	</div>
 	
 	<div class="mybox">
-		<span style="font-weight: bold;">??회원님 환영합니다.</span><br/><br/>
+		<span style="font-weight: bold;">내 통계</span><br/><br/>
 		<span>닉네임:??</span><br/>
 		<span>핸드폰:???</span><br/>
 	</div>

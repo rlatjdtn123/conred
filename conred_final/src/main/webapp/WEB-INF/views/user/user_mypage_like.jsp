@@ -15,9 +15,11 @@
 	.navis2:hover{border-bottom:1px solid white;background-color: white;cursor:pointer;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
 	.home{border-bottom:1px solid white;background-color: white;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
 	
+	.store_img{width: 200px;height:300px;border: 1px solid black; float: left; margin-left: 100px;} 
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
-	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:800px;height:200px; margin:0 auto;}
+	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:500px;height:300px; font-size: 15px; margin-left: 300px;}
 	.myboxmargin{margin-top:30px;}
+	
 </style>
 </head>
 <body>
@@ -42,19 +44,22 @@
 		</div>
 	</div>
 	<div id="pagename">
-		내가 좋아하는 매장
+		<b>찜 목록</b>
 	</div>
-	
-	<div class="mybox">
-		<span style="font-weight: bold;">??회원님 환영합니다.</span><br/><br/>
-		<span>닉네임:??</span><br/>
-		<span>핸드폰:???</span><br/>
-	</div>
-	<div class="mybox myboxmargin">
-		<span style="font-weight: bold;">??회원님 환영합니다.</span><br/><br/>
-		<span>닉네임:??</span><br/>
-		<span>핸드폰:???</span><br/>
-	</div>
+	<div>
+		<div class="store_img">
+	 		<p>매장사진들어갈곳</p>
+	 		<p>+매장명</p> 
+	 	</div>
+	 	<div class="mybox">
+	 		<span>주소 : 서울 영등포  </span><br><br>
+	 		<span>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ </span><br><br>
+	 		<span>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ </span><br><br>
+	 		<div style="margin-left: 350px; margin-top: 110px;">
+		 		<button type="button">좋아요취소</button>
+	 		</div> 
+	 	</div> 	   
+	</div>     
 </div>
 </body>
 </html>

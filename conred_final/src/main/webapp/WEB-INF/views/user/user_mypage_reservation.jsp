@@ -15,9 +15,13 @@
 	.navis2:hover{border-bottom:1px solid white;background-color: white;cursor:pointer;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
 	.home{border-bottom:1px solid white;background-color: white;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
 	
+	
+	.store_img{width: 200px;height:300px;border: 1px solid black; float: left; margin-left: 100px;} 
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
-	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:800px;height:200px; margin:0 auto;}
+	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:500px;height:300px; font-size: 15px; margin-left: 300px;}
 	.myboxmargin{margin-top:30px;}
+	
+	
 </style>
 </head>
 <body>
@@ -42,19 +46,24 @@
 		</div>
 	</div>
 	<div id="pagename">
-		내 예약
+		<b>내 예약</b>
 	</div>
-	
-	<div class="mybox">
-		<span style="font-weight: bold;">??회원님 환영합니다.</span><br/><br/>
-		<span>닉네임:??</span><br/>
-		<span>핸드폰:???</span><br/>
-	</div>
-	<div class="mybox myboxmargin">
-		<span style="font-weight: bold;">??회원님 환영합니다.</span><br/><br/>
-		<span>닉네임:??</span><br/>
-		<span>핸드폰:???</span><br/>
-	</div>
+	<div>
+		<div class="store_img">
+	 		<p>매장사진들어갈곳</p>
+	 		<p>+매장명</p> 
+	 	</div>
+	 	<div class="mybox">
+	 		<a>메뉴명 : ?????? </a><br><br>  
+	 		<span>가격 정보 : 2000원 </span><br><br>
+	 		<span>예약 날짜 : 2020년 5월 30일 </span><br><br>
+	 		<span>주소 : 서울 영등포 </span><br><br>
+	 		<div style="margin-left: 300px; margin-top: 80px;">
+		 		<button>예약취소</button>&nbsp;&nbsp;       
+		 		<button>결제하기</button>    
+	 		</div>
+	 	</div> 	 
+	</div>   
 </div>
 </body>
 </html>
