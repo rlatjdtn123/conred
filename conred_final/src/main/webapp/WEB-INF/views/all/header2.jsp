@@ -103,7 +103,7 @@
 	</div>
 
 
-	<div id="navibox">
+	<div id="navibox"> 
 	<%
 		if(uldto==null&&oldto==null){/* 어떤 등급도 로그인이 되어있지 않으면 */
 	%>
