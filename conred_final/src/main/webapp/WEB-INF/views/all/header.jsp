@@ -6,8 +6,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="shortcut icon" type="image⁄x-icon" href="./img/footprint1.png">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>어디가개!? 반려동물과 함께하는 모든 곳</title>
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
