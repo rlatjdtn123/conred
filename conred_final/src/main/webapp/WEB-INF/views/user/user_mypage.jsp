@@ -19,10 +19,10 @@
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
 	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:800px;height:200px; margin:0 auto; margin-top: 20px;}
 	.myboxmargin{margin-top:30px;}
-	.mybox_infoes{width: 130px;height: 130px; border: 1px solid black; float: left; margin-left: 60px; margin: 0 auto;}
+	.mybox_info{width: 130px;height: 130px; border: 1px solid black; float: left; }
 	
 </style>   
-</head>        
+</head>          
 <%
 	UDto uldto=(UDto)session.getAttribute("uldto");   
 %> 
@@ -54,46 +54,48 @@
 	  
 	<div class="mybox" > 
 		<div style="font-weight: bold;">내 통계</div><br/>
-		<div class="mybox_infoes"> 
-		 
-		</div>  
-		<div class="mybox_infoes">  
-		    
-		</div>    
-		<div class="mybox_infoes">
-		  
+		<div style="margin: 0 auto; width: 800px; height: 140px; border: 1px solid red;">
+			<div class="mybox_info"> 
+			 
+			</div>  
+			<div class="mybox_info">  
+			       
+			</div>    
+			<div class="mybox_info">
+			  
+			</div>
 		</div> 
 	</div>    
 	<div class="mybox"> 
 		<div style="font-weight: bold;">내가 쓴 글</div><br/>
-		<div class="mybox_infoes">
+		<div class="mybox_info">
 			  
 		</div>
-		<div class="mybox_infoes">
+		<div class="mybox_info">
 			  
 		</div>
 	</div> 
 	<div class="mybox">
 		<div style="font-weight: bold;">내 관심사</div><br/>
-		<div class="mybox_infoes">
+		<div class="mybox_info">
 			  
 		</div>
-		<div class="mybox_infoes">
+		<div class="mybox_info">
 			  
 		</div>
-		<div class="mybox_infoes">
+		<div class="mybox_info">
 			  
 		</div>
 	</div>
 	<div class="mybox">
 		<div style="font-weight: bold;">최근본 매장</div><br/>
-		<div class="mybox_infoes">
+		<div class="mybox_info">
 			  
 		</div>
-		<div class="mybox_infoes">
+		<div class="mybox_info">
 			  
 		</div>
-		<div class="mybox_infoes">
+		<div class="mybox_info">
 			  
 		</div>
 	</div> 
