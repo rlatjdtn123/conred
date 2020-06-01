@@ -105,7 +105,7 @@
     <div class="mybox">         
 		<img src="./img/profile_default.png" class="pf"/>
 		<div class="info">
-			<br><span>닉네임:?? &nbsp; </span><a style="margin-left: 560px;" id="md" onclick="mdTest()">자세히 보기</a> 
+			<br><span>닉네임:?? &nbsp;<button style="margin-left: 160px;">수정</button> <button >삭제</button> <button  class="content_detail">자세히 보기</button><br>
 			<br><br><br>   
 			<span class="contents">asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjdddddddddddddddddddd
 			ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</span>   

@@ -134,7 +134,6 @@
 <body>      
 <!-- Modal -->
 <div class="modal fade" id="myModal" role="dialog">
-
 	<div class="modal-dialog modal-lg">
   		<!-- Modal content-->
    		<div class="modal-content">
@@ -147,9 +146,9 @@
      		</div>  
      		<div class="modal-footer"> 
      			<div style="margin-bottom: 50px; width: 870px;  ">   
-				    <div class="imgs_wrap" style="width: 850px; border: 0;">    
-<!-- 				        <img id="img" />   -->  
-				    </div>   
+				    <div class="imgs_wrap" style="width: 850px; border: 1 solid black;">    
+				           
+				    </div>          
 				    <div class="input_wrap" style="border: 0;"> 
 				        <a href="javascript:" onclick="fileUploadAction();" class="my_button">파일 업로드</a>
 				        <input type="file" id="input_imgs" multiple/>

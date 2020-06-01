@@ -7,6 +7,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script src="js/jquery-3.4.1.js"></script>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style type="text/css">
 	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:900px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	#sticky{position: sticky; top:71px;}
@@ -16,18 +25,32 @@
 	.home{border-bottom:1px solid white;background-color: white;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
 	
 	
-	.pf{float: left; width: 40px;height: 40px;}     
+	
+	.pf{float: left; width: 40px;height: 40px;}      
 	.dt{margin-left: 600px;}
 	.info{}   
 	.contents{display:inline-block; width: 450px;height:40px;text-overflow: ellipsis; overflow: hidden;}     
-	.info2{background-color: #F2F2F2; margin-top: 10px; height: 100px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 450px;}
+	.info2{background-color: #F2F2F2;  height: 60px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 450px;}
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
-	.store_img{width: 200px;height:300px;border: 1px solid black; float: left; margin-left: 100px;} 
-	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:500px;height:300px; font-size: 15px; margin-left: 300px;}
-	.myboxmargin{margin-top:30px;} 
+	.myboxmargin{margin-top:30px;}      
+	.store_img{width: 250px;height:170px;border: 1px solid black; float: left;margin-right: 40px;} 
+	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:800px;height:200px; font-size: 15px; margin-left: 100px;}
+	.bigtle{margin-left: 50px;}    
+	button {border: 0;}
+	  
 </style>
+<script type="text/javascript">
+	$(function(){
+		$(".content_detail").click(function(){ 
+			$(".info2").css("height","auto");
+			$(".mybox").css("height","auto"); 
+			$(this).parent().parent().find(".contents").css({"overflow":"visible","height":"auto"});
+			   
+		});		   
+	}); 
+</script>
 </head>
-<body>
+<body> 
 <div id="container">
 	<div id="sticky">
 		<div id="navi2">
@@ -51,39 +74,37 @@
 	<div id="pagename">
 		<b>작성한 문의</b>
 	</div>
-	<div>
-	 	<div class="store_img">
-	 		<p>매장사진들어갈곳</p>
-	 		<p>+매장명</p> 
-	 	</div>      
+	<div class="bigtle">
 		<div class="mybox">   
+		 	<div class="store_img">
+		 		<p>매장사진들어갈곳</p>
+		 		<p>+매장명</p> 
+		 	</div>      
 			<img src="./img/profile_default.png" class="pf"/>
 			<div class="info">  
-				<a style="margin-left: 340px;" id="md" onclick="mdTest()">자세히 보기</a>
-				<span>닉네임:?? &nbsp;| 가격문의 </span><br><br><br>   
-				<span class="contents">asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjdddddddddddddddddddd
-		 		ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</span>   
-			</div> 
+				<button style="margin-left: 245px;">수정</button> <button >삭제</button> <button  class="content_detail">자세히 보기</button><br>
+				<span>닉네임:?? &nbsp;| 가격문의 </span><br><br>   
+				<span class="contents">asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</span>   
+			</div>   
 			<div class="info2">     
 				<span style="font-weight: bold;">가게답변</span><br>
 				<span>dddddddddddddddddddddddddddddddddd</span>
 			</div>
 		</div>
-	</div>  
-	<br><br>
-	<div>
-	 	<div class="store_img">
-	 		<p>매장사진들어갈곳</p>
-	 		<p>+매장명</p> 
-	 	</div>      
+	</div>    
+	<br><br> 
+		<div class="bigtle">
 		<div class="mybox">   
+		 	<div class="store_img">  
+		 		<p>매장사진들어갈곳</p>
+		 		<p>+매장명</p> 
+		 	</div>      
 			<img src="./img/profile_default.png" class="pf"/>
-			<div class="info">
-				<a style="margin-left: 340px;" id="md" onclick="mdTest()">자세히 보기</a>
-				<span>닉네임:?? &nbsp;| 가격문의  </span><br><br><br>   
-				<span class="contents">asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjdddddddddddddddddddd
-				ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</span>   
-			</div>  
+			<div class="info">  
+				<button style="margin-left: 245px;">수정</button> <button >삭제</button> <button  class="content_detail">자세히 보기</button><br>
+				<span>닉네임:?? &nbsp;| 가격문의 </span><br><br>   
+				<span class="contents">asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</span>   
+			</div> 
 			<div class="info2">     
 				<span style="font-weight: bold;">가게답변</span><br>
 				<span>dddddddddddddddddddddddddddddddddd</span>

@@ -16,12 +16,12 @@
 	.home{border-bottom:1px solid white;background-color: white;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
 	
 	
-	.store_img{width: 200px;height:300px;border: 1px solid black; float: left; margin-left: 100px;} 
+	.store_img{width: 200px;height:200px;border: 1px solid black; float: left; margin-left: 100px;} 
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
-	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:500px;height:300px; font-size: 15px; margin-left: 300px;}
-	.myboxmargin{margin-top:30px;}
-	
-	
+	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:500px;height:200px; font-size: 15px; margin-left: 300px;}
+	.myboxmargin{margin-top:30px;}  
+	.bigtle{margin-left: 50px;}
+	 
 </style>
 </head>
 <body>
@@ -48,23 +48,42 @@
 	<div id="pagename">
 		<b>내 예약</b>
 	</div>
-	<div>
+	<div class="bigtle">
 		<div class="store_img">
-	 		<p>매장사진들어갈곳</p>
+	 		<p>매장사진들어갈곳</p>  
 	 		<p>+매장명</p> 
 	 	</div>
 	 	<div class="mybox">
-	 		<a>메뉴명 : ?????? </a><br><br>  
-	 		<span>가격 정보 : 2000원 </span><br><br>
-	 		<span>예약 날짜 : 2020년 5월 30일 </span><br><br>
-	 		<span>예약 시간 : 13:00 ~ 14:00 </span><br><br>
-	 		<span>주소 : 서울 영등포 </span><br><br>
-	 		<div style="margin-left: 300px; margin-top: 80px;">
+	 		<a>메뉴명 : ?????? </a><br>  
+	 		<span>가격 정보 : 2000원 </span><br>
+	 		<span>예약 날짜 : 2020년 5월 30일 </span><br>
+	 		<span>예약 시간 : 13:00 ~ 14:00 </span><br>
+	 		<span>주소 : 서울 영등포 </span><br>
+	 		<div style="margin-left: 300px; margin-top: 40px;" >
 		 		<button>예약취소</button>&nbsp;&nbsp;       
-		 		<button>결제하기</button>    
+		 		<button>결제하기</button>       
 	 		</div>
 	 	</div> 	 
-	</div>   
+	</div>
+	<br><br> 
+	<div class="bigtle">
+		<div class="store_img">
+	 		<p>매장사진들어갈곳</p>  
+	 		<p>+매장명</p> 
+	 	</div>
+	 	<div class="mybox">
+	 		<a>메뉴명 : ?????? </a><br>  
+	 		<span>가격 정보 : 2000원 </span><br>
+	 		<span>예약 날짜 : 2020년 5월 30일 </span><br>
+	 		<span>예약 시간 : 13:00 ~ 14:00 </span><br>
+	 		<span>주소 : 서울 영등포 </span><br>
+	 		<div style="margin-left: 300px; margin-top: 40px;" >
+		 		<button>예약취소</button>&nbsp;&nbsp;       
+		 		<button>결제하기</button>       
+	 		</div>
+	 	</div> 	 
+	</div> 
+	<br><br> 
 </div>
 </body>
 </html>
