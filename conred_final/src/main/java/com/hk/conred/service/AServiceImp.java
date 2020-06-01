@@ -50,5 +50,10 @@ public class AServiceImp implements IAService{
 		return ADaoImp.adminMulchk(store_seqs);
 	}
 	
+	@Override 
+	public boolean adminMuldel(String[] store_seqs) {
+		return ADaoImp.adminMuldel(store_seqs);
+	}
+	
 	
 }

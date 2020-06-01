@@ -57,15 +57,30 @@
      	OR STORE_OWNER_NAME LIKE '%'||#{keywordstore}||'%')
      	]]>
   </select>
-     
-  <update id="adminMulchk" parameterType="map">
-		UPDATE CON_STORE SET STORE_ADMIN_STATE='Y'
-		WHERE STORE_SEQ IN 
+
+	<update id="adminMulchk" parameterType="map">
+		<![CDATA[ 
+		UPDATE CON_STORE SET STORE_ADMIN_STATE =
+		(CASE
+		WHEN STORE_ADMIN_STATE = 'Y' THEN 'N'
+		WHEN STORE_ADMIN_STATE ='N' THEN 'Y'
+		END)
+		WHERE STORE_SEQ IN ]]>
 		<foreach collection="store_seqs" open="(" close=")"
-		          separator="," item="store_seq" >
+			separator="," item="store_seq">
 			#{store_seq}
 		</foreach>
-   </update>
+	</update>
+	
+	<delete id="adminMuldel" parameterType="map">
+		<![CDATA[ 
+		DELETE FROM CON_STORE
+		WHERE STORE_SEQ IN ]]>
+		<foreach collection="store_seqs" open="(" close=")"
+			separator="," item="store_seq">
+			#{store_seq}
+		</foreach>
+	</delete>
      
 
 </mapper>

@@ -12,51 +12,57 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
-// 	function allSel(bool) {
-// 		var chks = document.getElementsByName("chk");//[checkbox,checkbox..]
-// 		for (var i = 0; i < chks.length; i++) {
-// 			chks[i].checked = bool;
-// 		}
+	function allSel(bool) {
+		var chks = document.getElementsByName("store_seqs");
+		for (var i = 0; i < chks.length; i++) {
+			chks[i].checked = bool;
+		}
 
-		//		$("input[name=chk]").prop("checked",bool);
-// 	}
+				$("input[name=store_seqs]").prop("checked",bool);
+	}
 
-// 	$(
-// 			function() {
-// 				//form태그에서 submit이벤트가 발생하면 함수실행
-// 				$("form").submit(function() {
-// 					var bool = true;
-// 					var count = $(this).find("input[name=chk]:checked").length;
-// 					if (count == 0) {
-// 						alert("최소하나이상 체크해야 됩니다.!!");
-// 						bool = false;
-// 					}
-// 					return bool;
-// 				});
+	$(function() {
+		//아이디 test 에서 submit이벤트가 발생하면 함수실행(?) 수정필요
+		$("#muldel").submit(function() {
+			var bool = true;
+			var count = $(this).find("input[name=store_seqs]:checked").length;
+			if (count == 0) {
+				alert("최소하나이상 체크해야 됩니다!");
+				bool = false;
+			}else {
+				if(confirm("정말 삭제 하시겠습니까?")){
+					return bool;
+				}else{
+					bool =false;
+				}
+			}
+			return bool;
+		});
 
-				//체크박스 처리: 체크가 하나라도 안되면 전체선택체크박스 해제, 모두 선택되면 체크
-// 				var chks = document.getElementsByName("chk");
-// 				for (var i = 0; i < chks.length; i++) {
-// 					chks[i].onclick = function() {
-// 						var checkedObjs = document
-// 								.querySelectorAll("input[name=chk]:checked");
-// 						if (checkedObjs.length == chks.length) {
-// 							document.getElementsByName("all")[0].checked = true;
-// 						} else {
-// 							document.getElementsByName("all")[0].checked = false;
-// 						}
-// 					}
-// 				}
-// 			});
+		// 체크박스 처리: 체크가 하나라도 안되면 전체선택체크박스 해제, 모두 선택되면 체크
+		var chks = document.getElementsByName("store_seqs");
+		for (var i = 0; i < chks.length; i++) {
+			chks[i].onclick = function() {
+				var checkedObjs = document
+						.querySelectorAll("input[name=store_seqs]:checked");
+				if (checkedObjs.length == chks.length) {
+					document.getElementsByName("all")[0].checked = true;
+				} else {
+					document.getElementsByName("all")[0].checked = false;
+				}
+			}
+		}
+	});
 </script>
 <style type="text/css">
-	#container{border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1900px;height:900px;margin: 0 auto; text-align: center;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px; margin: 0 auto; text-align: center;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	#searchbar1{width:80%;}
 	#sel{height: 34px; }
 	#searchbtn1{padding:3px;width:40px;height:35px; }
 	#magnifyglass1{width:20px;}
 	
 	th{text-align: center;}
+    #table1{width: 960px;}
 </style>
 </head> 
 <%
@@ -65,78 +71,84 @@ List<SDto>list=(List<SDto>)request.getAttribute("list");
 <body>
 <br>
 <div id="container">
-<form action="admin_store_search.do" method="post">
-		<table border="0" cellpadding="0" cellspacing="0" width="970" align="center">
-			<tr>
-				<td align="left">
-					<select	name="storeSearch" id="sel">
-						<option value="keywordStore" ${storeSearch eq "keywordStore"?"selected":""}>키워드 검색</option>
-						<option value="adminState" ${storeSearch eq "adminState"?"selected":""}>관리자 승인 점포</option> 
-					</select>
-					<input name="searchWordStore" type="text" id="searchbar1" class="form-control pull-left" placeholder="안녕하세요 관리자님! 매점 관련 키워드로 검색 하세요">
-					<button type="submit" id="searchbtn" class="btn"><img id="magnifyglass1" src="./img/magnifyglass.png"></button>
-			</tr>
-			</table>
-		</form>
-		<br>
-<form>
-<table border="1"  >
-	<tr>
-		<th>점포일련번호</th>
-		<th>아이디</th>
-		<th>매장명</th>
-		<th>대표명</th>
-		<th>매장홈페이지링크</th>
-		<th>간단소개</th>
-		<th>매장소개</th>
-		<th>영업상태(영업중,휴업중,폐점)</th>
-		<th>매장전화번호</th>
-		<th>점주전화번호</th>
-		<th>주소</th>
-		<th>상세주소</th>
-		<th>영업시간(기타사항)</th>
-		<th>은행명</th>
-		<th>계좌번호</th>
-		<th>사업자등록증</th>
-		<th>영업신고증</th>
-		<th>관리자승인매장여부</th>
-		<th><input type="checkbox" name="all" onclick="allSel(this.checked)"/></th>
-	</tr>
-<%
-		if(list==null||list.size()==0){
-			out.print("<tr><td colspan='19'>"
-			         +"---등록된 매장이 존재하지 않습니다.---</td></tr>");
-		}else{
-			for(SDto dto:list){
-				%>
+	<form action="admin_store_search.do" method="post">
+			<table id="table1">
 				<tr>
-					<td><%=dto.getStore_seq()%></td>
-					<td><%=dto.getOwner_id()%></td>
-					<td><%=dto.getStore_name()%></td>
-					<td><%=dto.getStore_owner_name()%></td>
-					<td><%=dto.getStore_path()%></td>
-					<td><%=dto.getStore_simple_intro()%></td>
-					<td><%=dto.getStore_intro()%></td>
-					<td><%=dto.getStore_state()%></td>
-					<td><%=dto.getStore_phone()%></td>
-					<td><%=dto.getStore_owner_phone()%></td>
-					<td><%=dto.getStore_address()%></td>
-					<td><%=dto.getStore_detail_address()%></td>
-					<td><%=dto.getStore_time_other()%></td>
-					<td><%=dto.getStore_bank()%></td>
-					<td><%=dto.getStore_account()%></td>
-					<td><%=dto.getStore_license_owner()%></td>
-					<td><%=dto.getStore_license_sales()%></td>
-					<td><%=dto.getStore_admin_state()%></td>
-					<td><input type="checkbox" name="adminMulchk" value="${dto.getStore_seq}"/></td>
+					<td align="left">
+						<select	name="storeSearch" id="sel">
+							<option value="keywordStore" ${storeSearch eq "keywordStore"?"selected":""}>키워드 검색</option>
+							<option value="adminState" ${storeSearch eq "adminState"?"selected":""}>관리자 승인 점포</option> 
+						</select>
+						<input value="${requestScope.searchWordStore}" name="searchWordStore" type="text" id="searchbar1" class="form-control pull-left" placeholder="안녕하세요 관리자님! 매장 관련 키워드로 검색 하세요">
+						<button type="submit" id="searchbtn" class="btn"><img id="magnifyglass1" src="./img/magnifyglass.png"></button>
 				</tr>
-				<%
-			}
-		}
-	%>	
-</table>
-</form>
-</div>
-</body>
+			</table>
+	</form>
+	<br>
+	<form id="muldel" method="post">
+		<input type="hidden" name="storeSearch" value="${requestScope.storeSearch}"/>
+		<input type="hidden" name="searchWordStore" value="${requestScope.searchWordStore}"/>
+		<table id="table2" class="table table-striped" >
+			<tr>
+				<th>점포일련번호</th>
+				<th>아이디</th>
+				<th>매장명</th>
+				<th>대표명</th>
+<!-- 				<th>매장홈페이지링크</th> -->
+<!-- 				<th>간단소개</th> -->
+<!-- 				<th>매장소개</th> -->
+				<th>영업상태(영업중,휴업중,폐점)</th>
+<!-- 				<th>매장전화번호</th> -->
+				<th>점주전화번호</th>
+<!-- 				<th>주소</th> -->
+<!-- 				<th>상세주소</th> -->
+<!-- 				<th>영업시간(기타사항)</th> -->
+<!-- 				<th>은행명</th> -->
+<!-- 				<th>계좌번호</th> -->
+				<th>사업자등록증</th>
+				<th>영업신고증</th>
+				<th>관리자승인매장여부</th>
+				<th><input type="checkbox" name="all" onclick="allSel(this.checked)"/></th>
+			</tr>
+		<%
+				if(list==null||list.size()==0){
+					out.print("<tr><td colspan='19'>"
+					         +"---관리자님 등록된 매장이 없어요!---</td></tr>");
+				}else{
+					for(SDto dto:list){  //list[dto,dto...]
+						%>
+						<tr>
+							<td><%=dto.getStore_seq()%></td>
+							<td><%=dto.getOwner_id()%></td>
+							<td><%=dto.getStore_name()%></td>
+							<td><%=dto.getStore_owner_name()%></td>
+<%-- 							<td><%=dto.getStore_path()%></td> --%>
+<%-- 							<td><%=dto.getStore_simple_intro()%></td> --%>
+<%-- 							<td><%=dto.getStore_intro()%></td> --%>
+							<td><%=dto.getStore_state()%></td>
+<%-- 							<td><%=dto.getStore_phone()%></td> --%>
+							<td><%=dto.getStore_owner_phone()%></td>
+<%-- 							<td><%=dto.getStore_address()%></td> --%>
+<%-- 							<td><%=dto.getStore_detail_address()%></td> --%>
+<%-- 							<td><%=dto.getStore_time_other()%></td> --%>
+<%-- 							<td><%=dto.getStore_bank()%></td> --%>
+<%-- 							<td><%=dto.getStore_account()%></td> --%>
+							<td><%=dto.getStore_license_owner()%></td>
+							<td><%=dto.getStore_license_sales()%></td>
+							<td><%=dto.getStore_admin_state()%></td>
+							<td><input type="checkbox" name="store_seqs" value="<%=dto.getStore_seq()%>"/></td>
+						</tr>
+						<%
+					}
+				}
+			%>	
+		</table>
+<!-- 		승인하고 싶은 매장은 선택하여 승인하고, 승인을 취소하고 싶은 매장은 선택하여 취소하는 버튼 -->
+		<button type="submit" formaction="adminMulchk.do">매장승인/승인취소</button>
+		<button type="submit" formaction="adminMuldel.do">삭제</button>
+		<button type="submit" formaction="adminMuldel.do">등급변경</button>
+	    </form>
+	</div>
+ </body>
 </html>
 <jsp:include page="../all/footer.jsp" />

@@ -1,6 +1,9 @@
 package com.hk.conred;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.DateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -22,7 +25,7 @@ import com.hk.conred.service.IAService;
 @Controller
 public class AdminController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 	
 	@RequestMapping(value = "admin_site.do", method = RequestMethod.GET)
 	public String admin_site(Locale locale, Model model) {
@@ -69,7 +72,7 @@ public class AdminController {
 		return "admin/admin_site_storelist";
 	}
 	
-	@RequestMapping(value = "admin_store_search.do", method = RequestMethod.POST)
+	@RequestMapping(value = "admin_store_search.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String admin_store_search(Locale locale, Model model, SDto sdto, String searchWordStore, String storeSearch) {
 		logger.info("관리자 - 매장 목록 전체 및 키워드 조회 기능 {}.", locale); 
 		
@@ -80,30 +83,44 @@ public class AdminController {
 		}else if(storeSearch.equals("adminState")) {
 			List<SDto> list = aService.admin_store_state_search(searchWordStore);
 			model.addAttribute("list",list);
-	}
+		}
 	
+		model.addAttribute("searchWordStore",searchWordStore);
 		model.addAttribute("storeSearch",storeSearch);
-	
+		
 		return "admin/admin_site_storelist";
 	}
 	
 	@RequestMapping(value = "adminMulchk.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String adminMulchk(String[] store_seqs, Locale locale, Model model) {
+	public String adminMulchk(String[] store_seqs, Locale locale, Model model,String searchWordStore, String storeSearch) throws UnsupportedEncodingException {
 		 
-		logger.info("관리자 - 점포 선택기능 {}.", locale);
+		logger.info("관리자 - 매장 선택/다중선택 후 매장 승인 및 취소 기능 {"+(Arrays.toString(store_seqs))+"}.", locale);
 		
 		boolean isS=aService.adminMulchk(store_seqs);
 		
 		if(isS) {
-			return "redirect:admin_site_storelist.do";			
+			return "redirect:admin_store_search.do?searchWordStore="+(URLEncoder.encode(searchWordStore, "utf-8")) +"&storeSearch="+storeSearch;			
 		}else {
-			model.addAttribute("msg", "글삭제실패");
+			model.addAttribute("msg", "변경에 실패 했습니다. 다시 시도해 주세요!");
 			return "error";
 		}
 		
 	}
-	
-	
+	@RequestMapping(value = "adminMuldel.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String adminMuldel(String[] store_seqs, Locale locale, Model model,String searchWordStore, String storeSearch) throws UnsupportedEncodingException {
+		 
+		logger.info("관리자 - 매장 선택/다중선택 후 매장 삭제기능 {"+(Arrays.toString(store_seqs))+"}.", locale);
+		
+		boolean isS=aService.adminMuldel(store_seqs);
+		
+		if(isS) {
+			return "redirect:admin_store_search.do?searchWordStore="+(URLEncoder.encode(searchWordStore, "utf-8")) +"&storeSearch="+storeSearch;			
+		}else {
+			model.addAttribute("msg", "삭제에 실패 했습니다. 다시 시도해 주세요!");
+			return "error";
+		}
+		
+	}
 	
 	
 }

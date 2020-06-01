@@ -65,6 +65,14 @@ public class ADaoImp implements IADao {
 		int count=sqlSession.update(nameSpace+"adminMulchk", map);
 		return count>0?true:false;
 	}
+	@Override
+	public boolean adminMuldel(String[] store_seqs) {
+		Map<String, String[]> map=new HashMap<>();
+		map.put("store_seqs", store_seqs);
+		int count=sqlSession.delete(nameSpace+"adminMuldel", map);
+		return count>0?true:false;
+	}
+
 	
 
 	

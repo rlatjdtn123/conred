@@ -13,13 +13,14 @@ public interface IAService  {
 	public List<UDto> admin_blackuser_search(String blackuser);
 	//3.전체 점주 조회 기능
 //	public List<ODto> admin_site_ownerlist();
-	//4.전체 점포 조회 기능
+	//4.전체 매장 조회 기능
 	public List<SDto> admin_site_storelist(String keywordstore);
-	//5.전체 승인점포 조회 기능
+	//5.전체 승인매장 조회 기능
 	public List<SDto> admin_store_state_search(String adminstate);
-	//6.점포 선택 기능                   
-	public boolean adminMulchk(String[] store_seq) ;
-
+	//6.매장 선택/다중선택 후 매장 승인 및 취소 기능                 
+	public boolean adminMulchk(String[] store_seqs);
+	//7.매장 선택/다중선택 후 매장 삭제 기능
+	public boolean adminMuldel(String[] store_seqs);
 	
 }
 
