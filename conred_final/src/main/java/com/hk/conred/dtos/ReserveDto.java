@@ -11,13 +11,16 @@ public class ReserveDto {
 	private String reserve_time;
 	private String reserve_state;
 	private String reserve_price; 
+	private String reserve_sdate; 
+	private String reserve_edate; 
 	private Date reserve_regdate; 
 	
 	public ReserveDto() {
 	}
 
 	public ReserveDto(int reserve_seq, String user_id, int menu_seq, int store_seq, String reserve_time,
-			String reserve_state, String reserve_price, Date reserve_regdate) {
+			String reserve_state, String reserve_price, String reserve_sdate, String reserve_edate,
+			Date reserve_regdate) {
 		super();
 		this.reserve_seq = reserve_seq;
 		this.user_id = user_id;
@@ -26,6 +29,8 @@ public class ReserveDto {
 		this.reserve_time = reserve_time;
 		this.reserve_state = reserve_state;
 		this.reserve_price = reserve_price;
+		this.reserve_sdate = reserve_sdate;
+		this.reserve_edate = reserve_edate;
 		this.reserve_regdate = reserve_regdate;
 	}
 
@@ -33,8 +38,8 @@ public class ReserveDto {
 		return reserve_seq;
 	}
 
-	public void setReserveve_seq(int reserveve_seq) {
-		this.reserve_seq = reserveve_seq;
+	public void setReserve_seq(int reserve_seq) {
+		this.reserve_seq = reserve_seq;
 	}
 
 	public String getUser_id() {
@@ -85,6 +90,22 @@ public class ReserveDto {
 		this.reserve_price = reserve_price;
 	}
 
+	public String getReserve_sdate() {
+		return reserve_sdate;
+	}
+
+	public void setReserve_sdate(String reserve_sdate) {
+		this.reserve_sdate = reserve_sdate;
+	}
+
+	public String getReserve_edate() {
+		return reserve_edate;
+	}
+
+	public void setReserve_edate(String reserve_edate) {
+		this.reserve_edate = reserve_edate;
+	}
+
 	public Date getReserve_regdate() {
 		return reserve_regdate;
 	}
@@ -92,13 +113,19 @@ public class ReserveDto {
 	public void setReserve_regdate(Date reserve_regdate) {
 		this.reserve_regdate = reserve_regdate;
 	}
-  
+
 	@Override
 	public String toString() {
-		return "ReserveDto [reserveve_seq=" + reserve_seq + ", user_id=" + user_id + ", menu_seq=" + menu_seq
+		return "ReserveDto [reserve_seq=" + reserve_seq + ", user_id=" + user_id + ", menu_seq=" + menu_seq
 				+ ", store_seq=" + store_seq + ", reserve_time=" + reserve_time + ", reserve_state=" + reserve_state
-				+ ", reserve_price=" + reserve_price + ", reserve_regdate=" + reserve_regdate + "]";
+				+ ", reserve_price=" + reserve_price + ", reserve_sdate=" + reserve_sdate + ", reserve_edate="
+				+ reserve_edate + ", reserve_regdate=" + reserve_regdate + "]";
 	}
+
+	
+	
+
+	
 
 	
 	

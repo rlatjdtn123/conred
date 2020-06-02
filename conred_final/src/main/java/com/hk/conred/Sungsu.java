@@ -339,4 +339,13 @@ public class Sungsu {
 		return "test/test_file";
 	} 
 	
+	
+	
+	@RequestMapping(value = "test_calendar.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String test_calendar(Locale locale, Model model,int year,int month) {
+		logger.info("캘린더 테스트{}.", locale);
+		
+//		model.addAttribute(arg0, arg1)
+		return "test/test_calendar";
+	} 
 }

@@ -29,25 +29,35 @@
 	.pf{float: left; width: 40px;height: 40px;}      
 	.dt{margin-left: 600px;}
 	.info{}   
-	.contents{display:inline-block; width: 450px;height:40px;text-overflow: ellipsis; overflow: hidden;}     
+	.contents{display:inline-block; width: 450px;height:25px;text-overflow: ellipsis; overflow: hidden;}
+	.contents2{width:430px;}         
 	.info2{background-color: #F2F2F2;  height: 60px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 450px;}
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
 	.myboxmargin{margin-top:30px;}      
-	.store_img{width: 250px;height:170px;border: 1px solid black; float: left;margin-right: 40px;} 
-	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:800px;height:200px; font-size: 15px; margin-left: 100px;}
-	.bigtle{margin-left: 50px;}    
+	.store_img{width: 200px;height:170px;border: 1px solid black; float: left;margin-right: 20px;} 
+	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:720px;height:200px; font-size: 15px; margin-left: 100px;}
+	.bigtle{margin-left: 40px;}    
 	button {border: 0;}
 	  
-</style>
+</style> 
 <script type="text/javascript">
+	
+	
 	$(function(){
-		$(".content_detail").click(function(){ 
-			$(".info2").css("height","auto");
-			$(".mybox").css("height","auto"); 
-			$(this).parent().parent().find(".contents").css({"overflow":"visible","height":"auto"});
-			   
-		});		   
-	}); 
+		$(".content_detail").click(function(){     
+			if($(this).parent().parent().css("height")=="200px"){  
+				$(this).parent().parent().find(".info2").css("height","auto");
+				$(this).parent().parent().css("height","auto"); 
+				$(this).parent().parent().find(".contents").css({"overflow":"visible","height":"auto","word-break":"break-all"});
+			}else{
+				$(this).parent().parent().find(".info2").css("height","60px");
+				$(this).parent().parent().css("height","200px");    
+				$(this).parent().parent().find(".contents").css({"height":"25px","overflow":"hidden","word-break":"keep-all"});
+			}   
+		});      
+  
+	});  
+	
 </script>
 </head>
 <body> 
@@ -82,36 +92,36 @@
 		 	</div>      
 			<img src="./img/profile_default.png" class="pf"/>
 			<div class="info">  
-				<button style="margin-left: 245px;">수정</button> <button >삭제</button> <button  class="content_detail">자세히 보기</button><br>
+				<button style="margin-left: 235px;">수정</button> <button >삭제</button> <button  class="content_detail">자세히 보기</button><br>
 				<span>닉네임:?? &nbsp;| 가격문의 </span><br><br>   
-				<span class="contents">asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</span>   
+				<div class="contents">asdasddddddddddddddddddddddddddddddddddddddkkkkkkkkkddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</div>   
 			</div>   
 			<div class="info2">     
 				<span style="font-weight: bold;">가게답변</span><br>
-				<span>dddddddddddddddddddddddddddddddddd</span>
+				<div class="contents contents2">ddddddddddddddkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhdddddddddddddddddddd</div>
 			</div>
 		</div>
-	</div>    
-	<br><br> 
-		<div class="bigtle">
+	</div>      
+	<br><br>  
+	<div class="bigtle">
 		<div class="mybox">   
-		 	<div class="store_img">  
+		 	<div class="store_img">
 		 		<p>매장사진들어갈곳</p>
 		 		<p>+매장명</p> 
 		 	</div>      
 			<img src="./img/profile_default.png" class="pf"/>
 			<div class="info">  
-				<button style="margin-left: 245px;">수정</button> <button >삭제</button> <button  class="content_detail">자세히 보기</button><br>
+				<button style="margin-left: 235px;">수정</button> <button >삭제</button> <button  class="content_detail">자세히 보기</button><br>
 				<span>닉네임:?? &nbsp;| 가격문의 </span><br><br>   
-				<span class="contents">asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</span>   
-			</div> 
+				<div class="contents">asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</div>   
+			</div>   
 			<div class="info2">     
 				<span style="font-weight: bold;">가게답변</span><br>
-				<span>dddddddddddddddddddddddddddddddddd</span>
+				<div class="contents contents2">dddddddddddddddddddddddddddddddddd</div>
 			</div>
 		</div>
-	</div>  
-	<br><br>
+	</div>      
+	<br><br>  
 </div>
 </body>
 </html>
