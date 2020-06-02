@@ -9,10 +9,10 @@
 <title>Insert title here</title>
 <style type="text/css">
 	#container{text-align:center; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:auto;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
-	#sticky{position: sticky; top:71px;}
+	#sticky{z-index:200;position: sticky; top:71px;}
 	#navi2{width:999px;background-color: lightblue;clear:both;position:relative;top:-20px;text-align: center;line-height: 40px;border-top: 1px solid grey;}
 	.navis2{border-bottom:1px solid grey; font-size:15px; float:left;width:199.7px;height:40px;background-color: #D8D8D8;}
-	.navis2:hover{border-bottom:1px solid white;background-color: white;cursor:pointer;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
+	.navis2:hover{transition:all .3s;border-bottom:1px solid white;background-color: white;cursor:pointer;border-right:1px solid grey;border-left:1px solid grey;}
 	.home{border-bottom:1px solid white;background-color: white;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
 	
 	#photozone{width:100.1%; height:400px;border:1px solid grey;margin-top:19px;}
@@ -53,7 +53,7 @@
 	.s_btn:hover{cursor: pointer;background-color: lightgrey}
 	
 	#addr{height:60px;font-size:15px;}
-	.s_mapbtn{float: right;margin-top: 40px;position:relative;bottom: 0px;}
+	.s_mapbtn{z-index:0;float: right;margin-top: 40px;position:relative;bottom: 0px;}
 	.s_phone{font-size:15px;}
 	
 	#s_menubox{height:auto;}
@@ -67,7 +67,10 @@
 	.clrboth{clear: both;}
 	hr{width:900px;border:0.5px solid grey;}
 	
-	
+	#reserve_btn{position: sticky; bottom:0px;width:1000px;height:60px;background-color: #D8D8D8;margin:0 auto;border:1px solid grey;border-radius: 10px 10px 0px 0px;border-bottom: 0px;}
+	#reserve_btn:hover{background-color: white;cursor: pointer;height:80px; transition:all .3s;}
+	#reserve_btn:hover #reserve_text{font-size:25px; transition:all .3s;}
+	#reserve_text{width:300px;margin:0 auto;text-align: center;line-height: 60px;font-size:20px;}
 </style>
 </head>
 <body>
@@ -237,6 +240,7 @@
 		</div>
 	</div>
 </div>
+	<div id="reserve_btn"><div id="reserve_text">예약하러가기</div></div>
 </body>
 </html>
 <jsp:include page="../all/footer.jsp" />

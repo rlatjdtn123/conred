@@ -30,7 +30,7 @@
 	.profile{float:right; height:100%;line-height: 23px;padding-right:10px;}
 	#navibox{float:right;width:380px;height:30px; padding-right:15px;clear:both;position: relative; bottom:40px;}
 	.navis{float:right; padding-right: 5px;padding-left: 5px;height:100%;line-height: 30px;border-radius: 50px;}
-	.navis:hover{cursor: pointer; background-color: lightgrey;}
+	.navis:hover{cursor: pointer; background-color: lightgrey;transition:all .3s;}
 	#profilepic{width:30px;float:right;padding-right:10px;}
 	
 	#search{padding-top:18px;width:25%;position:absolute;left:20px;}

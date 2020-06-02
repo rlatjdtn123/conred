@@ -81,10 +81,10 @@
 				<tr>
 					<td>사업자등록번호</td>
 					<td>
-						<input class="numbers" type="text" name="store_biznum1"/> -
-						<input class="numbers" type="text" name="store_biznum2"/> -
-						<input class="numbers" type="text" name="store_biznum3"/>
-						<button class="btn"  type="button" name="certify">
+						<input class="numbers" type="text" name="store_license_number1"/> -
+						<input class="numbers" type="text" name="store_license_number2"/> -
+						<input class="numbers" type="text" name="store_license_number3"/>
+						<button class="btn"  type="button" title="유효한 사업자등록번호인지 조회하기">
 <!-- 						<input class="numbers" type="text" name="store_biznum1" required="required"/> - -->
 <!-- 						<input class="numbers" type="text" name="store_biznum2" required="required"/> - -->
 <!-- 						<input class="numbers" type="text" name="store_biznum3" required="required"/> -->

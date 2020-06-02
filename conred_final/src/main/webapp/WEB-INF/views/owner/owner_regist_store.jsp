@@ -22,8 +22,8 @@
 	.clrboth{clear: both;}
 	.flright{float: right;}
 	.flleft{float: left;}
-	.btn{background-color: #f0f0f0;margin-left:10px;}
-	.btn2{background-color: #f0f0f0;margin-left:0px;}
+	.btn{background-color: grey;margin-left:10px;color:white;}
+	.btn2{margin-left:0px;}
 
 	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:auto;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	
@@ -36,13 +36,15 @@
 	.inputtitle{float:left;height:auto;line-height: 200%;padding-right:20px;width:140px;}
 	input{margin-top:2px;}
 	textarea{margin-top:2px;resize: none;}
-	select {margin-top:3px;height:26px;}
+	select {position:relative;top:1px;height:26px;}
 	.inputs{width:600px;float: left;height:auto;}
+	.width_500{width:500px;}
 	
-	textarea[name=s_time_etc]{width:310px;}
-	textarea[name=s_intro_small]{width:500px;}
-	textarea[name=s_intro_big]{width:500px;height:100px;}
-	textarea[name=s_addr]{width:220px;height:100px;}
+	
+	textarea[name=store_time_other]{width:370px;}
+	textarea[name=store_simple_intro]{width:500px;}
+	textarea[name=store_intro]{width:500px;height:100px;}
+	textarea[name=store_address]{width:220px;height:100px;}
 	
 	.catechkboxes_big{width:150px;height:100px;float: left;}
 	.catechkboxes{float: left;}
@@ -51,7 +53,7 @@
 	
 	.filebox input[type="file"] { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }
  	.filebox label { display: inline-block; padding: .5em .75em;  font-size: inherit; line-height: normal; 
- 					vertical-align: middle; background-color: #f0f0f0; cursor: pointer; border: 1px solid #ebebeb; 
+ 					vertical-align: middle; background-color: grey; cursor: pointer; border: 1px solid #ebebeb; 
 					border-bottom-color: #e2e2e2; border-radius: .25em; margin-bottom: 0px;}
 	.filebox .upload-name { display: inline-block; padding: .5em .75em; height:25px;/* label의 패딩값과 일치 */
 						
@@ -63,15 +65,18 @@
 						
 	.timebox{display: inline-block;width:50px;text-align: center;}
 	.timebox2{display: inline-block; width:80px;text-align: center;}
-	.menubox{display: inline-block; width:300px;text-align: center;}
+	.menubox{display: inline-block; width:310px;text-align: center;}
 	ul{list-style: none;padding:0px;}
- 	li{width:600px;} 
+ 	li{width:650px;} 
 	.hidmenu{display: none;}
+	
+	#show_menu,#show_time,.hide_menu{margin-bottom:2.5px;}
+	
 	
 	#bot{margin:30px 10px 30px;}
 </style>
 <script type="text/javascript">
-
+	
 	$(document).ready(function(){
 		var fileTarget = $('.filebox .upload-hidden');
 		fileTarget.on('change', function(){
@@ -99,7 +104,8 @@
 			$(".hidmenu").toggle();
 			if($(".ronly").attr("readonly")=="readonly"){
 				$(".ronly").removeAttr("readonly");
-				$(".ronly").css("background-color","white");
+				$(".ronly").css({"background-color":"white","border-width":"1px","border-radius":"3px","height":"26px"});
+				$(".ronly").css("border-width","1px");
 			}else{
 				for (var i = 0; i < 5; i++) {
 					var t1val=$("#t1").val();
@@ -114,34 +120,74 @@
 		if($("input[name=s_time]").eq(0).is(":checked")){
 			alert('dfd');
 		}
+		
+		$("#show_menu").click(function(){
+			$("#menuboxes").append('<li>'+
+			'<input class="timebox2 t1" type="text" name="menu_name" style="width:110px;"/> '+
+			'<input class="menubox t1" type="text" name="menu_content"/> '+
+			'<input class="timebox2 t2" type="text" name="menu_price"/> '+
+			'<select class="settime" name="menu_state" style="width:70px;">'+
+			'<option value="N">미사용</option><option value="T">시간제</option><option value="S">숙박제</option>'+
+			'</select> '+
+			'<span class="btn btn2 timebox2 hide_menu" style="height:24px; width:48px;line-height: 10px">-</span>'+
+			'</li> ');
+		});
+		
+		$("body").on("click",".hide_menu",function(){
+			$(this).parent("li").remove();
+		});
+		
+// 		$("body").on("click",".settime",function(){
+// 			$('div.modal').modal();
+// 		})
 	});
 	
-	$(function(){
-		$(".testmod").click(function(){
-			$('div.modal').modal();
-		})
-	})
 	
 
 </script>
 </head>
 <body>
 <div id="container">
+<!-- <div class="modal fade" id="layerpop" > -->
+<!--   <div class="modal-dialog"> -->
+<!--     <div class="modal-content"> -->
+<!--       header -->
+<!--       <div class="modal-header"> -->
+<!--         닫기(x) 버튼 -->
+<!--         <button type="button" class="close" data-dismiss="modal">×</button> -->
+<!--         header title -->
+<!--         <h4 class="modal-title">Header</h4> -->
+<!--       </div> -->
+<!--       body -->
+<!--       <div class="modal-body"> -->
+<!--             flkqnwkrtj -->
+<!--       </div> -->
+<!--       Footer -->
+<!--       <div class="modal-footer"> -->
+<!--         Footer -->
+<!--         <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button> -->
+<!--       </div> -->
+<!--     </div> -->
+<!--   </div> -->
+<!-- </div> -->
 <div class="modal fade" id="layerpop" >
   <div class="modal-dialog">
     <div class="modal-content">
-      <!-- header -->
-      <div class="modal-header">
-        <!-- 닫기(x) 버튼 -->
-        <button type="button" class="close" data-dismiss="modal">×</button>
-        <!-- header title -->
-        <h4 class="modal-title">Header</h4>
-      </div>
-      <!-- body -->
+<!--       header -->
+<!--       <div class="modal-header"> -->
+<!--         닫기(x) 버튼 -->
+<!--         <button type="button" class="close" data-dismiss="modal">×</button> -->
+<!--         header title -->
+<!--         <h4 class="modal-title">Header</h4> -->
+<!--       </div> -->
+<!--       body -->
       <div class="modal-body">
-            flkqnwkrtj
+            
+        <button type="button" class="btn btn-default" data-dismiss="modal">시간예약제</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">숙박예약제</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">설정안함제</button>
       </div>
-      <!-- Footer -->
+<!--       Footer -->
       <div class="modal-footer">
         Footer
         <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
@@ -157,22 +203,26 @@
 			<div>
 				<div class="inputbox">
 					<div class="inputtitle">매장명</div>
-					<div class="inputs"><input type="text" name="s_title"/></div>
+					<div class="inputs"><input type="text" name="store_name" placeholder="예)양평 동물병원"/></div>
 				</div>
 				<div class="inputbox">
 					<div class="inputtitle">대표명</div>
 					<div class="inputs"><input type="text" readonly/></div>
 				</div>
 				<div class="inputbox">
+					<div class="inputtitle">홈페이지 링크</div>
+					<div class="inputs"><input class="width_500" type="text" name="store_path" placeholder="홈페이지 링크를 입력해주세요."/></div>
+				</div>
+				<div class="inputbox">
 					<div class="inputtitle">간단소개<br>(30자이내)</div>
 					<div class="inputs">
-						<textarea name="s_intro_small"></textarea>
+						<textarea name="store_simple_intro" placeholder="매장이름과 함께 지도에 노출될 간단 소개글을 입력해주세요. (40자 이내)"></textarea>
 					</div>
 				</div>
 				<div class="inputbox">
 					<div class="inputtitle">매장소개<br>(500자이내)</div>
 					<div class="inputs">
-						<textarea name="s_intro_big"></textarea>
+						<textarea name="store_intro" placeholder="매장의 상세소개글을 입력해주세요. (500자 이내)"></textarea>
 					</div>
 				</div>
 				<div class="inputbox">
@@ -266,33 +316,33 @@
 					</div>
 				</div>
 				<div class="inputbox">
+					<div class="inputtitle">영업상태</div>
+					<div class="inputs">
+						<select name="store_state">
+							<option value="O">영업중</option>
+							<option value="B">휴업중</option>
+							<option value="C">폐점</option>
+						</select>
+					</div>
+				</div>
+				<div class="inputbox">
 					<div class="inputtitle">매장<br>전화번호</div>
-					<div class="inputs"><input type="text" name="s_s_phone" placeholder="'-' 없이 입력"/></div>
+					<div class="inputs"><input type="text" name="store_phone" placeholder="'-' 없이 입력"/></div>
 				</div>
 				<div class="inputbox">
 					<div class="inputtitle">담당자<br>전화번호</div>
 					<div class="inputs">
-						<input type="text" name="s_o_phone" placeholder="'-' 없이 입력"/>
+						<input type="text" name="s_o_phone" name="store_phone_manager" placeholder="'-' 없이 입력"/>
 						<button type="button" class="btn">휴대폰 인증</button>
 					</div>
 					
 				</div>
 				<div class="inputbox">
-					<div class="inputtitle">영업상태</div>
-					<div class="inputs">
-						<select>
-							<option>영업중</option>
-							<option>휴업중</option>
-							<option>폐점</option>
-						</select>
-					</div>
-				</div>
-				<div class="inputbox">
 					<div class="inputtitle">주소</div>
 					<div class="inputs">
-						<textarea name="s_addr" class="flleft" placeholder="주소"></textarea>
+						<textarea name="store_address" class="flleft" placeholder="주소"></textarea>
 						<button type="button" class="btn flleft">주소찾기</button>
-						<div class="inputs"><input name="s_addr_detail" placeholder="상세주소"/></div>
+						<div class="inputs"><input name="store_address_detail" placeholder="상세주소"/></div>
 					</div>
 				</div>
 				<div class="inputbox">
@@ -359,7 +409,7 @@
 								</li> 
 								<li>
 									<br>
-									<div class="inputs"><textarea class="" name="s_time_etc" placeholder="영업시간 관련된 공지사항이 추가로 있으실경우 이곳에 적어주세요."></textarea></div>
+									<div class="inputs"><textarea class="" name="store_time_other" placeholder="영업시간 관련된 공지사항이 추가로 있으실경우 이곳에 적어주세요."></textarea></div>
 								</li>
 							</ul>
 					</div>
@@ -367,30 +417,43 @@
 				
 				<div class="inputbox">
 					<div class="inputtitle">메뉴등록</div>
-					<div class="inputs">
+					<div  class="inputs">
 					<ul>
 						<li>
-							<span class="timebox2">메뉴명</span>
+							<span class="timebox2" style="width:110px;">메뉴명</span>
 							<span class="menubox">설명</span>
 							<span class="timebox2">가격</span>
-							<span class="timebox" title="체크하시면 예약기능이 활성화됩니다.">예약</span>
+							<span class="timebox" title="체크하시면 예약기능이 활성화됩니다." style="width:70px;">예약</span>
 						</li> 
 					</ul>
-					<ul>
+					<ul id="menuboxes">
 						<li>
-							<span class="timebox2"><input class="timebox2 t1" type="text" name="s_time"/></span>
-							<input id="t1" class="menubox" type="text" name="s_time"/>
-							<input id="t2" class="timebox2" type="text" name="s_time"/>
-							<input class="settime" class="timebox" type="button" style=" width:48px;" value="설정"/>
+							<input class="timebox2 t1" type="text" name="menu_name" style="width:110px;" placeholder="멍멍개껌"/>
+							<input id="t1" class="menubox" type="text" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~"/>
+							<input id="t2" class="timebox2" type="text" name="menu_price" placeholder="10000"/>
+							<select class="settime" name="menu_state" style="width:70px;">
+								<option value="N">미사용</option>
+								<option value="T">시간제</option>
+								<option value="S">숙박제</option>
+							</select>
 							<span id="show_menu" class="btn btn2 timebox2" style="height:24px; width:48px;line-height: 10px">
 								+
 							</span>
+
 						</li> 
 						<li>
-							<span class="timebox2"><input class="timebox2 t1" type="text" name="s_time"/></span>
-							<input class="menubox t1" type="text" name="s_time"/>
-							<input class="timebox2 t2" type="text" name="s_time"/>
-							<input class="settime" class="timebox" type="button" style=" width:48px;" value="설정"/>
+							<input class="timebox2 t1" type="text" name="menu_name" style="width:110px;"/>
+							<input class="menubox t1" type="text"  name="menu_content"/>
+							<input class="timebox2 t2" type="text" name="menu_price"/>
+							<select class="settime"  name="menu_state" style="width:70px;">
+								<option value="N">미사용</option>
+								<option value="T">시간제</option>
+								<option value="S">숙박제</option>
+							</select>
+<!-- 							<input class="settime" class="timebox" type="button" style=" width:48px;" value="설정"/> -->
+							<span class="btn btn2 timebox2 hide_menu" style="height:24px; width:48px;line-height: 10px">
+								-
+							</span>
 						</li> 
 					</ul>
 					</div>
@@ -398,15 +461,16 @@
 				<div class="inputbox lastbox">
 					<div class="inputtitle">계좌등록</div>
 					<div class="inputs">
-						<select name="s_bank">
+						<select name="store_bank">
 							<option>--은행선택--</option>
-							<option>신한</option>
-							<option>기업</option>
-							<option>하나</option>
-							<option>우리</option>
-							<option>농협</option>
+							<option value="신한">신한</option>
+							<option value="기업">기업</option>
+							<option value="하나">하나</option>
+							<option value="우리">우리</option>
+							<option value="농협">농협</option>
+							<option value="국민">국민</option>
 						</select>
-						<input name="s_account"/>
+						<input name="store_account" placeholder="'-' 없이 입력"/>
 					</div>
 					
 				</div>
