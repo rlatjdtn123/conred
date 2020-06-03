@@ -51,6 +51,8 @@
 	<a href="test_modal.do">모달 테스트</a>
 	<a href="test_file.do">다중파일업로드 테스트</a>
 	<a href="test_calendar.do">캘린더 테스트</a>
+	<a href="test_calendar02.do">캘린더 테스트2</a>
+	<a href="test_time.do">시간 테스트</a>
 </body>
 <footer> 
 	<div id="main1"> 

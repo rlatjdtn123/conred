@@ -106,7 +106,7 @@ public class Sungsu {
 //				System.out.println("@@@@@@@@@@@@@@@@@::"+category_code[i]);
 //				System.out.println("!!!!!!!!!!!!!!!!!::"+user_id[i]);
 //			}
-			
+		
 			boolean isS=uService.insertUser(dto, category_code,dto.getUser_id());
 			if(isS){ 
 				return "user/user_regist_finish";						
@@ -342,10 +342,23 @@ public class Sungsu {
 	
 	
 	@RequestMapping(value = "test_calendar.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String test_calendar(Locale locale, Model model,int year,int month) {
+	public String test_calendar(Locale locale, Model model) {
 		logger.info("캘린더 테스트{}.", locale);
 		
-//		model.addAttribute(arg0, arg1)
+
 		return "test/test_calendar";
+	} 
+
+	
+	@RequestMapping(value = "test_calendar02.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String test_calendar02(Locale locale, Model model) {
+		logger.info("캘린더 테스트2{}.", locale);
+		return "test/test_calendar02";
+	} 
+	
+	@RequestMapping(value = "test_time.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String test_time(Locale locale, Model model) {
+		logger.info("시간 테스트{}.", locale);
+		return "test/test_time";
 	} 
 }
