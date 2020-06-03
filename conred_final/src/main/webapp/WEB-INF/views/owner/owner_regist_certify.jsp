@@ -84,19 +84,24 @@
 						<input class="numbers" type="text" name="store_license_number1"/> -
 						<input class="numbers" type="text" name="store_license_number2"/> -
 						<input class="numbers" type="text" name="store_license_number3"/>
+<!-- 						<input class="numbers" type="text" name="store_license_number1" required="required"/> - -->
+<!-- 						<input class="numbers" type="text" name="store_license_number2" required="required"/> - -->
+<!-- 						<input class="numbers" type="text" name="store_license_number3" required="required"/> -->
+
 						<button class="btn"  type="button" title="유효한 사업자등록번호인지 조회하기">
-<!-- 						<input class="numbers" type="text" name="store_biznum1" required="required"/> - -->
-<!-- 						<input class="numbers" type="text" name="store_biznum2" required="required"/> - -->
-<!-- 						<input class="numbers" type="text" name="store_biznum3" required="required"/> -->
-<!-- 						<button class="btn"  type="button" name="certify" required="required"> -->
+<!-- 						<button class="btn"  type="button" name="certify" title="유효한 사업자등록번호인지 조회하기" required="required"> -->
 							조회
 						</button>
+							
 					</td>
 				</tr>
 				<tr>
 					<td>사업자등록증  사본등록</td>
 					<td>
 						<div class="filebox">
+							<input type="hidden" name="store_license_biz_origin" value="사업자원본명테스트a"/><!-- 테스트용 -->
+							<input type="hidden" name="store_license_biz_stored" value="사업자저장명테스트a"/><!-- 테스트용 -->
+							<input type="hidden" name="store_license_biz_size" value="1234"/>			<!-- 테스트용 -->	
 							<input class="upload-name" value="파일선택" disabled="disabled">
 							<label class="btn" for="filename01">업로드</label>
 							<input type="file" id="filename01" class="upload-hidden">
@@ -109,6 +114,9 @@
 					<td>영업등록증 사본등록</td>
 					<td>
 						<div class="filebox">
+							<input type="hidden" name="store_license_biz_origin" value="영업증원본명테스트a"/><!-- 테스트용 -->
+							<input type="hidden" name="store_license_biz_stored" value="영업증저장명테스트a"/><!-- 테스트용 -->
+							<input type="hidden" name="store_license_biz_size" value="2345"/>			<!-- 테스트용 -->
 							<input class="upload-name" value="파일선택" disabled="disabled">
 							<label class="btn" for="filename02">업로드</label>
 							<input type="file" id="filename02" class="upload-hidden">

@@ -42,7 +42,7 @@
 	
 	
 	textarea[name=store_time_other]{width:370px;}
-	textarea[name=store_intro_simple]{width:500px;}
+	textarea[name=store_simple_intro]{width:500px;}
 	textarea[name=store_intro]{width:500px;height:100px;}
 	textarea[name=store_address]{width:220px;height:100px;}
 	
@@ -247,7 +247,7 @@
     </div>
   </div>
 </div>
-	<form action="owner_regist_menu.do" method="post">
+	<form action="owner_regist_finish.do" method="post">
 		<div id="tle">
 			<div id="regist" class="testmod">
 				매장 정보 입력
@@ -278,6 +278,99 @@
 					</div>
 				</div>
 				<div class="inputbox">
+					<div class="inputtitle">매장종류</div>
+					<div class="inputs">
+						<div class="catechkboxes_big">
+							<div class="catechkbox">
+								대표 매장종류<br>
+								*한가지만 선택<br>
+								*지도위의 아이콘용
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code" value="A"/>동물병원
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code" value="A"/>카페/식당
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code" value="A"/>식품/용품
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code" value="A"/>숙박
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code" value="A"/>돌봄서비스
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code" value="A"/>미용
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code" value="A"/>체험
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code" value="A"/>분양/교배
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code" value="A"/>장례
+							</div>
+						</div>
+						<div class="catechkboxes">
+							<div class="catechkbox">
+								해당되는 항목을 모두 체크해주세요<br>
+								*대표 매장종류에 해당되지 않아도 선택 가능합니다<br>
+								*
+								
+							</div> 
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code_small" value="a1"/>종합
+								<input type="checkbox" name="category_code_small" value="a2"/>내과
+								<input type="checkbox" name="category_code_small" value="a3"/>외과
+								<input type="checkbox" name="category_code_small" value="a4"/>치과
+								<input type="checkbox" name="category_code_small" value="a5"/>24시
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code_small" value="b1"/>동반가능 카페
+								<input type="checkbox" name="category_code_small" value="b2"/>동반가능 식당
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code_small" value="c1"/>용품
+								<input type="checkbox" name="category_code_small" value="c2"/>식품
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code_small" value="d1"/>글램핑/카라반
+								<input type="checkbox" name="category_code_small" value="d2"/>펜션
+								<input type="checkbox" name="category_code_small" value="d3"/>풀빌라
+								<input type="checkbox" name="category_code_small" value="d4"/>호텔
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code_small" value="e1"/>호텔
+								<input type="checkbox" name="category_code_small" value="e2"/>펫시터
+								<input type="checkbox" name="category_code_small" value="e3"/>유치원
+								<input type="checkbox" name="category_code_small" value="e4"/>펫택시
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code_small" value="f1"/>미용
+								<input type="checkbox" name="category_code_small" value="f2"/>목욕
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code_small" value="g1"/>놀이터
+								<input type="checkbox" name="category_code_small" value="g2"/>운동장
+								<input type="checkbox" name="category_code_small" value="g3"/>훈련
+								<input type="checkbox" name="category_code_small" value="g4"/>수영장
+								<input type="checkbox" name="category_code_small" value="g5"/>스튜디오
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code_small" value="h1"/>분양 
+								<input type="checkbox" name="category_code_small" value="h2"/>교배
+								<input type="checkbox" name="category_code_small" value="h3"/>유기견
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code_small" value="i1"/>장례
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="inputbox">
 					<div class="inputtitle">영업상태</div>
 					<div class="inputs">
 						<select name="store_state">
@@ -294,6 +387,7 @@
 				<div class="inputbox">
 					<div class="inputtitle">담당자<br>전화번호</div>
 					<div class="inputs"><input type="text" name="store_phone_manager" placeholder="'-' 없이 입력"/></div>
+					
 				</div>
 				<div class="inputbox">
 					<div class="inputtitle">주소</div>
@@ -372,6 +466,62 @@
 							</ul>
 					</div>
 				</div>
+				
+				<div class="inputbox">
+					<div class="inputtitle">메뉴등록</div>
+					<div  class="inputs">
+					<ul>
+						<li>
+							<span class="timebox2" style="width:110px;">메뉴명</span>
+							<span class="menubox">설명</span>
+							<span class="timebox2">가격</span>
+							<span class="timebox" title="체크하시면 예약기능이 활성화됩니다." style="width:70px;">예약</span>
+						</li> 
+					</ul>
+					<ul id="menuboxes">
+						<li>
+							<input class="timebox2 t1" type="text" name="menu_name" style="width:110px;" placeholder="멍멍개껌"/>
+							<input id="t1" class="menubox" type="text" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~"/>
+							<input id="t2" class="timebox2" type="text" name="menu_price" placeholder="10000"/>
+							<select class="settime" name="menu_state" style="width:70px;">
+								<option value="N">미사용</option>
+								<option value="T">시간제</option>
+								<option value="S">숙박제</option>
+							</select>
+							<span id="show_menu" class="btn btn2 timebox2" style="height:24px; width:48px;line-height: 10px">
+								+
+							</span>
+
+						</li> 
+						<li>
+							<input class="timebox2 t1" type="text" name="menu_name" style="width:110px;"/>
+							<input class="menubox t1" type="text"  name="menu_content"/>
+							<input class="timebox2 t2" type="text" name="menu_price"/>
+							<select class="settime"  name="menu_state" style="width:70px;">
+								<option value="N">미사용</option>
+								<option value="T">시간제</option>
+								<option value="S">숙박제</option>
+							</select>
+<!-- 							<input class="settime" class="timebox" type="button" style=" width:48px;" value="설정"/> -->
+							<span class="btn btn2 timebox2 hide_menu" style="height:24px; width:48px;line-height: 10px">
+								-
+							</span>
+						</li> 
+					</ul>
+					</div>
+				</div>
+				<div class="inputbox">
+					<div class="inputtitle">예약관련 설정</div>
+					<div class="inputs">
+						<div>※최대 예약일 : <input type="text" name="store_maxdate" placeholder="0"  readonly/>일</div>
+						<div class="subinfo">*최대 몇 일까지 예약 가능한가요? 1박2일의 경우 : 2일</div>
+						<div class="subinfo">*시간제 예약메뉴가 있는경우에 한해 작성가능합니다.</div>
+						<br>
+						<div>※시간당 최대 허용인원 : <input type="text" name="store_maxman" placeholder="0" readonly/>명</div>
+						<div class="subinfo">*한시간에 몇 명의 예약을 받을 수 있나요?</div>
+						<div class="subinfo">*숙박제 예약메뉴가 있는경우에 한해 작성가능합니다.</div>
+					</div>
+				</div>
 				<div class="inputbox lastbox">
 					<div class="inputtitle">계좌등록</div>
 					<div class="inputs">
@@ -391,7 +541,7 @@
 				<br>
 					<div id="bot" class="flright" >
 						<input class="btn redbtn" value="취소" onclick="location.href='index.jsp'" type="button"/>
-						<input class="btn greenbtn" value="다음 단계로" type="submit"/>
+						<input class="btn greenbtn" value="입점신청" type="submit"/>
 					</div>
 					<br>
 					<br>
