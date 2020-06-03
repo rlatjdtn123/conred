@@ -266,6 +266,26 @@
 					<div class="inputs"><input class="width_500" type="text" name="store_path" placeholder="홈페이지 링크를 입력해주세요."/></div>
 				</div>
 				<div class="inputbox">
+					<div class="inputtitle">사진업로드</div>
+					<div class="inputs">
+						<div class="filebox">
+							<input class="upload-name" value="파일선택" disabled="disabled">
+							<label class="btn" for="filename02">업로드</label>
+							<input type="file" id="filename02" class="upload-hidden">
+<!-- 							<input type="file" id="filename02" class="upload-hidden" required="required"> -->
+						<div class="subinfo">
+							* 매장의 사진을 최소 5개 업로드해주세요.
+						</div>
+						<div class="subinfo">
+							* 메뉴의 사진을 올리고싶다면 해당 사진 입력란에 메뉴명을 적어주세요.
+						</div>
+						<div class="subinfo">
+							* 가로1200px*세로400px에 가까운 사진일수록 매장사진이 이쁘게 들어갑니다.
+						</div>
+						</div>
+					</div>
+				</div>
+				<div class="inputbox">
 					<div class="inputtitle">간단소개<br>(30자이내)</div>
 					<div class="inputs">
 						<textarea name="store_intro_simple" placeholder="매장이름과 함께 지도에 노출될 간단 소개글을 입력해주세요. (40자 이내)"></textarea>
@@ -301,17 +321,6 @@
 						<textarea name="store_address" class="flleft" placeholder="주소"></textarea>
 						<button type="button" class="btn flleft">주소찾기</button>
 						<div class="inputs"><input name="store_address_detail" placeholder="상세주소"/></div>
-					</div>
-				</div>
-				<div class="inputbox">
-					<div class="inputtitle">사진업로드</div>
-					<div class="inputs">
-						<div class="filebox">
-							<input class="upload-name" value="파일선택" disabled="disabled">
-							<label class="btn" for="filename02">업로드</label>
-							<input type="file" id="filename02" class="upload-hidden">
-<!-- 							<input type="file" id="filename02" class="upload-hidden" required="required"> -->
-						</div>
 					</div>
 				</div>
 				<div class="inputbox">
@@ -390,6 +399,7 @@
 				</div>
 				<br>
 					<div id="bot" class="flright" >
+						<input class="btn greenbtn" value="전단계로" onclick="location.href='owner_regist_certify.do'" type="button"/>
 						<input class="btn redbtn" value="취소" onclick="location.href='index.jsp'" type="button"/>
 						<input class="btn greenbtn" value="다음 단계로" type="submit"/>
 					</div>
