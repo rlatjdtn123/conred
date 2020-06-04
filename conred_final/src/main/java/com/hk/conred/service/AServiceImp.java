@@ -27,6 +27,12 @@ public class AServiceImp implements IAService{
 		return ADaoImp.admin_blackuser_search(blackuser);
 	}
 	
+//	@Override
+//	public List<ODto> admin_site_ownerlist(String keywordowner); {
+//		// TODO Auto-generated method stub
+//		return ADaoImp.admin_site_ownerlist(keywordowner);
+//	}
+	
 	
 	@Override
 	public List<SDto> admin_site_storelist(String keywordstore) {
@@ -40,11 +46,6 @@ public class AServiceImp implements IAService{
 		return ADaoImp.admin_store_state_search(adminstate);
 	}
 	
-//	@Override
-//	public List<ODto> admin_site_ownerlist() {
-//		// TODO Auto-generated method stub
-//		return ADaoImp.admin_site_ownerlist();
-//	}
 	@Override
 	public boolean adminMulchk(String[] store_seqs) {
 		return ADaoImp.adminMulchk(store_seqs);
@@ -54,6 +55,7 @@ public class AServiceImp implements IAService{
 	public boolean adminMuldel(String[] store_seqs) {
 		return ADaoImp.adminMuldel(store_seqs);
 	}
+	
 	
 	
 }

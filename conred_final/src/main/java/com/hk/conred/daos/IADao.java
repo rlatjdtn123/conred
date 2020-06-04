@@ -13,7 +13,7 @@ public interface IADao {
 	//2.전체 블랙유저 조회 기능
 	public List<UDto> admin_blackuser_search(String blackuser);
 	//3.전체 점주 조회 기능
-//	public List<ODto> admin_site_ownerlist();
+	public List<ODto> admin_site_ownerlist(String keywordowner);
 	//4.전체 매장 조회 기능
 	public List<SDto> admin_site_storelist(String keywordstore);
 	//5.전체 승인매장 조회 기능

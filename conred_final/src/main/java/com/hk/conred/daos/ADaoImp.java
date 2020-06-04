@@ -39,15 +39,13 @@ public class ADaoImp implements IADao {
 		return sqlSession.selectList(nameSpace+"admin_blackuser_search",blackuser);
 	}
 	
-	
-//	public List<ODto> admin_site_ownerlist(){
-//		
-//		
-//		return sqlSession.selectList(nameSpace+"admin_site_ownerlist");
-//	}
+	@Override
+	public List<ODto> admin_site_ownerlist(String keywordowner){
+		
+		return sqlSession.selectList(nameSpace+"admin_site_ownerlist",keywordowner);
+	}
 	@Override
 	public List<SDto> admin_site_storelist(String keywordstore){
-		
 		
 		return sqlSession.selectList(nameSpace+"admin_site_storelist",keywordstore);
 	}

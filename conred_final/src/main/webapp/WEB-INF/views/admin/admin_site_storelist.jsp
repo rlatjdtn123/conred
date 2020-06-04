@@ -22,18 +22,18 @@
 	}
 
 	$(function() {
-		//아이디 test 에서 submit이벤트가 발생하면 함수실행(?) 수정필요
+		//아이디 test 에서 submit이벤트가 발생하면 함수실행
 		$("#muldel").submit(function() {
 			var bool = true;
 			var count = $(this).find("input[name=store_seqs]:checked").length;
 			if (count == 0) {
-				alert("최소하나이상 체크해야 됩니다!");
+				alert("최소하나이상 선택해야 됩니다!");
 				bool = false;
 			}else {
-				if(confirm("정말 삭제 하시겠습니까?")){
+				if(confirm("정말 변경 하시겠습니까?")){
 					return bool;
 				}else{
-					bool =false;
+					bool = false;
 				}
 			}
 			return bool;
@@ -133,8 +133,8 @@ List<SDto>list=(List<SDto>)request.getAttribute("list");
 <%-- 							<td><%=dto.getStore_time_other()%></td> --%>
 <%-- 							<td><%=dto.getStore_bank()%></td> --%>
 <%-- 							<td><%=dto.getStore_account()%></td> --%>
-							<td><%=dto.getStore_license_owner()%></td>
-							<td><%=dto.getStore_license_sales()%></td>
+<%-- 							<td><%=dto.getStore_license_owner()%></td> --%>
+<%-- 							<td><%=dto.getStore_license_sales()%></td> --%>
 							<td><%=dto.getStore_admin_state()%></td>
 							<td><input type="checkbox" name="store_seqs" value="<%=dto.getStore_seq()%>"/></td>
 						</tr>
@@ -146,7 +146,7 @@ List<SDto>list=(List<SDto>)request.getAttribute("list");
 <!-- 		승인하고 싶은 매장은 선택하여 승인하고, 승인을 취소하고 싶은 매장은 선택하여 취소하는 버튼 -->
 		<button type="submit" formaction="adminMulchk.do">매장승인/승인취소</button>
 		<button type="submit" formaction="adminMuldel.do">삭제</button>
-		<button type="submit" formaction="adminMuldel.do">등급변경</button>
+		<button type="submit" formaction="adminMulupdown.do">등급변경</button>
 	    </form>
 	</div>
  </body>

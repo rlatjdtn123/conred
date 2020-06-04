@@ -16,12 +16,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.hk.conred.dtos.ODto;
 import com.hk.conred.dtos.SDto;
 import com.hk.conred.dtos.UDto;
 import com.hk.conred.service.AServiceImp;
 import com.hk.conred.service.IAService;
 
-//admin_store_search.do
+
 @Controller
 public class AdminController {
 	
@@ -94,7 +95,7 @@ public class AdminController {
 	@RequestMapping(value = "adminMulchk.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String adminMulchk(String[] store_seqs, Locale locale, Model model,String searchWordStore, String storeSearch) throws UnsupportedEncodingException {
 		 
-		logger.info("관리자 - 매장 선택/다중선택 후 매장 승인 및 취소 기능 {"+(Arrays.toString(store_seqs))+"}.", locale);
+		logger.info("관리자 - 매장 선택/다중선택 후 매장 승인 및 취소 기능(N일 때는 Y, Y일 때는 N) {"+(Arrays.toString(store_seqs))+"}.", locale);
 		
 		boolean isS=aService.adminMulchk(store_seqs);
 		
@@ -121,6 +122,33 @@ public class AdminController {
 		}
 		
 	}
+	@RequestMapping(value = "admin_site_ownerlist.do", method = RequestMethod.GET)
+	public String admin_site_ownerlist(Locale locale, Model model, UDto udto) {
+		logger.info("관리자 - 점주 조회로 이동 {}.", locale); 
+		
+	
+		return "admin/admin_site_userlist";
+	}
+	
+//	@RequestMapping(value = "admin_owner_search.do", method = RequestMethod.POST)
+//	public String admin_owner_search(Locale locale, Model model, ODto Odto, String searchWordOwner,String ownerSearch) {
+//		logger.info("관리자 - 오너 목록 전체 조회 및 키워드 조회 기능 {}.", locale); 
+//		
+//		if(ownerSearch.equals("keywordOwner")) {
+//			List<ODto> list = aService.admin_site_ownerlist(searchWordOwner);
+//			model.addAttribute("list",list);
+//			
+//		}else if(userSearch.equals("outOwner")) {
+//			List<ODto> list = aService.admin_outowner_search(searchWord);
+//			model.addAttribute("list",list);
+//		}
+		
+//		model.addAttribute("ownerSearch",ownerSearch);
+//	
+//		return "admin/admin_site_ownerlist";
+//		}
 	
 	
-}
+	}
+//	
+//}
