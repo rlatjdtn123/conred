@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.hk.conred.dtos.ODto;
 import com.hk.conred.dtos.SDto;
+import com.hk.conred.dtos.STimeDto;
 import com.hk.conred.dtos.UDto;
 import com.hk.conred.service.IOService;
 import com.hk.conred.service.ISService;
@@ -154,7 +155,7 @@ public class Yoonho {
 	
 
 	@RequestMapping(value = "owner_regist_store.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String owner_regist_store(Locale locale, Model model, SDto sdto, HttpServletRequest request) {
+	public String owner_regist_store(Locale locale, Model model, SDto sdto, STimeDto stimedto, HttpServletRequest request) {
 		logger.info("점주: 매장등록(매장정보 입력)으로 이동  {}.", locale);
 		
 		HttpSession session=request.getSession();
@@ -194,8 +195,10 @@ public class Yoonho {
 		System.out.println("sdto 관리자승인:"+sdto.getStore_admin_state());
 //		System.out.println("sdto 아이디:"+sdto.getStore_maxdate());
 //		System.out.println("sdto 아이디:"+sdto.getStore_maxman());
-
+		
+		System.out.println();
 		boolean isS=sService.insertStoreCertify(sdto);
+		
 //		boolean isS=sService.insertStoreCertify(sdto); //원래했던거
 //		if(isS&&sdto.getStore_agreement()=="Y") {
 		if(isS) {
