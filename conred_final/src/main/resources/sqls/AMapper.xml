@@ -2,11 +2,12 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-   
-  
+
+
 <mapper namespace="com.hk.conred.A">
-     
-     <select id="admin_site_userlist" resultType="UDto" parameterType="String">
+
+	<select id="admin_site_userlist" resultType="UDto"
+		parameterType="String">
      	<![CDATA[ 
      	SELECT USER_ID, USER_NAME, USER_EMAIL, USER_BIRTH, USER_SEX, USER_REGDATE, USER_AGREEMENT,
      	USER_OUT, USER_BLACK, USER_ROLE, USER_POINT        
@@ -15,48 +16,72 @@
 	    OR USER_SEX LIKE '%'||#{keyword}||'%' OR USER_REGDATE LIKE '%'||#{keyword}||'%' OR USER_AGREEMENT LIKE '%'||#{keyword}||'%' OR USER_OUT LIKE '%'||#{keyword}||'%' OR 
 		USER_BLACK LIKE '%'||#{keyword}||'%' OR USER_ROLE LIKE '%'||#{keyword}||'%' OR USER_POINT LIKE '%'||#{keyword}||'%'
      	]]>
-     </select>
-     
-      <select id="admin_blackuser_search" resultType="UDto" parameterType="String">
+	</select>
+
+	<select id="admin_blackuser_search" resultType="UDto"
+		parameterType="String">
      	<![CDATA[ 
      	SELECT *
      	FROM CON_USER
      	WHERE USER_BLACK = 'Y' AND (USER_ID LIKE '%'||#{keyword}||'%' OR USER_NAME LIKE '%'||#{keyword}||'%')
      	]]>
-     </select>
-     
-     
-     <select id="admin_site_ownerlist" resultType="ODto">
-     	<![CDATA[
-     	SELECT * 
+	</select>
+
+
+	<select id="admin_site_ownerlist" resultType="ODto"
+		parameterType="String">
+     	<![CDATA[ 
+     	SELECT OWNER_ID, OWNER_NAME, OWNER_EMAIL, OWNER_BIRTH, OWNER_SEX, OWNER_REGDATE, OWNER_AGREEMENT, OWNER_OUT  
      	FROM CON_OWNER
-     	]]>
-     </select>
-     
-     <select id="admin_site_storelist" resultType="SDto" parameterType="String">
+		WHERE OWNER_ID LIKE '%'||#{keywordowner}||'%' OR OWNER_NAME LIKE '%'||#{keywordowner}||'%' 
+		OR OWNER_EMAIL LIKE '%'||#{keywordowner}||'%' OR OWNER_BIRTH LIKE '%'||#{keywordowner}||'%' 
+	    OR OWNER_SEX LIKE '%'||#{keywordowner}||'%' OR OWNER_REGDATE LIKE '%'||#{keywordowner}||'%' 
+	    OR OWNER_AGREEMENT LIKE '%'||#{keywordowner}||'%' OR OWNER_OUT LIKE '%'||#{keywordowner}||'%'
+		]]>
+	</select>
+
+	<update id="adminMuldelOwner" parameterType="map">
+		<![CDATA[ 
+		UPDATE CON_OWNER SET OWNER_OUT = 'Y' 
+		WHERE OWNER_ID IN ]]>
+		<foreach collection="owner_ids" open="(" close=")"
+			separator="," item="owner_id">
+			#{owner_id}
+		</foreach>
+	</update>
+
+
+	<select id="admin_site_storelist" resultType="SDto"
+		parameterType="String">
      	<![CDATA[ 
      	SELECT *    
 		FROM CON_STORE   
 		WHERE STORE_SEQ LIKE '%'||#{keywordstore}||'%' OR OWNER_ID LIKE '%'||#{keywordstore}||'%' 
 		OR STORE_NAME LIKE '%'||#{keywordstore}||'%' OR STORE_OWNER_NAME LIKE '%'||#{keywordstore}||'%' 
-		OR STORE_PATH LIKE '%'||#{keywordstore}||'%' OR STORE_SIMPLE_INTRO LIKE '%'||#{keywordstore}||'%' 
+		OR STORE_PATH LIKE '%'||#{keywordstore}||'%' OR STORE_INTRO_SIMPLE LIKE '%'||#{keywordstore}||'%' 
 		OR STORE_INTRO LIKE '%'||#{keywordstore}||'%' OR STORE_STATE LIKE '%'||#{keywordstore}||'%' 
-		OR STORE_PHONE LIKE '%'||#{keywordstore}||'%' OR STORE_OWNER_PHONE LIKE '%'||#{keywordstore}||'%' 
-		OR STORE_ADDRESS LIKE '%'||#{keywordstore}||'%' OR STORE_DETAIL_ADDRESS LIKE '%'||#{keywordstore}||'%'
-		OR STORE_TIME_OTHER LIKE '%'||#{keywordstore}||'%'OR STORE_BANK LIKE '%'||#{keywordstore}||'%'
-		OR STORE_ACCOUNT LIKE '%'||#{keywordstore}||'%'OR STORE_LICENSE_OWNER LIKE '%'||#{keywordstore}||'%'
-		OR STORE_LICENSE_SALES LIKE '%'||#{keywordstore}||'%'OR STORE_ADMIN_STATE LIKE '%'||#{keywordstore}||'%'
+		OR STORE_PHONE LIKE '%'||#{keywordstore}||'%' OR STORE_PHONE_MANAGER LIKE '%'||#{keywordstore}||'%' 
+		OR STORE_ADDRESS LIKE '%'||#{keywordstore}||'%' OR STORE_ADDRESS_DETAIL LIKE '%'||#{keywordstore}||'%'
+		OR STORE_TIME_OTHER LIKE '%'||#{keywordstore}||'%' OR STORE_BANK LIKE '%'||#{keywordstore}||'%'
+		OR STORE_ACCOUNT LIKE '%'||#{keywordstore}||'%' OR STORE_LICENSE_NUMBER LIKE '%'||#{keywordstore}||'%'
+		OR STORE_LICENSE_BIZ_ORIGIN LIKE '%'||#{keywordstore}||'%' OR STORE_LICENSE_BIZ_STORED LIKE '%'||#{keywordstore}||'%'
+		OR STORE_LICENSE_BIZ_SIZE LIKE '%'||#{keywordstore}||'%' OR STORE_LICENSE_SALES_ORIGIN LIKE '%'||#{keywordstore}||'%'
+		OR STORE_LICENSE_SALES_STORED LIKE '%'||#{keywordstore}||'%' OR STORE_LICENSE_SALES_SIZE LIKE '%'||#{keywordstore}||'%'
+		OR STORE_OWNER_PHONE LIKE '%'||#{keywordstore}||'%' OR STORE_AGREEMENT LIKE '%'||#{keywordstore}||'%'
+		OR STORE_ADMIN_STATE LIKE '%'||#{keywordstore}||'%' OR STORE_MAXDATE LIKE '%'||#{keywordstore}||'%' 
+		OR STORE_MAXMAN LIKE '%'||#{keywordstore}||'%'
      	]]>
-     </select>
+	</select>
 
-  <select id="admin_store_state_search" resultType="SDto" parameterType="String">
+	<select id="admin_store_state_search" resultType="SDto"
+		parameterType="String">
      	<![CDATA[ 
      	SELECT *
      	FROM CON_STORE
      	WHERE STORE_ADMIN_STATE = 'Y' AND (OWNER_ID LIKE '%'||#{keywordstore}||'%' OR STORE_NAME LIKE '%'||#{keywordstore}||'%'
      	OR STORE_OWNER_NAME LIKE '%'||#{keywordstore}||'%')
      	]]>
-  </select>
+	</select>
 
 	<update id="adminMulchk" parameterType="map">
 		<![CDATA[ 
@@ -71,16 +96,18 @@
 			#{store_seq}
 		</foreach>
 	</update>
-	
-	<delete id="adminMuldel" parameterType="map">
+
+	<update id="adminMuldel" parameterType="map">
 		<![CDATA[ 
-		DELETE FROM CON_STORE
+		UPDATE CON_STORE SET STORE_NAME = '***' , STORE_PHONE_MANAGER = '***' , STORE_OWNER_NAME = '***' , 
+		STORE_STATE = '***' , STORE_ADMIN_STATE = '***'
 		WHERE STORE_SEQ IN ]]>
 		<foreach collection="store_seqs" open="(" close=")"
 			separator="," item="store_seq">
 			#{store_seq}
 		</foreach>
-	</delete>
-     
+	</update>
+
+
 
 </mapper>

@@ -96,13 +96,13 @@ List<ODto>list=(List<ODto>)request.getAttribute("list");
 				<th>성별</th>
 				<th>가입일자</th>
 				<th>동의여부</th>
-<!-- 				<th>탈퇴여부</th> -->
+				<th>탈퇴여부</th>
 				<th><input type="checkbox" name="all" onclick="allSel(this.checked)"/></th>
 			</tr>
 		<%
 				if(list==null||list.size()==0){
 					out.print("<tr><td colspan='19'>"
-					         +"---관리자님 등록된 점주가 없어요!---</td></tr>");
+					         +"---관리자님 우리 사이트에 등록된 점주가 없어요!---</td></tr>");
 				}else{
 					for(ODto dto:list){
 						%>
@@ -115,7 +115,7 @@ List<ODto>list=(List<ODto>)request.getAttribute("list");
 							<td><%=dto.getOwner_sex()%></td>
 							<td><%=dto.getOwner_regdate()%></td>
 							<td><%=dto.getOwner_agreement()%></td>
-<%-- 							<td><%=dto.getOwner_out%></td> --%>
+							<td><%=dto.getOwner_out()%></td>
 							<td><input type="checkbox" name="owner_ids" value="<%=dto.getOwner_id()%>"/></td>
 						</tr>
 						<%
@@ -123,7 +123,7 @@ List<ODto>list=(List<ODto>)request.getAttribute("list");
 				}
 			%>	
 		</table>
-			<button type="submit" formaction="adminOwnerMuldel.do">삭제</button>
+			<button type="submit" formaction="adminMuldelOwner.do" >삭제</button>
 		</form>
 	</div>
  </body>

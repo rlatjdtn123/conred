@@ -99,14 +99,14 @@ List<SDto>list=(List<SDto>)request.getAttribute("list");
 <!-- 				<th>매장소개</th> -->
 				<th>영업상태(영업중,휴업중,폐점)</th>
 <!-- 				<th>매장전화번호</th> -->
-				<th>점주전화번호</th>
+				<th>담당자전화번호</th>
 <!-- 				<th>주소</th> -->
 <!-- 				<th>상세주소</th> -->
 <!-- 				<th>영업시간(기타사항)</th> -->
 <!-- 				<th>은행명</th> -->
 <!-- 				<th>계좌번호</th> -->
-				<th>사업자등록증</th>
-				<th>영업신고증</th>
+<!-- 				<th>사업자등록증</th> -->
+<!-- 				<th>영업신고증</th> -->
 				<th>관리자승인매장여부</th>
 				<th><input type="checkbox" name="all" onclick="allSel(this.checked)"/></th>
 			</tr>
@@ -115,7 +115,7 @@ List<SDto>list=(List<SDto>)request.getAttribute("list");
 					out.print("<tr><td colspan='19'>"
 					         +"---관리자님 등록된 매장이 없어요!---</td></tr>");
 				}else{
-					for(SDto dto:list){  //list[dto,dto...]
+					for(SDto dto:list){
 						%>
 						<tr>
 							<td><%=dto.getStore_seq()%></td>
@@ -127,7 +127,7 @@ List<SDto>list=(List<SDto>)request.getAttribute("list");
 <%-- 							<td><%=dto.getStore_intro()%></td> --%>
 							<td><%=dto.getStore_state()%></td>
 <%-- 							<td><%=dto.getStore_phone()%></td> --%>
-							<td><%=dto.getStore_owner_phone()%></td>
+							<td><%=dto.getStore_phone_manager()%></td>
 <%-- 							<td><%=dto.getStore_address()%></td> --%>
 <%-- 							<td><%=dto.getStore_detail_address()%></td> --%>
 <%-- 							<td><%=dto.getStore_time_other()%></td> --%>
@@ -146,7 +146,7 @@ List<SDto>list=(List<SDto>)request.getAttribute("list");
 <!-- 		승인하고 싶은 매장은 선택하여 승인하고, 승인을 취소하고 싶은 매장은 선택하여 취소하는 버튼 -->
 		<button type="submit" formaction="adminMulchk.do">매장승인/승인취소</button>
 		<button type="submit" formaction="adminMuldel.do">삭제</button>
-		<button type="submit" formaction="adminMulupdown.do">등급변경</button>
+		<button type="submit" formaction="adminMulupdown.do">등급변경(구현안됨)</button>
 	    </form>
 	</div>
  </body>

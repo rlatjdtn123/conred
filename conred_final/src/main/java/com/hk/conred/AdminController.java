@@ -110,7 +110,7 @@ public class AdminController {
 	@RequestMapping(value = "adminMuldel.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String adminMuldel(String[] store_seqs, Locale locale, Model model,String searchWordStore, String storeSearch) throws UnsupportedEncodingException {
 		 
-		logger.info("관리자 - 매장 선택/다중선택 후 매장 삭제기능 {"+(Arrays.toString(store_seqs))+"}.", locale);
+		logger.info("관리자 - 매장 선택/다중선택 후 매장 삭제기능(업데이트문) {"+(Arrays.toString(store_seqs))+"}.", locale);
 		
 		boolean isS=aService.adminMuldel(store_seqs);
 		
@@ -127,28 +127,42 @@ public class AdminController {
 		logger.info("관리자 - 점주 조회로 이동 {}.", locale); 
 		
 	
-		return "admin/admin_site_userlist";
+		return "admin/admin_site_ownerlist";
 	}
 	
-//	@RequestMapping(value = "admin_owner_search.do", method = RequestMethod.POST)
-//	public String admin_owner_search(Locale locale, Model model, ODto Odto, String searchWordOwner,String ownerSearch) {
-//		logger.info("관리자 - 오너 목록 전체 조회 및 키워드 조회 기능 {}.", locale); 
-//		
-//		if(ownerSearch.equals("keywordOwner")) {
-//			List<ODto> list = aService.admin_site_ownerlist(searchWordOwner);
-//			model.addAttribute("list",list);
-//			
-//		}else if(userSearch.equals("outOwner")) {
-//			List<ODto> list = aService.admin_outowner_search(searchWord);
-//			model.addAttribute("list",list);
-//		}
+	@RequestMapping(value = "admin_owner_search.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String admin_owner_search(Locale locale, Model model, ODto odto, String searchWordOwner, String ownerSearch) {
+		logger.info("관리자 - 오너 목록 전체 조회 및 키워드 조회 기능 {}.", locale); 
 		
-//		model.addAttribute("ownerSearch",ownerSearch);
-//	
-//		return "admin/admin_site_ownerlist";
-//		}
-	
-	
+		if(ownerSearch.equals("keywordOwner")) {
+			List<ODto> list = aService.admin_site_ownerlist(searchWordOwner);
+			model.addAttribute("list",list);
+			
+			model.addAttribute("searchWordOwner",searchWordOwner);
+			model.addAttribute("ownerSearch",ownerSearch);
+		}
+		
+		return "admin/admin_site_ownerlist";
+		
 	}
-//	
-//}
+	
+	
+	
+	@RequestMapping(value = "adminMuldelOwner.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String adminMuldelOwner(String[] owner_ids, Locale locale, Model model, String searchWordOwner, String ownerSearch) throws UnsupportedEncodingException {
+		 
+		logger.info("관리자 - 점주 선택/다중선택 후 점주 삭제 기능(업데이트문) {"+(Arrays.toString(owner_ids))+"}.", locale);
+		
+		boolean isS=aService.adminMuldelOwner(owner_ids);
+		
+		if(isS) {
+			return "redirect:admin_owner_search.do?searchWordOwner="+(URLEncoder.encode(searchWordOwner, "utf-8")) +"&ownerSearch="+ownerSearch;			
+		}else {
+			model.addAttribute("msg", "삭제에 실패 했습니다. 다시 시도해 주세요!");
+			return "error";
+		}
+		
+	}
+	
+	
+}

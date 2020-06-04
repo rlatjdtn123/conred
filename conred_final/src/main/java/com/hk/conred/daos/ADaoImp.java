@@ -29,8 +29,7 @@ public class ADaoImp implements IADao {
 	@Override
 	public List<UDto> admin_site_userlist(String keyword){
 		
-//		List<UDto> list=new ArrayList<>(); 사용할 필요 없다.
-		//seqSession : insert(), selectList(), selectOne, update(), delete()
+
 		return sqlSession.selectList(nameSpace+"admin_site_userlist",keyword);
 	}
 	@Override
@@ -67,11 +66,18 @@ public class ADaoImp implements IADao {
 	public boolean adminMuldel(String[] store_seqs) {
 		Map<String, String[]> map=new HashMap<>();
 		map.put("store_seqs", store_seqs);
-		int count=sqlSession.delete(nameSpace+"adminMuldel", map);
+		int count=sqlSession.update(nameSpace+"adminMuldel", map);
 		return count>0?true:false;
 	}
-
+    
+	@Override
+	public boolean adminMuldelOwner(String[] owner_ids) {
+		Map<String, String[]> map=new HashMap<>();
+		map.put("owner_ids", owner_ids);
+		int count=sqlSession.update(nameSpace+"adminMuldelOwner", map);
+		return count>0?true:false;
+	}
 	
 
-	
+
 }

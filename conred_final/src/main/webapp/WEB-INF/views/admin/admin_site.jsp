@@ -13,9 +13,9 @@
 </head>
 <body>
 <div id="container">
-<a href="admin_site_userlist.do">유저 조회</a><br>
-<a href="admin_site_storelist.do">매장 조회</a><br>
-<a href="admin_site_ownerlist.do">점주 조회</a><br>
+<a href="admin_site_userlist.do">유저 검색/조회</a><br>
+<a href="admin_site_storelist.do">매장 검색/조회</a><br>
+<a href="admin_site_ownerlist.do">점주 검색/조회</a><br>
 </div>
 </body>
 </html>

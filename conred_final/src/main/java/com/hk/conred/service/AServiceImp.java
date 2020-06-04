@@ -27,11 +27,11 @@ public class AServiceImp implements IAService{
 		return ADaoImp.admin_blackuser_search(blackuser);
 	}
 	
-//	@Override
-//	public List<ODto> admin_site_ownerlist(String keywordowner); {
-//		// TODO Auto-generated method stub
-//		return ADaoImp.admin_site_ownerlist(keywordowner);
-//	}
+	@Override
+	public List<ODto> admin_site_ownerlist(String keywordowner) {
+		// TODO Auto-generated method stub
+		return ADaoImp.admin_site_ownerlist(keywordowner);
+	}
 	
 	
 	@Override
@@ -56,6 +56,10 @@ public class AServiceImp implements IAService{
 		return ADaoImp.adminMuldel(store_seqs);
 	}
 	
+	@Override
+	public boolean adminMuldelOwner(String[] owner_ids) {
+		return ADaoImp.adminMuldelOwner(owner_ids);
+	} 
 	
 	
 }
