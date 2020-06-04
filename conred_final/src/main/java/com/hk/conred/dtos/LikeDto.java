@@ -2,7 +2,7 @@ package com.hk.conred.dtos;
 
 public class LikeDto {
 	
-	private int like_seq;
+	private int like_list_seq; 
 	private String user_id;
 	private int store_seq;
 	
@@ -11,21 +11,21 @@ public class LikeDto {
 	}
 
 
-	public LikeDto(int like_seq, String user_id, int store_seq) {
+	public LikeDto(int like_list_seq, String user_id, int store_seq) {
 		super();
-		this.like_seq = like_seq;
+		this.like_list_seq = like_list_seq;
 		this.user_id = user_id;
 		this.store_seq = store_seq;
 	}
 
 
-	public int getLike_seq() {
-		return like_seq;
+	public int getLike_list_seq() {
+		return like_list_seq;
 	}
 
 
-	public void setLike_seq(int like_seq) {
-		this.like_seq = like_seq;
+	public void setLike_list_seq(int like_list_seq) {
+		this.like_list_seq = like_list_seq;
 	}
 
 
@@ -51,8 +51,11 @@ public class LikeDto {
 
 	@Override
 	public String toString() {
-		return "likeDto [like_seq=" + like_seq + ", user_id=" + user_id + ", store_seq=" + store_seq + "]";
+		return "LikeDto [like_list_seq=" + like_list_seq + ", user_id=" + user_id + ", store_seq=" + store_seq + "]";
 	}
+
+
+	
 	
 	
 }

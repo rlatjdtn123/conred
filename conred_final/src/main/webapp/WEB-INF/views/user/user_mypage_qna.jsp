@@ -1,3 +1,5 @@
+<%@page import="com.hk.conred.dtos.QnaDto"%>
+<%@page import="java.util.List"%>
 <jsp:include page="../all/header2.jsp" />
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
@@ -60,6 +62,9 @@
 	
 </script>
 </head>
+<%
+	List<QnaDto> list=(List<QnaDto>)request.getAttribute("list");
+%>
 <body> 
 <div id="container">
 	<div id="sticky">
@@ -84,25 +89,36 @@
 	<div id="pagename">
 		<b>작성한 문의</b>
 	</div>
-	<div class="bigtle">
-		<div class="mybox">   
-		 	<div class="store_img">
-		 		<p>매장사진들어갈곳</p>
-		 		<p>+매장명</p> 
-		 	</div>      
-			<img src="./img/profile_default.png" class="pf"/>
-			<div class="info">  
-				<button style="margin-left: 235px;">수정</button> <button >삭제</button> <button  class="content_detail">자세히 보기</button><br>
-				<span>닉네임:?? &nbsp;| 가격문의 </span><br><br>   
-				<div class="contents">asdasddddddddddddddddddddddddddddddddddddddkkkkkkkkkddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</div>   
-			</div>   
-			<div class="info2">     
-				<span style="font-weight: bold;">가게답변</span><br>
-				<div class="contents contents2">ddddddddddddddkhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhdddddddddddddddddddd</div>
+	<%
+		for(QnaDto dto: list){
+		%>	
+		<div class="bigtle">
+			<div class="mybox">   
+			 	<div class="store_img">
+			 		<p>매장사진들어갈곳</p>
+			 		<p>+매장명</p> 
+			 	</div>      
+				<img src="./img/profile_default.png" class="pf"/>
+				<div class="info">  
+					<button style="margin-left: 235px;">수정</button> <button >삭제</button> <button  class="content_detail">자세히 보기</button><br>
+					<span>닉네임:<%=dto.getUser_id()%> &nbsp;| 가격문의 </span><br><br>   
+					<div class="contents"><%=dto.getQna_content()%></div>   
+				</div>   
+				<div class="info2">     
+					<span style="font-weight: bold;">가게답변</span><br>
+					<%
+// 					if(list){
+					
+// 					}
+						%>
+					<div class="contents contents2"><%=dto.getQna_answer()%></div>
+				</div>
 			</div>
-		</div>
-	</div>      
-	<br><br>  
+		</div>   
+	<br><br> 
+	<%
+	}
+	%>
 	<div class="bigtle">
 		<div class="mybox">   
 		 	<div class="store_img">

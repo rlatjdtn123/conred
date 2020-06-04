@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+  
+<mapper namespace="com.hk.conred.Qna">
+	
+	<select id="qnaList" parameterType="String" resultType="QnaDto">
+		SELECT QNA_SEQ,STORE_SEQ,USER_ID,QNA_CONTENT,QNA_ANSWER,QNA_HIDE,QNA_READ,QNA_REGDATE,QNA_DELFLAG
+		FROM CON_QNA 
+		WHERE USER_id=#{user_id}
+	</select>
+	
+	
+</mapper>
+	 

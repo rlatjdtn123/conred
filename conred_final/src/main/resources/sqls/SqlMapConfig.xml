@@ -13,6 +13,9 @@
 		<typeAlias type="com.hk.conred.dtos.SDto" alias="SDto"/>
 		<typeAlias type="com.hk.conred.dtos.InterestsDto" alias="InterestsDto"/>
 		<typeAlias type="com.hk.conred.dtos.ReserveDto" alias="ReserveDto"/>
+		<typeAlias type="com.hk.conred.dtos.ReplyDto" alias="ReplyDto"/>
+		<typeAlias type="com.hk.conred.dtos.QnaDto" alias="QnaDto"/>
+		<typeAlias type="com.hk.conred.dtos.LikeDto" alias="LikeDto"/>
 	</typeAliases>
  
 
@@ -26,6 +29,9 @@
     	<mapper resource="./sqls/SMapper.xml"/>
     	<mapper resource="./sqls/InterestsMapper.xml"/>   	
     	<mapper resource="./sqls/ReserveMapper.xml"/>
+    	<mapper resource="./sqls/ReplyMapper.xml"/>
+    	<mapper resource="./sqls/QnaMapper.xml"/>
+    	<mapper resource="./sqls/LikeMapper.xml"/>
   	</mappers>
 </configuration>
 

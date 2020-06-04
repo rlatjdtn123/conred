@@ -1,5 +1,8 @@
 package com.hk.conred.service;
 
+import java.util.List;
+
+import com.hk.conred.dtos.QnaDto;
 import com.hk.conred.dtos.UDto;
 
 public interface IUService {
@@ -18,7 +21,7 @@ public interface IUService {
 		//6.내 예약
 		
 		//7.내 문의
-		
+		public List<QnaDto> qnaList(String user_id);
 		//8.내 리뷰
 		
 		//8.내 통계 (좋아요,예약,문의,포인트,리뷰)

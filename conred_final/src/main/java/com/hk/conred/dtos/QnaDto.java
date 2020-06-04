@@ -8,7 +8,7 @@ public class QnaDto {
 	private int store_seq;
 	private String user_id;
 	private String qna_content;
-	private String answer;
+	private String qna_answer;
 	private String qna_hide;
 	private String qna_read;
 	private Date qna_regdate;
@@ -17,14 +17,14 @@ public class QnaDto {
 	public QnaDto() {
 	}
 
-	public QnaDto(int qna_seq, int store_seq, String user_id, String qna_content, String answer, String qna_hide,
+	public QnaDto(int qna_seq, int store_seq, String user_id, String qna_content, String qna_answer, String qna_hide,
 			String qna_read, Date qna_regdate, String qna_delflag) {
 		super();
 		this.qna_seq = qna_seq;
 		this.store_seq = store_seq;
 		this.user_id = user_id;
 		this.qna_content = qna_content;
-		this.answer = answer;
+		this.qna_answer = qna_answer;
 		this.qna_hide = qna_hide;
 		this.qna_read = qna_read;
 		this.qna_regdate = qna_regdate;
@@ -63,12 +63,12 @@ public class QnaDto {
 		this.qna_content = qna_content;
 	}
 
-	public String getAnswer() {
-		return answer;
+	public String getQna_answer() {
+		return qna_answer;
 	}
 
-	public void setAnswer(String answer) {
-		this.answer = answer;
+	public void setQna_answer(String qna_answer) {
+		this.qna_answer = qna_answer;
 	}
 
 	public String getQna_hide() {
@@ -105,10 +105,13 @@ public class QnaDto {
 
 	@Override
 	public String toString() {
-		return "qnaDto [qna_seq=" + qna_seq + ", store_seq=" + store_seq + ", user_id=" + user_id + ", qna_content="
-				+ qna_content + ", answer=" + answer + ", qna_hide=" + qna_hide + ", qna_read=" + qna_read
+		return "QnaDto [qna_seq=" + qna_seq + ", store_seq=" + store_seq + ", user_id=" + user_id + ", qna_content="
+				+ qna_content + ", qna_answer=" + qna_answer + ", qna_hide=" + qna_hide + ", qna_read=" + qna_read
 				+ ", qna_regdate=" + qna_regdate + ", qna_delflag=" + qna_delflag + "]";
 	}
+
+	
+	
 
 	
 }

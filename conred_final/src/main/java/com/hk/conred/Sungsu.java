@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hk.conred.dtos.InterestsDto;
+import com.hk.conred.dtos.QnaDto;
 import com.hk.conred.dtos.ReserveDto;
 import com.hk.conred.dtos.UDto;
-import com.hk.conred.service.IInterestsService;
 import com.hk.conred.service.IOService;
 import com.hk.conred.service.IReserveService;
 import com.hk.conred.service.IUService;
@@ -53,9 +53,6 @@ public class Sungsu {
 	
 	@Autowired
 	private IOService oService;
-	
-	@Autowired
-	private IInterestsService interestsService;
 	
 	@Autowired
 	private IReserveService reserveService;
@@ -169,9 +166,12 @@ public class Sungsu {
 	}
 	
 	@RequestMapping(value = "user_mypage_qna.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_mypage_qna(Locale locale, Model model) {
+	public String user_mypage_qna(Locale locale, Model model,HttpServletRequest request) {
 		logger.info("사용자 마이페이지_문의{}.", locale);
-		
+		HttpSession session=request.getSession();
+		UDto uldto=(UDto)session.getAttribute("uldto");
+		List<QnaDto> list=uService.qnaList(uldto.getUser_id());
+		model.addAttribute(list);
 		return "user/user_mypage_qna";  
 	}
 	
