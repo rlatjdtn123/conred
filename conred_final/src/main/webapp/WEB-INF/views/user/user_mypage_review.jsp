@@ -1,3 +1,5 @@
+<%@page import="com.hk.conred.dtos.ReplyDto"%>
+<%@page import="java.util.List"%>
 <jsp:include page="../all/header2.jsp" />
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
@@ -18,11 +20,55 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> 
 <script type="text/javascript">
-	$(document).ready(function(){
-	    $(".modal_Btn").click(function(){
-	        $("div.modal").modal(); 
-	    });
-	});
+	
+	//무한스크롤
+	var count = 0;
+	var list=$("input[name=list]"); 
+	var user_id=$("input[name=user_id]");
+	var user_content=$("input[name=user_content]");
+	var owner_answer=$("input[name=owner_answer]"); 
+	//스크롤 바닥 감지
+	window.onscroll = function(e) {
+// 		alert("111111111111111111");
+	    //추가되는 임시 콘텐츠
+	    //window height + window scrollY 값이 document height보다 클 경우,
+	    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+	    	//실행할 로직 (콘텐츠 추가) 
+	        count++;
+	    	
+	    	////////////////////////////////////////////////
+        	var addContent = 	' <div class="mybox">  '   
+							+	 '	<div class="store_img">  '   
+							+	 '		<p>매장사진들어갈곳</p> '
+							+	' 		<p>+매장명</p>   '
+							+	 '	</div>      '
+							+	'	<img src="./img/profile_default.png" class="pf"/>  '
+							+	'	<div class="info">        '
+								+	'	<span >★★★★★</span><button style="margin-left: 160px;">수정</button> <button >삭제</button> <button  class="content_detail">자세히 보기</button><br>' 
+								+	'	<span>닉네임:'+ user_id.eq(count) +'&nbsp;| 미용 / 컷트 </span><br><br>    ' 
+								+	'	<div class="contents">'+ user_content.eq(count) +  ' ' 
+								+	'	</div>       '
+							+	'	</div>  '
+							+	'	<div class="info2">     ' 
+								+	'	<span style="font-weight: bold;">가게답변</span><br>  '
+								+	'	<div class="contents contents2">'+ owner_answer.eq(count) +'</div>'
+								+	'</div>'
+							+	'</div>';
+	             
+	        
+	        /////////////////////////////////////////////////
+	        //container에 추가되는 콘텐츠를 append
+	        for (var i = 0; i <list.length ; i++) {
+	        	if(count==i){
+	        		alert("22222222222222222222222");
+			        $('#bigtle').append(addContent);		
+	        	}
+			} 
+	    }
+	};
+	
+	
+
 	
 	// 이미지 정보들을 담을 배열
 	var sel_files = [];
@@ -103,7 +149,13 @@
 // 	}); 
 	
 	$(function(){
-		$(".content_detail").click(function(){     
+// 		var list=$("input[name=list]");
+		var user_content=$("input[name=user_content]");
+		var owner_answer=$("input[name=owner_answer]"); 
+		$(".content_detail").click(function(){ 
+// 			alert(list.length);
+			alert(user_content.eq(0).val()); 
+			alert(owner_answer.eq(0).val());
 			if($(this).parent().parent().css("height")=="200px"){  
 				$(this).parent().parent().find(".info2").css("height","auto");
 				$(this).parent().parent().css("height","auto"); 
@@ -121,7 +173,7 @@
 	
 </script>    
 <style type="text/css">
-	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:900px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	#sticky{position: sticky; top:71px;}
 	#navi2{width:998px;background-color: lightblue;clear:both;position:relative;top:-20px;text-align: center;line-height: 40px;border-top: 1px solid grey;}
 	.navis2{border-bottom:1px solid grey; font-size:15px; float:left;width:199.6px;height:40px;background-color: #D8D8D8;}
@@ -157,6 +209,9 @@
 	
 </style>
 </head>
+<%
+	List<ReplyDto> list=(List<ReplyDto>)request.getAttribute("list");
+%>
 <body>
 <div id="container">
 	<div id="sticky">
@@ -207,47 +262,38 @@
 	</div>  
 	<div id="pagename">
 		<b>작성한 리뷰</b>  
-	</div>
+	</div> 
+	<div style="height: 1000px; border: 1px solid black;"></div>
+	<%
+		for(ReplyDto dto : list){
+	%>
+	<input type="hidden" name="list" value="<%=list%>"/>
+	<input type="hidden" name="user_id" value="<%=dto.getUser_id()%>"/>
+	<input type="hidden" name="user_content" value="<%=dto.getReply_content()%>"/>
+	<input type="hidden" name="owner_answer" value="<%=dto.getReply_answer()%>"/> 
 	<div class="bigtle"> 
-		<div class="mybox">     
-		 	<div class="store_img">     
-		 		<p>매장사진들어갈곳</p>
-		 		<p>+매장명</p>   
-		 	</div>      
-			<img src="./img/profile_default.png" class="pf"/>  
-			<div class="info">        
-				<span >★★★★★</span><button style="margin-left: 160px;">수정</button> <button >삭제</button> <button  class="content_detail">자세히 보기</button><br> 
-				<span>닉네임:?? &nbsp;| 미용 / 컷트 </span><br><br>     
-				<div class="contents">asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-				</div>       
-			</div>  
-			<div class="info2">     
-				<span style="font-weight: bold;">가게답변</span><br>  
-				<div class="contents contents2">ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</div>
-			</div>
-		</div>  
+<!-- 		<div class="mybox">      -->
+<!-- 		 	<div class="store_img">      -->
+<!-- 		 		<p>매장사진들어갈곳</p> -->
+<!-- 		 		<p>+매장명</p>    -->
+<!-- 		 	</div>       -->
+<!-- 			<img src="./img/profile_default.png" class="pf"/>   -->
+<!-- 			<div class="info">         -->
+<!-- 				<span >★★★★★</span><button style="margin-left: 160px;">수정</button> <button >삭제</button> <button  class="content_detail">자세히 보기</button><br>  -->
+<%-- 				<span>닉네임:<%=dto.getUser_id()%> &nbsp;| 미용 / 컷트 </span><br><br>      --%>
+<%-- 				<div class="contents"><%=dto.getReply_content()%> --%>
+<!-- 				</div>        -->
+<!-- 			</div>   -->
+<!-- 			<div class="info2">      -->
+<!-- 				<span style="font-weight: bold;">가게답변</span><br>   -->
+<%-- 				<div class="contents contents2"><%=dto.getReply_answer()%></div> --%>
+<!-- 			</div> -->
+<!-- 		</div>   -->
 	</div>      
-	<br><br> 
-	<div class="bigtle"> 
-		<div class="mybox">     
-		 	<div class="store_img">     
-		 		<p>매장사진들어갈곳</p>
-		 		<p>+매장명</p>   
-		 	</div>      
-			<img src="./img/profile_default.png" class="pf"/>  
-			<div class="info">        
-				<span >★★★★★</span><button style="margin-left: 160px;">수정</button> <button >삭제</button> <button  class="content_detail">자세히 보기</button><br> 
-				<span>닉네임:?? &nbsp;| 미용 / 컷트 </span><br><br>     
-				<div class="contents">asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
-				</div>       
-			</div>     
-			<div class="info2">      
-				<span style="font-weight: bold; ">가게답변</span><br>  
-				<div class="contents contents2">dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</div>
-			</div>
-		</div>  
-	</div>       
-	<br><br>   
+	<br><br>
+	<%		
+		}
+	%>  
 </div> 
 </body>
 </html>

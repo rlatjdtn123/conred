@@ -9,7 +9,7 @@
 	<select id="replyList" parameterType="String" resultType="ReplyDto">
 		SELECT REPLY_SEQ,USER_ID,STORE_SEQ,REPLY_CONTENT,REPLY_CLEAN,REPLY_PRICE,REPLY_SERVICE,REPLY_ANSWER,REPLY_READ,REPLY_REGDATE,REPLY_DELFLAG
 		FROM CON_REPLY
-		WHERE USER_ID=#{user_id};
+		WHERE USER_ID=#{user_id}
 	</select>
 	
 	

@@ -19,12 +19,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hk.conred.dtos.InterestsDto;
+import com.hk.conred.dtos.LikeDto;
 import com.hk.conred.dtos.QnaDto;
+import com.hk.conred.dtos.ReplyDto;
 import com.hk.conred.dtos.ReserveDto;
 import com.hk.conred.dtos.UDto;
+import com.hk.conred.service.ILikeService;
 import com.hk.conred.service.IOService;
+import com.hk.conred.service.IQnaService;
+import com.hk.conred.service.IReplyService;
 import com.hk.conred.service.IReserveService;
 import com.hk.conred.service.IUService;
+import com.hk.conred.service.QnaServiceImp;
 
  
 @Controller
@@ -56,6 +62,17 @@ public class Sungsu {
 	
 	@Autowired
 	private IReserveService reserveService;
+	
+	@Autowired
+	private IQnaService qnaService;
+	
+	@Autowired
+	private ILikeService likeService;
+	
+	@Autowired
+	private IReplyService replyService;
+	
+	
 
 	
 	@RequestMapping(value = "sungsu.do", method = RequestMethod.GET)
@@ -151,31 +168,39 @@ public class Sungsu {
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
 		UDto dto=uService.getStats(uldto.getUser_id());
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ ::: "+uldto);
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ ::: "+dto); 
+//		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ ::: "+uldto);
+//		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ ::: "+dto); 
 		model.addAttribute("dto", dto);
 		
 		return "user/user_mypage";  
 	}
 	
 	@RequestMapping(value = "user_mypage_review.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_mypage_review(Locale locale, Model model) {
+	public String user_mypage_review(Locale locale, Model model,HttpServletRequest request) {
 		logger.info("사용자 마이페이지_리뷰{}.", locale);
-		
+		HttpSession session=request.getSession();
+		UDto uldto=(UDto)session.getAttribute("uldto");
+		List<ReplyDto> list=replyService.replyList(uldto.getUser_id());
+		model.addAttribute("list",list);
 		return "user/user_mypage_review";  
 	}
+	
+	
+	
 	
 	@RequestMapping(value = "user_mypage_qna.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String user_mypage_qna(Locale locale, Model model,HttpServletRequest request) {
 		logger.info("사용자 마이페이지_문의{}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
-		List<QnaDto> list=uService.qnaList(uldto.getUser_id());
-		model.addAttribute(list);
+		System.out.println("222222222222222222222222222222222222222222222::"+uldto.getUser_id());
+		List<QnaDto> list=(List<QnaDto>)qnaService.qnaList(uldto.getUser_id());
+		model.addAttribute("list",list);
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@:::"+list);
 		return "user/user_mypage_qna";  
 	}
-	
-	
+	 
+	 
 		
 	@RequestMapping(value = "user_mypage_reservation.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String user_mypage_reservation(Locale locale, Model model) {
@@ -186,9 +211,12 @@ public class Sungsu {
 	
 	
 	@RequestMapping(value = "user_mypage_like.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_mypage_like(Locale locale, Model model) {
+	public String user_mypage_like(Locale locale, Model model,HttpServletRequest request) {
 		logger.info("사용자 마이페이지_좋아요{}.", locale);
-		
+		HttpSession session=request.getSession();
+		UDto uldto=(UDto)session.getAttribute("uldto");
+		List<LikeDto> list=likeService.likeList(uldto.getUser_id());
+		model.addAttribute("list",list);
 		return "user/user_mypage_like";  
 	}
 	
@@ -321,7 +349,7 @@ public class Sungsu {
 		logger.info("사용자_예약목록2{}.", locale);
 		ReserveDto dto=reserveService.getReserve(reserve_seq);
 		model.addAttribute("dto", dto);
-		System.out.println("detail:"+dto);
+//		System.out.println("detail:"+dto);
 		
 		return "test/test_reserve_detail";
 	} 
@@ -374,4 +402,5 @@ public class Sungsu {
 		logger.info("찜버튼 테스트{}.", locale);
 		return "test/test_like";
 	} 
+	
 }

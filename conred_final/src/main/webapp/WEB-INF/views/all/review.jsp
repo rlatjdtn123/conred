@@ -74,9 +74,11 @@
 	    		+'</div> '     
 	    		+'<br><br>';
 	        //container에 추가되는 콘텐츠를 append
-	        for (var i = 0; i < 3; i++) {
-		        $('#container').append(addContent);				
-			}
+	        for (var i = 0; i < 20; i++) {
+	        	if(count==i){
+			        $('#container').append(addContent);		
+	        	}
+			} 
 	    }
 	};
  

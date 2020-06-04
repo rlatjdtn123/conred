@@ -1,3 +1,5 @@
+<%@page import="com.hk.conred.dtos.LikeDto"%>
+<%@page import="java.util.List"%>
 <jsp:include page="../all/header2.jsp" />
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
@@ -23,6 +25,9 @@
 	
 </style>
 </head>
+<% 
+	List<LikeDto> list=(List<LikeDto>)request.getAttribute("list");
+%>
 <body>
 <div id="container">
 	<div id="sticky">
@@ -47,36 +52,27 @@
 	<div id="pagename">
 		<b>찜 목록</b>
 	</div>
-	<div class="bigtle">
-		<div class="store_img"> 
-	 		<p>매장사진들어갈곳</p>
-	 		<p>+매장명</p> 
-	 	</div>
-	 	<div class="mybox">
-	 		<span>주소 : 서울 영등포  </span><br><br>
-	 		<span>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ </span><br><br>
-	 		<span>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ </span><br><br>
-	 		<div style="margin-left: 350px; margin-top: 20px;">
-		 		<button type="button">좋아요취소</button>
-	 		</div> 
-	 	</div> 	   
-	</div> 
-	<br><br>  
-	<div class="bigtle">
-		<div class="store_img">
-	 		<p>매장사진들어갈곳</p>
-	 		<p>+매장명</p> 
-	 	</div>
-	 	<div class="mybox">
-	 		<span>주소 : 서울 영등포  </span><br><br>
-	 		<span>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ </span><br><br>
-	 		<span>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ </span><br><br>
-	 		<div style="margin-left: 350px; margin-top: 20px;">
-		 		<button type="button">좋아요취소</button>
-	 		</div> 
-	 	</div> 	    
-	</div> 
-	<br><br>    
+	<%
+		for(LikeDto dto: list){
+	%>
+		<div class="bigtle">
+			<div class="store_img"> 
+		 		<p>매장사진들어갈곳</p>
+		 		<p>+매장명</p> 
+		 	</div>
+		 	<div class="mybox">
+		 		<span>주소 : 서울 영등포  </span><br><br>
+		 		<span>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ </span><br><br>
+		 		<span>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ </span><br><br>
+		 		<div style="margin-left: 350px; margin-top: 20px;">
+			 		<button type="button">좋아요취소</button>
+		 		</div> 
+		 	</div> 	   
+		</div> 
+		<br><br>  
+	<%
+		}
+	%>   
 </div>
 </body>
 </html>

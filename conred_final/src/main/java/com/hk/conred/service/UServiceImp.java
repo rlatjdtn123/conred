@@ -7,11 +7,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hk.conred.daos.IInterestsDao;
+import com.hk.conred.daos.ILikeDao;
 import com.hk.conred.daos.IQnaDao;
 import com.hk.conred.daos.IUDao;
 import com.hk.conred.daos.InterestsDaoImp;
+import com.hk.conred.daos.LikeDaoImp;
 import com.hk.conred.daos.QnaDaoImp;
 import com.hk.conred.daos.UDaoImp;
+import com.hk.conred.dtos.LikeDto;
 import com.hk.conred.dtos.QnaDto;
 import com.hk.conred.dtos.UDto;
 
@@ -22,8 +25,9 @@ public class UServiceImp implements IUService{
 	private IUDao UDaoImp;
 	@Autowired
 	private IInterestsDao interestsDaoImp;
-	@Autowired
-	private IQnaDao qnaDaoImp;
+	
+	private ILikeDao likeDaoImp;
+	
 	
 	@Transactional
 	@Override
@@ -46,11 +50,11 @@ public class UServiceImp implements IUService{
 		return UDaoImp.getStats(user_id);
 	}
 
-	//문의목록
-	@Override
-	public List<QnaDto> qnaList(String user_id) {	
-		return qnaDaoImp.qnaList(user_id);
-	}
+	
+
+	
+
+
 	
 	
 

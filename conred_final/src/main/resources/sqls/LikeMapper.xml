@@ -6,7 +6,7 @@
   
 <mapper namespace="com.hk.conred.Like">
 	
-	<select id="" parameterType="String" resultType="LikeDto"> 
+	<select id="likeList" parameterType="String" resultType="LikeDto"> 
 		SELECT LIKE_LIST_SEQ,USER_ID,STORE_SEQ
 		FROM CON_LIKE
 		WHERE USER_ID=#{user_id}

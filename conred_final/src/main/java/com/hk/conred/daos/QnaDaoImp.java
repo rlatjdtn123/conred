@@ -16,8 +16,9 @@ public class QnaDaoImp implements IQnaDao{
 	@Autowired
 	private SqlSessionTemplate sqlSession; 
 	
-	public List<QnaDto> qnaList(String user_id) {
+	public List<QnaDto> qnaList(String user_id) { 
 		List<QnaDto> list=sqlSession.selectList(nameSpace+"qnaList", user_id);
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!다오임프");
 		return list;
 	}
 }

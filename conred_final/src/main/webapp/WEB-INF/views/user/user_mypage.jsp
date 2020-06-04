@@ -64,7 +64,7 @@
 		        <span>좋아요</span> 
 			</div>    
 			<div class="mybox_info">  
-			  	<span class="stats_result"><a href=""><%=dto.getUser_point()%></a></span><br/>
+			  	<span class="stats_result"><%=dto.getUser_point()%></span><br/>
 			  	<span>포인트</span> 
 			</div>
 	</div>    

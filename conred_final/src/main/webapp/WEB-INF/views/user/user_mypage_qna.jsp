@@ -1,3 +1,4 @@
+<%@page import="com.hk.conred.dtos.UDto"%>
 <%@page import="com.hk.conred.dtos.QnaDto"%>
 <%@page import="java.util.List"%>
 <jsp:include page="../all/header2.jsp" />
@@ -89,8 +90,8 @@
 	<div id="pagename">
 		<b>작성한 문의</b>
 	</div>
-	<%
-		for(QnaDto dto: list){
+		<%
+			for(QnaDto dto: list){
 		%>	
 		<div class="bigtle">
 			<div class="mybox">   
@@ -101,43 +102,29 @@
 				<img src="./img/profile_default.png" class="pf"/>
 				<div class="info">  
 					<button style="margin-left: 235px;">수정</button> <button >삭제</button> <button  class="content_detail">자세히 보기</button><br>
-					<span>닉네임:<%=dto.getUser_id()%> &nbsp;| 가격문의 </span><br><br>   
-					<div class="contents"><%=dto.getQna_content()%></div>   
+					<span>닉네임 :<%=dto.getUser_id()%> &nbsp;| 가격문의 </span><br><br>   
+					<div class="contents"><%=dto.getQna_content()%></div>    
 				</div>   
 				<div class="info2">     
 					<span style="font-weight: bold;">가게답변</span><br>
 					<%
-// 					if(list){
-					
-// 					}
-						%>
-					<div class="contents contents2"><%=dto.getQna_answer()%></div>
-				</div>
+					if(dto.getQna_answer()==null||dto.getQna_answer().equals("")){
+					%>
+						<div class="contents contents2">----미답변----</div>
+					<%	
+					}else{
+					%>
+						<div class="contents contents2"><%=dto.getQna_content()%></div>
+					<%	 						
+					}
+					%>
+				</div>  
 			</div>
 		</div>   
-	<br><br> 
+	<br><br>
 	<%
 	}
-	%>
-	<div class="bigtle">
-		<div class="mybox">   
-		 	<div class="store_img">
-		 		<p>매장사진들어갈곳</p>
-		 		<p>+매장명</p> 
-		 	</div>      
-			<img src="./img/profile_default.png" class="pf"/>
-			<div class="info">  
-				<button style="margin-left: 235px;">수정</button> <button >삭제</button> <button  class="content_detail">자세히 보기</button><br>
-				<span>닉네임:?? &nbsp;| 가격문의 </span><br><br>   
-				<div class="contents">asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</div>   
-			</div>   
-			<div class="info2">     
-				<span style="font-weight: bold;">가게답변</span><br>
-				<div class="contents contents2">dddddddddddddddddddddddddddddddddd</div>
-			</div>
-		</div>
-	</div>      
-	<br><br>  
+	%> 
 </div>
 </body>
 </html>
