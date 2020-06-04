@@ -16,8 +16,9 @@ public class SDaoImp implements ISDao {
 	
 	@Override
 	public boolean insertStoreCertify(SDto sdto) {
-		sqlSession.insert(namespace+"insertStoreCertify",sdto);
-		return false;
+		int count= 0;
+		count=sqlSession.insert(namespace+"insertStoreCertify",sdto);
+		return count>0?true:false;
 	}
 
 	@Override

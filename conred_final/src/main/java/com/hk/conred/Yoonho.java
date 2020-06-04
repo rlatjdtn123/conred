@@ -189,7 +189,8 @@ public class Yoonho {
 //		System.out.println("sdto 아이디:"+sdto.getStore_maxman());
 		
 		boolean isS=sService.insertStoreCertify(sdto);
-		if(isS&&sdto.getStore_agreement()=="Y") {
+//		if(isS&&sdto.getStore_agreement()=="Y") {
+		if(isS) {
 			System.out.println("매장생성 + 사업자정보등록 :성공");
 			return "owner/owner_regist_store";
 		}else{
