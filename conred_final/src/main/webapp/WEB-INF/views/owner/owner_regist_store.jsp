@@ -17,6 +17,11 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+<!-- 시간지정용 데이트피커 소스 -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+
 <style type="text/css">
 	.greenbtn:hover{background-color: #04B404;color:white} 
 	.redbtn:hover{background-color: #FE2E2E;color:white} 
@@ -38,11 +43,12 @@
 	input{margin-top:2px;}
 	textarea{margin-top:2px;resize: none;}
 	select {position:relative;top:1px;height:26px;}
+	.form-control{width:180px;}
 	.inputs{width:600px;float: left;height:auto;}
 	.width_500{width:500px;}
 	
 	
-	textarea[name=store_time_other]{width:370px;}
+	textarea[name=store_time_other]{width:544px;}
 	textarea[name=store_intro_simple]{width:500px;}
 	textarea[name=store_intro]{width:500px;height:100px;}
 	textarea[name=store_address]{width:220px;height:100px;}
@@ -56,7 +62,7 @@
  	.filebox label { display: inline-block; padding: .5em .75em;  font-size: inherit; line-height: normal; 
  					vertical-align: middle; background-color: grey; cursor: pointer; border: 1px solid #ebebeb; 
 					border-bottom-color: #e2e2e2; border-radius: .25em; margin-bottom: 0px;}
-	.filebox .upload-name { display: inline-block; padding: .5em .75em; height:25px;/* label의 패딩값과 일치 */
+	.filebox .upload-name { display: inline-block; padding: .5em .75em; height:34px;/* label의 패딩값과 일치 */
 						
 						font-size: inherit; font-family: inherit; line-height: normal;
 						vertical-align: middle; background-color: #f5f5f5; border: 1px solid #ebebeb;
@@ -64,12 +70,15 @@
 						/* 네이티브 외형 감추기 */
 						-moz-appearance: none; appearance: none; }
 						
+	#timeboxhead{line-height: 29px;}
 	.timebox{display: inline-block;width:50px;text-align: center;}
-	.timebox2{display: inline-block; width:80px;text-align: center;}
+	.timebox2{display: inline-block; width:140px;text-align: center;}
 	.menubox{display: inline-block; width:310px;text-align: center;}
 	ul{list-style: none;padding:0px;}
  	li{width:650px;} 
 	.hidmenu{display: none;}
+	
+	.timepicker{width:140px;}
 	
 	#show_menu,#show_time,.hide_menu{margin-bottom:2.5px;}
 	
@@ -102,12 +111,13 @@
 // 				$(".ronly").css("background-color","white");
 // 			}
 // 		});
-		$("#show_time").click(function(){
-			$(".hidmenu").toggle();
+		$("#show_time").on('click',function(){
+			$(".hidmenu").slideToggle()
 			if($(".ronly").attr("readonly")=="readonly"){
 				$(".ronly").removeAttr("readonly");
-				$(".ronly").css({"background-color":"white","border-width":"1px","border-radius":"3px","height":"26px"});
-				$(".ronly").css("border-width","1px");
+				$(".ronly").css({"background-color":"white"});
+				$("#t1").attr('disabled', false);
+				$("#t2").attr('disabled', false);
 			}else{
 				for (var i = 0; i < 5; i++) {
 					var t1val=$("#t1").val();
@@ -117,11 +127,15 @@
 				}
 				$(".ronly").attr("readonly","readonly");
 				$(".ronly").css("background-color","lightgrey");
+				$("#t1").attr('disabled', true);
+				$("#t2").attr('disabled', true);
+				
 			}
 		});
-		if($("input[name=s_time]").eq(0).is(":checked")){
-			alert('dfd');
-		}
+		
+// 		if($("input[name=s_time]").eq(0).is(":checked")){
+// 			alert('dfd');
+// 		}
 		
 		$("#show_menu").click(function(){
 			$("#menuboxes").append('<li>'+
@@ -193,6 +207,21 @@
 				$("input[name=store_maxman]").css("background-color","#f2f2f2");
 			}
 		});
+		$('.timepicker').timepicker({
+		    timeFormat: 'h:mm p',
+		    interval: 30,
+		    minTime: '1',
+		    maxTime: '23:00pm',
+		    defaultTime: '9',
+		    startTime: '05:00',
+		    dynamic: false	,
+		    dropdown: true,
+		    scrollbar: true
+		});
+		
+// 		if(){
+			
+// 		}
 	});
 	
 	
@@ -261,15 +290,15 @@
 			<div>
 				<div class="inputbox">
 					<div class="inputtitle">매장명</div>
-					<div class="inputs"><input type="text" name="store_name" placeholder="예)양평 동물병원"/></div>
+					<div class="inputs"><input class="form-control" type="text" name="store_name" placeholder="예)양평 동물병원"/></div>
 				</div>
 				<div class="inputbox">
 					<div class="inputtitle">대표명</div>
-					<div class="inputs"><input type="text" readonly/></div>
+					<div class="inputs"><input class="form-control" type="text" readonly/></div>
 				</div>
 				<div class="inputbox">
 					<div class="inputtitle">홈페이지 링크</div>
-					<div class="inputs"><input class="width_500" type="text" name="store_path" placeholder="홈페이지 링크를 입력해주세요."/></div>
+					<div class="inputs"><input class="width_500 form-control" type="text" name="store_path" placeholder="홈페이지 링크를 입력해주세요."/></div>
 				</div>
 				<div class="inputbox">
 					<div class="inputtitle">사진업로드</div>
@@ -280,6 +309,7 @@
 							<input type="file" id="filename02" class="upload-hidden">
 <!-- 							<input type="file" id="filename02" class="upload-hidden" required="required"> -->
 						<div class="subinfo">
+							<br>
 							* 매장의 사진을 최소 5개 업로드해주세요.
 						</div>
 						<div class="subinfo">
@@ -294,19 +324,19 @@
 				<div class="inputbox">
 					<div class="inputtitle">간단소개<br>(30자이내)</div>
 					<div class="inputs">
-						<textarea name="store_intro_simple" placeholder="매장이름과 함께 지도에 노출될 간단 소개글을 입력해주세요. (40자 이내)"></textarea>
+						<textarea class="form-control" name="store_intro_simple" placeholder="매장이름과 함께 지도에 노출될 간단 소개글을 입력해주세요. (40자 이내)"></textarea>
 					</div>
 				</div>
 				<div class="inputbox">
 					<div class="inputtitle">매장소개<br>(500자이내)</div>
 					<div class="inputs">
-						<textarea name="store_intro" placeholder="매장의 상세소개글을 입력해주세요. (500자 이내)"></textarea>
+						<textarea class="form-control" name="store_intro" placeholder="매장의 상세소개글을 입력해주세요. (500자 이내)"></textarea>
 					</div>
 				</div>
 				<div class="inputbox">
 					<div class="inputtitle">영업상태</div>
 					<div class="inputs">
-						<select name="store_state">
+						<select class="form-control" name="store_state">
 							<option value="O">영업중</option>
 							<option value="B">휴업중</option>
 							<option value="C">폐점</option>
@@ -315,74 +345,100 @@
 				</div>
 				<div class="inputbox">
 					<div class="inputtitle">매장<br>전화번호</div>
-					<div class="inputs"><input type="text" name="store_phone" placeholder="'-' 없이 입력"/></div>
+					<div class="inputs"><input class="form-control" type="text" name="store_phone" placeholder="'-' 없이 입력"/></div>
 				</div>
 				<div class="inputbox">
 					<div class="inputtitle">담당자<br>전화번호</div>
-					<div class="inputs"><input type="text" name="store_phone_manager" placeholder="'-' 없이 입력"/></div>
+					<div class="inputs"><input class="form-control" type="text" name="store_phone_manager" placeholder="'-' 없이 입력"/></div>
 				</div>
 				<div class="inputbox">
 					<div class="inputtitle">주소</div>
 					<div class="inputs">
-						<textarea name="store_address" class="flleft" placeholder="주소"></textarea>
+						<textarea name="store_address" class="flleft form-control" placeholder="주소"></textarea>
 						<button type="button" class="btn flleft">주소찾기</button>
-						<div class="inputs"><input name="store_address_detail" placeholder="상세주소"/></div>
+						<div class="inputs"><input class="form-control" name="store_address_detail" placeholder="상세주소"/></div>
 					</div>
 				</div>
 				<div class="inputbox">
 					<div class="inputtitle">영업시간등록</div>
 					<div class="inputs">
 							<ul>
-								<li>
+								<li id="timeboxhead">
 									<span class="timebox">휴점일</span>
+									<span class="timebox">24시</span>
 									<span class="timebox2">요일</span>
 									<span class="timebox2">오픈시간</span>
 									<span class="timebox2">&nbsp;&nbsp;마감시간</span>
 								</li> 
 							</ul>
 							<ul>
+<!-- 								<li> -->
+<!-- 									<input class="timebox" type="checkbox" name="store_time_day"/><span class="timebox2"><b>평일</b></span> -->
+<!-- 									<input id="t1" class="timebox2 ronly" type="text" name="store_time_time" placeholder="0900"/> - <input id="t2" class="timebox2 ronly" type="text" name="store_time_time" placeholder="1800"/> -->
+<!-- 									<span id="show_time" class="btn timebox2" style="height:24px; width:48px;line-height: 10px"> -->
+<!-- 										▼ -->
+<!-- 									</span> -->
+<!-- 								</li>  -->
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_day"/><span class="timebox2"><b>평일</b></span>
-									<input id="t1" class="timebox2 ronly" type="text" name="store_time_time" placeholder="0900"/> - <input id="t2" class="timebox2 ronly" type="text" name="store_time_time" placeholder="1800"/>
+									<input class="timebox" type="checkbox" name="store_time_day"/>
+									<input class="timebox" type="checkbox" name="store_time_day"/>
+									<span class="timebox2 weekbox"><b>평일</b></span>
+									<input id="t1" class="timebox2 ronly timepicker form-control" name="store_time_time"/> - <input id="t2" class="timebox2 ronly timepicker form-control" name="store_time_time"/>
 									<span id="show_time" class="btn timebox2" style="height:24px; width:48px;line-height: 10px">
 										▼
 									</span>
 								</li> 
 								<li class="hidmenu">
-									<input class="timebox" type="checkbox" name="store_time_day" value="월요일"/><span class="timebox2">월요일</span>
-									<input class="timebox2 t1" type="text" name="store_time_time"/> - <input class="timebox2 t2" type="text" name="store_time_time"/>
+									<input class="timebox" type="checkbox" name="store_time_time" value="휴점일"/>
+									<input class="timebox" type="checkbox" name="store_time_day"/>
+									<span class="timebox2">월요일</span>
+									<input class="timebox2 t1 timepicker form-control" name="store_time_time" /> - <input class="timebox2 t2 timepicker form-control" name="store_time_time"/>
 								</li> 
 								<li class="hidmenu">
-									<input class="timebox" type="checkbox" name="store_time_day" value="화요일"/><span class="timebox2">화요일</span>
-									<input class="timebox2 t1" type="text" name="store_time_time"/> - <input class="timebox2 t2" type="text" name="store_time_time"/>
+									<input class="timebox" type="checkbox" name="store_time_time" value="화요일"/>
+									<input class="timebox" type="checkbox" name="store_time_day"/>
+									<span class="timebox2">화요일</span>
+									<input class="timebox2 t1 timepicker form-control" name="store_time_time"/> - <input class="timebox2 t2 timepicker form-control" name="store_time_time"/>
 								</li> 
 								<li class="hidmenu">
-									<input class="timebox" type="checkbox" name="store_time_day" value="수요일"/><span class="timebox2">수요일</span>
-									<input class="timebox2 t1" type="text" name="store_time_time"/> - <input class="timebox2 t2" type="text" name="store_time_time"/>
+									<input class="timebox" type="checkbox" name="store_time_day" value="수요일"/>
+									<input class="timebox" type="checkbox" name="store_time_day"/>
+									<span class="timebox2">수요일</span>
+									<input class="timebox2 t1 timepicker form-control" name="store_time_time"/> - <input class="timebox2 t2 timepicker form-control" name="store_time_time"/>
 								</li> 
 								<li class="hidmenu">
-									<input class="timebox" type="checkbox" name="store_time_day" value="목요일"/><span class="timebox2">목요일</span>
-									<input class="timebox2 t1" type="text" name="store_time_time"/> - <input class="timebox2 t2" type="text" name="store_time_time"/>
+									<input class="timebox " type="checkbox" name="store_time_day" value="목요일"/>
+									<input class="timebox" type="checkbox" name="store_time_day"/>
+									<span class="timebox2">목요일</span>
+									<input class="timebox2 t1 timepicker form-control" name="store_time_time"/> - <input class="timebox2 t2 timepicker form-control" name="store_time_time"/>
 								</li> 
 								<li class="hidmenu">
-									<input class="timebox" type="checkbox" name="store_time_day" value="금요일"/><span class="timebox2">금요일</span>
-									<input class="timebox2 t1" type="text" name="store_time_time"/> - <input class="timebox2 t2" type="text" name="store_time_time"/>
+									<input class="timebox" type="checkbox" name="store_time_day" value="금요일"/>
+									<input class="timebox" type="checkbox" name="store_time_day"/>
+									<span class="timebox2">금요일</span>
+									<input class="timebox2 t1 timepicker form-control" name="store_time_time"/> - <input class="timebox2 t2 timepicker form-control" name="store_time_time"/>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_day" value="토요일"/><span class="timebox2"><b>토요일</b></span>
-									<input class="timebox2" type="text" name="store_time_time"/> - <input class="timebox2" type="text" name="store_time_time"/>
+									<input class="timebox" type="checkbox" name="store_time_day" value="토요일"/>
+									<input class="timebox" type="checkbox" name="store_time_day"/>
+									<span class="timebox2"><b>토요일</b></span>
+									<input class="timebox2 timepicker form-control" name="store_time_time"/> - <input class="timebox2 timepicker form-control" name="store_time_time"/>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_day" value="일요일"/><span class="timebox2"><b>일요일</b></span>
-									<input class="timebox2" type="text" name="store_time_time"/> - <input class="timebox2" type="text" name="store_time_time"/>
+									<input class="timebox" type="checkbox" name="store_time_day" value="일요일"/>
+									<input class="timebox" type="checkbox" name="store_time_day"/>
+									<span class="timebox2"><b>일요일</b></span>
+									<input class="timebox2 timepicker form-control" name="store_time_time"/> - <input class="timebox2 timepicker form-control" name="store_time_time"/>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_day" value="공휴일"/><span class="timebox2"><b>공휴일</b>	</span>
-									<input class="timebox2" type="text" name="store_time_time"/> - <input class="timebox2" type="text" name="store_time_time"/>
+									<input class="timebox" type="checkbox" name="store_time_day" value="공휴일"/>
+									<input class="timebox" type="checkbox" name="store_time_day"/>
+									<span class="timebox2"><b>공휴일</b>	</span>
+									<input class="timebox2 timepicker form-control" name="store_time_time"/> - <input class="timebox2 timepicker form-control" name="store_time_time"/>
 								</li> 
 								<li>
 									<br>
-									<div class="inputs"><textarea class="" name="store_time_other" placeholder="영업시간 관련된 공지사항이 추가로 있으실경우 이곳에 적어주세요."></textarea></div>
+									<div class="inputs"><textarea class="form-control" name="store_time_other" placeholder="영업시간 관련된 공지사항이 추가로 있으실경우 이곳에 적어주세요."></textarea></div>
 								</li>
 							</ul>
 					</div>
@@ -390,7 +446,8 @@
 				<div class="inputbox lastbox">
 					<div class="inputtitle">계좌등록</div>
 					<div class="inputs">
-						<select name="store_bank">
+						은행
+						<select class="form-control" name="store_bank">
 							<option>--은행선택--</option>
 							<option value="신한">신한</option>
 							<option value="기업">기업</option>
@@ -399,7 +456,9 @@
 							<option value="농협">농협</option>
 							<option value="국민">국민</option>
 						</select>
-						<input name="store_account" placeholder="'-' 없이 입력"/>
+						<br>
+						계좌번호
+						<input class="form-control" name="store_account" placeholder="'-' 없이 입력"/>
 					</div>
 					
 				</div>
