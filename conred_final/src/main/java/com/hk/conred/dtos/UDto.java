@@ -16,14 +16,20 @@ public class UDto {
 	private String user_black;
 	private String user_role;
 	private int user_point;
+	private int reserve_count;
+	private int qna_count;
+	private int reply_count;
+	private int like_count;
 	
+	
+
 	public UDto() {
 		super();
 	}
-
+	
 	public UDto(String user_id, String user_password, String user_name, String user_email, String user_birth,
 			String user_sex, Date user_regdate, String user_agreement, String user_out, String user_black,
-			String user_role, int user_point) {
+			String user_role, int user_point, int reserve_count, int qna_count, int reply_count, int like_count) {
 		super();
 		this.user_id = user_id;
 		this.user_password = user_password;
@@ -37,6 +43,10 @@ public class UDto {
 		this.user_black = user_black;
 		this.user_role = user_role;
 		this.user_point = user_point;
+		this.reserve_count = reserve_count;
+		this.qna_count = qna_count;
+		this.reply_count = reply_count;
+		this.like_count = like_count;
 	}
 
 	public String getUser_id() {
@@ -70,7 +80,7 @@ public class UDto {
 	public void setUser_email(String user_email) {
 		this.user_email = user_email;
 	}
- 
+
 	public String getUser_birth() {
 		return user_birth;
 	}
@@ -135,13 +145,51 @@ public class UDto {
 		this.user_point = user_point;
 	}
 
+	public int getReserve_count() {
+		return reserve_count;
+	}
+
+	public void setReserve_count(int reserve_count) {
+		this.reserve_count = reserve_count;
+	}
+
+	public int getQna_count() {
+		return qna_count;
+	}
+
+	public void setQna_count(int qna_count) {
+		this.qna_count = qna_count;
+	}
+
+	public int getReply_count() {
+		return reply_count;
+	}
+
+	public void setReply_count(int reply_count) {
+		this.reply_count = reply_count;
+	}
+
+	public int getLike_count() {
+		return like_count;
+	}
+
+	public void setLike_count(int like_count) {
+		this.like_count = like_count;
+	}
+
 	@Override
 	public String toString() {
 		return "UDto [user_id=" + user_id + ", user_password=" + user_password + ", user_name=" + user_name
 				+ ", user_email=" + user_email + ", user_birth=" + user_birth + ", user_sex=" + user_sex
 				+ ", user_regdate=" + user_regdate + ", user_agreement=" + user_agreement + ", user_out=" + user_out
-				+ ", user_black=" + user_black + ", user_role=" + user_role + ", user_point=" + user_point + "]";
+				+ ", user_black=" + user_black + ", user_role=" + user_role + ", user_point=" + user_point
+				+ ", reserve_count=" + reserve_count + ", qna_count=" + qna_count + ", reply_count=" + reply_count
+				+ ", like_count=" + like_count + "]";
 	}
+
+	
+
+	
 
 
 	

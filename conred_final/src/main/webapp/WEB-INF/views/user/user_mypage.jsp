@@ -19,16 +19,17 @@
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
 	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:800px;height:200px; margin:0 auto; margin-top: 20px;}
 	.myboxmargin{margin-top:30px;}
-	.mybox_info{width: 130px;height: 130px; border: 1px solid black; float: left; margin-left: 100px;}
-	.mybox_info1{width: 130px;height: 130px; border: 1px solid black; float: left; margin-left: 170px;}
-	     
+	.mybox_info{width: 130px;height: 100px; float: left; margin-left: 100px;text-align: center;font-size: 20px; margin-top: 20px;}
+	.mybox_info1{width: 130px;height: 100px;  float: left; margin-left: 170px;text-align: center;font-size: 20px; margin-top: 20px;}
+    .stats_result{color: #A4A4A4; font-size: 30px;}
 	     
 </style>            
 </head>                
-<%
-	UDto uldto=(UDto)session.getAttribute("uldto");        
+<% 
+	UDto uldto=(UDto)session.getAttribute("uldto");
+	UDto dto=(UDto)request.getAttribute("dto");  
 %>  
-<body>
+<body> 
 <div id="container">
 	<div id="sticky">
 		<div id="navi2">
@@ -49,30 +50,35 @@
 			</div>
 		</div>
 	</div>
-	<div id="pagename">
+	<div id="pagename">  
 		<b><%=uldto.getUser_id()%></b>님 환영합니다<br><br>
-		<span style="font-size: 15px;">닉네임 : <%=uldto.getUser_name()%></span>
-	</div>
+		<span style="font-size: 15px;">닉네임 : <%=uldto.getUser_name()%></span> 
+	</div> 
 	   
 	<div class="mybox" > 
 		<div style="font-weight: bold;">내 통계</div><br/>
 			<div class="mybox_info"> 
-			 
+			 	<span class="stats_result"><%=dto.getReserve_count()%></span><br>
+			 	<span>예약수</span> 
 			</div>  
 			<div class="mybox_info">  
-			       
+		        <span class="stats_result"><%=dto.getLike_count()%></span><br>
+		        <span>좋아요</span> 
 			</div>    
 			<div class="mybox_info">  
-			  
+			  	<span class="stats_result"><%=dto.getUser_point()%></span><br>
+			  	<span>포인트</span> 
 			</div>
 	</div>    
 	<div class="mybox"> 
 		<div style="font-weight: bold;">내가 쓴 글</div><br/>
 		<div class="mybox_info1">
-			  
+			  <span class="stats_result"><%=dto.getQna_count()%></span>
+			  <span>문의수</span> 
 		</div>
 		<div class="mybox_info1">
-			  
+			  <span class="stats_result"><%=dto.getReply_count()%></span>
+			  <span>리뷰수</span> 
 		</div>
 	</div> 
 	<div class="mybox">

@@ -62,7 +62,7 @@
 		<a class="input-button" title="toggle" data-toggle><i class="icon-calendar"></i></a>
 	</div>
 	<br><br>
-	<div style="border: 1px solid black; width: 500px; height: 250px; margin: 0 auto; border-radius: 10px;">
+	<div style="border: 1px solid #A4A4A4; width: 500px; height: 250px; margin: 0 auto; border-radius: 10px;">
 		<div style="margin: 0 auto; width: 400px; height: 250px;">
 			<input class="times" onclick="bbb()" value="10:00" readonly="readonly">
 			<input class="times" onclick="bbb()" value="11:00" readonly="readonly">

@@ -33,4 +33,12 @@ public class UServiceImp implements IUService{
 		return UDaoImp.getLogin(user_id,user_password);
 	}
 
+
+	@Override
+	public UDto getStats(String user_id) {
+		return UDaoImp.getStats(user_id);
+	}
+	
+	
+
 }

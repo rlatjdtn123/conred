@@ -11,14 +11,28 @@
 		#{user_id},#{user_password},#{user_name},#{user_email},#{user_birth},#{user_sex},
 		SYSDATE,#{user_agreement},'N','N','user',0)
 	</insert> 
-	
+	 
 	
 	<select id="getLogin" resultType="UDto" parameterType="Map">
 		SELECT USER_ID,USER_NAME ,USER_BIRTH ,USER_SEX ,USER_REGDATE,USER_OUT,USER_BLACK ,USER_ROLE ,USER_POINT 
 		FROM CON_USER
 		WHERE USER_ID =#{user_id} AND USER_PASSWORD =#{user_password}
 	</select> 
-	
+	    
+	<select id="getStats" resultType="UDto" parameterType="String">
+		SELECT reserve_count ,qna_count,reply_count,like_count,cu.USER_POINT AS USER_POINT
+		FROM CON_USER cu ,
+			(SELECT COUNT(cr.reserve_seq) AS reserve_count
+			FROM con_user cu,CON_RESERVE cr
+			WHERE cu.USER_ID =cr.USER_ID AND cu.USER_ID =#{user_id}) crr ,
+			(SELECT count(cq.QNA_SEQ) AS qna_count FROM con_user cu, CON_QNA cq 
+		    WHERE cu.user_id=cq.USER_ID AND cu.user_id=#{user_id}) cqq ,
+		    (SELECT count(cr.REPLY_SEQ) AS reply_count FROM con_user cu, 
+		    CON_REPLY cr WHERE cu.user_id=cr.USER_ID AND cu.user_id=#{user_id}) cry,
+		    (SELECT count(cl.LIKE_LIST_SEQ) AS like_count FROM con_user cu, CON_LIKE cl  
+		     WHERE cu.user_id=cl.USER_ID AND cu.user_id=#{user_id}) cll
+		WHERE cu.USER_ID=#{user_id}
+	</select>
 	
 </mapper>
 	 

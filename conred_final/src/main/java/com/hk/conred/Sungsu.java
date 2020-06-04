@@ -149,8 +149,14 @@ public class Sungsu {
 		
 	
 	@RequestMapping(value = "user_mypage.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_mypage(Locale locale, Model model) {
+	public String user_mypage(Locale locale, Model model,HttpServletRequest request) {
 		logger.info("사용자 마이페이지{}.", locale);
+		HttpSession session=request.getSession();
+		UDto uldto=(UDto)session.getAttribute("uldto");
+		UDto dto=uService.getStats(uldto.getUser_id());
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ ::: "+uldto);
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ ::: "+dto); 
+		model.addAttribute("dto", dto);
 		
 		return "user/user_mypage";  
 	}
@@ -360,5 +366,12 @@ public class Sungsu {
 	public String test_time(Locale locale, Model model) {
 		logger.info("시간 테스트{}.", locale);
 		return "test/test_time";
+	} 
+	
+	
+	@RequestMapping(value = "test_like.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String test_like(Locale locale, Model model) {
+		logger.info("찜버튼 테스트{}.", locale);
+		return "test/test_like";
 	} 
 }
