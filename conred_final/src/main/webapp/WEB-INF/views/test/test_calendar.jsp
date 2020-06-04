@@ -23,13 +23,16 @@
 /* 	.selector{display: none;} */
 	.flatpickr-calendar{margin: 0 auto; width: 600px !important; height: 400px !important;}
 	.flatpickr-rContainer{margin: 0 auto !important;}
+	.day_result_box{width: 250px;margin: 0 auto;border:solid #D8D8D8;border-width:1px 0 1px 0;  height: 30px;line-height: 30px; margin-top: 30px;}
+	.selector{display: none;}
+	
 </style>   
 <script> 
 	  
 	 $(function(){
 		$("body").on("click",".dayContainer",function(){
 // 			alert($(this).text()); 
-		});
+		}); 
 	 });
 	 
 	function aaa(){
@@ -39,11 +42,14 @@
 		var endDay=new Date(dates[1]);
 // 		alert(((endDay.getTime()-startDay.getTime())/(1000*60*60*24)));       //  1초---> 1000ms
 		var resultDay=Math.ceil((endDay.getTime()-startDay.getTime())/(1000*60*60*24));
+		
+		$(".day_result_box").children("span").text(datestr);
+		
 		if(resultDay>4){
 			alert("5일을 넘길수 없습니다."); 
 			$(".selector").val("");
 			$(".flatpickr-day").removeClass("selected startRange endRange inRange");
- 
+			$(".day_result_box").children("span").empty();
 		}
 	}
 	
@@ -54,6 +60,7 @@
 	<input type="text" class="selector" placeholder="날짜를 선택하세요." onchange="aaa()"/>
 	
 	<a class="input-button" title="toggle" data-toggle><i class="icon-calendar"></i></a>
+	<div class="day_result_box">예약 날짜 : <span></span></div>
 <!-- 	<button onclick="aaa()">결정</button> -->
 <script type="text/javascript">
 
