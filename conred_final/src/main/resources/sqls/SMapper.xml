@@ -34,6 +34,37 @@
 <!-- 	  '영업원본파일명','영업저장파일명','영업파일사이즈', --> 
 <!--      '010-0000-4545','Y','Y',0,3); -->
      </insert>
+     
+     <update id="updateStoreInfo"  parameterType="SDto">
+		UPDATE CON_STORE SET 
+		store_name=#{store_name},
+		store_path=#{store_path},
+		store_intro_simple=#{store_intro_simple},
+		store_intro=#{store_intro},
+		store_state=#{store_state},
+		store_phone=#{store_phone},
+		store_phone_manager=#{store_phone_manager},
+		store_address=#{store_address},
+		store_address_detail=#{store_address_detail},
+		store_time_other=#{store_time_other},
+		store_bank=#{store_bank},
+		store_account=#{store_account}
+		WHERE STORE_SEQ =#{store_seq}
+     </update>
+     
+     <update id="updateStoreMenu"  parameterType="SDto">
+		UPDATE CON_STORE SET
+		store_maxdate=#{store_maxdate},
+		store_maxman=#{store_maxman}
+		WHERE STORE_SEQ =#{store_seq}
+     </update>
  
+	 <select id="selectStoreSeq" parameterType="ODto" resultType="SDto">
+		SELECT cs.STORE_SEQ
+		FROM CON_OWNER co, CON_STORE cs
+		WHERE co.OWNER_ID =cs.OWNER_ID
+		AND cs.OWNER_ID =#{owner_id}
+	 </select> 
+
    
 </mapper>

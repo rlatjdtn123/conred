@@ -1,5 +1,6 @@
 package com.hk.conred.service;
 
+import com.hk.conred.dtos.ODto;
 import com.hk.conred.dtos.SDto;
 
 public interface ISService {
@@ -9,4 +10,6 @@ public interface ISService {
 	public boolean updateStoreInfo(SDto sdto);
 	//매장등록3(메뉴/서비스정보)
 	public boolean updateStoreMenu(SDto sdto);
+	//Store Seq 가져오기
+	public SDto selectStoreSeq(ODto odto);
 }

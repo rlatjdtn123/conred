@@ -1,3 +1,4 @@
+<%@page import="com.hk.conred.dtos.SDto"%>
 <jsp:include page="../all/header.jsp" />
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
@@ -198,6 +199,11 @@
 
 </script>
 </head>
+<%
+	SDto sdto=(SDto)request.getAttribute("sdto");
+// 	sdto.getStore_seq();
+	SDto asd=(SDto)session.getAttribute("asdf");
+%>
 <body>
 <div id="container">
 <!-- <div class="modal fade" id="layerpop" > -->

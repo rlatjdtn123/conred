@@ -72,7 +72,7 @@
 	
 	#show_menu,#show_time,.hide_menu{margin-bottom:2.5px;}
 	
-	input[name=store_maxdate],input[name=store_maxman]{width:30px;background-color: #f0f0f0;border:1px solid grey}
+	input[name=store_maxdate],input[name=store_maxman]{width:50px;background-color: #f0f0f0;border:1px solid grey}
 	.subinfo{font-size:12px;color: grey;}
 	#bot{margin:30px 10px 30px;}
 </style>
@@ -177,22 +177,36 @@
 // 				alert("시간제가 입력가능해집니다");
 				$("input[name=store_maxman]").removeAttr("readonly");
 				$("input[name=store_maxman]").css("background-color","white");
+				
 			}
 
 			if(s==0){ //'숙박제'가 0이면 안에 값 지우고readonly 처리
 // 				alert("숙박제가 리드온리처리됩니다.");
-				$("input[name=store_maxdate]").val("");
+				$("input[name=store_maxdate]").val("0");
 				$("input[name=store_maxdate]").attr("readonly","readonly");
 				$("input[name=store_maxdate]").css("background-color","#f2f2f2");
 			}
 			if(t==0){ //'시간제'가 0이면 안에 값 지우고 readonly 처리
 // 				alert("시간제가 리드온리처리됩니다.");
-				$("input[name=store_maxman]").val("");
+				$("input[name=store_maxman]").val("0");
 				$("input[name=store_maxman]").attr("readonly","readonly");
 				$("input[name=store_maxman]").css("background-color","#f2f2f2");
 			}
 		});
+		
+		
+		
+// 		$("#testform").submit(function(){
+// // 			$("input[name=store_maxman]").trigger('click') ;
+// 			$(".lastbox input").each(function(){
+// 				if($(this).val()=="0"){
+// 					$(this).val("0");
+// 				}
+// 			});
+			
+// 		});
 	});
+	
 	
 	
 
@@ -247,7 +261,7 @@
     </div>
   </div>
 </div>
-	<form action="owner_regist_finish.do" method="post">
+	<form id="testform" action="owner_regist_finish.do" method="post">
 		<div id="tle">
 			<div id="regist" class="testmod">
 				서비스/메뉴 정보 입력
@@ -393,13 +407,17 @@
 				<div class="inputbox lastbox">
 					<div class="inputtitle">예약관련 설정</div>
 					<div class="inputs">
-						<div>※최대 예약일 : <input type="text" name="store_maxdate" placeholder="0"  readonly/>일</div>
+						<div>※최대 예약일 : <input type="number" min="0" max="180" name="store_maxdate" placeholder="0" value="0" readonly/>일</div>
 						<div class="subinfo">*최대 몇 일까지 예약 가능한가요? 1박2일의 경우 : 2일</div>
-						<div class="subinfo">*시간제 예약메뉴가 있는경우에 한해 작성가능합니다.</div>
-						<br>
-						<div>※시간당 최대 허용인원 : <input type="text" name="store_maxman" placeholder="0" readonly/>명</div>
-						<div class="subinfo">*한시간에 몇 명의 예약을 받을 수 있나요?</div>
 						<div class="subinfo">*숙박제 예약메뉴가 있는경우에 한해 작성가능합니다.</div>
+						<div class="subinfo">*모든 숙박제에 공통으로 적용됩니다.</div>
+						<div class="subinfo">*최대 1개월(30일)까지 작성할 수 있습니다.</div>
+						<br>
+						<div>※시간당 최대 허용인원 : <input type="number" min="0" max="200" name="store_maxman" placeholder="0" value="0" readonly/>명</div>
+						<div class="subinfo">*한시간에 몇 명의 예약을 받을 수 있나요?</div>
+						<div class="subinfo">*시간제 예약메뉴가 있는경우에 한해 작성가능합니다.</div>
+						<div class="subinfo">*모든 숙박제에 공통으로 적용됩니다.</div>
+						<div class="subinfo">*최대 한시간당 200명까지 등록할 수 있습니다.</div>
 					</div>
 				</div>
 			
