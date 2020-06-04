@@ -162,7 +162,7 @@ public class Yoonho {
 		ODto odto= (ODto)session.getAttribute("oldto");
 		
 		System.out.println("odto 아이디:"+odto.getOwner_id());
-		sdto.setOwner_id(odto.getOwner_id());
+		sdto.setOwner_id(odto.getOwner_id()); 
 		
 		sdto.setStore_license_number(sdto.getStore_license_number().replace(",",""));
 		sdto.setStore_owner_phone(sdto.getStore_owner_phone().replace(",",""));
