@@ -19,6 +19,7 @@ import com.hk.conred.dtos.ODto;
 import com.hk.conred.dtos.SDto;
 import com.hk.conred.dtos.UDto;
 import com.hk.conred.service.IOService;
+import com.hk.conred.service.ISService;
 import com.hk.conred.service.OServiceImp;
 
 @Controller
@@ -144,19 +145,88 @@ public class Yoonho {
 		
 		return "owner/owner_regist_certify"; 
 	}
-
+	
+	@Autowired
+	private ISService sService;
 	@RequestMapping(value = "owner_regist_store.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String owner_regist_store(Locale locale, Model model,SDto sdto) {
+	public String owner_regist_store(Locale locale, Model model, SDto sdto, HttpServletRequest request, String store_owner_phone1, String store_owner_phone2, String store_owner_phone3) {
 		logger.info("점주: 매장등록(매장정보 입력)으로 이동  {}.", locale);
 		
+		HttpSession session=request.getSession();
+		ODto odto= (ODto)session.getAttribute("oldto");
 		
-		return "owner/owner_regist_store"; 
+		System.out.println("odto 아이디:"+odto.getOwner_id());
+		sdto.setOwner_id(odto.getOwner_id());
+		
+		sdto.setStore_license_number(sdto.getStore_license_number().replace(",",""));
+		sdto.setStore_owner_phone(sdto.getStore_owner_phone().replace(",",""));
+		
+		System.out.println("sdto 아이디:"+sdto.getOwner_id());
+//		System.out.println("sdto 매장명:"+sdto.getStore_name());
+		System.out.println("sdto 사업자이름:"+sdto.getStore_owner_name());
+//		System.out.println("sdto 매장홈피링크:"+sdto.getStore_path());
+//		System.out.println("sdto 간단소개:"+sdto.getStore_intro_simple());
+//		System.out.println("sdto 상세소개:"+sdto.getStore_intro());
+//		System.out.println("sdto 영업상태:"+sdto.getStore_state());
+//		System.out.println("sdto 매장번호:"+sdto.getStore_phone());
+//		System.out.println("sdto 담당자번호:"+sdto.getStore_phone_manager());
+//		System.out.println("sdto 주소:"+sdto.getStore_address());
+//		System.out.println("sdto 상세주소:"+sdto.getStore_address_detail());
+//		System.out.println("sdto 영업시간 기타사항:"+sdto.getStore_time_other());
+//		System.out.println("sdto 은행명:"+sdto.getStore_bank());
+//		System.out.println("sdto 계좌번호:"+sdto.getStore_account());
+		System.out.println("sdto 사업자등록번호:"+sdto.getStore_license_number());
+		System.out.println("sdto 사업자증원본명:"+sdto.getStore_license_biz_origin());
+		System.out.println("sdto 사업자증저장명:"+sdto.getStore_license_biz_stored());
+		System.out.println("sdto 사업자증사이즈:"+sdto.getStore_license_biz_size());
+		System.out.println("sdto 영업증원본명:"+sdto.getStore_license_sales_origin());
+		System.out.println("sdto 영업증저장명:"+sdto.getStore_license_sales_stored());
+		System.out.println("sdto 영업증사이즈:"+sdto.getStore_license_sales_size());
+		System.out.println("sdto 사업자전화번호:"+sdto.getStore_owner_phone());
+		System.out.println("sdto 약관동의:"+sdto.getStore_agreement());
+		System.out.println("sdto 관리자승인:"+sdto.getStore_admin_state());
+//		System.out.println("sdto 아이디:"+sdto.getStore_maxdate());
+//		System.out.println("sdto 아이디:"+sdto.getStore_maxman());
+		
+		boolean isS=sService.insertStoreCertify(sdto);
+		if(isS&&sdto.getStore_agreement()=="Y") {
+			System.out.println("매장생성 + 사업자정보등록 :성공");
+			return "owner/owner_regist_store";
+		}else{
+			System.out.println("매장생성 + 사업자정보등록 :실패");
+			return ""; 
+		}	
 	}
 	
 	@RequestMapping(value = "owner_regist_menu.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String owner_regist_menu(Locale locale, Model model,SDto sdto) {
 		logger.info("점주: 매장등록 (메뉴정보 입력)으로 이동  {}.", locale);
-		
+		System.out.println(sdto.getOwner_id());
+		System.out.println(sdto.getStore_name());
+		System.out.println(sdto.getStore_owner_name());
+		System.out.println(sdto.getStore_path());
+		System.out.println(sdto.getStore_intro_simple());
+		System.out.println(sdto.getStore_intro());
+		System.out.println(sdto.getStore_state());
+		System.out.println(sdto.getStore_phone());
+		System.out.println(sdto.getStore_phone_manager());
+		System.out.println(sdto.getStore_address());
+		System.out.println(sdto.getStore_address_detail());
+		System.out.println(sdto.getStore_time_other());
+		System.out.println(sdto.getStore_bank());
+		System.out.println(sdto.getStore_account());
+		System.out.println(sdto.getStore_license_number());
+		System.out.println(sdto.getStore_license_biz_origin());
+		System.out.println(sdto.getStore_license_biz_stored());
+		System.out.println(sdto.getStore_license_biz_size());
+		System.out.println(sdto.getStore_license_sales_origin());
+		System.out.println(sdto.getStore_license_sales_stored());
+		System.out.println(sdto.getStore_license_sales_size());
+		System.out.println(sdto.getStore_owner_phone());
+		System.out.println(sdto.getStore_agreement());
+		System.out.println(sdto.getStore_admin_state());
+		System.out.println(sdto.getStore_maxdate());
+		System.out.println(sdto.getStore_maxman());
 		
 		return "owner/owner_regist_menu"; 
 	}

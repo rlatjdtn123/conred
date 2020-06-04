@@ -6,205 +6,249 @@ public class SDto {
 	private String store_name;
 	private String store_owner_name;
 	private String store_path;
-	private String store_simple_intro;
+	private String store_intro_simple;
 	private String store_intro;
 	private String store_state;
 	private String store_phone;
-	private String store_owner_phone;
+	private String store_phone_manager;
 	private String store_address;
-	private String store_detail_address;
+	private String store_address_detail;
 	private String store_time_other;
 	private String store_bank;
 	private String store_account;
-	private String store_license_owner;
-	private String store_license_sales;
+	private String store_license_number;
+	private String store_license_biz_origin;
+	private String store_license_biz_stored;
+	private String store_license_biz_size;
+	private String store_license_sales_origin;
+	private String store_license_sales_stored;
+	private String store_license_sales_size;
+	private String store_owner_phone;
+	private String store_agreement;
 	private String store_admin_state;
+	private int store_maxdate;
+	private int store_maxman;
 	
 	public SDto() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
-
+	
 	public SDto(int store_seq, String owner_id, String store_name, String store_owner_name, String store_path,
-			String store_simple_intro, String store_intro, String store_state, String store_phone,
-			String store_owner_phone, String store_address, String store_detail_address, String store_time_other,
-			String store_bank, String store_account, String store_license_owner, String store_license_sales,
-			String store_admin_state) {
+			String store_intro_simple, String store_intro, String store_state, String store_phone,
+			String store_phone_manager, String store_address, String store_address_detail, String store_time_other,
+			String store_bank, String store_account, String store_license_number, String store_license_biz_origin,
+			String store_license_biz_stored, String store_license_biz_size, String store_license_sales_origin,
+			String store_license_sales_stored, String store_license_sales_size, String store_owner_phone,
+			String store_agreement, String store_admin_state, int store_maxdate, int store_maxman) {
 		super();
 		this.store_seq = store_seq;
 		this.owner_id = owner_id;
 		this.store_name = store_name;
 		this.store_owner_name = store_owner_name;
 		this.store_path = store_path;
-		this.store_simple_intro = store_simple_intro;
+		this.store_intro_simple = store_intro_simple;
 		this.store_intro = store_intro;
 		this.store_state = store_state;
 		this.store_phone = store_phone;
-		this.store_owner_phone = store_owner_phone;
+		this.store_phone_manager = store_phone_manager;
 		this.store_address = store_address;
-		this.store_detail_address = store_detail_address;
+		this.store_address_detail = store_address_detail;
 		this.store_time_other = store_time_other;
 		this.store_bank = store_bank;
 		this.store_account = store_account;
-		this.store_license_owner = store_license_owner;
-		this.store_license_sales = store_license_sales;
+		this.store_license_number = store_license_number;
+		this.store_license_biz_origin = store_license_biz_origin;
+		this.store_license_biz_stored = store_license_biz_stored;
+		this.store_license_biz_size = store_license_biz_size;
+		this.store_license_sales_origin = store_license_sales_origin;
+		this.store_license_sales_stored = store_license_sales_stored;
+		this.store_license_sales_size = store_license_sales_size;
+		this.store_owner_phone = store_owner_phone;
+		this.store_agreement = store_agreement;
 		this.store_admin_state = store_admin_state;
+		this.store_maxdate = store_maxdate;
+		this.store_maxman = store_maxman;
 	}
-
+	
 	public int getStore_seq() {
 		return store_seq;
 	}
-
 	public void setStore_seq(int store_seq) {
 		this.store_seq = store_seq;
 	}
-
 	public String getOwner_id() {
 		return owner_id;
 	}
-
 	public void setOwner_id(String owner_id) {
 		this.owner_id = owner_id;
 	}
-
 	public String getStore_name() {
 		return store_name;
 	}
-
 	public void setStore_name(String store_name) {
 		this.store_name = store_name;
 	}
-
 	public String getStore_owner_name() {
 		return store_owner_name;
 	}
-
 	public void setStore_owner_name(String store_owner_name) {
 		this.store_owner_name = store_owner_name;
 	}
-
 	public String getStore_path() {
 		return store_path;
 	}
-
 	public void setStore_path(String store_path) {
 		this.store_path = store_path;
 	}
-
-	public String getStore_simple_intro() {
-		return store_simple_intro;
+	public String getStore_intro_simple() {
+		return store_intro_simple;
 	}
-
-	public void setStore_simple_intro(String store_simple_intro) {
-		this.store_simple_intro = store_simple_intro;
+	public void setStore_intro_simple(String store_intro_simple) {
+		this.store_intro_simple = store_intro_simple;
 	}
-
 	public String getStore_intro() {
 		return store_intro;
 	}
-
 	public void setStore_intro(String store_intro) {
 		this.store_intro = store_intro;
 	}
-
 	public String getStore_state() {
 		return store_state;
 	}
-
 	public void setStore_state(String store_state) {
 		this.store_state = store_state;
 	}
-
 	public String getStore_phone() {
 		return store_phone;
 	}
-
 	public void setStore_phone(String store_phone) {
 		this.store_phone = store_phone;
 	}
-
-	public String getStore_owner_phone() {
-		return store_owner_phone;
+	public String getStore_phone_manager() {
+		return store_phone_manager;
 	}
-
-	public void setStore_owner_phone(String store_owner_phone) {
-		this.store_owner_phone = store_owner_phone;
+	public void setStore_phone_manager(String store_phone_manager) {
+		this.store_phone_manager = store_phone_manager;
 	}
-
 	public String getStore_address() {
 		return store_address;
 	}
-
 	public void setStore_address(String store_address) {
 		this.store_address = store_address;
 	}
-
-	public String getStore_detail_address() {
-		return store_detail_address;
+	public String getStore_address_detail() {
+		return store_address_detail;
 	}
-
-	public void setStore_detail_address(String store_detail_address) {
-		this.store_detail_address = store_detail_address;
+	public void setStore_address_detail(String store_address_detail) {
+		this.store_address_detail = store_address_detail;
 	}
-
 	public String getStore_time_other() {
 		return store_time_other;
 	}
-
 	public void setStore_time_other(String store_time_other) {
 		this.store_time_other = store_time_other;
 	}
-
 	public String getStore_bank() {
 		return store_bank;
 	}
-
 	public void setStore_bank(String store_bank) {
 		this.store_bank = store_bank;
 	}
-
 	public String getStore_account() {
 		return store_account;
 	}
-
 	public void setStore_account(String store_account) {
 		this.store_account = store_account;
 	}
-
-	public String getStore_license_owner() {
-		return store_license_owner;
+	public String getStore_license_number() {
+		return store_license_number;
 	}
-
-	public void setStore_license_owner(String store_license_owner) {
-		this.store_license_owner = store_license_owner;
+	public void setStore_license_number(String store_license_number) {
+		this.store_license_number = store_license_number;
 	}
-
-	public String getStore_license_sales() {
-		return store_license_sales;
+	public String getStore_license_biz_origin() {
+		return store_license_biz_origin;
 	}
-
-	public void setStore_license_sales(String store_license_sales) {
-		this.store_license_sales = store_license_sales;
+	public void setStore_license_biz_origin(String store_license_biz_origin) {
+		this.store_license_biz_origin = store_license_biz_origin;
 	}
-
+	public String getStore_license_biz_stored() {
+		return store_license_biz_stored;
+	}
+	public void setStore_license_biz_stored(String store_license_biz_stored) {
+		this.store_license_biz_stored = store_license_biz_stored;
+	}
+	public String getStore_license_biz_size() {
+		return store_license_biz_size;
+	}
+	public void setStore_license_biz_size(String store_license_biz_size) {
+		this.store_license_biz_size = store_license_biz_size;
+	}
+	public String getStore_license_sales_origin() {
+		return store_license_sales_origin;
+	}
+	public void setStore_license_sales_origin(String store_license_sales_origin) {
+		this.store_license_sales_origin = store_license_sales_origin;
+	}
+	public String getStore_license_sales_stored() {
+		return store_license_sales_stored;
+	}
+	public void setStore_license_sales_stored(String store_license_sales_stored) {
+		this.store_license_sales_stored = store_license_sales_stored;
+	}
+	public String getStore_license_sales_size() {
+		return store_license_sales_size;
+	}
+	public void setStore_license_sales_size(String store_license_sales_size) {
+		this.store_license_sales_size = store_license_sales_size;
+	}
+	public String getStore_owner_phone() {
+		return store_owner_phone;
+	}
+	public void setStore_owner_phone(String store_owner_phone) {
+		this.store_owner_phone = store_owner_phone;
+	}
+	public String getStore_agreement() {
+		return store_agreement;
+	}
+	public void setStore_agreement(String store_agreement) {
+		this.store_agreement = store_agreement;
+	}
 	public String getStore_admin_state() {
 		return store_admin_state;
 	}
-
 	public void setStore_admin_state(String store_admin_state) {
 		this.store_admin_state = store_admin_state;
 	}
-
+	public int getStore_maxdate() {
+		return store_maxdate;
+	}
+	public void setStore_maxdate(int store_maxdate) {
+		this.store_maxdate = store_maxdate;
+	}
+	public int getStore_maxman() {
+		return store_maxman;
+	}
+	public void setStore_maxman(int store_maxman) {
+		this.store_maxman = store_maxman;
+	}
 	@Override
 	public String toString() {
-		return "sDto [store_seq=" + store_seq + ", owner_id=" + owner_id + ", store_name=" + store_name
-				+ ", store_owner_name=" + store_owner_name + ", store_path=" + store_path + ", store_simple_intro="
-				+ store_simple_intro + ", store_intro=" + store_intro + ", store_state=" + store_state
-				+ ", store_phone=" + store_phone + ", store_owner_phone=" + store_owner_phone + ", store_address="
-				+ store_address + ", store_detail_address=" + store_detail_address + ", store_time_other="
+		return "SDto [store_seq=" + store_seq + ", owner_id=" + owner_id + ", store_name=" + store_name
+				+ ", store_owner_name=" + store_owner_name + ", store_path=" + store_path + ", store_intro_simple="
+				+ store_intro_simple + ", store_intro=" + store_intro + ", store_state=" + store_state
+				+ ", store_phone=" + store_phone + ", store_phone_manager=" + store_phone_manager + ", store_address="
+				+ store_address + ", store_address_detail=" + store_address_detail + ", store_time_other="
 				+ store_time_other + ", store_bank=" + store_bank + ", store_account=" + store_account
-				+ ", store_license_owner=" + store_license_owner + ", store_license_sales=" + store_license_sales
-				+ ", store_admin_state=" + store_admin_state + "]";
+				+ ", store_license_number=" + store_license_number + ", store_license_biz_origin="
+				+ store_license_biz_origin + ", store_license_biz_stored=" + store_license_biz_stored
+				+ ", store_license_biz_size=" + store_license_biz_size + ", store_license_sales_origin="
+				+ store_license_sales_origin + ", store_license_sales_stored=" + store_license_sales_stored
+				+ ", store_license_sales_size=" + store_license_sales_size + ", store_owner_phone=" + store_owner_phone
+				+ ", store_agreement=" + store_agreement + ", store_admin_state=" + store_admin_state
+				+ ", store_maxdate=" + store_maxdate + ", store_maxman=" + store_maxman + "]";
 	}
-	
 	
 	
 }

@@ -81,9 +81,9 @@
 				<tr>
 					<td>사업자등록번호</td>
 					<td>
-						<input class="numbers" type="text" name="store_license_number1"/> -
-						<input class="numbers" type="text" name="store_license_number2"/> -
-						<input class="numbers" type="text" name="store_license_number3"/>
+						<input class="numbers" type="text" name="store_license_number"/> -
+						<input class="numbers" type="text" name="store_license_number"/> -
+						<input class="numbers" type="text" name="store_license_number"/>
 <!-- 						<input class="numbers" type="text" name="store_license_number1" required="required"/> - -->
 <!-- 						<input class="numbers" type="text" name="store_license_number2" required="required"/> - -->
 <!-- 						<input class="numbers" type="text" name="store_license_number3" required="required"/> -->
@@ -114,9 +114,9 @@
 					<td>영업등록증 사본등록</td>
 					<td>
 						<div class="filebox">
-							<input type="hidden" name="store_license_biz_origin" value="영업증원본명테스트a"/><!-- 테스트용 -->
-							<input type="hidden" name="store_license_biz_stored" value="영업증저장명테스트a"/><!-- 테스트용 -->
-							<input type="hidden" name="store_license_biz_size" value="2345"/>			<!-- 테스트용 -->
+							<input type="hidden" name="store_license_sales_origin" value="영업증원본명테스트a"/><!-- 테스트용 -->
+							<input type="hidden" name="store_license_sales_stored" value="영업증저장명테스트a"/><!-- 테스트용 -->
+							<input type="hidden" name="store_license_sales_size" value="2345"/>			<!-- 테스트용 -->
 							<input class="upload-name" value="파일선택" disabled="disabled">
 							<label class="btn" for="filename02">업로드</label>
 							<input type="file" id="filename02" class="upload-hidden">
@@ -132,9 +132,9 @@
 				<tr>
 					<td>사업자 휴대폰번호</td>
 					<td>
-						<input class="numbers" type="text" name="store_owner_phone1"/>- 
-						<input class="numbers" type="text" name="store_owner_phone2"/>- 
-						<input class="numbers" type="text" name="store_owner_phone3"/>
+						<input class="numbers" type="text" name="store_owner_phone"/>- 
+						<input class="numbers" type="text" name="store_owner_phone"/>- 
+						<input class="numbers" type="text" name="store_owner_phone"/>
 <!-- 						<input class="numbers" type="text" name="store_owner_phone1" required="required"/>-  -->
 <!-- 						<input class="numbers" type="text" name="store_owner_phone2" required="required"/>-  -->
 <!-- 						<input class="numbers" type="text" name="store_owner_phone3" required="required"/> -->
@@ -152,7 +152,7 @@
 				<tr>
 					<td>입점 약관</td>
 					<td>
-						입점 약관에 동의하시겠습니까? <input name="store_owner_agreement" value="Y" type="checkbox"/>
+						입점 약관에 동의하시겠습니까? <input name="store_agreement" value="Y" type="checkbox"/>
 <!-- 						입점 약관에 동의하시겠습니까? <input name="owner_agreement" value="Y" type="checkbox" required="required"/> -->
 						<button type="button"  class="btn"> 이용약관</button>
 					</td>

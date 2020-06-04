@@ -5,7 +5,35 @@
    
   
 <mapper namespace="com.hk.conred.S">
-     
+<!--      <insert id="insertStore" parameterType="SDto"> -->
+<!--      INSERT INTO CON_STORE VALUES(CON_STORE_SEQ.NEXTVAL,#{owner_id},#{store_name},#{store_owner_name}, -->
+<!--      #{store_path},#{store_intro_simple},#{store_intro},#{store_state},#{store_phone},#{store_phone_manager},#{store_address}, -->
+<!--      #{store_address_detail},#{store_time_other},#{store_bank},#{store_account},#{store_license_number}, -->
+<!--      #{store_license_biz_origin},#{store_license_biz_stored},#{store_license_biz_size}, -->
+<!--      #{store_license_sales_origin},#{store_license_sales_stored},#{store_license_sales_size}, -->
+<!--      #{store_owner_phone},#{store_agreement},'N',#{store_maxdate},#{store_maxman}) -->
+<!--      INSERT INTO CON_STORE VALUES(CON_STORE_SEQ.NEXTVAL,'사장아이디','매장이름','사장이름2', -->
+<!--      'www.naver.com','간단소개','상세소개','O','02-0000-0000','010-0000-0000','주소주소주소', -->
+<!--      '상세주소 102호','사장 원하는대로 쉽니다. 전화하고오세요.','국민은행','000-000-000000','000-00-00000', -->
+<!--      '사업원본파일명','사업저장파일명','사업파일사이즈', -->
+<!-- 	  '영업원본파일명','영업저장파일명','영업파일사이즈', --> 
+<!--      '010-0000-4545','Y','Y',0,3); -->
+<!--      </insert> -->
+
+     <insert id="insertStoreCertify" parameterType="SDto">
+	     INSERT INTO CON_STORE VALUES(CON_STORE_SEQ.NEXTVAL,#{owner_id},null,#{store_owner_name},
+	     null,null,null,null,null,null,null,
+	     null,null,null,null,#{store_license_number},
+	     #{store_license_biz_origin},#{store_license_biz_stored},#{store_license_biz_size},
+	     #{store_license_sales_origin},#{store_license_sales_stored},#{store_license_sales_size},
+	     #{store_owner_phone},#{store_agreement},'N',null,null)
+<!--      INSERT INTO CON_STORE VALUES(CON_STORE_SEQ.NEXTVAL,'사장아이디','매장이름','사장이름2', -->
+<!--      'www.naver.com','간단소개','상세소개','O','02-0000-0000','010-0000-0000','주소주소주소', -->
+<!--      '상세주소 102호','사장 원하는대로 쉽니다. 전화하고오세요.','국민은행','000-000-000000','000-00-00000', -->
+<!--      '사업원본파일명','사업저장파일명','사업파일사이즈', -->
+<!-- 	  '영업원본파일명','영업저장파일명','영업파일사이즈', --> 
+<!--      '010-0000-4545','Y','Y',0,3); -->
+     </insert>
  
    
 </mapper>
