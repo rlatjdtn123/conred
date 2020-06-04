@@ -211,7 +211,7 @@ public class Yoonho {
 	}
 	
 	@RequestMapping(value = "owner_regist_menu.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String owner_regist_menu(Locale locale, Model model,SDto sdto, HttpServletRequest request) {
+	public String owner_regist_menu(Locale locale, Model model,SDto sdto, STimeDto stimedto, /*String[] store_time_day,*/ HttpServletRequest request) {
 		logger.info("점주: 매장등록 (메뉴정보 입력)으로 이동  {}.", locale);
 		
 		//세션에서 id정보 가져오기(store_seq구하기용)
@@ -254,14 +254,22 @@ public class Yoonho {
 //		System.out.println("sdto 아이디:"+sdto.getStore_maxdate());
 //		System.out.println("sdto 아이디:"+sdto.getStore_maxman());
 		
-		boolean isS=sService.updateStoreInfo(sdto);
-		if(isS) {
-			System.out.println("매장정보 업데이트성공~");
-			return "owner/owner_regist_menu";
-		}else{
-			System.out.println("매장정보 업데이트실패~");
-			return ""; 
-		}	
+//		System.out.println("배열로받아온 요일:"+store_time_day.toString());
+		
+		stimedto.setStore_seq(seq.getStore_seq());
+		System.out.println("매장번호:"+stimedto.getStore_seq());
+		System.out.println("요일:"+stimedto.getStore_time_day());
+		System.out.println("영업시간:"+stimedto.getStore_time_time());
+		
+		return "";
+//		boolean isS=sService.updateStoreInfo(sdto,stimedto);
+//		if(isS) {
+//			System.out.println("매장정보 업데이트성공~");
+//			return "owner/owner_regist_menu";
+//		}else{
+//			System.out.println("매장정보 업데이트실패~");
+//			return ""; 
+//		}	
 	}
 	
 	@RequestMapping(value = "owner_regist_finish.do", method = {RequestMethod.GET,RequestMethod.POST})

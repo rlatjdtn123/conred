@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+  
+<mapper namespace="com.hk.conred.STime">
+
+
+	<insert id="insertSTime" parameterType="STimeDto">
+		INSERT INTO CON_STORE_TIME
+		VALUES(con_store_time_seq.NEXTVAL,#{STORE_SEQ},#{STORE_TIME_DAY},#{STORE_TIME_TIME})
+	</insert>
+<!-- 	
+	첫 등록시 바로 넣을때는 :insert,currval로도 됨 하지만 매퍼를 하나만 만들기위해 seq불러와서 하기
+	임시 저장해놓았다가 넣을 때는 :insert, seq불러와서
+	수정할 때는 udpate, seq불러와서
+	
+	수정할때 요일을 추가할 수도 있을건데 그땐 어떻게 하나?
+	delete와 udpate를 둘다 해야하나
+	아니면 애초에 모든값을 다 받아온 후, 여부값으로 처리할까
+	일단은 수정은 생각하지말고 하자
+ -->
+	<update id="updateSTime" parameterType="STimeDto">
+	
+	</update>
+</mapper>
+	   

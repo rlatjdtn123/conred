@@ -343,42 +343,42 @@
 							<ul>
 								<li>
 									<input class="timebox" type="checkbox" name="store_time_day"/><span class="timebox2"><b>평일</b></span>
-									<input id="t1" class="timebox2 ronly" type="text" name="store_time_time1" placeholder="0900"/> - <input id="t2" class="timebox2 ronly" type="text" name="store_time_time2" placeholder="1800"/>
+									<input id="t1" class="timebox2 ronly" type="text" name="store_time_time" placeholder="0900"/> - <input id="t2" class="timebox2 ronly" type="text" name="store_time_time" placeholder="1800"/>
 									<span id="show_time" class="btn timebox2" style="height:24px; width:48px;line-height: 10px">
 										▼
 									</span>
 								</li> 
 								<li class="hidmenu">
-									<input class="timebox" type="checkbox" name="store_time_day"/><span class="timebox2">월요일</span>
-									<input class="timebox2 t1" type="text" name="store_time_time1"/> - <input class="timebox2 t2" type="text" name="store_time_time2"/>
+									<input class="timebox" type="checkbox" name="store_time_day" value="월요일"/><span class="timebox2">월요일</span>
+									<input class="timebox2 t1" type="text" name="store_time_time"/> - <input class="timebox2 t2" type="text" name="store_time_time"/>
 								</li> 
 								<li class="hidmenu">
-									<input class="timebox" type="checkbox" name="store_time_day"/><span class="timebox2">화요일</span>
-									<input class="timebox2 t1" type="text" name="store_time_time1"/> - <input class="timebox2 t2" type="text" name="store_time_time2"/>
+									<input class="timebox" type="checkbox" name="store_time_day" value="화요일"/><span class="timebox2">화요일</span>
+									<input class="timebox2 t1" type="text" name="store_time_time"/> - <input class="timebox2 t2" type="text" name="store_time_time"/>
 								</li> 
 								<li class="hidmenu">
-									<input class="timebox" type="checkbox" name="store_time_day"/><span class="timebox2">수요일</span>
-									<input class="timebox2 t1" type="text" name="store_time_time1"/> - <input class="timebox2 t2" type="text" name="store_time_time2"/>
+									<input class="timebox" type="checkbox" name="store_time_day" value="수요일"/><span class="timebox2">수요일</span>
+									<input class="timebox2 t1" type="text" name="store_time_time"/> - <input class="timebox2 t2" type="text" name="store_time_time"/>
 								</li> 
 								<li class="hidmenu">
-									<input class="timebox" type="checkbox" name="store_time_day"/><span class="timebox2">목요일</span>
-									<input class="timebox2 t1" type="text" name="store_time_time1"/> - <input class="timebox2 t2" type="text" name="store_time_time2"/>
+									<input class="timebox" type="checkbox" name="store_time_day" value="목요일"/><span class="timebox2">목요일</span>
+									<input class="timebox2 t1" type="text" name="store_time_time"/> - <input class="timebox2 t2" type="text" name="store_time_time"/>
 								</li> 
 								<li class="hidmenu">
-									<input class="timebox" type="checkbox" name="store_time_day"/><span class="timebox2">금요일</span>
-									<input class="timebox2 t1" type="text" name="store_time_time1"/> - <input class="timebox2 t2" type="text" name="store_time_time2"/>
+									<input class="timebox" type="checkbox" name="store_time_day" value="금요일"/><span class="timebox2">금요일</span>
+									<input class="timebox2 t1" type="text" name="store_time_time"/> - <input class="timebox2 t2" type="text" name="store_time_time"/>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_day"/><span class="timebox2"><b>토요일</b></span>
-									<input class="timebox2" type="text" name="store_time_time1"/> - <input class="timebox2" type="text" name="store_time_time2"/>
+									<input class="timebox" type="checkbox" name="store_time_day" value="토요일"/><span class="timebox2"><b>토요일</b></span>
+									<input class="timebox2" type="text" name="store_time_time"/> - <input class="timebox2" type="text" name="store_time_time"/>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_day"/><span class="timebox2"><b>일요일</b></span>
-									<input class="timebox2" type="text" name="store_time_time1"/> - <input class="timebox2" type="text" name="store_time_time2"/>
+									<input class="timebox" type="checkbox" name="store_time_day" value="일요일"/><span class="timebox2"><b>일요일</b></span>
+									<input class="timebox2" type="text" name="store_time_time"/> - <input class="timebox2" type="text" name="store_time_time"/>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_day"/><span class="timebox2"><b>공휴일</b>	</span>
-									<input class="timebox2" type="text" name="store_time_time1"/> - <input class="timebox2" type="text" name="store_time_time2"/>
+									<input class="timebox" type="checkbox" name="store_time_day" value="공휴일"/><span class="timebox2"><b>공휴일</b>	</span>
+									<input class="timebox2" type="text" name="store_time_time"/> - <input class="timebox2" type="text" name="store_time_time"/>
 								</li> 
 								<li>
 									<br>
