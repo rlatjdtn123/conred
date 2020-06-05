@@ -16,8 +16,8 @@ public class QnaServiceImp implements IQnaService{
 	private IQnaDao QnaDaoImp;
 	
 	@Override
-	public List<QnaDto> qnaList(String user_id) {
-		return QnaDaoImp.qnaList(user_id);
+	public List<QnaDto> qnaList(String user_id,String pnum) {
+		return QnaDaoImp.qnaList(user_id,pnum);
 	}
 
 }

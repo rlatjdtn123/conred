@@ -20,7 +20,7 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style type="text/css">
-	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:900px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	#sticky{position: sticky; top:71px;}
 	#navi2{width:998px;background-color: lightblue;clear:both;position:relative;top:-20px;text-align: center;line-height: 40px;border-top: 1px solid grey;}
 	.navis2{border-bottom:1px solid grey; font-size:15px; float:left;width:199.6px;height:40px;background-color: #D8D8D8;}
@@ -45,6 +45,67 @@
 </style> 
 <script type="text/javascript">
 	
+		
+	//무한스크롤	
+	var count = 1;
+	//스크롤 바닥 감지
+	window.onscroll = function(e) {
+	    //추가되는 임시 콘텐츠
+	    //window height + window scrollY 값이 document height보다 클 경우,
+	    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) { 
+	    	//실행할 로직 (콘텐츠 추가)  
+	        count++;
+	        var addContent="";
+	        ////////////////////////////////// A JAX
+	        $.ajax({
+			url:"qna_ajax.do",
+			method:"post",
+			data:{"pnum":count},
+			dataType:"json", 
+			success:function(obj){				
+				var lists=obj.list; //[dto,dto,dto..]
+				$.each(lists, function(i){    		
+					addContent += '	<div class="bigtle"> '
+								+	'	<div class="mybox">   '
+									+	' 	<div class="store_img">'
+									+	' 		<p>매장사진들어갈곳</p>'
+									+	' 		<p>+매장명</p> '
+									+	' 	</div>      '
+									+	'	<img src="./img/profile_default.png" class="pf"/>'
+									+	'	<div class="info">  '
+									+	'		<button style="margin-left: 235px;">수정</button> <button >삭제</button> <button  class="content_detail">자세히 보기</button><br>'
+										+	'	<span>닉네임 :'+ lists[i].user_id +' &nbsp;| 가격문의 </span><br><br>   '
+										+	'	<div class="contents">'+ lists[i].qna_content +'</div>    '
+									+	'	</div>   '
+									+	'	<div class="info2">     '
+										+	'	<span style="font-weight: bold;">가게답변</span><br>'
+									+	'	<div class="contents contents2">'+ lists[i].qna_answer +'</div>'
+									+	'	</div>  '
+								+	'	</div>'
+							+	'	</div>   '
+							+	'	<br><br>';				
+// 						if(lists[i].qna_answer==null||lists[i].qna_answer.equals("")){
+// 							$(".contents2").text("===미답변===");
+// 						}			 
+						}); 
+						
+						 $('.bigbig').append(addContent); 
+				 
+			}
+			});
+		
+	        }
+		};
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	$(function(){
 		$(".content_detail").click(function(){     
@@ -60,7 +121,7 @@
 		});      
   
 	});  
-	
+	 
 </script>
 </head>
 <%
@@ -94,7 +155,7 @@
 			for(QnaDto dto: list){
 		%>	
 		<div class="bigtle">
-			<div class="mybox">   
+			<div class="mybox" style="background-color: yellow;">   
 			 	<div class="store_img">
 			 		<p>매장사진들어갈곳</p>
 			 		<p>+매장명</p> 
@@ -114,7 +175,7 @@
 					<%	
 					}else{
 					%>
-						<div class="contents contents2"><%=dto.getQna_content()%></div>
+						<div class="contents contents2"><%=dto.getQna_answer()%></div>
 					<%	 						
 					}
 					%>
@@ -125,6 +186,9 @@
 	<%
 	}
 	%> 
+	<div class="bigbig">
+		
+	</div>
 </div>
 </body>
 </html>

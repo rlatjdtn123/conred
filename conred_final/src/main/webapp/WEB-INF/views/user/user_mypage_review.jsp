@@ -22,48 +22,53 @@
 <script type="text/javascript">
 	
 	//무한스크롤
-	var count = 0;
-	var list=$("input[name=list]"); 
-	var user_id=$("input[name=user_id]");
-	var user_content=$("input[name=user_content]");
-	var owner_answer=$("input[name=owner_answer]"); 
+	var count = 1;
 	//스크롤 바닥 감지
 	window.onscroll = function(e) {
-// 		alert("111111111111111111");
 	    //추가되는 임시 콘텐츠
 	    //window height + window scrollY 값이 document height보다 클 경우,
-	    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+	    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) { 
 	    	//실행할 로직 (콘텐츠 추가) 
 	        count++;
-	    	
-	    	////////////////////////////////////////////////
-        	var addContent = 	' <div class="mybox">  '   
-							+	 '	<div class="store_img">  '   
-							+	 '		<p>매장사진들어갈곳</p> '
-							+	' 		<p>+매장명</p>   '
-							+	 '	</div>      '
-							+	'	<img src="./img/profile_default.png" class="pf"/>  '
-							+	'	<div class="info">        '
-								+	'	<span >★★★★★</span><button style="margin-left: 160px;">수정</button> <button >삭제</button> <button  class="content_detail">자세히 보기</button><br>' 
-								+	'	<span>닉네임:'+ user_id.eq(count) +'&nbsp;| 미용 / 컷트 </span><br><br>    ' 
-								+	'	<div class="contents">'+ user_content.eq(count) +  ' ' 
-								+	'	</div>       '
-							+	'	</div>  '
-							+	'	<div class="info2">     ' 
-								+	'	<span style="font-weight: bold;">가게답변</span><br>  '
-								+	'	<div class="contents contents2">'+ owner_answer.eq(count) +'</div>'
-								+	'</div>'
-							+	'</div>';
-	             
+	        var addContent="";
+	        ////////////////////////////////// A JAX
+	        $.ajax({ 
+			url:"review_ajax.do",
+			method:"post",
+			data:{"pnum":count},
+			dataType:"json",
+			success:function(obj){				
+				var lists=obj.list; //[dto,dto,dto..]
+				$.each(lists, function(i){    		
+					addContent += ' <div class="bigtle"> '
+						+   '<div class="mybox">     '
+						+ 	'<div class="store_img">     '
+					 +	'	<p>매장사진들어갈곳</p>'
+					 +	'	<p>+매장명</p>   '
+					 +	'</div>  '    
+					+	'<img src="./img/profile_default.png" class="pf"/>  '
+					+	'<div class="info">        '
+					+	'	<span >★★★★★</span><button style="margin-left: 160px;">수정</button> <button >삭제</button> <button  class="content_detail">자세히 보기</button><br>' 
+					+	'	<span>닉네임:'+ lists[i].user_id +' &nbsp;| 미용 / 컷트 </span><br><br>  '   
+					+	'	<div class="contents">'+ lists[i].reply_content +' '
+					+	'	</div>     '  
+					+	'</div>  '
+					+	'<div class="info2">    '
+					+	'	<span style="font-weight: bold;">가게답변</span><br>  '
+					+	'	<div class="contents contents2">'+ lists[i].reply_answer +'</div>'
+					+	'</div>'
+				+	'</div>  ' 
+				+    ' </div> '
+				+     '<br><br>';	 
+				}); 
+				
+				 $('.bigbig').append(addContent); 
+				 
+			}
+			}); 
 	        
-	        /////////////////////////////////////////////////
-	        //container에 추가되는 콘텐츠를 append
-	        for (var i = 0; i <list.length ; i++) {
-	        	if(count==i){
-	        		alert("22222222222222222222222");
-			        $('#bigtle').append(addContent);		
-	        	}
-			} 
+	    	////////////////////////////////////////////////       		
+	              
 	    }
 	};
 	
@@ -149,13 +154,7 @@
 // 	}); 
 	
 	$(function(){
-// 		var list=$("input[name=list]");
-		var user_content=$("input[name=user_content]");
-		var owner_answer=$("input[name=owner_answer]"); 
 		$(".content_detail").click(function(){ 
-// 			alert(list.length);
-			alert(user_content.eq(0).val()); 
-			alert(owner_answer.eq(0).val());
 			if($(this).parent().parent().css("height")=="200px"){  
 				$(this).parent().parent().find(".info2").css("height","auto");
 				$(this).parent().parent().css("height","auto"); 
@@ -171,7 +170,7 @@
 	
 	
 	
-</script>    
+</script>     
 <style type="text/css">
 	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	#sticky{position: sticky; top:71px;}
@@ -263,37 +262,36 @@
 	<div id="pagename">
 		<b>작성한 리뷰</b>  
 	</div> 
-	<div style="height: 1000px; border: 1px solid black;"></div>
+	<div></div>
 	<%
-		for(ReplyDto dto : list){
-	%>
-	<input type="hidden" name="list" value="<%=list%>"/>
-	<input type="hidden" name="user_id" value="<%=dto.getUser_id()%>"/>
-	<input type="hidden" name="user_content" value="<%=dto.getReply_content()%>"/>
-	<input type="hidden" name="owner_answer" value="<%=dto.getReply_answer()%>"/> 
-	<div class="bigtle"> 
-<!-- 		<div class="mybox">      -->
-<!-- 		 	<div class="store_img">      -->
-<!-- 		 		<p>매장사진들어갈곳</p> -->
-<!-- 		 		<p>+매장명</p>    -->
-<!-- 		 	</div>       -->
-<!-- 			<img src="./img/profile_default.png" class="pf"/>   -->
-<!-- 			<div class="info">         -->
-<!-- 				<span >★★★★★</span><button style="margin-left: 160px;">수정</button> <button >삭제</button> <button  class="content_detail">자세히 보기</button><br>  -->
-<%-- 				<span>닉네임:<%=dto.getUser_id()%> &nbsp;| 미용 / 컷트 </span><br><br>      --%>
-<%-- 				<div class="contents"><%=dto.getReply_content()%> --%>
-<!-- 				</div>        -->
-<!-- 			</div>   -->
-<!-- 			<div class="info2">      -->
-<!-- 				<span style="font-weight: bold;">가게답변</span><br>   -->
-<%-- 				<div class="contents contents2"><%=dto.getReply_answer()%></div> --%>
-<!-- 			</div> -->
-<!-- 		</div>   -->
+		for(ReplyDto dto : list){ 
+ 	%> 
+	<div class="bigtle" style="background-color: red;"> 
+		<div class="mybox">     
+		 	<div class="store_img">     
+		 		<p>매장사진들어갈곳</p>
+		 		<p>+매장명</p>    
+		 	</div>      
+			<img src="./img/profile_default.png" class="pf"/>  
+			<div class="info">        
+				<span >★★★★★</span><button style="margin-left: 160px;">수정</button> <button >삭제</button> <button  class="content_detail">자세히 보기</button><br> 
+				<span>닉네임:<%=dto.getUser_id()%> &nbsp;| 미용 / 컷트 </span><br><br>     
+				<div class="contents"><%=dto.getReply_content()%>
+				</div>       
+			</div>  
+			<div class="info2">     
+				<span style="font-weight: bold;">가게답변</span><br>  
+				<div class="contents contents2"><%=dto.getReply_answer()%></div>
+			</div>
+		</div>  
 	</div>      
-	<br><br>
+	<br><br>	
 	<%		
-		}
-	%>  
+		} 
+	%>
+	<div class="bigbig">
+	   
+ 	</div>
 </div> 
 </body>
 </html>

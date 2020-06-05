@@ -10,7 +10,7 @@ public interface IReserveDao {
 	public boolean insertReserve(String user_id);
 	
 	//예약목록조회
-	public List<ReserveDto> reserveList(String user_id);
+	public List<ReserveDto> reserveList(String user_id,String pnum);
 	
 	//상세조회 -->로 들어가야 결제버튼 있음
 	public ReserveDto getReserve(int reserve_seq);

@@ -23,8 +23,8 @@ public class ReserveServiceImp implements IReserveService{
 	}
 
 	@Override
-	public List<ReserveDto> reserveList(String user_id) {	
-		return reserveDaoImp.reserveList(user_id);
+	public List<ReserveDto> reserveList(String user_id,String pnum) {	
+		return reserveDaoImp.reserveList(user_id,pnum);
 	}
 
 	@Override

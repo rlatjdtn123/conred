@@ -1,6 +1,8 @@
 package com.hk.conred.daos;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +19,11 @@ public class LikeDaoImp implements ILikeDao{
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public List<LikeDto> likeList(String user_id) {
-		List<LikeDto> list=sqlSession.selectList(nameSpace+"likeList", user_id);
+	public List<LikeDto> likeList(String user_id,String pnum) {
+		Map<String, String> map=new HashMap<>();
+		map.put("user_id", user_id);
+		map.put("pnum", pnum);
+		List<LikeDto> list=sqlSession.selectList(nameSpace+"likeList", map);
 		return list;
 	}
 

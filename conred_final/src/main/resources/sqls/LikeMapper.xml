@@ -6,10 +6,12 @@
   
 <mapper namespace="com.hk.conred.Like">
 	
-	<select id="likeList" parameterType="String" resultType="LikeDto"> 
-		SELECT LIKE_LIST_SEQ,USER_ID,STORE_SEQ
-		FROM CON_LIKE
-		WHERE USER_ID=#{user_id}
+	<select id="likeList" parameterType="Map" resultType="LikeDto"> 
+		SELECT  rn, LIKE_LIST_SEQ ,USER_ID ,STORE_SEQ  
+		FROM
+		    (SELECT  rownum AS rn,LIKE_LIST_SEQ ,USER_ID ,STORE_SEQ 
+		     FROM CON_LIKE )
+		WHERE CEIL(rn/5)=#{pnum} AND USER_ID =#{user_id}
 	</select>
 	
 	

@@ -24,7 +24,7 @@ public class ReserveDaoImp implements IReserveDao{
 	}
 
 	@Override
-	public List<ReserveDto> reserveList(String user_id) {
+	public List<ReserveDto> reserveList(String user_id,String pnum) {
 		List<ReserveDto> list=null;
 		list=sqlSession.selectList(nameSpace+"reserveList", user_id);
 		return list;

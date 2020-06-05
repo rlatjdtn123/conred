@@ -3,8 +3,10 @@ package com.hk.conred;
 import java.rmi.server.RemoteServer;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -93,18 +95,18 @@ public class Sungsu {
 		return "user/user_regist"; 
 	}
 		
-	@RequestMapping(value = "user_insert.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_insert(Locale locale, Model model,UDto dto,String user_email1,String user_email3,HttpServletRequest request) {
-		logger.info("테스트용 유저 회원가입 폼 {}.", locale);
-		dto.setUser_email(user_email1+"@"+user_email3);
-		//성별 null일경우 String타입으로 값 받을수 있게 수정(*왜 null값이 입력이 안되는지 모르겠음)
-		if(dto.getUser_sex()==null) {
-			dto.setUser_sex("");
-		}
-		HttpSession session=request.getSession();
-		session.setAttribute("udto", dto);
-		return "user/user_regist_category";
-	}	 
+//	@RequestMapping(value = "user_insert.do", method = {RequestMethod.GET,RequestMethod.POST})
+//	public String user_insert(Locale locale, Model model,UDto dto,String user_email1,String user_email3,HttpServletRequest request) {
+//		logger.info("테스트용 유저 회원가입 폼 {}.", locale);
+//		dto.setUser_email(user_email1+"@"+user_email3);
+//		//성별 null일경우 String타입으로 값 받을수 있게 수정(*왜 null값이 입력이 안되는지 모르겠음)
+//		if(dto.getUser_sex()==null) {
+//			dto.setUser_sex("");
+//		}
+//		HttpSession session=request.getSession();
+//		session.setAttribute("udto", dto);
+//		return "user/user_regist_category";
+//	}	 
 		 
 		
 	
@@ -180,12 +182,24 @@ public class Sungsu {
 		logger.info("사용자 마이페이지_리뷰{}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
-		List<ReplyDto> list=replyService.replyList(uldto.getUser_id());
+		List<ReplyDto> list=replyService.replyList(uldto.getUser_id(),"1");
 		model.addAttribute("list",list);
 		return "user/user_mypage_review";  
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "review_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public Map<String, List<ReplyDto>> review_ajax(Locale locale, Model model,HttpServletRequest request,String pnum){
+		logger.info("사용자 리뷰 스크롤{}.", locale);
+		HttpSession session=request.getSession();
+		UDto uldto=(UDto)session.getAttribute("uldto");
+		List<ReplyDto> list=replyService.replyList(uldto.getUser_id(),pnum);
+		Map<String, List<ReplyDto>> map=new HashMap<>();
+		map.put("list", list); 
+		return map;
+	}
 	
+
 	
 	
 	@RequestMapping(value = "user_mypage_qna.do", method = {RequestMethod.GET,RequestMethod.POST})
@@ -193,14 +207,24 @@ public class Sungsu {
 		logger.info("사용자 마이페이지_문의{}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
-		System.out.println("222222222222222222222222222222222222222222222::"+uldto.getUser_id());
-		List<QnaDto> list=(List<QnaDto>)qnaService.qnaList(uldto.getUser_id());
+		List<QnaDto> list=(List<QnaDto>)qnaService.qnaList(uldto.getUser_id(),"1");
 		model.addAttribute("list",list);
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@:::"+list);
 		return "user/user_mypage_qna";  
 	}
 	 
-	 
+	@ResponseBody
+	@RequestMapping(value = "qna_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public Map<String, List<QnaDto>> qna_ajax(Locale locale, Model model,HttpServletRequest request,String pnum) {
+		logger.info("사용자 문의 스크롤{}.", locale);
+		HttpSession session=request.getSession();
+		UDto uldto=(UDto)session.getAttribute("uldto");
+		List<QnaDto> list=(List<QnaDto>)qnaService.qnaList(uldto.getUser_id(),pnum);
+		Map<String, List<QnaDto>> map=new HashMap<>();
+		map.put("list", list);
+		return map;  
+	} 
+	
+	
 		
 	@RequestMapping(value = "user_mypage_reservation.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String user_mypage_reservation(Locale locale, Model model) {
@@ -215,9 +239,21 @@ public class Sungsu {
 		logger.info("사용자 마이페이지_좋아요{}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
-		List<LikeDto> list=likeService.likeList(uldto.getUser_id());
+		List<LikeDto> list=likeService.likeList(uldto.getUser_id(),"1");
 		model.addAttribute("list",list);
 		return "user/user_mypage_like";  
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "user_like_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public Map<String, List<LikeDto>> user_like_ajax(Locale locale, Model model,HttpServletRequest request,String pnum) {
+		logger.info("사용자 좋아요 스크롤{}.", locale);
+		HttpSession session=request.getSession();
+		UDto uldto=(UDto)session.getAttribute("uldto"); 
+		List<LikeDto> list=likeService.likeList(uldto.getUser_id(),pnum);
+		Map<String, List<LikeDto>> map=new HashMap<>();
+		map.put("list", list);
+		return map;   
 	}
 	
 	
@@ -336,7 +372,7 @@ public class Sungsu {
 		logger.info("사용자_예약목록{}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
-		List<ReserveDto> list=reserveService.reserveList(uldto.getUser_id());
+		List<ReserveDto> list=reserveService.reserveList(uldto.getUser_id(),"1");
 		model.addAttribute("list", list);
 		
 	 

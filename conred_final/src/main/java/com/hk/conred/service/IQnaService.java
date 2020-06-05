@@ -6,5 +6,5 @@ import com.hk.conred.dtos.QnaDto;
 
 public interface IQnaService {
 	
-	public List<QnaDto> qnaList(String user_id);
+	public List<QnaDto> qnaList(String user_id,String pnum);
 }

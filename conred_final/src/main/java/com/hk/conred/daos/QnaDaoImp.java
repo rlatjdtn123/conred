@@ -1,6 +1,8 @@
 package com.hk.conred.daos;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +18,11 @@ public class QnaDaoImp implements IQnaDao{
 	@Autowired
 	private SqlSessionTemplate sqlSession; 
 	
-	public List<QnaDto> qnaList(String user_id) { 
-		List<QnaDto> list=sqlSession.selectList(nameSpace+"qnaList", user_id);
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!다오임프");
+	public List<QnaDto> qnaList(String user_id,String pnum) { 
+		Map<String, String> map=new HashMap<>();
+		map.put("user_id", user_id);
+		map.put("pnum", pnum);
+		List<QnaDto> list=sqlSession.selectList(nameSpace+"qnaList", map);
 		return list;
 	}
 }

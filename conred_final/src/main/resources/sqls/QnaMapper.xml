@@ -6,10 +6,12 @@
   
 <mapper namespace="com.hk.conred.Qna">
 	
-	<select id="qnaList" parameterType="String" resultType="QnaDto">
-		SELECT QNA_SEQ,STORE_SEQ,USER_ID,QNA_CONTENT,QNA_ANSWER,QNA_HIDE,QNA_READ,QNA_REGDATE,QNA_DELFLAG
-		FROM CON_QNA 
-		WHERE USER_id=#{user_id}
+	<select id="qnaList" parameterType="Map" resultType="QnaDto">
+		SELECT  rn, QNA_SEQ ,STORE_SEQ ,USER_ID ,QNA_CONTENT ,QNA_ANSWER,QNA_HIDE ,QNA_READ ,QNA_REGDATE ,QNA_DELFLAG 
+		FROM
+		    (SELECT  rownum AS rn, QNA_SEQ ,STORE_SEQ ,USER_ID ,QNA_CONTENT ,QNA_ANSWER,QNA_HIDE ,QNA_READ ,QNA_REGDATE ,QNA_DELFLAG 
+		     FROM CON_QNA)
+		WHERE CEIL(rn/5)=#{pnum} AND USER_ID =#{user_id}
 	</select>
 	
 	

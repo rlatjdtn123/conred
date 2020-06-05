@@ -15,8 +15,8 @@ public class ReplyServiceImp implements IReplyService{
 	private IReplyDao replyDao;
 	
 	@Override
-	public List<ReplyDto> replyList(String user_id) {
-		return replyDao.replyList(user_id);
+	public List<ReplyDto> replyList(String user_id,String pnum) {
+		return replyDao.replyList(user_id,pnum);
 	}
 
 }

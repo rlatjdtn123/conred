@@ -7,6 +7,6 @@ import com.hk.conred.dtos.QnaDto;
 public interface IQnaDao {
 	
 	//1.문의 목록
-	public List<QnaDto> qnaList(String user_id);
+	public List<QnaDto> qnaList(String user_id,String pnum);
 	
 }
