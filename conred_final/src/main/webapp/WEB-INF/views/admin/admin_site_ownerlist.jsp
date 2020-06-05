@@ -102,7 +102,7 @@ List<ODto>list=(List<ODto>)request.getAttribute("list");
 		<%
 				if(list==null||list.size()==0){
 					out.print("<tr><td colspan='19'>"
-					         +"---관리자님 우리 사이트에 등록된 점주가 없어요!---</td></tr>");
+					         +"---관리자님 우리 사이트에 등록된 점주가 없어요 검색해보세요!---</td></tr>");
 				}else{
 					for(ODto dto:list){
 						%>

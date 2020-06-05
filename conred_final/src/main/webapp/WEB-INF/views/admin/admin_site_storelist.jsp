@@ -22,7 +22,7 @@
 	}
 
 	$(function() {
-		//아이디 test 에서 submit이벤트가 발생하면 함수실행
+		//아이디 muldel 에서 submit이벤트가 발생하면 함수실행
 		$("#muldel").submit(function() {
 			var bool = true;
 			var count = $(this).find("input[name=store_seqs]:checked").length;
@@ -34,7 +34,6 @@
 					return bool;
 				}else{
 					bool = false;
-				}
 			}
 			return bool;
 		});
@@ -113,7 +112,7 @@ List<SDto>list=(List<SDto>)request.getAttribute("list");
 		<%
 				if(list==null||list.size()==0){
 					out.print("<tr><td colspan='19'>"
-					         +"---관리자님 등록된 매장이 없어요!---</td></tr>");
+					         +"---관리자님 매장을 검색해보세요!---</td></tr>");
 				}else{
 					for(SDto dto:list){
 						%>

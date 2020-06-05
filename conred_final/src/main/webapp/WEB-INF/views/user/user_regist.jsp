@@ -38,6 +38,39 @@
 	.req{color: red;font-weight: bold;font-size:20px;}
 	#sel{border:1px solid grey;height:24px;vertical-align: middle;}
 </style>
+<script type="text/javascript">
+	$(function(){
+		//이메일 작성시 나머지 메일 주소 선택 넣어주기
+		$("#sel").change(function(){
+			$("input[name=user_email3]").val($(this).val());
+		});
+		$(".authBtn").click(function(){
+			var emailVal=$("input[name=user_email1]").val()+"@"+$("input[name=user_email3]").val();
+			$("input[name=email]").val(emailVal);
+			var myForm=document.getElementById("emailform");
+			window.open("","popForm","width=400px,height=400px");
+			myForm.method="post";
+			myForm.target="popForm";
+			myForm.submit();
+		});	
+		//이메일 인증버튼 클릭하면
+// 		$(".authBtn").click(function(){
+// 			var emailVal=$("input[name=user_email1]").val()+"@"+$("input[name=user_email3]").val();
+// 			$.ajax({
+// 				url:"email_ok_start.do",
+// 				method:"post",
+// 				data:{"email":emailVal},
+// 				dataType:"text",
+// 				success:function(m){// 서버로부터 응답되어 돌아오는 데이터는 "m"에 저장된다.
+// 					alert(m);
+// 				},
+// 				error:function(){
+// 					alert("인증작업(서버통신실패)");
+// 				}
+// 			});
+// 		});
+	})
+</script>
 </head>
 <body>
 <div id="container">
@@ -75,7 +108,7 @@
 							<option>naver.com</option>
 							<option>hanmail.net</option>
 						</select>
-						<input class="btn" value="이메일인증" type="button"/>
+						<input class="btn authBtn" value="이메일인증" type="button" />
 					</td>
 					</tr>
 					<tr>
@@ -105,7 +138,11 @@
 			<input class="btn greenbtn" value="회원가입 완료" type="submit"/> 
 		</div>
 	</form>
+	<form id="emailform" action="email_ok_start.do">
+		<input type="hidden" name="email" />
+	</form>
 </div>
+
 </body>
 </html>
 <jsp:include page="../all/footer.jsp" />

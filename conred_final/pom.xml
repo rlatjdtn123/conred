@@ -230,6 +230,31 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
+
+	<!-- 메일 전송 G메일로 이메일 인증 6월 5일 해강 추가 문제되면 주석처리 시작부분-->
+	<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context-support</artifactId>
+		<version>${org.springframework-version}</version>
+	</dependency>
+	
+
+    <!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
+	<dependency>
+		<groupId>com.sun.mail</groupId>
+		<artifactId>javax.mail</artifactId>
+		<version>1.6.2</version>
+	</dependency>
+
+
+	<dependency>
+		<groupId>javax.mail</groupId>
+		<artifactId>mail</artifactId>
+		<version>1.4.7</version>
+	</dependency>
+	<!-- 메일 전송 G메일로 이메일 인증 완료 6월 5일 해강 추가 문제되면 주석처리 여기까지 -->
+	
 	
 		<!-- Test -->
 		<dependency>

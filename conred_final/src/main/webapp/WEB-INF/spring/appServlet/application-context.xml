@@ -38,9 +38,25 @@
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
-		 
+	
+	<!-- 	이메일 인증 Gmail로 발송 정보 입력 (6월 5일 해강 추가함 문제되면 주석처리하시오 시작부분) -->
+  
+  <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+    <property name="host" value="smtp.gmail.com" />
+    <property name="port" value="587" />
+    <property name="username" value="conred7777@gmail.com" /> 
+    <property name="password" value="manager1@" />
+    <property name="javaMailProperties">
+    <props>
+      <prop key="mail.smtp.auth">true</prop>
+      <prop key="mail.smtp.starttls.enable">true</prop>
+    </props>
+    </property>
+  </bean>
+	<!-- 	이메일 인증 Gmail로 발송 정보 입력  (6월 5일 해강 추가함 문제되면 주석처리하시오 완료부분)   -->	 
 		 
 	<!-- @transactional 어노테이션을 사용해서 진행 -->	 
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+	
 		
 </beans>

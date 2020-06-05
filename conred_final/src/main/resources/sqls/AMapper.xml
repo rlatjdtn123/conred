@@ -42,7 +42,7 @@
 
 	<update id="adminMuldelOwner" parameterType="map">
 		<![CDATA[ 
-		UPDATE CON_OWNER SET OWNER_OUT = 'Y' 
+		UPDATE CON_OWNER SET OWNER_OUT = 'Y'
 		WHERE OWNER_ID IN ]]>
 		<foreach collection="owner_ids" open="(" close=")"
 			separator="," item="owner_id">
@@ -88,7 +88,7 @@
 		UPDATE CON_STORE SET STORE_ADMIN_STATE =
 		(CASE
 		WHEN STORE_ADMIN_STATE = 'Y' THEN 'N'
-		WHEN STORE_ADMIN_STATE ='N' THEN 'Y'
+		WHEN STORE_ADMIN_STATE = 'N' THEN 'Y'
 		END)
 		WHERE STORE_SEQ IN ]]>
 		<foreach collection="store_seqs" open="(" close=")"
@@ -100,7 +100,7 @@
 	<update id="adminMuldel" parameterType="map">
 		<![CDATA[ 
 		UPDATE CON_STORE SET STORE_NAME = '***' , STORE_PHONE_MANAGER = '***' , STORE_OWNER_NAME = '***' , 
-		STORE_STATE = '***' , STORE_ADMIN_STATE = '***'
+		STORE_STATE = '***' , STORE_ADMIN_STATE = 'N'
 		WHERE STORE_SEQ IN ]]>
 		<foreach collection="store_seqs" open="(" close=")"
 			separator="," item="store_seq">
