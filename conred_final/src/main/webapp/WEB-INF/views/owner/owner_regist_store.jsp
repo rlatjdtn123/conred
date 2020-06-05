@@ -114,14 +114,13 @@
 		$("body").on("change","input:checkbox[name=store_time_break]",function(){
 			if($(this).is(':checked') == true){
 				$(this).attr('value', 'Y');
+				$(this).parent().find("input:hidden[name=store_time_break]").attr("disabled",true);
 			}
 			if($(this).is(':checked') == false){
 				$(this).attr('value', 'N');
+				$(this).parent().find("input:hidden[name=store_time_break]").attr("disabled",false);
 			}
 		});
-// 		if($("input[name=s_time]").eq(0).is(":checked")){
-// 			alert('dfd');
-// 		}
 		
 		$("#show_menu").click(function(){
 			$("#menuboxes").append('<li>'+
@@ -341,7 +340,8 @@
 							</ul>
 							<ul>
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_break" value="N"/>
+									<input class="timebox" type="checkbox" name="store_time_break"/>
+									<input type="hidden" name="store_time_break" value="N"/>
 									<span class="timebox weekbox mar_right1">월요일</span>
 									<input type="hidden" name="store_time_day" value="월요일">
 									<input id="t1" class="timebox2 ronly timepicker form-control" name="store_time_open"/> - <input id="t2" class="timebox2 ronly timepicker form-control" name="store_time_close"/>
@@ -351,43 +351,50 @@
 									<span class="subinfo">*월요일기준</span>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_break" value="N"/>
+									<input class="timebox" type="checkbox" name="store_time_break"/>
+									<input type="hidden" name="store_time_break" value="N"/>
 									<span class="timebox">화요일</span>
 									<input type="hidden" name="store_time_day" value="화요일">
 									<input class="timebox2 t1 timepicker form-control" name="store_time_open"/> - <input class="timebox2 t2 timepicker form-control" name="store_time_close"/>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_break" value="N"/>
+									<input class="timebox" type="checkbox" name="store_time_break"/>
+									<input type="hidden" name="store_time_break" value="N"/>
 									<span class="timebox">수요일</span>
 									<input type="hidden" name="store_time_day" value="수요일">
 									<input class="timebox2 t1 timepicker form-control" name="store_time_open"/> - <input class="timebox2 t2 timepicker form-control" name="store_time_close"/>
 								</li> 
 								<li>
-									<input class="timebox " type="checkbox" name="store_time_break" value="N"/>
+									<input class="timebox " type="checkbox" name="store_time_break"/>
+									<input type="hidden" name="store_time_break" value="N"/>
 									<span class="timebox">목요일</span>
 									<input type="hidden" name="store_time_day" value="목요일">
 									<input class="timebox2 t1 timepicker form-control" name="store_time_open"/> - <input class="timebox2 t2 timepicker form-control" name="store_time_close"/>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_break" value="N"/>
+									<input class="timebox" type="checkbox" name="store_time_break"/>
+									<input type="hidden" name="store_time_break" value="N"/>
 									<span class="timebox">금요일</span>
 									<input type="hidden" name="store_time_day" value="금요일">
 									<input class="timebox2 t1 timepicker form-control" name="store_time_open"/> - <input class="timebox2 t2 timepicker form-control" name="store_time_close"/>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_break" value="N"/>
+									<input class="timebox" type="checkbox" name="store_time_break"/>
+									<input type="hidden" name="store_time_break" value="N"/>
 									<span class="timebox">토요일</span>
 									<input type="hidden" name="store_time_day" value="토요일">
 									<input class="timebox2 timepicker form-control" name="store_time_open"/> - <input class="timebox2 timepicker form-control" name="store_time_close"/>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_break" value="N"/>
+									<input class="timebox" type="checkbox" name="store_time_break"/>
+									<input type="hidden" name="store_time_break" value="N"/>
 									<span class="timebox">일요일</span>
 									<input type="hidden" name="store_time_day" value="일요일">
 									<input class="timebox2 timepicker form-control" name="store_time_open"/> - <input class="timebox2 timepicker form-control" name="store_time_close"/>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_break" value="N"/>
+									<input class="timebox" type="checkbox" name="store_time_break"/>
+									<input type="hidden" name="store_time_break" value="N"/>
 									<span class="timebox">공휴일</span>
 									<input type="hidden" name="store_time_day" value="공휴일">
 									<input class="timebox2 timepicker form-control" name="store_time_open"/> - <input class="timebox2 timepicker form-control" name="store_time_close"/>

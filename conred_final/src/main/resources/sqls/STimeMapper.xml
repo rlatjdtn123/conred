@@ -6,10 +6,12 @@
   
 <mapper namespace="com.hk.conred.STime">
 
-
-	<insert id="insertSTime" parameterType="STimeDto">
-		INSERT INTO CON_STORE_TIME
-		VALUES(con_store_time_seq.NEXTVAL,#{STORE_SEQ},#{STORE_TIME_DAY},#{STORE_TIME_TIME})
+	<insert id="insertSTime" parameterType="Map">
+		INSERT ALL
+		<foreach collection="list" item="item">
+			INTO CON_STORE_TIME VALUES(get_store_time_seq,#{item.store_seq},#{item.store_time_day},#{item.store_time_open},#{item.store_time_close},#{item.store_time_break})
+		</foreach>
+		SELECT *FROM DUAL
 	</insert>
 <!-- 	
 	첫 등록시 바로 넣을때는 :insert,currval로도 됨 하지만 매퍼를 하나만 만들기위해 seq불러와서 하기

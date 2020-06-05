@@ -1,8 +1,12 @@
 package com.hk.conred;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -262,23 +266,48 @@ public class Yoonho {
 		System.out.println("개점시간:"+stimedto.getStore_time_open());
 		System.out.println("폐점시간:"+stimedto.getStore_time_close());
 		System.out.println("휴무여부:"+stimedto.getStore_time_break());
-		String [] day=stimedto.getStore_time_day().split(",");
-		String [] opent=stimedto.getStore_time_open().split(",");
-		String [] closet=stimedto.getStore_time_close().split(",");
-		String [] breakt=stimedto.getStore_time_break().split(",");
-		for (int i = 0; i < day.length; i++) {
-			System.out.println(day[i]+" : "+opent[i]+"~"+closet[i]+"/폐점여부:"+breakt[i]); 
+		String [] time_day=stimedto.getStore_time_day().split(",");
+		String [] time_open=stimedto.getStore_time_open().split(",");
+		String [] time_close=stimedto.getStore_time_close().split(",");
+		String [] time_break=stimedto.getStore_time_break().split(",");
+//		stimedto.setTime_day(time_day);
+//		stimedto.setTime_open(time_open);
+//		stimedto.setTime_close(time_close);
+//		stimedto.setTime_break(time_break);
+		
+		
+		
+//		STimeDto dto1 = new STimeDto();
+//		dto1.setStore_time_day(time_day[0]);
+//		dto1.setStore_time_open(time_open[0]);
+//		dto1.setStore_time_close(time_close[0]);
+//		dto1.setStore_time_break(time_break[0]);
+//		STimeDto dto2 = new STimeDto();
+//		dto2.setStore_time_day(time_day[1]);
+//		dto2.setStore_time_open(time_open[1]);
+//		dto2.setStore_time_close(time_close[1]);
+//		dto2.setStore_time_break(time_break[1]);
+//		List<STimeDto> list = new ArrayList<STimeDto>();
+//		list.add(dto1);
+//		list.add(dto2);
+//		Map<String, Object> map =new HashMap<String, Object>();
+//		map.put("list", list);
+		
+		for (int i = 0; i < time_day.length; i++) {
+			System.out.println(time_day[i]+" : "+time_open[i]+"~"+time_close[i]+"/폐점여부:"+time_break[i]); 
 		}
 		
-		return "";
+//		return "";
 //		boolean isS=sService.updateStoreInfo(sdto,stimedto);
-//		if(isS) {
-//			System.out.println("매장정보 업데이트성공~");
-//			return "owner/owner_regist_menu";
-//		}else{
-//			System.out.println("매장정보 업데이트실패~");
-//			return ""; 
-//		}	
+//		boolean isS=sService.updateStoreInfo(sdto,map);
+		boolean isS=sService.updateStoreInfo(sdto,time_day,time_open,time_close,time_break);
+		if(isS) {
+			System.out.println("매장정보 업데이트성공~");
+			return "owner/owner_regist_menu";
+		}else{
+			System.out.println("매장정보 업데이트실패~");
+			return ""; 
+		}	
 	}
 	
 	@RequestMapping(value = "owner_regist_finish.do", method = {RequestMethod.GET,RequestMethod.POST})
