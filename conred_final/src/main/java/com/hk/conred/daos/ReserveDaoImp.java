@@ -1,6 +1,8 @@
 package com.hk.conred.daos;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,10 @@ public class ReserveDaoImp implements IReserveDao{
 	@Override
 	public List<ReserveDto> reserveList(String user_id,String pnum) {
 		List<ReserveDto> list=null;
-		list=sqlSession.selectList(nameSpace+"reserveList", user_id);
+		Map<String, String> map=new HashMap<>();
+		map.put("user_id", user_id);
+		map.put("pnum", pnum);
+		list=sqlSession.selectList(nameSpace+"reserveList", map);
 		return list;
 	}
 

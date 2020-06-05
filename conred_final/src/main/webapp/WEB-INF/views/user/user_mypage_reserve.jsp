@@ -1,3 +1,5 @@
+<%@page import="com.hk.conred.dtos.ReserveDto"%>
+<%@page import="java.util.List"%>
 <jsp:include page="../all/header2.jsp" />
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
@@ -8,7 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:900px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	#sticky{position: sticky; top:71px;}
 	#navi2{width:998px;background-color: lightblue;clear:both;position:relative;top:-20px;text-align: center;line-height: 40px;border-top: 1px solid grey;}
 	.navis2{border-bottom:1px solid grey; font-size:15px; float:left;width:199.6px;height:40px;background-color: #D8D8D8;}
@@ -24,6 +26,9 @@
 	 
 </style>
 </head>
+<%
+	List<ReserveDto> list=(List<ReserveDto>)request.getAttribute("list");
+%>
 <body>
 <div id="container">
 	<div id="sticky">
@@ -48,42 +53,33 @@
 	<div id="pagename">
 		<b>내 예약</b>
 	</div>
-	<div class="bigtle">
-		<div class="store_img">
-	 		<p>매장사진들어갈곳</p>  
-	 		<p>+매장명</p> 
-	 	</div>
-	 	<div class="mybox">
-	 		<a>메뉴명 : ?????? </a><br>  
-	 		<span>가격 정보 : 2000원 </span><br>
-	 		<span>예약 날짜 : 2020년 5월 30일 </span><br>
-	 		<span>예약 시간 : 13:00 ~ 14:00 </span><br>
-	 		<span>주소 : 서울 영등포 </span><br>
-	 		<div style="margin-left: 300px; margin-top: 40px;" >
-		 		<button>예약취소</button>&nbsp;&nbsp;       
-		 		<button>결제하기</button>       
-	 		</div>
-	 	</div> 	 
+	<%
+		for(ReserveDto dto:list){
+			%>
+				<div class="bigtle">
+					<div class="store_img">
+				 		<p>매장사진들어갈곳</p>  
+				 		<p>+매장명</p> 
+				 	</div>
+				 	<div class="mybox">
+				 		<a>메뉴명 : ?????? </a><br>  
+				 		<span>가격 정보 : 2000원 </span><br>
+				 		<span>예약 날짜 : 2020년 5월 30일 </span><br>
+				 		<span>예약 시간 : 13:00 ~ 14:00 </span><br>
+				 		<span>주소 : 서울 영등포 </span><br>
+				 		<div style="margin-left: 300px; margin-top: 40px;" >
+					 		<button>예약취소</button>&nbsp;&nbsp;       
+					 		<button>결제하기</button>       
+				 		</div>
+				 	</div> 	 
+				</div>
+				<br><br> 
+			<%
+		}
+	%>
+	<div class="bigbig">
+		
 	</div>
-	<br><br> 
-	<div class="bigtle">
-		<div class="store_img">
-	 		<p>매장사진들어갈곳</p>  
-	 		<p>+매장명</p> 
-	 	</div>
-	 	<div class="mybox">
-	 		<a>메뉴명 : ?????? </a><br>  
-	 		<span>가격 정보 : 2000원 </span><br>
-	 		<span>예약 날짜 : 2020년 5월 30일 </span><br>
-	 		<span>예약 시간 : 13:00 ~ 14:00 </span><br>
-	 		<span>주소 : 서울 영등포 </span><br>
-	 		<div style="margin-left: 300px; margin-top: 40px;" >
-		 		<button>예약취소</button>&nbsp;&nbsp;       
-		 		<button>결제하기</button>       
-	 		</div>
-	 	</div> 	 
-	</div> 
-	<br><br> 
 </div>
 </body>
 </html>

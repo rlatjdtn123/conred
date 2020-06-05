@@ -12,10 +12,12 @@
 			INSERT INTO CON_RESERVE VALUES(CON_RESERVE_SEQ.NEXTVAL,#{user_id},1,2,'16시 40분','Y','1원',SYSDATE)
 		</insert>
 		
-		<select id="reserveList" parameterType="String" resultType="ReserveDto">
-			SELECT RESERVE_SEQ ,USER_ID ,MENU_SEQ ,STORE_SEQ ,RESERVE_TIME ,RESERVE_STATE ,RESERVE_PRICE,RESERVE_SDATE,RESERVE_EDATE ,RESERVE_REGDATE 
-			FROM CON_RESERVE 
-			WHERE USER_ID =#{user_id}
+		<select id="reserveList" parameterType="Map" resultType="ReserveDto">
+			SELECT  rn, LIKE_LIST_SEQ ,USER_ID ,STORE_SEQ  
+			FROM
+			    (SELECT  rownum AS rn,LIKE_LIST_SEQ ,USER_ID ,STORE_SEQ 
+			     FROM CON_LIKE )
+			WHERE CEIL(rn/5)=#{pnum} AND USER_ID =#{user_id}
 		</select>
 		
 		<select id="getReserve" parameterType="Int" resultType="ReserveDto">

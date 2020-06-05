@@ -227,10 +227,24 @@ public class Sungsu {
 	
 		
 	@RequestMapping(value = "user_mypage_reservation.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_mypage_reservation(Locale locale, Model model) {
+	public String user_mypage_reservation(Locale locale, Model model,HttpServletRequest request) {
 		logger.info("사용자 마이페이지_예약{}.", locale);
-		
-		return "user/user_mypage_reservation";  
+		HttpSession session=request.getSession();
+		UDto uldto=(UDto)session.getAttribute("uldto");
+		List<ReserveDto> list=reserveService.reserveList(uldto.getUser_id(), "1");
+		model.addAttribute("list", list);
+		return "user/user_mypage_reserve";  
+	}
+	
+	@RequestMapping(value = "user_reservation_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public Map<String, List<ReserveDto>> user_reservation_ajax(Locale locale, Model model,HttpServletRequest request) {
+		logger.info("사용자예약 스크롤{}.", locale);
+		HttpSession session=request.getSession();
+		UDto uldto=(UDto)session.getAttribute("uldto");
+		List<ReserveDto> list=reserveService.reserveList(uldto.getUser_id(), "1");
+		Map<String, List<ReserveDto>> map=new HashMap<>();
+		map.put("list", list);
+		return map;  
 	}
 	
 	
@@ -239,7 +253,7 @@ public class Sungsu {
 		logger.info("사용자 마이페이지_좋아요{}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
-		List<LikeDto> list=likeService.likeList(uldto.getUser_id(),"1");
+		List<LikeDto> list=likeService.likeList(uldto.getUser_id(),"1"); 
 		model.addAttribute("list",list);
 		return "user/user_mypage_like";  
 	}
