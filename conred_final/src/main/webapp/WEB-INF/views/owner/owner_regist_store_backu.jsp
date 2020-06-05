@@ -30,7 +30,7 @@
 	.flleft{float: left;}
 	.btn{background-color: grey;margin-left:10px;color:white;}
 	.btn2{margin-left:0px;}
-	
+
 	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:auto;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	
 	#regist{font-weight: bold; font-size: 20px;margin-bottom: 40px;}
@@ -71,7 +71,7 @@
 						-moz-appearance: none; appearance: none; }
 						
 	#timeboxhead{line-height: 29px;}
-	.timebox{display: inline-block;width:50px;text-align: center;margin-left:10px;margin-right:10px;}
+	.timebox{display: inline-block;width:50px;text-align: center;}
 	.timebox2{display: inline-block; width:140px;text-align: center;}
 	.menubox{display: inline-block; width:310px;text-align: center;}
 	ul{list-style: none;padding:0px;}
@@ -99,26 +99,49 @@
 			} // 추출한 파일명 삽입
 			$(this).siblings('.upload-name').val(filename);
 		});
-
+// 		$("#show_time").click(function(){
+// 			$(".hidmenu").toggle();
+// 			if($(".ronly").prop("readonly",false)){
+// 				$(".ronly").attr("readonly","readonly");
+// 				$(".ronly").css("background-color","lightgrey");
+// // 				$(".hidmenu").css("display","none")
+// 			}else if($(".ronly").css("background-color","lightgrey")){
+// 				alert("d");
+// 				$(".ronly").removeAttr("readonly");
+// 				$(".ronly").css("background-color","white");
+// 			}
+// 		});
 		$("#show_time").on('click',function(){
-
-			for (var i = 0; i < 5; i++) {//평일값이 월화수목금에 똑같이 들어가게
-				var t1val=$("#t1").val();
-				$(".t1").eq(i).val(t1val);
-				var t2val=$("#t2").val();
-				$(".t2").eq(i).val(t2val);
-			}
+			$(".hidmenu").slideToggle()
+			if($(".ronly").attr("readonly")=="readonly"){//토글 다시 올렸을때
+// 				$(".ronly").removeAttr("readonly");
+				$(".ronly").css({"background-color":"white"});
+				$("#t1").attr('disabled', false);
+				$("#t2").attr('disabled', false);
+				$(".hidmenu").find($(".timepicker"))
+				.attr('disabled', true);
 				
+			}else{//토글 내렸을 때
+				for (var i = 0; i < 5; i++) {//평일값이 월화수목금에 똑같이 들어가게
+					var t1val=$("#t1").val();
+					$(".t1").eq(i).val(t1val);
+					var t2val=$("#t2").val();
+					$(".t2").eq(i).val(t2val);
+				}
+// 				$(".ronly").attr("readonly","readonly");//평일줄 리드온리로 바뀌고
+				$(".ronly").css("background-color","lightgrey");//평일줄 백그색 바뀌고
+				$("#t1").attr('disabled', true);//평일왼쪽 클릭안먹고 값도 안넘어가고(아예 아무것도 안되는것임)
+				$("#t2").attr('disabled', true);//평일오른쪽 클릭안먹고
+				$(".hidmenu").find($(".timepicker"))
+				.attr('disabled', false);//하이드메뉴는 타임픽커작동하고
+				if($("input:checkbox[name=store_time_day]").is(":checked")==true){
+					$(".hidmenu").find($(".timepicker"))
+					.attr('disabled', true);//휴점일에 체크가되어있을때 타임피커는 멈춘다.
+				}
+				
+			}
 		});
 		
-		$("body").on("change","input:checkbox[name=store_time_break]",function(){
-			if($(this).is(':checked') == true){
-				$(this).attr('value', 'Y');
-			}
-			if($(this).is(':checked') == false){
-				$(this).attr('value', 'N');
-			}
-		});
 // 		if($("input[name=s_time]").eq(0).is(":checked")){
 // 			alert('dfd');
 // 		}
@@ -190,7 +213,58 @@
 		    scrollbar: true
 		});
 		
- 		
+ 		$("body").on("change","input:checkbox[name=breakday]",function(){//breakday체크박스가 바뀌면
+			if($(this).is(":checked")==true){//만약 체크가 되어있으면
+				$(this).parent().find($(".timepicker"))//타임피커의 값 없애고, 회색처리, 못쓰게, 네임도지우기
+				.val("")
+				.css("background-color","#f2f2f2")
+// 				.attr('disabled', true)
+				.removeAttr('name')
+				;
+				$(this).attr('name','store_time_time');
+				
+				if($(this).parent().find($(".timepicker")).attr('id')=="t1"){//그랬는데 알고보니 '평일'이었다면
+					$(".hidmenu").find($(".timepicker"))//모든 히든메뉴의 타임피커 값 없애고, 회색처리, 못쓰게, 네임도지우기
+					.val("")
+					.css("background-color","#f2f2f2")
+// 					.attr('disabled', true)
+					.removeAttr('name')
+					;
+					
+					$(".hidmenu").find("input:checkbox[name=breakday]")//체크박스이름을 store_time_day로 전환
+					.attr('name','store_time_day');
+				}
+			}
+		});
+		$("body").on("change","input:checkbox[name=store_time_time]",function(){
+			if($(this).is(":checked")==false){
+				$(this).parent().find($(".timepicker")).eq(0)
+				.val("9:00 AM")
+				.css("background-color","#ffffff")
+// 				.attr('disabled', false)
+				.attr('name','store_time_time1');
+				
+				$(this).parent().find($(".timepicker")).eq(1)
+				.val("9:00 AM")
+				.css("background-color","#ffffff")
+// 				.attr('disabled', false)
+				.attr('name','store_time_time2');
+				
+				$(this).attr('name','breakday');
+				
+				if($(this).parent().find($(".timepicker")).attr('id')=="t1"){
+					$(".hidmenu").find($(".timepicker"))
+					.val("9:00 AM")
+					.css("background-color","#ffffff")
+// 					.attr('disabled', false)
+					.attr('name','store_time_time')
+					;
+					
+					$(".hidmenu").find("input:checkbox[name=store_time_day]")
+					.attr('name','breakday');
+				}
+			}
+		}); 
 	});
 	
 	
@@ -258,7 +332,7 @@
 			</div> 
 			<div>
 				<div class="inputbox">
-					<div class="inputtitle">매장명</div> 
+					<div class="inputtitle">매장명</div>
 					<div class="inputs"><input class="form-control" type="text" name="store_name" placeholder="예)양평 동물병원"/></div>
 				</div>
 				<div class="inputbox">
@@ -333,64 +407,69 @@
 					<div class="inputs">
 							<ul>
 								<li id="timeboxhead">
-									<span class="timebox" style="margin:0px">휴점일</span>
-									<span class="timebox mar_right1">요일</span>
+									<span class="timebox">휴점일</span>
+									<span class="timebox2">요일</span>
 									<span class="timebox2">오픈시간</span>
 									<span class="timebox2">&nbsp;&nbsp;마감시간</span>
 								</li> 
 							</ul>
 							<ul>
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_break" value="N"/>
-									<span class="timebox weekbox mar_right1">월요일</span>
-									<input type="hidden" name="store_time_day" value="월요일">
-									<input id="t1" class="timebox2 ronly timepicker form-control" name="store_time_open"/> - <input id="t2" class="timebox2 ronly timepicker form-control" name="store_time_close"/>
-									<span id="show_time" class="btn timebox2" style="height:24px; width:100px;line-height: 10px">
-										평일 맞추기
+									<input class="timebox" type="checkbox" name="breakday" value="휴점일"/>
+									<span class="timebox2 weekbox">평일</span>
+									<input type="hidden" name="store_time_day" value="평일">
+									<input id="t1" class="timebox2 ronly timepicker form-control" name="store_time_time"/> - <input id="t2" class="timebox2 ronly timepicker form-control" name="store_time_time2"/>
+									<span id="show_time" class="btn timebox2" style="height:24px; width:48px;line-height: 10px">
+										▼
 									</span>
-									<span class="subinfo">*월요일기준</span>
 								</li> 
-								<li>
-									<input class="timebox" type="checkbox" name="store_time_break" value="N"/>
-									<span class="timebox">화요일</span>
+								<li class="hidmenu">
+									<input class="timebox" type="checkbox" name="breakday" value="휴점일"/>
+									<span class="timebox2">월요일</span>
+									<input type="hidden" name="store_time_day" value="월요일">
+									<input class="timebox2 t1 timepicker form-control" name="store_time_time" /> - <input class="timebox2 t2 timepicker form-control" name="store_time_time2"/>
+								</li> 
+								<li class="hidmenu">
+									<input class="timebox" type="checkbox" name="breakday" value="휴점일"/>
+									<span class="timebox2">화요일</span>
 									<input type="hidden" name="store_time_day" value="화요일">
-									<input class="timebox2 t1 timepicker form-control" name="store_time_open"/> - <input class="timebox2 t2 timepicker form-control" name="store_time_close"/>
+									<input class="timebox2 t1 timepicker form-control" name="store_time_time"/> - <input class="timebox2 t2 timepicker form-control" name="store_time_time2"/>
 								</li> 
-								<li>
-									<input class="timebox" type="checkbox" name="store_time_break" value="N"/>
-									<span class="timebox">수요일</span>
+								<li class="hidmenu">
+									<input class="timebox" type="checkbox" name="breakday" value="휴점일"/>
+									<span class="timebox2">수요일</span>
 									<input type="hidden" name="store_time_day" value="수요일">
-									<input class="timebox2 t1 timepicker form-control" name="store_time_open"/> - <input class="timebox2 t2 timepicker form-control" name="store_time_close"/>
+									<input class="timebox2 t1 timepicker form-control" name="store_time_time"/> - <input class="timebox2 t2 timepicker form-control" name="store_time_time2"/>
 								</li> 
-								<li>
-									<input class="timebox " type="checkbox" name="store_time_break" value="N"/>
-									<span class="timebox">목요일</span>
+								<li class="hidmenu">
+									<input class="timebox " type="checkbox" name="breakday" value="휴점일"/>
+									<span class="timebox2">목요일</span>
 									<input type="hidden" name="store_time_day" value="목요일">
-									<input class="timebox2 t1 timepicker form-control" name="store_time_open"/> - <input class="timebox2 t2 timepicker form-control" name="store_time_close"/>
+									<input class="timebox2 t1 timepicker form-control" name="store_time_time"/> - <input class="timebox2 t2 timepicker form-control" name="store_time_time2"/>
 								</li> 
-								<li>
-									<input class="timebox" type="checkbox" name="store_time_break" value="N"/>
-									<span class="timebox">금요일</span>
+								<li class="hidmenu">
+									<input class="timebox" type="checkbox" name="breakday" value="휴점일"/>
+									<span class="timebox2">금요일</span>
 									<input type="hidden" name="store_time_day" value="금요일">
-									<input class="timebox2 t1 timepicker form-control" name="store_time_open"/> - <input class="timebox2 t2 timepicker form-control" name="store_time_close"/>
+									<input class="timebox2 t1 timepicker form-control" name="store_time_time"/> - <input class="timebox2 t2 timepicker form-control" name="store_time_time2"/>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_break" value="N"/>
-									<span class="timebox">토요일</span>
+									<input class="timebox" type="checkbox" name="breakday" value="휴점일"/>
+									<span class="timebox2">토요일</span>
 									<input type="hidden" name="store_time_day" value="토요일">
-									<input class="timebox2 timepicker form-control" name="store_time_open"/> - <input class="timebox2 timepicker form-control" name="store_time_close"/>
+									<input class="timebox2 timepicker form-control" name="store_time_time"/> - <input class="timebox2 timepicker form-control" name="store_time_time2"/>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_break" value="N"/>
-									<span class="timebox">일요일</span>
+									<input class="timebox" type="checkbox" name="breakday" value="휴점일"/>
+									<span class="timebox2">일요일</span>
 									<input type="hidden" name="store_time_day" value="일요일">
-									<input class="timebox2 timepicker form-control" name="store_time_open"/> - <input class="timebox2 timepicker form-control" name="store_time_close"/>
+									<input class="timebox2 timepicker form-control" name="store_time_time"/> - <input class="timebox2 timepicker form-control" name="store_time_time2"/>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_break" value="N"/>
-									<span class="timebox">공휴일</span>
+									<input class="timebox" type="checkbox" name="breakday" value="휴점일"/>
+									<span class="timebox2">공휴일</span>
 									<input type="hidden" name="store_time_day" value="공휴일">
-									<input class="timebox2 timepicker form-control" name="store_time_open"/> - <input class="timebox2 timepicker form-control" name="store_time_close"/>
+									<input class="timebox2 timepicker form-control" name="store_time_time"/> - <input class="timebox2 timepicker form-control" name="store_time_time2"/>
 								</li> 
 								<li>
 									<br>

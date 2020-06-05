@@ -211,7 +211,7 @@ public class Yoonho {
 	}
 	
 	@RequestMapping(value = "owner_regist_menu.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String owner_regist_menu(Locale locale, Model model,SDto sdto, STimeDto stimedto, /*String[] store_time_day,*/ HttpServletRequest request) {
+	public String owner_regist_menu(Locale locale, Model model,SDto sdto, STimeDto stimedto, HttpServletRequest request) {
 		logger.info("점주: 매장등록 (메뉴정보 입력)으로 이동  {}.", locale);
 		
 		//세션에서 id정보 가져오기(store_seq구하기용)
@@ -259,7 +259,16 @@ public class Yoonho {
 		stimedto.setStore_seq(seq.getStore_seq());
 		System.out.println("매장번호:"+stimedto.getStore_seq());
 		System.out.println("요일:"+stimedto.getStore_time_day());
-		System.out.println("영업시간:"+stimedto.getStore_time_time());
+		System.out.println("개점시간:"+stimedto.getStore_time_open());
+		System.out.println("폐점시간:"+stimedto.getStore_time_close());
+		System.out.println("휴무여부:"+stimedto.getStore_time_break());
+		String [] day=stimedto.getStore_time_day().split(",");
+		String [] opent=stimedto.getStore_time_open().split(",");
+		String [] closet=stimedto.getStore_time_close().split(",");
+		String [] breakt=stimedto.getStore_time_break().split(",");
+		for (int i = 0; i < day.length; i++) {
+			System.out.println(day[i]+" : "+opent[i]+"~"+closet[i]+"/폐점여부:"+breakt[i]); 
+		}
 		
 		return "";
 //		boolean isS=sService.updateStoreInfo(sdto,stimedto);
