@@ -57,12 +57,11 @@
 					addContent += '<div class="bigtle">'
 										+	'<div class="store_img">' 
 										 +		'<p>매장사진들어갈곳</p>'
-										 +		'<p>+매장명</p> '
+										 +		'<p>+매장명('+ lists[i].store_name +')</p> '
 										 +	'</div>'
 										 +	'<div class="mybox">'
-										 +		'<span>주소 : 서울 영등포  </span><br><br>'
-										 +		'<span>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ </span><br><br>'
-										 +		'<span>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ </span><br><br>'
+										 +		'<span>주소 : '+ lists[i].store_address +'  </span><br><br>'
+										 +		'<span>'+ lists[i].store_intro_simple +' </span><br><br>'
 										 +		'<div style="margin-left: 350px; margin-top: 20px;">'
 											+ 		'<button type="button">좋아요취소</button>'
 										 	+	'</div> '
@@ -113,16 +112,15 @@
 		<div class="bigtle">
 			<div class="store_img"> 
 		 		<p>매장사진들어갈곳</p>
-		 		<p>+매장명</p> 
-		 	</div>
+		 		<p>+매장명(<%=dto.getStore_name()%>)</p> 
+		 	</div> 
 		 	<div class="mybox">
 		 		<span>주소 : 서울 영등포  </span><br><br>
-		 		<span>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ </span><br><br>
-		 		<span>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ </span><br><br>
+		 		<span> <%=dto.getStore_intro_simple()%> </span><br><br>
 		 		<div style="margin-left: 350px; margin-top: 20px;">
 			 		<button type="button">좋아요취소</button>
 		 		</div> 
-		 	</div> 	   
+		 	</div> 	    
 		</div> 
 		<br><br>  
 	<%

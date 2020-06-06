@@ -90,7 +90,6 @@
 						}); 
 						
 						 $('.bigbig').append(addContent); 
-				 
 			}
 			});
 		
@@ -155,7 +154,7 @@
 			for(QnaDto dto: list){
 		%>	
 		<div class="bigtle">
-			<div class="mybox" style="background-color: yellow;">   
+			<div class="mybox">   
 			 	<div class="store_img">
 			 		<p>매장사진들어갈곳</p>
 			 		<p>+매장명</p> 

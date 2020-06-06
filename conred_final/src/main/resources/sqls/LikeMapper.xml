@@ -7,13 +7,13 @@
 <mapper namespace="com.hk.conred.Like">
 	
 	<select id="likeList" parameterType="Map" resultType="LikeDto"> 
-		SELECT  rn, LIKE_LIST_SEQ ,USER_ID ,STORE_SEQ  
+		SELECT  rn, LIKE_LIST_SEQ ,USER_ID ,cs.STORE_SEQ  ,cs.STORE_NAME,cs.STORE_INTRO_SIMPLE,cs.STORE_ADDRESS
 		FROM
 		    (SELECT  rownum AS rn,LIKE_LIST_SEQ ,USER_ID ,STORE_SEQ 
-		     FROM CON_LIKE )
-		WHERE CEIL(rn/5)=#{pnum} AND USER_ID =#{user_id}
+		     FROM CON_LIKE )cl,CON_STORE cs
+		WHERE cl.store_seq=cs.STORE_SEQ AND CEIL(rn/5)=#{pnum} AND USER_ID =#{user_id}
 	</select>
 	
 	
 </mapper>
-	 
+	  

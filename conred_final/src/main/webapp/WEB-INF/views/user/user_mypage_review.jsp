@@ -266,7 +266,7 @@
 	<%
 		for(ReplyDto dto : list){ 
  	%> 
-	<div class="bigtle" style="background-color: red;"> 
+	<div class="bigtle" > 
 		<div class="mybox">     
 		 	<div class="store_img">     
 		 		<p>매장사진들어갈곳</p>

@@ -236,12 +236,13 @@ public class Sungsu {
 		return "user/user_mypage_reserve";  
 	}
 	
-	@RequestMapping(value = "user_reservation_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public Map<String, List<ReserveDto>> user_reservation_ajax(Locale locale, Model model,HttpServletRequest request) {
+	@ResponseBody 
+	@RequestMapping(value = "user_reserve_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public Map<String, List<ReserveDto>> user_reserve_ajax(Locale locale, Model model,HttpServletRequest request,String pnum           ) {
 		logger.info("사용자예약 스크롤{}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
-		List<ReserveDto> list=reserveService.reserveList(uldto.getUser_id(), "1");
+		List<ReserveDto> list=reserveService.reserveList(uldto.getUser_id(), pnum);
 		Map<String, List<ReserveDto>> map=new HashMap<>();
 		map.put("list", list);
 		return map;  
@@ -381,28 +382,27 @@ public class Sungsu {
 	} 
 	
 	
-	@RequestMapping(value = "test_reserve_list.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String test_reserve_list(Locale locale, Model model,HttpServletRequest request) {
-		logger.info("사용자_예약목록{}.", locale);
-		HttpSession session=request.getSession();
-		UDto uldto=(UDto)session.getAttribute("uldto");
-		List<ReserveDto> list=reserveService.reserveList(uldto.getUser_id(),"1");
-		model.addAttribute("list", list);
-		
-	 
-		return "test/test_reserve_list"; 
-	} 
-	
-	
-	@RequestMapping(value = "test_reserve_detail.do", method = {RequestMethod.GET,RequestMethod.POST})
-		public String test_reserve_detail(Locale locale, Model model,int reserve_seq) {
-		logger.info("사용자_예약목록2{}.", locale);
-		ReserveDto dto=reserveService.getReserve(reserve_seq);
-		model.addAttribute("dto", dto);
-//		System.out.println("detail:"+dto);
-		
-		return "test/test_reserve_detail";
-	} 
+//	@RequestMapping(value = "test_reserve_list.do", method = {RequestMethod.GET,RequestMethod.POST})
+//	public String test_reserve_list(Locale locale, Model model,HttpServletRequest request) {
+//		logger.info("사용자_예약목록{}.", locale);
+//		HttpSession session=request.getSession();
+//		UDto uldto=(UDto)session.getAttribute("uldto");
+//		List<ReserveDto> list=reserveService.reserveList(uldto.getUser_id(),"1");
+//		model.addAttribute("list", list);
+//		
+//	 
+//		return "test/test_reserve_list"; 
+//	} 
+//	
+//	
+//	@RequestMapping(value = "test_reserve_detail.do", method = {RequestMethod.GET,RequestMethod.POST})
+//		public String test_reserve_detail(Locale locale, Model model,int reserve_seq) {
+//		logger.info("사용자_예약목록2{}.", locale);
+//		ReserveDto dto=reserveService.getReserve(reserve_seq);
+//		model.addAttribute("dto", dto);
+//		
+//		return "test/test_reserve_detail";
+//	} 
 	
 	@RequestMapping(value = "test_scroll.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String test_scroll(Locale locale, Model model) {

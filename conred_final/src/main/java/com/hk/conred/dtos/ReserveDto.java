@@ -13,14 +13,17 @@ public class ReserveDto {
 	private String reserve_price; 
 	private String reserve_sdate; 
 	private String reserve_edate; 
-	private Date reserve_regdate; 
+	private Date reserve_regdate;
+	private String store_name;
+	private String store_address;
+	private String menu_name;
 	
 	public ReserveDto() {
 	}
 
 	public ReserveDto(int reserve_seq, String user_id, int menu_seq, int store_seq, String reserve_time,
 			String reserve_state, String reserve_price, String reserve_sdate, String reserve_edate,
-			Date reserve_regdate) {
+			Date reserve_regdate, String store_name, String store_address, String menu_name) {
 		super();
 		this.reserve_seq = reserve_seq;
 		this.user_id = user_id;
@@ -32,6 +35,9 @@ public class ReserveDto {
 		this.reserve_sdate = reserve_sdate;
 		this.reserve_edate = reserve_edate;
 		this.reserve_regdate = reserve_regdate;
+		this.store_name = store_name;
+		this.store_address = store_address;
+		this.menu_name = menu_name;
 	}
 
 	public int getReserve_seq() {
@@ -114,13 +120,40 @@ public class ReserveDto {
 		this.reserve_regdate = reserve_regdate;
 	}
 
+	public String getStore_name() {
+		return store_name;
+	}
+
+	public void setStore_name(String store_name) {
+		this.store_name = store_name;
+	}
+
+	public String getStore_address() {
+		return store_address;
+	}
+
+	public void setStore_address(String store_address) {
+		this.store_address = store_address;
+	}
+
+	public String getMenu_name() {
+		return menu_name;
+	}
+
+	public void setMenu_name(String menu_name) {
+		this.menu_name = menu_name;
+	}
+
 	@Override
 	public String toString() {
 		return "ReserveDto [reserve_seq=" + reserve_seq + ", user_id=" + user_id + ", menu_seq=" + menu_seq
 				+ ", store_seq=" + store_seq + ", reserve_time=" + reserve_time + ", reserve_state=" + reserve_state
 				+ ", reserve_price=" + reserve_price + ", reserve_sdate=" + reserve_sdate + ", reserve_edate="
-				+ reserve_edate + ", reserve_regdate=" + reserve_regdate + "]";
+				+ reserve_edate + ", reserve_regdate=" + reserve_regdate + ", store_name=" + store_name
+				+ ", store_address=" + store_address + ", menu_name=" + menu_name + "]";
 	}
+
+	
 
 	
 	
