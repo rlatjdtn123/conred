@@ -14,7 +14,7 @@
   display: block;
   width: 44px;
   height: 44px;
-  border: 1px solid #e8e8e8;
+  border: 1px solid #e8e8e8; 
   border-radius: 44px;
   font-family: notokr-bold,sans-serif;
   font-size: 14px;
@@ -110,7 +110,7 @@
 <body>
 	<button type="button" class="btn_like">
 	<span class="img_emoti">좋아요</span>
-	<span class="ani_heart_m"></span>
+	<span class="ani_heart_m"></span>  
 </button>
 </body>
 </html>

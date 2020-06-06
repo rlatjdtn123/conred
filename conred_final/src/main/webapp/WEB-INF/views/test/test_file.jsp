@@ -7,16 +7,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script src="js/jquery-3.4.1.js"></script>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style type="text/css">
 	input[type=file] {
             display: none;
      }
-
+ 
      .my_button {
          display: inline-block;
          width: 200px;
-         text-align: center;
+         text-align: center; 
          padding: 10px;
          background-color: #006BCC;
          color: #fff;
@@ -40,6 +47,9 @@
          margin-left: 10px;
          margin-right: 10px;
      }
+     
+     .backimg{width: 140px; height:90px; margin-left: 5px; background-color:#E6E6E6; text-align: center; line-height: 90px;}
+     .backimg_size{color: #A4A4A4;} 
 </style>
 
 
@@ -80,8 +90,8 @@
             reader.onload = function(e) {
                 var html = "<a href=\"javascript:void(0);\" onclick=\"deleteImageAction("+index+")\" id=\"img_id_"+index+"\"><img src=\"" + e.target.result + "\" data-file='"+f.name+"' class='selProductFile' title='Click to remove'></a>";
                 $(".imgs_wrap").append(html);
-                index++;
-
+                index++; 
+//                 class='selProductFile'
             }
             reader.readAsDataURL(f);
             
@@ -107,12 +117,15 @@
 
 </script>
 </head>
-<body>
+<body> 
 <div>
     <div class="imgs_wrap">
-        <img id="img" />
+    	<div class="backimg">
+  			<span class="backimg_size">140x90</span>
+    	</div>   
+<!--         <img id="img" /> -->
     </div>
-</div>
+</div> 
 <div>
     <div class="input_wrap">
         <a href="javascript:" onclick="fileUploadAction();" class="my_button">파일 업로드</a>

@@ -23,21 +23,22 @@
 	#sticky{position: sticky; top:71px;}
 	#navi2{width:998px;background-color: lightblue;clear:both;position:relative;top:-20px;text-align: center;line-height: 40px;border-top: 1px solid grey;}
 	.navis2{border-bottom:1px solid grey; font-size:15px; float:left;width:199.6px;height:40px;background-color: #D8D8D8;}
-	.navis2:hover{border-bottom:1px solid white;background-color: white;cursor:pointer;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
-	.home{border-bottom:1px solid white;background-color: white;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
+	.navis2:hover{border-bottom:1px solid white;background-color: white;cursor:pointer;border-right:1px solid grey;border-left:1px solid grey;}
+	.home{border-bottom:1px solid white;background-color: white;border-right:1px solid grey;border-left:1px solid grey;}
 	
 	
-	.store_img{width: 200px;height:200px;border: 1px solid black; float: left; margin-left: 100px;} 
+	.store_img{width: 200px;height:170px;border: 1px solid black; float: left; } 
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
-	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:500px;height:200px; font-size: 15px; margin-left: 300px;}
+	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:720px;height:200px; font-size: 15px; margin-left: 100px;}
 	.myboxmargin{margin-top:30px;}  
 	.bigtle{margin-left: 50px;}
-	 
+	.reserve_info{width: 500px; margin-left: 220px;}
+	  
 </style>
 <script type="text/javascript">
 //무한스크롤	
 	var count = 1;
-	//스크롤 바닥 감지
+	//스크롤 바닥 감지 
 	window.onscroll = function(e) {
 	    //추가되는 임시 콘텐츠
 	    //window height + window scrollY 값이 document height보다 클 경우,
@@ -55,17 +56,19 @@
 				var lists=obj.list; //[dto,dto,dto..]
 				$.each(lists, function(i){    		
 					addContent += 	'<div class="bigtle">'
+									+'<div class="mybox">'
 									+	'<div class="store_img">'
 									+ 	'	<p>매장사진들어갈곳</p>  '
 									 +	'	<p>+매장명('+ lists[i].store_name +')</p> '
 									 +	'</div>'
-								 		+'<div class="mybox">'
+										+'<div class="reserve_info">'
 									 	+'	<a>메뉴명 : '+ lists[i].menu_name +' </a><br>'  
 									 	+'	<span>가격 정보 : '+ lists[i].reserve_price +' </span><br>'
 									 	+'	<span>예약 날짜 :'+ lists[i].reserve_sdate +'</span><br>'
 									 	+'	<span>예약 시간 : '+ lists[i].reserve_time +' </span><br>'
 									 	+'	<span>주소 : '+ lists[i].store_address +' </span><br>'
-									 	+'	<div style="margin-left: 300px; margin-top: 40px;" >'
+									 	+'</div>'
+									 	+'	<div style="margin-left: 520px; margin-top: 40px;" >'
 										+ '		<button>예약취소</button>&nbsp;&nbsp;       '
 										+ '		<button>결제하기</button>       '
 									 	+	'</div>'
@@ -117,11 +120,12 @@
 		for(ReserveDto dto:list){
 			%>
 				<div class="bigtle" >
-					<div class="store_img">
-				 		<p>매장사진들어갈곳</p>  
-				 		<p>+매장명(<%=dto.getStore_name()%>)</p> 
-				 	</div>
 				 	<div class="mybox">
+						<div class="store_img">
+					 		<p>매장사진들어갈곳</p>  
+					 		<p>+매장명(<%=dto.getStore_name()%>)</p> 
+					 	</div>
+					 	<div class="reserve_info">
 				 		<a>메뉴명 : <%=dto.getMenu_name()%> </a><br>  
 				 		<span>가격 정보 : <%=dto.getReserve_price()%></span><br>
 				 		<%
@@ -147,11 +151,12 @@
 				 			} 
 				 		%>
 				 		<span>주소 : <%=dto.getStore_address()%> </span><br>
-				 		<div style="margin-left: 300px; margin-top: 40px;" >
+				 		</div>
+				 		<div style="margin-left: 520px; margin-top: 40px;" >
 					 		<button>예약취소</button>&nbsp;&nbsp;       
 					 		<button>결제하기</button>       
 				 		</div>
-				 	</div> 	 
+				 	</div> 	  
 				</div>
 				<br><br> 
 			<%
