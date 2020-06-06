@@ -75,7 +75,7 @@
 				bigcatetext="카페/식당";
 			}else if(smallcate.indexOf("c")!=-1){
 				bigcatetext="식품/용품";
-			}else if(smallcate.indexOf("d")!=-1){
+			}else if(smallcate.indexOf("d")!=-1){ 
 				bigcatetext="숙박";
 			}else if(smallcate.indexOf("e")!=-1){
 				bigcatetext="돌봄서비스";
