@@ -34,104 +34,152 @@
 	.inputbox:hover{background-color: #f3f3f3;}
 	.lastbox{border: 0px solid lightgrey;}
 	.inputtitle{float:left;height:auto;line-height: 200%;padding-right:20px;width:140px;}
-	input{margin-top:2px;}
 	textarea{margin-top:2px;resize: none;}
-	select {position:relative;top:1px;height:26px;}
 	.inputs{width:600px;float: left;height:auto;}
-	.width_500{width:500px;}
-	
-	
-	textarea[name=store_time_other]{width:370px;}
-	textarea[name=store_simple_intro]{width:500px;}
-	textarea[name=store_intro]{width:500px;height:100px;}
-	textarea[name=store_address]{width:220px;height:100px;}
 	
 	.catechkboxes_big{width:150px;height:100px;float: left;}
 	.catechkboxes{float: left;}
 	.catechkbox{padding-bottom:10px;}
 	input[name=category_code_small],input[name=category_code]{margin-left:10px;}
 	
-	.filebox input[type="file"] { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }
- 	.filebox label { display: inline-block; padding: .5em .75em;  font-size: inherit; line-height: normal; 
- 					vertical-align: middle; background-color: grey; cursor: pointer; border: 1px solid #ebebeb; 
-					border-bottom-color: #e2e2e2; border-radius: .25em; margin-bottom: 0px;}
-	.filebox .upload-name { display: inline-block; padding: .5em .75em; height:25px;/* label의 패딩값과 일치 */
-						
-						font-size: inherit; font-family: inherit; line-height: normal;
-						vertical-align: middle; background-color: #f5f5f5; border: 1px solid #ebebeb;
-						border-bottom-color: #e2e2e2; border-radius: .25em; -webkit-appearance: none;
-						/* 네이티브 외형 감추기 */
-						-moz-appearance: none; appearance: none; }
-						
-	.timebox{display: inline-block;width:50px;text-align: center;}
-	.timebox2{display: inline-block; width:80px;text-align: center;}
-	.menubox{display: inline-block; width:310px;text-align: center;}
-	ul{list-style: none;padding:0px;}
- 	li{width:650px;} 
+	.menu_name{vertical-align:middle; display: inline-block;width:100px;text-align: center;}
+	.menu_price{vertical-align:middle;display: inline-block; width:100px;text-align: center;}
+	.menu_price2{width: 150px;}
+	.menu_reserve{width: 150px;margin-top: 5px;}
+	.menubox_long{vertical-align:middle;display: inline-block; width:310px;text-align: center;}
+	ul{list-style: none;padding:0px;display: inline-block;}
+ 	li{width:610px;float:left;padding:0px;margin:0px;} 
 	.hidmenu{display: none;}
 	
-	#show_menu,#show_time,.hide_menu{margin-bottom:2.5px;}
+	.show_menu{margin-bottom:2.5px;position:relative;top:0px;height:24px; width:35px;line-height: 10px}
+	.hide_menu{margin-bottom:2.5px;position:relative;top:0px;height:24px; width:35px;line-height: 10px}
 	
 	input[name=store_maxdate],input[name=store_maxman]{width:50px;background-color: #f0f0f0;border:1px solid grey}
 	.subinfo{font-size:12px;color: grey;}
 	#bot{margin:30px 10px 30px;}
+	
+	.big_cate{text-align:center;font-size:20px;font-weight:bold; height:30px;line-height: 30px;background-color: #f2f2f2;border-radius: 30px;}
 </style>
 <script type="text/javascript">
 	
 	$(document).ready(function(){
-		var fileTarget = $('.filebox .upload-hidden');
-		fileTarget.on('change', function(){
-			// 값이 변경되면
-			if(window.FileReader){ // modern browser
-				var filename = $(this)[0].files[0].name;
-			} else { // old IE
-				var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출 
-			} // 추출한 파일명 삽입
-			$(this).siblings('.upload-name').val(filename);
-		});
-// 		$("#show_time").click(function(){
-// 			$(".hidmenu").toggle();
-// 			if($(".ronly").prop("readonly",false)){
-// 				$(".ronly").attr("readonly","readonly");
-// 				$(".ronly").css("background-color","lightgrey");
-// // 				$(".hidmenu").css("display","none")
-// 			}else if($(".ronly").css("background-color","lightgrey")){
-// 				alert("d");
-// 				$(".ronly").removeAttr("readonly");
-// 				$(".ronly").css("background-color","white");
-// 			}
-// 		});
-		$("#show_time").click(function(){
-			$(".hidmenu").toggle();
-			if($(".ronly").attr("readonly")=="readonly"){
-				$(".ronly").removeAttr("readonly");
-				$(".ronly").css({"background-color":"white","border-width":"1px","border-radius":"3px","height":"26px"});
-				$(".ronly").css("border-width","1px");
-			}else{
-				for (var i = 0; i < 5; i++) {
-					var t1val=$("#t1").val();
-					$(".t1").eq(i).val(t1val);
-					var t2val=$("#t2").val();
-					$(".t2").eq(i).val(t2val);
-				}
-				$(".ronly").attr("readonly","readonly");
-				$(".ronly").css("background-color","lightgrey");
-			}
-		});
-		if($("input[name=s_time]").eq(0).is(":checked")){
-			alert('dfd');
-		}
 		
-		$("#show_menu").click(function(){
-			$("#menuboxes").append('<li>'+
-			'<input class="timebox2 t1" type="text" name="menu_name" style="width:110px;"/> '+
-			'<input class="menubox t1" type="text" name="menu_content"/> '+
-			'<input class="timebox2 t2" type="text" name="menu_price"/> '+
-			'<select class="settime" name="menu_state" style="width:70px;">'+
-			'<option value="N">미사용</option><option value="T">시간제</option><option value="S">숙박제</option>'+
-			'</select> '+
-			'<span class="btn btn2 timebox2 hide_menu" style="height:24px; width:48px;line-height: 10px">-</span>'+
-			'</li> ');
+		$("body").on("change","input:checkbox[name=category_code_small]", function() {
+			var smallcate =$(this).val();
+// 			var bigcate=[a,b,c,d,e,f,g,h,i];
+			var bigcatetext;
+			
+			if(smallcate.indexOf("a")!=-1){
+				bigcatetext="동물병원";
+			}else if(smallcate.indexOf("b")!=-1){
+				bigcatetext="카페/식당";
+			}else if(smallcate.indexOf("c")!=-1){
+				bigcatetext="식품/용품";
+			}else if(smallcate.indexOf("d")!=-1){
+				bigcatetext="숙박";
+			}else if(smallcate.indexOf("e")!=-1){
+				bigcatetext="돌봄서비스";
+			}else if(smallcate.indexOf("f")!=-1){
+				bigcatetext="미용";
+			}else if(smallcate.indexOf("g")!=-1){
+				bigcatetext="체험";
+			}else if(smallcate.indexOf("h")!=-1){
+				bigcatetext="분양/교배";
+			}else if(smallcate.indexOf("i")!=-1){
+				bigcatetext="장례";
+			}
+			alert(bigcatetext);
+			
+// 			for (var i = 0; i < bigcate.length; i++) {
+// 				if(smallcate.indexOf(bigcate[i])!=-1){
+// 					thisbigcate=smallcate.indexOf(bigcate[i]);
+// 				}
+// 			}
+// 			switch(thisbigcate){
+// 				case "a":
+// 				bigcatetext = "동물병원";
+// 			}
+// 			alert(smallcate);
+			
+			alert("d");
+			$("#menubigbox").append('<ul class="menuboxes">'+
+					'<li>'+
+					'<div class="big_cate">'+bigcatetext+' 메뉴</div>'+
+					'<br>'+
+				'</li>'+
+				'<li>'+
+					'<span class="menu_name">메뉴명</span>'+
+					'<span class="menubox_long">설명</span>'+
+					'<span class="menu_price" style="width: 145px;">가격 / 예약</span>'+
+					'<span class="menu_name"></span>'+
+				'</li> '+
+				'<li>'+
+					'<input class="menu_name form-control" type="text" name="menu_name" placeholder="메뉴명"/>'+
+					'<textarea rows="3" class="menubox_long form-control" type="text" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~"></textarea>'+
+					'<div class="menu_price">'+
+						'<div class="menu_price2">'+
+						'가격'+
+						'<input class="menu_price form-control" type="text" name="menu_price" placeholder="10000"/>'+
+						'</div>'+
+						'<div class="menu_reserve">'+
+						'예약'+
+						'<select class="settime form-control menu_price" name="menu_state">'+
+							'<option value="N">미사용</option>'+
+							'<option value="T">시간제</option>'+
+							'<option value="S">숙박제</option>'+
+						'</select>'+
+						'</div>'+
+					'</div>'+
+					'<span class="show_menu flright btn btn2 menu_price btn" >'+
+						'+'+
+					'</span>'+
+				'</li> '+
+				'<li>'+
+					'<input class="menu_name form-control" type="text" name="menu_name" placeholder="멍멍개껌"/>'+
+					'<textarea rows="3" class="menubox_long form-control" type="text" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~"></textarea>'+
+					'<div class="menu_price">'+
+						'<div class="menu_price2">'+
+						'가격'+
+						'<input class="menu_price form-control" type="text" name="menu_price" placeholder="10000"/>'+
+						'</div>'+
+						'<div class="menu_reserve">'+
+						'예약'+
+						'<select class="settime form-control menu_price" name="menu_state">'+
+							'<option value="N">미사용</option>'+
+							'<option value="T">시간제</option>'+
+							'<option value="S">숙박제</option>'+
+						'</select>'+
+						'</div>'+
+					'</div>'+
+					'<span class="flright btn btn2 menu_price hide_menu">'+
+						'-'+
+					'</span>'+
+				'</li> '+
+			'</ul>');
+		});
+		
+		$("body").on("click",".show_menu", function() {
+			$(this).parent().parent($(".menuboxes")).append('<li>'+
+			'<input class="menu_name form-control" type="text" name="menu_name" placeholder="멍멍개껌"/> '+
+				'<textarea rows="3" class="menubox_long form-control" type="text" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~"></textarea> '+
+				'<div class="menu_price">'+
+					'<div class="menu_price2">'+
+					'가격 '+
+					'<input class="menu_price form-control" type="text" name="menu_price" placeholder="10000"/>'+
+					'</div>'+
+					'<div class="menu_reserve">'+
+					'예약 '+
+					'<select class="settime form-control menu_price" name="menu_state">'+
+						'<option value="N">미사용</option>'+
+						'<option value="T">시간제</option>'+
+						'<option value="S">숙박제</option>'+
+					'</select>'+
+					'</div>'+
+				'</div>'+
+				'<span class="flright btn btn2 menu_price hide_menu">'+
+					'-'+
+				'</span>'+
+			'</li>');
 		});
 		
 		$("body").on("click",".hide_menu",function(){
@@ -363,41 +411,58 @@
 				
 				<div class="inputbox">
 					<div class="inputtitle">메뉴등록</div>
-					<div  class="inputs">
-					<ul>
+					<div id="menubigbox" class="inputs">
+					<ul class="menuboxes">
 						<li>
-							<span class="timebox2" style="width:110px;">메뉴명</span>
-							<span class="menubox">설명</span>
-							<span class="timebox2">가격</span>
-							<span class="timebox" title="체크하시면 예약기능이 활성화됩니다." style="width:70px;">예약</span>
+							<div class="big_cate">동물병원 메뉴</div>
+							<br>
+						</li>
+						<li>
+							<span class="menu_name">메뉴명</span>
+							<span class="menubox_long">설명</span>
+							<span class="menu_price" style="width: 145px;">가격 / 예약</span>
+							<span class="menu_name"></span>
 						</li> 
-					</ul>
-					<ul id="menuboxes">
 						<li>
-							<input class="timebox2 t1" type="text" name="menu_name" style="width:110px;" placeholder="멍멍개껌"/>
-							<input id="t1" class="menubox" type="text" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~"/>
-							<input id="t2" class="timebox2" type="text" name="menu_price" placeholder="10000"/>
-							<select class="settime" name="menu_state" style="width:70px;">
-								<option value="N">미사용</option>
-								<option value="T">시간제</option>
-								<option value="S">숙박제</option>
-							</select>
-							<span id="show_menu" class="btn btn2 timebox2" style="height:24px; width:48px;line-height: 10px">
+							<input class="menu_name form-control" type="text" name="menu_name" placeholder="메뉴명"/>
+							<textarea rows="3" class="menubox_long form-control" type="text" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~"></textarea>
+							<div class="menu_price">
+								<div class="menu_price2">
+								가격
+								<input class="menu_price form-control" type="text" name="menu_price" placeholder="10000"/>
+								</div>
+								<div class="menu_reserve">
+								예약
+								<select class="settime form-control menu_price" name="menu_state">
+									<option value="N">미사용</option>
+									<option value="T">시간제</option>
+									<option value="S">숙박제</option>
+								</select>
+								</div>
+							</div>
+							<span class="show_menu flright btn btn2 menu_price btn" >
 								+
 							</span>
-
 						</li> 
 						<li>
-							<input class="timebox2 t1" type="text" name="menu_name" style="width:110px;"/>
-							<input class="menubox t1" type="text"  name="menu_content"/>
-							<input class="timebox2 t2" type="text" name="menu_price"/>
-							<select class="settime"  name="menu_state" style="width:70px;">
-								<option value="N">미사용</option>
-								<option value="T">시간제</option>
-								<option value="S">숙박제</option>
-							</select>
-<!-- 							<input class="settime" class="timebox" type="button" style=" width:48px;" value="설정"/> -->
-							<span class="btn btn2 timebox2 hide_menu" style="height:24px; width:48px;line-height: 10px">
+							<input class="menu_name form-control" type="text" name="menu_name" placeholder="멍멍개껌"/>
+							<textarea rows="3" class="menubox_long form-control" type="text" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~"></textarea>
+							<div class="menu_price">
+								<div class="menu_price2">
+								가격
+								<input class="menu_price form-control" type="text" name="menu_price" placeholder="10000"/>
+								</div>
+								<div class="menu_reserve">
+								예약
+								<select class="settime form-control menu_price" name="menu_state">
+									<option value="N">미사용</option>
+									<option value="T">시간제</option>
+									<option value="S">숙박제</option>
+								</select>
+								</div>
+							</div>
+<!-- 							<input class="settime" class="menu_name" type="button" style=" width:35px;" value="설정"/> -->
+							<span class="flright btn btn2 menu_price hide_menu">
 								-
 							</span>
 						</li> 

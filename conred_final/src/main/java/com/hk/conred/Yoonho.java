@@ -138,7 +138,7 @@ public class Yoonho {
 			return "";
 		}else{
 			session.setAttribute("oldto", oldto);
-			session.setMaxInactiveInterval(60*10);
+			session.setMaxInactiveInterval(60*10*6);
 			return "all/users_main"; 
 		}	
 	}
