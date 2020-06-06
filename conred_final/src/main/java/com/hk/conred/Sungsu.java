@@ -453,4 +453,10 @@ public class Sungsu {
 		return "test/test_like";
 	} 
 	
+	@RequestMapping(value = "test_star.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String test_star(Locale locale, Model model) {
+		logger.info("별점 라이브러리 테스트{}.", locale);
+		return "test/test_star";
+	} 
+	
 }

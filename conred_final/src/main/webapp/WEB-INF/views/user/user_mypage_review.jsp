@@ -136,22 +136,6 @@
 	    $("#input_imgs").trigger('click');
 	}
 	
-// 	$(function(){
-// 		$(".content_detail").click(function(){   
-// 			if($(".info2").css("height")=="60px"){  
-// 				$(".contents").css("word-break","break-all");
-// 				$(".info2").css("height","auto");
-// 				$(".mybox").css("height","auto"); 
-// 				$(this).parent().parent().find(".contents").css({"overflow":"visible","height":"auto"});
-// 			}else{
-// 				$(".contents").css("word-break","keep-all");
-// 				$(".info2").css("height","60px");
-// 				$(".mybox").css("height","200px");       
-// 				$(this).parent().parent().find(".contents").css({"height":"25px","overflow":"hidden"});
-// 			}   
-// 		});   
- 
-// 	}); 
 	
 	$(function(){
 		$(".content_detail").click(function(){ 
@@ -176,8 +160,8 @@
 	#sticky{position: sticky; top:71px;}
 	#navi2{width:998px;background-color: lightblue;clear:both;position:relative;top:-20px;text-align: center;line-height: 40px;border-top: 1px solid grey;}
 	.navis2{border-bottom:1px solid grey; font-size:15px; float:left;width:199.6px;height:40px;background-color: #D8D8D8;}
-	.navis2:hover{border-bottom:1px solid white;background-color: white;cursor:pointer;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
-	.home{border-bottom:1px solid white;background-color: white;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
+	.navis2:hover{border-bottom:1px solid white;background-color: white;cursor:pointer;border-right:1px solid grey;border-left:1px solid grey;}
+	.home{border-bottom:1px solid white;background-color: white;border-right:1px solid grey;border-left:1px solid grey;}
 	
 	   
 	.pf{float: left; width: 40px;height: 40px;}     
@@ -232,33 +216,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- Modal -->
-	<div class="modal fade" id="myModal" role="dialog">
-		<div class="modal-dialog modal-lg">
-	  		<!-- Modal content-->
-	   		<div class="modal-content">
-	     		<div class="modal-header">
-	       			<button type="button" class="close" data-dismiss="modal">리뷰 작성 완료</button>
-	       			<h4 class="modal-title">가게이름</h4>
-	     		</div>
-	     		<div class="modal-body"> 
-	       			<span>서비스 ☆☆☆☆☆</span>|<span>가격 ☆☆☆☆☆</span>|<span>청결도 ☆☆☆☆☆</span>
-	     		</div>  
-	     		<div class="modal-footer"> 
-	     			<div style="margin-bottom: 50px; width: 870px;  ">   
-					    <div class="imgs_wrap" style="width: 850px; border: 1 solid black;">    
-					           
-					    </div>          
-					    <div class="input_wrap" style="border: 0;"> 
-					        <a href="javascript:" onclick="fileUploadAction();" class="my_button">파일 업로드</a>
-					        <input type="file" id="input_imgs" multiple/>
-					    </div>   
-					</div>
-	       			<textarea rows="20" cols="120" style="resize: none;" placeholder="리뷰 작성 해주세요."></textarea>
-	     		</div>
-	   		</div>  
-		</div> 
-	</div>  
 	<div id="pagename">
 		<b>작성한 리뷰</b>  
 	</div> 
