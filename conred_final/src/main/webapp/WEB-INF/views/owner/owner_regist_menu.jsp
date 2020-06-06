@@ -59,103 +59,155 @@
 	#bot{margin:30px 10px 30px;}
 	
 	.big_cate{text-align:center;font-size:20px;font-weight:bold; height:30px;line-height: 30px;background-color: #f2f2f2;border-radius: 30px;}
+	.subinfo{font-size:12px;color: grey;}
 </style>
 <script type="text/javascript">
 	
 	$(document).ready(function(){
 		
+// 			var bigcate=["a","b","c","d","e","f","g","h","i"];
+// 			for(var i in bigcate){
+// 				alert(bigcate[i]);
+// 			}
 		$("body").on("change","input:checkbox[name=category_code_small]", function() {
 			var smallcate =$(this).val();
-// 			var bigcate=[a,b,c,d,e,f,g,h,i];
+			var bigcate=["a","b","c","d","e","f","g","h","i"];
 			var bigcatetext;
-			
-			if(smallcate.indexOf("a")!=-1){
-				bigcatetext="동물병원";
-			}else if(smallcate.indexOf("b")!=-1){
-				bigcatetext="카페/식당";
-			}else if(smallcate.indexOf("c")!=-1){
-				bigcatetext="식품/용품";
-			}else if(smallcate.indexOf("d")!=-1){ 
-				bigcatetext="숙박";
-			}else if(smallcate.indexOf("e")!=-1){
-				bigcatetext="돌봄서비스";
-			}else if(smallcate.indexOf("f")!=-1){
-				bigcatetext="미용";
-			}else if(smallcate.indexOf("g")!=-1){
-				bigcatetext="체험";
-			}else if(smallcate.indexOf("h")!=-1){
-				bigcatetext="분양/교배";
-			}else if(smallcate.indexOf("i")!=-1){
-				bigcatetext="장례";
+			var cateval;
+			for(var i in bigcate){
+				if(smallcate.indexOf(bigcate[i])!=-1){
+					cateval=bigcate[i];
+				}
 			}
-			alert(bigcatetext);
+			switch(cateval){
+				case "a": bigcatetext = "동물병원";
+					break;
+				case "b": bigcatetext = "카페/식당";
+					break;
+				case "c": bigcatetext = "식품/용품";
+					break;
+				case "d": bigcatetext = "숙박";
+					break;
+				case "e": bigcatetext = "돌봄서비스";
+					break;
+				case "f": bigcatetext = "미용";
+					break;
+				case "g": bigcatetext = "체험";
+					break;
+				case "h": bigcatetext = "분양/교배";
+					break;
+				case "i": bigcatetext = "장례";
+					break;
+			}
 			
-// 			for (var i = 0; i < bigcate.length; i++) {
-// 				if(smallcate.indexOf(bigcate[i])!=-1){
-// 					thisbigcate=smallcate.indexOf(bigcate[i]);
-// 				}
+			//if문이 더 좋을듯
+// 			if(smallcate.indexOf("a")!=-1){
+// 				bigcatetext="동물병원";
+// 			}else if(smallcate.indexOf("b")!=-1){
+// 				bigcatetext="카페/식당";
+// 			}else if(smallcate.indexOf("c")!=-1){
+// 				bigcatetext="식품/용품";
+// 			}else if(smallcate.indexOf("d")!=-1){ 
+// 				bigcatetext="숙박";
+// 			}else if(smallcate.indexOf("e")!=-1){
+// 				bigcatetext="돌봄서비스";
+// 			}else if(smallcate.indexOf("f")!=-1){
+// 				bigcatetext="미용";
+// 			}else if(smallcate.indexOf("g")!=-1){
+// 				bigcatetext="체험";
+// 			}else if(smallcate.indexOf("h")!=-1){
+// 				bigcatetext="분양/교배";
+// 			}else if(smallcate.indexOf("i")!=-1){
+// 				bigcatetext="장례";
 // 			}
-// 			switch(thisbigcate){
-// 				case "a":
-// 				bigcatetext = "동물병원";
-// 			}
-// 			alert(smallcate);
+// 			alert(bigcatetext);
+// 			alert($(".big_cate").eq(0).text());
+			alert($(".big_cate").length);
+			var length_cate = $(".big_cate").length;
+			//이미 체크된 카테고리명과 같은게 있으면 실행안되게
+			var bigcates;
+			var count_cate=true;
+			for (var i = 0; i < length_cate; i++) {
+				alert($(".big_cate").eq(i).text().indexOf(bigcatetext));
+				if($(".big_cate").eq(i).text().indexOf(bigcatetext)!=-1){//대분류중에 카테박스에 해당하는 대분류가 있으면
+																		//다른말로는 :이번 턴의 대분류가 내가 체크한 박스의 대분류와 같으면
+					count_cate=false;//폴스다: 추가된다
+					alert(count_cate);
+				}
+			}
+			if($(this).is(":checked")==true){
+				alert("지금체크하였다");
+				if(count_cate==true){
+					$("#menubigbox").append('<ul class="menuboxes">'+
+							'<li>'+
+							'<div class="big_cate">'+bigcatetext+' 메뉴</div>'+
+							'<br>'+
+						'</li>'+
+						'<li>'+
+							'<span class="menu_name">메뉴명</span>'+
+							'<span class="menubox_long">설명</span>'+
+							'<span class="menu_price" style="width: 145px;">가격 / 예약</span>'+
+							'<span class="menu_name"></span>'+
+						'</li> '+
+						'<li>'+
+							'<input class="menu_name form-control" type="text" name="menu_name" placeholder="메뉴명"/>'+
+							'<textarea rows="3" class="menubox_long form-control" type="text" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~"></textarea>'+
+							'<div class="menu_price">'+
+								'<div class="menu_price2">'+
+								'가격'+
+								'<input class="menu_price form-control" type="text" name="menu_price" placeholder="10000"/>'+
+								'</div>'+
+								'<div class="menu_reserve">'+
+								'예약'+
+								'<select class="settime form-control menu_price" name="menu_state">'+
+									'<option value="N">미사용</option>'+
+									'<option value="T">시간제</option>'+
+									'<option value="S">숙박제</option>'+
+								'</select>'+
+								'</div>'+
+							'</div>'+
+							'<span class="show_menu flright btn btn2 menu_price btn" >'+
+								'+'+
+							'</span>'+
+						'</li> '+
+						'<li>'+
+							'<input class="menu_name form-control" type="text" name="menu_name" placeholder="멍멍개껌"/>'+
+							'<textarea rows="3" class="menubox_long form-control" type="text" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~"></textarea>'+
+							'<div class="menu_price">'+
+								'<div class="menu_price2">'+
+								'가격'+
+								'<input class="menu_price form-control" type="text" name="menu_price" placeholder="10000"/>'+
+								'</div>'+
+								'<div class="menu_reserve">'+
+								'예약'+
+								'<select class="settime form-control menu_price" name="menu_state">'+
+									'<option value="N">미사용</option>'+
+									'<option value="T">시간제</option>'+
+									'<option value="S">숙박제</option>'+
+								'</select>'+
+								'</div>'+
+							'</div>'+
+							'<span class="flright btn btn2 menu_price hide_menu">'+
+								'-'+
+							'</span>'+
+						'</li> '+
+					'</ul>');
+				}
+			}else if($(this).is(":checked")==false){
+				alert("지금 체크풀었다");
+				if(count_cate==false){
+					for (var i = 0; i < length_cate; i++) {
+						alert($(".big_cate").eq(i).text().indexOf(bigcatetext));
+						if($(".big_cate").eq(i).text().indexOf(bigcatetext)!=-1){//대분류중에 카테박스에 해당하는 대분류가 있으면
+																				//다른말로는 :이번 턴의 대분류가 내가 체크한 박스의 대분류와 같으면
+							$(".big_cate").eq(i).parent().parent("ul").remove();
+						}
+					}
+					
+				}
+			}
 			
-			alert("d");
-			$("#menubigbox").append('<ul class="menuboxes">'+
-					'<li>'+
-					'<div class="big_cate">'+bigcatetext+' 메뉴</div>'+
-					'<br>'+
-				'</li>'+
-				'<li>'+
-					'<span class="menu_name">메뉴명</span>'+
-					'<span class="menubox_long">설명</span>'+
-					'<span class="menu_price" style="width: 145px;">가격 / 예약</span>'+
-					'<span class="menu_name"></span>'+
-				'</li> '+
-				'<li>'+
-					'<input class="menu_name form-control" type="text" name="menu_name" placeholder="메뉴명"/>'+
-					'<textarea rows="3" class="menubox_long form-control" type="text" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~"></textarea>'+
-					'<div class="menu_price">'+
-						'<div class="menu_price2">'+
-						'가격'+
-						'<input class="menu_price form-control" type="text" name="menu_price" placeholder="10000"/>'+
-						'</div>'+
-						'<div class="menu_reserve">'+
-						'예약'+
-						'<select class="settime form-control menu_price" name="menu_state">'+
-							'<option value="N">미사용</option>'+
-							'<option value="T">시간제</option>'+
-							'<option value="S">숙박제</option>'+
-						'</select>'+
-						'</div>'+
-					'</div>'+
-					'<span class="show_menu flright btn btn2 menu_price btn" >'+
-						'+'+
-					'</span>'+
-				'</li> '+
-				'<li>'+
-					'<input class="menu_name form-control" type="text" name="menu_name" placeholder="멍멍개껌"/>'+
-					'<textarea rows="3" class="menubox_long form-control" type="text" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~"></textarea>'+
-					'<div class="menu_price">'+
-						'<div class="menu_price2">'+
-						'가격'+
-						'<input class="menu_price form-control" type="text" name="menu_price" placeholder="10000"/>'+
-						'</div>'+
-						'<div class="menu_reserve">'+
-						'예약'+
-						'<select class="settime form-control menu_price" name="menu_state">'+
-							'<option value="N">미사용</option>'+
-							'<option value="T">시간제</option>'+
-							'<option value="S">숙박제</option>'+
-						'</select>'+
-						'</div>'+
-					'</div>'+
-					'<span class="flright btn btn2 menu_price hide_menu">'+
-						'-'+
-					'</span>'+
-				'</li> '+
-			'</ul>');
+			
 		});
 		
 		$("body").on("click",".show_menu", function() {
@@ -320,9 +372,10 @@
 					<div class="inputs">
 						<div class="catechkboxes_big">
 							<div class="catechkbox">
-								대표 매장종류<br>
-								*한가지만 선택<br>
-								*지도위의 아이콘용
+								<div>대표 매장종류</div>
+								<div class="subinfo">*한가지만 선택</div>
+								<div class="subinfo">*지도위의 아이콘용</div>
+								
 							</div>
 							<div class="catechkbox">
 								<input type="checkbox" name="category_code" value="A"/>동물병원
@@ -354,9 +407,10 @@
 						</div>
 						<div class="catechkboxes">
 							<div class="catechkbox">
-								해당되는 항목을 모두 체크해주세요<br>
-								*대표 매장종류에 해당되지 않아도 선택 가능합니다<br>
-								*
+								<div>해당되는 항목을 모두 체크해주세요</div>
+								<div class="subinfo">*대표 매장종류에 해당되지 않아도 선택 가능합니다</div>
+								<div class="subinfo">&nbsp;</div>
+								
 								
 							</div> 
 							<div class="catechkbox">
