@@ -16,11 +16,16 @@
 		<typeAlias type="com.hk.conred.dtos.ReplyDto" alias="ReplyDto"/>
 		<typeAlias type="com.hk.conred.dtos.QnaDto" alias="QnaDto"/>
 		<typeAlias type="com.hk.conred.dtos.LikeDto" alias="LikeDto"/>
-		
+<!-- 		점주관련 -->
 		<typeAlias type="com.hk.conred.dtos.SDto" alias="SDto"/>
-		<typeAlias type="com.hk.conred.dtos.STimeDto" alias="STimeDto"/>
 		<typeAlias type="com.hk.conred.dtos.SPhotoDto" alias="SPhotoDto"/>
 		<typeAlias type="com.hk.conred.dtos.SLocaDto" alias="SLocaDto"/>
+		
+		<typeAlias type="com.hk.conred.dtos.STimeDto" alias="STimeDto"/>
+		
+		<typeAlias type="com.hk.conred.dtos.CMainDto" alias="CMainDto"/>
+		<typeAlias type="com.hk.conred.dtos.CListDto" alias="CListDto"/>
+		<typeAlias type="com.hk.conred.dtos.MenuDto" alias="MenuDto"/>
 	</typeAliases>
  
 
@@ -31,17 +36,22 @@
     	<mapper resource="./sqls/UMapper.xml"/>
     	<mapper resource="./sqls/OMapper.xml"/>
     	<mapper resource="./sqls/AMapper.xml"/>
-    	
+
     	<mapper resource="./sqls/InterestsMapper.xml"/>   	
     	<mapper resource="./sqls/ReserveMapper.xml"/>
     	<mapper resource="./sqls/ReplyMapper.xml"/>
     	<mapper resource="./sqls/QnaMapper.xml"/>
     	<mapper resource="./sqls/LikeMapper.xml"/>
-    	
+<!-- 		점주관련 -->
     	<mapper resource="./sqls/SMapper.xml"/>
-    	<mapper resource="./sqls/STimeMapper.xml"/>
     	<mapper resource="./sqls/SPhotoMapper.xml"/>
     	<mapper resource="./sqls/SLocaMapper.xml"/>
+    	
+    	<mapper resource="./sqls/STimeMapper.xml"/>
+    	
+    	<mapper resource="./sqls/CMainMapper.xml"/>
+    	<mapper resource="./sqls/CListMapper.xml"/>
+    	<mapper resource="./sqls/MenuMapper.xml"/>
   	</mappers>
 </configuration>
 

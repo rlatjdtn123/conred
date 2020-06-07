@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+  
+<mapper namespace="com.hk.conred.Menu">
+	<insert id="insertMenu" parameterType="Map">
+		INSERT ALL  
+		<foreach collection="list" item="item">
+			INTO CON_MENU 
+			VALUES(get_menu_seq,#{item.store_seq},#{item.category_code},
+			#{item.menu_name},#{item.menu_content},#{item.menu_price},#{item.menu_state})
+		</foreach>
+		SELECT *FROM DUAL
+	</insert>
+	
+	
+</mapper>
+	 

@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hk.conred.daos.ICListDao;
+import com.hk.conred.daos.ICMainDao;
+import com.hk.conred.daos.IMenuDao;
 import com.hk.conred.daos.ISDao;
 import com.hk.conred.daos.ISTimeDao;
+import com.hk.conred.dtos.CMainDto;
 import com.hk.conred.dtos.ODto;
 import com.hk.conred.dtos.SDto;
 import com.hk.conred.dtos.STimeDto;
@@ -19,6 +23,13 @@ public class SServiceImp implements ISService {
 	private ISDao SDaoImp;
 	@Autowired
 	private ISTimeDao STimeDaoImp;
+	@Autowired
+	private ICMainDao CMainDaoImp;
+	@Autowired
+	private ICListDao CListDaoImp;
+	@Autowired
+	private IMenuDao MenuDaoImp;
+	
 	//매장등록(사업자등록정보)
 	@Override
 	public boolean insertStoreCertify(SDto sdto) {
@@ -27,8 +38,6 @@ public class SServiceImp implements ISService {
 	//매장등록2(매장정보)
 	@Transactional
 	@Override
-//	public boolean updateStoreInfo(SDto sdto, STimeDto stimedto) {
-//	public boolean updateStoreInfo(SDto sdto, Map<String, Object> map) {
 	public boolean updateStoreInfo(SDto sdto,String[] time_day,String[] time_open,String[] time_close,String[] time_break) {
 		SDaoImp.updateStoreInfo(sdto);
 		//위의 updateStoreInfo을 true false 리턴 안해주는 이유
@@ -36,9 +45,16 @@ public class SServiceImp implements ISService {
 		return STimeDaoImp.insertStime(sdto,time_day,time_open,time_close,time_break);
 	}
 	//매장등록3(메뉴/서비스정보)
+	@Transactional
 	@Override
-	public boolean updateStoreMenu(SDto sdto) {//아직미구현
-		return SDaoImp.updateStoreMenu(sdto);
+	public boolean updateStoreMenu(SDto sdto,CMainDto cmaindto,
+			String[] clist,String[] category_code_2,String[] name,
+			String[] content,String[] price,String[] state) {//아직미구현
+		SDaoImp.updateStoreMenu(sdto);
+		CMainDaoImp.insertCMain(cmaindto);
+		CListDaoImp.insertCList(sdto, clist);
+//		MenuDaoImp.insertMenu(sdto, category_code_2, name, content, price, state);
+		return MenuDaoImp.insertMenu(sdto, category_code_2, name, content, price, state);
 	}
 	//Store Seq 가져오기
 	@Override

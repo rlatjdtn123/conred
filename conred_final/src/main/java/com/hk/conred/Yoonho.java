@@ -19,6 +19,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.hk.conred.dtos.CListDto;
+import com.hk.conred.dtos.CMainDto;
+import com.hk.conred.dtos.MenuDto;
 import com.hk.conred.dtos.ODto;
 import com.hk.conred.dtos.SDto;
 import com.hk.conred.dtos.STimeDto;
@@ -311,7 +314,7 @@ public class Yoonho {
 	}
 	
 	@RequestMapping(value = "owner_regist_finish.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String owner_regist_finish(Locale locale, Model model,String store_maxdate, SDto sdto, HttpServletRequest request) {
+	public String owner_regist_finish(Locale locale, Model model,String[] category_code_2, SDto sdto, CMainDto cmaindto, CListDto clistdto, MenuDto menudto, HttpServletRequest request/*,String store_maxdate*/) {
 		logger.info("점주: 매장등록 신청완료 로 이동  {}.", locale);
 		
 		//세션에서 id정보 가져오기(store_seq구하기용)
@@ -320,6 +323,11 @@ public class Yoonho {
 		SDto seq = sService.selectStoreSeq(odto);
 		
 		System.out.println("세션에서가져온sdto2의 store_seq값: "+seq.getStore_seq());
+		sdto.setStore_seq(seq.getStore_seq());
+		cmaindto.setStore_seq(seq.getStore_seq());//각 dto안에 store_seq값 넣어주기
+		clistdto.setStore_seq(seq.getStore_seq());//각 dto안에 store_seq값 넣어주기
+		menudto.setStore_seq(seq.getStore_seq());//각 dto안에 store_seq값 넣어주기
+		
 		sdto.setStore_seq(seq.getStore_seq());
 //		if(sdto.getStore_maxdate()==0) {
 //			sdto.setStore_maxdate(0);
@@ -330,15 +338,36 @@ public class Yoonho {
 		System.out.println("sdto에 넣은 store_seq값: "+sdto.getStore_seq());
 		System.out.println("sdto 최대일수:"+sdto.getStore_maxdate());
 		System.out.println("sdto 허용인원:"+sdto.getStore_maxman());
-		boolean isS=sService.updateStoreMenu(sdto);
+		
+		//체크한 대표카테고리
+		System.out.println("CMain 카테고리:"+cmaindto.getCategory_code());
+		//체크한 세부카테고리
+		System.out.println("CList 카테고리:"+clistdto.getCategory_code_small());
+		String [] clist=clistdto.getCategory_code_small().split(",");
+		//만든 메뉴
+		String [] name=menudto.getMenu_name().split(",");
+		String [] content=menudto.getMenu_content().split(",");
+		String [] price=menudto.getMenu_price().split(",");
+		String [] state=menudto.getMenu_state().split(",");
+		for (int i = 0; i < category_code_2.length; i++) {
+			System.out.println
+			("메뉴 카테고리코드: "+category_code_2[i]+"/ 메뉴명:"+name[i]+"/ 내용:"+
+					content[i]+"/ 가격:"+price[i]+"/ 예약코드:"+state[i]);
+		}
+		System.out.println("메뉴명: "+menudto.getMenu_name());
+		System.out.println("내용: "+menudto.getMenu_content());
+		System.out.println("가격: "+menudto.getMenu_price());
+		System.out.println("예약: "+menudto.getMenu_state());
+		
+//		return "";
+		boolean isS=sService.updateStoreMenu(sdto,cmaindto,clist,category_code_2,name,content,price,state);
 		if(isS) {
-			System.out.println("매장정보 업데이트성공~");
+			System.out.println("메뉴정보 업데이트성공~");
 			return "owner/owner_regist_finish"; 
 		}else{
-			System.out.println("매장정보 업데이트실패~");
+			System.out.println("메뉴정보 업데이트실패~");
 			return ""; 
 		}	
-		
 	}
 	
 	@RequestMapping(value = "store.do", method = {RequestMethod.GET,RequestMethod.POST})

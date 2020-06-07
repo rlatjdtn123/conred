@@ -30,8 +30,8 @@
  	#bot{padding-left:680px;} 
 	input{border:1px solid grey;vertical-align: middle;}
 	input[type=radio],input[type=checkbox]{margin-bottom:6px;}
-	
-	.numbers{width:50px;}
+	input[name=store_owner_name],input[name=store_owner_phone_certify]{width:170px;display: inline-block;}
+	.numbers{width:50px;display: inline-block;}
 	.bt {border:1px solid grey;background-color: grey;color: white;border-radius: 5px;height: 30px;margin-left: 10px;} 
 	.btn {margin-left: 10px;} 
 	.btn:hover {background-color: lightgrey;} 
@@ -81,9 +81,9 @@
 				<tr>
 					<td>사업자등록번호</td>
 					<td>
-						<input class="numbers" type="text" name="store_license_number"/> -
-						<input class="numbers" type="text" name="store_license_number"/> -
-						<input class="numbers" type="text" name="store_license_number"/>
+						<input class="numbers form-control" type="text" name="store_license_number"/> -
+						<input class="numbers form-control" type="text" name="store_license_number"/> -
+						<input class="numbers form-control" type="text" name="store_license_number"/>
 						<input type="hidden" name="store_license_number" value="111"/><!-- 테스트용 -->
 <!-- 						<input class="numbers" type="text" name="store_license_number1" required="required"/> - -->
 <!-- 						<input class="numbers" type="text" name="store_license_number2" required="required"/> - -->
@@ -127,16 +127,17 @@
 				</tr>
 				<tr>
 					<td>사업자명</td>
-					<td><input type="text" name="store_owner_name"/></td>
-					<input type="hidden" name="store_owner_name" value="111"/><!-- 테스트용 -->
+					<td><input class="form-control" type="text" name="store_owner_name"/>
+						<input type="hidden" name="store_owner_name" value="111"/><!-- 테스트용 -->
+					</td>
 <!-- 					<td><input type="text" name="store_owner_name" required="required"/></td> -->
 				</tr>
 				<tr>
 					<td>사업자 휴대폰번호</td>
 					<td>
-						<input class="numbers" type="text" name="store_owner_phone"/>- 
-						<input class="numbers" type="text" name="store_owner_phone"/>- 
-						<input class="numbers" type="text" name="store_owner_phone"/>
+						<input class="numbers form-control" type="text" name="store_owner_phone"/>- 
+						<input class="numbers form-control" type="text" name="store_owner_phone"/>- 
+						<input class="numbers form-control" type="text" name="store_owner_phone"/>
 						<input type="hidden" name="store_owner_phone" value="111"/><!-- 테스트용 -->
 <!-- 						<input class="numbers" type="text" name="store_owner_phone1" required="required"/>-  -->
 <!-- 						<input class="numbers" type="text" name="store_owner_phone2" required="required"/>-  -->
@@ -147,7 +148,7 @@
 				<tr>
 					<td>인증번호 입력</td>
 					<td>
-						<input type="text" name="store_owner_phone_certify"/>
+						<input class="form-control" type="text" name="store_owner_phone_certify"/>
 <!-- 						<input type="text" name="store_owner_phone_certify" required="required"/> -->
 						<input class="btn" value="인증완료" type="button" onclick=""/><!-- 온클릭안에 펑션명 + 스크립트로 펑션 만들기 -->
 					</td>
