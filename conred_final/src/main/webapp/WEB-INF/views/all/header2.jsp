@@ -1,3 +1,4 @@
+<%@page import="com.hk.conred.dtos.SDto"%>
 <%@page import="com.hk.conred.dtos.ODto"%>
 <%@page import="com.hk.conred.dtos.UDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
@@ -29,7 +30,7 @@
 	#profilebox{width:200px;height:30px;float:right;position: relative; bottom:22px;left:-10px;}
 	.profile{float:right; height:100%;line-height: 23px;padding-right:10px;}
 	#navibox{float:right;width:380px;height:30px; padding-right:15px;clear:both;position: relative; bottom:40px;}
-	.navis{float:right; padding-right: 5px;padding-left: 5px;height:100%;line-height: 30px;border-radius: 50px;}
+	.navis{float:right; padding-right: 5px;padding-left: 5px;height:100%;line-height: 30px;border-radius: 3px;}
 	.navis:hover{cursor: pointer; background-color: lightgrey;transition:all .3s;}
 	#profilepic{width:30px;float:right;padding-right:10px;}
 	
@@ -37,6 +38,7 @@
 	#searchbar{width:80%;}
 	#searchbtn{padding:3px;width:40px;height:35px;}
 	#magnifyglass{width:20px;}
+	.display_none{display: none;}
 </style>
 </head>
 <body>
@@ -44,6 +46,7 @@
 	<%
 		UDto uldto=(UDto)session.getAttribute("uldto");
 		ODto oldto=(ODto)session.getAttribute("oldto");
+		SDto sdto=(SDto)session.getAttribute("sdto");
 	%>
 	
 	<img id="logo" alt="logo2" src="./img/logo2.png" onclick="location.href='index.jsp'"><!-- 나중에 세션에따라 이동되는페이지 달라지게 바꾸기 -->
@@ -125,9 +128,25 @@
 <!-- 		점주 --> 
 		<div id="logout" class="navis" onclick="location.href='user_logout.do'">로그아웃</div>
 		<div id="o_info" class="navis" onclick="location.href='owner_myinfo.do'">나의정보</div>
-		<div id="o_tore" class="navis" onclick="location.href='store.do'">매장관리</div>
-		<div id="o_storeinfo" class="navis" onclick="location.href='owner_mystore_info.do'">매장정보</div>
-		<div id="o_reserve" class="navis" onclick="location.href='owner_mystore_reservation.do'">예약</div>
+		<%
+		if(uldto==null&&oldto!=null&&sdto!=null){/* 점주이면서, 유저가아니면서, store가 있는사람 에게만 표시 */ 
+		%>
+			<div id="o_tore" class="navis" onclick="location.href='store.do'">매장관리</div>
+			<div id="o_storeinfo" class="navis" onclick="location.href='owner_mystore_info.do'">매장정보</div>
+			<div id="o_reserve" class="navis" onclick="location.href='owner_mystore_reservation.do'">예약</div>
+		<%
+		}else{/*  점포가 아직 없는 점주에게만 "점포등록버튼" 표시 */ 
+		%>
+			<div id="o_reserve" class="navis" onclick="location.href='owner_regist_certify.do'">점포등록</div>
+		<%
+		}
+		%>
+
+<!-- 		<div id="logout" class="navis" onclick="location.href='user_logout.do'">로그아웃</div> -->
+<!-- 		<div id="o_info" class="navis" onclick="location.href='owner_myinfo.do'">나의정보</div> -->
+<!-- 		<div id="o_tore" class="navis" onclick="location.href='store.do'">매장관리</div> -->
+<!-- 		<div id="o_storeinfo" class="navis" onclick="location.href='owner_mystore_info.do'">매장정보</div> -->
+<!-- 		<div id="o_reserve" class="navis" onclick="location.href='owner_mystore_reservation.do'">예약</div> -->
 	<%
 		}else if(uldto!=null&&oldto==null&&uldto.getUser_role().equals("admin")){/*사용자는 로그인, 점주는 비로그인, 사용자등급==admin인 경우 */
 	%>

@@ -61,5 +61,9 @@ public class SServiceImp implements ISService {
 	public SDto selectStoreSeq(ODto odto) {
 		return SDaoImp.selectStoreSeq(odto);
 	}
+	@Override
+	public SDto selectStoreDetail(int store_seq) {
+		return SDaoImp.selectStoreDetail(store_seq);
+	}
 
 }

@@ -10,6 +10,8 @@ public interface ISDao {
 	public boolean updateStoreInfo(SDto sdto);
 	//매장등록3(메뉴/서비스정보)
 	public boolean updateStoreMenu(SDto sdto);
-	//Store Seq 가져오기
+	//로그인중인 점주의 store_Seq 가져오기
 	public SDto selectStoreSeq(ODto odto);
+	//일반 매장 상세정보들 가져오기
+	public SDto selectStoreDetail(int store_seq);
 }

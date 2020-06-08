@@ -26,5 +26,13 @@
 	<update id="updateSTime" parameterType="STimeDto">
 	
 	</update>
+	
+	<select id="selectSTime" parameterType="int" resultType="STimeDto">
+		<![CDATA[
+		SELECT *
+		FROM CON_STORE_TIME 
+		WHERE store_seq=#{store_seq}
+		]]>
+	</select>
 </mapper>
 	   

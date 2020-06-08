@@ -43,4 +43,10 @@ public class MenuDaoImp implements IMenuDao{
 		return count>0?true:false;
 	}
 
+	@Override
+	public List<MenuDto> selectMenu(int store_seq) {
+		List<MenuDto> list= sqlSession.selectList(namespace+"selectMenu",store_seq);
+		return list;
+	}
+
 }

@@ -1,7 +1,9 @@
+<%@page import="com.hk.conred.dtos.SDto"%>
 <jsp:include page="../all/header2.jsp" />
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=utf-8"); %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +17,7 @@
 	.navis2:hover{transition:all .3s;border-bottom:1px solid white;background-color: white;cursor:pointer;border-right:1px solid grey;border-left:1px solid grey;}
 	.home{border-bottom:1px solid white;background-color: white;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
 	
-	#photozone{width:100.1%; height:400px;border:1px solid grey;margin-top:19px;}
+	#photozone{width:100.1%; height:400px;border:1px solid grey;}
 	
 	.s_bold{font-size:20px;font-weight: bold;display:block;}
 	.s_bold2{font-size:15px;font-weight: bold;}
@@ -65,6 +67,7 @@
 	.flleft{float: left;}
 	.flright{float: right;}
 	.clrboth{clear: both;}
+	
 	hr{width:900px;border:0.5px solid grey;}
 	
 	#reserve_btn{position: sticky; bottom:0px;width:1000px;height:60px;background-color: #D8D8D8;margin:0 auto;border:1px solid grey;border-radius: 10px 10px 0px 0px;border-bottom: 0px;}
@@ -74,27 +77,47 @@
 </style>
 </head>
 <body>
-<div id="container">
-	<div id="sticky">
-		<div id="navi2">
-			<div class="navis2 home" onclick="location.href='store.do'">
-				매장 홈
-			</div>
-			<div class="navis2" onclick="location.href='owner_mystore_update.do'">
-				매장정보 수정
-			</div>
-			<div class="navis2" onclick="location.href='owner_mystore_reservation.do'">
-				예약관리
-			</div>
-			<div class="navis2" onclick="location.href='owner_mystore_review.do'">
-				리뷰관리
-			</div>
-			<div class="navis2" onclick="location.href='owner_mystore_qna.do'">
-				문의관리
-			</div>
-		</div>
-	</div>
+<%
+	//내 (세션)sldto.getStore_seq()와 이 (파라미터)sdto.getStore_seq()가 맞는지
+	// 	SDto sdto =  >>>>>>스크립트릿에서하는법이뭐더라 jstl로 하자. 
+	
+//		뿌려줄 값 model 이름들
+//			store_detail// 영업시간
+// 			list_stime// 영업시간
+// 			cmain// 대분류카테고리
+// 			list_clist// 소분류카테고리
+// 			list_menu// 메뉴
 
+//		내 매장인지/타인 매장인지 여부 확인용
+// 			s_seq//현재 매장 번호
+// 			sldto//로그인중인 사람의 매장정보 (세션)
+%>
+<div id="container">
+	<c:choose>
+		<c:when test="${s_seq eq sldto.store_seq}">
+		<!-- 	스틱키 보이게하려면 class="display_none"주고 #photozone에 margin-top:19px 주기-->
+			<div id="sticky">
+				<div id="navi2">
+					<div class="navis2 home" onclick="location.href='store.do'">
+						매장 홈
+					</div>
+					<div class="navis2" onclick="location.href='owner_mystore_update.do'">
+						매장정보 수정
+					</div>
+					<div class="navis2" onclick="location.href='owner_mystore_reservation.do'">
+						예약관리
+					</div>
+					<div class="navis2" onclick="location.href='owner_mystore_review.do'">
+						리뷰관리
+					</div>
+					<div class="navis2" onclick="location.href='owner_mystore_qna.do'">
+						문의관리
+					</div>
+				</div>
+			</div>
+		</c:when>
+	</c:choose>
+	
 	<div id="photozone">
 	carousel
 	</div>
@@ -103,7 +126,8 @@
 			<div><span id="s_state">영업중</span></div>
 			<div>
 				<img class="medal" alt="" src="./img/gold.png">
-				<span id="s_title">댕댕미용실
+<!-- 				<span id="s_title">댕댕미용실 -->
+				<span id="s_title">${store_detail.store_name}
 				</span>
 			</div>
 			<div id="s_cates">
@@ -117,7 +141,8 @@
 					<img class="icons" title="애견카페" src="./img/profile_default.png">
 				</div>
 			</div>
-			<div id="s_intro_small">고양이도 개처럼 만들어주는 댕댕미용실</div>
+<!-- 			<div id="s_intro_small">고양이도 개처럼 만들어주는 댕댕미용실</div> -->
+			<div id="s_intro_small">${store_detail.store_intro_simple}</div>
 			<div id="s_reviews">
 				<div id="s_star">★★★★☆ 4.7<span>/5</span></div>
 				<div class="s_btn" onclick="location.href='review.do'">리뷰 | 999+</div>
@@ -125,8 +150,10 @@
 		</div>
 		<div class="info2 width2" >
 			<br>
-			<div><span  class="s_phone">매장번호 :</span><span>02-111-1111</span></div>
-			<div><span class="s_phone">담당자번호 :</span><span>010-1111-1111</span></div>
+<!-- 			<div><span  class="s_phone">매장번호 :</span><span>02-111-1111</span></div> -->
+<!-- 			<div><span class="s_phone">담당자번호 :</span><span>010-1111-1111</span></div> -->
+			<div><span  class="s_phone">매장번호 :</span><span>${store_detail.store_phone}</span></div>
+			<div><span class="s_phone">담당자번호 :</span><span>${store_detail.store_phone_manager}</span></div>
 		</div>
 	</div>
 <!-- 	<hr> -->
@@ -142,15 +169,15 @@
 				<span class="s_week">토요일</span>
 				<span>10:00</span>~<span>13:00</span>
 			</div>
-			<div class="s_bold2 redfont">매주 월요일, 일요일 휴무</div>
+<!-- 			<div class="s_bold2 redfont">매주 월요일, 일요일 휴무</div> -->
+			<div class="s_bold2 redfont">${store_detail.store_time_other}</div>
 		</div>
 		<div class="info1 seroline" >
 			<div class="s_bold">주소</div>
 			<br>
 			<div id="addr">
-				<span>한경한경시 한경구 한경동</span><br>
-				<span>한경한경시 한경구 한경동</span><br>
-				<span>경빌딩 404호</span>
+				<span>${store_detail.store_address}</span><br>
+				<span>${store_detail.store_address_detail}</span>
 			</div>
 			<div id="addr_detail"></div>
 			<div class="s_btn s_mapbtn" onclick="location.href='map.do'">
@@ -161,12 +188,9 @@
 	<div class="infobox section">
 		<div class="s_bold">매장소개</div>
 		<br>
-		<div class="s_intro_big">고양이도 개처럼 만들어주는 댕댕미용실고양이도 개처럼 만들어주는 댕댕미용실고양이도 개처럼
-		 만들어주는 댕댕미용실고양이도 개처럼 만들어주는 댕댕미용실고양이도 개처럼 만들어주는 댕댕미용실고
-		 양이도 개처럼 만들어주는 댕댕미용실고양이도 개처럼 만들어주는 댕댕미용실고양이도 개처럼 만들어주는 
-		 댕댕미용실고양이도 개처럼 만들어주는 댕댕미용실고양이도 개처럼 만들어주는 댕댕미용실고양이도 개처럼
-		  만들어주는 댕댕미용실고양이도 개처럼 만들어주는 댕댕미용실고양이도 개처럼 만들어주는 댕댕미용실고양
-		  이도 개처럼 만들어주는 댕댕미용실</div>
+		<div class="s_intro_big">
+			${store_detail.store_intro}
+		</div>
 	</div>
 	<div class="infobox section">
 		<div class="s_bold">메뉴</div>

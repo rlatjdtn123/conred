@@ -13,4 +13,12 @@
 		</foreach>
 		SELECT *FROM DUAL
 	</insert>
+	
+	<select id="selectCList" parameterType="int" resultType="CListDto">
+		<![CDATA[
+			SELECT *
+			FROM CON_CATEGORY_LIST
+			WHERE store_seq=#{store_seq}
+		]]>
+	</select>
 </mapper>

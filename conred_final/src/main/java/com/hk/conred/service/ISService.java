@@ -17,4 +17,6 @@ public interface ISService {
 			String[] content,String[] price,String[] state);
 	//Store Seq 가져오기
 	public SDto selectStoreSeq(ODto odto);
+	//일반 매장 상세정보들 가져오기
+	public SDto selectStoreDetail(int store_seq);
 }

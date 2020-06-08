@@ -38,4 +38,10 @@ public class CListDaoImp implements ICListDao{
 		return count>0?true:false;
 	}
 
+	@Override
+	public List<CListDto> selectCList(int store_seq) {
+		List<CListDto> list =sqlSession.selectList(namespace+"selectCList",store_seq);
+		return list;
+	}
+
 }

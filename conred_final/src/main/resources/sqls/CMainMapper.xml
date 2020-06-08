@@ -9,4 +9,12 @@
 		INSERT INTO CON_CATEGORY_MAIN
 		VALUES(con_category_main_seq.NEXTVAL,#{store_seq},#{category_code})
 	</insert>
+	
+	<select id="selectCMain" parameterType="int" resultType="CMainDto">
+		<![CDATA[
+		SELECT *
+		FROM CON_CATEGORY_MAIN 
+		WHERE store_seq=#{store_seq}
+		]]>
+	</select>
 </mapper>

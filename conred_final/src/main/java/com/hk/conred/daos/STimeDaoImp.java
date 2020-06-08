@@ -48,5 +48,11 @@ public class STimeDaoImp implements ISTimeDao{
 	public boolean updateStime(STimeDto stimedto) {
 		return false;
 	}
+
+	@Override
+	public List<STimeDto> selectStime(int store_seq) {
+		List<STimeDto> list=sqlSession.selectList(namespace+"selectSTime", store_seq);
+		return list;
+	}
 	
 }

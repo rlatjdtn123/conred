@@ -41,5 +41,9 @@ public class SDaoImp implements ISDao {
 	public SDto selectStoreSeq(ODto odto) {
 		return sqlSession.selectOne(namespace+"selectStoreSeq",odto);
 	}
+	@Override
+	public SDto selectStoreDetail(int store_seq) {
+		return sqlSession.selectOne(namespace+"selectStoreDetail",store_seq);
+	}
 	
 }

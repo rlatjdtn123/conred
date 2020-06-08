@@ -1,5 +1,7 @@
 package com.hk.conred;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,6 +11,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -18,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hk.conred.dtos.CListDto;
 import com.hk.conred.dtos.CMainDto;
@@ -26,8 +30,12 @@ import com.hk.conred.dtos.ODto;
 import com.hk.conred.dtos.SDto;
 import com.hk.conred.dtos.STimeDto;
 import com.hk.conred.dtos.UDto;
+import com.hk.conred.service.ICListService;
+import com.hk.conred.service.ICMainService;
+import com.hk.conred.service.IMenuService;
 import com.hk.conred.service.IOService;
 import com.hk.conred.service.ISService;
+import com.hk.conred.service.ISTimeService;
 import com.hk.conred.service.OServiceImp;
 
 @Controller
@@ -39,7 +47,14 @@ public class Yoonho {
 	private IOService oService;
 	@Autowired
 	private ISService sService;
-	
+	@Autowired
+	private ISTimeService sTimeService;
+	@Autowired
+	private ICMainService cMainService;
+	@Autowired
+	private ICListService cListService;
+	@Autowired
+	private IMenuService menuService;
 	
 	@RequestMapping(value = "yoonho.do", method = RequestMethod.GET)
 	public String yoonho(Locale locale, Model model) {
@@ -54,6 +69,21 @@ public class Yoonho {
 		
 		return "test/yoonho"; 
 	}
+	
+//	@ResponseBody
+//	@RequestMapping(value = "ajax_owner_id.do", method = RequestMethod.GET)
+//	public Map<String, Object> ajax_owner_id(Locale locale, Model model, HttpServletRequest request, HttpServletResponse response) {
+//		logger.info("아약스: 점주아이디 얻으러 이동 {}.", locale);
+//		HttpSession session =request.getSession();
+//		ODto oldto = (ODto)session.getAttribute("oldto");
+//		SDto seq =sService.selectStoreSeq(oldto);
+//		System.out.println(seq);
+//		System.out.println(seq.getStore_seq());
+//		
+//		Map<String, Object> map =new HashMap<>();
+//		map.put("seq", seq.getStore_seq());
+//		return map; 
+//	}
 	
 	@RequestMapping(value = "header.do", method = RequestMethod.GET)
 	public String header(Locale locale, Model model) {
@@ -132,8 +162,9 @@ public class Yoonho {
 		
 		HttpSession session=request.getSession();
 		ODto oldto=oService.getLogin(dto.getOwner_id(),dto.getOwner_password());
-		
 		System.out.println(oldto.getOwner_id());
+		SDto seq =sService.selectStoreSeq(oldto);
+		System.out.println(seq);
 		
 		/*탈퇴컬럼 만들기 owner_out*/
 		if(oldto.getOwner_id()==null||oldto.getOwner_id().equals("")) {
@@ -141,6 +172,7 @@ public class Yoonho {
 			return "";
 		}else{
 			session.setAttribute("oldto", oldto);
+			session.setAttribute("sdto", seq);
 			session.setMaxInactiveInterval(60*10*6);
 			return "all/users_main"; 
 		}	
@@ -371,8 +403,37 @@ public class Yoonho {
 	}
 	
 	@RequestMapping(value = "store.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String store(Locale locale, Model model) {
-		logger.info("공통메인(사용자별메인)테스트로 이동  {}.", locale);
+	public String store(Locale locale, Model model,String s_seq, HttpServletRequest request) {
+		logger.info("(일렬번호 : "+s_seq+")번 매장(사용자별 매장)으로 이동  {}.", locale);
+		HttpSession session = request.getSession();
+		ODto odto =(ODto)session.getAttribute("oldto");
+		SDto sldto = sService.selectStoreSeq(odto);
+		int store_seq = Integer.parseInt(s_seq);
+		
+		SDto store_detail = sService.selectStoreDetail(store_seq);
+		List<STimeDto> list_stime =sTimeService.selectStime(store_seq);
+		CMainDto cmain =cMainService.selectCMain(store_seq);
+		List<CListDto> list_clist =cListService.selectCList(store_seq);
+		List<MenuDto> list_menu =menuService.selectMenu(store_seq);
+
+		System.out.println("store_detail : "+store_detail);
+		System.out.println("list_stime : "+list_stime);
+		System.out.println("cmain : "+cmain);
+		System.out.println("list_clist : "+list_clist);
+		System.out.println("list_menu : "+list_menu);
+		
+		System.out.println("sdto의 store_seq:"+s_seq);
+		System.out.println("sldto의 store_seq:"+sldto.getStore_seq());
+		//뿌려줄값들
+		model.addAttribute("store_detail",store_detail);// 영업시간
+		model.addAttribute("list_stime",list_stime);// 영업시간
+		model.addAttribute("cmain",cmain);// 대분류카테고리
+		model.addAttribute("list_clist",list_clist);// 소분류카테고리
+		model.addAttribute("list_menu",list_menu);// 메뉴
+		
+		//내 매장인지/타인 매장인지 여부 확인용
+		model.addAttribute("s_seq",s_seq);//내 매장인지/타인 매장인지 여부 확인용
+		model.addAttribute("sldto",sldto);//스토어정보 세션
 		
 		return "all/store"; 
 	}

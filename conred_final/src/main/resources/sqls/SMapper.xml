@@ -60,11 +60,25 @@
      </update>
  
 	 <select id="selectStoreSeq" parameterType="ODto" resultType="SDto">
-		SELECT cs.STORE_SEQ
-		FROM CON_OWNER co, CON_STORE cs
-		WHERE co.OWNER_ID =cs.OWNER_ID
-		AND cs.OWNER_ID =#{owner_id}
+<!-- 		SELECT cs.STORE_SEQ -->
+<!-- 		FROM CON_OWNER co, CON_STORE cs -->
+<!-- 		WHERE co.OWNER_ID =cs.OWNER_ID -->
+<!-- 		AND cs.OWNER_ID =#{owner_id} -->
+		<![CDATA[ 
+			SELECT *
+			FROM CON_OWNER co, CON_STORE cs
+			WHERE co.OWNER_ID =cs.OWNER_ID
+			AND cs.OWNER_ID =#{owner_id}
+		]]>
 	 </select> 
+	 
+	 <select id="selectStoreDetail" parameterType="int" resultType="SDto">
+	 	<![CDATA[ 
+			SELECT *
+			FROM CON_STORE
+			WHERE STORE_SEQ =#{store_seq}
+		]]>
+	 </select>
 
    
 </mapper>

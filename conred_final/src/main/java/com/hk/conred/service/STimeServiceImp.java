@@ -1,5 +1,7 @@
 package com.hk.conred.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,12 @@ public class STimeServiceImp implements ISTimeService{
 	@Override
 	public boolean updateStime(STimeDto stimedto) {
 		return false;
+	}
+
+	@Override
+	public List<STimeDto> selectStime(int store_seq){
+		
+		return STimeDaoImp.selectStime(store_seq);
 	}
 
 }
