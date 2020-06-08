@@ -16,6 +16,9 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<link href="css/star_service.css" rel="stylesheet"> 
+<link href="css/star_price.css" rel="stylesheet">
+<link href="css/star_clean.css" rel="stylesheet">
 <style type="text/css">
 	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 /* 	#sticky{position: sticky; top:71px;} */
@@ -35,24 +38,32 @@
 	.info2{background-color: #F2F2F2; margin-top: 50px; height: 100px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 770px;}
 	.bot{margin: 0 auto; text-align: center;}
 	
+	
 	 .modal-title{margin-left: 400px;}
-	.modal-body span{margin: 85px;}
+	.modal-body span{margin: 5px;}
 	textarea:focus::-webkit-input-placeholder { color: transparent; }
-	.modal-footer  div{border: 1px solid black;width: 153px; height: 110px; float: left;}
+	.modal-footer{width: 897px; height: 630px;border-width: 0px;}
+	
+	
 	input[type=file] {display: none;}
      .my_button {
          display: inline-block; width: 200px;  text-align: center; padding: 10px; background-color: #006BCC;color: #fff;
-         text-decoration: none; border-radius: 5px;}
-     .imgs_wrap { width: 700px;}
-     .imgs_wrap img {max-width: 150px;margin-left: 5px;margin-right: 5px;}
-	.input_wrap {clear: both;} 
+         text-decoration: none; border-radius: 5px; float: left;}
+     .imgs_wrap { width: 880px;height:130px; border: 1px solid black;}
+     .imgs_wrap img {max-width: 120px;max-height: 120px;min-width: 120px;min-height: 120px;margin-left: 25px;margin-right: 25px;}
+	.input_wrap {margin: 10px 0 10px 0;}
 	.modal_Btn{border: 0; margin-left: 300px; height: 50px; }
-	#img_id_0,#img_id_1,#img_id_2,#img_id_3,#img_id_4{float:left;}
-</style>  
-<script type="text/javascript">	    
-	//Javascript 
+ 	.overfive{float: left;} 
+ 	.star_bigtle{margin-left: 65px; float: left;}
+ 	.upload_message{height: 40px; width: 400px;margin-left: 215px; text-align: center; line-height: 37px;}
+       
+</style>   
+<script type="text/javascript">
+
+
+	//////////////스크롤 페이징
 	var count = 0;
-	//스크롤 바닥 감지
+	//스크롤 바닥 감지 
 	window.onscroll = function(e) {
 	    //추가되는 임시 콘텐츠
 	    //window height + window scrollY 값이 document height보다 클 경우,
@@ -83,12 +94,123 @@
 	};
  
 	
+	
+	//////////////모달창
 	$(document).ready(function(){
 	    $(".modal_Btn").click(function(){
-	        $("div.modal").modal(); 
+	        $("div.modal").modal();
+	        
+	        ////////////////////////
+	        var $star01 = $(".star-input01")
+		    var $result01;
+	        var $star_chacked=$star01.find(":checked"); 
+	       	alert($star_chacked);
+		  $(document)
+		    .on("focusin", ".star-input01>.input", function(){
+		    $(this).addClass("focus");
+		  })
+		    .on("focusout", ".star-input01>.input", function(){
+		    var $this = $(this);
+		    setTimeout(function(){
+		      if($this.find(":focus").length === 0){
+		        $this.removeClass("focus");
+		      }
+		    }, 100); 
+		  })
+		    .on("change", ".star-input01 :radio", function(){ 
+		    	$(this).parents(".star-input01").find("b").text($(this).val());
+		  })
+		    .on("mouseover", ".star-input01 label", function(){
+		    	$(this).parents(".star-input01").find("b").text($(this).text());
+		  })
+		    .on("mouseleave", ".star-input01>.input", function(){
+		    var $checked = $star01.find(":checked");
+		    if($checked.length === 0){
+		    	$(this).parents(".star-input01").find("b").text("0");
+		    	alert($(this).parents(".star-input01").find("b").text("0")+"!!!");
+		    } else {
+		    	$(this).parents(".star-input01").find("b").text($checked.next().text());
+		    	alert($(this).parents(".star-input01").find("b").text($checked.next().text())+"@@@");
+		    }
+		  }); 
+		
+		 /////////////////가격 평점
+		  var $star02 = $(".star-input02"),
+		      $result = $star02.find("output>b");
+		  $(document)
+		    .on("focusin", ".star-input02>.input", function(){
+		    $(this).addClass("focus");
+		  })
+		    .on("focusout", ".star-input02>.input", function(){
+		    var $this = $(this);
+		    setTimeout(function(){
+		      if($this.find(":focus").length === 0){
+		        $this.removeClass("focus");
+		      }
+		    }, 100); 
+		  })
+		    .on("change", ".star-input02 :radio", function(){ 
+		    	$(this).parents(".star-input01").find("b").text($(this).val());
+		  })
+		    .on("mouseover", ".star-input02 label", function(){
+		    	$(this).parents(".star-input01").find("b").text($(this).text());
+		  })
+		    .on("mouseleave", ".star-input02>.input", function(){
+		    var $checked = $star02.find(":checked");
+		    if($checked.length === 0){
+		    	$(this).parents(".star-input02").find("b").text("0");
+		    } else {
+		    	$(this).parents(".star-input02").find("b").text($checked.next().text());
+		    }
+		  }); 
+		
+		  /////////////////청결도 평점
+		  var $star03 = $(".star-input03"),
+		      $result = $star03.find("output>b");
+		  $(document)
+		    .on("focusin", ".star-input03>.input", function(){ 
+		    $(this).addClass("focus");
+		  })
+		    .on("focusout", ".star-input03>.input", function(){
+		    var $this = $(this);
+		    setTimeout(function(){
+		      if($this.find(":focus").length === 0){
+		        $this.removeClass("focus");
+		      }
+		    }, 100); 
+		  }) 
+		    .on("change", ".star-input03 :radio", function(){ 
+		    	$(this).parents(".star-input03").find("b").text($(this).val());
+		  })
+		    .on("mouseover", ".star-input03 label", function(){ 
+		    	$(this).parents(".star-input03").find("b").text($(this).text());
+		  })
+		    .on("mouseleave", ".star-input03>.input", function(){
+		    var $checked = $star03.find(":checked"); 
+		    if($checked.length === 0){
+		    	$(this).parents(".star-input03").find("b").text("0");
+		    } else {
+		    	$(this).parents(".star-input03").find("b").text($checked.next().text());
+		    }
+		  }); 
+	        
+	        
+	      ////완료버튼  
+		  $(".close").click(function(){
+	    	  alert($star_chacked.val()); 
+	      });  
+		   
+		  
+		  
 	    });
 	});
 	
+	
+	
+	
+	
+	
+	///////////////파일업로드
 	// 이미지 정보들을 담을 배열
 	var sel_files = [];
 	
@@ -121,12 +243,16 @@
 	        sel_files.push(f);
 	
 	        var reader = new FileReader();
-	        var imges;
 	        reader.onload = function(e) {
-	            var html = "<a href=\"javascript:void(0);\" onclick=\"deleteImageAction("+index+")\" id=\"img_id_"+index+"\"><img src=\"" + e.target.result + "\" data-file='"+f.name+"' class='selProductFile' title='Click to remove'></a>";
-	            imges=$(".imgs_wrap");
-	                imges.append(html);
+	            var html = "<a style='width:120px;height:120px;' href=\"javascript:void(0);\" onclick=\"deleteImageAction("+index+")\" id=\"img_id_"+index+"\"><img src=\"" + e.target.result + "\" data-file='"+f.name+"' class='selProductFile overfive' title='Click to remove'></a>";
+	            $(".imgs_wrap").append(html);
 	                index++;
+	                if(index>5){ 
+						$(".overfive").eq(5).remove();
+						$(".upload_message").text("5개까지만 등록할 수 있습니다.").css("color", "red");
+					}else{
+						$(".upload_message").text("");
+					}
 	        }
 	        reader.readAsDataURL(f);
 	        
@@ -150,36 +276,93 @@
 	    $("#input_imgs").trigger('click');
 	}
 	
+
+	
+	
+	
 </script> 
 </head>
 <body>
-<!-- Modal -->
+<!-- 모탈창 부분 -->
 <div class="modal fade" id="myModal" role="dialog">
 	<div class="modal-dialog modal-lg">
   		<!-- Modal content-->
    		<div class="modal-content">
-     		<div class="modal-header">
+     		<div class="modal-header"> 
        			<button type="button" class="close" data-dismiss="modal">리뷰 작성 완료</button>
        			<h4 class="modal-title">가게이름</h4>
      		</div>
      		<div class="modal-body"> 
-       			<span>서비스 ☆☆☆☆☆</span>|<span>가격 ☆☆☆☆☆</span>|<span>청결도 ☆☆☆☆☆</span>
-     		</div>  
-     		<div class="modal-footer"> 
-     			<div style="margin-bottom: 50px; width: 870px;  ">   
-				    <div class="imgs_wrap" style="width: 850px; border: 1 solid black;">    
-				           
-				    </div>          
-				    <div class="input_wrap" style="border: 0;"> 
-				        <a href="javascript:" onclick="fileUploadAction();" class="my_button">파일 업로드</a>
-				        <input type="file" id="input_imgs" multiple/>
-				    </div>   
+     			<div class="star_bigtle"> 
+  				<span class="star-input01">서비스
+				    <span class="input">
+					    <input type="radio" name="star-input01" id="s1" value="0.5"><label for="s1" class="star_service">0.5</label>
+					    <input type="radio" name="star-input01" id="s2" value="1"><label for="s2" class="star_service">1</label>
+					    <input type="radio" name="star-input01" id="s3" value="1.5"><label for="s3"class="star_service">1.5</label>
+					    <input type="radio" name="star-input01" id="s4" value="2"><label for="s4" class="star_service">2</label>
+					    <input type="radio" name="star-input01" id="s5" value="2.5"><label for="s5" class="star_service">2.5</label>
+					    <input type="radio" name="star-input01" id="s6" value="3"><label for="s6" class="star_service">3</label>
+					    <input type="radio" name="star-input01" id="s7" value="3.5"><label for="s7" class="star_service">3.5</label>
+					    <input type="radio" name="star-input01" id="s8" value="4"><label for="s8" class="star_service">4</label>
+					    <input type="radio" name="star-input01" id="s9" value="4.5"><label for="s9" class="star_service">4.5</label>
+					    <input type="radio" name="star-input01" id="s10" value="5"><label for="s10" class="star_service">5</label>
+				    </span>
+			    	<output for="star-input"><b>0</b>점</output>
+				</span>
 				</div>
+				<div class="star_bigtle">  
+				<span class="star-input02">가격
+				    <span class="input">
+					    <input type="radio" name="star-input02" id="p1" value="0.5"><label for="p1" class="star_price">0.5</label>
+					    <input type="radio" name="star-input02" id="p2" value="1"><label for="p2" class="star_price">1</label>
+					    <input type="radio" name="star-input02" id="p3" value="1.5"><label for="p3" class="star_price">1.5</label>
+					    <input type="radio" name="star-input02" id="p4" value="2"><label for="p4" class="star_price">2</label>
+					    <input type="radio" name="star-input02" id="p5" value="2.5"><label for="p5" class="star_price">2.5</label>
+					    <input type="radio" name="star-input02" id="p6" value="3"><label for="p6" class="star_price">3</label>
+					    <input type="radio" name="star-input02" id="p7" value="3.5"><label for="p7" class="star_price">3.5</label>
+					    <input type="radio" name="star-input02" id="p8" value="4"><label for="p8" class="star_price">4</label>
+					    <input type="radio" name="star-input02" id="p9" value="4.5"><label for="p9" class="star_price">4.5</label>
+					    <input type="radio" name="star-input02" id="p10" value="5"><label for="p10" class="star_price">5</label>
+				    </span>
+			    	<output for="star-input"><b>0</b>점</output>
+		    	</span>
+		    	</div>
+		    	<div class="star_bigtle">
+			    <span class="star-input03">청결도 
+				    <span class="input">
+					    <input type="radio" name="star-input03" id="c1" value="0.5"><label for="c1">0.5</label>
+					    <input type="radio" name="star-input03" id="c2" value="1"><label for="c2">1</label>
+					    <input type="radio" name="star-input03" id="c3" value="1.5"><label for="c3">1.5</label>
+					    <input type="radio" name="star-input03" id="c4" value="2"><label for="c4">2</label>
+					    <input type="radio" name="star-input03" id="c5" value="2.5"><label for="c5">2.5</label>
+					    <input type="radio" name="star-input03" id="c6" value="3"><label for="c6">3</label>
+					    <input type="radio" name="star-input03" id="c7" value="3.5"><label for="c7">3.5</label>
+					    <input type="radio" name="star-input03" id="c8" value="4"><label for="c8">4</label>
+					    <input type="radio" name="star-input03" id="c9" value="4.5"><label for="c9">4.5</label>
+					    <input type="radio" name="star-input03" id="c10" value="5"><label for="c10">5</label>
+				    </span>
+			    	<output for="star-input"><b>0</b>점</output>
+		    	</span>
+				</div>
+     		</div>
+     		
+     		  
+     		<div class="modal-footer">  
+				    <div class="imgs_wrap">    
+			          
+				    </div>          
+			    <div class="input_wrap">  
+			        <a href="javascript:" onclick="fileUploadAction();" class="my_button">파일 업로드</a>
+		    		<div class="upload_message"></div>
+			        <input type="file" id="input_imgs" multiple/>
+			    </div>   
        			<textarea rows="20" cols="120" style="resize: none;" placeholder="리뷰 작성 해주세요."></textarea>
      		</div>
    		</div>  
 	</div> 
 </div>
+
+
 <div id="container"> 
 	<div id="main">
 		<span id="main2">리뷰 ★★★★★ &nbsp;<b style="font-size: 25px;">4.7</b>/5 &nbsp; &nbsp; &nbsp;후기2343개|답변2033개</span><button class="modal_Btn">리뷰 작성</button><br>
@@ -199,7 +382,7 @@
 				<td>★★★★☆ 4.5<span>/5</span></td>
 			</tr>
 		</table>  
-	</div> 
+	</div>  
     <div class="mybox">         
 		<img src="./img/profile_default.png" class="pf"/>
 		<div class="info">
@@ -210,7 +393,7 @@
 		</div>
 		<div class="info2">    
 			<span style="font-weight: bold;">가게답변</span><br>
-			<span>dddddddddddddddddddddddddddddddddd</span>
+			<span>dddddddddddddddddddddddddddddddddd</span> 
 		</div>
 	</div>      
 	<br><br>
@@ -221,7 +404,7 @@
 			<span>닉네임:?? &nbsp;| 미용 / 컷트 </span><br><br><br>   
 			<span class="contents">asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjdddddddddddddddddddd
 			ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</span>   
-		</div>
+		</div> 
 		<div class="info2">    
 			<span style="font-weight: bold;">가게답변</span><br>
 			<span>dddddddddddddddddddddddddddddddddd</span>

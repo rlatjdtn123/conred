@@ -47,10 +47,10 @@
 	  line-height: 16px;
 	  background-color: #fff;
 	  color: #DD5D54;
-	  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.03);
+ 	  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.03);  
 	  transition: border .2s ease-out,box-shadow .1s ease-out,background-color .4s ease-out;
-	  cursor: pointer;
-	}
+	  cursor: pointer; 
+	} 
 	
 	.btn_like:hover {
 	  border: 1px solid rgba(228,89,89,0.3);
@@ -97,6 +97,7 @@
 	    -webkit-background-size: 9000px 125px;
 	    background-size: 9000px 125px;
 	    animation: on_m 1.06s steps(72);
+	    border-width: 0px;
 	}
 	
 	.ani_heart_m.bye {
@@ -105,6 +106,13 @@
 	    background-size: 8250px 125px;
 	    animation: off_m 1.06s steps(66);
 	}
+	.ani_heart_m.bye:active {border-width: 0px;}
+	.ani_heart_m.bye::focus { outline:none; }
+	.ani_heart_m.bye:hover {border-width: 0px;}
+
+	.ani_heart_m.hi:focus { outline:none; }
+	.ani_heart_m.hi:active {border-width: 0px;}
+	.ani_heart_m.hi:hover {border-width: 0px;}
 	
 	@keyframes on_m {
 	  from { background-position: 0 }
@@ -115,7 +123,7 @@
 	  from { background-position: 0 }
 	  to { background-position: -8250px }
 	}
-	
+	.btn_like:focus { outline:none; }
 	
 	
 </style>
@@ -247,10 +255,10 @@
 		 		<div style="margin-left: 630px; margin-top: 40px;">
 			 		<button type="button" class="btn_like">
 						<span class="img_emoti">좋아요</span>
-						<span class="ani_heart_m"></span>  
+						<span class="ani_heart_m" ></span>  
 					</button>
 		 		</div> 
-		 	</div> 	    
+		 	</div> 	     
 		</div>  
 		<br><br>  
 	<%

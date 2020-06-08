@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Insert title here</title>
 <script src="js/jquery-3.4.1.js"></script>
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -43,7 +43,10 @@
 		 width: 800px;
      }
      .imgs_wrap img {
-         max-width: 150px;
+         max-width: 120px;
+         max-height: 120px; 
+         min-width: 120px; 
+         min-height: 120px; 
          margin-left: 10px;
          margin-right: 10px;
      }
@@ -88,13 +91,19 @@
 
             var reader = new FileReader();
             reader.onload = function(e) {
-                var html = "<a href=\"javascript:void(0);\" onclick=\"deleteImageAction("+index+")\" id=\"img_id_"+index+"\"><img src=\"" + e.target.result + "\" data-file='"+f.name+"' class='selProductFile' title='Click to remove'></a>";
+                var html = "<a style='width:120px;height:120px;' href=\"javascript:void(0);\" onclick=\"deleteImageAction("+index+")\" id=\"img_id_"+index+"\"><img src=\"" + e.target.result + "\" data-file='"+f.name+"' class='selProductFile overfive' title='Click to remove' ></a>";
                 $(".imgs_wrap").append(html);
-                index++; 
-//                 class='selProductFile'
-            }
+                index++; 	
+				if(index>5){ 
+					$(".overfive").eq(5).remove();
+					$(".b").text("5개까지만 등록할 수 있습니다.");
+				}else{
+					$(".b").text("");
+				}
+            } 
             reader.readAsDataURL(f);
             
+    	
         });
     }
 
@@ -128,6 +137,7 @@
 </div> 
 <div>
     <div class="input_wrap">
+    	<div class="b"></div>
         <a href="javascript:" onclick="fileUploadAction();" class="my_button">파일 업로드</a>
         <input type="file" id="input_imgs" multiple/>
     </div>

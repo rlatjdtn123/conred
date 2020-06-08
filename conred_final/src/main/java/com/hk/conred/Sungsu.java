@@ -91,8 +91,9 @@ public class Sungsu {
 	@RequestMapping(value = "user_regist.do", method = RequestMethod.GET)
 	public String user_regist(Locale locale, Model model) {
 		logger.info("테스트용 유저 회원가입 접근 {}.", locale);
-	
+
 		return "user/user_regist"; 
+		
 	}
 		
 //	@RequestMapping(value = "user_insert.do", method = {RequestMethod.GET,RequestMethod.POST})

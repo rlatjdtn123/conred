@@ -7,7 +7,7 @@
 <mapper namespace="com.hk.conred.Like">
 	
 	<select id="likeList" parameterType="Map" resultType="LikeDto"> 
-		SELECT  rn, LIKE_LIST_SEQ ,USER_ID ,cs.STORE_SEQ  ,cs.STORE_NAME,cs.STORE_INTRO_SIMPLE,cs.STORE_ADDRESS
+		SELECT  rn, cl.LIKE_LIST_SEQ ,cl.USER_ID ,cs.STORE_SEQ  ,cs.STORE_NAME,cs.STORE_SIMPLE_INTRO,cs.STORE_ADDRESS
 		FROM
 		    (SELECT  rownum AS rn,LIKE_LIST_SEQ ,USER_ID ,STORE_SEQ 
 		     FROM CON_LIKE )cl,CON_STORE cs
