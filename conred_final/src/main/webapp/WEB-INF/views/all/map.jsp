@@ -148,23 +148,33 @@
 	</div>
 	<div id="show">
 		<div id="rightbox">
-			<div class="storelist" onclick="location.href='store.do'">
+										<!-- location.href='store.do?store_seq=__'<- 원래 여기는 화면안의 seq를 각각 넣어줘야한다. -->
+			<div class="storelist" onclick="location.href='store.do?store_seq=23'">
+			(임시 윤호가 테스트로 쓰는 매장 seq23)
 			</div>
-			<div class="storelist">
+			<div class="storelist" onclick="location.href='store.do?store_seq=1'">
+			(임시 1번사장의 매장)
 			</div>
-			<div class="storelist">
+			<div class="storelist" onclick="location.href='store.do?store_seq=2'">
+			(임시 2번사장의 매장)
 			</div>
-			<div class="storelist">
+			<div class="storelist" onclick="location.href='store.do?store_seq=3'">
+			(임시 3번사장의 매장)
 			</div>
-			<div class="storelist">
+			<div class="storelist" onclick="location.href='store.do?store_seq=4'">
+			(임시 4번사장의 매장)
 			</div>
-			<div class="storelist">
+			<div class="storelist" onclick="location.href='store.do?store_seq=5'">
+			(임시 5번사장의 매장)
 			</div>
-			<div class="storelist">
+			<div class="storelist" onclick="location.href='store.do?store_seq=6'">
+			(임시 6번사장의 매장)
 			</div>
-			<div class="storelist">
+			<div class="storelist" onclick="location.href='store.do?store_seq=7'">
+			(임시 7번사장의 매장)
 			</div>
-			<div class="storelist">
+			<div class="storelist" onclick="location.href='store.do?store_seq=8'">
+			(임시 8번사장의 매장)
 			</div>
 		</div>
 	</div>

@@ -101,6 +101,7 @@ public class Yoonho {
 	public String header_map(Locale locale, Model model) {
 		logger.info("헤더_맵으로 {}.", locale);
 		
+		
 		return "all/header_map"; 
 	}
 	
@@ -403,12 +404,12 @@ public class Yoonho {
 	}
 	
 	@RequestMapping(value = "store.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String store(Locale locale, Model model,String s_seq, HttpServletRequest request) {
-		logger.info("(일렬번호 : "+s_seq+")번 매장(사용자별 매장)으로 이동  {}.", locale);
+	public String store(Locale locale, Model model,int store_seq, HttpServletRequest request) {
+		logger.info("(일렬번호 : "+store_seq+")번 매장(사용자별 매장)으로 이동  {}.", locale);
 		HttpSession session = request.getSession();
 		ODto odto =(ODto)session.getAttribute("oldto");
 		SDto sldto = sService.selectStoreSeq(odto);
-		int store_seq = Integer.parseInt(s_seq);
+//		int store_seq = Integer.parseInt(store_seq);
 		
 		SDto store_detail = sService.selectStoreDetail(store_seq);
 		List<STimeDto> list_stime =sTimeService.selectStime(store_seq);
@@ -422,7 +423,7 @@ public class Yoonho {
 		System.out.println("list_clist : "+list_clist);
 		System.out.println("list_menu : "+list_menu);
 		
-		System.out.println("sdto의 store_seq:"+s_seq);
+		System.out.println("sdto의 store_seq:"+store_seq);
 		System.out.println("sldto의 store_seq:"+sldto.getStore_seq());
 		//뿌려줄값들
 		model.addAttribute("store_detail",store_detail);// 영업시간
@@ -432,7 +433,7 @@ public class Yoonho {
 		model.addAttribute("list_menu",list_menu);// 메뉴
 		
 		//내 매장인지/타인 매장인지 여부 확인용
-		model.addAttribute("s_seq",s_seq);//내 매장인지/타인 매장인지 여부 확인용
+		model.addAttribute("s_seq",store_seq);//내 매장인지/타인 매장인지 여부 확인용
 		model.addAttribute("sldto",sldto);//스토어정보 세션
 		
 		return "all/store"; 

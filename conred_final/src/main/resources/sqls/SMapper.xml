@@ -79,6 +79,16 @@
 			WHERE STORE_SEQ =#{store_seq}
 		]]>
 	 </select>
+	
+	<select id="StoreSeqList" parameterType="Map" resultType="SDto">
+			<![CDATA[ 
+			SELECT *
+			FROM CON_STORE
+			]]>
+			<foreach collection="list" item="item">
+			WHERE STORE_SEQ =#{item.store_seq}
+			</foreach>
 
+	</select>
    
 </mapper>

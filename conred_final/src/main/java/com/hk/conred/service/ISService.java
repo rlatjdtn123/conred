@@ -1,6 +1,8 @@
 package com.hk.conred.service;
 
 
+import java.util.List;
+
 import com.hk.conred.dtos.CMainDto;
 import com.hk.conred.dtos.ODto;
 import com.hk.conred.dtos.SDto;
@@ -19,4 +21,6 @@ public interface ISService {
 	public SDto selectStoreSeq(ODto odto);
 	//일반 매장 상세정보들 가져오기
 	public SDto selectStoreDetail(int store_seq);
+	//매장 리스트+각 리스트의 상세정보 가져오기
+	public List<SDto> StoreSeqList(String[] store_seq_list);
 }

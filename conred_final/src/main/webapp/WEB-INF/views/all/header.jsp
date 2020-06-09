@@ -103,7 +103,7 @@
 				<%
 				if(uldto==null&&oldto!=null&&sdto!=null){/* 점주이면서, 유저가아니면서, store가 있는사람 에게만 표시 */ 
 				%>
-					<div id="o_tore" class="navis" onclick="location.href='store.do?s_seq=<%=sdto.getStore_seq()%>'">매장관리</div>
+					<div id="o_tore" class="navis" onclick="location.href='store.do?store_seq=<%=sdto.getStore_seq()%>'">매장관리</div>
 					<div id="o_storeinfo" class="navis" onclick="location.href='owner_mystore_info.do'">매장정보</div>
 					<div id="o_reserve" class="navis" onclick="location.href='owner_mystore_reservation.do'">예약</div>
 				<%

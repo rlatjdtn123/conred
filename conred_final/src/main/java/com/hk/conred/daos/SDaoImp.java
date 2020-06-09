@@ -1,5 +1,10 @@
 package com.hk.conred.daos;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -41,9 +46,30 @@ public class SDaoImp implements ISDao {
 	public SDto selectStoreSeq(ODto odto) {
 		return sqlSession.selectOne(namespace+"selectStoreSeq",odto);
 	}
+	//일반 매장 상세정보들 가져오기
 	@Override
 	public SDto selectStoreDetail(int store_seq) {
 		return sqlSession.selectOne(namespace+"selectStoreDetail",store_seq);
 	}
+	
+	//매장 리스트+각 리스트의 상세정보 가져오기
+	@Override
+	public List<SDto> StoreSeqList(String[] store_seq_list) {
+		List<SDto> list= new ArrayList<>();
+		SDto sdto;
+		for (int i = 0; i < store_seq_list.length; i++) {
+			sdto=new SDto();
+			sdto.setStore_seq(Integer.parseInt(store_seq_list[i]));
+			list.add(sdto);
+			System.out.println("각 리스트:"+list);
+			sdto=null;
+		}
+		System.out.println("최종 리스트:"+list);
+		Map<String, Object> map = new HashMap<>();
+		map.put("list", list);
+		list=sqlSession.selectList(namespace+"StoreSeqList",store_seq_list);
+		return list;
+	}
+	
 	
 }

@@ -1,5 +1,6 @@
 package com.hk.conred.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,9 +62,15 @@ public class SServiceImp implements ISService {
 	public SDto selectStoreSeq(ODto odto) {
 		return SDaoImp.selectStoreSeq(odto);
 	}
+	//일반 매장 상세정보들 가져오기
 	@Override
 	public SDto selectStoreDetail(int store_seq) {
 		return SDaoImp.selectStoreDetail(store_seq);
+	}
+	//매장 리스트+각 리스트의 상세정보 가져오기
+	@Override
+	public List<SDto> StoreSeqList(String[] store_seq_list) {
+		return SDaoImp.StoreSeqList(store_seq_list);
 	}
 
 }
