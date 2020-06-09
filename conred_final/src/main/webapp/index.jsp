@@ -30,6 +30,18 @@
 	#slidebar{margin-bottom:20px;margin-top:80px; height:auto;width:100%;position:relative;}
 	.slidetitle{padding-top:30px;width:550px;margin-left:220px;font-size:18px; }
 	.slidebars{border:1px solid lightgrey; width:550px; margin-left:220px;margin-top:20px; height:200px;position:relative;}
+
+	#category_icon_a{background: url("img/icon/icon_A.png");width: 60px; height: 60px; border-radius: 10px; background-size: 60px;}
+	#category_icon_b{background: url("img/icon/icon_B.png");width: 60px; height: 60px; border-radius: 10px; background-size: 60px;}
+	#category_icon_c{background: url("img/icon/icon_C.png");width: 60px; height: 60px; border-radius: 10px; background-size: 60px;}
+	#category_icon_d{background: url("img/icon/icon_D.png");width: 60px; height: 60px; border-radius: 10px; background-size: 60px;}
+	#category_icon_e{background: url("img/icon/icon_E.png");width: 60px; height: 60px; border-radius: 10px; background-size: 60px;}
+	#category_icon_f{background: url("img/icon/icon_F.png");width: 60px; height: 60px; border-radius: 10px; background-size: 60px;}
+	#category_icon_g{background: url("img/icon/icon_G.png");width: 60px; height: 60px; border-radius: 10px; background-size: 60px;}
+	#category_icon_h{background: url("img/icon/icon_H.png");width: 60px; height: 60px; border-radius: 10px; background-size: 60px;}
+	#category_icon_i{background: url("img/icon/icon_I.png");width: 60px; height: 60px; border-radius: 10px; background-size: 60px;}
+
+
 </style>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -58,17 +70,17 @@
 	<div id="category">
 		<div class="categorybox">
 			<div class="categories" onclick="location.href='map.do'"></div>
-			<div class="categories"></div>
-			<div class="categories"></div>
-			<div class="categories"></div>
-			<div class="categories"></div>
+			<div class="categories" id="category_icon_a"></div>
+			<div class="categories" id="category_icon_b"></div>
+			<div class="categories" id="category_icon_c"></div>
+			<div class="categories" id="category_icon_d"></div>
 		</div>
 		<div class="categorybox">
-			<div class="categories"></div>
-			<div class="categories"></div>
-			<div class="categories"></div>
-			<div class="categories"></div>
-			<div class="categories"></div>
+			<div class="categories" id="category_icon_e"></div>
+			<div class="categories" id="category_icon_f"></div>
+			<div class="categories" id="category_icon_g"></div>
+			<div class="categories" id="category_icon_h"></div>
+			<div class="categories" id="category_icon_i"></div>
 		</div>
 		<div class="categorybox">
 			<div class="categories_invisible"></div>

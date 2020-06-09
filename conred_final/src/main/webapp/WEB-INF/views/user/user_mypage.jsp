@@ -9,7 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;margin: 0 auto; }/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px;  width:1000px;margin: 0 auto; }/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	#sticky{position: sticky; top:71px;}
 	#navi2{width:998px;background-color: lightblue;clear:both;position:relative;top:-20px;text-align: center;line-height: 40px;border-top: 1px solid grey;}
 	.navis2{border-bottom:1px solid grey; font-size:15px; float:left;width:199.6px;height:40px;background-color: #D8D8D8;}
@@ -24,9 +24,9 @@
     a{color: gray; font-size: 50px;}
 	a:hover{text-decoration: none; color:rgb(0, 255, 0);cursor: pointer;}
 	.mybox_info_header{font-weight: bold; font-size: 20px;} 
-	#footprint1{width: 50px;height: 40px;}
+	#footprint1{width: 50px;height: 40px;border-radius: 15px;background-color: #EFFBFB;}
 	.point{color: gray; font-size: 50px;} 
-	 
+	.bottom_info{margin-bottom: 100px;}  
 	 
 </style>             
 </head>                
@@ -56,7 +56,7 @@
 		</div> 
 	</div> 
 	<div id="pagename">  
-		<img src="img/footprint1.png" id="footprint1"> 
+		<img src="img/icon/icon_foot.png" id="footprint1"> 
 		<b><%=uldto.getUser_name()%></b>님 환영합니다, 즐거운 하루!!<br>
 		<span>이메일 : <%=uldto.getUser_email()%></span><br><br>
 	</div>    
@@ -98,7 +98,7 @@
 			  
 		</div>
 	</div>
-	<div class="mybox">
+	<div class="mybox bottom_info">
 		<div class="mybox_info_header" >최근본 매장</div><br/>
 		<div class="mybox_info">
 			  

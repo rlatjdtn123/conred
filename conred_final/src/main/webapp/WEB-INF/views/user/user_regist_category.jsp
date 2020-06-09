@@ -18,16 +18,26 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style type="text/css">
-	#container{border:1px solid grey; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{border:1px solid grey; width:1000px;margin: 0 auto; border-bottom-width: 0;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	
 	#bigtle{margin-left: 97px; }
-	.tle{width: 800px; height: 200px; border: 1px solid red;}
-	.cate{float: left;background-color: gray;width: 150px;height: 150px;border: 1px solid black; margin-top: 24px;margin-left: 88px;border-radius: 80px;}
-	.dd{width: 150px; height: 150px; background: url("img/main.jpg"); border-radius: 80px;}
+	.tle{width: 800px; height: 200px;}
+	.cate{float: left;width: 150px;height: 150px; margin-top: 24px;margin-left: 88px;border-radius: 40px;text-align: center;}
+	#category_icon_a{background: url("img/icon/icon_A.png");width: 130px; height: 130px; border-radius: 40px; background-size: 130px;}
+	#category_icon_b{background: url("img/icon/icon_B.png");width: 130px; height: 130px; border-radius: 40px; background-size: 130px;}
+	#category_icon_c{background: url("img/icon/icon_C.png");width: 130px; height: 130px; border-radius: 40px; background-size: 130px;}
+	#category_icon_d{background: url("img/icon/icon_D.png");width: 130px; height: 130px; border-radius: 40px; background-size: 130px;}
+	#category_icon_e{background: url("img/icon/icon_E.png");width: 130px; height: 130px; border-radius: 40px; background-size: 130px;}
+	#category_icon_f{background: url("img/icon/icon_F.png");width: 130px; height: 130px; border-radius: 40px; background-size: 130px;}
+	#category_icon_g{background: url("img/icon/icon_G.png");width: 130px; height: 130px; border-radius: 40px; background-size: 130px;}
+	#category_icon_h{background: url("img/icon/icon_H.png");width: 130px; height: 130px; border-radius: 40px; background-size: 130px;}
+	#category_icon_i{background: url("img/icon/icon_I.png");width: 130px; height: 130px; border-radius: 40px; background-size: 130px;}
 	#m{clear: both;}
-	#hd{margin-left: 270px; margin-bottom: 50px;}
-	#bt input{width: 100px; height:60px; margin-left: 797px; font-size: 20px; font-weight: bold;border-radius: 10xp;}
-	input[type="checkbox"] {display: none;}
+	#hd{margin-left: 270px; }
+	#bt input{width: 100px; height:60px; margin-left: 450px; font-size: 20px; font-weight: bold;border-radius: 10xp; margin-bottom: 100px;border-radius: 10px;border: 0px;}
+	#bt input:hover{box-shadow: 0px 0.5px 3px grey;}
+	input[type="checkbox"] {display: none;} 
+	.dd:hover{cursor: pointer;} 
 	 
 </style>
 <script type="text/javascript">   
@@ -42,10 +52,10 @@
 				}
 			}
 			if(count>3){
-				alert("3개넘엇음");
+				alert("최대 3개 까지만 선택해 주세요");
 				return false;
 			}else if(count==0){
-				alert("최소 한개이상 선택");
+				alert("최소 한개이상 선택해 주세요");
 				return false;
 			}
 		}
@@ -55,11 +65,11 @@
 		var cate=$(".dd");
 		cate.click(function(){ 
 			if($(this).prev().prop("checked")==true){
-				$(this).css("border", "1px solid black");
+				$(this).css("opacity", "1");
 				$(this).prev().attr("checked", false);
 			}else{
 				$(this).prev().attr("checked", "checked");
-				$(this).css("border", "1px solid blue");
+				$(this).css("opacity", "0.5");
 			}
 		});
 	});
@@ -73,58 +83,67 @@
 %>
 <body>
 <div id="container">
-		<h1 id="hd">관심있는 매장을 선택해주세요!</h1>
+		<h1 id="hd">관심있는 매장을 선택해주세요!</h1><span style="margin-left: 450px;margin-bottom: 40px;">(최소1개~최대3개)</span>
 	<form action="user_regist_category.do" method="post" >
 		<div id="bigtle">
 			<div class="bigtle tle">
 <!-- 				동물병원 -->
 				<div id="d1" class="cate">
 					<input type="checkbox" value="A" class="ct" name="category_code" id="c1"/>
-					<div class="dd"> </div>
+					<div class="dd" id="category_icon_a"> </div>
+					<span>동물병원</span>
 				</div>
 <!-- 				카페/식당 -->
 				<div id="d2" class="cate">
 					<input type="checkbox" value="B" class="ct" name="category_code" id="c2"/>
-					<div class="dd"> </div>
+					<div class="dd" id="category_icon_b"> </div>
+					<span>카페/식당</span>
 				</div>
 <!-- 				식품/용품 -->
 				<div id="d3" class="cate">
 					<input type="checkbox" value="C" class="ct" name="category_code" id="c3"/>
-					<div class="dd"> </div>
+					<div class="dd" id="category_icon_c"> </div>
+					<span>식품/용품</span>
 				</div>
 			</div>
 			<div class="bigtle tle">
 <!-- 				숙박 -->
 				<div id="d4" class="cate">
 					<input type="checkbox" value="D" class="ct" name="category_code" id="c4"/>
-					<div class="dd"> </div>
+					<div class="dd" id="category_icon_d"> </div>
+					<span>숙박</span>
 				</div>
 <!-- 				돌봄서비스 -->
 				<div id="d5" class="cate">
 					<input type="checkbox" value="E" class="ct" name="category_code" id="c5"/>
-					<div class="dd"> </div>
+					<div class="dd" id="category_icon_e"> </div>
+					<span>돌봄서비스</span>
 				</div>
 <!-- 					미용/목욕 -->
 				<div id="d6" class="cate">
 					<input type="checkbox" value="F" class="ct" name="category_code" id="c6"/>
-					<div class="dd"> </div>
+					<div class="dd" id="category_icon_f"> </div>
+					<span>미용/목욕</span>
 				</div>
 			</div>
 			<div class="bigtle tle">
 	<!-- 					체험 -->
 				<div id="d7" class="cate">
 					<input type="checkbox" value="G" class="ct" name="category_code" id="c7"/>
-					<div class="dd"> </div>
+					<div class="dd" id="category_icon_g"> </div>
+					<span>체험</span>
 				</div>
 	<!-- 					분양/교배 -->
 				<div id="d8" class="cate">
 					<input type="checkbox" value="H" class="ct" name="category_code" id="c8"/>
-					<div class="dd"> </div>
+					<div class="dd" id="category_icon_h"> </div>
+					<span>분양/교배</span>
 				</div>
 	<!-- 				장례 -->
 				<div id="d9" class="cate">
 					<input type="checkbox" value="I" class="ct" name="category_code" id="c9"/>
-					<div class="dd"> </div>
+					<div class="dd" id="category_icon_i"> </div>
+					<span>장례</span>
 				</div>
 			</div>
 		</div>
