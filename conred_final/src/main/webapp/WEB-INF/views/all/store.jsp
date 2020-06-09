@@ -26,7 +26,8 @@
 
 	.section{width:900px;display: inline-block;}
 	#infobox_title{ height:290px;}
-	#infobox_timeaddr{ height:230px;border:0px solid grey;border-top-width: 0.5px;border-bottom-width: 0.5px;}
+/* 	#infobox_timeaddr{ height:230px;border:0px solid grey;border-top-width: 0.5px;border-bottom-width: 0.5px;} */
+	#infobox_timeaddr{ height:auto;border:0px solid grey;border-top-width: 0.5px;border-bottom-width: 0.5px;}
 	
 /* 	#infobox_intro{text-align: left; height:auto;border:0px solid grey;border-bottom-width: 0.5px;padding:30px 15px;} */
 /* 	#infobox_menu{text-align: left; height:auto;border:0px solid grey;border-bottom-width: 0.5px;padding:30px 15px;} */
@@ -38,7 +39,7 @@
 	.info2{width:449.5px;height:100%; text-align: left;float: left;margin-bottom: 0px; padding:30px 15px;}
 	.width1{width:650px}
 	.width2{width:250px}
-	.seroline{border-left: 1px solid grey }
+	.seroline{border-right: 1px solid grey }
 	
 	#s_state{font-size:15px;color:#3ADF00;font-weight: bold;display: inline-block;}
 	.medal{width:30px;padding-bottom:13px}
@@ -55,7 +56,7 @@
 	.s_btn:hover{cursor: pointer;background-color: lightgrey}
 	
 	#addr{height:60px;font-size:15px;}
-	.s_mapbtn{z-index:0;float: right;margin-top: 40px;position:relative;bottom: 0px;}
+	.s_mapbtn{z-index:0;}
 	.s_phone{font-size:15px;}
 	
 	#s_menubox{height:auto;}
@@ -74,6 +75,8 @@
 	#reserve_btn:hover{background-color: white;cursor: pointer;height:80px; transition:all .3s;}
 	#reserve_btn:hover #reserve_text{font-size:25px; transition:all .3s;}
 	#reserve_text{width:300px;margin:0 auto;text-align: center;line-height: 60px;font-size:20px;}
+
+	.mname{border-top-width: 0px !important;font-size:20px;}
 </style>
 </head>
 <body>
@@ -157,21 +160,26 @@
 	</div>
 <!-- 	<hr> -->
 	<div id="infobox_timeaddr" class="section">
-		<div class="info1" >
+		<div class="info1 seroline" >
 			<div class="s_bold">영업시간</div>
 			<br>
-			<div>
-				<span class="s_week">평일</span>
-				<span>09:00</span>~<span>17:00</span>
-			</div>
-			<div>
-				<span class="s_week">토요일</span>
-				<span>10:00</span>~<span>13:00</span>
-			</div>
-<!-- 			<div class="s_bold2 redfont">매주 월요일, 일요일 휴무</div> -->
-			<div class="s_bold2 redfont">${store_detail.store_time_other}</div>
+			<c:forEach var="i" begin="0" end="7" step="1">
+				<div>
+					<span class="s_week">${list_stime[i].store_time_day}</span>
+					<c:choose>
+						<c:when test="${list_stime[i].store_time_open.indexOf('00:00')!=-1&&list_stime[i].store_time_close.indexOf('00:00')!=-1}">
+							<span>24시간 영업중</span>
+						</c:when>
+						<c:otherwise>
+							<span>${list_stime[i].store_time_open}</span>~<span>${list_stime[i].store_time_close}</span>
+						</c:otherwise>
+					</c:choose>
+				</div>
+			</c:forEach>
+			
+			<div class="s_bold2 redfont"><br>${store_detail.store_time_other}</div>
 		</div>
-		<div class="info1 seroline" >
+		<div class="info1" >
 			<div class="s_bold">주소</div>
 			<br>
 			<div id="addr">
@@ -195,36 +203,70 @@
 		<div class="s_bold">메뉴</div>
 		<br>
 		<div id="s_menubox">
+		
+<!-- 		대분류 갯수만큼 돌리되 -->
+<!-- 		if A면 동물병원div 출력 후 밑에 테이블 생성 해서 A인 애들만 출력  -->
+<!-- 		흠.. 차라리 컨트롤러에서 대분류별로 나눠주고 addattribute해보자  -->
+<!-- 			<table id="s_menu" class="table"> -->
+<%-- 				<col width="200px"> --%>
+<%-- 				<col width="500px"> --%>
+<%-- 				<col width="150px"> --%>
+				
+<!-- 						<tr> -->
+<!-- 							<td class="mname" colspan="3">동물병원 메뉴</td> -->
+<!-- 						</tr> -->
+<!-- 						<tr> -->
+<!-- 							<td class="active"><b>메뉴명</b></td> -->
+<!-- 							<td class="active"><b>설명</b></td> -->
+<!-- 							<td class="active"><b>가격</b></td> -->
+<!-- 						</tr> -->
+<%-- 						<c:forEach var="i" begin="0" end="${list_menu.size()-1}" step="1"><!-- 얘는 리스트 사이즈 --> --%>
+<!-- 							<tr> -->
+<%-- 								<td>${list_menu[i].menu_name}</td> --%>
+<%-- 								<td>${list_menu[i].menu_content}</td> --%>
+<%-- 								<td>${list_menu[i].menu_price}원</td> --%>
+<!-- 							</tr> -->
+<%-- 						</c:forEach> --%>
+
+<!-- 			</table> -->
 			<table id="s_menu" class="table">
 				<col width="200px">
 				<col width="500px">
 				<col width="150px">
-				<tr>
-					<td class="active"><b>메뉴명</b></td>
-					<td class="active"><b>설명</b></td>
-					<td class="active"><b>가격</b></td>
-				</tr>
-				<tr>
-					<td>댕댕컷트</td>
-					<td>어떤 동물이든 댕댕이가 되는 컷트입니다</td>
-					<td>60000원</td>
-				</tr>
-				<tr>
-					<td>냥냥컷트</td>
-					<td>어떤 동물이든 냥이가 되는 컷트입니다</td>
-					<td>60000원</td>
-				</tr>
-				<tr>
-					<td>성수컷트</td>
-					<td>어떤 동물이든 성수가 되는 컷트입니다</td>
-					<td>850000원</td>
-				</tr>
-				<tr>
-					<td>개파마</td>
-					<td>개파마입니다</td>
-					<td>80원</td>
-				</tr>
-				
+					
+				<c:forEach var="i" begin="0" end="${list_menu.size()-1}" step="1"><!-- 얘는 리스트 사이즈 -->
+						<c:choose>
+							<c:when test="${i==0}">
+								<tr>
+									<td class="mname" colspan="3">${list_menu[i].category_code} 메뉴</td>
+								</tr>
+								<tr>
+									<td class="active"><b>메뉴명</b></td>
+									<td class="active"><b>설명</b></td>
+									<td class="active"><b>가격</b></td>
+								</tr>
+							</c:when>
+							<c:when test="${list_menu[i-1].category_code != list_menu[i].category_code}">
+								<tr>
+									<td class="mname" colspan="3">${list_menu[i].category_code} 메뉴</td>
+								</tr>
+								<tr>
+									<td class="active"><b>메뉴명</b></td>
+									<td class="active"><b>설명</b></td>
+									<td class="active"><b>가격</b></td>
+								</tr>				
+							</c:when>
+						
+						</c:choose>
+	
+						<tr>
+							<td>${list_menu[i].menu_name}</td>
+							<td>${list_menu[i].menu_content}</td>
+							<td>${list_menu[i].menu_price}원</td>
+						</tr>
+								
+	
+				</c:forEach>
 			</table>
 		</div>
 	</div>

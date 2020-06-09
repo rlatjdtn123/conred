@@ -430,6 +430,45 @@ public class Yoonho {
 		
 		System.out.println("sdto의 store_seq:"+store_seq);
 		System.out.println("sldto의 store_seq:"+sldto);//초기값(null 이거나,seq가 들어간 sdto가 나옴)
+		
+		String d =list_menu.get(0).getMenu_name();
+		for (int i = 0; i < list_menu.size(); i++) {
+			if(list_menu.get(i).getMenu_state()=="A") {
+				List<MenuDto> list_menu_A =new ArrayList<>();
+				list_menu_A.add(list_menu.get(i));
+			}else if(list_menu.get(i).getMenu_state()=="B") {
+				List<MenuDto> list_menu_B =new ArrayList<>();
+				list_menu_B.add(list_menu.get(i));
+			}else if(list_menu.get(i).getMenu_state()=="C") {
+				List<MenuDto> list_menu_C =new ArrayList<>();
+				list_menu_C.add(list_menu.get(i));
+			}else if(list_menu.get(i).getMenu_state()=="D") {
+				List<MenuDto> list_menu_D =new ArrayList<>();
+				list_menu_D.add(list_menu.get(i));
+			}else if(list_menu.get(i).getMenu_state()=="E") {
+				List<MenuDto> list_menu_E =new ArrayList<>();
+				list_menu_E.add(list_menu.get(i));
+			}else if(list_menu.get(i).getMenu_state()=="F") {
+				List<MenuDto> list_menu_F =new ArrayList<>();
+				list_menu_F.add(list_menu.get(i));
+			}else if(list_menu.get(i).getMenu_state()=="G") {
+				List<MenuDto> list_menu_G =new ArrayList<>();
+				list_menu_G.add(list_menu.get(i));
+			}else if(list_menu.get(i).getMenu_state()=="H") {
+				List<MenuDto> list_menu_H =new ArrayList<>();
+				list_menu_H.add(list_menu.get(i));
+			}else if(list_menu.get(i).getMenu_state()=="I") {
+				List<MenuDto> list_menu_I =new ArrayList<>();
+				list_menu_I.add(list_menu.get(i));
+			}
+		}
+//		if()
+//		List<CListDto> list_menu_bycate =list_
+		//메뉴 뿌려줄값 나눠주기
+//		if(list_menu[0].getMe) {
+//			
+//		}
+		
 		//뿌려줄값들
 		model.addAttribute("store_detail",store_detail);// 영업시간
 		model.addAttribute("list_stime",list_stime);// 영업시간
