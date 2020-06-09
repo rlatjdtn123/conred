@@ -93,9 +93,8 @@
 // 			sldto//로그인중인 사람의 매장정보 (세션)
 %>
 <div id="container">
-	<c:choose>
-		<c:when test="${s_seq eq sldto.store_seq}">
-		<!-- 	스틱키 보이게하려면 class="display_none"주고 #photozone에 margin-top:19px 주기-->
+	<c:if test="${sldto!=null}"> <!-- 매장을 가지고 있지 않으면(로그인 안되어있으면) -->
+		<c:if test="${s_seq eq sldto.store_seq}"> <!-- 내 매장과 이 매장이 같으면(로그인 안되어있으면) -->
 			<div id="sticky">
 				<div id="navi2">
 					<div class="navis2 home" onclick="location.href='store.do'">
@@ -115,8 +114,8 @@
 					</div>
 				</div>
 			</div>
-		</c:when>
-	</c:choose>
+		</c:if>
+	</c:if>
 	
 	<div id="photozone">
 	carousel

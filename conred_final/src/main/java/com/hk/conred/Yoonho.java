@@ -408,7 +408,12 @@ public class Yoonho {
 		logger.info("(일렬번호 : "+store_seq+")번 매장(사용자별 매장)으로 이동  {}.", locale);
 		HttpSession session = request.getSession();
 		ODto odto =(ODto)session.getAttribute("oldto");
-		SDto sldto = sService.selectStoreSeq(odto);
+		SDto sldto =null;//초기값널
+		if (odto!=null) {
+			System.out.println("점주 로그인정보가 있습니다. 점주의 store_seq를 빼오겠습니다.");
+			sldto = sService.selectStoreSeq(odto);
+			System.out.println("점주 로그인정보가 있습니다. 점주의 store_seq를 빼오겠습니다.");
+		}
 //		int store_seq = Integer.parseInt(store_seq);
 		
 		SDto store_detail = sService.selectStoreDetail(store_seq);
@@ -424,7 +429,7 @@ public class Yoonho {
 		System.out.println("list_menu : "+list_menu);
 		
 		System.out.println("sdto의 store_seq:"+store_seq);
-		System.out.println("sldto의 store_seq:"+sldto.getStore_seq());
+		System.out.println("sldto의 store_seq:"+sldto);//초기값(null 이거나,seq가 들어간 sdto가 나옴)
 		//뿌려줄값들
 		model.addAttribute("store_detail",store_detail);// 영업시간
 		model.addAttribute("list_stime",list_stime);// 영업시간
