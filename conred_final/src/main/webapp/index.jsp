@@ -10,37 +10,51 @@
 <style type="text/css">
 	#container{border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:1600px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	
-	#message1{width:500px;text-align: center; margin:0 auto;padding-top:70px;font-size:22px; font-weight: bold}
+	#message1{width:500px;text-align: center; margin:0 auto;padding-top:80px;font-size:22px; font-weight: bold}
 	#footprint1{width:30px;padding-left: 5px;padding-bottom: 8px;}
 
-	#search{width:550px;margin:0 auto;padding-top:40px;}
+	#search{width:550px;margin:0 auto;padding-top:60px;padding-bottom: 10px;}
 	#searchbar{width:500px;}
 	#magnifyglass{width:20px;}
 	
 	#category{padding-top:50px; height:auto;width:100%;position:relative;}
-	.categorybox{overflow:auto; margin:0 auto; width:665px;padding-bottom: 30px;overflow-y: hidden;}
-	.categories{border-radius: 10px; width:60px; height:60px;position:relative;top:4px;float: left;margin-left:60px;border:1px solid lightgrey;}
-	.categories:hover{cursor:pointer;box-shadow: 0px 0.5px 3px grey;}
+	.categorybox{overflow:auto; margin:0 auto; width:665px;padding-bottom: 50px;overflow-y: hidden;}
+	.categorybox:last-child{overflow:auto; margin:0 auto; width:665px;padding-bottom: 40px;padding-top: 40px;overflow-y: hidden;}
+	.categories{border-radius: 10px; width:60px; height:60px;position:relative;top:4px;float: left;margin-left:60px;border:0.5px solid #E6E6E6;}
+	.categories:hover{cursor:pointer;box-shadow: 0px 0.5px 3px #E6E6E6; } 
 	.categories_invisible{border-radius: 10px; width:60px; height:60px;position:relative;top:4px;float: left;margin-left:60px;}
 	.categories_last{width:60px; height:60px;position:relative;top:4px;float: left;margin-left:60px;}
 	.categories_last{cursor:pointer;}
 	#mylocation{width:60px;}
-	#mylocationtext{font-size:14px; font-weight:bold;padding-left:5px;padding-top:10px;display:inline-block}
+	.mylocationtext{font-size:14px; padding-left:5px;padding-top:10px;display:inline-block}
+	.catetext{font-size:12px;padding-left:4px;padding-top:65px;display:inline-block;}
 	
 	#slidebar{margin-bottom:20px;margin-top:80px; height:auto;width:100%;position:relative;}
 	.slidetitle{padding-top:30px;width:550px;margin-left:220px;font-size:18px; }
 	.slidebars{border:1px solid lightgrey; width:550px; margin-left:220px;margin-top:20px; height:200px;position:relative;}
 
-	#category_icon_a{background: url("img/icon/icon_A.png");width: 60px; height: 60px; border-radius: 10px; background-size: 60px;}
-	#category_icon_b{background: url("img/icon/icon_B.png");width: 60px; height: 60px; border-radius: 10px; background-size: 60px;}
-	#category_icon_c{background: url("img/icon/icon_C.png");width: 60px; height: 60px; border-radius: 10px; background-size: 60px;}
-	#category_icon_d{background: url("img/icon/icon_D.png");width: 60px; height: 60px; border-radius: 10px; background-size: 60px;}
-	#category_icon_e{background: url("img/icon/icon_E.png");width: 60px; height: 60px; border-radius: 10px; background-size: 60px;}
-	#category_icon_f{background: url("img/icon/icon_F.png");width: 60px; height: 60px; border-radius: 10px; background-size: 60px;}
-	#category_icon_g{background: url("img/icon/icon_G.png");width: 60px; height: 60px; border-radius: 10px; background-size: 60px;}
-	#category_icon_h{background: url("img/icon/icon_H.png");width: 60px; height: 60px; border-radius: 10px; background-size: 60px;}
-	#category_icon_i{background: url("img/icon/icon_I.png");width: 60px; height: 60px; border-radius: 10px; background-size: 60px;}
 
+	#category_icon_a{background: url("img/icon/icon_A.png");width: 60px; height: 60px; border-radius: 10px; background-size: 50px;background-position: center;background-repeat: no-repeat;} 
+ 	#category_icon_b{background: url("img/icon/icon_B.png");width: 60px; height: 60px; border-radius: 10px; background-size: 50px;background-position: center;background-repeat: no-repeat;} 
+ 	#category_icon_c{background: url("img/icon/icon_C.png");width: 60px; height: 60px; border-radius: 10px; background-size: 50px;background-position: center;background-repeat: no-repeat;} 
+ 	#category_icon_d{background: url("img/icon/icon_D.png");width: 60px; height: 60px; border-radius: 10px; background-size: 50px;background-position: center;background-repeat: no-repeat;} 
+ 	#category_icon_e{background: url("img/icon/icon_E.png");width: 60px; height: 60px; border-radius: 10px; background-size: 50px;background-position: center;background-repeat: no-repeat;} 
+ 	#category_icon_f{background: url("img/icon/icon_F.png");width: 60px; height: 60px; border-radius: 10px; background-size: 50px;background-position: center;background-repeat: no-repeat;} 
+ 	#category_icon_g{background: url("img/icon/icon_G.png");width: 60px; height: 60px; border-radius: 10px; background-size: 50px;background-position: center;background-repeat: no-repeat;} 
+ 	#category_icon_h{background: url("img/icon/icon_H.png");width: 60px; height: 60px; border-radius: 10px; background-size: 50px;background-position: center;background-repeat: no-repeat;} 
+ 	#category_icon_i{background: url("img/icon/icon_I.png");width: 60px; height: 60px; border-radius: 10px; background-size: 50px;background-position: center;background-repeat: no-repeat;} 
+ 
+/*
+	#category_icon_a{background: url("img/icon/icon_A.png");width: 60px; height: 60px; border-radius: 50%; background-size: 40px;background-position: center;background-repeat: no-repeat;}
+	#category_icon_b{background: url("img/icon/icon_B.png");width: 60px; height: 60px; border-radius: 50%; background-size: 40px;background-position: center;background-repeat: no-repeat;}
+	#category_icon_c{background: url("img/icon/icon_C.png");width: 60px; height: 60px; border-radius: 50%; background-size: 40px;background-position: center;background-repeat: no-repeat;}
+	#category_icon_d{background: url("img/icon/icon_D.png");width: 60px; height: 60px; border-radius: 50%; background-size: 40px;background-position: center;background-repeat: no-repeat;}
+	#category_icon_e{background: url("img/icon/icon_E.png");width: 60px; height: 60px; border-radius: 50%; background-size: 40px;background-position: center;background-repeat: no-repeat;}
+	#category_icon_f{background: url("img/icon/icon_F.png");width: 60px; height: 60px; border-radius: 50%; background-size: 40px;background-position: center;background-repeat: no-repeat;}
+	#category_icon_g{background: url("img/icon/icon_G.png");width: 60px; height: 60px; border-radius: 50%; background-size: 40px;background-position: center;background-repeat: no-repeat;}
+	#category_icon_h{background: url("img/icon/icon_H.png");width: 60px; height: 60px; border-radius: 50%; background-size: 40px;background-position: center;background-repeat: no-repeat;}
+	#category_icon_i{background: url("img/icon/icon_I.png");width: 60px; height: 60px; border-radius: 50%; background-size: 40px;background-position: center;background-repeat: no-repeat;}
+*/
 
 </style>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -70,25 +84,25 @@
 	
 	<div id="category">
 		<div class="categorybox">
-			<div class="categories" onclick="location.href='map.do'"></div>
-			<div class="categories" id="category_icon_a"></div>
-			<div class="categories" id="category_icon_b"></div>
-			<div class="categories" id="category_icon_c"></div>
-			<div class="categories" id="category_icon_d"></div>
+			<div class="categories" onclick="location.href='map.do'"><span class="catetext">&emsp;전체</span></div>
+			<div class="categories" id="category_icon_a"><span class="catetext">동물병원</span></div>
+			<div class="categories" id="category_icon_b"><span class="catetext">카페/식당</span></div>
+			<div class="categories" id="category_icon_c"><span class="catetext">식품/용품</span></div>
+			<div class="categories" id="category_icon_d"><span class="catetext">동반숙박</span></div>
 		</div>
 		<div class="categorybox">
-			<div class="categories" id="category_icon_e"></div>
-			<div class="categories" id="category_icon_f"></div>
-			<div class="categories" id="category_icon_g"></div>
-			<div class="categories" id="category_icon_h"></div>
-			<div class="categories" id="category_icon_i"></div>
+			<div class="categories" id="category_icon_e"><span class="catetext" style="font-size: 10.5px;padding-left:2px">돌봄서비스</span></div>
+			<div class="categories" id="category_icon_f"><span class="catetext">미용/목욕</span></div>
+			<div class="categories" id="category_icon_g"><span class="catetext">체험/활동</span></div>
+			<div class="categories" id="category_icon_h"><span class="catetext">교배/분양</span></div>
+			<div class="categories" id="category_icon_i"><span class="catetext">&emsp;장례</span></div>
 		</div>
 		<div class="categorybox">
 			<div class="categories_invisible"></div>
 			<div class="categories_invisible"></div>
 			<div class="categories_last">
-				<img id="mylocation" src="./img/mylocation.png" />
-				<span id="mylocationtext">내 주변</span>
+				<img id="mylocation" src="./img/icon/mylocation2.png" />
+				<span class="mylocationtext">내 주변</span>
 			</div>
 			<div class="categories_invisible"></div>
 			<div class="categories_invisible"></div>
