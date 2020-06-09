@@ -19,7 +19,8 @@
 		<![CDATA[
 			SELECT *
 			FROM CON_MENU
-			WHERE store_seq=#{store_seq}
+			WHERE STORE_SEQ=#{store_seq}
+			ORDER BY CATEGORY_CODE 
 		]]>
 	</select>
 </mapper>
