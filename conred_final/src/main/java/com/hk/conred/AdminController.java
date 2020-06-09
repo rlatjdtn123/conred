@@ -39,7 +39,7 @@ public class AdminController {
     @Autowired
     private IAService aService ;
     
-	@RequestMapping(value = "admin_site_userlist.do", method = RequestMethod.GET)
+	@RequestMapping(value = "admin_site_userlist.do", method = RequestMethod.GET )
 	public String admin_site_userlist(Locale locale, Model model, UDto udto) {
 		logger.info("관리자 - 유저 조회 로이동 {}.", locale); 
 		
@@ -48,7 +48,7 @@ public class AdminController {
 	}
 
 	
-	@RequestMapping(value = "admin_user_search.do", method = RequestMethod.POST)
+	@RequestMapping(value = "admin_user_search.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String admin_user_search(Locale locale, Model model, UDto udto, String searchWord,String userSearch) {
 		logger.info("관리자 - 유저 목록 전체 조회 및 키워드 조회 기능 {}.", locale); 
 		
@@ -152,7 +152,7 @@ public class AdminController {
 	public String adminMuldelOwner(String[] owner_ids, Locale locale, Model model, String searchWordOwner, String ownerSearch) throws UnsupportedEncodingException {
 		 
 		logger.info("관리자 - 점주 선택/다중선택 후 점주 삭제 기능(업데이트문) {"+(Arrays.toString(owner_ids))+"}.", locale);
-		
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!::"+owner_ids);
 		boolean isS=aService.adminMuldelOwner(owner_ids);
 		
 		if(isS) {
@@ -163,6 +163,23 @@ public class AdminController {
 		}
 		
 	}
+	
+	@RequestMapping(value = "adminMuldelUser.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String adminMuldelUser(String[] user_ids, Locale locale, Model model, String searchWord, String userSearch) throws UnsupportedEncodingException {
+		 
+		logger.info("관리자 - 유저 선택/다중선택 후 유저 삭제 기능(업데이트문) {"+(Arrays.toString(user_ids))+"}.", locale);
+//		System.out.println("@@@@@@@@@@@@@@@@::"+user_ids);
+		boolean isS=aService.adminMuldelUser(user_ids);
+		
+		if(isS) {
+			return "redirect:admin_user_search.do?searchWord="+(URLEncoder.encode(searchWord, "utf-8")) +"&userSearch="+userSearch;			
+		}else {
+			model.addAttribute("msg", "삭제에 실패 했습니다. 다시 시도해 주세요!");
+			return "error";
+		}
+		
+	}
+	
 	
 	
 }

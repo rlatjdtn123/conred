@@ -107,7 +107,17 @@
 			#{store_seq}
 		</foreach>
 	</update>
-
-
-
+	
+	<update id="adminMuldelUser" parameterType="map">
+		<![CDATA[  
+		UPDATE CON_USER SET USER_NAME = '***' , USER_EMAIL = '***' , USER_BIRTH = '0000-00-00' , USER_SEX = '***' ,
+		USER_ROLE = '***' , USER_BLACK = '***' , USER_AGREEMENT = '***' , USER_OUT = 'Y'
+		WHERE USER_ID IN ]]>
+		<foreach collection="user_ids" open="(" close=")"
+			separator="," item="user_id">
+			#{user_id}
+		</foreach>
+	</update>
+	
+	
 </mapper>

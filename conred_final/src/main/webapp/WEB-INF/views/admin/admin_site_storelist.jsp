@@ -36,7 +36,7 @@
 					bool = false;
 			}
 			return bool;
-		});
+			});
 
 		// 체크박스 처리: 체크가 하나라도 안되면 전체선택체크박스 해제, 모두 선택되면 체크
 		var chks = document.getElementsByName("store_seqs");
@@ -54,7 +54,8 @@
 	});
 </script>
 <style type="text/css">
-	#container{border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px; margin: 0 auto; text-align: center;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{border:1px solid grey; border-top-width:0px;border-bottom-width:0px; 
+	width:1000px;margin: 0 auto; text-align: center;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	#searchbar1{width:80%;}
 	#sel{height: 34px; }
 	#searchbtn1{padding:3px;width:40px;height:35px; }

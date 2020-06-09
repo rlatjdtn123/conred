@@ -20,6 +20,7 @@ public class UDto {
 	private int qna_count;
 	private int reply_count;
 	private int like_count;
+	private String[] user_ids;
 	
 	
 

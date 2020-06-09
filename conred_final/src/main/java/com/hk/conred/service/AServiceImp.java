@@ -61,5 +61,11 @@ public class AServiceImp implements IAService{
 		return ADaoImp.adminMuldelOwner(owner_ids);
 	} 
 	
+
+	@Override
+	public boolean adminMuldelUser(String[] user_ids) {
+		return ADaoImp.adminMuldelUser(user_ids);
+	}
+	
 	
 }

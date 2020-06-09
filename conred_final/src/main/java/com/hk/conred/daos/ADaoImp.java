@@ -78,6 +78,13 @@ public class ADaoImp implements IADao {
 		return count>0?true:false;
 	}
 	
+	@Override
+	public boolean adminMuldelUser(String[] user_ids) {
+		Map<String, String[]> map=new HashMap<>();
+		map.put("user_ids", user_ids);
+		int count=sqlSession.update(nameSpace+"adminMuldelUser", map);
+		return count>0?true:false;
+	}
 
 
 }

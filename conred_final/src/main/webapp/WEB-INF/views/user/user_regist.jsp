@@ -82,19 +82,19 @@
 				<table class="table table-hover" >
 					<tr>
 						<td><span class="req">* </span>아이디</td>
-						<td><input type="text" name="user_id"/></td>
+						<td><input type="text" name="user_id" required="required"/></td>
 					</tr>
 					<tr>
 						<td><span class="req">* </span>비밀번호</td>
-						<td><input type="password" name="user_password"/></td>
+						<td><input type="password" name="user_password" required="required"/></td>
 					</tr>
 					<tr>
 						<td><span class="req">* </span>비밀번호 확인</td>
-						<td><input type="password" name="user_password2"/></td>
+						<td><input type="password" name="user_password2" required="required"/></td>
 					</tr>
 					<tr>
 						<td><span class="req">* </span>이름</td>
-						<td><input type="text" name="user_name"/></td>
+						<td><input type="text" name="user_name" required="required"/></td>
 					</tr>
 					<tr>
 						<td><span class="req">* </span>이메일</td>
@@ -108,7 +108,7 @@
 							<option>naver.com</option>
 							<option>hanmail.net</option>
 						</select>
-						<input class="btn authBtn" value="이메일인증" type="button" />
+						<input class="btn authBtn" value="이메일인증" type="button" required="required" />
 					</td>
 					</tr>
 					<tr>
@@ -139,7 +139,7 @@
 		</div>
 	</form>
 	<form id="emailform" action="email_ok_start.do">
-		<input type="hidden" name="email" />
+		<input type="hidden" name="email" required="required" />
 	</form>
 </div>
 
