@@ -10,7 +10,8 @@
 <style type="text/css">
 	#container{border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:1600px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	
-	#message1{width:500px;text-align: center; margin:0 auto;padding-top:80px;font-size:22px; font-weight: bold}
+	#message1{width:500px;text-align: center; margin:0 auto;padding-top:70px;font-size:22px; font-weight: bold}
+	#message2{width:500px;text-align: center; margin:0 auto;padding-top:50px;font-size:22px; font-weight: bold}
 	#footprint1{width:30px;padding-left: 5px;padding-bottom: 8px;}
 
 	#search{width:550px;margin:0 auto;padding-top:60px;padding-bottom: 10px;}
@@ -21,13 +22,16 @@
 	.categorybox{overflow:auto; margin:0 auto; width:665px;padding-bottom: 50px;overflow-y: hidden;}
 	.categorybox:last-child{overflow:auto; margin:0 auto; width:665px;padding-bottom: 40px;padding-top: 40px;overflow-y: hidden;}
 	.categories{border-radius: 10px; width:60px; height:60px;position:relative;top:4px;float: left;margin-left:60px;border:0.5px solid #E6E6E6;}
-	.categories:hover{cursor:pointer;box-shadow: 0px 0.5px 3px #E6E6E6; } 
+	.categories:hover{cursor:pointer;box-shadow: 0px 1px 4px #D8D8D8; } 
 	.categories_invisible{border-radius: 10px; width:60px; height:60px;position:relative;top:4px;float: left;margin-left:60px;}
 	.categories_last{width:60px; height:60px;position:relative;top:4px;float: left;margin-left:60px;}
 	.categories_last{cursor:pointer;}
+	.allbtn{background-color: #ADEEF2;}
+	.alltext{padding-top:13px;padding-left: 16px;font-size:23px;color: #fff;}
 	#mylocation{width:60px;}
 	.mylocationtext{font-size:14px; padding-left:5px;padding-top:10px;display:inline-block}
 	.catetext{font-size:12px;padding-left:4px;padding-top:65px;display:inline-block;}
+	.catetext_first{font-size:12px;padding-left:4px;padding-top:20px;display:inline-block;}
 	
 	#slidebar{margin-bottom:20px;margin-top:80px; height:auto;width:100%;position:relative;}
 	.slidetitle{padding-top:30px;width:550px;margin-left:220px;font-size:18px; }
@@ -82,9 +86,11 @@
 	  <button type="submit" id="searchbtn" class="btn"><img id="magnifyglass" src="./img/magnifyglass.png"></button>
 	</form>
 	
+	<div id="message2">카테고리별로 검색하세요<img id="footprint1" src="./img/footprint1.png"></div>
+	
 	<div id="category">
 		<div class="categorybox">
-			<div class="categories" onclick="location.href='map.do'"><span class="catetext">&emsp;전체</span></div>
+			<div class="categories allbtn" onclick="location.href='map.do'"><div class="alltext">all</div><span class="catetext_first">&emsp;전체</span></div>
 			<div class="categories" id="category_icon_a"><span class="catetext">동물병원</span></div>
 			<div class="categories" id="category_icon_b"><span class="catetext">카페/식당</span></div>
 			<div class="categories" id="category_icon_c"><span class="catetext">식품/용품</span></div>
