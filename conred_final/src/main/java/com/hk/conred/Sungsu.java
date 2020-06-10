@@ -430,10 +430,11 @@ public class Sungsu {
 	
 	
 	@RequestMapping(value = "user_store_reserve.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_store_reserve(Locale locale, Model model,int store_seq) {
+	public String user_store_reserve(Locale locale, Model model,int store_seq,String store_name) {
 		logger.info("별점 라이브러리 테스트{}.", locale);
-		List<MenuDto> list=menuService.selectMenu(store_seq);
-		model.addAttribute("list", list);
+		List<MenuDto> list_menu=menuService.selectMenu(store_seq);
+		model.addAttribute("list_menu", list_menu);
+		System.out.println(store_name);
 		return "user/user_store_reserve";
 	} 
 	
