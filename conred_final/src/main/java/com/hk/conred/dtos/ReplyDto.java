@@ -8,9 +8,9 @@ public class ReplyDto {
 	private String user_id;
 	private int store_seq;
 	private String reply_content;
-	private int reply_clean;
-	private int reply_price;
-	private int reply_service;
+	private Double reply_clean;
+	private Double reply_price;
+	private Double reply_service;
 	private String reply_answer;
 	private String reply_read;
 	private Date reply_regdate;
@@ -18,9 +18,9 @@ public class ReplyDto {
 	
 	public ReplyDto() {
 	}
-
-	public ReplyDto(int reply_seq, String user_id, int store_seq, String reply_content, int reply_clean,
-			int reply_price, int reply_service, String reply_answer, String reply_read, Date reply_regdate,
+	
+	public ReplyDto(int reply_seq, String user_id, int store_seq, String reply_content, Double reply_clean,
+			Double reply_price, Double reply_service, String reply_answer, String reply_read, Date reply_regdate,
 			String reply_delflag) {
 		super();
 		this.reply_seq = reply_seq;
@@ -68,27 +68,27 @@ public class ReplyDto {
 		this.reply_content = reply_content;
 	}
 
-	public int getReply_clean() {
+	public Double getReply_clean() {
 		return reply_clean;
 	}
 
-	public void setReply_clean(int reply_clean) {
+	public void setReply_clean(Double reply_clean) {
 		this.reply_clean = reply_clean;
 	}
 
-	public int getReply_price() {
+	public Double getReply_price() {
 		return reply_price;
 	}
 
-	public void setReply_price(int reply_price) {
+	public void setReply_price(Double reply_price) {
 		this.reply_price = reply_price;
 	}
 
-	public int getReply_service() {
+	public Double getReply_service() {
 		return reply_service;
 	}
 
-	public void setReply_service(int reply_service) {
+	public void setReply_service(Double reply_service) {
 		this.reply_service = reply_service;
 	}
 
@@ -126,11 +126,13 @@ public class ReplyDto {
 
 	@Override
 	public String toString() {
-		return "replyDto [reply_seq=" + reply_seq + ", user_id=" + user_id + ", store_seq=" + store_seq
+		return "ReplyDto [reply_seq=" + reply_seq + ", user_id=" + user_id + ", store_seq=" + store_seq
 				+ ", reply_content=" + reply_content + ", reply_clean=" + reply_clean + ", reply_price=" + reply_price
 				+ ", reply_service=" + reply_service + ", reply_answer=" + reply_answer + ", reply_read=" + reply_read
 				+ ", reply_regdate=" + reply_regdate + ", reply_delflag=" + reply_delflag + "]";
 	}
+
+	
 	
 	
 	

@@ -22,11 +22,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hk.conred.dtos.InterestsDto;
 import com.hk.conred.dtos.LikeDto;
+import com.hk.conred.dtos.MenuDto;
 import com.hk.conred.dtos.QnaDto;
 import com.hk.conred.dtos.ReplyDto;
 import com.hk.conred.dtos.ReserveDto;
 import com.hk.conred.dtos.UDto;
 import com.hk.conred.service.ILikeService;
+import com.hk.conred.service.IMenuService;
 import com.hk.conred.service.IOService;
 import com.hk.conred.service.IQnaService;
 import com.hk.conred.service.IReplyService;
@@ -73,6 +75,9 @@ public class Sungsu {
 	
 	@Autowired
 	private IReplyService replyService;
+	
+	@Autowired
+	private IMenuService menuService;
 	
 	
 
@@ -427,8 +432,8 @@ public class Sungsu {
 	@RequestMapping(value = "user_store_reserve.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String user_store_reserve(Locale locale, Model model,int store_seq) {
 		logger.info("별점 라이브러리 테스트{}.", locale);
-		
-		
+		List<MenuDto> list=menuService.selectMenu(store_seq);
+		model.addAttribute("list", list);
 		return "user/user_store_reserve";
 	} 
 	

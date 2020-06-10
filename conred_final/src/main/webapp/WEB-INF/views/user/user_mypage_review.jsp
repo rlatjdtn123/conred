@@ -36,10 +36,11 @@
 			url:"review_ajax.do",
 			method:"post",
 			data:{"pnum":count},
+			async: false,
 			dataType:"json",
 			success:function(obj){				
 				var lists=obj.list; //[dto,dto,dto..]
-				$.each(lists, function(i){    		
+				$.each(lists, function(i){  
 					addContent += ' <div class="bigtle"> '
 						+   '<div class="mybox">     '
 						+ 	'<div class="store_img">     '
@@ -48,31 +49,19 @@
 					 +	'</div>  '    
 					+	'<img src="./img/profile_default.png" class="pf"/>  '
 					+	'<div class="info">        '
-					+	'	<span >★★★★★</span><button style="margin-left: 160px;">수정</button> <button >삭제</button> <button  class="content_detail">자세히 보기</button><br>' 
-					+	'	<span>닉네임:'+ lists[i].user_id +' &nbsp;| 미용 / 컷트 </span><br><br>  '   
-					+	'	<div class="contents">'+ lists[i].reply_content +' '
-					+	'	</div>     '  
+					+	'	<span >★★★★★</span><button style="margin-left: 206px;">삭제</button> <button  class="content_detail">자세히 보기</button><br>' 
+					+	'	<span>닉네임:'+ lists[i].user_id +' &nbsp;| 미용 / 컷트 </span><br>  '
+					+		'<div class="user_review_img" ></div>'
+					+	'	<div class="contents">'+ lists[i].reply_content +'</div>     '  
 					+	'</div>  '
 					+	'<div class="info2">    '
 					+	'	<span style="font-weight: bold;">가게답변</span><br>  '
-					+	'	<div class="contents contents2">'+ lists[i].reply_answer +'</div>'
+					+	'	<div class="contents contents2">'+ (lists[i].reply_answer==null?'---미답변---':lists[i].reply_answer) +'</div>'
 					+	'</div>'
 				+	'</div>  ' 
 				+    ' </div> '
 				+     '<br><br>';	 
-					////////////////////////////////////////////////
-					$("body").on("click",".content_detail",function(){ 
-						if($(this).parent().parent().css("height")=="200px"){  
-							$(this).parent().parent().find(".info2").css("height","auto");
-							$(this).parent().parent().css("height","auto"); 
-							$(this).parent().parent().find(".contents").css({"overflow":"visible","height":"auto","word-break":"break-all"});
-						}else{
-							$(this).parent().parent().find(".info2").css("height","60px");
-							$(this).parent().parent().css("height","200px");    
-							$(this).parent().parent().find(".contents").css({"height":"25px","overflow":"hidden","word-break":"keep-all"});
-						}   
-					}); 
-					////////////////////////////////////////////////  	
+			 	
 				}); 
 				
 				 $('.bigbig').append(addContent); 
@@ -90,7 +79,7 @@
 	
 	$(function(){
 		$("body").on("click",".content_detail",function(){
-			if($(this).parent().parent().css("height")=="200px"){  
+			if($(this).parent().parent().css("height")=="220px"){  
 				$(this).parent().parent().find(".info2").css("height","auto");
 				$(this).parent().parent().css("height","auto"); 
 				$(this).parent().parent().find(".contents").css({"overflow":"visible","height":"auto","word-break":"break-all"});
@@ -117,16 +106,16 @@
 	   
 	.pf{float: left; width: 40px;height: 40px;}     
 	.dt{margin-left: 600px;}
-	.info{}    
+	.info{min-height: 95px;}    
 	.contents{display:inline-block; width: 450px;height:25px;text-overflow: ellipsis; overflow: hidden;word-break:keep-all;min-height: 25px;}     
 	.contents2{width:430px;}     
-	.info2{background-color: #F2F2F2;  height: 60px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 450px;}
+	.info2{background-color: #F2F2F2;  height: 66px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 450px; min-height: 66px;}
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
 	.myboxmargin{margin-top:30px;}      
 	.store_img{width: 200px;height:170px;border: 1px solid black; float: left;margin-right: 20px;} 
-	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:720px;height:200px; font-size: 15px; margin-left: 100px;min-height: 200px;}
+	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:720px;height:220px; font-size: 15px; margin-left: 100px;min-height: 220px;}
 	.bigtle{margin-left: 40px;}          
-	      
+	       
 	     
 	 .modal-title{margin-left: 400px;} 
 	.modal-body span{margin: 85px;}
@@ -140,7 +129,8 @@
      .imgs_wrap img {max-width: 150px;margin-left: 5px;margin-right: 5px;}
 	.input_wrap {clear: both;} 
 	button {border: 0;  } 
-	
+	 .user_review_img{border: 1px solid red;width: 490px;height: 50px;margin-left: 207px;}
+	 
 </style>
 </head>
 <%
@@ -182,14 +172,26 @@
 		 	</div>      
 			<img src="./img/profile_default.png" class="pf"/>  
 			<div class="info">        
-				<span >★★★★★</span><button style="margin-left: 160px;">수정</button> <button >삭제</button> <button  class="content_detail">자세히 보기</button><br> 
-				<span>닉네임:<%=dto.getUser_id()%> &nbsp;| 미용 / 컷트 </span><br><br>     
-				<div class="contents"><%=dto.getReply_content()%>
-				</div>       
-			</div>  
+				<span >★★★★★</span><button style="margin-left: 206px;">삭제</button> <button  class="content_detail">자세히 보기</button><br> 
+				<span>닉네임:<%=dto.getUser_id()%> &nbsp;| 미용 / 컷트 </span><br>
+				<div class="user_review_img" ></div>     
+<%-- 				<div class="contents"><%=dto.getReply_content()%></div> --%>
+				<div class="contents">ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</div>
+			</div>   
 			<div class="info2">     
-				<span style="font-weight: bold;">가게답변</span><br>  
-				<div class="contents contents2"><%=dto.getReply_answer()%></div>
+				<span style="font-weight: bold;">가게답변</span><br>
+				<%
+					if(dto.getReply_answer()==null||dto.getReply_answer().equals("")){
+						%>
+<!-- 							<div class="contents contents2">---미답변---</div> -->
+							<div class="contents contents2">ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</div>
+						<%
+					}else{ 
+						%>
+							<div class="contents contents2"><%=dto.getReply_answer()%></div>						
+						<%
+					}
+				%>  
 			</div>
 		</div>  
 	</div>      

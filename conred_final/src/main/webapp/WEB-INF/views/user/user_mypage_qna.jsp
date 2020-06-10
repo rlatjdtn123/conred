@@ -31,17 +31,17 @@
 	
 	.pf{float: left; width: 40px;height: 40px;}      
 	.dt{margin-left: 600px;} 
-	.info{}   
+	.info{min-height: 95px;}   
 	.contents{display:inline-block; width: 450px;height:25px;text-overflow: ellipsis; overflow: hidden;word-break:keep-all;}
 	.contents2{width:430px;}         
-	.info2{background-color: #F2F2F2;  height: 60px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 450px;}
+	.info2{background-color: #F2F2F2;  height: 62px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 450px;}
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
 	.myboxmargin{margin-top:30px;}      
 	.store_img{width: 200px;height:170px;border: 1px solid black; float: left;margin-right: 20px;} 
-	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:720px;height:200px; font-size: 15px; margin-left: 100px;}
+	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:720px;height:200px; font-size: 15px; margin-left: 100px;min-height: 200px;}
 	.bigtle{margin-left: 40px;}    
 	button {border: 0;}
-	  
+	   
 </style> 
 <script type="text/javascript">
 	
@@ -61,6 +61,7 @@
 			url:"qna_ajax.do",
 			method:"post",
 			data:{"pnum":count},
+			async: false,
 			dataType:"json", 
 			success:function(obj){				
 				var lists=obj.list; //[dto,dto,dto..]
@@ -83,10 +84,21 @@
 									+	'	</div>  '
 								+	'	</div>'
 							+	'	</div>   '
-							+	'	<br><br>';				
-// 						if(lists[i].qna_answer==null||lists[i].qna_answer.equals("")){
-// 							$(".contents2").text("===미답변===");
-// 						}			 
+							+	'	<br><br>';
+							////////////////////////////////////
+							$("body").on("click",".content_detail",function(){     
+								if($(this).parent().parent().css("height")=="200px"){  
+									$(this).parent().parent().find(".info2").css("height","auto");
+									$(this).parent().parent().css("height","auto"); 
+									$(this).parent().parent().find(".contents").css({"overflow":"visible","height":"auto","word-break":"break-all"});
+								}else{
+									$(this).parent().parent().find(".info2").css("height","60px");
+									$(this).parent().parent().css("height","200px");    
+									$(this).parent().parent().find(".contents").css({"height":"25px","overflow":"hidden","word-break":"keep-all"});
+								}   
+							});  
+							
+		 					//////////////////////////////////////////
 						}); 
 						
 						 $('.bigbig').append(addContent); 
@@ -107,7 +119,7 @@
 	
 	
 	$(function(){
-		$(".content_detail").click(function(){     
+		$("body").on("click",".content_detail",function(){     
 			if($(this).parent().parent().css("height")=="200px"){  
 				$(this).parent().parent().find(".info2").css("height","auto");
 				$(this).parent().parent().css("height","auto"); 
@@ -117,7 +129,7 @@
 				$(this).parent().parent().css("height","200px");    
 				$(this).parent().parent().find(".contents").css({"height":"25px","overflow":"hidden","word-break":"keep-all"});
 			}   
-		});      
+		});       
   
 	});  
 	 
@@ -147,7 +159,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="pagename">
+	<div id="pagename"> 
 		<b>작성한 문의</b>
 	</div>
 		<%
