@@ -6,7 +6,36 @@
   
 <mapper namespace="com.hk.conred.Interests">
 
-
+	<resultMap type="com.hk.conred.dtos.SDto"  id="sDtoMap">
+		<result property="store_seq" column="STORE_SEQ" />
+		<result property="owner_id" column="OWNER_ID" />
+		<result property="store_name" column="STORE_NAME" />
+		<collection property="cDTo" resultMap="cDtoMap"></collection>
+		<collection property="iDTo" resultMap="interestsDtoMap"></collection>
+	</resultMap>
+	
+	<resultMap type="com.hk.conred.dtos.CDto"  id="cDtoMap">
+		<result property="category_code" column="CATEGORY_CODE" />
+		<result property="category_name" column="CATEGORY_NAME" />
+	</resultMap>
+	
+	<resultMap type="com.hk.conred.dtos.InterestsDto"  id="interestsDtoMap">
+		<result property="user_id" column="USER_ID" />
+		<result property="category_code" column="CATEGORY_CODE" />
+	</resultMap>
+	
+	<select id=""  parameterType="String" resultMap="sDtoMap">
+		SELECT A.USER_ID ,A.CATEGORY_CODE , A.CATEGORY_NAME,B.STORE_SEQ ,B.OWNER_ID ,B.STORE_NAME
+		FROM (SELECT U.USER_ID ,C.CATEGORY_CODE , C.CATEGORY_NAME
+			FROM CON_USER U, CON_INTERESTS I, CON_CATEGORY C
+			WHERE U.USER_ID = I.USER_ID AND I.CATEGORY_CODE = C.CATEGORY_CODE 
+			AND U.USER_ID = #{user_id} ) A,
+			(SELECT S.STORE_SEQ ,S.OWNER_ID ,S.STORE_NAME, M.CATEGORY_CODE 
+			FROM CON_STORE S,CON_CATEGORY_MAIN M
+			WHERE S.STORE_SEQ =M.STORE_SEQ) B
+		WHERE A.CATEGORY_CODE = B.CATEGORY_CODE
+	</select>
+	
 	<!-- 임시로 아이디 test로 넣어줌 #{user_id}로 바꿔야됨 -->
 	<insert id="insertInterests" parameterType="InterestsDto">
 		INSERT ALL  

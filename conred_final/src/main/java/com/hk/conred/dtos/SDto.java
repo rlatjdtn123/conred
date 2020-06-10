@@ -28,11 +28,14 @@ public class SDto {
 	private String store_admin_state;
 	private int store_maxdate;
 	private int store_maxman;
+	private CDto cDto;
+	private InterestsDto iDto;
 	
 	public SDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	
 	public SDto(int store_seq, String owner_id, String store_name, String store_owner_name, String store_path,
 			String store_intro_simple, String store_intro, String store_state, String store_phone,
@@ -233,6 +236,23 @@ public class SDto {
 	public void setStore_maxman(int store_maxman) {
 		this.store_maxman = store_maxman;
 	}
+	
+	public CDto getcDto() {
+		return cDto;
+	}
+
+	public void setcDto(CDto cDto) {
+		this.cDto = cDto;
+	}
+
+	public InterestsDto getiDto() {
+		return iDto;
+	}
+
+	public void setiDto(InterestsDto iDto) {
+		this.iDto = iDto;
+	}
+	
 	@Override
 	public String toString() {
 		return "SDto [store_seq=" + store_seq + ", owner_id=" + owner_id + ", store_name=" + store_name

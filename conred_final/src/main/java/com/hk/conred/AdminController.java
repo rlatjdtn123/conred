@@ -152,7 +152,7 @@ public class AdminController {
 	public String adminMuldelOwner(String[] owner_ids, Locale locale, Model model, String searchWordOwner, String ownerSearch) throws UnsupportedEncodingException {
 		 
 		logger.info("관리자 - 점주 선택/다중선택 후 점주 삭제 기능(업데이트문) {"+(Arrays.toString(owner_ids))+"}.", locale);
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!::"+owner_ids);
+//		System.out.println("!!!!!!!!!!!!!!!!!!!!!!::"+owner_ids);
 		boolean isS=aService.adminMuldelOwner(owner_ids);
 		
 		if(isS) {
