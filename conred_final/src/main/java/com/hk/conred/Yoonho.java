@@ -426,18 +426,14 @@ public class Yoonho {
 		List<CListDto> list_clist =cListService.selectCList(store_seq);
 		List<MenuDto> list_menu =menuService.selectMenu(store_seq);
 		List<ReplyDto> list_reply=replyService.replyListStore(store_seq);
-		
-//		for (int i = 0; i < array.length; i++) {
-//			
-//		}
-//		list_reply.get(index)
-		
+		ReplyDto reply_avg = replyService.replyAvgStore(store_seq);
 		System.out.println("store_detail : "+store_detail);
 		System.out.println("list_stime : "+list_stime);
 		System.out.println("cmain : "+cmain);
 		System.out.println("list_clist : "+list_clist);
 		System.out.println("list_menu : "+list_menu);
 		System.out.println("list_reply : "+list_reply);
+		System.out.println("reply_avg : "+reply_avg);
 		
 		System.out.println("sdto의 store_seq:"+store_seq);
 		System.out.println("sldto의 store_seq(점포소지자/비소지자여부):"+sldto);//초기값(null 이거나,seq가 들어간 sdto가 나옴)
@@ -449,6 +445,7 @@ public class Yoonho {
 		model.addAttribute("list_clist",list_clist);// 소분류카테고리
 		model.addAttribute("list_menu",list_menu);// 메뉴
 		model.addAttribute("list_reply",list_reply);// 리뷰
+		model.addAttribute("reply_avg",reply_avg);// 리뷰평균,댓글갯수들 모음
 		
 		//내 매장인지/타인 매장인지 여부 확인용
 		model.addAttribute("s_seq",store_seq);//내 매장인지/타인 매장인지 여부 확인용

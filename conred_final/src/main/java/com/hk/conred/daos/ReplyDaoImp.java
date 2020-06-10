@@ -33,4 +33,9 @@ public class ReplyDaoImp implements IReplyDao{
 		return list;
 	}
 	
+	@Override
+	public ReplyDto replyAvgStore(int store_seq) {
+		return sqlSession.selectOne(nameSpace+"replyAvgStore",store_seq);
+	}
+	
 }

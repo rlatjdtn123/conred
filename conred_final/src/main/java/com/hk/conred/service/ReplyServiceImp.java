@@ -24,4 +24,9 @@ public class ReplyServiceImp implements IReplyService{
 		return replyDao.replyListStore(store_seq);
 	}
 
+	@Override
+	public ReplyDto replyAvgStore(int store_seq) {
+		return replyDao.replyAvgStore(store_seq);
+	}
+
 }

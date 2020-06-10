@@ -23,7 +23,18 @@
 		]]>
 	</select>
 	
-	
+	<select id="replyAvgStore" parameterType="int" resultType="ReplyDto">
+		<![CDATA[
+			SELECT TRUNC(AVG(REPLY_CLEAN),1) AS clean_avg,
+			TRUNC(AVG(REPLY_SERVICE ),1) AS service_avg,
+			TRUNC(AVG(REPLY_PRICE),1) AS price_avg,
+			TRUNC((AVG(REPLY_CLEAN)+AVG(REPLY_SERVICE)+AVG(REPLY_PRICE))/3,1) AS all_avg,
+			COUNT(REPLY_CONTENT) AS reply_count ,
+			COUNT(REPLY_ANSWER) AS answer_count
+			FROM con_REPLY
+			WHERE STORE_SEQ =#{store_seq}
+		]]>
+	</select>
 	
 </mapper>
 	 

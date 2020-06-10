@@ -12,4 +12,6 @@ public interface IReplyService {
 	//2.리뷰목록 - 점주: 자기 매장에 달린 모든 리뷰
 	public List<ReplyDto> replyListStore(int store_seq);
 	
+	//3.리뷰평균목록 - 점주: 특정 매장에 달린 모든 리뷰에 대한 평균들, 달린리뷰, 달은 답변 갯수
+	public ReplyDto replyAvgStore(int store_seq);
 }
