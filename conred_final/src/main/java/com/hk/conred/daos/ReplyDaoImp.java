@@ -27,4 +27,10 @@ public class ReplyDaoImp implements IReplyDao{
 		return list;
 	}
 
+	@Override
+	public List<ReplyDto> replyListStore(int store_seq) {
+		List<ReplyDto> list = sqlSession.selectList(nameSpace+"replyListStore",store_seq);
+		return list;
+	}
+	
 }

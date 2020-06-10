@@ -27,6 +27,7 @@ import com.hk.conred.dtos.CListDto;
 import com.hk.conred.dtos.CMainDto;
 import com.hk.conred.dtos.MenuDto;
 import com.hk.conred.dtos.ODto;
+import com.hk.conred.dtos.ReplyDto;
 import com.hk.conred.dtos.SDto;
 import com.hk.conred.dtos.STimeDto;
 import com.hk.conred.dtos.UDto;
@@ -34,6 +35,7 @@ import com.hk.conred.service.ICListService;
 import com.hk.conred.service.ICMainService;
 import com.hk.conred.service.IMenuService;
 import com.hk.conred.service.IOService;
+import com.hk.conred.service.IReplyService;
 import com.hk.conred.service.ISService;
 import com.hk.conred.service.ISTimeService;
 import com.hk.conred.service.OServiceImp;
@@ -55,6 +57,8 @@ public class Yoonho {
 	private ICListService cListService;
 	@Autowired
 	private IMenuService menuService;
+	@Autowired
+	private IReplyService replyService;	
 	
 	@RequestMapping(value = "yoonho.do", method = RequestMethod.GET)
 	public String yoonho(Locale locale, Model model) {
@@ -421,60 +425,30 @@ public class Yoonho {
 		CMainDto cmain =cMainService.selectCMain(store_seq);
 		List<CListDto> list_clist =cListService.selectCList(store_seq);
 		List<MenuDto> list_menu =menuService.selectMenu(store_seq);
-
+		List<ReplyDto> list_reply=replyService.replyListStore(store_seq);
+		
+//		for (int i = 0; i < array.length; i++) {
+//			
+//		}
+//		list_reply.get(index)
+		
 		System.out.println("store_detail : "+store_detail);
 		System.out.println("list_stime : "+list_stime);
 		System.out.println("cmain : "+cmain);
 		System.out.println("list_clist : "+list_clist);
 		System.out.println("list_menu : "+list_menu);
+		System.out.println("list_reply : "+list_reply);
 		
 		System.out.println("sdto의 store_seq:"+store_seq);
-		System.out.println("sldto의 store_seq:"+sldto);//초기값(null 이거나,seq가 들어간 sdto가 나옴)
-		
-		String d =list_menu.get(0).getMenu_name();
-		for (int i = 0; i < list_menu.size(); i++) {
-			if(list_menu.get(i).getMenu_state()=="A") {
-				List<MenuDto> list_menu_A =new ArrayList<>();
-				list_menu_A.add(list_menu.get(i));
-			}else if(list_menu.get(i).getMenu_state()=="B") {
-				List<MenuDto> list_menu_B =new ArrayList<>();
-				list_menu_B.add(list_menu.get(i));
-			}else if(list_menu.get(i).getMenu_state()=="C") {
-				List<MenuDto> list_menu_C =new ArrayList<>();
-				list_menu_C.add(list_menu.get(i));
-			}else if(list_menu.get(i).getMenu_state()=="D") {
-				List<MenuDto> list_menu_D =new ArrayList<>();
-				list_menu_D.add(list_menu.get(i));
-			}else if(list_menu.get(i).getMenu_state()=="E") {
-				List<MenuDto> list_menu_E =new ArrayList<>();
-				list_menu_E.add(list_menu.get(i));
-			}else if(list_menu.get(i).getMenu_state()=="F") {
-				List<MenuDto> list_menu_F =new ArrayList<>();
-				list_menu_F.add(list_menu.get(i));
-			}else if(list_menu.get(i).getMenu_state()=="G") {
-				List<MenuDto> list_menu_G =new ArrayList<>();
-				list_menu_G.add(list_menu.get(i));
-			}else if(list_menu.get(i).getMenu_state()=="H") {
-				List<MenuDto> list_menu_H =new ArrayList<>();
-				list_menu_H.add(list_menu.get(i));
-			}else if(list_menu.get(i).getMenu_state()=="I") {
-				List<MenuDto> list_menu_I =new ArrayList<>();
-				list_menu_I.add(list_menu.get(i));
-			}
-		}
-//		if()
-//		List<CListDto> list_menu_bycate =list_
-		//메뉴 뿌려줄값 나눠주기
-//		if(list_menu[0].getMe) {
-//			
-//		}
+		System.out.println("sldto의 store_seq(점포소지자/비소지자여부):"+sldto);//초기값(null 이거나,seq가 들어간 sdto가 나옴)
 		
 		//뿌려줄값들
-		model.addAttribute("store_detail",store_detail);// 영업시간
+		model.addAttribute("store_detail",store_detail);// 매장상세정보
 		model.addAttribute("list_stime",list_stime);// 영업시간
 		model.addAttribute("cmain",cmain);// 대분류카테고리
 		model.addAttribute("list_clist",list_clist);// 소분류카테고리
 		model.addAttribute("list_menu",list_menu);// 메뉴
+		model.addAttribute("list_reply",list_reply);// 리뷰
 		
 		//내 매장인지/타인 매장인지 여부 확인용
 		model.addAttribute("s_seq",store_seq);//내 매장인지/타인 매장인지 여부 확인용

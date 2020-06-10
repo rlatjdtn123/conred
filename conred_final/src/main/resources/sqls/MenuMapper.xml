@@ -16,11 +16,17 @@
 	</insert>
 	
 	<select id="selectMenu" parameterType="int" resultType="MenuDto">
+<!-- 		<![CDATA[ -->
+<!-- 			SELECT * -->
+<!-- 			FROM CON_MENU -->
+<!-- 			WHERE STORE_SEQ=#{store_seq} -->
+<!-- 			ORDER BY CATEGORY_CODE  -->
+<!-- 		]]> -->
 		<![CDATA[
 			SELECT *
-			FROM CON_MENU
-			WHERE STORE_SEQ=#{store_seq}
-			ORDER BY CATEGORY_CODE 
+			FROM CON_MENU cm,CON_CATEGORY cc
+			WHERE cm.CATEGORY_CODE =cc.CATEGORY_CODE
+			AND STORE_SEQ=#{store_seq}
 		]]>
 	</select>
 </mapper>

@@ -14,7 +14,14 @@
 		WHERE CEIL(rn/5)=#{pnum} AND USER_ID =#{user_id}
 	</select>
 	
-	
+	<select id="replyListStore" parameterType="int" resultType="ReplyDto">
+		<![CDATA[
+			SELECT *
+			FROM CON_REPLY
+			WHERE STORE_SEQ=${store_seq}
+			ORDER BY REPLY_REGDATE
+		]]>
+	</select>
 	
 </mapper>
 	 

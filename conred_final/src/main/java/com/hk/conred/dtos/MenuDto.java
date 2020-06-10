@@ -8,13 +8,13 @@ public class MenuDto {
 	private String menu_content;
 	private String menu_price;
 	private String menu_state;
-	
+	private String category_name;
 	public MenuDto() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
-	
 	public MenuDto(int menu_seq, int store_seq, String category_code, String menu_name, String menu_content,
-			String menu_price, String menu_state) {
+			String menu_price, String menu_state, String category_name) {
 		super();
 		this.menu_seq = menu_seq;
 		this.store_seq = store_seq;
@@ -23,8 +23,8 @@ public class MenuDto {
 		this.menu_content = menu_content;
 		this.menu_price = menu_price;
 		this.menu_state = menu_state;
+		this.category_name = category_name;
 	}
-	
 	public int getMenu_seq() {
 		return menu_seq;
 	}
@@ -67,11 +67,17 @@ public class MenuDto {
 	public void setMenu_state(String menu_state) {
 		this.menu_state = menu_state;
 	}
-	
+	public String getCategory_name() {
+		return category_name;
+	}
+	public void setCategory_name(String category_name) {
+		this.category_name = category_name;
+	}
 	@Override
 	public String toString() {
 		return "MenuDto [menu_seq=" + menu_seq + ", store_seq=" + store_seq + ", category_code=" + category_code
 				+ ", menu_name=" + menu_name + ", menu_content=" + menu_content + ", menu_price=" + menu_price
-				+ ", menu_state=" + menu_state + "]";
+				+ ", menu_state=" + menu_state + ", category_name=" + category_name + "]";
 	}
+	
 }

@@ -19,4 +19,9 @@ public class ReplyServiceImp implements IReplyService{
 		return replyDao.replyList(user_id,pnum);
 	}
 
+	@Override
+	public List<ReplyDto> replyListStore(int store_seq) {
+		return replyDao.replyListStore(store_seq);
+	}
+
 }

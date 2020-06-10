@@ -76,7 +76,8 @@
 	#reserve_btn:hover #reserve_text{font-size:25px; transition:all .3s;}
 	#reserve_text{width:300px;margin:0 auto;text-align: center;line-height: 60px;font-size:20px;}
 
-	.mname{border-top-width: 0px !important;font-size:20px;}
+	.mname{border-top-width: 0px !important;font-size:18px;height:30px;text-align: left;}
+	.mnametext{background-color: #f5f5f5;border-radius: 5px 5px 0px 0px;padding: 11px 31px 11px;border: 1px solid #ddd;border-bottom-width: 0px;}
 </style>
 </head>
 <body>
@@ -238,7 +239,7 @@
 						<c:choose>
 							<c:when test="${i==0}">
 								<tr>
-									<td class="mname" colspan="3">${list_menu[i].category_code} 메뉴</td>
+									<td class="mname" colspan="3"><span class="mnametext">${list_menu[i].category_name} 메뉴</span></td>
 								</tr>
 								<tr>
 									<td class="active"><b>메뉴명</b></td>
@@ -248,7 +249,10 @@
 							</c:when>
 							<c:when test="${list_menu[i-1].category_code != list_menu[i].category_code}">
 								<tr>
-									<td class="mname" colspan="3">${list_menu[i].category_code} 메뉴</td>
+									<td class="mname" colspan="3"></td>
+								</tr>
+								<tr>
+									<td class="mname" colspan="3"><span class="mnametext">${list_menu[i].category_name} 메뉴</span></td>
 								</tr>
 								<tr>
 									<td class="active"><b>메뉴명</b></td>
