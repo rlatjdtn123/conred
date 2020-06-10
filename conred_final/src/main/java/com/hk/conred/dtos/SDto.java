@@ -1,5 +1,5 @@
 package com.hk.conred.dtos;
-
+ 
 public class SDto {
 	private int store_seq;
 	private String owner_id;
