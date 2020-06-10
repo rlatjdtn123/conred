@@ -7,7 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
 
+<body>
+<h1>매장->메뉴들(사용자가예약)</h1> 
 </body>
 </html>

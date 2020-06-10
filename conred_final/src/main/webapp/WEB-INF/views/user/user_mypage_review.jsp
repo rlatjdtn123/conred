@@ -60,6 +60,19 @@
 				+	'</div>  ' 
 				+    ' </div> '
 				+     '<br><br>';	 
+					////////////////////////////////////////////////
+					$("body").on("click",".content_detail",function(){ 
+						if($(this).parent().parent().css("height")=="200px"){  
+							$(this).parent().parent().find(".info2").css("height","auto");
+							$(this).parent().parent().css("height","auto"); 
+							$(this).parent().parent().find(".contents").css({"overflow":"visible","height":"auto","word-break":"break-all"});
+						}else{
+							$(this).parent().parent().find(".info2").css("height","60px");
+							$(this).parent().parent().css("height","200px");    
+							$(this).parent().parent().find(".contents").css({"height":"25px","overflow":"hidden","word-break":"keep-all"});
+						}   
+					}); 
+					////////////////////////////////////////////////  	
 				}); 
 				
 				 $('.bigbig').append(addContent); 
@@ -67,78 +80,16 @@
 			}
 			}); 
 	        
-	    	////////////////////////////////////////////////       		
+	     		
 	              
 	    }
 	};
 	
 	
-
-	
-	// 이미지 정보들을 담을 배열
-	var sel_files = [];
-	
-	
-	$(document).ready(function() {
-	    $("#input_imgs").on("change", handleImgFileSelect);
-	}); 
-	
-	function fileUploadAction() {
-	    console.log("fileUploadAction");
-	    $("#input_imgs").trigger('click');
-	}
-	
-	function handleImgFileSelect(e) {
-	
-	    // 이미지 정보들을 초기화
-	    sel_files = [];
-	    $(".imgs_wrap").empty();
-	
-	    var files = e.target.files;
-	    var filesArr = Array.prototype.slice.call(files);
-	
-	    var index = 0;
-	    filesArr.forEach(function(f) {
-	        if(!f.type.match("image.*")) {
-	            alert("확장자는 이미지 확장자만 가능합니다.");
-	            return;
-	        }
-	
-	        sel_files.push(f);
-	
-	        var reader = new FileReader();
-	        var imges;
-	        reader.onload = function(e) {
-	            var html = "<a href=\"javascript:void(0);\" onclick=\"deleteImageAction("+index+")\" id=\"img_id_"+index+"\"><img src=\"" + e.target.result + "\" data-file='"+f.name+"' class='selProductFile' title='Click to remove'></a>";
-	            imges=$(".imgs_wrap");
-	                imges.append(html);
-	                index++;
-	        }
-	        reader.readAsDataURL(f);
-	        
-	    });
-	}
-
-
-
-	function deleteImageAction(index) {
-	    console.log("index : "+index);
-	    console.log("sel length : "+sel_files.length);
-	
-	    sel_files.splice(index, 1);
-	
-	    var img_id = "#img_id_"+index;
-	    $(img_id).remove(); 
-	}
-	
-	function fileUploadAction() {
-	    console.log("fileUploadAction");
-	    $("#input_imgs").trigger('click');
-	}
 	
 	
 	$(function(){
-		$(".content_detail").click(function(){ 
+		$("body").on("click",".content_detail",function(){
 			if($(this).parent().parent().css("height")=="200px"){  
 				$(this).parent().parent().find(".info2").css("height","auto");
 				$(this).parent().parent().css("height","auto"); 
@@ -167,16 +118,16 @@
 	.pf{float: left; width: 40px;height: 40px;}     
 	.dt{margin-left: 600px;}
 	.info{}    
-	.contents{display:inline-block; width: 450px;height:25px;text-overflow: ellipsis; overflow: hidden;}     
+	.contents{display:inline-block; width: 450px;height:25px;text-overflow: ellipsis; overflow: hidden;word-break:keep-all;min-height: 25px;}     
 	.contents2{width:430px;}     
 	.info2{background-color: #F2F2F2;  height: 60px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 450px;}
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
 	.myboxmargin{margin-top:30px;}      
 	.store_img{width: 200px;height:170px;border: 1px solid black; float: left;margin-right: 20px;} 
-	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:720px;height:200px; font-size: 15px; margin-left: 100px;}
+	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:720px;height:200px; font-size: 15px; margin-left: 100px;min-height: 200px;}
 	.bigtle{margin-left: 40px;}          
 	      
-	    
+	     
 	 .modal-title{margin-left: 400px;} 
 	.modal-body span{margin: 85px;}
 	textarea:focus::-webkit-input-placeholder { color: transparent; }

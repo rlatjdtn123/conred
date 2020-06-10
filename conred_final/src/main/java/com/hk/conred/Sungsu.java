@@ -405,25 +405,6 @@ public class Sungsu {
 //		return "test/test_reserve_detail";
 //	} 
 	
-	@RequestMapping(value = "test_scroll.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String test_scroll(Locale locale, Model model) {
-		logger.info("스크롤 테스트{}.", locale);
-		return "test/test_scroll";
-	} 
-	
-	@RequestMapping(value = "test_modal.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String test_modal(Locale locale, Model model) {
-		logger.info("모달 테스트{}.", locale);
-		return "test/test_modal";
-	} 
-	
-	
-	@RequestMapping(value = "test_file.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String test_file(Locale locale, Model model) {
-		logger.info("다중업로드 테스트{}.", locale);
-		return "test/test_file";
-	} 
-	
 	
 	
 	@RequestMapping(value = "test_calendar.do", method = {RequestMethod.GET,RequestMethod.POST})
@@ -440,30 +421,14 @@ public class Sungsu {
 		logger.info("캘린더 테스트2{}.", locale);
 		return "test/test_calendar02";
 	} 
-	
-	@RequestMapping(value = "test_time.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String test_time(Locale locale, Model model) {
-		logger.info("시간 테스트{}.", locale);
-		return "test/test_time";
-	} 
-	
-	
-	@RequestMapping(value = "test_like.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String test_like(Locale locale, Model model) {
-		logger.info("찜버튼 테스트{}.", locale);
-		return "test/test_like";
-	} 
-	
-	@RequestMapping(value = "test_star.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String test_star(Locale locale, Model model) {
-		logger.info("별점 라이브러리 테스트{}.", locale);
-		return "test/test_star";
-	} 
+
 	
 	
 	@RequestMapping(value = "user_store_reserve.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_store_reserve(Locale locale, Model model) {
+	public String user_store_reserve(Locale locale, Model model,int store_seq) {
 		logger.info("별점 라이브러리 테스트{}.", locale);
+		
+		
 		return "user/user_store_reserve";
 	} 
 	

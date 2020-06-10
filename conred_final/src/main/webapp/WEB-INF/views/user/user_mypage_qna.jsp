@@ -30,9 +30,9 @@
 	
 	
 	.pf{float: left; width: 40px;height: 40px;}      
-	.dt{margin-left: 600px;}
+	.dt{margin-left: 600px;} 
 	.info{}   
-	.contents{display:inline-block; width: 450px;height:25px;text-overflow: ellipsis; overflow: hidden;}
+	.contents{display:inline-block; width: 450px;height:25px;text-overflow: ellipsis; overflow: hidden;word-break:keep-all;}
 	.contents2{width:430px;}         
 	.info2{background-color: #F2F2F2;  height: 60px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 450px;}
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
