@@ -29,5 +29,18 @@
 			AND STORE_SEQ=#{store_seq}
 		]]>
 	</select>
+	
+	<select id="detailMenu" resultType="MenuDto" parameterType="Map">
+		SELECT cm.MENU_SEQ ,cm.STORE_SEQ ,cst.STORE_TIME_SEQ ,cm.MENU_NAME ,cm.MENU_CONTENT ,cm.MENU_PRICE ,cs.STORE_MAXMAN, 
+		cst.STORE_TIME_DAY ,cst.STORE_TIME_OPEN ,cst.STORE_TIME_CLOSE ,cst.STORE_TIME_BREAK 
+		FROM con_menu cm , CON_STORE cs ,CON_STORE_TIME cst 
+		WHERE cm.STORE_SEQ =cs.STORE_SEQ AND cm.STORE_SEQ=cst.STORE_SEQ AND cm.MENU_SEQ =#{menu_seq} AND cm.STORE_SEQ =#{store_seq}
+	</select>
 </mapper>
+	 
+	 
+	 
+	 
+	 
+	 
 	 

@@ -49,4 +49,13 @@ public class MenuDaoImp implements IMenuDao{
 		return list;
 	}
 
+	@Override
+	public List<MenuDto> detailMenu(int menu_seq,int store_seq) {
+		Map<String, Integer> map= new HashMap<>();
+		map.put("menu_seq", menu_seq);
+		map.put("store_seq", store_seq);
+		List<MenuDto> list=sqlSession.selectList(namespace+"detailMenu", map);
+		return list;
+	}
+
 }

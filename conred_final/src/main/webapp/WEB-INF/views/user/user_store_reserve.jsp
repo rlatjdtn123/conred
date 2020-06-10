@@ -18,7 +18,8 @@
 	#s_menubox{height:auto;}
 	#s_menu{text-align: center;}
 	.bigtle{width: 800px; margin: 0 auto; margin-bottom: 400px;}
-	
+	.reserve_btn{background-color: #F2F2F2; border: 0;}
+	.reserve_btn:hover {background-color: lightgrey;cursor: pointer;}
 	
 </style> 
 </head>
@@ -29,13 +30,13 @@
 <div id="container">
 	<div class="bigtle">
 		<div class="infobox section">
-			<div class="s_bold">메뉴</div>
+			<div class="s_bold">${store_name}의 예약가능 메뉴</div>
 			<br>
 			<div id="s_menubox"> 
 				<table id="s_menu" class="table">
 					<col width="150px">
-					<col width="450px">
-					<col width="100px"> 
+					<col width="450px"> 
+					<col width="100px">  
 					<col width="150px">	
 					<c:forEach var="i" begin="0" end="${list_menu.size()-1}" step="1"><!-- 얘는 리스트 사이즈 -->
 						<c:if test="${list_menu[i].menu_state ne 'N'}">
@@ -69,52 +70,13 @@
 							</c:choose>
 		
 							<tr>
-								<td>${list_menu[i].menu_name}</td>
+								<td>${list_menu[i].menu_name}</td> 
 								<td>${list_menu[i].menu_content}</td>
 								<td>${list_menu[i].menu_price}원</td>
-								<td><input type="button" value="예약하러가기"/></td>									
+								<td><input type="button" onclick="location.href='user_reserve_time_select.do?menu_seq=${list_menu[i].menu_seq}&menu_state=${list_menu[i].menu_state}&store_seq=${list_menu[i].store_seq}'" value="예약하러가기" class="reserve_btn"/></td>									
 							</tr>
 						</c:if>
-					</c:forEach>
-					<!-- 	======================================================          -->
-	<%-- 				<% --%>
-	<!-- // 					for(int i=0; i>list_menu.size()-1;i++){ -->
-	<!-- // 						if(i==0){ -->
-	<%-- 						%> --%>
-	<!-- 							<tr>  -->
-	<%-- 								<td class="mname" colspan="3"><span class="mnametext"><%=list_menu.get(i).getCategory_name()%> 메뉴</span></td> --%>
-	<!-- 							</tr> -->
-	<!-- 							<tr> -->
-	<!-- 								<td class="active"><b>메뉴명</b></td> -->
-	<!-- 								<td class="active"><b>설명</b></td> -->
-	<!-- 								<td class="active"><b>가격</b></td> -->
-	<!-- 							</tr> -->
-	<%-- 						<% --%>
-	<!-- // 						}else if(list_menu.get(i-1).getCategory_code() != list_menu.get(i).getCategory_code()){ -->
-	<%-- 							%> --%>
-	<!-- 								<tr> -->
-	<!-- 									<td class="mname" colspan="3"></td> -->
-	<!-- 								</tr> -->
-	<!-- 								<tr> -->
-	<%-- 									<td class="mname" colspan="3"><span class="mnametext"><%=list_menu.get(i).getCategory_name()%> 메뉴</span></td> --%>
-	<!-- 								</tr> -->
-	<!-- 								<tr> -->
-	<!-- 									<td class="active"><b>메뉴명</b></td>  -->
-	<!-- 									<td class="active"><b>설명</b></td> -->
-	<!-- 									<td class="active"><b>가격</b></td> -->
-	<!-- 								</tr> -->
-	<%-- 							<% --%>
-	<!-- // 						} -->
-	<%-- 						%> --%>
-	<!-- 						<tr>  -->
-	<%-- 							<td><%=list_menu.get(i).getMenu_name()%></td> --%>
-	<%-- 							<td><%=list_menu.get(i).getMenu_content()%></td> --%>
-	<%-- 							<td><%=list_menu.get(i).getMenu_price()%>원</td> --%>
-	<!-- 						</tr> -->
-	<%-- 						<% --%>
-	<!-- // 					} -->
-	<%-- 				%> --%>
-					
+					</c:forEach>					
 				</table>
 			</div>
 		</div>

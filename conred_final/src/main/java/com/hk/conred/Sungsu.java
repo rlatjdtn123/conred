@@ -35,6 +35,7 @@ import com.hk.conred.service.IReplyService;
 import com.hk.conred.service.IReserveService;
 import com.hk.conred.service.IUService;
 import com.hk.conred.service.QnaServiceImp;
+import com.sun.glass.ui.Menu;
 
  
 @Controller
@@ -78,6 +79,8 @@ public class Sungsu {
 	
 	@Autowired
 	private IMenuService menuService;
+	
+	
 	
 	
 
@@ -431,14 +434,29 @@ public class Sungsu {
 	
 	@RequestMapping(value = "user_store_reserve.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String user_store_reserve(Locale locale, Model model,int store_seq,String store_name) {
-		logger.info("별점 라이브러리 테스트{}.", locale);
+		logger.info("매장 예약가능목록 출력{}.", locale);
 		List<MenuDto> list_menu=menuService.selectMenu(store_seq);
 		model.addAttribute("list_menu", list_menu);
+		model.addAttribute("store_name", store_name);
 		System.out.println(store_name);
 		return "user/user_store_reserve";
 	} 
 	
-	
+	@RequestMapping(value = "user_reserve_time_select.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String user_reserve_time_select(Locale locale, Model model,int menu_seq,String menu_state,int store_seq) {
+		logger.info("사용자 해당메뉴선택후 숙박/당일여부 별로 예약하러가기{}.", locale);
+		List<MenuDto> list=menuService.detailMenu(menu_seq,store_seq);
+		if(menu_state.equals("T")) {
+			model.addAttribute("list", list);
+			return "user/user_reserve_time_selectT";			
+		}else if(menu_state.equals("S")){
+			model.addAttribute("list", list);
+			return "user/user_reserve_time_selectS";
+		}else {
+			System.out.println("식품/용품 메뉴 선택부분");
+			return "";			
+		}
+	} 
 	
 	
 	

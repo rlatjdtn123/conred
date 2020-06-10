@@ -19,4 +19,9 @@ public class MenuServiceImp implements IMenuService {
 		return iMenuDaoImp.selectMenu(store_seq);
 	}
 
+	@Override
+	public List<MenuDto> detailMenu(int menu_seq,int store_seq) {
+		return iMenuDaoImp.detailMenu(menu_seq,store_seq);
+	}
+
 }
