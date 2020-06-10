@@ -19,7 +19,7 @@
 			SELECT *
 			FROM CON_REPLY
 			WHERE STORE_SEQ=${store_seq}
-			ORDER BY REPLY_REGDATE
+			ORDER BY REPLY_REGDATE DESC
 		]]>
 	</select>
 	

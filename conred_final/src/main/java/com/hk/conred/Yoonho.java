@@ -23,10 +23,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hk.conred.daos.IQnaDao;
 import com.hk.conred.dtos.CListDto;
 import com.hk.conred.dtos.CMainDto;
 import com.hk.conred.dtos.MenuDto;
 import com.hk.conred.dtos.ODto;
+import com.hk.conred.dtos.QnaDto;
 import com.hk.conred.dtos.ReplyDto;
 import com.hk.conred.dtos.SDto;
 import com.hk.conred.dtos.STimeDto;
@@ -35,6 +37,7 @@ import com.hk.conred.service.ICListService;
 import com.hk.conred.service.ICMainService;
 import com.hk.conred.service.IMenuService;
 import com.hk.conred.service.IOService;
+import com.hk.conred.service.IQnaService;
 import com.hk.conred.service.IReplyService;
 import com.hk.conred.service.ISService;
 import com.hk.conred.service.ISTimeService;
@@ -58,7 +61,9 @@ public class Yoonho {
 	@Autowired
 	private IMenuService menuService;
 	@Autowired
-	private IReplyService replyService;	
+	private IReplyService replyService;
+	@Autowired
+	private IQnaService qnaService;
 	
 	@RequestMapping(value = "yoonho.do", method = RequestMethod.GET)
 	public String yoonho(Locale locale, Model model) {
@@ -427,6 +432,9 @@ public class Yoonho {
 		List<MenuDto> list_menu =menuService.selectMenu(store_seq);
 		List<ReplyDto> list_reply=replyService.replyListStore(store_seq);
 		ReplyDto reply_avg = replyService.replyAvgStore(store_seq);
+		List<QnaDto> list_qna = qnaService.qnaListStore(store_seq);
+		
+		
 		System.out.println("store_detail : "+store_detail);
 		System.out.println("list_stime : "+list_stime);
 		System.out.println("cmain : "+cmain);
@@ -434,6 +442,7 @@ public class Yoonho {
 		System.out.println("list_menu : "+list_menu);
 		System.out.println("list_reply : "+list_reply);
 		System.out.println("reply_avg : "+reply_avg);
+		System.out.println("list_qna : "+list_qna);
 		
 		System.out.println("sdto의 store_seq:"+store_seq);
 		System.out.println("sldto의 store_seq(점포소지자/비소지자여부):"+sldto);//초기값(null 이거나,seq가 들어간 sdto가 나옴)
@@ -446,6 +455,7 @@ public class Yoonho {
 		model.addAttribute("list_menu",list_menu);// 메뉴
 		model.addAttribute("list_reply",list_reply);// 리뷰
 		model.addAttribute("reply_avg",reply_avg);// 리뷰평균,댓글갯수들 모음
+		model.addAttribute("list_qna",list_qna);// 리뷰평균,댓글갯수들 모음
 		
 		//내 매장인지/타인 매장인지 여부 확인용
 		model.addAttribute("s_seq",store_seq);//내 매장인지/타인 매장인지 여부 확인용

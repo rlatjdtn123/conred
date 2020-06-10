@@ -14,6 +14,14 @@
 		WHERE CEIL(rn/5)=#{pnum} AND USER_ID =#{user_id}
 	</select>
 	
+	<select id="qnaListStore" parameterType="int" resultType="QnaDto">
+		<![CDATA[
+			SELECT *
+			FROM CON_QNA 
+			WHERE STORE_SEQ =${store_seq}
+			ORDER BY QNA_REGDATE DESC
+		]]>
+	</select>
 	
 </mapper>
 	 

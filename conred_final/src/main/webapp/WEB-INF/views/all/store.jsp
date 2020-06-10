@@ -30,7 +30,7 @@
 	.redfont{color:red;}
 
 	.section{width:900px;display: inline-block;}
-	#infobox_title{ height:290px;}
+	#infobox_title{ height:auto;}
 /* 	#infobox_timeaddr{ height:230px;border:0px solid grey;border-top-width: 0.5px;border-bottom-width: 0.5px;} */
 	#infobox_timeaddr{ height:auto;border:0px solid grey;border-top-width: 0.5px;border-bottom-width: 0.5px;}
 	
@@ -46,17 +46,23 @@
 	.width2{width:250px}
 	.seroline{border-right: 1px solid grey }
 	
-	#s_state{font-size:15px;color:#3ADF00;font-weight: bold;display: inline-block;}
-	.medal{width:30px;padding-bottom:13px}
-	#s_title{font-size:30px;display: inline-block;}
-	#s_intro_small{height:60px;font-size:15px;display:inline-block;}
+	.s_titlebox{margin-bottom: 10px;}
+	#s_state{margin-left:10px;font-size:15px;font-weight: bold;display: inline-block;}
+	.s_state_color1{color:#3ADF00;}
+	.s_state_color2{color:#FF8000;}
+	.s_state_color3{color:#FE2E2E;}
+	.cate_icon_box{width:65px;height:65px;display:inline-block; padding:5px;position: relative;border: 1px solid #dedede;border-radius: 10px;}
+	.cate_icon{position: relative;width:50px;left:1px;top:1px;}
+	.medal{width:29px;padding-bottom:15px;position: relative;top: 10px;left:8px;}
+	#s_title{font-size:30px;display: inline-block;position: relative;top: 10px;left:5px;}
+	#s_intro_small{font-size:18px !important;height:auto;font-size:15px;display:inline-block;}
 
 	#s_cates{overflow: auto;}
 	.s_cate{float:left; font-size:12px;width:45px;text-align: center;}
 	.icons{width:35px;padding-bottom: 12px;}
 
 	#s_reviews{width:auto;}
-	#s_star{font-size:25px;display:block;width:190px;}
+	.s_star{font-size:25px;display:block;width:250px;margin:15px 0px 15px;}
 	.s_btn{height:28px;line-height:28px;font-size:15px;display: inline-block; width:190px;background-color: #F2F2F2;padding:0px 5px; border-radius: 5px;text-align: center;}
 	.s_btn:hover{cursor: pointer;background-color: lightgrey}
 	
@@ -91,7 +97,7 @@
 	.rep_rate{ border-radius: 5px;background-color: #fafafa;margin-top:0px;padding:10px;height:80px;width:187px;float:left;}
 	.rep_content{margin-left:13px; border-radius: 5px;background-color: #fafafa;margin-top:0px;padding:10px;height:80px;width:180px;float: left;}
 	.rep_regdate{float:right;text-align: right;margin-top:9px;}
-	.review_owner{background-color: #fafafa;height:75px;padding:10px; border-radius: 5px;}
+	.owner_reply{background-color: #fafafa;height:75px;padding:10px; border-radius: 5px;}
 
 	.rep_con_text{overflow: hidden;height:40px;
 	text-overflow: ellipsis;
@@ -107,7 +113,10 @@
 	
 	.rep_rate_table{float:left;}
 	.allrate{float:right;font-size: 20px;padding-top: 16px;padding-left: 2px;}
-	
+	.allstartext{margin-left: 5px; position: relative; top: 3.5px;}
+
+	.qna_q{ border-radius: 5px;background-color: #fafafa;margin-top:0px;padding:10px;height:80px;width:380px;float:left;}
+	.no_qna{position: relative;top: 100px;left: 95px;}
 </style>
 <script type="text/javascript">
 	$(function() {
@@ -154,17 +163,6 @@
 %>
 
 <div id="container">
-			<c:forEach begin="1" end="${3-(3%1)}" step="1">
-				<img class="starz" alt="" src="img/star_fill.png">
-			</c:forEach>
-			
-			<c:if test="${3+(1-(3%1))%1==3-(3%1)+1}">
-				<img class="starz" alt="" src="img/star_half.png">
-			</c:if>
-			
-			<c:forEach begin="1" end="${5-(3+(1-(3%1))%1)}" step="1">
-				<img class="starz" alt="" src="img/star_empty.png">
-			</c:forEach>
 	<c:if test="${sldto!=null}"> <!-- 매장을 가지고 있지 않으면(로그인 안되어있으면) -->
 		<c:if test="${s_seq eq sldto.store_seq}"> <!-- 내 매장과 이 매장이 같으면(로그인 안되어있으면) -->
 			<div id="sticky">
@@ -194,28 +192,68 @@
 	</div>
 	<div id="infobox_title" class="section">
 		<div class="info1 width1" >
-			<div><span id="s_state">영업중</span></div>
 			<div>
-				<img class="medal" alt="" src="./img/gold.png">
-<!-- 				<span id="s_title">댕댕미용실 -->
-				<span id="s_title">${store_detail.store_name}
+				<span id="s_state">
+					<c:choose>
+						<c:when test="${store_detail.store_state=='O'}">
+							<span class="s_state_color1">영업중</span>
+						</c:when>
+						<c:when test="${store_detail.store_state=='B'}">
+							<span class="s_state_color2">휴업중</span>
+						</c:when>
+						<c:otherwise>
+							<span class="s_state_color3">폐&nbsp;&nbsp;&nbsp;점</span>
+						</c:otherwise>
+					</c:choose>
 				</span>
 			</div>
+			<div class="s_titlebox">
+				<div class="cate_icon_box">
+					<img class="cate_icon" src="./img/icon/icon_${cmain.category_code}.png">
+				</div>
+				<span id="s_title">${store_detail.store_name}
+				</span>
+				<img class="medal" alt="" src="./img/gold.png">
+			</div>
 			<div id="s_cates">
-				<div class="s_cate">
-					<img class="icons" title="미용실" src="./img/profile_default.png">
+				<div>조인해서 이름으로 출력하기(가능하면 윗줄의 동물병원 바로밑+ 아이콘height에 맞게):
+					<c:forEach begin="0" end="${list_clist.size()-1}" step="1" var="i">
+						<c:choose>
+							<c:when test="${i!=list_clist.size()-1}">
+								${list_clist[i].category_code_small} |
+							</c:when>
+							<c:otherwise>
+								${list_clist[i].category_code_small}
+							</c:otherwise> 
+						</c:choose>
+					</c:forEach>
 				</div>
-				<div class="s_cate">
-					<img class="icons" title="애견용품" src="./img/profile_default.png">
-				</div>
-				<div class="s_cate">
-					<img class="icons" title="애견카페" src="./img/profile_default.png">
-				</div>
+<!-- 				<div class="s_cate"> -->
+<!-- 					<img class="icons" title="미용실" src="./img/profile_default.png"> -->
+<!-- 				</div> -->
+<!-- 				<div class="s_cate"> -->
+<!-- 					<img class="icons" title="애견용품" src="./img/profile_default.png"> -->
+<!-- 				</div> -->
+<!-- 				<div class="s_cate"> -->
+<!-- 					<img class="icons" title="애견카페" src="./img/profile_default.png"> -->
+<!-- 				</div> -->
 			</div>
 <!-- 			<div id="s_intro_small">고양이도 개처럼 만들어주는 댕댕미용실</div> -->
 			<div id="s_intro_small">${store_detail.store_intro_simple}</div>
 			<div id="s_reviews">
-				<div id="s_star">★★★★☆ 4.7<span>/5</span></div>
+				<div class="s_star">
+					<c:set var="all_s" value="${reply_avg.all_avg}"/>
+					<c:forEach begin="1" end="${all_s-(all_s%1)}" step="1">
+						<img class="starz_big" alt="" src="img/star_fill.png">
+					</c:forEach>
+					<c:if test="${all_s+(1-(all_s%1))%1==all_s-(all_s%1)+1}">
+						<img class="starz_big" alt="" src="img/star_half.png">
+					</c:if>
+					<c:forEach begin="1" end="${5-(all_s+(1-(all_s%1))%1)}" step="1">
+						<img class="starz_big" alt="" src="img/star_empty.png">
+					</c:forEach>
+					<span class="allstartext">${all_s}/5</span>
+				</div>
 				<div class="s_btn" onclick="location.href='review.do'">리뷰 | 999+</div>
 			</div>
 		</div>
@@ -321,9 +359,22 @@
 		<div class="s_bold flleft">리뷰</div>
 		<div class="s_btn flright" onclick="location.href='review.do'">전체보기</div>
 			<div id="s_reviews" class="clrboth">
-				<div id="s_star">★★★★☆ 4.7<span>/5</span></div>
+				<div class="s_star">
+					<c:set var="all_s" value="${reply_avg.all_avg}"/>
+					<c:forEach begin="1" end="${all_s-(all_s%1)}" step="1">
+						<img class="starz_big" alt="" src="img/star_fill.png">
+					</c:forEach>
+					<c:if test="${all_s+(1-(all_s%1))%1==all_s-(all_s%1)+1}">
+						<img class="starz_big" alt="" src="img/star_half.png">
+					</c:if>
+					<c:forEach begin="1" end="${5-(all_s+(1-(all_s%1))%1)}" step="1">
+						<img class="starz_big" alt="" src="img/star_empty.png">
+					</c:forEach>
+					<span class="allstartext">${all_s}/5</span>
+				</div>
 				<table>
 				<col width="50px;">
+				<col width="200px;">
 					<tr>
 						<td><span>서비스</span></td>
 						<td>
@@ -375,177 +426,256 @@
 				</table>
 			</div>
 		<div class="replyqna flleft clrboth">
-			<div class="review_user">
-				<div class="rep_id">
-					<img src="./img/profile_default.png" class="pf"/>
-					<c:set var="a" value="${list_reply.size()}"/>
-					&emsp;${list_reply[a-1].user_id}
-					<div class="rep_regdate ib">
-						작성일: ${fn:substring(list_reply[a-1].reply_regdate,4,16)}
+			<c:choose>
+				<c:when test="${list_reply[0].reply_seq!=null}">
+					<div class="review_user">
+						<div class="rep_id">
+							<img src="./img/profile_default.png" class="pf"/>
+							<c:set var="a" value="${list_reply.size()}"/>
+							&emsp;${list_reply[0].user_id}
+							<div class="rep_regdate ib">
+								작성일: ${fn:substring(list_reply[0].reply_regdate,4,16)}
+							</div>
+						</div>
+						<div class="rep_rate">
+							<table class="rep_rate_table">
+							<tr>
+								<td>
+									서비스&nbsp;&nbsp;
+								</td>
+								<td>
+									<c:set var="service1" value="${list_reply[0].reply_service}"/>
+									<c:forEach begin="1" end="${service1-(service1%1)}" step="1">
+										<img class="starz" alt="" src="img/star_fill.png">
+									</c:forEach>
+									<c:if test="${service1+(1-(service1%1))%1==service1-(service1%1)+1}">
+										<img class="starz" alt="" src="img/star_half.png">
+									</c:if>
+									<c:forEach begin="1" end="${5-(service1+(1-(service1%1))%1)}" step="1">
+										<img class="starz" alt="" src="img/star_empty.png">
+									</c:forEach>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									가격&nbsp;&nbsp;
+								</td>
+								<td>
+									<c:set var="price1" value="${list_reply[0].reply_price}"/>
+									<c:forEach begin="1" end="${price1-(price1%1)}" step="1">
+										<img class="starz" alt="" src="img/star_fill.png">
+									</c:forEach>
+									<c:if test="${price1+(1-(price1%1))%1==price1-(price1%1)+1}">
+										<img class="starz" alt="" src="img/star_half.png">
+									</c:if>
+									<c:forEach begin="1" end="${5-(price1+(1-(price1%1))%1)}" step="1">
+										<img class="starz" alt="" src="img/star_empty.png">
+									</c:forEach>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									청결도&nbsp;&nbsp;
+								</td>
+								<td>
+									<c:set var="clean1" value="${list_reply[0].reply_clean}"/>
+									<c:forEach begin="1" end="${clean1-(clean1%1)}" step="1">
+										<img class="starz" alt="" src="img/star_fill.png">
+									</c:forEach>
+									<c:if test="${clean1+(1-(clean1%1))%1==clean1-(clean1%1)+1}">
+										<img class="starz" alt="" src="img/star_half.png">
+									</c:if>
+									<c:forEach begin="1" end="${5-(clean1+(1-(clean1%1))%1)}" step="1">
+										<img class="starz" alt="" src="img/star_empty.png">
+									</c:forEach>
+								</td>
+							</tr>
+							</table>
+							<c:set var="all1" value="${(clean1+price1+service1)/3}"/>
+							<div class="allrate">
+								<fmt:formatNumber value="${all1}" pattern=".0"/>
+							</div>
+						</div>
+						<div class="rep_content">
+							<div><b>리뷰내용</b></div>
+							<div class="rep_con_text">	
+								${list_reply[0].reply_content}
+							</div>
+						</div>
 					</div>
-				</div>
-				<div class="rep_rate">
-					<table class="rep_rate_table">
-					<tr>
-						<td>
-							서비스&nbsp;&nbsp;
-						</td>
-						<td>
-							<c:set var="service1" value="${list_reply[a-1].reply_service}"/>
-							<c:forEach begin="1" end="${service1-(service1%1)}" step="1">
-								<img class="starz" alt="" src="img/star_fill.png">
-							</c:forEach>
-							<c:if test="${service1+(1-(service1%1))%1==service1-(service1%1)+1}">
-								<img class="starz" alt="" src="img/star_half.png">
-							</c:if>
-							<c:forEach begin="1" end="${5-(service1+(1-(service1%1))%1)}" step="1">
-								<img class="starz" alt="" src="img/star_empty.png">
-							</c:forEach>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							가격&nbsp;&nbsp;
-						</td>
-						<td>
-							<c:set var="price1" value="${list_reply[a-1].reply_price}"/>
-							<c:forEach begin="1" end="${price1-(price1%1)}" step="1">
-								<img class="starz" alt="" src="img/star_fill.png">
-							</c:forEach>
-							<c:if test="${price1+(1-(price1%1))%1==price1-(price1%1)+1}">
-								<img class="starz" alt="" src="img/star_half.png">
-							</c:if>
-							<c:forEach begin="1" end="${5-(price1+(1-(price1%1))%1)}" step="1">
-								<img class="starz" alt="" src="img/star_empty.png">
-							</c:forEach>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							청결도&nbsp;&nbsp;
-						</td>
-						<td>
-							<c:set var="clean1" value="${list_reply[a-1].reply_clean}"/>
-							<c:forEach begin="1" end="${clean1-(clean1%1)}" step="1">
-								<img class="starz" alt="" src="img/star_fill.png">
-							</c:forEach>
-							<c:if test="${clean1+(1-(clean1%1))%1==clean1-(clean1%1)+1}">
-								<img class="starz" alt="" src="img/star_half.png">
-							</c:if>
-							<c:forEach begin="1" end="${5-(clean1+(1-(clean1%1))%1)}" step="1">
-								<img class="starz" alt="" src="img/star_empty.png">
-							</c:forEach>
-						</td>
-					</tr>
-					</table>
-					<c:set var="all1" value="${(clean1+price1+service1)/3}"/>
-					<div class="allrate">
-						<fmt:formatNumber value="${all1}" pattern=".0"/>
+					<div class="owner_reply">
+						<div><b>매장답변</b></div>
+						<div class="rep_con_text">
+							${list_reply[0].reply_answer!=null?list_reply[0].reply_answer:"아직 답변이 없습니다."}
+						</div>
 					</div>
-				</div>
-				<div class="rep_content">
-					<div><b>리뷰내용</b></div>
-					<div class="rep_con_text">	
-						${list_reply[a-1].reply_content}
+				</c:when>
+				<c:otherwise>
+					<div class="review_user">
+						<div class="no_qna">--더 등록된 리뷰가 없습니다--</div>
 					</div>
-				</div>
-			</div>
-			<div class="review_owner">
-				<div><b>매장답변</b></div>
-				<div class="rep_con_text">
-					${list_reply[a-1].reply_answer!=null?list_reply[a-1].reply_answer:"아직 답변이 없습니다."}
-				</div>
-			</div>
+				</c:otherwise>
+			</c:choose>
 		</div>
 		<div class="info1 replyqna marginleft flright">
-		<div class="review_user">
-				<div class="rep_id">
-					<img src="./img/profile_default.png" class="pf"/>
-					&emsp;${list_reply[a-2].user_id}
-					<div class="rep_regdate ib">
-						작성일: ${fn:substring(list_reply[a-2].reply_regdate,4,16)}
+			<c:choose>
+				<c:when test="${list_reply[1].reply_seq!=null}">	
+					<div class="review_user">
+						<div class="rep_id">
+							<img src="./img/profile_default.png" class="pf"/>
+							&emsp;${list_reply[1].user_id}
+							<div class="rep_regdate ib">
+								작성일: ${fn:substring(list_reply[1].reply_regdate,4,16)}
+							</div>
+						</div>
+						<div class="rep_rate">
+							<table class="rep_rate_table">
+							<tr>
+								<td>
+									서비스&nbsp;&nbsp;
+								</td>
+								<td>
+									<c:set var="service1" value="${list_reply[1].reply_service}"/>
+									<c:forEach begin="1" end="${service1-(service1%1)}" step="1">
+										<img class="starz" alt="" src="img/star_fill.png">
+									</c:forEach>
+									<c:if test="${service1+(1-(service1%1))%1==service1-(service1%1)+1}">
+										<img class="starz" alt="" src="img/star_half.png">
+									</c:if>
+									<c:forEach begin="1" end="${5-(service1+(1-(service1%1))%1)}" step="1">
+										<img class="starz" alt="" src="img/star_empty.png">
+									</c:forEach>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									가격&nbsp;&nbsp;
+								</td>
+								<td>
+									<c:set var="price1" value="${list_reply[1].reply_price}"/>
+									<c:forEach begin="1" end="${price1-(price1%1)}" step="1">
+										<img class="starz" alt="" src="img/star_fill.png">
+									</c:forEach>
+									<c:if test="${price1+(1-(price1%1))%1==price1-(price1%1)+1}">
+										<img class="starz" alt="" src="img/star_half.png">
+									</c:if>
+									<c:forEach begin="1" end="${5-(price1+(1-(price1%1))%1)}" step="1">
+										<img class="starz" alt="" src="img/star_empty.png">
+									</c:forEach>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									청결도&nbsp;&nbsp;
+								</td>
+								<td>
+									<c:set var="clean1" value="${list_reply[1].reply_clean}"/>
+									<c:forEach begin="1" end="${clean1-(clean1%1)}" step="1">
+										<img class="starz" alt="" src="img/star_fill.png">
+									</c:forEach>
+									<c:if test="${clean1+(1-(clean1%1))%1==clean1-(clean1%1)+1}">
+										<img class="starz" alt="" src="img/star_half.png">
+									</c:if>
+									<c:forEach begin="1" end="${5-(clean1+(1-(clean1%1))%1)}" step="1">
+										<img class="starz" alt="" src="img/star_empty.png">
+									</c:forEach>
+								</td>
+							</tr>
+							</table>
+							<c:set var="all1" value="${(clean1+price1+service1)/3}"/>
+							<div class="allrate">
+								<fmt:formatNumber value="${all1}" pattern=".0"/>
+							</div>
+						</div>
+						<div class="rep_content">
+							<div><b>리뷰내용</b></div>
+							<div class="rep_con_text">	
+								${list_reply[1].reply_content}
+							</div>
+						</div>
 					</div>
-				</div>
-				<div class="rep_rate">
-					<table class="rep_rate_table">
-					<tr>
-						<td>
-							서비스&nbsp;&nbsp;
-						</td>
-						<td>
-							<c:set var="service1" value="${list_reply[a-2].reply_service}"/>
-							<c:forEach begin="1" end="${service1-(service1%1)}" step="1">
-								<img class="starz" alt="" src="img/star_fill.png">
-							</c:forEach>
-							<c:if test="${service1+(1-(service1%1))%1==service1-(service1%1)+1}">
-								<img class="starz" alt="" src="img/star_half.png">
-							</c:if>
-							<c:forEach begin="1" end="${5-(service1+(1-(service1%1))%1)}" step="1">
-								<img class="starz" alt="" src="img/star_empty.png">
-							</c:forEach>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							가격&nbsp;&nbsp;
-						</td>
-						<td>
-							<c:set var="price1" value="${list_reply[a-2].reply_price}"/>
-							<c:forEach begin="1" end="${price1-(price1%1)}" step="1">
-								<img class="starz" alt="" src="img/star_fill.png">
-							</c:forEach>
-							<c:if test="${price1+(1-(price1%1))%1==price1-(price1%1)+1}">
-								<img class="starz" alt="" src="img/star_half.png">
-							</c:if>
-							<c:forEach begin="1" end="${5-(price1+(1-(price1%1))%1)}" step="1">
-								<img class="starz" alt="" src="img/star_empty.png">
-							</c:forEach>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							청결도&nbsp;&nbsp;
-						</td>
-						<td>
-							<c:set var="clean1" value="${list_reply[a-2].reply_clean}"/>
-							<c:forEach begin="1" end="${clean1-(clean1%1)}" step="1">
-								<img class="starz" alt="" src="img/star_fill.png">
-							</c:forEach>
-							<c:if test="${clean1+(1-(clean1%1))%1==clean1-(clean1%1)+1}">
-								<img class="starz" alt="" src="img/star_half.png">
-							</c:if>
-							<c:forEach begin="1" end="${5-(clean1+(1-(clean1%1))%1)}" step="1">
-								<img class="starz" alt="" src="img/star_empty.png">
-							</c:forEach>
-						</td>
-					</tr>
-					</table>
-					<c:set var="all1" value="${(clean1+price1+service1)/3}"/>
-					<div class="allrate">
-						<fmt:formatNumber value="${all1}" pattern=".0"/>
+					<div class="owner_reply">
+						<div><b>매장답변</b></div>
+						<div class="rep_con_text">
+							${list_reply[1].reply_answer!=null?list_reply[1].reply_answer:"아직 답변이 없습니다."}
+						</div>
 					</div>
-				</div>
-				<div class="rep_content">
-					<div><b>리뷰내용</b></div>
-					<div class="rep_con_text">	
-						${list_reply[a-2].reply_content}
+				</c:when>
+				<c:otherwise>
+					<div class="review_user">
+						<div class="no_qna">--더 등록된 리뷰가 없습니다--</div>
 					</div>
-				</div>
-			</div>
-			<div class="review_owner">
-				<div><b>매장답변</b></div>
-				<div class="rep_con_text">
-					${list_reply[a-2].reply_answer!=null?list_reply[a-2].reply_answer:"아직 답변이 없습니다."}
-				</div>
-			</div>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 	<div class="infobox section">
 		<div class="s_bold flleft">문의</div>
 		<div class="s_btn flright" onclick="location.href='qna.do'">전체보기</div>
 		<div class="info1 replyqna flleft clrboth">
+			<c:choose>
+				<c:when test="${list_qna[0].qna_seq!=null}">
+					<div class="review_user">
+						<div class="rep_id">
+							<img src="./img/profile_default.png" class="pf"/>
+							<c:set var="a" value="${list_qna.size()}"/>
+							&emsp;${list_qna[0].user_id}
+							<div class="rep_regdate ib">
+								작성일: ${fn:substring(list_qna[0].qna_regdate,4,16)}
+							</div>
+						</div>
+						<div class="qna_q">
+							<div><b>문의내용</b></div>
+							<div class="rep_con_text">	
+								${list_qna[0].qna_content}
+							</div>
+						</div>
+					</div>
+					<div class="owner_reply">
+						<div><b>매장답변</b></div>
+						<div class="rep_con_text">
+							${list_qna[0].qna_answer!=null?list_qna[0].qna_answer:"아직 답변이 없습니다."}
+						</div>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="review_user">
+						<div class="no_qna">--더 등록된 문의가 없습니다--</div>
+					</div>
+				</c:otherwise>
+			</c:choose>
 		</div>
 		<div class="info1 replyqna marginleft flright">
+			<c:choose>
+				<c:when test="${list_qna[1].qna_seq!=null}">
+					<div class="review_user">
+						<div class="rep_id">
+							<img src="./img/profile_default.png" class="pf"/>
+							&emsp;${list_qna[1].user_id}
+							<div class="rep_regdate ib">
+								작성일: ${fn:substring(list_qna[1].qna_regdate,4,16)}
+							</div>
+						</div>
+						<div class="qna_q">
+							<div><b>문의내용</b></div>
+							<div class="rep_con_text">	
+								${list_qna[1].qna_content}
+							</div>
+						</div>
+					</div>
+					<div class="owner_reply">
+						<div><b>매장답변</b></div>
+						<div class="rep_con_text">
+							${list_qna[1].qna_answer!=null?list_qna[1].qna_answer:"아직 답변이 없습니다."}
+						</div>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="review_user">
+						<div class="no_qna">--더 등록된 문의가 없습니다--</div>
+					</div>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 </div>
