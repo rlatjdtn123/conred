@@ -443,7 +443,7 @@ public class Yoonho {
 		System.out.println("sldto의 store_seq(점포소지자/비소지자여부):"+sldto);//초기값(null 이거나,seq가 들어간 sdto가 나옴)
 		
 		//뿌려줄값들
-		model.addAttribute("store_detail",store_detail);// 매장상세정보
+		model.addAttribute("store_detail",store_detail);// 매장 상세정보
 		model.addAttribute("list_stime",list_stime);// 영업시간
 		model.addAttribute("cmain",cmain);// 대분류카테고리
 		model.addAttribute("list_clist",list_clist);// 소분류카테고리
