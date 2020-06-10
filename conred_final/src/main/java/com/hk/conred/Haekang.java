@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.mail.Session;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +28,7 @@ import com.hk.conred.service.IInterestsService;
  
 @Controller
 public class Haekang {
+
 	
 	private static final Logger logger = LoggerFactory.getLogger(Haekang.class);
 	
@@ -39,7 +42,7 @@ public class Haekang {
 	}
 	
 	@Autowired IInterestsService interService ;
-	
+	HttpSession session;
 	
 	@RequestMapping(value = "test_index.do", method = RequestMethod.GET)
 	public String test_index(Locale locale, Model model) {
@@ -50,35 +53,23 @@ public class Haekang {
 		return "test/test_index"; 
 	}
 	
-	
-	
-	
+//	UDto uldto=(UDto)session.getAttribute("uldto");
 	@RequestMapping(value = "user_interests_recommended.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String user_interests_recommended(Locale locale, Model model) {
-		logger.info("사용자 관심사 추천 기능 {}.", locale);
+	public String user_interests_recommended(HttpServletRequest request, Locale locale, Model model, UDto udto, SDto sdto, String user_id) {
+		logger.info("관리자 - 오너 목록 전체 조회 및 키워드 조회 기능 {}.", locale); 
+			
+		HttpSession session=request.getSession();
+		UDto uldto = (UDto)session.getAttribute("uldto");//Object(uldto객체)
+		
+		List<SDto> list = interService.user_interests_recommended(uldto.getUser_id());
+							   
+		model.addAttribute("list",list);//list[sDto,sDto[c,c,c,cDto,iDto[c,c]]...]
+//			                                  new SDto().getcDto().getCategory_name()
+			
 		
 		
-		
-		
-		
-		
-		return "test/test_index"; 
-	}
-}	
-//	@RequestMapping(value = "user_interests_recommended.do", method = {RequestMethod.GET, RequestMethod.POST})
-//	public String user_interests_recommended(Locale locale, Model model, UDto udto, SDto sdto, String searchWordOwner, String ownerSearch) {
-//		logger.info("관리자 - 오너 목록 전체 조회 및 키워드 조회 기능 {}.", locale); 
-//		
-//			List<UDto> list = interService.user_interests_recommended();
-//			
-//			List<SDto> list = interService.user_interests_recommended();
-//			model.addAttribute("list",list);//list[sDto,sDto[c,c,c,cDto,iDto[c,c]]...]
-////			                                  new SDto().getcDto().getCategory_name()
-//			
-//		}
-//		
-//		return "test/test_index";
-//		
-//	}
-//	
-//}
+		return "test/test_index";
+	}	
+	
+	
+}

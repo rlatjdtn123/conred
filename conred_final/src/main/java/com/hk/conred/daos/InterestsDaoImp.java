@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.hk.conred.dtos.InterestsDto;
+import com.hk.conred.dtos.SDto;
+import com.hk.conred.dtos.UDto;
 
 @Repository
 public class InterestsDaoImp implements IInterestsDao{
@@ -32,5 +34,12 @@ public class InterestsDaoImp implements IInterestsDao{
 		count=sqlSession.insert(nameSpace+"insertInterests", dto);
 		return count>0?true:false;
 	}
-
+	
+	@Override
+	public List<SDto> user_interests_recommended(String user_id) {
+			
+		return sqlSession.selectList(nameSpace+"user_interests_recommended", user_id); 			
+		
+			
+	}
 } 

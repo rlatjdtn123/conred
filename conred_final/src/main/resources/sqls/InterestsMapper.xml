@@ -10,8 +10,8 @@
 		<result property="store_seq" column="STORE_SEQ" />
 		<result property="owner_id" column="OWNER_ID" />
 		<result property="store_name" column="STORE_NAME" />
-		<collection property="cDTo" resultMap="cDtoMap"></collection>
-		<collection property="iDTo" resultMap="interestsDtoMap"></collection>
+		<collection property="cDto" resultMap="cDtoMap"></collection>
+		<collection property="iDto" resultMap="interestsDtoMap"></collection>
 	</resultMap>
 	
 	<resultMap type="com.hk.conred.dtos.CDto"  id="cDtoMap">
@@ -21,10 +21,9 @@
 	
 	<resultMap type="com.hk.conred.dtos.InterestsDto"  id="interestsDtoMap">
 		<result property="user_id" column="USER_ID" />
-		<result property="category_code" column="CATEGORY_CODE" />
 	</resultMap>
 	
-	<select id=""  parameterType="String" resultMap="sDtoMap">
+	<select id="user_interests_recommended"  parameterType="String" resultMap="sDtoMap">
 		SELECT A.USER_ID ,A.CATEGORY_CODE , A.CATEGORY_NAME,B.STORE_SEQ ,B.OWNER_ID ,B.STORE_NAME
 		FROM (SELECT U.USER_ID ,C.CATEGORY_CODE , C.CATEGORY_NAME
 			FROM CON_USER U, CON_INTERESTS I, CON_CATEGORY C

@@ -112,10 +112,13 @@
 		<div class="slidebarbox">
 			<div class="slidetitle" style="border:1px solid white;border-top-color:lightgrey;border-top-width:1px;padding-top:70px;">이런곳은 어떠세요?</div>
 			<div class="slidebars">
+			<a href="user_interests_recommended.do">검색하자</a>
 			<form action="user_interests_recommended.do" method="post">
 				<table border="1">
 				   <tr>
-				   <td>
+				    <td>
+				    	
+				   		${requestScope.list !=null?requestScope.list[0].store_name:"없음"}
 				   </td>
 				   </tr>
 				</table>
