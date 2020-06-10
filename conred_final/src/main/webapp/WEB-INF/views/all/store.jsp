@@ -296,7 +296,7 @@
 				</table>
 			</div>
 		<div class="info1 replyqna flleft clrboth">
-			<div class="">
+			<div class="reviewup">
 			</div>
 			<div class="">
 			</div>
@@ -313,7 +313,7 @@
 		</div>
 	</div>
 </div>
-	<div id="reserve_btn" onclick="location.href='user_store_reserve.do'"><div id="reserve_text">예약하러가기</div></div>
+	<div id="reserve_btn" onclick="location.href='user_store_reserve.do?store_seq=${s_seq}'"><div id="reserve_text">예약하러가기</div></div>
 </body>
 </html>
 <jsp:include page="../all/footer.jsp" />
