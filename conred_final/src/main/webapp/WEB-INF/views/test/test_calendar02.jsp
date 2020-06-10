@@ -26,17 +26,19 @@
 	.times{width: 80px;height:34px; border: 1px solid green;float: left; margin: 10px; text-align: center;line-height: 34px; background-color: #edfbdc; border: 0;}
 	.times_result{width: 250px;margin: 0 auto;border:solid #D8D8D8;border-width:1px 0 1px 0; clear: both; height: 30px;line-height: 30px;}
 	.selector{display: none;}
+	.times:hover{background-color: #00FF00;cursor: pointer;}
 	
-</style>   
+	
+</style>    
 <script>   
-	  	  
+	var datestr; 	  
 	function aaa(){   
-		var datestr=$(".selector").val();
+		datestr=$(".selector").val();
 		var day_result=$(".times_result").children();
 		//day_result.eq(0).empty();
 		day_result.eq(1).empty();
 		day_result.eq(0).text(datestr+" , ");
-			
+			 
 	} 
 // 	function bbb(ele){
 // 		$(ele).css( "backgroud-color", "yellow");
@@ -46,9 +48,14 @@
 	$(function(){
 		$(".times").click(function(){
 			var timeval=$(this).val();
-			$(".times_result").children("span").eq(1).text(timeval);
-			$(".times").css("background-color", "#edfbdc");
-			$(this).css("background-color", "#00FF00");
+			if(datestr==null){
+				timeval=null; 
+				alert("날짜먼저 선택해주세요"); 
+			}else{
+				$(".times_result").children("span").eq(1).text(timeval);
+				$(".times").css("background-color", "#edfbdc");
+				$(this).css("background-color", "#00FF00");
+			}
 			
 		})
 	}) 

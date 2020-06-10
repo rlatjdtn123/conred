@@ -460,4 +460,18 @@ public class Sungsu {
 		return "test/test_star";
 	} 
 	
+	
+	@RequestMapping(value = "user_store_reserve.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String user_store_reserve(Locale locale, Model model) {
+		logger.info("별점 라이브러리 테스트{}.", locale);
+		return "user/user_store_reserve";
+	} 
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -66,7 +66,7 @@ public class ReserveDto {
 
 	public int getStore_seq() {
 		return store_seq;
-	}
+	} 
 
 	public void setStore_seq(int store_seq) {
 		this.store_seq = store_seq;

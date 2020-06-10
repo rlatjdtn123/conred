@@ -23,6 +23,7 @@
 	#bigtle{margin-left: 97px; }
 	.tle{width: 800px; height: 200px;}
 	.cate{float: left;width: 150px;height: 150px; margin-top: 24px;margin-left: 88px;border-radius: 40px;text-align: center;}
+	.cate:hover{box-shadow: 0px 0.5px 3px grey;}
 	#category_icon_a{background: url("img/icon/icon_A.png");width: 130px; height: 130px; border-radius: 40px; background-size: 130px;}
 	#category_icon_b{background: url("img/icon/icon_B.png");width: 130px; height: 130px; border-radius: 40px; background-size: 130px;}
 	#category_icon_c{background: url("img/icon/icon_C.png");width: 130px; height: 130px; border-radius: 40px; background-size: 130px;}

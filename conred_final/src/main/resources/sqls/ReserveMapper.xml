@@ -26,7 +26,7 @@
 			FROM CON_RESERVE 
 			WHERE RESERVE_SEQ =#{reserve_seq}
 		</select>
-		
+		 
 		
 	</mapper>
 		  
