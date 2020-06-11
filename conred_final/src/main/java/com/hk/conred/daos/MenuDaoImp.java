@@ -60,12 +60,13 @@ public class MenuDaoImp implements IMenuDao{
 
 	@Override
 	public List<MenuDto> selectWeek(int menu_seq, int store_seq, String store_time_day) {
-//		Map<String, String> map=new HashMap<>();
-//		map.put("", value);
-//		map.put("", value);
-//		map.put("", value);
-		List<MenuDto> weekList=sqlSession.selectList(namespace+"selectWeek", store_time_day);
-		return weekList;
+		Map<String, Object> map= new HashMap<>();
+		map.put("menu_seq", menu_seq);
+		map.put("store_seq", store_seq);
+		map.put("store_time_day", store_time_day);
+		List<MenuDto> list=sqlSession.selectList(namespace+"detailMenu", map);
+		return list;
 	}
+
 
 }

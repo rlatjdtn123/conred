@@ -149,7 +149,6 @@ public class Sungsu {
 		HttpSession session=request.getSession();
 		UDto uldto=uService.getLogin(dto.getUser_id(),dto.getUser_password());
 		
-		
 		if(uldto.getUser_out().equals("Y")){
 			System.out.println("탈퇴한 회원 입니다");
 			return "";

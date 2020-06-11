@@ -24,4 +24,9 @@ public class MenuServiceImp implements IMenuService {
 		return iMenuDaoImp.detailMenu(menu_seq,store_seq);
 	}
 
+	@Override
+	public List<MenuDto> selectWeek(int menu_seq, int store_seq, String store_time_day) {
+		return iMenuDaoImp.selectWeek(menu_seq, store_seq, store_time_day);
+	}
+
 }
