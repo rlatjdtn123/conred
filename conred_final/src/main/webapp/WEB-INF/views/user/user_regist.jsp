@@ -48,11 +48,21 @@
 			var emailVal=$("input[name=user_email1]").val()+"@"+$("input[name=user_email3]").val();
 			$("input[name=email]").val(emailVal);
 			var myForm=document.getElementById("emailform");
-			window.open("","popForm","width=400px,height=400px");
+			window.open("","popForm","width=600px,height=600px");
 			myForm.method="post";
 			myForm.target="popForm";
 			myForm.submit();
 		});	
+		$("form").eq(0).submit(function() {
+			if($("input[name=emailConfirm]").val()=='Y') {
+				return true;
+			}else{
+				alert("이메일 인증은 필수입니다");
+				$("input[name=user_email1]").focus();
+				return false;
+				
+			}
+		
 		//이메일 인증버튼 클릭하면
 // 		$(".authBtn").click(function(){
 // 			var emailVal=$("input[name=user_email1]").val()+"@"+$("input[name=user_email3]").val();
@@ -69,7 +79,13 @@
 // 				}
 // 			});
 // 		});
-	})
+	});
+})
+// 	//이메일 유효성 검사
+// 	function validate() {
+// 		var re2 = [0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+// 		var email = document.getElementById("email");
+// 	}
 </script>
 </head>
 <body>
@@ -100,7 +116,7 @@
 						<td><span class="req">* </span>이메일</td>
 					<td>
 						<input type="text" name="user_email1" required="required"/>@
-						<input type="text" name="user_email3" style="width:120px;" required="required"/>
+						<input id="email" type="text" name="user_email3" style="width:120px;" required="required"/>
 						<select id="sel">
 							<!-- 직접입력처리 -->
 							<option>직접입력</option>
@@ -108,6 +124,7 @@
 							<option>naver.com</option>
 							<option>hanmail.net</option>
 						</select>
+						<input type="hidden" name="emailConfirm" required="required" value="N"/>
 						<input class="btn authBtn" value="이메일인증" type="button" required="required" />
 					</td>
 					</tr>
@@ -142,7 +159,6 @@
 		<input type="hidden" name="email" required="required" />
 	</form>
 </div>
-
 </body>
 </html>
 <jsp:include page="../all/footer.jsp" />

@@ -151,17 +151,19 @@ public class EmailOkController {
             
             
             
-            mv.setViewName("admin/admin_site"); //콘레드 user_regist.do 로 가야하나 테스트라 어드민 페이지로
+            mv.setViewName("admin/email_ok_end");
             
             mv.addObject("email",email_injeung);
-            
+            mv.addObject("confirm", "Y");
+            mv.addObject("msg", "인증되었습니다");
             //만약 인증번호가 같다면 이메일을 회원가입 페이지로 같이 넘겨서 이메일을
             //한번더 입력할 필요가 없게 한다.
             
             response_equals.setContentType("text/html; charset=UTF-8");
             PrintWriter out_equals = response_equals.getWriter();
-            out_equals.println("<script>alert('인증번호가 일치하였습니다. 회원가입창으로 이동합니다.');</script>");
+//            out_equals.println("<script>alert('인증번호가 일치하였습니다. 회원가입창으로 이동합니다.');</script>");
             out_equals.flush();
+         
     
             return mv;
             

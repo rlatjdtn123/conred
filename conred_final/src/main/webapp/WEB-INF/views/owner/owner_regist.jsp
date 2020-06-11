@@ -38,6 +38,35 @@
 	.req{color: red;font-weight: bold;font-size:20px;}
 	#sel{border:1px solid grey;height:24px;vertical-align: middle;}
 </style>
+<script type="text/javascript">
+	$(function(){
+		//이메일 작성시 나머지 메일 주소 선택 넣어주기
+		$("#sel").change(function(){
+			$("input[name=owner_email2]").val($(this).val());
+		});
+		$(".authBtn").click(function(){
+			var emailVal=$("input[name=owner_email1]").val()+"@"+$("input[name=owner_email2]").val();
+			$("input[name=email]").val(emailVal);
+			var myForm=document.getElementById("emailform");
+			window.open("","popForm","width=600px,height=600px");
+			myForm.method="post";
+			myForm.target="popForm";
+			myForm.submit();
+			
+		});
+		
+		$("form").eq(0).submit(function(){
+			if($("input[name=emailConfirm]").val()=='Y'){
+				return true;
+			}else{
+				alert("이메일 인증은 필수입니다");
+				$("input[name=owner_email1]").focus();
+				return false;
+			}	
+			
+		});
+	})
+	</script>
 </head>
 <body>
 <div id="container">
@@ -75,7 +104,8 @@
 							<option>naver.com</option>
 							<option>hanmail.net</option>
 						</select>
-						<input class="btn" value="이메일인증" type="button"/>
+						<input type="hidden" name="emailConfirm" required="required" value="N"/>
+						<input class="btn authBtn" value="이메일인증" type="button" required="required"/>
 					</td>
 				</tr>
 				<tr>
@@ -104,6 +134,9 @@
 			<input class="btn redbtn" value="취소" onclick="location.href='index.jsp'" type="button"/>
 			<input class="btn greenbtn" value="회원가입 완료" type="submit"/> 
 		</div>
+	</form>
+	<form id="emailform" action="email_ok_start.do">
+		<input type="hidden" name="email" required="required" />
 	</form>
 </div>
 </body>

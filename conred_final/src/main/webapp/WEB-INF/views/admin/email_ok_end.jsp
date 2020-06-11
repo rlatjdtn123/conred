@@ -6,46 +6,80 @@
 <%
 	response.setContentType("text/html; charset=utf-8");
 %>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-
-
-<!DOCTYPE html>
-<html>
-<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script type="text/javascript">
+		function confirmClose(){
+			opener.document.getElementsByName("emailConfirm")[0].value="Y";
+			self.close();
+		}
+	</script>
 <meta charset="UTF-8">
-<title>어디가냥저기가개! 메일인증 입력하기</title>
+<title>어디가냥저기가개! 이메일 인증 시스템</title>
+<style type="text/css" >
+	#spans{
+	 text-align: center;
+	 color: black; 
+	 font-weight: bold;
+	}
+	#table1{
+	background-color: silver;
+	border: solid;
+	border-color: silver;
+	margin-bottom: 110px;
+	
+	
+		
+	}
+/* <!-- 		border="1" width="300" height="300" align="center" --> */
+/* 	align="center" style="color: green; font-weight: bold;" */
+	
+</style>
 </head>
 <body>
 	<form action="email_ok_end.do" method="post">
-		
-		<table border="1" width="300" height="300" align="center">
-
-			<span align="center" style="color: green; font-weight: bold;">입력한
-				이메일로 받은 인증번호를 입력하라냥! (인증번호가 맞아야 다음 단계로 넘어가실 수 있습니다)</span>
+		<table id="table1" align="center">
+			<br>
+			<br>
+			<br>
+			<div id="spans">
+			<span>
+			입력하신 이메일로 받은 인증번호를 입력하라냥!<br>
+			(인증번호가 맞아야 다음 단계로 넘어가실 수 있습니다)
+			</span>
+			</div>
 			<br>
 			<br>
 			<br>
 			<br>
 
 			<!--         //받아온 인증코드를 컨트롤러로 넘겨서 일치하는지 확인     -->
-
-			<div style="text-align: center;">
 				<tr>
-					<td><br>
-						<div>
-						인증번호 입력 : <input type="number" name="email_injeung"
+					<td>
+						<div style="text-align: center;">
+						이메일 인증번호 입력<br><br><input type="number" name="email_injeung"
 							placeholder="  인증번호를 입력하세요. ">
 						</div> <br> <br>
-					<button type="submit" name="submit">인증번호 전송</button></td>
+					<div style="text-align: center;" >
+					<button type="submit" name="submit">인증번호 전송</button><br/>
+					</div>
+					<span>${msg}</span>
+					</td>
 				</tr>
-
-			</div>
+				<c:if test="${confirm =='Y'}">
+					<tr>
+						<td>
+							<button type="button" onclick="confirmClose()">확인</button>
+						</td>
+					</tr>
+				</c:if>
+			
+					
 		</table>
 	</form>
 </body>
 </html>
+<jsp:include page="../all/footer.jsp" />

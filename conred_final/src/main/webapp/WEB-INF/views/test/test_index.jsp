@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8");%>
 <%response.setContentType("text/html; charset=utf-8");%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	#container{border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:1600px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	
 	#message1{width:500px;text-align: center; margin:0 auto;padding-top:80px;font-size:22px; font-weight: bold}
 	#footprint1{width:30px;padding-left: 5px;padding-bottom: 8px;}
@@ -107,39 +109,51 @@
 			<div class="categories_invisible"></div>
 		</div>
 	</div>
-	
-	<div id="slidebar">
-		<div class="slidebarbox">
-			<div class="slidetitle" style="border:1px solid white;border-top-color:lightgrey;border-top-width:1px;padding-top:70px;">이런곳은 어떠세요?</div>
-			<div class="slidebars">
-			<a href="user_interests_recommended.do">검색하자</a>
-			<form action="user_interests_recommended.do" method="post">
-				<table border="1">
-				   <tr>
-				    <td>
-				    	
-				   		${requestScope.list !=null?requestScope.list[0].store_name:"없음"}
-				   </td>
-				   </tr>
-				</table>
-			</form>
-			</div>
-		</div>
-		<div class="slidebarbox">
-			<div class="slidetitle">동물병원 랭킹~</div>
-			<div class="slidebars">
-			이안에매장들
-			</div>
-		</div>
-		<div class="slidebarbox">
-			<div class="slidetitle">신난ㄷ나</div>
-			<div class="slidebars">
-			이안에매장들
-			</div>
-		</div>
-	</div>
 
-</div>
+		<div id="slidebar">
+			<div class="slidebarbox">
+				<div class="slidetitle"
+					style="border: 1px solid white; border-top-color: lightgrey; border-top-width: 1px; padding-top: 70px;">이런곳은
+					어떠세요?</div>
+				<div class="slidebars">
+					<a href="user_interests_recommended.do">검색하자테스트</a>
+					<form action="user_interests_recommended.do" method="post">
+						<table border="1">
+							<tr>
+								<td>
+								<c:choose>
+										<c:when test="${empty list}">
+											<tr>
+												<td colspan="10">---추천 상점 AI를 로딩중이다냥---</td>
+											</tr>
+										</c:when>
+										<c:otherwise>
+											<c:forEach items="${list}" var="dto">
+												<tr>
+												    <td>${dto.store_name}</td>
+													<td>${dto.store_seq}</td>
+													
+												</tr>
+											</c:forEach>
+										</c:otherwise>
+									</c:choose>
+								</td>
+							</tr>
+						</table>
+					</form>
+				</div>
+			</div>
+			<div class="slidebarbox">
+				<div class="slidetitle">동물병원 랭킹~</div>
+				<div class="slidebars">이안에매장들</div>
+			</div>
+			<div class="slidebarbox">
+				<div class="slidetitle">신난ㄷ나</div>
+				<div class="slidebars">이안에매장들</div>
+			</div>
+		</div>
+
+	</div>
 
 
 

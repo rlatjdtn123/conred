@@ -56,7 +56,7 @@ public class Haekang {
 //	UDto uldto=(UDto)session.getAttribute("uldto");
 	@RequestMapping(value = "user_interests_recommended.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String user_interests_recommended(HttpServletRequest request, Locale locale, Model model, UDto udto, SDto sdto, String user_id) {
-		logger.info("관리자 - 오너 목록 전체 조회 및 키워드 조회 기능 {}.", locale); 
+		logger.info("유저 로그인시 index 페이지 관심사 추천 기능 {}.", locale); 
 			
 		HttpSession session=request.getSession();
 		UDto uldto = (UDto)session.getAttribute("uldto");//Object(uldto객체)
