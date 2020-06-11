@@ -191,7 +191,7 @@
 				$("input[name=store_maxman]").attr("readonly","readonly");
 				$("input[name=store_maxman]").css("background-color","#f2f2f2");
 			}
-		});
+		}); 
 		$('.timepicker').timepicker({
 		    timeFormat: 'HH:mm ',
 		    interval: 30,
