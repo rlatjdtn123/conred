@@ -72,7 +72,7 @@
 </head>
 <body>
 <div id="container">
-	<form action="owner_regist_store.do" method="post">
+	<form action="owner_regist_store.do" method="post" enctype="multipart/form-data">
 		<div id="tle">
 			<div id="regist">
 				사업자등록번호 인증
@@ -84,7 +84,7 @@
 						<input class="numbers form-control" type="text" name="store_license_number"/> -
 						<input class="numbers form-control" type="text" name="store_license_number"/> -
 						<input class="numbers form-control" type="text" name="store_license_number"/>
-						<input type="hidden" name="store_license_number" value="111"/><!-- 테스트용 -->
+<!-- 						<input type="hidden" name="store_license_number" value="111"/> -->
 <!-- 						<input class="numbers" type="text" name="store_license_number1" required="required"/> - -->
 <!-- 						<input class="numbers" type="text" name="store_license_number2" required="required"/> - -->
 <!-- 						<input class="numbers" type="text" name="store_license_number3" required="required"/> -->
@@ -100,13 +100,13 @@
 					<td>사업자등록증  사본등록</td>
 					<td>
 						<div class="filebox">
-							<input type="hidden" name="store_license_biz_origin" value="사업자원본명테스트a"/><!-- 테스트용 -->
-							<input type="hidden" name="store_license_biz_stored" value="사업자저장명테스트a"/><!-- 테스트용 -->
-							<input type="hidden" name="store_license_biz_size" value="1234"/>			<!-- 테스트용 -->	
+<!-- 							<input type="hidden" name="store_license_biz_origin" value="사업자원본명테스트a"/>테스트용 -->
+<!-- 							<input type="hidden" name="store_license_biz_stored" value="사업자저장명테스트a"/>테스트용 -->
+<!-- 							<input type="hidden" name="store_license_biz_size" value="1234"/>			테스트용	 -->
 							<input class="upload-name" value="파일선택" disabled="disabled">
-							<label class="btn" for="filename01">업로드</label>
-							<input type="file" id="filename01" class="upload-hidden">
-<!-- 							<input type="file" id="filename01" class="upload-hidden" required="required"> -->
+							<label class="btn" for="biz">업로드</label>
+							<input type="file" id="biz" name="biz" class="upload-hidden">
+<!-- 							<input type="file" id="biz" class="upload-hidden" required="required"> -->
 						</div>
 					</td>
 					
@@ -115,12 +115,12 @@
 					<td>영업등록증 사본등록</td>
 					<td>
 						<div class="filebox">
-							<input type="hidden" name="store_license_sales_origin" value="영업증원본명테스트a"/><!-- 테스트용 -->
-							<input type="hidden" name="store_license_sales_stored" value="영업증저장명테스트a"/><!-- 테스트용 -->
-							<input type="hidden" name="store_license_sales_size" value="2345"/>			<!-- 테스트용 -->
+<!-- 							<input type="hidden" name="store_license_sales_origin" value="영업증원본명테스트a"/>테스트용 -->
+<!-- 							<input type="hidden" name="store_license_sales_stored" value="영업증저장명테스트a"/>테스트용 -->
+<!-- 							<input type="hidden" name="store_license_sales_size" value="2345"/>			테스트용 -->
 							<input class="upload-name" value="파일선택" disabled="disabled">
-							<label class="btn" for="filename02">업로드</label>
-							<input type="file" id="filename02" class="upload-hidden">
+							<label class="btn" for="sales">업로드</label>
+							<input type="file" id="sales" name="sales" class="upload-hidden">
 <!-- 							<input type="file" id="filename02" class="upload-hidden" required="required"> -->
 						</div>
 					</td>

@@ -167,7 +167,7 @@
 		<c:if test="${s_seq eq sldto.store_seq}"> <!-- 내 매장과 이 매장이 같으면(로그인 안되어있으면) -->
 			<div id="sticky">
 				<div id="navi2">
-					<div class="navis2 home" onclick="location.href='store.do'">
+					<div class="navis2 home" onclick="location.href='store.do?store_seq=${store_detail.store_seq}'">
 						매장 홈
 					</div>
 					<div class="navis2" onclick="location.href='owner_mystore_update.do'">

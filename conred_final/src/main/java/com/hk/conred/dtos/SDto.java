@@ -74,6 +74,26 @@ public class SDto {
 		this.store_maxman = store_maxman;
 	}
 	
+	//점포등록1 : certify insert 용
+	public SDto(String owner_id, String store_owner_name, String store_license_number, String store_license_biz_origin,
+			String store_license_biz_stored, String store_license_biz_size, String store_license_sales_origin,
+			String store_license_sales_stored, String store_license_sales_size, String store_owner_phone,
+			String store_agreement) {
+		super();
+		this.owner_id = owner_id;
+		this.store_owner_name = store_owner_name;
+		this.store_license_number = store_license_number;
+		this.store_license_biz_origin = store_license_biz_origin;
+		this.store_license_biz_stored = store_license_biz_stored;
+		this.store_license_biz_size = store_license_biz_size;
+		this.store_license_sales_origin = store_license_sales_origin;
+		this.store_license_sales_stored = store_license_sales_stored;
+		this.store_license_sales_size = store_license_sales_size;
+		this.store_owner_phone = store_owner_phone;
+		this.store_agreement = store_agreement;
+	}
+
+
 	public int getStore_seq() {
 		return store_seq;
 	}

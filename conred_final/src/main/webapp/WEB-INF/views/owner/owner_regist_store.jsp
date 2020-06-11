@@ -62,7 +62,7 @@
  	.filebox label { display: inline-block; padding: .5em .75em;  font-size: inherit; line-height: normal; 
  					vertical-align: middle; background-color: grey; cursor: pointer; border: 1px solid #ebebeb; 
 					border-bottom-color: #e2e2e2; border-radius: .25em; margin-bottom: 0px;}
-	.filebox .upload-name { display: inline-block; padding: .5em .75em; height:34px;/* label의 패딩값과 일치 */
+	.filebox .upload-name { display : inline-block; padding: .5em .75em; height:34px;/* label의 패딩값과 일치 */
 						
 						font-size: inherit; font-family: inherit; line-height: normal;
 						vertical-align: middle; background-color: #f5f5f5; border: 1px solid #ebebeb;
@@ -85,6 +85,21 @@
 	input[name=store_maxdate],input[name=store_maxman]{width:30px;background-color: #f0f0f0;border:1px solid grey}
 	.subinfo{font-size:12px;color: grey;}
 	#bot{margin:30px 10px 30px;}
+	
+	/*--파일업로드관련--*/
+	#preview img {width: 180px;height: 100px;overflow: hidden;}
+	#preview p {text-overflow: ellipsis;overflow: hidden;}
+	.preview-box {border: 1px solid;padding: 5px;border-radius: 2px;margin-bottom: 10px;
+				display: inline-block;
+    			
+					}
+	.thumbnail{margin-bottom:0px;}
+/* 	.del_btn{float: right;display: inline-block;} */
+/* 	.f_name{float:left;display: inline-block;margin-left:0px;} */
+	.f_insert{margin:0px;display: inline-block;float: left;margin-bottom:10px;}
+	.attach_count{display: inline-block;margin:5px 10px 20px;font-size:18px;}
+/* 	.attach_count::after{clear:both;} */
+	/*-------------*/
 </style>
 <script type="text/javascript">
 	
@@ -178,7 +193,7 @@
 			}
 		});
 		$('.timepicker').timepicker({
-		    timeFormat: 'h:mm p',
+		    timeFormat: 'HH:mm ',
 		    interval: 30,
 		    minTime: '0',
 		    maxTime: '23:50pm',
@@ -190,10 +205,83 @@
 		});
 		
  		
+		
+		// <input type=file> 태그 기능 구현
+		$('#attach input[type=file]').change(function() {
+			addPreview($(this)); //preview form 추가하기
+			$(".attach_count").text();
+		});
 	});
 	
+	/////////-------------------파일업로드관련
 	
+    //임의의 file object영역
+    var files = {};
+    var previewIndex = 0;
 
+    // image preview 기능 구현
+    // input = file object[]
+    function addPreview(input) {
+        if (input[0].files) {
+            //파일 선택이 여러개였을 시의 대응
+            for (var fileIndex = 0; fileIndex < input[0].files.length; fileIndex++) {
+                var file = input[0].files[fileIndex];
+                if(validation(file.name)) continue;
+                setPreviewForm(file);
+            }
+        } else
+            alert('invalid file input'); // 첨부클릭 후 취소시의 대응책은 세우지 않았다.
+    }
+    
+    function setPreviewForm(file, img){
+        var reader = new FileReader();
+        
+        //div id="preview" 내에 동적코드추가.
+        //이 부분을 수정해서 이미지 링크 외 파일명, 사이즈 등의 부가설명을 할 수 있을 것이다.
+        reader.onload = function(img) {
+            var imgNum = previewIndex++;
+            $("#preview").append(
+                    "<div class=\"preview-box\" value=\"" + imgNum +"\">" +
+                    "<img class=\"thumbnail\" src=\"" + img.target.result + "\"\/>" +
+                    "<p class=\"f_name\">" + file.name + "</p>" +
+                    "<div class=\"f_name\"><input class=\"form-control\" type=\"text\" name=\"새컬럼명(코멘트)\" placeholder=\"사진제목/이름(선택사항)\"></div>" +
+                    "<a class=\"del_btn\" href=\"#a\" value=\"" + imgNum + "\" onclick=\"deletePreview(this)\">" +
+                    "삭제" + "</a>"
+                    + "</div>"
+            );
+            files[imgNum] = file;   
+            $(".attach_count").text($(".preview-box").length+"/30");
+        };
+        
+        reader.readAsDataURL(file);
+    }
+
+    //preview 영역에서 삭제 버튼 클릭시 해당 미리보기이미지 영역 삭제
+    function deletePreview(obj) {
+        var imgNum = obj.attributes['value'].value;
+        delete files[imgNum];
+        $(".attach_count").text($(".preview-box").length-1+"/30");
+        $("#preview .preview-box[value=" + imgNum + "]").remove();
+//         resizeHeight();
+    }
+
+    //client-side validation
+    //always server-side validation required
+    function validation(fileName) {
+        fileName = fileName + "";
+        var fileNameExtensionIndex = fileName.lastIndexOf('.') + 1;
+        var fileNameExtension = fileName.toLowerCase().substring(
+                fileNameExtensionIndex, fileName.length);
+        if (!((fileNameExtension === 'jpg')
+                || (fileNameExtension === 'gif') || (fileNameExtension === 'png'))) {
+            alert('jpg, gif, png 확장자만 업로드 가능합니다.');
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /////////-------------------
 </script>
 </head>
 <%
@@ -271,11 +359,43 @@
 				<div class="inputbox">
 					<div class="inputtitle">사진업로드</div>
 					<div class="inputs">
-						<div class="filebox">
-							<input class="upload-name" value="파일선택" disabled="disabled">
-							<label class="btn" for="filename02">업로드</label>
-							<input type="file" id="filename02" class="upload-hidden">
-<!-- 							<input type="file" id="filename02" class="upload-hidden" required="required"> -->
+					<!-- 파일업로드 관련 -->
+					    <div class="wrapper">
+					        <div class="body">
+					            <!-- 첨부 버튼 -->
+					            <div id="attach">
+					                <label class="btn f_insert" for="uploadInputBox">사진 첨부하기</label>
+					                <input id="uploadInputBox" style="display: none" type="file" name="filedata" multiple />
+					            </div>
+					            <div class="attach_count">
+					            	0/30
+					            </div>
+					            <!-- 미리보기 영역 -->
+					            <div id="preview" class="content"></div>
+					            
+					            <!-- multipart 업로드시 영역 -->
+<!-- 					            <form id="uploadForm" style="display: none;" /> -->
+					        </div>
+					        <div class="footer">
+<!-- 					            <button class="submit"><a href="#" title="등록" class="btnlink">등록</a></button> -->
+					        </div>
+					    </div>
+					    
+<!-- 					성수가만든거 -->
+<!-- 						<div class="imgs_wrap">     -->
+				          
+<!-- 					    </div>           -->
+<!-- 					    <div class="input_wrap">   -->
+<!-- 					        <a href="javascript:" onclick="fileUploadAction();" class="my_button">파일 업로드</a> -->
+<!-- 				    		<div class="upload_message"></div> -->
+<!-- 					        <input type="file" id="input_imgs" multiple/> -->
+<!-- 					    </div>   -->
+<!-- 					내가만든거 -->
+<!-- 						<div class="filebox"> -->
+<!-- 							<input class="upload-name" value="파일선택" disabled="disabled"> -->
+<!-- 							<label class="btn" for="filename02">업로드</label> -->
+<!-- 							<input type="file" id="filename02" class="upload-hidden"> -->
+<!-- <!-- 							<input type="file" id="filename02" class="upload-hidden" required="required"> --> 
 						<div class="subinfo">
 							<br>
 							* 매장의 사진을 최소 5개 업로드해주세요.

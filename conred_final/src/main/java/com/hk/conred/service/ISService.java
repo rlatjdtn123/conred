@@ -3,13 +3,15 @@ package com.hk.conred.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.hk.conred.dtos.CMainDto;
 import com.hk.conred.dtos.ODto;
 import com.hk.conred.dtos.SDto;
 
 public interface ISService {
 	//매장등록(사업자등록정보)
-	public boolean insertStoreCertify(SDto sdto);
+	public boolean insertStoreCertify(SDto sdto,HttpServletRequest request);
 	//매장등록2(매장정보)
 	public boolean updateStoreInfo(SDto sdto,String[] time_day,
 			String[] time_open,String[] time_close,String[] time_break);

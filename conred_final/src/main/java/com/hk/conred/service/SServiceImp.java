@@ -1,11 +1,18 @@
 package com.hk.conred.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.hk.conred.daos.ICListDao;
 import com.hk.conred.daos.ICMainDao;
@@ -15,7 +22,6 @@ import com.hk.conred.daos.ISTimeDao;
 import com.hk.conred.dtos.CMainDto;
 import com.hk.conred.dtos.ODto;
 import com.hk.conred.dtos.SDto;
-import com.hk.conred.dtos.STimeDto;
 
 @Service
 public class SServiceImp implements ISService {
@@ -33,8 +39,67 @@ public class SServiceImp implements ISService {
 	
 	//매장등록(사업자등록정보)
 	@Override
-	public boolean insertStoreCertify(SDto sdto) {
-		return SDaoImp.insertStoreCertify(sdto) ;
+	public boolean insertStoreCertify(SDto sdto, HttpServletRequest request) {
+		MultipartHttpServletRequest multi = (MultipartHttpServletRequest)request;
+
+//		MultipartFile multiFile_biz=multi.getFile("biz");
+//		MultipartFile multiFile_sales=multi.getFile("sales");
+//		
+//		//originName
+//		String originName_biz=multiFile_biz.getOriginalFilename();
+//		System.out.println("biz의 원본파일명:"+originName_biz);
+//		String originName_sales=multiFile_sales.getOriginalFilename();
+//		System.out.println("sales의 원본파일명:"+originName_sales);
+//			
+//		//storedName
+//		String createUUid_biz=UUID.randomUUID().toString().replaceAll("-", "");
+//		String storedName_biz = createUUid_biz+originName_biz.substring(originName_biz.indexOf("."));
+//		System.out.println("biz의 저장파일명:"+storedName_biz);
+//		String createUUid_sales=UUID.randomUUID().toString().replaceAll("-", "");
+//		String storedName_sales = createUUid_sales+originName_sales.substring(originName_sales.indexOf("."));
+//		System.out.println("sales의 저장파일명:"+storedName_sales);
+//			
+//		//fileSize
+//		String fileSize_biz=Long.toString(multiFile_biz.getSize());
+//		System.out.println("biz의 사이즈:"+fileSize_biz);
+//		String fileSize_sales=Long.toString(multiFile_sales.getSize());
+//		System.out.println("sales의 사이즈:"+fileSize_sales);
+//			
+//		String path_biz="C:/Users/hkedu/git/conred/conred_final/src/main/webapp/upload_biz/";
+//		String path_sales="C:/Users/hkedu/git/conred/conred_final/src/main/webapp/upload_sales/";
+//		File file_biz = new File(path_biz+storedName_biz);
+//		File file_sales = new File(path_sales+storedName_sales);
+		
+//		sdto.setStore_license_biz_origin(originName_biz);
+//		sdto.setStore_license_biz_stored(storedName_biz);
+//		sdto.setStore_license_biz_size(fileSize_biz);
+//		sdto.setStore_license_sales_origin(originName_sales);
+//		sdto.setStore_license_sales_stored(storedName_sales);
+//		sdto.setStore_license_sales_size(fileSize_sales);
+			
+		sdto.setStore_license_biz_origin("1");
+		sdto.setStore_license_biz_stored("1");
+		sdto.setStore_license_biz_size("1");
+		sdto.setStore_license_sales_origin("1");
+		sdto.setStore_license_sales_stored("1");
+		sdto.setStore_license_sales_size("1");
+			
+		boolean isS=false; 
+		try {
+//			isS=SDaoImp.insertStoreCertify(new SDto (odto.getOwner_id(), store_owner_name, store_license_number,
+//					originName_biz, storedName_biz, fileSize_biz, store_license_sales_origin, 
+//					store_license_sales_stored, store_license_sales_size, store_owner_phone, store_agreement));
+			isS=SDaoImp.insertStoreCertify(sdto);
+			if(isS) {
+//				multiFile_biz.transferTo(file_biz);
+//				multiFile_sales.transferTo(file_sales);
+			}
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+		}
+		return isS;
 	}
 	//매장등록2(매장정보)
 	@Transactional

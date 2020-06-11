@@ -22,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.hk.conred.daos.IQnaDao;
 import com.hk.conred.dtos.CListDto;
@@ -184,7 +185,7 @@ public class Yoonho {
 			session.setAttribute("oldto", oldto);
 			session.setAttribute("sdto", seq);
 			session.setMaxInactiveInterval(60*10*6);
-			return "all/users_main"; 
+			return "redirect:index.jsp"; 
 		}	
 	}
 
@@ -202,54 +203,75 @@ public class Yoonho {
 		return "owner/owner_regist_certify"; 
 	}
 	
+//	owner_regist_store.do 백업 : 파일업로드 전 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	
+//	@RequestMapping(value = "owner_regist_store.do", method = {RequestMethod.GET,RequestMethod.POST})
+//	public String owner_regist_store(Locale locale, Model model, SDto sdto, STimeDto stimedto, HttpServletRequest request) {
+//		logger.info("점주: 매장등록(매장정보 입력)으로 이동  {}.", locale);
+//		
+//		HttpSession session=request.getSession();
+//		ODto odto= (ODto)session.getAttribute("oldto");
+//		
+//		System.out.println("odto 아이디:"+odto.getOwner_id());
+//		sdto.setOwner_id(odto.getOwner_id()); 
+//		
+//		sdto.setStore_license_number(sdto.getStore_license_number().replace(",",""));
+//		sdto.setStore_owner_phone(sdto.getStore_owner_phone().replace(",",""));
+//		
+//		
+//		System.out.println("sdto 아이디:"+sdto.getOwner_id());
+//		System.out.println("sdto 사업자이름:"+sdto.getStore_owner_name());
+//		System.out.println("sdto 사업자등록번호:"+sdto.getStore_license_number());
+//		System.out.println("sdto 사업자증원본명:"+sdto.getStore_license_biz_origin());
+//		System.out.println("sdto 사업자증저장명:"+sdto.getStore_license_biz_stored());
+//		System.out.println("sdto 사업자증사이즈:"+sdto.getStore_license_biz_size());
+//		System.out.println("sdto 영업증원본명:"+sdto.getStore_license_sales_origin());
+//		System.out.println("sdto 영업증저장명:"+sdto.getStore_license_sales_stored());
+//		System.out.println("sdto 영업증사이즈:"+sdto.getStore_license_sales_size());
+//		System.out.println("sdto 사업자전화번호:"+sdto.getStore_owner_phone());
+//		System.out.println("sdto 약관동의:"+sdto.getStore_agreement());
+//		System.out.println("sdto 관리자승인:"+sdto.getStore_admin_state());
+//		
+//		System.out.println();
+//		boolean isS=sService.insertStoreCertify(sdto);
+//		
+//		if(isS) {
+//			System.out.println("매장생성 + 사업자정보등록 :성공");
+//			return "owner/owner_regist_store";
+//		}else{
+//			System.out.println("매장생성 + 사업자정보등록 :실패");
+//			return ""; 
+//		}	
+//	}
+//	
 
 	@RequestMapping(value = "owner_regist_store.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String owner_regist_store(Locale locale, Model model, SDto sdto, STimeDto stimedto, HttpServletRequest request) {
+	public String owner_regist_store(Locale locale, Model model, SDto sdto, HttpServletRequest request) {
 		logger.info("점주: 매장등록(매장정보 입력)으로 이동  {}.", locale);
 		
 		HttpSession session=request.getSession();
 		ODto odto= (ODto)session.getAttribute("oldto");
-		
 		System.out.println("odto 아이디:"+odto.getOwner_id());
+		
 		sdto.setOwner_id(odto.getOwner_id()); 
+		System.out.println("odto 아이디 sdto에 넣기 완료");
 		
+		System.out.println(sdto.getStore_license_number());
+		System.out.println(sdto.getStore_license_number().replace(",",""));
 		sdto.setStore_license_number(sdto.getStore_license_number().replace(",",""));
+		System.out.println("사업자번호 sdto에 넣기 완료");
 		sdto.setStore_owner_phone(sdto.getStore_owner_phone().replace(",",""));
-		
-
+		System.out.println("점주전화번호 sdto에 넣기 완료");
 		
 		System.out.println("sdto 아이디:"+sdto.getOwner_id());
-//		System.out.println("sdto 매장명:"+sdto.getStore_name());
 		System.out.println("sdto 사업자이름:"+sdto.getStore_owner_name());
-//		System.out.println("sdto 매장홈피링크:"+sdto.getStore_path());
-//		System.out.println("sdto 간단소개:"+sdto.getStore_intro_simple());
-//		System.out.println("sdto 상세소개:"+sdto.getStore_intro());
-//		System.out.println("sdto 영업상태:"+sdto.getStore_state());
-//		System.out.println("sdto 매장번호:"+sdto.getStore_phone());
-//		System.out.println("sdto 담당자번호:"+sdto.getStore_phone_manager());
-//		System.out.println("sdto 주소:"+sdto.getStore_address());
-//		System.out.println("sdto 상세주소:"+sdto.getStore_address_detail());
-//		System.out.println("sdto 영업시간 기타사항:"+sdto.getStore_time_other());
-//		System.out.println("sdto 은행명:"+sdto.getStore_bank());
-//		System.out.println("sdto 계좌번호:"+sdto.getStore_account());
 		System.out.println("sdto 사업자등록번호:"+sdto.getStore_license_number());
-		System.out.println("sdto 사업자증원본명:"+sdto.getStore_license_biz_origin());
-		System.out.println("sdto 사업자증저장명:"+sdto.getStore_license_biz_stored());
-		System.out.println("sdto 사업자증사이즈:"+sdto.getStore_license_biz_size());
-		System.out.println("sdto 영업증원본명:"+sdto.getStore_license_sales_origin());
-		System.out.println("sdto 영업증저장명:"+sdto.getStore_license_sales_stored());
-		System.out.println("sdto 영업증사이즈:"+sdto.getStore_license_sales_size());
 		System.out.println("sdto 사업자전화번호:"+sdto.getStore_owner_phone());
 		System.out.println("sdto 약관동의:"+sdto.getStore_agreement());
 		System.out.println("sdto 관리자승인:"+sdto.getStore_admin_state());
-//		System.out.println("sdto 아이디:"+sdto.getStore_maxdate());
-//		System.out.println("sdto 아이디:"+sdto.getStore_maxman());
 		
-		System.out.println();
-		boolean isS=sService.insertStoreCertify(sdto);
-		
-//		boolean isS=sService.insertStoreCertify(sdto); //원래했던거
-//		if(isS&&sdto.getStore_agreement()=="Y") {
+		boolean isS=sService.insertStoreCertify(sdto,request);
+//		boolean isS=false;//임시 false: 사진업로드 test중 
 		if(isS) {
 			System.out.println("매장생성 + 사업자정보등록 :성공");
 			return "owner/owner_regist_store";
@@ -268,13 +290,11 @@ public class Yoonho {
 		ODto odto= (ODto)session.getAttribute("oldto");
 		SDto seq =sService.selectStoreSeq(odto);
 		
-//		System.out.println("sdto 아이디:"+sdto.getOwner_id());//ㄴㄴㄴㄴㄴㄴㄴ
-//		System.out.println("sdto 사업자이름:"+sdto.getStore_owner_name());//ㄴㄴㄴㄴㄴㄴㄴ
 
 		System.out.println("세션에서가져온sdto2의 store_seq값: "+seq.getStore_seq());
 		sdto.setStore_seq(seq.getStore_seq());
 		System.out.println("sdto에 넣은 store_seq값: "+sdto.getStore_seq());
-		//ㅇㅇㅇㅇㅇㅇㅇㅇ
+
 		System.out.println("sdto 매장명:"+sdto.getStore_name());
 		System.out.println("sdto 매장홈피링크:"+sdto.getStore_path());
 		System.out.println("sdto 간단소개:"+sdto.getStore_intro_simple());
@@ -287,22 +307,6 @@ public class Yoonho {
 		System.out.println("sdto 영업시간 기타사항:"+sdto.getStore_time_other());
 		System.out.println("sdto 은행명:"+sdto.getStore_bank());
 		System.out.println("sdto 계좌번호:"+sdto.getStore_account());
-		
-		//ㄴㄴㄴㄴㄴㄴㄴㄴ
-//		System.out.println("sdto 사업자등록번호:"+sdto.getStore_license_number());
-//		System.out.println("sdto 사업자증원본명:"+sdto.getStore_license_biz_origin());
-//		System.out.println("sdto 사업자증저장명:"+sdto.getStore_license_biz_stored());
-//		System.out.println("sdto 사업자증사이즈:"+sdto.getStore_license_biz_size());
-//		System.out.println("sdto 영업증원본명:"+sdto.getStore_license_sales_origin());
-//		System.out.println("sdto 영업증저장명:"+sdto.getStore_license_sales_stored());
-//		System.out.println("sdto 영업증사이즈:"+sdto.getStore_license_sales_size());
-//		System.out.println("sdto 사업자전화번호:"+sdto.getStore_owner_phone());
-//		System.out.println("sdto 약관동의:"+sdto.getStore_agreement());
-//		System.out.println("sdto 관리자승인:"+sdto.getStore_admin_state());
-		
-//		System.out.println("sdto 아이디:"+sdto.getStore_maxdate());
-//		System.out.println("sdto 아이디:"+sdto.getStore_maxman());
-		
 //		System.out.println("배열로받아온 요일:"+store_time_day.toString());
 		
 		stimedto.setStore_seq(seq.getStore_seq());
@@ -315,36 +319,11 @@ public class Yoonho {
 		String [] time_open=stimedto.getStore_time_open().split(",");
 		String [] time_close=stimedto.getStore_time_close().split(",");
 		String [] time_break=stimedto.getStore_time_break().split(",");
-//		stimedto.setTime_day(time_day);
-//		stimedto.setTime_open(time_open);
-//		stimedto.setTime_close(time_close);
-//		stimedto.setTime_break(time_break);
-		
-		
-		
-//		STimeDto dto1 = new STimeDto();
-//		dto1.setStore_time_day(time_day[0]);
-//		dto1.setStore_time_open(time_open[0]);
-//		dto1.setStore_time_close(time_close[0]);
-//		dto1.setStore_time_break(time_break[0]);
-//		STimeDto dto2 = new STimeDto();
-//		dto2.setStore_time_day(time_day[1]);
-//		dto2.setStore_time_open(time_open[1]);
-//		dto2.setStore_time_close(time_close[1]);
-//		dto2.setStore_time_break(time_break[1]);
-//		List<STimeDto> list = new ArrayList<STimeDto>();
-//		list.add(dto1);
-//		list.add(dto2);
-//		Map<String, Object> map =new HashMap<String, Object>();
-//		map.put("list", list);
 		
 		for (int i = 0; i < time_day.length; i++) {
 			System.out.println(time_day[i]+" : "+time_open[i]+"~"+time_close[i]+"/폐점여부:"+time_break[i]); 
 		}
 		
-//		return "";
-//		boolean isS=sService.updateStoreInfo(sdto,stimedto);
-//		boolean isS=sService.updateStoreInfo(sdto,map);
 		boolean isS=sService.updateStoreInfo(sdto,time_day,time_open,time_close,time_break);
 		if(isS) {
 			System.out.println("매장정보 업데이트성공~");

@@ -25,6 +25,18 @@
 	
 	<context:component-scan base-package="com.hk.conred" />
 	
-	
+	<!--
+		multipart 요청정보를 받기 위한 객체 선언
+		maxUploadSize: 최대 업로드 가능 바이트 크기
+		maxInMemorySize: 디스크에 임시 파일을 생성하기 전에 메모리에 보관할 수 있는 최대 크기
+		
+		Multipart지원기능을 사용하려면 Resolver를 등록해야한다.
+		DispatcherServlet이 "multipartResolver"라는 이름의 빈을 사용하기 때문에
+		반드시 id에 "multipartResolver"로 설정한다.
+	 -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="4096000" />
+		<beans:property name="maxInMemorySize" value="4096000" />
+	</beans:bean>
 	
 </beans:beans>
