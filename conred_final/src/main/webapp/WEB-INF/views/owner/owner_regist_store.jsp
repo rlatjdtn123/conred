@@ -89,15 +89,17 @@
 	/*--파일업로드관련--*/
 	#preview img {width: 180px;height: 100px;overflow: hidden;}
 	#preview p {text-overflow: ellipsis;overflow: hidden;}
-	.preview-box {border: 1px solid;padding: 5px;border-radius: 2px;margin-bottom: 10px;
+	.preview-box {border: 0px solid grey;padding: 5px;border-radius: 2px;margin-bottom: 5px;margin-right:5px;
 				display: inline-block;
-    			
+    			border-radius: 5px;
+    			border-right-width: 1px;
+    			border-bottom-width: 1px;
 					}
 	.thumbnail{margin-bottom:0px;}
 /* 	.del_btn{float: right;display: inline-block;} */
 /* 	.f_name{float:left;display: inline-block;margin-left:0px;} */
-	.f_insert{margin:0px;display: inline-block;float: left;margin-bottom:10px;}
-	.attach_count{display: inline-block;margin:5px 10px 20px;font-size:18px;}
+	.f_insert{margin:0px;display: inline-block;float: left;}
+	.attach_count{display: inline-block;margin:5px 10px 15px;font-size:18px;}
 /* 	.attach_count::after{clear:both;} */
 	/*-------------*/
 </style>
