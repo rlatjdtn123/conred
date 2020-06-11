@@ -24,7 +24,7 @@
 	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0.1px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	.flatpickr-calendar{margin: 0 auto; width: 600px !important; height: 400px !important;}
 	.flatpickr-rContainer{margin: 0 auto !important;}
-	.day_result_box{width: 250px;margin: 0 auto;border:solid #D8D8D8;border-width:1px 0 1px 0;  height: 30px;line-height: 30px; margin-top: 30px;}
+	.day_result_box{width: 250px;margin: 0 auto;border:solid #D8D8D8;border-width:1px 0 1px 0;  height: 30px;line-height: 30px; margin-top: 60px;margin-bottom: 400px;}
 	.selector{display: none;}
 	
 </style> 

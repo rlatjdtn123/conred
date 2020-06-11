@@ -27,10 +27,12 @@
 	.flatpickr-rContainer{margin: 0 auto !important;}
 	
 	.times{width: 80px;height:34px; border: 1px solid green;float: left; margin: 10px; text-align: center;line-height: 34px; background-color: #edfbdc; border: 0;}
-	.times_result{width: 250px;margin: 0 auto;border:solid #D8D8D8;border-width:1px 0 1px 0; clear: both; height: 30px;line-height: 30px;}
+	.times_result{width: 250px;margin: 0 auto;border:solid #D8D8D8;border-width:1px 0 1px 0; clear: both; height: 30px;line-height: 30px;margin-bottom: 40px;margin-top: 40px;}
 	.selector{display: none;}
 	.times:hover{background-color: #00FF00;cursor: pointer;}
-	.reserve_time_select{border: 1px solid #A4A4A4; width: 500px; height: 250px; margin: 0 auto; border-radius: 10px;margin-bottom: 400px;}
+	.reserve_time_select{border: 1px solid #A4A4A4; width: 500px; height: auto; margin: 0 auto; border-radius: 10px;margin-bottom: 400px;}
+	.time_box{margin: 0 auto; width: 400px; height: auto;}
+	
 	
 </style>  
 <script>   
@@ -66,10 +68,12 @@
 	//해당날짜 선택시
 	var datestr; 
 	function aaa(ele){   	
-	
+		
 		var a="09:00am";
+		var c="11:00am";
 		var b=a.split(":");
-		alert(parseInt(b[0]));
+		var d=c.split(":");
+// 		alert(parseInt(d[0]-b[0]));
 		var num=new Date(ele.value);
 		
 		datestr=$(".selector").val(); 
@@ -79,8 +83,43 @@
 		
 		//공백
 		var emptyDay=$(".prevMonthDay").length;
-			alert(isWeek((emptyDay+num.getDate())%7));
-// 			alert((emptyDay+num.getDate())%7);
+		//클릭->요일
+		// 	alert((emptyDay+num.getDate())%7);
+		var	store_time_day=isWeek((emptyDay+num.getDate())%7);
+		var store_seq=$("input[name=store_seq]").val();
+		var menu_seq=$("input[name=menu_seq]").val();
+		var addContent;
+		var open;
+		var close; 
+		
+		$.ajax({ 
+			url:"user_selectWeek_ajax.do",
+			method:"post",
+			data:{"menu_seq":menu_seq,"store_seq":store_seq,"store_time_day":store_time_day},
+			dataType:"json",
+			success:function(obj){
+				var lists=obj.listWeek;
+				$.each(lists,function(i){
+					open=lists[i].store_time_open.split(":");
+					close=lists[i].store_time_close.split(":");
+	// 				alert(parseInt(open[0])+4); 
+	// 				alert(open[0]);
+					var ing=parseInt(close[0]-open[0]);
+	// 				alert(ing);
+					 
+					for (var j = 0; j < ing; j++) {
+						addContent+= '<input class="times" onclick="bbb()" value="'+ (parseInt(open[0])+j)+':00' +'" readonly="readonly">';
+					}
+					
+					$(".time_box").empty();
+					$(".time_box").append(addContent);
+					$(".time_box").css("height", "auto");			
+				})
+					   
+			}
+		});
+		
+
 		$(".dayContainer > span").not(".flatpickr-disabled").not(".prevMonthDay").not(".nextMonthDay").each(function(){
 			
 			//요일별 휴무여부
@@ -161,7 +200,7 @@
 		//요일별 휴무여부
 		var getMon=$("input[name=mon]").val();
 		var getTue=$("input[name=tue]").val();
-		var getWed=$("input[name=wed]").val();
+		var getWed=$("input[name=wed]").val(); 
 		var getThu=$("input[name=thu]").val();
 		var getFri=$("input[name=fri]").val();
 		var getSat=$("input[name=sat]").val();
@@ -307,36 +346,10 @@
 		</div>
 		<br><br>
 		<div class="reserve_time_select" >
-			<div style="margin: 0 auto; width: 400px; height: 250px;">
-				<%
-//  				int count;
-// 					for(int i=0; i>list.size()-1;i++){
-// 						String close=list.get(i).getStore_time_close();
-// 						String close_time=close.substring(close.length(), close.length()-5);
-// 						String open=list.get(i).getStore_time_open();
-// 						String open_time=open.substring(open.length(), open.length()-5);
-// 						int result=(int)Integer.parseInt(close_time)-Integer.parseInt(open_time);
-// 						for(int j=0;j>result;j++){
-							%>
-<%-- 								<input class="times" onclick="bbb()" value="<%=%>:00" readonly="readonly"> --%>
-							<%
-// 						}
-// 					}
-				%>
-				<input class="times" onclick="bbb()" value="10:00" readonly="readonly">
-				<input class="times" onclick="bbb()" value="11:00" readonly="readonly">
-				<input class="times" onclick="bbb()" value="12:00" readonly="readonly">
-				<input class="times" onclick="bbb()" value="13:00" readonly="readonly">
-				<input class="times" onclick="bbb()" value="14:00" readonly="readonly">
-				<input class="times" onclick="bbb()" value="15:00" readonly="readonly">
-				<input class="times" onclick="bbb()" value="16:00" readonly="readonly">
-				<input class="times" onclick="bbb()" value="17:00" readonly="readonly">
-				<input class="times" onclick="bbb()" value="18:00" readonly="readonly">
-				<input class="times" onclick="bbb()" value="19:00" readonly="readonly">
-				<input class="times" onclick="bbb()" value="20:00" readonly="readonly">
+			<div class="time_box">	
 				
-				<div class="times_result">예약 시간 : <span></span>&nbsp;<span></span></div> 
 			</div>
+				<div class="times_result">예약 시간 : <span></span>&nbsp;<span></span></div> 
 		</div>
 	</div>
 </div>

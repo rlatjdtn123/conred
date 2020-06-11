@@ -462,12 +462,25 @@ public class Sungsu {
 	@RequestMapping(value = "user_reserve_time_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public Map<String, List<MenuDto>> user_reserve_time_ajax(Locale locale, Model model,int menu_seq,int store_seq) {
 		logger.info("사용자 예약 ajax {}.", locale);
-		System.out.println(menu_seq+"::@@@@@::"+store_seq);
+//		System.out.println(menu_seq+"::@@@@@::"+store_seq);
 		List<MenuDto> list=menuService.detailMenu(menu_seq,store_seq);
 		Map<String, List<MenuDto>> map=new HashMap<>();
 		map.put("list", list);	
 		return map;
 	}  
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "user_selectWeek_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public Map<String, List<MenuDto>> user_selectWeek_ajax(Locale locale, Model model,int menu_seq,int store_seq,String store_time_day) {
+		logger.info("선택요일에따라 시간출력 {}.", locale);
+//		System.out.println(menu_seq+"::@@@@@::"+store_seq);
+		System.out.println(store_time_day); 
+		List<MenuDto> listWeek=menuService.selectWeek(menu_seq, store_seq, store_time_day);
+		Map<String, List<MenuDto>> map=new HashMap<>();
+		map.put("listWeek", listWeek); 	
+		return map;
+	}
 	
 	
 	
