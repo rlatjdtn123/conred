@@ -21,18 +21,23 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <style type="text/css">
 /* 	.selector{display: none;} */
-	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0.1px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{box-sizing:border-box; border:1px solid grey; border-bottom-width:0.1px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	.flatpickr-calendar{margin: 0 auto; width: 600px !important; height: 400px !important;}
 	.flatpickr-rContainer{margin: 0 auto !important;}
-	.day_result_box{width: 250px;margin: 0 auto;border:solid #D8D8D8;border-width:1px 0 1px 0;  height: 30px;line-height: 30px; margin-top: 60px;margin-bottom: 400px;}
+	.day_result_box{width: 355px;margin: 0 auto;border:solid #D8D8D8;border-width:1px 0 1px 0;  height: 40px;line-height: 40px; margin-top: 60px;margin-bottom: 400px;}
 	.selector{display: none;}
+	.reserve_success{width: 100px;height: 25px; margin-left: 20px;font-size: 13px;line-height: 26px;border-width:0; display: none;border-radius: 10px;font-weight: bold;} 
+	.reserve_success:hover {background-color: lightgrey;}
+	.gongback{display: none;}
+	.sungsoobox{margin-top: 100px;}
+	
 	
 </style> 
 <script> 
 	  
 	 $(function(){
 		$("body").on("click",".dayContainer",function(){
-// 			alert($(this).text()); 
+// 			alert($(this).text());  
 		}); 
 	 });
 	 
@@ -43,25 +48,31 @@
 		var endDay=new Date(dates[1]); 
 // 		alert(((endDay.getTime()-startDay.getTime())/(1000*60*60*24)));       //  1초---> 1000ms
 		var resultDay=Math.ceil((endDay.getTime()-startDay.getTime())/(1000*60*60*24));
-		
-		$(".day_result_box").children("span").text(datestr);
-		
+		$(".day_result_box").children("span").eq(0).text(dates[0]);
+		$(".day_result_box").children("span").eq(1).text(dates[1]); 
 		if(resultDay>4){
 			alert("5일을 넘길수 없습니다."); 
 			$(".selector").val("");
 			$(".flatpickr-day").removeClass("selected startRange endRange inRange");
 			$(".day_result_box").children("span").empty();
 		}
+		if($(".endRange").length==1){
+			$(".reserve_success").css("display", "inline") ;
+			$(".gongback").css("display", "inline");
+			 
+		}
+		
 	}
 	
 </script>
-</head>
+</head> 
 <body>
-<div id="container">
-	<input type="text" class="selector" placeholder="날짜를 선택하세요." onchange="aaa()"/>
-	
-	<a class="input-button" title="toggle" data-toggle><i class="icon-calendar"></i></a>
-	<div class="day_result_box">예약 날짜 : <span></span></div>
+<div id="container">  
+	<div class="sungsoobox">
+		<input type="text" class="selector" placeholder="날짜를 선택하세요." onchange="aaa()"/>
+		<a class="input-button" title="toggle" data-toggle><i class="icon-calendar"></i></a>
+	</div>
+	<div class="day_result_box">예약 날짜 : <span></span><p class="gongback"> ~ </p><span></span><input class="reserve_success" type="submit" value="예약하기"/> </div>
 </div>
 <script type="text/javascript">
 

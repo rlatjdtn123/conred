@@ -22,17 +22,19 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <style type="text/css">
-	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0.1px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{box-sizing:border-box; border:1px solid grey;  border-bottom-width:0.1px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	.flatpickr-calendar{margin: 0 auto; width: 500px !important; height: 400px !important;}
 	.flatpickr-rContainer{margin: 0 auto !important;}
 	
 	.times{width: 80px;height:34px; border: 1px solid green;float: left; margin: 10px; text-align: center;line-height: 34px; background-color: #edfbdc; border: 0;}
-	.times_result{width: 250px;margin: 0 auto;border:solid #D8D8D8;border-width:1px 0 1px 0; clear: both; height: 30px;line-height: 30px;margin-bottom: 40px;margin-top: 40px;}
+	.times_result{width: 315px;margin: 0 auto;border:solid #D8D8D8;border-width:1px 0 1px 0; clear: both; height: 30px;line-height: 30px;margin-bottom: 40px;margin-top: 40px;}
 	.selector{display: none;}
 	.times:hover{background-color: #00FF00;cursor: pointer;}
-	.reserve_time_select{border: 1px solid #A4A4A4; width: 500px; height: auto; margin: 0 auto; border-radius: 10px;margin-bottom: 400px;}
+	.reserve_time_select{border: 1px solid #A4A4A4; width: 500px; height: auto; margin: 0 auto; border-radius: 10px;margin-bottom: 400px; margin-top: 60px;}
 	.time_box{margin: 0 auto; width: 400px; height: auto;}
-	
+	.reserve_success{width: 100px;height: 25px; margin-left: 20px;font-size: 13px;line-height: 26px;border-width:0; display: none;border-radius: 10px;font-weight: bold;} 
+	.reserve_success:hover {background-color: lightgrey;}
+	.sungsoobox{margin-top: 100px;}
 	
 </style>  
 <script>   
@@ -75,7 +77,6 @@
 		var d=c.split(":");
 // 		alert(parseInt(d[0]-b[0]));
 		var num=new Date(ele.value);
-		
 		datestr=$(".selector").val(); 
 		var day_result=$(".times_result").children();
 		day_result.eq(1).empty();
@@ -88,36 +89,87 @@
 		var	store_time_day=isWeek((emptyDay+num.getDate())%7);
 		var store_seq=$("input[name=store_seq]").val();
 		var menu_seq=$("input[name=menu_seq]").val();
-		var addContent;
+		var addContent="";
 		var open;
 		var close; 
+		var store_maxman=$("input[name=store_maxman]").val();
+		var select_times;
+		
 		
 		$.ajax({ 
 			url:"user_selectWeek_ajax.do",
 			method:"post",
 			data:{"menu_seq":menu_seq,"store_seq":store_seq,"store_time_day":store_time_day},
+			async: false,
 			dataType:"json",
 			success:function(obj){
 				var lists=obj.listWeek;
+				
 				$.each(lists,function(i){
 					open=lists[i].store_time_open.split(":");
 					close=lists[i].store_time_close.split(":");
 	// 				alert(parseInt(open[0])+4); 
 	// 				alert(open[0]);
-					var ing=parseInt(close[0]-open[0]);
+					var ing=parseInt(close[0])-parseInt(open[0]);
 	// 				alert(ing);
-					 
-					for (var j = 0; j < ing; j++) {
-						addContent+= '<input class="times" onclick="bbb()" value="'+ (parseInt(open[0])+j)+':00' +'" readonly="readonly">';
+// 					 alert(open[0]);
+					for (var j = 0; j < ing+1; j++) {
+// 						if((parseInt(open[0])+j)!=12){
+							addContent+= '<input class="times" value="'+ (parseInt(open[0])+j)+':00' +'" readonly="readonly">';							
+// 						}
 					}
 					
 					$(".time_box").empty();
 					$(".time_box").append(addContent);
-					$(".time_box").css("height", "auto");			
+					$(".time_box").css("height", "auto");
+					
+					$(".times").click(function(){
+						var timeval=$(this).val(); 
+						if(datestr==null){
+							timeval=null; 
+							alert("날짜먼저 선택해주세요"); 
+						}else{
+							$(".times_result").children("span").eq(1).text(timeval);
+							$(".times").css("background-color", "#edfbdc");
+							$(this).css("background-color", "#00FF00");
+							$(".reserve_success").css("display","inline");
+							$("#reserve_time").val(timeval);
+						} 
+						
+					})
+					 
 				})
 					   
 			}
 		});
+		
+		
+		$.ajax({
+			url:"user_reservemax_ajax.do",
+			method:"post",
+			data:{"menu_seq":menu_seq,"store_seq":store_seq,"reserve_sdate":datestr},
+			async: false, 
+			dataType:"json",
+			success:function(obj){
+				  var lists=obj.listMax;
+				  var count=0;
+				  $.each(lists,function(i){
+					    var ing=parseInt(close[0])-parseInt(open[0]);	
+					    var times_split= $(".times").val().split(":");
+//  					    alert(lists[i].reserve_time); 
+					    for (var j = 0; j < ing+1; j++) {
+					    
+					    	if(((parseInt(times_split[0])+j)+":00")==lists[i].reserve_time&&lists[i].ct==store_maxman){
+					  			$("input[value='"+(parseInt(times_split[0])+j)+':00'+"']").css({"pointer-events":"none","background-color":"lightgrey"});
+					    		 
+				  			} 
+						}  
+				  }) 
+			} 
+		});
+		
+		
+		
 		
 
 		$(".dayContainer > span").not(".flatpickr-disabled").not(".prevMonthDay").not(".nextMonthDay").each(function(){
@@ -141,37 +193,37 @@
 			
 			if(getMon=="Y"){
 				if((parseInt($(this).text())+emptyDay)%7==monNum){//월
-					$(this).css({"pointer-events":"none","color":"red"});
+					$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});
 				}
-			}
+			} 
 			if(getTue=="Y"){
 				if((parseInt($(this).text())+emptyDay)%7==tueNum){//화
-					$(this).css({"pointer-events":"none","color":"red"});
+					$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});
 				}
 			}
 			if(getWed=="Y"){
 				if((parseInt($(this).text())+emptyDay)%7==wedNum){//수
-					$(this).css({"pointer-events":"none","color":"red"});
+					$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});
 				}
 			}
 			if(getThu=="Y"){
 				if((parseInt($(this).text())+emptyDay)%7==thuNum){//목
-					$(this).css({"pointer-events":"none","color":"red"});
+					$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});
 				}
 			}
 			if(getFri=="Y"){
 				if((parseInt($(this).text())+emptyDay)%7==friNum){//금
-					$(this).css({"pointer-events":"none","color":"red"});
+					$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});
 				}
 			}
 			if(getSat=="Y"){
 				if((parseInt($(this).text())+emptyDay)%7==satNum){//토
-					$(this).css({"pointer-events":"none","color":"red"});
+					$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});
 				}
 			}
 			if(getSun=="Y"){
 				if((parseInt($(this).text())+emptyDay)%7==sunNum){//일
-					$(this).css({"pointer-events":"none","color":"red"});
+					$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});
 				}
 			}
 		});
@@ -181,20 +233,7 @@
 	 
 
 	
-	$(function(){
-		$(".times").click(function(){
-			var timeval=$(this).val(); 
-			if(datestr==null){
-				timeval=null; 
-				alert("날짜먼저 선택해주세요"); 
-			}else{
-				$(".times_result").children("span").eq(1).text(timeval);
-				$(".times").css("background-color", "#edfbdc");
-				$(this).css("background-color", "#00FF00");
-			}
-			
-		})	
-		
+	$(function(){	
 		//공백
 		var emptyDay;
 		//요일별 휴무여부
@@ -231,37 +270,37 @@
 						emptyDay=$(".prevMonthDay").length;
 						if(getMon=="Y"){
 							if((parseInt($(this).text())+emptyDay)%7==monNum){//월
-								$(this).css({"pointer-events":"none","color":"red"});
+								$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});
 							}
 						}
 						if(getTue=="Y"){
 							if((parseInt($(this).text())+emptyDay)%7==tueNum){//화
-								$(this).css({"pointer-events":"none","color":"red"});
+								$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});
 							}
 						}
 						if(getWed=="Y"){
 							if((parseInt($(this).text())+emptyDay)%7==wedNum){//수
-								$(this).css({"pointer-events":"none","color":"red"});
+								$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});
 							}
 						}
 						if(getThu=="Y"){
 							if((parseInt($(this).text())+emptyDay)%7==thuNum){//목
-								$(this).css({"pointer-events":"none","color":"red"});
+								$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});
 							}
 						}
 						if(getFri=="Y"){
 							if((parseInt($(this).text())+emptyDay)%7==friNum){//금
-								$(this).css({"pointer-events":"none","color":"red"});
+								$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});
 							}
 						}
 						if(getSat=="Y"){
 							if((parseInt($(this).text())+emptyDay)%7==satNum){//토
-								$(this).css({"pointer-events":"none","color":"red"});
+								$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});
 							}
 						}
 						if(getSun=="Y"){
 							if((parseInt($(this).text())+emptyDay)%7==sunNum){//일
-								$(this).css({"pointer-events":"none","color":"red"});
+								$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});
 							}
 						}
 						
@@ -277,37 +316,37 @@
 			emptyDay=$(".prevMonthDay").length;
 			if(getMon=="Y"){
 				if((parseInt($(this).text())+emptyDay)%7==monNum){//월
-					$(this).css({"pointer-events":"none","color":"red"});
+					$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});
 				}
 			}
 			if(getTue=="Y"){
 				if((parseInt($(this).text())+emptyDay)%7==tueNum){//화
-					$(this).css({"pointer-events":"none","color":"red"});
+					$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});
 				}
 			}
 			if(getWed=="Y"){
 				if((parseInt($(this).text())+emptyDay)%7==wedNum){//수
-					$(this).css({"pointer-events":"none","color":"red"});
+					$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});
 				}
 			}
 			if(getThu=="Y"){
 				if((parseInt($(this).text())+emptyDay)%7==thuNum){//목
-					$(this).css({"pointer-events":"none","color":"red"});
+					$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});
 				}
 			}
 			if(getFri=="Y"){
 				if((parseInt($(this).text())+emptyDay)%7==friNum){//금
-					$(this).css({"pointer-events":"none","color":"red"});
+					$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});
 				}
 			}
 			if(getSat=="Y"){
 				if((parseInt($(this).text())+emptyDay)%7==satNum){//토
-					$(this).css({"pointer-events":"none","color":"red"});
+					$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});
 				}
 			}
 			if(getSun=="Y"){
 				if((parseInt($(this).text())+emptyDay)%7==sunNum){//일
-					$(this).css({"pointer-events":"none","color":"red"});
+					$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});
 				}
 			}
 			
@@ -334,25 +373,28 @@
 <input type="hidden" name="fri" value="<%=list.get(4).getStore_time_break()%>"/><input type="hidden" name="friNum" value="<%=list.get(4).getRownum()%>"/>
 <input type="hidden" name="sat" value="<%=list.get(5).getStore_time_break()%>"/><input type="hidden" name="satNum" value="<%=list.get(5).getRownum()%>"/>
 <input type="hidden" name="sun" value="<%=list.get(6).getStore_time_break()%>"/><input type="hidden" name="sunNum" value="<%=list.get(6).getRownum()%>"/>
+<input type="hidden" name="store_maxman" value="<%=list.get(0).getStore_maxman()%>"/>
+<form action="reserve_success.do" method="post">
 <input type="hidden" name="store_seq" value="<%=list.get(0).getStore_seq()%>"/>
 <input type="hidden" name="menu_seq" value="<%=list.get(0).getMenu_seq()%>"/>
-<input type="hidden" name="menu_seq" value="<%=list.get(0).getMenu_seq()%>"/>
-<div id="container">
-	<div style="width:700px;margin:0 auto">
-		<div class="sungsoobox">
-			<input type="text" class="selector" placeholder="날짜를 선택하세요." onchange="aaa(this)"/>
-			<a class="input-button" title="toggle" data-toggle><i class="icon-calendar"></i></a>
-			<span style="opacity: 0.5;margin-left: 255px;color: red;">*빨간날은 매장 휴무일 입니다.</span>
-		</div>
-		<br><br>
-		<div class="reserve_time_select" >
-			<div class="time_box">	
-				
+<input type="hidden" name="reserve_price" value="<%=list.get(0).getMenu_price()%>"/>
+<input type="hidden" name="reserve_time" id="reserve_time" value=""/>
+	<div id="container">
+		<div style="width:700px;margin:0 auto"> 
+			<div class="sungsoobox">
+				<input type="text" class="selector" placeholder="날짜를 선택하세요." onchange="aaa(this)"/>
+				<a class="input-button" title="toggle" data-toggle><i class="icon-calendar"></i></a>
 			</div>
-				<div class="times_result">예약 시간 : <span></span>&nbsp;<span></span></div> 
+			<br><br>
+			<div class="reserve_time_select" >
+				<div class="time_box">	 
+					
+				</div>
+					<div class="times_result">예약 시간 : <span></span>&nbsp;<span></span><input class="reserve_success" value="예약하기" type="submit"/></div> 
+			</div>
 		</div>
 	</div>
-</div>
+</form>
 <script type="text/javascript">
 
 $(".selector").flatpickr({  

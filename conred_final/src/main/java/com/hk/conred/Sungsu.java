@@ -365,17 +365,17 @@ public class Sungsu {
 	@RequestMapping(value = "test_menu2.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String test_menu2(Locale locale, Model model,HttpServletRequest request) {
 		logger.info("사용자_메뉴 선택폼{}.", locale);
-		HttpSession session=request.getSession();
-		UDto uldto=(UDto)session.getAttribute("uldto");
-		boolean isS=reserveService.insertReserve(uldto.getUser_id());
-		
-		if(isS) {
-			
-			return "redirect:sungsu.do";	
-		}else {
-			return ""; 
-		}
- 
+//		HttpSession session=request.getSession();
+//		UDto uldto=(UDto)session.getAttribute("uldto");
+//		boolean isS=reserveService.insertReserve(uldto.getUser_id());
+//		
+//		if(isS) {
+//			
+//			return "redirect:sungsu.do";	
+//		}else {
+//			return ""; 
+//		}
+			return "";
 	} 
 	
 	
@@ -474,11 +474,33 @@ public class Sungsu {
 	@RequestMapping(value = "user_selectWeek_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public Map<String, List<MenuDto>> user_selectWeek_ajax(Locale locale, Model model,int menu_seq,int store_seq,String store_time_day) {
 		logger.info("선택요일에따라 시간출력 {}.", locale);
-//		System.out.println(menu_seq+"::@@@@@::"+store_seq);
-		System.out.println(store_time_day); 
-		List<MenuDto> listWeek=menuService.selectWeek(menu_seq, store_seq, store_time_day);
+		List<MenuDto> listWeek=menuService.selectWeek(menu_seq, store_seq, store_time_day);	
 		Map<String, List<MenuDto>> map=new HashMap<>();
 		map.put("listWeek", listWeek); 	
+		return map;
+	}
+	
+	@RequestMapping(value = "reserve_success.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String reserve_success(Locale locale, Model model,int menu_seq,int store_seq,String reserve_time,String reserve_price,HttpServletRequest request) {
+		logger.info("날짜,시간선택후 예약 {}.", locale);
+		HttpSession session=request.getSession();
+		UDto uldto=(UDto)session.getAttribute("uldto");
+//		System.out.println("@@@아이디::"+uldto.getUser_id()+"@@@메뉴일렬번호::"+menu_seq+"@@@가게일렬번호::"+store_seq+"@@@예약시간::"+reserve_time+"@@@예약가격::"+reserve_price);
+		return "redirect:index.jsp";
+	}
+	
+	 
+	@ResponseBody
+	@RequestMapping(value = "user_reservemax_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public Map<String, List<ReserveDto>> user_reservemax_ajax(Locale locale, Model model,int menu_seq,int store_seq,String reserve_sdate) {
+		logger.info("선택요일에따라 시간출력 {}.", locale);
+		List<ReserveDto> listMax=reserveService.reserveMax(store_seq, menu_seq, reserve_sdate);
+		Map<String, List<ReserveDto>> map=new HashMap<>();
+		System.out.println(menu_seq+"::@@@@::"+store_seq+"::@@@@::"+reserve_sdate);
+		map.put("listMax", listMax);
+		for (int i = 0; i < listMax.size(); i++) {
+			System.out.println(listMax.get(i));	
+		}  
 		return map;
 	}
 	

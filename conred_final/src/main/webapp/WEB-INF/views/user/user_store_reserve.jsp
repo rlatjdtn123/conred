@@ -20,7 +20,9 @@
 	.bigtle{width: 800px; margin: 0 auto; margin-bottom: 400px;}
 	.reserve_btn{background-color: #F2F2F2; border: 0;}
 	.reserve_btn:hover {background-color: lightgrey;cursor: pointer;}
+
 	
+	 
 </style> 
 </head>
 <%

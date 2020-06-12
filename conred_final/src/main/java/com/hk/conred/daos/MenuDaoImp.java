@@ -64,7 +64,7 @@ public class MenuDaoImp implements IMenuDao{
 		map.put("menu_seq", menu_seq);
 		map.put("store_seq", store_seq);
 		map.put("store_time_day", store_time_day);
-		List<MenuDto> list=sqlSession.selectList(namespace+"detailMenu", map);
+		List<MenuDto> list=sqlSession.selectList(namespace+"selectWeek", map);
 		return list;
 	}
 

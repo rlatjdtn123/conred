@@ -8,8 +8,8 @@
 		
 		
 																	<!-- menu일렬번호 #{}으로 바꿔야함 -->
-		<insert id="insertReserve" parameterType="String">
-			INSERT INTO CON_RESERVE VALUES(CON_RESERVE_SEQ.NEXTVAL,#{user_id},1,2,'16시 40분','Y','1원',SYSDATE)
+		<insert id="insertReserve" parameterType="Map">
+			INSERT INTO CON_RESERVE VALUES(CON_RESERVE_SEQ.NEXTVAL,#{user_id},#{menu_seq},#{store_seq},#{reserve_time},'Y',#{reserve_price},SYSDATE);
 		</insert>
 		
 		<select id="reserveList" parameterType="Map" resultType="ReserveDto">
@@ -26,6 +26,13 @@
 			FROM CON_RESERVE 
 			WHERE RESERVE_SEQ =#{reserve_seq}
 		</select>
+		 
+		<select id="reserveMax" resultType="ReserveDto" parameterType="Map">
+			SELECT COUNT(cr.RESERVE_TIME) AS ct ,cr.RESERVE_TIME 
+			FROM CON_RESERVE cr, CON_STORE cs 
+			WHERE cr.STORE_SEQ =cs.STORE_SEQ  AND cr.STORE_SEQ =#{store_seq} AND cr.MENU_SEQ =#{menu_seq} AND cr.RESERVE_SDATE =#{reserve_sdate}
+			GROUP BY RESERVE_TIME 
+		</select> 
 		 
 		
 	</mapper>

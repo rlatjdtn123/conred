@@ -19,9 +19,15 @@ public class ReserveDaoImp implements IReserveDao{
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public boolean insertReserve(String user_id) {
+	public boolean insertReserve(String user_id,int menu_seq,int store_seq,String reserve_time,String reserve_price) {
 		int count=0;
-		count=sqlSession.insert(nameSpace+"insertReserve", user_id);
+		Map<String, Object> map =new HashMap<>();
+		map.put("user_id", user_id);
+		map.put("menu_seq", menu_seq);
+		map.put("store_seq", store_seq);
+		map.put("reserve_time", reserve_time);
+		map.put("reserve_price", reserve_price);
+		count=sqlSession.insert(nameSpace+"insertReserve", map);
 		return count>0?true:false;
 	}
 
@@ -40,6 +46,16 @@ public class ReserveDaoImp implements IReserveDao{
 	
 		return sqlSession.selectOne(nameSpace+"getReserve", reserve_seq);
 		 
+	}
+ 
+	@Override
+	public List<ReserveDto> reserveMax(int store_seq, int menu_seq, String reserve_sdate) {
+		Map<String, Object> map=new HashMap<>();
+		map.put("store_seq", store_seq);
+		map.put("menu_seq", menu_seq);
+		map.put("reserve_sdate", reserve_sdate);
+		List<ReserveDto> list=sqlSession.selectList(nameSpace+"reserveMax", map);
+		return list;
 	}
 
 }
