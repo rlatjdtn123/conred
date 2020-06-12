@@ -448,11 +448,13 @@ public class Sungsu {
 	public String user_reserve_time_select(Locale locale, Model model,int menu_seq,String menu_state,int store_seq) {
 		logger.info("사용자 해당메뉴선택후 숙박/당일여부 별로 예약하러가기{}.", locale);
 		List<MenuDto> list=menuService.detailMenu(menu_seq,store_seq);
+		List<ReserveDto> stay_reserve_list=reserveService.stayReserve(store_seq, menu_seq);
 		if(menu_state.equals("T")) {
 			model.addAttribute("list", list);
 			return "user/user_reserve_time_selectT";			
 		}else if(menu_state.equals("S")){
 			model.addAttribute("list", list);
+			model.addAttribute("stay_reserve_list", stay_reserve_list);
 			return "user/user_reserve_time_selectS";
 		}else {
 			System.out.println("식품/용품 메뉴 선택부분");

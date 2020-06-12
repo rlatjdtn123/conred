@@ -60,4 +60,13 @@ public class ReserveDaoImp implements IReserveDao{
 		return list;
 	}
 
+	@Override
+	public List<ReserveDto> stayReserve(int store_seq, int menu_seq) {
+		Map<String, Integer> map =new HashMap<>();
+		map.put("store_seq", store_seq);
+		map.put("menu_seq", menu_seq);
+		List<ReserveDto> list=sqlSession.selectList(nameSpace+"stayReserve", map);
+		return list;
+	}
+
 }

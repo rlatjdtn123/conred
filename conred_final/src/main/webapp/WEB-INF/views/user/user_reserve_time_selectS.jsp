@@ -1,3 +1,4 @@
+<%@page import="com.hk.conred.dtos.ReserveDto"%>
 <%@page import="java.util.List"%>
 <%@page import="com.hk.conred.dtos.MenuDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
@@ -63,12 +64,18 @@
 		}
 		return kk;
 	}
+	
 	 //공백
 	 var emptyDay;
-	 $(function(){
-
+	 $(function(){ 
+// 			var stay=$("input[name=stay]").val();
+// 		 	for (var i = 0; i < stay; i++) {
+// 				alert($(".reserve_sdate")[0].val());
+// 			}
+// 		  	var stay=document.getElementsByClassName('reserve_sdate')[1].value;
+// 		 	alert(stay);
 			//요일별 휴무여부
-			var getMon=$("input[name=mon]").val();
+			var getMon=$("input[name=mon]").val(); 
 			var getTue=$("input[name=tue]").val();
 			var getWed=$("input[name=wed]").val(); 
 			var getThu=$("input[name=thu]").val();
@@ -242,9 +249,6 @@
 			var result=$(".reserve_success");
 			var gong=$(".gongback");
 			var box=$(".day_result_box");
-			var start=$(".startRange");
-			var end=$(".endRange");
-			var inline=$(".inRange");
 			//
 			
 			$.each($(".inRange"),function(i){
@@ -254,9 +258,7 @@
 						result.css("display", "none"); 
 						gong.css("display", "none");
 						box.find("span").text("");
-						start.removeClass("selected startRange");
-						end.removeClass("selected endRange");
-						inline.removeClass("inRange"); 
+						$(".flatpickr-day").removeClass("selected startRange endRange inRange");
 						alert("해당날짜는 매장 쉬는날입니다 다른날을 선택해주세요"); 
 					} 
 				} 
@@ -264,10 +266,8 @@
 					if((parseInt($(".inRange").eq(i).text())+emptyDay)%7==tueNum){//화
 						result.css("display", "none"); 
 						gong.css("display", "none");
-						box.find("span").text("");
-						start.removeClass("selected startRange");
-						end.removeClass("selected endRange");
-						inline.removeClass("inRange"); 
+						box.find("span").text(""); 
+						$(".flatpickr-day").removeClass("selected startRange endRange inRange");
 						alert("해당날짜는 매장 쉬는날입니다 다른날을 선택해주세요");
 					}
 				}
@@ -276,9 +276,7 @@
 						result.css("display", "none"); 
 						gong.css("display", "none");
 						box.find("span").text("");
-						start.removeClass("selected startRange");
-						end.removeClass("selected endRange");
-						inline.removeClass("inRange"); 
+						$(".flatpickr-day").removeClass("selected startRange endRange inRange");
 						alert("해당날짜는 매장 쉬는날입니다 다른날을 선택해주세요");
 					}
 				}
@@ -286,10 +284,8 @@
 					if((parseInt($(".inRange").eq(i).text())+emptyDay)%7==thuNum){//목
 						result.css("display", "none"); 
 						gong.css("display", "none");
-						box.find("span").text("");
-						start.removeClass("selected startRange");
-						end.removeClass("selected endRange");
-						inline.removeClass("inRange"); 
+						box.find("span").text(""); 
+						$(".flatpickr-day").removeClass("selected startRange endRange inRange");
 						alert("해당날짜는 매장 쉬는날입니다 다른날을 선택해주세요");
 					}
 				}
@@ -298,9 +294,7 @@
 						result.css("display", "none"); 
 						gong.css("display", "none");
 						box.find("span").text("");
-						start.removeClass("selected startRange");
-						end.removeClass("selected endRange");
-						inline.removeClass("inRange"); 
+						$(".flatpickr-day").removeClass("selected startRange endRange inRange");
 						alert("해당날짜는 매장 쉬는날입니다 다른날을 선택해주세요");
 					}
 				}
@@ -309,9 +303,7 @@
 						result.css("display", "none"); 
 						gong.css("display", "none");
 						box.find("span").text("");
-						start.removeClass("selected startRange");
-						end.removeClass("selected endRange");
-						inline.removeClass("inRange"); 
+						$(".flatpickr-day").removeClass("selected startRange endRange inRange");
 						alert("해당날짜는 매장 쉬는날입니다 다른날을 선택해주세요");
 					}
 				}
@@ -320,9 +312,7 @@
 						result.css("display", "none"); 
 						gong.css("display", "none");
 						box.find("span").text("");
-						start.removeClass("selected startRange");
-						end.removeClass("selected endRange");
-						inline.removeClass("inRange"); 
+						$(".flatpickr-day").removeClass("selected startRange endRange inRange");
 						alert("해당날짜는 매장 쉬는날입니다 다른날을 선택해주세요");
 					}
 				}
@@ -391,6 +381,7 @@
 </head>
 <%
 	List<MenuDto> list=(List<MenuDto>)request.getAttribute("list");
+	List<ReserveDto> stay_reserve_list=(List<ReserveDto>)request.getAttribute("stay_reserve_list");
 %> 
 <body>
 <input type="hidden" name="mon" value="<%=list.get(0).getStore_time_break()%>"/><input type="hidden" name="monNum" value="<%=list.get(0).getRownum()%>"/>
@@ -400,6 +391,20 @@
 <input type="hidden" name="fri" value="<%=list.get(4).getStore_time_break()%>"/><input type="hidden" name="friNum" value="<%=list.get(4).getRownum()%>"/>
 <input type="hidden" name="sat" value="<%=list.get(5).getStore_time_break()%>"/><input type="hidden" name="satNum" value="<%=list.get(5).getRownum()%>"/>
 <input type="hidden" name="sun" value="<%=list.get(6).getStore_time_break()%>"/><input type="hidden" name="sunNum" value="<%=list.get(6).getRownum()%>"/>
+<input type="hidden" name="stay" value="<%=stay_reserve_list.size()%>">
+<% 
+	for(int i=0;i>stay_reserve_list.size();i++){
+		%>
+			<input type="hidden" class="reserve_sdate" name="reserve_sdate" value="<%=stay_reserve_list.get(i).getReserve_sdate()%>"/>
+		<%
+	}
+	for(int i=0;i>stay_reserve_list.size();i++){ 
+		%>
+			<input type="hidden" name="reserve_edate<%=i%>" value="<%=stay_reserve_list.get(i).getReserve_edate()%>"/>
+		<%
+	}
+%>
+
 <form action="reserve_successS.do" method="post">
 <input type="hidden" name="store_seq" value="<%=list.get(0).getStore_seq()%>"/>
 <input type="hidden" name="menu_seq" value="<%=list.get(0).getMenu_seq()%>"/>

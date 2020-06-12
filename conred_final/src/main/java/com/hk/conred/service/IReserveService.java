@@ -19,5 +19,8 @@ public interface IReserveService {
 	
 	//메뉴->날짜 선택시 매진된 시간 클릭못하게
 	public List<ReserveDto> reserveMax(int store_seq,int menu_seq,String reserve_sdate);
+	
+	//숙박 예약 출력
+	public List<ReserveDto> stayReserve(int store_seq,int menu_seq);
 }
  

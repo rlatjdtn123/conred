@@ -37,4 +37,9 @@ public class ReserveServiceImp implements IReserveService{
 		return reserveDaoImp.reserveMax(store_seq, menu_seq, reserve_sdate);
 	}
 
+	@Override
+	public List<ReserveDto> stayReserve(int store_seq, int menu_seq) {
+		return reserveDaoImp.stayReserve(store_seq, menu_seq);
+	}
+
 }

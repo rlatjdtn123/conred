@@ -34,6 +34,12 @@
 			GROUP BY RESERVE_TIME 
 		</select> 
 		 
+		 <select id="stayReserve" resultType="ReserveDto" parameterType="Map">
+		 	SELECT *
+		 	FROM CON_RESERVE 
+		 	WHERE STORE_SEQ =#{store_seq} AND MENU_SEQ =#{menu_seq}
+		 </select>
+		 
 		
 	</mapper>
 		  
