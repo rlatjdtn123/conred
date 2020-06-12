@@ -246,7 +246,7 @@
                     "<div class=\"preview-box\" value=\"" + imgNum +"\">" +
                     "<img class=\"thumbnail\" src=\"" + img.target.result + "\"\/>" +
                     "<p class=\"f_name\">" + file.name + "</p>" +
-                    "<div class=\"f_name\"><input class=\"form-control\" type=\"text\" name=\"새컬럼명(코멘트)\" placeholder=\"사진제목/이름(선택사항)\"></div>" +
+                    "<div class=\"f_name\"><input class=\"form-control\" type=\"text\" name=\"store_photo_title\" placeholder=\"사진제목/이름(선택사항)\"></div>" +
                     "<a class=\"del_btn\" href=\"#a\" value=\"" + imgNum + "\" onclick=\"deletePreview(this)\">" +
                     "삭제" + "</a>"
                     + "</div>"
@@ -340,7 +340,7 @@
     </div>
   </div>
 </div>
-	<form action="owner_regist_menu.do" method="post">
+	<form action="owner_regist_menu.do" method="post" enctype="multipart/form-data">
 		<div id="tle">
 			<div id="regist" class="testmod">
 				매장 정보 입력
@@ -367,7 +367,7 @@
 					            <!-- 첨부 버튼 -->
 					            <div id="attach">
 					                <label class="btn f_insert" for="uploadInputBox">사진 첨부하기</label>
-					                <input id="uploadInputBox" style="display: none" type="file" name="filedata" multiple />
+					                <input id="uploadInputBox" style="display: none" type="file" name="photos" multiple="multiple" />
 					            </div>
 					            <div class="attach_count">
 					            	0/30
@@ -548,18 +548,17 @@
 					
 				</div>
 				<br>
-					<div id="bot" class="flright" >
-						<input class="btn greenbtn" value="전단계로" onclick="location.href='owner_regist_certify.do'" type="button"/>
-						<input class="btn redbtn" value="취소" onclick="location.href='index.jsp'" type="button"/>
-						<input class="btn greenbtn" value="다음 단계로" type="submit"/>
-					</div>
-					<br>
-					<br>
-					<br><br>
-					<br>
-					<br>
+				<div id="bot" class="flright" >
+					<input class="btn greenbtn" value="전단계로" onclick="location.href='owner_regist_certify.do'" type="button"/>
+					<input class="btn redbtn" value="취소" onclick="location.href='index.jsp'" type="button"/>
+					<input class="btn greenbtn" value="다음 단계로" type="submit"/>
+				</div>
+				<br>
+				<br>
+				<br><br>
+				<br>
+				<br>
 				
-			</div>
 		</div>
 	</form>
 </div>

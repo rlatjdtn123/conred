@@ -17,8 +17,12 @@
 	<select id="selectCList" parameterType="int" resultType="CListDto">
 		<![CDATA[
 			SELECT *
-			FROM CON_CATEGORY_LIST
-			WHERE store_seq=#{store_seq}
+			FROM CON_CATEGORY_LIST ccl, CON_CATEGORY_SMALL ccs 
+			WHERE ccl.CATEGORY_CODE_SMALL =ccs.CATEGORY_CODE_SMALL 
+			AND STORE_SEQ =#{store_seq}
 		]]>
 	</select>
+<!-- 			SELECT * -->
+<!-- 			FROM CON_CATEGORY_LIST -->
+<!-- 			WHERE store_seq=#{store_seq} -->
 </mapper>

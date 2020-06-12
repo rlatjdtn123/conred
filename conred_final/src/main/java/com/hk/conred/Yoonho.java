@@ -22,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.hk.conred.daos.IQnaDao;
@@ -32,6 +33,7 @@ import com.hk.conred.dtos.ODto;
 import com.hk.conred.dtos.QnaDto;
 import com.hk.conred.dtos.ReplyDto;
 import com.hk.conred.dtos.SDto;
+import com.hk.conred.dtos.SPhotoDto;
 import com.hk.conred.dtos.STimeDto;
 import com.hk.conred.dtos.UDto;
 import com.hk.conred.service.ICListService;
@@ -40,6 +42,7 @@ import com.hk.conred.service.IMenuService;
 import com.hk.conred.service.IOService;
 import com.hk.conred.service.IQnaService;
 import com.hk.conred.service.IReplyService;
+import com.hk.conred.service.ISPhotoService;
 import com.hk.conred.service.ISService;
 import com.hk.conred.service.ISTimeService;
 import com.hk.conred.service.OServiceImp;
@@ -65,6 +68,8 @@ public class Yoonho {
 	private IReplyService replyService;
 	@Autowired
 	private IQnaService qnaService;
+	@Autowired
+	private ISPhotoService sPhotoService;
 	
 	@RequestMapping(value = "yoonho.do", method = RequestMethod.GET)
 	public String yoonho(Locale locale, Model model) {
@@ -282,7 +287,7 @@ public class Yoonho {
 	}
 	
 	@RequestMapping(value = "owner_regist_menu.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String owner_regist_menu(Locale locale, Model model,SDto sdto, STimeDto stimedto, HttpServletRequest request) {
+	public String owner_regist_menu(Locale locale, Model model,SDto sdto, STimeDto stimedto,String [] store_photo_title , HttpServletRequest request/*, MultipartHttpServletRequest mprequest*/) {
 		logger.info("점주: 매장등록 (메뉴정보 입력)으로 이동  {}.", locale);
 		
 		//세션에서 id정보 가져오기(store_seq구하기용)
@@ -290,7 +295,10 @@ public class Yoonho {
 		ODto odto= (ODto)session.getAttribute("oldto");
 		SDto seq =sService.selectStoreSeq(odto);
 		
-
+		for (int i = 0; i < store_photo_title.length; i++) {
+			System.out.println(i+"번째 사진이름"+store_photo_title[i]);
+		}
+		
 		System.out.println("세션에서가져온sdto2의 store_seq값: "+seq.getStore_seq());
 		sdto.setStore_seq(seq.getStore_seq());
 		System.out.println("sdto에 넣은 store_seq값: "+sdto.getStore_seq());
@@ -324,7 +332,8 @@ public class Yoonho {
 			System.out.println(time_day[i]+" : "+time_open[i]+"~"+time_close[i]+"/폐점여부:"+time_break[i]); 
 		}
 		
-		boolean isS=sService.updateStoreInfo(sdto,time_day,time_open,time_close,time_break);
+//		return ""; 
+		boolean isS=sService.updateStoreInfo(sdto,time_day,time_open,time_close,time_break,store_photo_title,request);
 		if(isS) {
 			System.out.println("매장정보 업데이트성공~");
 			return "owner/owner_regist_menu";
@@ -384,6 +393,8 @@ public class Yoonho {
 		boolean isS=sService.updateStoreMenu(sdto,cmaindto,clist,category_code_2,name,content,price,state);
 		if(isS) {
 			System.out.println("메뉴정보 업데이트성공~");
+			seq =sService.selectStoreSeq(odto);
+			session.setAttribute("sdto", seq);
 			return "owner/owner_regist_finish"; 
 		}else{
 			System.out.println("메뉴정보 업데이트실패~");
@@ -412,6 +423,7 @@ public class Yoonho {
 		List<ReplyDto> list_reply=replyService.replyListStore(store_seq);
 		ReplyDto reply_avg = replyService.replyAvgStore(store_seq);
 		List<QnaDto> list_qna = qnaService.qnaListStore(store_seq);
+		List<SPhotoDto> list_sphoto = sPhotoService.selectSPhoto(store_seq);
 		
 		
 		System.out.println("store_detail : "+store_detail);
@@ -422,6 +434,7 @@ public class Yoonho {
 		System.out.println("list_reply : "+list_reply);
 		System.out.println("reply_avg : "+reply_avg);
 		System.out.println("list_qna : "+list_qna);
+		System.out.println("list_sphoto : "+list_sphoto);
 		
 		System.out.println("sdto의 store_seq:"+store_seq);
 		System.out.println("sldto의 store_seq(점포소지자/비소지자여부):"+sldto);//초기값(null 이거나,seq가 들어간 sdto가 나옴)
@@ -435,6 +448,7 @@ public class Yoonho {
 		model.addAttribute("list_reply",list_reply);// 리뷰
 		model.addAttribute("reply_avg",reply_avg);// 리뷰평균,댓글갯수들 모음
 		model.addAttribute("list_qna",list_qna);// 리뷰평균,댓글갯수들 모음
+		model.addAttribute("list_sphoto",list_sphoto);// 매장사진
 		
 		//내 매장인지/타인 매장인지 여부 확인용
 		model.addAttribute("s_seq",store_seq);//내 매장인지/타인 매장인지 여부 확인용

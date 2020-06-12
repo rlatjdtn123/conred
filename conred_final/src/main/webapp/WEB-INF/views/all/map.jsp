@@ -53,7 +53,7 @@
 <body>
 <div id="container">
 
-<!-- 	<div id="mapbox" style="width:1500px;height:830px;"> -->
+<!-- 	<div id="mapbox" style="width:1500px;height:830px;"> 아직미정 -->
 	<div id="mapbox">
 		<div id="mapbarbox">
 		
@@ -227,8 +227,8 @@
 	<div id="show">
 		<div id="rightbox">
 										<!-- location.href='store.do?store_seq=__'<- 원래 여기는 화면안의 seq를 각각 넣어줘야한다. -->
-			<div class="storelist" onclick="location.href='store.do?store_seq=23'">
-			(임시 윤호가 테스트로 쓰는 매장 seq23)
+			<div class="storelist" onclick="location.href='store.do?store_seq=38'">
+			(임시 윤호가 테스트로 쓰는 매장 seq38)
 			</div>
 			<div class="storelist" onclick="location.href='store.do?store_seq=1'">
 			(임시 1번사장의 매장)

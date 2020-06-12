@@ -11,9 +11,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link href="css/star_service.css" rel="stylesheet">
-<link href="css/star_price.css" rel="stylesheet">
-<link href="css/star_clean.css" rel="stylesheet">
+<link rel="stylesheet" href="css/star_service.css">
+<link rel="stylesheet" href="css/star_price.css">
+<link rel="stylesheet" href="css/star_clean.css">
+<link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
 <style type="text/css">
 	#container{text-align:center; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:auto;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	#sticky{z-index:200;position: sticky; top:71px;}
@@ -22,7 +23,7 @@
 	.navis2:hover{transition:all .3s;border-bottom:1px solid white;background-color: white;cursor:pointer;border-right:1px solid grey;border-left:1px solid grey;}
 	.home{border-bottom:1px solid white;background-color: white;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
 	
-	#photozone{width:100.1%; height:400px;border:1px solid grey;}
+	#photozone{width:100.1%; height:400px;}
 	
 	.s_bold{font-size:20px;font-weight: bold;display:block;}
 	.s_bold2{font-size:15px;font-weight: bold;}
@@ -117,7 +118,37 @@
 
 	.qna_q{ border-radius: 5px;background-color: #fafafa;margin-top:0px;padding:10px;height:80px;width:380px;float:left;}
 	.no_qna{position: relative;top: 100px;left: 95px;}
+	
+	  <!-- Demo styles -->
+	body {
+      background: #fff;
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color:#000;
+      margin: 0;
+      padding: 0;
+    }
+    .swiper-container {
+      z-index:0;
+      width: 100%;
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+    .swiper-slide {
+      background-position: center;
+/*       background-size: cover; */
+      background-size: contain;
+      background-repeat: no-repeat;
+      width: 1200px;
+      height: 300px;
+    }
+    .swiper-button-prev{color:grey;padding: 10px;width:auto;height:auto;border-radius: 5px;}
+    .swiper-button-prev:hover{background-color: #f2f2f2}
+    .swiper-button-next{color:grey;padding: 10px;width:auto;height:auto;border-radius: 5px;}
+    .swiper-button-next:hover{background-color: #f2f2f2}
+    .caption{margin-top: 302px; color:#2E2E2E;}
 </style>
+<script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
 <script type="text/javascript">
 	$(function() {
 		var rater1=$(".rater1").text().trim();
@@ -157,6 +188,8 @@
 // 			list_menu// 메뉴
 // 			list_reply// 리뷰
 //			reply_avg// 리뷰 관련 통계, 갯수
+//			reply_qna// 문의
+//			reply_sphoto// 매장사진
 //		내 매장인지/타인 매장인지 여부 확인용
 // 			s_seq//현재 매장 번호
 // 			sldto//로그인중인 사람의 매장정보 (세션)
@@ -188,7 +221,70 @@
 	</c:if>
 	
 	<div id="photozone">
-	carousel
+			  <!-- Swiper -->
+		  <div class="swiper-container">
+		    <div class="swiper-wrapper">
+					<c:choose>
+						<c:when test="${empty list_sphoto}">
+							<div class="swiper-slide" style="background-image:url(./img/2019083010048059816_1.jpg)">
+								<div class="caption">등록된 매장사진이 없습니다.</div>
+							</div>
+						</c:when>
+						<c:otherwise>
+				   			<c:forEach items="${list_sphoto}" var="list_sphoto">
+								<div class="swiper-slide" style="background-image:url(./upload_sphoto/${list_sphoto.store_photo_stored})">
+									<div class="caption">${list_sphoto.store_photo_title}</div>
+								</div>
+							</c:forEach>
+						</c:otherwise> 
+					</c:choose>
+					
+<!-- 					<div class="swiper-slide" style="background-image:url(./img/bronze.png)"></div> -->
+<!-- 					<div class="swiper-slide" style="background-image:url(./img/2019083010048059816_1.jpg)"></div> -->
+<!-- 					<div class="swiper-slide" style="background-image:url(./img/bronze.png)"></div> -->
+<!-- 					<div class="swiper-slide" style="background-image:url(./img/bronze.png)"></div> -->
+<!-- 					<div class="swiper-slide" style="background-image:url(./img/bronze.png)"></div> -->
+<!-- 					<div class="swiper-slide" style="background-image:url(./img/bronze.png)"></div> -->
+<!-- 					<div class="swiper-slide" style="background-image:url(./img/bronze.png)"></div> -->
+<!-- 					<div class="swiper-slide" style="background-image:url(./img/bronze.png)"></div> -->
+<!-- 					<div class="swiper-slide" style="background-image:url(./img/bronze.png)"></div> -->
+<!-- 					<div class="swiper-slide" style="background-image:url(./img/bronze.png)"></div> -->
+		    </div>
+		    <!-- Add Pagination -->
+		    <div class="swiper-pagination"></div>
+		        <!-- Add Arrows -->
+		    <div class="swiper-button-prev"></div>
+		    <div class="swiper-button-next"></div>
+		  </div>
+		
+		  <!-- Swiper JS -->
+		  <script src="../package/js/swiper.min.js"></script>
+		
+		  <!-- Initialize Swiper -->
+		  <script>
+		    var swiper = new Swiper('.swiper-container', {
+		      effect: 'coverflow',
+		      grabCursor: true,
+		      centeredSlides: true,
+		      slidesPerView: 'auto',
+		      coverflowEffect: {
+		        rotate: 50,
+		        stretch: 0,
+		        depth: 100,
+		        modifier: 1,
+		        slideShadows : true,
+		      },
+		      pagination: {
+		        el: '.swiper-pagination',
+		      },
+		      navigation: {
+		          nextEl: '.swiper-button-next',
+		          prevEl: '.swiper-button-prev',
+		      },
+		    });
+		    
+		  </script>
+		  
 	</div>
 	<div id="infobox_title" class="section">
 		<div class="info1 width1" >
@@ -216,18 +312,19 @@
 				<img class="medal" alt="" src="./img/gold.png">
 			</div>
 			<div id="s_cates">
-				<div>조인해서 이름으로 출력하기(가능하면 윗줄의 동물병원 바로밑+ 아이콘height에 맞게):
+				<div>
 					<c:forEach begin="0" end="${list_clist.size()-1}" step="1" var="i">
 						<c:choose>
 							<c:when test="${i!=list_clist.size()-1}">
-								${list_clist[i].category_code_small} |
+								${list_clist[i].category_code eq A?list_clist[i].category_name_small:list_clist[i].category_name_small} |
+								얘 좀더 수정하기 아마 choose로 해야할듯
 							</c:when>
 							<c:otherwise>
-								${list_clist[i].category_code_small}
+								${list_clist[i].category_name_small}
 							</c:otherwise> 
 						</c:choose>
 					</c:forEach>
-				</div>
+				</div>조인해서 이름으로 출력하기(가능하면 윗줄의 동물병원 바로밑+ 아이콘height에 맞게)
 <!-- 				<div class="s_cate"> -->
 <!-- 					<img class="icons" title="미용실" src="./img/profile_default.png"> -->
 <!-- 				</div> -->

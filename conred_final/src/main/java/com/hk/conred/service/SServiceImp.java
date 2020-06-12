@@ -2,6 +2,7 @@ package com.hk.conred.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -18,10 +19,12 @@ import com.hk.conred.daos.ICListDao;
 import com.hk.conred.daos.ICMainDao;
 import com.hk.conred.daos.IMenuDao;
 import com.hk.conred.daos.ISDao;
+import com.hk.conred.daos.ISPhotoDao;
 import com.hk.conred.daos.ISTimeDao;
 import com.hk.conred.dtos.CMainDto;
 import com.hk.conred.dtos.ODto;
 import com.hk.conred.dtos.SDto;
+import com.hk.conred.dtos.SPhotoDto;
 
 @Service
 public class SServiceImp implements ISService {
@@ -36,6 +39,8 @@ public class SServiceImp implements ISService {
 	private ICListDao CListDaoImp;
 	@Autowired
 	private IMenuDao MenuDaoImp;
+	@Autowired
+	private ISPhotoDao SPhotoDaoImp;
 	
 	//매장등록(사업자등록정보)
 	@Override
@@ -86,6 +91,7 @@ public class SServiceImp implements ISService {
 			
 		boolean isS=false; 
 		try {
+			//이건 선생님이 알려준 방식 사용시
 //			isS=SDaoImp.insertStoreCertify(new SDto (odto.getOwner_id(), store_owner_name, store_license_number,
 //					originName_biz, storedName_biz, fileSize_biz, store_license_sales_origin, 
 //					store_license_sales_stored, store_license_sales_size, store_owner_phone, store_agreement));
@@ -104,7 +110,60 @@ public class SServiceImp implements ISService {
 	//매장등록2(매장정보)
 	@Transactional
 	@Override
-	public boolean updateStoreInfo(SDto sdto,String[] time_day,String[] time_open,String[] time_close,String[] time_break) {
+	public boolean updateStoreInfo(SDto sdto,String[] time_day,String[] time_open,String[] time_close,String[] time_break, String[] store_photo_title, HttpServletRequest request) {
+		
+		MultipartHttpServletRequest multi = (MultipartHttpServletRequest)request;
+		List<MultipartFile> fileList = multi.getFiles("photos");
+		
+		List<SPhotoDto> list = new ArrayList<>();
+//		for (MultipartFile mf : fileList) {
+		for (int i = 0; i < fileList.size(); i++) {
+			SPhotoDto sphotodto = new SPhotoDto();
+			//originName
+//			String originName=mf.getOriginalFilename(); //상향된 for문 이용시
+			String originName=fileList.get(i).getOriginalFilename();
+			System.out.println("원본파일명:"+originName);
+			
+			//storedName
+			String createUUid=UUID.randomUUID().toString().replaceAll("-", "");
+			String storedName = createUUid+originName.substring(originName.indexOf("."));
+			System.out.println("저장파일명:"+storedName);
+			
+			//fileSize
+//			double fileSize=mf.getSize(); //상향된 for문 이용시
+			double fileSize=fileList.get(i).getSize();
+			System.out.println("파일사이즈:"+fileSize);
+//			String fileSize=Long.toString(mf.getSize()); //String으로 형변환하려면
+			
+			System.out.println(store_photo_title[i]);
+			
+			String path="C:/Users/hkedu/git/conred/conred_final/src/main/webapp/upload_sphoto/";
+			File file = new File(path+storedName);
+			
+			System.out.println("sdto에 넣으러간다");
+			sphotodto.setStore_seq(sdto.getStore_seq());
+			sphotodto.setStore_photo_origin(originName);
+			sphotodto.setStore_photo_stored(storedName);
+			sphotodto.setStore_photo_size(fileSize);
+			sphotodto.setStore_photo_title(store_photo_title[i]);
+			
+			System.out.println("sdto에 넣는거 완료");
+			list.add(sphotodto);
+			try {
+				System.out.println("파일업로두시도");
+				fileList.get(i).transferTo(file);
+				System.out.println("파일업로드완료");
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		//매장사진 값넣기
+		SPhotoDaoImp.insertSPhoto(list);
+		
+		//매장정보 값넣기
 		SDaoImp.updateStoreInfo(sdto);
 		//위의 updateStoreInfo을 true false 리턴 안해주는 이유
 		//	>>어차피 여기서 오류나면 밑에 return은 실행되지않으니, 실행되면 true라는걸 알 수 있다.s

@@ -10,11 +10,11 @@ import com.hk.conred.dtos.CMainDto;
 public class CMainServiceImp implements ICMainService{
 	
 	@Autowired
-	private ICMainDao ICMainDaoImp;
+	private ICMainDao CMainDaoImp;
 	
 	@Override
 	public CMainDto selectCMain(int store_seq) {
-		return ICMainDaoImp.selectCMain(store_seq);
+		return CMainDaoImp.selectCMain(store_seq);
 	}
 	
 }
