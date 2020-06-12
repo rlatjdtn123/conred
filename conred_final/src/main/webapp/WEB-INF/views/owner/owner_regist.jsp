@@ -54,17 +54,17 @@
 			myForm.submit();
 			
 		});
-		
-		$("form").eq(0).submit(function(){
-			if($("input[name=emailConfirm]").val()=='Y'){
-				return true;
-			}else{
-				alert("이메일 인증은 필수입니다");
-				$("input[name=owner_email1]").focus();
-				return false;
-			}	
+//      이메일 필수 기능 임시로 비활성화 해놓음 회원가입 편의성 및 테스트를 위해서
+// 		$("form").eq(0).submit(function(){
+// 			if($("input[name=emailConfirm]").val()=='Y'){
+// 				return true;
+// 			}else{
+// 				alert("이메일 인증은 필수입니다");
+// 				$("input[name=owner_email1]").focus();
+// 				return false;
+// 			}	
 			
-		});
+// 		});
 	})
 	</script>
 </head>
