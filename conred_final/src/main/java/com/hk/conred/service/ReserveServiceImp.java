@@ -17,9 +17,9 @@ public class ReserveServiceImp implements IReserveService{
 	private IReserveDao reserveDaoImp;
 	
 	@Override
-	public boolean insertReserve(String user_id,int menu_seq,int store_seq,String reserve_time,String reserve_price) {
+	public boolean insertReserve(String user_id,int menu_seq,int store_seq,String reserve_time,String reserve_price,String reserve_sdate,String reserve_edate) {
 		System.out.println("ㅋㅋㅋㅋㅋ:  "+user_id);
-		return reserveDaoImp.insertReserve(user_id,menu_seq,store_seq,reserve_time,reserve_price);
+		return reserveDaoImp.insertReserve(user_id,menu_seq,store_seq,reserve_time,reserve_price,reserve_sdate,reserve_edate);
 	}
 
 	@Override

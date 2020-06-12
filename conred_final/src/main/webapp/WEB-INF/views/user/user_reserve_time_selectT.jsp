@@ -78,6 +78,7 @@
 // 		alert(parseInt(d[0]-b[0]));
 		var num=new Date(ele.value);
 		datestr=$(".selector").val(); 
+		$("#reserve_sdate").val(datestr);
 		var day_result=$(".times_result").children();
 		day_result.eq(1).empty();
 		day_result.eq(0).text(datestr+" , ");
@@ -374,11 +375,12 @@
 <input type="hidden" name="sat" value="<%=list.get(5).getStore_time_break()%>"/><input type="hidden" name="satNum" value="<%=list.get(5).getRownum()%>"/>
 <input type="hidden" name="sun" value="<%=list.get(6).getStore_time_break()%>"/><input type="hidden" name="sunNum" value="<%=list.get(6).getRownum()%>"/>
 <input type="hidden" name="store_maxman" value="<%=list.get(0).getStore_maxman()%>"/>
-<form action="reserve_success.do" method="post">
+<form action="reserve_successT.do" method="post">
 <input type="hidden" name="store_seq" value="<%=list.get(0).getStore_seq()%>"/>
 <input type="hidden" name="menu_seq" value="<%=list.get(0).getMenu_seq()%>"/>
 <input type="hidden" name="reserve_price" value="<%=list.get(0).getMenu_price()%>"/>
 <input type="hidden" name="reserve_time" id="reserve_time" value=""/>
+<input type="hidden" name="reserve_sdate" id="reserve_sdate" value=""/>
 	<div id="container">
 		<div style="width:700px;margin:0 auto"> 
 			<div class="sungsoobox">

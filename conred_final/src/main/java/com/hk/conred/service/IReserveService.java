@@ -8,7 +8,7 @@ public interface IReserveService {
 
 	
 	//예약
-	public boolean insertReserve(String user_id,int menu_seq,int store_seq,String reserve_time,String reserve_price);	
+	public boolean insertReserve(String user_id,int menu_seq,int store_seq,String reserve_time,String reserve_price,String reserve_sdate,String reserve_edate);	
 	
 	
 	//예약조회

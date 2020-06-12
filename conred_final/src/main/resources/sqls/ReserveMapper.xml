@@ -9,7 +9,7 @@
 		
 																	<!-- menu일렬번호 #{}으로 바꿔야함 -->
 		<insert id="insertReserve" parameterType="Map">
-			INSERT INTO CON_RESERVE VALUES(CON_RESERVE_SEQ.NEXTVAL,#{user_id},#{menu_seq},#{store_seq},#{reserve_time},'Y',#{reserve_price},SYSDATE);
+			INSERT INTO CON_RESERVE VALUES(CON_RESERVE_SEQ.NEXTVAL,#{user_id},#{menu_seq},#{store_seq},#{reserve_time},'Y',#{reserve_price},#{reserve_sdate},#{reserve_edate},SYSDATE);
 		</insert>
 		
 		<select id="reserveList" parameterType="Map" resultType="ReserveDto">
