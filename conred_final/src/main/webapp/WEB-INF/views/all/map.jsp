@@ -8,14 +8,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="js/jquery-3.4.1.js"></script>
 <title>Insert title here</title>
+ <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+ <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style type="text/css">
 	body{margin:0px;padding:0px;}
 	#container{height:100%;overflow: auto;}
 	#mapbox{border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:100%;height:100%;position:absolute;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
-	#show{z-index:10;width:407.5px;height:90.5%;position:absolute;right:0px;overflow: auto;}
-	#rightbox{z-index:10;background-color: rgba( 255, 255, 255, 0.8 ); border-top-width:0px; border-bottom-width:0px; width:390px;height:auto;position:absolute;right:0px;}
-	.storelist{z-index:9;background-color:white;width:auto;height:140px;border:1px solid #dedede;margin:10px;position: relative;padding:10px;}
-	.storelist:hover{cursor: pointer;}
+	#show{z-index:10;width:408.5px;height:90.5%;position:absolute;right:0px;overflow: auto;}
+	#rightbox{z-index:10;background-color: rgba( 255, 255, 255, 1 ); border:0px solid grey;border-top-width: 1px;border-left-width:1px; width:390px;height:auto;position:absolute;right:0px;top:35px;border-radius: 10px 10px 0px 0px;}
+	.storelist{z-index:9;background-color:rgba( 255, 255, 255, 1);width:auto;height:140px;border:1px solid #dedede;margin:10px;position: relative;padding:10px;}
+	.storelist:hover{cursor: pointer;background-color: #f2f2f2;border:1px solid black;}
+	.righthider{position:fixed;	width: 390px; display: inline-block; height: 36px; right: 19px; border:1px solid grey;
+    border-top-width:0px; background-color: rgba( 255, 255, 255, 1 ); top:90px; cursor: pointer; border-radius: 0px 0px 10px 10px; z-index:50;}
+	.righthider2{position:fixed; width: 85px; display: inline-block; height: 100px; right: 408px; border:1px solid grey;
+    border-right-width:0px; background-color: rgba( 255, 255, 255, 1 ); top:101px; cursor: pointer; border-radius: 20px 0px 0px 20px; z-index:50;}
+	.righthider:hover{border:1px solid black;border-right-width:0px;border-top-width:0px;}
+
+/* 	.arrow_next{margin-top:42px;margin-left: 13px;background: url("./img/next.png");} */
+	.arrow_down{margin:0 auto;margin-top:5px;background: url("./img/down.png");background-size: contain; width: 25px;height: 25px;}
+	.arrow_up{margin:0 auto;margin-top:5px;background: url("./img/up.png");background-size: contain; width: 25px;height: 25px;}
+	.right_hide{}
+	.right_show{}
 	
 	#mapbarbox{background-color:white; z-index:10;box-shadow: 0px 0.5px 1.5px grey;overflow:auto; width:300px;height:200px;border:1px solid grey;position:absolute;left:20px;top:20px;}
 	#search{padding:10px;width:280px;position:absolute;left:8px;}
@@ -38,15 +51,35 @@
 		$('#show').css("height",$bodyH);
 		
 // 		var $bodyW = window.innerWidth-405;
-		var $bodyW = window.innerWidth;
+		var $bodyW = window.innerWidth-19;
 // 		$('#container').css("width",$bodyW);
 		$('#mapbox').css("width",$bodyW);
+// 		$(".righthider").css("top",$bodyH/2+45);
 	}
 	$(document).ready(function(){
 		divToFit();
 		$(window).resize(function() {
 			divToFit();
 	    });
+		
+		$(".righthider").click(function() {
+			$("#rightbox").toggle( "fold", 1000 );
+			if($(".arrow_down").length){
+				setTimeout(function() {
+					$(".arrow_down").addClass('arrow_up');
+					$(".arrow_down").removeClass('arrow_down');
+			    }, 1000 );
+			}else if($(".arrow_up").length){
+				setTimeout(function() {
+				$(".arrow_up").addClass('arrow_down');
+				$(".arrow_up").removeClass('arrow_up');
+			    }, 1000 );
+			}
+// 			$("#rightbox").toggle(
+// 				function(){$("#rightbox").addClass('right_hide')}, //클릭하면 show클래스 적용되서 보이기
+// 				function(){$("#rightbox").addClass('right_show')} //한 번 더 클릭하면 hide클래스가 숨기기
+// 	        );
+		});
 	});
 </script>
 </head>
@@ -225,6 +258,11 @@
 	</script>
 
 	<div id="show">
+		<div class="righthider">
+			<div class="arrow_up">
+				
+			</div>
+		</div>
 		<div id="rightbox">
 										<!-- location.href='store.do?store_seq=__'<- 원래 여기는 화면안의 seq를 각각 넣어줘야한다. -->
 			<div class="storelist" onclick="location.href='store.do?store_seq=38'">

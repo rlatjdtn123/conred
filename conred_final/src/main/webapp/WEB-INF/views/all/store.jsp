@@ -52,13 +52,13 @@
 	.s_state_color1{color:#3ADF00;}
 	.s_state_color2{color:#FF8000;}
 	.s_state_color3{color:#FE2E2E;}
-	.cate_icon_box{width:65px;height:65px;display:inline-block; padding:5px;position: relative;border: 1px solid #dedede;border-radius: 10px;}
+	.cate_icon_box{float:left;width:65px;height:65px;display:inline-block; padding:5px;position: relative;border: 1px solid #dedede;border-radius: 10px;}
 	.cate_icon{position: relative;width:50px;left:1px;top:1px;}
-	.medal{width:29px;padding-bottom:15px;position: relative;top: 10px;left:8px;}
-	#s_title{font-size:30px;display: inline-block;position: relative;top: 10px;left:5px;}
+	.medal{width:29px;padding-bottom:15px;position: relative;top: 0px;left:8px;}
+	#s_title{font-size:30px;display: inline-block;position: relative;top: 2px;left:5px;}
 	#s_intro_small{font-size:18px !important;height:auto;font-size:15px;display:inline-block;}
 
-	#s_cates{overflow: auto;}
+	#s_cates{overflow: auto;position: relative;bottom: 10px;left: 7px;color:grey;}
 	.s_cate{float:left; font-size:12px;width:45px;text-align: center;}
 	.icons{width:35px;padding-bottom: 12px;}
 
@@ -310,33 +310,38 @@
 				<span id="s_title">${store_detail.store_name}
 				</span>
 				<img class="medal" alt="" src="./img/gold.png">
-			</div>
-			<div id="s_cates">
-				<div>
-					<c:forEach begin="0" end="${list_clist.size()-1}" step="1" var="i">
-						<c:choose>
-							<c:when test="${i!=list_clist.size()-1}">
-								${list_clist[i].category_code eq A?list_clist[i].category_name_small:list_clist[i].category_name_small} |
-								얘 좀더 수정하기 아마 choose로 해야할듯
-							</c:when>
-							<c:otherwise>
-								${list_clist[i].category_name_small}
-							</c:otherwise> 
-						</c:choose>
-					</c:forEach>
-				</div>조인해서 이름으로 출력하기(가능하면 윗줄의 동물병원 바로밑+ 아이콘height에 맞게)
-<!-- 				<div class="s_cate"> -->
-<!-- 					<img class="icons" title="미용실" src="./img/profile_default.png"> -->
-<!-- 				</div> -->
-<!-- 				<div class="s_cate"> -->
-<!-- 					<img class="icons" title="애견용품" src="./img/profile_default.png"> -->
-<!-- 				</div> -->
-<!-- 				<div class="s_cate"> -->
-<!-- 					<img class="icons" title="애견카페" src="./img/profile_default.png"> -->
+				<div id="s_cates">
+<!-- 					<div> -->
+						<c:forEach begin="0" end="${list_clist.size()-1}" step="1" var="i">
+							<c:choose>
+								<c:when test="${i!=list_clist.size()-1}">
+									<c:choose>
+										<c:when test="${list_clist[i].category_code eq 'A'}">
+											${list_clist[i].category_name_small}병원 |
+										</c:when>
+										<c:otherwise>
+											${list_clist[i].category_name_small} |
+										</c:otherwise>
+									</c:choose>
+								</c:when>
+								<c:otherwise>
+									<c:choose>
+										<c:when test="${list_clist[i].category_code eq 'A'}">
+											${list_clist[i].category_name_small}병원
+										</c:when>
+										<c:otherwise>
+											${list_clist[i].category_name_small}
+										</c:otherwise>
+									</c:choose>
+								</c:otherwise> 
+							</c:choose>
+						</c:forEach>
+					</div>
+	<!-- 				조인해서 이름으로 출력하기(가능하면 윗줄의 동물병원 바로밑+ 아이콘height에 맞게) -->
 <!-- 				</div> -->
 			</div>
 <!-- 			<div id="s_intro_small">고양이도 개처럼 만들어주는 댕댕미용실</div> -->
-			<div id="s_intro_small">${store_detail.store_intro_simple}</div>
+			<div id="s_intro_small">${store_detail.store_intro_simple}안아파동물병원입니다.안아파동물병원입니다. </div>
 			<div id="s_reviews">
 				<div class="s_star">
 					<c:set var="all_s" value="${reply_avg.all_avg}"/>
