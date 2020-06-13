@@ -48,15 +48,31 @@
 					 +	'	<p>+매장명</p>   '
 					 +	'</div>  '    
 					+	'<img src="./img/profile_default.png" class="pf"/>  '
-					+	'<div class="info">        '
-					+	'	<span >★★★★★</span><button style="margin-left: 206px;">삭제</button> <button  class="content_detail">자세히 보기</button><br>' 
-					+	'	<span>닉네임:'+ lists[i].user_id +' &nbsp;| 미용 / 컷트 </span><br>  '
+					+	'<div class="info">        ' 
+					+	'	<button style="margin-left: 505px;background-color:#fafafa;">삭제</button> <button  class="content_detail">자세히 보기</button><br>' 
+					+	'	<span>닉네임:'+ lists[i].user_id +'</span><span style="margin-left: 310px;">작성일: '+ lists[i].reply_regdate +'</span><br>  '
+					+		'<div class="star_table">'
+					+			'<table>'
+					+				'<tr>'
+						+				'<td>서비스</td>'
+						+			'</tr>'
+						+			'<tr>'
+						+			'	<td>가격</td>'
+						+		'	</tr>'
+						+		'	<tr>'
+						+		'		<td>청결도</td>'
+						+		'	</tr>'
+							+	'</table>'
+						+	'</div>'
 					+		'<div class="user_review_img" ></div>'
-					+	'	<div class="contents">'+ lists[i].reply_content +'</div>     '  
+					+		'<div class="contents">'
+					+		'	<span style="font-weight: bold;">리뷰내용</span><br>'
+					+		'	<span>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</span>'
+					+		'</div>'
 					+	'</div>  '
 					+	'<div class="info2">    '
 					+	'	<span style="font-weight: bold;">가게답변</span><br>  '
-					+	'	<div class="contents contents2">'+ (lists[i].reply_answer==null?'---미답변---':lists[i].reply_answer) +'</div>'
+					+	'	<span>'+ (lists[i].reply_answer==null?'아직 답변이 없습니다.':lists[i].reply_answer) +'</span>'
 					+	'</div>'
 				+	'</div>  ' 
 				+    ' </div> '
@@ -79,17 +95,17 @@
 	
 	$(function(){
 		$("body").on("click",".content_detail",function(){
-			if($(this).parent().parent().css("height")=="220px"){  
-				$(this).parent().parent().find(".info2").css("height","auto");
-				$(this).parent().parent().css("height","auto"); 
+			if($(this).parent().parent().css("height")=="370px"){  
+				$(this).parent().parent().css("height","auto");  
 				$(this).parent().parent().find(".contents").css({"overflow":"visible","height":"auto","word-break":"break-all"});
+				$(this).parent().parent().find(".info2").css({"overflow":"visible","height":"auto","word-break":"break-all"});
 			}else{
-				$(this).parent().parent().find(".info2").css("height","60px");
 				$(this).parent().parent().css("height","200px");    
-				$(this).parent().parent().find(".contents").css({"height":"25px","overflow":"hidden","word-break":"keep-all"});
+				$(this).parent().parent().find(".contents").css({"height":"80px","overflow":"hidden","word-break":"keep-all"});
+				$(this).parent().parent().find(".info2").css({"height":"80px","overflow":"hidden","word-break":"keep-all"});
 			}   
 		});      
-  
+   
 	});  
 	
 	
@@ -107,16 +123,15 @@
 	.pf{float: left; width: 40px;height: 40px;}     
 	.dt{margin-left: 600px;}
 	.info{min-height: 95px;}    
-	.contents{display:inline-block; width: 450px;height:25px;text-overflow: ellipsis; overflow: hidden;word-break:keep-all;min-height: 25px;}     
-	.contents2{width:430px;}     
-	.info2{background-color: #F2F2F2;  height: 66px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 450px; min-height: 66px;}
+	.contents{border-radius:5px;display:inline-block;padding: 10px; width: 682px;height:80px;text-overflow: ellipsis; overflow: hidden;word-break:keep-all;min-height: 80px; clear: both; background-color: #fafafa;margin-bottom: 15px;}        
+	.info2{background-color: #fafafa;  height: 80px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 682px; min-height: 80px;margin-left: 220px;border-radius:5px;word-break:keep-all;}
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
 	.myboxmargin{margin-top:30px;}      
-	.store_img{width: 200px;height:170px;border: 1px solid black; float: left;margin-right: 20px;} 
-	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:720px;height:220px; font-size: 15px; margin-left: 100px;min-height: 220px;background-color: #f2f2f2;}
+	.store_img{width: 200px;height:250px;border: 1px solid black; float: left;margin-right: 20px; background: url("img/user_back_test.png");background-size: 200px 250px;} 
+	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:935px;height:370px; font-size: 15px; margin-left: -10px;min-height: 370px;background-color: #f2f2f2;}
 	.bigtle{margin-left: 40px;}          
-	       
-	     
+	      
+	      
 	 .modal-title{margin-left: 400px;} 
 	.modal-body span{margin: 85px;}
 	textarea:focus::-webkit-input-placeholder { color: transparent; }
@@ -129,11 +144,18 @@
      .imgs_wrap img {max-width: 150px;margin-left: 5px;margin-right: 5px;}
 	.input_wrap {clear: both;} 
 	button {border: 0;  } 
-	 .user_review_img{border: 1px solid red;width: 490px;height: 50px;margin-left: 207px;}
+	 .user_review_img{border: 1px solid red;width: 485px;height: 80px;margin-left: 418px;margin-bottom:22px;}
+	 .content_detail{background-color: #fafafa;}
+	 .content_detail:hover {background-color: grey;}
 	 
+	 .star_table{width: 187px; height: 80px;background-color: #fafafa;border-radius: 5px; padding: 10px;float: left;}
+	 .starz{width:17px;height:auto;display: inline-block;margin:-2px;margin-bottom:4px;}
+	 .content_delete{margin-left: 505px; background-color:#fafafa;}
+	 .content_delete:hover {background-color: grey;} 
+	  
 </style>
 </head>
-<%
+<% 
 	List<ReplyDto> list=(List<ReplyDto>)request.getAttribute("list");
 %>
 <body>
@@ -172,23 +194,96 @@
 		 	</div>      
 			<img src="./img/profile_default.png" class="pf"/>  
 			<div class="info">        
-				<span >★★★★★</span><button style="margin-left: 206px;">삭제</button> <button  class="content_detail">자세히 보기</button><br> 
-				<span>닉네임:<%=dto.getUser_id()%> &nbsp;| 미용 / 컷트 </span><br>
+				<button class="content_delete">삭제</button> <button class="content_detail">자세히 보기</button><br> 
+				<span>닉네임:<%=dto.getUser_id()%></span><span style="margin-left: 310px;">작성일: <%=dto.getReply_regdate()%></span><br>
+				<div class="star_table">
+					<table>
+						<tr> 
+							<td>서비스</td>
+							<td>
+								<%  
+									for(int i=0;i<Math.floor(dto.getReply_service());i++){
+									%> 
+										<img class="starz" src="img/star_fill.png">
+									<%
+									}
+									for(int i=0;i<(Math.ceil(dto.getReply_service())-Math.floor(dto.getReply_service()));i++){
+									%>
+										<img class="starz" src="img/star_half.png">
+									<%
+									}
+									for(int i=0;i<(5-Math.ceil(dto.getReply_service()));i++){
+									%>
+										<img class="starz" src="img/star_empty.png">
+									<%
+									}
+								%>
+							</td>  
+						</tr>
+						<tr>
+							<td>가격</td>
+							<td>
+								<%  
+									for(int i=0;i<Math.floor(dto.getReply_price());i++){
+									%> 
+										<img class="starz" src="img/star_fill.png">
+									<%
+									}
+									for(int i=0;i<(Math.ceil(dto.getReply_price())-Math.floor(dto.getReply_price()));i++){
+									%>
+										<img class="starz" src="img/star_half.png">
+									<%
+									}
+									for(int i=0;i<(5-Math.ceil(dto.getReply_price()));i++){
+									%>
+										<img class="starz" src="img/star_empty.png">
+									<%
+									}
+								%>
+							</td> 
+						</tr>
+						<tr>
+							<td>청결도</td>
+							<td>
+								<%  
+									for(int i=0;i<Math.floor(dto.getReply_clean());i++){
+									%> 
+										<img class="starz" src="img/star_fill.png">
+									<%
+									}
+									for(int i=0;i<(Math.ceil(dto.getReply_clean())-Math.floor(dto.getReply_clean()));i++){
+									%>
+										<img class="starz" src="img/star_half.png">
+									<%
+									}
+									for(int i=0;i<(5-Math.ceil(dto.getReply_clean()));i++){
+									%>
+										<img class="starz" src="img/star_empty.png">
+									<%
+									}
+								%>
+							</td> 
+						</tr>
+					</table>
+				</div>
 				<div class="user_review_img" ></div>     
 <%-- 				<div class="contents"><%=dto.getReply_content()%></div> --%>
-				<div class="contents">ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</div>
+				<div class="contents">
+					<span style="font-weight: bold;">리뷰내용</span><br>
+					<span><%=dto.getReply_content()%></span>
+				</div> 
 			</div>   
 			<div class="info2">     
-				<span style="font-weight: bold;">가게답변</span><br>
 				<%
 					if(dto.getReply_answer()==null||dto.getReply_answer().equals("")){
-						%>
-<!-- 							<div class="contents contents2">---미답변---</div> -->
-							<div class="contents contents2">ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</div>
+						%>					
+							<span style="font-weight: bold;">매장답변</span><br>
+							<span>아직 답변이 없습니다.</span>
 						<%
-					}else{ 
+					}else{  
 						%>
-							<div class="contents contents2"><%=dto.getReply_answer()%></div>						
+							<span style="font-weight: bold;">매장답변</span><br>
+							<span><%=dto.getReply_answer()%></span>						
 						<%
 					}
 				%>  
