@@ -113,7 +113,7 @@
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
 	.myboxmargin{margin-top:30px;}      
 	.store_img{width: 200px;height:170px;border: 1px solid black; float: left;margin-right: 20px;} 
-	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:720px;height:220px; font-size: 15px; margin-left: 100px;min-height: 220px;}
+	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:720px;height:220px; font-size: 15px; margin-left: 100px;min-height: 220px;background-color: #f2f2f2;}
 	.bigtle{margin-left: 40px;}          
 	       
 	     

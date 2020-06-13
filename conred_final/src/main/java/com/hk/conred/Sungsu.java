@@ -449,6 +449,7 @@ public class Sungsu {
 		logger.info("사용자 해당메뉴선택후 숙박/당일여부 별로 예약하러가기{}.", locale);
 		List<MenuDto> list=menuService.detailMenu(menu_seq,store_seq);
 		List<ReserveDto> stay_reserve_list=reserveService.stayReserve(store_seq, menu_seq);
+		System.out.println("!!!!!!!!!!::::::::::"+stay_reserve_list);
 		if(menu_state.equals("T")) {
 			model.addAttribute("list", list);
 			return "user/user_reserve_time_selectT";			
@@ -500,7 +501,7 @@ public class Sungsu {
 		logger.info("선택요일에따라 시간출력 {}.", locale);
 		List<ReserveDto> listMax=reserveService.reserveMax(store_seq, menu_seq, reserve_sdate);
 		Map<String, List<ReserveDto>> map=new HashMap<>();
-		System.out.println(menu_seq+"::@@@@::"+store_seq+"::@@@@::"+reserve_sdate);
+//		System.out.println(menu_seq+"::@@@@::"+store_seq+"::@@@@::"+reserve_sdate);
 		map.put("listMax", listMax);
 		for (int i = 0; i < listMax.size(); i++) {
 			System.out.println(listMax.get(i));	
@@ -514,7 +515,7 @@ public class Sungsu {
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
 //		System.out.println("@@@아이디::"+uldto.getUser_id()+"@@@메뉴일렬번호::"+menu_seq+"@@@가게일렬번호::"+store_seq+"@@@예약시작날짜::"+reserve_sdate+"::@@@@예약마지막날짜::"+reserve_edate+"@@@예약가격::"+reserve_price);
-		System.out.println("@@@@@@@!!!!!!!!!!::"+reserve_price);
+//		System.out.println("@@@@@@@!!!!!!!!!!::"+reserve_price);
 		
 		return "redirect:index.jsp";
 	}

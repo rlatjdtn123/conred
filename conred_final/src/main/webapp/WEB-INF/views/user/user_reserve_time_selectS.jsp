@@ -68,10 +68,11 @@
 	 //공백
 	 var emptyDay;
 	 $(function(){ 
-// 			var stay=$("input[name=stay]").val();
-// 		 	for (var i = 0; i < stay; i++) {
-// 				alert($(".reserve_sdate")[0].val());
-// 			}
+			var stay=$("input[name=stay]").val();
+		 	for (var i = 0; i < stay; i++) {
+				alert($("input[name=asdff]").val()); 
+// 				alert(stay); 
+			}
 // 		  	var stay=document.getElementsByClassName('reserve_sdate')[1].value;
 // 		 	alert(stay);
 			//요일별 휴무여부
@@ -383,6 +384,9 @@
 	List<MenuDto> list=(List<MenuDto>)request.getAttribute("list");
 	List<ReserveDto> stay_reserve_list=(List<ReserveDto>)request.getAttribute("stay_reserve_list");
 %> 
+<%!
+	
+%>
 <body>
 <input type="hidden" name="mon" value="<%=list.get(0).getStore_time_break()%>"/><input type="hidden" name="monNum" value="<%=list.get(0).getRownum()%>"/>
 <input type="hidden" name="tue" value="<%=list.get(1).getStore_time_break()%>"/><input type="hidden" name="tueNum" value="<%=list.get(1).getRownum()%>"/>
@@ -392,15 +396,16 @@
 <input type="hidden" name="sat" value="<%=list.get(5).getStore_time_break()%>"/><input type="hidden" name="satNum" value="<%=list.get(5).getRownum()%>"/>
 <input type="hidden" name="sun" value="<%=list.get(6).getStore_time_break()%>"/><input type="hidden" name="sunNum" value="<%=list.get(6).getRownum()%>"/>
 <input type="hidden" name="stay" value="<%=stay_reserve_list.size()%>">
+<input type="hidden" name="asdff" value="<%=stay_reserve_list.get(0).getReserve_sdate()%>"/>
 <% 
 	for(int i=0;i>stay_reserve_list.size();i++){
 		%>
-			<input type="hidden" class="reserve_sdate" name="reserve_sdate" value="<%=stay_reserve_list.get(i).getReserve_sdate()%>"/>
+			<input type="hidden" class="sall" name="sall" value="<%=stay_reserve_list.get(i).getReserve_sdate()%>"/>
 		<%
 	}
 	for(int i=0;i>stay_reserve_list.size();i++){ 
 		%>
-			<input type="hidden" name="reserve_edate<%=i%>" value="<%=stay_reserve_list.get(i).getReserve_edate()%>"/>
+			<input type="hidden" class="eall<%=i%>" name="eall<%=i%>" value="<%=stay_reserve_list.get(i).getReserve_edate()%>"/>
 		<%
 	}
 %>
