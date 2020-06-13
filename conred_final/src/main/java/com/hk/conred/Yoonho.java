@@ -83,6 +83,7 @@ public class Yoonho {
 		model.addAttribute("serverTime", formattedDate );
 		
 		return "test/yoonho"; 
+		
 	}
 	
 //	@ResponseBody
@@ -253,7 +254,7 @@ public class Yoonho {
 	@RequestMapping(value = "owner_regist_store.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String owner_regist_store(Locale locale, Model model, SDto sdto, HttpServletRequest request) {
 		logger.info("점주: 매장등록(매장정보 입력)으로 이동  {}.", locale);
-		
+
 		HttpSession session=request.getSession();
 		ODto odto= (ODto)session.getAttribute("oldto");
 		System.out.println("odto 아이디:"+odto.getOwner_id());
@@ -405,6 +406,7 @@ public class Yoonho {
 	@RequestMapping(value = "store.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String store(Locale locale, Model model,int store_seq, HttpServletRequest request) {
 		logger.info("(일렬번호 : "+store_seq+")번 매장(사용자별 매장)으로 이동  {}.", locale);
+		
 		HttpSession session = request.getSession();
 		ODto odto =(ODto)session.getAttribute("oldto");
 		SDto sldto =null;//초기값널

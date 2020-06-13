@@ -21,8 +21,11 @@
 <!-- 시간지정용 데이트피커 소스 -->
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bc283bd41dff040b5403d29f3172b43a&libraries=services,clusterer,drawing"></script>
 
 <style type="text/css">
+	.t1,.t2{transition:all .5s;}
 	.greenbtn:hover{background-color: #04B404;color:white} 
 	.redbtn:hover{background-color: #FE2E2E;color:white} 
 	.clrboth{clear: both;}
@@ -51,7 +54,7 @@
 	textarea[name=store_time_other]{width:544px;}
 	textarea[name=store_intro_simple]{width:500px;}
 	textarea[name=store_intro]{width:500px;height:100px;}
-	textarea[name=store_address]{width:220px;height:100px;}
+ 	textarea[name=store_address]{width:500px;} 
 	
 	.catechkboxes_big{width:150px;height:100px;float: left;}
 	.catechkboxes{float: left;}
@@ -80,9 +83,10 @@
 	
 	.timepicker{width:140px;}
 	
-	#show_menu,#show_time,.hide_menu{margin-bottom:2.5px;}
+	#show_menu,#time_makesame,.hide_menu{margin-bottom:2.5px;}
 	
 	input[name=store_maxdate],input[name=store_maxman]{width:30px;background-color: #f0f0f0;border:1px solid grey}
+	input[name=store_address_detail]{width:407.5px;float: left;}
 	.subinfo{font-size:12px;color: grey;}
 	#bot{margin:30px 10px 30px;}
 	
@@ -102,6 +106,18 @@
 	.attach_count{display: inline-block;margin:5px 10px 15px;font-size:18px;}
 /* 	.attach_count::after{clear:both;} */
 	/*-------------*/
+	
+	/*주소찾기*/
+	.addrsearch{margin-top:3px;}
+	#search{width:500px;padding-bottom: 10px;}
+	#searchbar{width: 444px;margin-top: 0.5px;}
+	#magnifyglass{width:20px;}
+	#mapbox{border:1px solid grey; width:500px;height:500px;}
+	.pickedaddr{float:left;text-align: left;}
+/* 	.modal-content{min-width:530.5px} */
+	.modal-content{width:531px}
+
+	.greenfont{color:#3ADF00;}
 </style>
 <script type="text/javascript">
 	
@@ -117,14 +133,20 @@
 			$(this).siblings('.upload-name').val(filename);
 		});
 
-		$("#show_time").on('click',function(){
+		$("#time_makesame").on('click',function(){
 
 			for (var i = 0; i < 5; i++) {//평일값이 월화수목금에 똑같이 들어가게
 				var t1val=$("#t1").val();
 				$(".t1").eq(i).val(t1val);
 				var t2val=$("#t2").val();
 				$(".t2").eq(i).val(t2val);
+				$(".t1").eq(i).css("background-color","yellow");
+				$(".t2").eq(i).css("background-color","yellow");
 			}
+		        setTimeout(function() {
+					$(".t1").css("background-color","white");
+					$(".t2").css("background-color","white");
+		        }, 100 );
 				
 		});
 		
@@ -213,6 +235,13 @@
 			addPreview($(this)); //preview form 추가하기
 			$(".attach_count").text();
 		});
+	    $(".addrsearch").click(function(){
+	        $("div.modal").modal();
+	        setTimeout(function() {
+	        	map.relayout();
+	        }, 300 );
+	    });
+
 	});
 	
 	/////////-------------------파일업로드관련
@@ -327,15 +356,112 @@
 <!--       </div> -->
 <!--       body -->
       <div class="modal-body">
-            
-        <button type="button" class="btn btn-default" data-dismiss="modal">시간예약제</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">숙박예약제</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">설정안함제</button>
+       	<div id="search" action="">
+		  <input onkeypress="if( event.keyCode==13 ){goSearch();}" type="text" id="searchbar" class="form-control pull-left" placeholder="ex) 영등포구 양산로 53, 양평동 3가 15-1">
+		  <button type="submit" id="searchbtn" class="btn"><img id="magnifyglass" src="./img/magnifyglass.png"></button>
+		</div>
+		<div class="subinfo">*도로명주소 혹은 번지수로 검색</div> 
+		<div class="subinfo">*검색 후 정확한 위치(주소)를 지도상에서 클릭해주세요</div> 
+		<div class="subinfo">*스크롤시 확대/축소 됩니다</div> 
+		<div id="mapbox">
+		</div>
+			<script>
+			var search_val ="";
+			
+			function goSearch() {
+				$("#searchbtn").click();
+			}
+			$(function() {
+			    $(".setaddr").click(function name() {
+// 					alert($("textarea[name=store_address]").val());
+// 					alert($(".realaddr").text());
+			    	$("textarea[name=store_address]").val($(".realaddr").text());
+				});
+				
+				$("#searchbtn").click(function() {
+					
+					search_val=$("#searchbar").val();
+					
+					// 주소-좌표 변환 객체를 생성합니다
+					var geocoder = new kakao.maps.services.Geocoder();
+						
+					// 주소로 좌표를 검색합니다
+					geocoder.addressSearch(search_val, function(result, status) {
+		// 			geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
+		
+					    // 정상적으로 검색이 완료됐으면 
+					     if (status === kakao.maps.services.Status.OK) {
+		
+					        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+					        
+					        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+					        map.panTo(coords);
+//	 				        map.setCenter(coords);
+
+					    } 
+					});    
+					
+				});
+			});
+			var container = document.getElementById('mapbox'); //지도를 담을 영역의 DOM 레퍼런스
+			var options = { //지도를 생성할 때 필요한 기본 옵션
+	// 			center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+				center: new kakao.maps.LatLng(37.525026023695375, 126.8888353907293), //지도의 중심좌표.
+				level: 4 //지도의 레벨(확대, 축소 정도)
+			};
+			var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+			
+			kakao.maps.event.addListener(map, 'idle',  function() {
+				map.relayout();
+			});	
+			
+			 // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
+	 		// 마커를 생성합니다
+// 			var marker1 = new kakao.maps.Marker({
+// 			    position: markerPosition
+// 			});
+			
+			// 주소-좌표 변환 객체를 생성합니다
+		 	var geocoder = new kakao.maps.services.Geocoder();
+			
+		    // 좌표로 법정동 상세 주소 정보를 요청합니다
+			function searchDetailAddrFromCoords(coords, callback) {
+		    	geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+			}
+			 
+			var marker1 = new kakao.maps.Marker();
+		    kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+		        searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
+		            if (status === kakao.maps.services.Status.OK) {
+		                var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+		                detailAddr += '<div>지번 주소 : <span class="realaddr">' + result[0].address.address_name + '</span></div>';
+		                
+		                var content = '<div class="bAddr">' + 
+		                                detailAddr + 
+		                            '</div>';
+		                // 마커를 클릭한 위치에 표시합니다 
+		                marker1.setPosition(mouseEvent.latLng);
+		                marker1.setMap(map);	
+	
+		                // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+		                $(".pickedaddr").html(content);
+// 		                document.getElementsByClassName("modal-footer")[0].value=content;
+// 		                infowindow.setContent(content);
+// 		                infowindow.open(map, marker);
+		            }   
+		        });
+		    });
+			
+			</script>
+<!--         <button type="button" class="btn" data-dismiss="modal">시간예약제</button> -->
+<!--         <button type="button" class="btn" data-dismiss="modal">숙박예약제</button> -->
+<!--         <button type="button" class="btn" data-dismiss="modal">설정안함제</button> -->
       </div>
 <!--       Footer -->
       <div class="modal-footer">
-        Footer
-        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+      	<div class="pickedaddr"></div>
+        <button type="button" class="btn setaddr" data-dismiss="modal">등록</button>
+        <button type="button" class="btn" data-dismiss="modal">닫기</button>
       </div>
     </div>
   </div>
@@ -356,7 +482,9 @@
 				</div>
 				<div class="inputbox">
 					<div class="inputtitle">홈페이지 링크</div>
-					<div class="inputs"><input class="width_500 form-control" type="text" name="store_path" placeholder="홈페이지 링크를 입력해주세요."/></div>
+					<div class="inputs"><input class="width_500 form-control" type="text" name="store_path" placeholder="http://www.naver.com"/></div>
+					<div class="subinfo">*자사 홈페이지 링크를 입력할 수 있어요.(선택사항)</div>
+					<div class="subinfo">*http://까지 정확히 입력해주세요</div>
 				</div>
 				<div class="inputbox">
 					<div class="inputtitle">사진업로드</div>
@@ -444,14 +572,19 @@
 				<div class="inputbox">
 					<div class="inputtitle">주소</div>
 					<div class="inputs">
-						<textarea name="store_address" class="flleft form-control" placeholder="주소"></textarea>
-						<button type="button" class="btn flleft">주소찾기</button>
-						<div class="inputs"><input class="form-control" name="store_address_detail" placeholder="상세주소"/></div>
+						<textarea name="store_address" class="flleft form-control" rows="1" placeholder="주소" readonly></textarea>
+						<div class="inputs">
+							<input class="form-control" name="store_address_detail" placeholder="상세주소"/>
+							<button type="button" class="btn flleft addrsearch">주소찾기</button>
+						</div>
 					</div>
 				</div>
 				<div class="inputbox">
 					<div class="inputtitle">영업시간등록</div>
 					<div class="inputs">
+					<div class="subinfo">*<span class="greenfont">24시간</span>영업의 경우에는 <span class="greenfont">24시간</span>영업하는 요일의 영업시간을 00:00시~ 00:00시 로 맞춰주세요!</div>
+					<div class="subinfo">*평일맞추기를 누르시면 월요일부터 금요일까지 시간이 통일됩니다!</div>
+							<br>
 							<ul>
 								<li id="timeboxhead">
 									<span class="timebox" style="margin:0px">휴점일</span>
@@ -467,7 +600,7 @@
 									<span class="timebox weekbox mar_right1">월요일</span>
 									<input type="hidden" name="store_time_day" value="월요일">
 									<input id="t1" class="timebox2 ronly timepicker form-control" name="store_time_open"/> - <input id="t2" class="timebox2 ronly timepicker form-control" name="store_time_close"/>
-									<span id="show_time" class="btn timebox2" style="height:24px; width:100px;line-height: 10px">
+									<span id="time_makesame" class="btn timebox2" style="height:24px; width:100px;line-height: 10px">
 										평일 맞추기
 									</span>
 									<span class="subinfo">*월요일기준</span>

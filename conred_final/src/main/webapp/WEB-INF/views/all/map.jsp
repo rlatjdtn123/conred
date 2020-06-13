@@ -65,6 +65,7 @@
 		$(".righthider").click(function() {
 			$("#rightbox").toggle( "fold", 1000 );
 			if($(".arrow_down").length){
+				$("#show").css("height",window.innerHeight-90);
 				setTimeout(function() {
 					$(".arrow_down").addClass('arrow_up');
 					$(".arrow_down").removeClass('arrow_down');
@@ -73,6 +74,7 @@
 				setTimeout(function() {
 				$(".arrow_up").addClass('arrow_down');
 				$(".arrow_up").removeClass('arrow_up');
+					$("#show").css("height","36px");
 			    }, 1000 );
 			}
 // 			$("#rightbox").toggle(
@@ -114,9 +116,8 @@
 <!-- 	<div id="mapbox"> -->
 <!-- 	지도용 스크립트 -->
 <!-- 	<div id="map" style="width:2000px;height:800px;"></div> -->
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bc283bd41dff040b5403d29f3172b43a"></script>
 	<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bc283bd41dff040b5403d29f3172b43a&libraries=services,clusterer,drawing"></script>
 	<script>
 		var container = document.getElementById('mapbox'); //지도를 담을 영역의 DOM 레퍼런스
 		var options = { //지도를 생성할 때 필요한 기본 옵션
@@ -173,32 +174,19 @@
 		      // 마커 위에 인포윈도우를 표시합니다
 		      infowindow.open(map, marker);  
 		});
+		
 		// 마커가 지도 위에 표시되도록 설정합니다
 		marker.setMap(map);
 		
 		function getInfo() {
-		    // 지도의 현재 중심좌표를 얻어옵니다 
-		    var center = map.getCenter(); 
 		    
-		    // 지도의 현재 레벨을 얻어옵니다
-		    var level = map.getLevel();
-		    
-		    // 지도타입을 얻어옵니다
-		    var mapTypeId = map.getMapTypeId(); 
-		    
-		    // 지도의 현재 영역을 얻어옵니다 
-		    var bounds = map.getBounds();
-		    
-		    // 영역의 남서쪽 좌표를 얻어옵니다 
-		    var swLatLng = bounds.getSouthWest(); 
-		    
-		    // 영역의 북동쪽 좌표를 얻어옵니다 
-		    var neLatLng = bounds.getNorthEast(); 
-		    
-		    // 영역정보를 문자열로 얻어옵니다. ((남,서), (북,동)) 형식입니다
-		    var boundsStr = bounds.toString();
-		    
-		    
+		    var center = map.getCenter(); // 지도의 현재 중심좌표를 얻어옵니다 
+		    var level = map.getLevel(); // 지도의 현재 레벨을 얻어옵니다
+		    var mapTypeId = map.getMapTypeId(); // 지도타입을 얻어옵니다
+		    var bounds = map.getBounds();// 지도의 현재 영역을 얻어옵니다 
+		    var swLatLng = bounds.getSouthWest(); // 영역의 남서쪽 좌표를 얻어옵니다 
+		    var neLatLng = bounds.getNorthEast();  // 영역의 북동쪽 좌표를 얻어옵니다 
+		    var boundsStr = bounds.toString(); // 영역정보를 문자열로 얻어옵니다. ((남,서), (북,동)) 형식입니다
 		    var message = '지도 중심좌표는 위도 ' + center.getLat() + ', <br>';
 		    message += '경도 ' + center.getLng() + ' 이고 <br>';
 		    message += '지도 레벨은 ' + level + ' 입니다 <br> <br>';
@@ -206,11 +194,8 @@
 		    message += '지도의 남서쪽 좌표는 ' + swLatLng.getLat() + ', ' + swLatLng.getLng() + ' 이고 <br>';
 		    message += '북동쪽 좌표는 ' + neLatLng.getLat() + ', ' + neLatLng.getLng() + ' 입니다';
 		    
-		    
 		    alert(message);
 		    console.log(message);
-		    // 개발자도구를 통해 직접 message 내용을 확인해 보세요.
-		    // ex) console.log(message);
 		}
 
 		// 		드래그끝나면 실행1
@@ -218,8 +203,13 @@
 // 		});
 
 // 		드래그끝나면 실행2
-		kakao.maps.event.addListener(map, 'dragend', getInfo, true);             
+// 		kakao.maps.event.addListener(map, 'dragend', getInfo, true);             
 
+// 		중심 좌표나 확대 수준이 변경되면 실행2
+// 		kakao.maps.event.addListener(map, 'idle', getInfo, true);             
+		kakao.maps.event.addListener(map, 'idle',  function() {
+			map.relayout();
+ 		});
 // 		영역 변경시 실행1 -->해당영역안에 가게가 있을경우 보여주는 기능 할 때 쓰자
 // 		kakao.maps.event.addListener(map, 'bounds_changed', function() {             
 // 		});
@@ -228,33 +218,35 @@
 // 		kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 // 		});
 		
-	kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
-	    
-	    // 클릭한 위도, 경도 정보를 가져옵니다 
-	    var latlng = mouseEvent.latLng;
-	    
-	    var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-	    message += '경도는 ' + latlng.getLng() + ' 입니다';
-	    
-	    var resultDiv = document.getElementById('result'); 
-// 	    resultDiv.innerHTML = message;
-	    alert(message);
-// 	    37.525140657539495 이고, 경도는 126.89099029962803 
-	});
+// 		kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
+		    
+// 		    // 클릭한 위도, 경도 정보를 가져옵니다 
+// 		    var latlng = mouseEvent.latLng;
+		    
+// 		    var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+// 		    message += '경도는 ' + latlng.getLng() + ' 입니다';
+		    
+// 		    var resultDiv = document.getElementById('result'); 
+// 	// 	    resultDiv.innerHTML = message;
+// 		    alert(message);
+// 	// 	    37.525140657539495 이고, 경도는 126.89099029962803 
+// 		});
+		
+		// 타일 로드가 완료되면 지도 중심에 마커를 표시합니다
+// 		kakao.maps.event.addListener(map, 'tilesloaded', displayMarker);
 	
-	// 타일 로드가 완료되면 지도 중심에 마커를 표시합니다
-	kakao.maps.event.addListener(map, 'tilesloaded', displayMarker);
-
-	function displayMarker() {
+// 		function displayMarker() {
+		    
+// 		    // 마커의 위치를 지도중심으로 설정합니다 
+// 		    marker.setPosition(map.getCenter()); 
+// 		    marker.setMap(map); 
+	
+// 		    // 아래 코드는 최초 한번만 타일로드 이벤트가 발생했을 때 어떤 처리를 하고 
+// 		    // 지도에 등록된 타일로드 이벤트를 제거하는 코드입니다 
+// 		    // kakao.maps.event.removeListener(map, 'tilesloaded', displayMarker);
+// 		}
+		
 	    
-	    // 마커의 위치를 지도중심으로 설정합니다 
-	    marker.setPosition(map.getCenter()); 
-	    marker.setMap(map); 
-
-	    // 아래 코드는 최초 한번만 타일로드 이벤트가 발생했을 때 어떤 처리를 하고 
-	    // 지도에 등록된 타일로드 이벤트를 제거하는 코드입니다 
-	    // kakao.maps.event.removeListener(map, 'tilesloaded', displayMarker);
-	}
 	</script>
 
 	<div id="show">
@@ -265,8 +257,8 @@
 		</div>
 		<div id="rightbox">
 										<!-- location.href='store.do?store_seq=__'<- 원래 여기는 화면안의 seq를 각각 넣어줘야한다. -->
-			<div class="storelist" onclick="location.href='store.do?store_seq=38'">
-			(임시 윤호가 테스트로 쓰는 매장 seq38)
+			<div class="storelist" onclick="location.href='store.do?store_seq=24'">
+			(임시 윤호가 테스트로 쓰는 매장 seq24)
 			</div>
 			<div class="storelist" onclick="location.href='store.do?store_seq=1'">
 			(임시 1번사장의 매장)

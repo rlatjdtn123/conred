@@ -23,12 +23,13 @@
 	.navis2:hover{transition:all .3s;border-bottom:1px solid white;background-color: white;cursor:pointer;border-right:1px solid grey;border-left:1px solid grey;}
 	.home{border-bottom:1px solid white;background-color: white;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
 	
-	#photozone{width:100.1%; height:400px;}
+	#photozone{width:100.1%; height:430px;}
 	
 	.s_bold{font-size:20px;font-weight: bold;display:block;}
 	.s_bold2{font-size:15px;font-weight: bold;}
 	.s_week{font-size:15px;width:70px;display: inline-block;}
 	.redfont{color:red;}
+	.greenfont{color:#3ADF00;}
 
 	.section{width:900px;display: inline-block;}
 	#infobox_title{ height:auto;}
@@ -131,8 +132,8 @@
     .swiper-container {
       z-index:0;
       width: 100%;
-      padding-top: 50px;
-      padding-bottom: 50px;
+      padding-top: 0px;
+      padding-bottom: 0px;
     }
     .swiper-slide {
       background-position: center;
@@ -140,13 +141,13 @@
       background-size: contain;
       background-repeat: no-repeat;
       width: 1200px;
-      height: 300px;
+      height: 400px;
     }
     .swiper-button-prev{color:grey;padding: 10px;width:auto;height:auto;border-radius: 5px;}
     .swiper-button-prev:hover{background-color: #f2f2f2}
     .swiper-button-next{color:grey;padding: 10px;width:auto;height:auto;border-radius: 5px;}
     .swiper-button-next:hover{background-color: #f2f2f2}
-    .caption{margin-top: 302px; color:#2E2E2E;}
+    .caption{margin-top: 350px; color:#2E2E2E;background-color:rgba(255,255,255,0.5);width: 250px;margin-left: 475px;border-radius: 5px;}
 </style>
 <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
 <script type="text/javascript">
@@ -342,6 +343,11 @@
 			</div>
 <!-- 			<div id="s_intro_small">고양이도 개처럼 만들어주는 댕댕미용실</div> -->
 			<div id="s_intro_small">${store_detail.store_intro_simple}안아파동물병원입니다.안아파동물병원입니다. </div>
+			
+			<c:if test="${store_detail.store_path ne null}">
+				<div><a href="${store_detail.store_path}">홈페이지링크 바로가기</a></div>
+			</c:if>
+			
 			<div id="s_reviews">
 				<div class="s_star">
 					<c:set var="all_s" value="${reply_avg.all_avg}"/>
@@ -377,7 +383,10 @@
 					<span class="s_week">${list_stime[i].store_time_day}</span>
 					<c:choose>
 						<c:when test="${list_stime[i].store_time_open.indexOf('00:00')!=-1&&list_stime[i].store_time_close.indexOf('00:00')!=-1}">
-							<span>24시간 영업중</span>
+							<span class="greenfont">24시간 영업중</span>
+						</c:when>
+						<c:when test="${list_stime[i].store_time_break=='Y'}">
+							<span class="redfont">휴무일</span>
 						</c:when>
 						<c:otherwise>
 							<span>${list_stime[i].store_time_open}</span>~<span>${list_stime[i].store_time_close}</span>

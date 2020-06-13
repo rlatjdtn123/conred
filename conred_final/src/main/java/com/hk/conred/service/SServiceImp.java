@@ -69,9 +69,14 @@ public class SServiceImp implements ISService {
 //		System.out.println("biz의 사이즈:"+fileSize_biz);
 //		String fileSize_sales=Long.toString(multiFile_sales.getSize());
 //		System.out.println("sales의 사이즈:"+fileSize_sales);
-//			
-//		String path_biz="C:/Users/hkedu/git/conred/conred_final/src/main/webapp/upload_biz/";
-//		String path_sales="C:/Users/hkedu/git/conred/conred_final/src/main/webapp/upload_sales/";
+//		
+		//path
+//		//String path_biz="C:/Users/hkedu/git/conred/conred_final/src/main/webapp/upload_biz/";
+//		String path_biz = request.getSession().getServletContext().getRealPath("upload_biz/");
+//		System.out.println("가져온 경로:"+path_biz);
+//		//String path_sales="C:/Users/hkedu/git/conred/conred_final/src/main/webapp/upload_sales/";
+//		String path_sales = request.getSession().getServletContext().getRealPath("upload_sales/");
+//		System.out.println("가져온 경로:"+path_sales);
 //		File file_biz = new File(path_biz+storedName_biz);
 //		File file_sales = new File(path_sales+storedName_sales);
 		
@@ -137,7 +142,9 @@ public class SServiceImp implements ISService {
 			
 			System.out.println(store_photo_title[i]);
 			
-			String path="C:/Users/hkedu/git/conred/conred_final/src/main/webapp/upload_sphoto/";
+			String path = request.getSession().getServletContext().getRealPath("upload_sphoto/");
+			System.out.println("가져온 경로:"+path);
+//			String path="C:/Users/hkedu/git/conred/conred_final/src/main/webapp/upload_sphoto/";
 			File file = new File(path+storedName);
 			
 			System.out.println("sdto에 넣으러간다");
