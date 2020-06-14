@@ -35,6 +35,8 @@ public class SDto {
 	private double price_avg;
 	private double all_avg;
 	
+	private String category_code;
+	
 	public SDto() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -137,7 +139,10 @@ public class SDto {
 		this.store_maxdate = store_maxdate;
 		this.store_maxman = store_maxman;
 	}
-	
+
+
+
+
 	//점포등록1 : certify insert 용
 	public SDto(String owner_id, String store_owner_name, String store_license_number, String store_license_biz_origin,
 			String store_license_biz_stored, String store_license_biz_size, String store_license_sales_origin,
@@ -157,6 +162,11 @@ public class SDto {
 		this.store_agreement = store_agreement;
 	}
 
+	public SDto(int store_seq, String category_code) {
+		super();
+		this.store_seq = store_seq;
+		this.category_code = category_code;
+	}
 
 	public int getStore_seq() {
 		return store_seq;
@@ -336,8 +346,14 @@ public class SDto {
 	public void setiDto(InterestsDto iDto) {
 		this.iDto = iDto;
 	}
+	
+	public String getCategory_code() {
+		return category_code;
+	}
 
-
+	public void setCategory_code(String category_code) {
+		this.category_code = category_code;
+	}
 
 	@Override
 	public String toString() {
@@ -355,7 +371,7 @@ public class SDto {
 				+ ", store_agreement=" + store_agreement + ", store_admin_state=" + store_admin_state
 				+ ", store_maxdate=" + store_maxdate + ", store_maxman=" + store_maxman + ", cDto=" + cDto + ", iDto="
 				+ iDto + ", clean_avg=" + clean_avg + ", service_avg=" + service_avg + ", price_avg=" + price_avg
-				+ ", all_avg=" + all_avg + "]";
+				+ ", all_avg=" + all_avg + ", category_code=" + category_code + "]";
 	}
 	
 //	@Override

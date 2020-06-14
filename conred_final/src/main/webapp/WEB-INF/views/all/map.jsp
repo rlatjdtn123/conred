@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=utf-8"); %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,6 +44,8 @@
 /* 	맵 */
 	.markerbox{height:100px;width:200px;border:1px solid grey; border-radius:8px;}
 </style>
+<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bc283bd41dff040b5403d29f3172b43a&libraries=services,clusterer,drawing"></script>
 <script type="text/javascript">
 	function divToFit() {
 		var $bodyH = window.innerHeight-90;
@@ -57,6 +60,78 @@
 // 		$(".righthider").css("top",$bodyH/2+45);
 	}
 	$(document).ready(function(){
+// 		(2번방법)	영역정보를 ajax로 전달해서 모든세부값 가져오기	
+	    var bounds = map.getBounds();// 지도 영역정보를 얻어옵니다 
+	    var sw = bounds.getSouthWest();// 영역정보의 남서쪽 정보를 얻어옵니다 
+	    var ne = bounds.getNorthEast();// 영역정보의 북동쪽 정보를 얻어옵니다 
+		$.ajax({
+			url:"map_test.do",
+			method:"post",
+			dataType: "json",
+			async: false,
+			data:{},
+			success:function(obj) {
+				
+			},
+			error: function(request,error) {
+				alert("서버통신실패!!"+request.status+","+error);
+			}
+		})
+		
+
+
+
+	    /*  실패한버전 (1번방법)
+	    var bounds = map.getBounds();// 지도 영역정보를 얻어옵니다 
+	    var sw = bounds.getSouthWest();// 영역정보의 남서쪽 정보를 얻어옵니다 
+	    var ne = bounds.getNorthEast();// 영역정보의 북동쪽 정보를 얻어옵니다 
+	    var lb = new kakao.maps.LatLngBounds(sw, ne);//영역저보 저장
+		
+	    var inbound = new Object();
+	    var list1 = new Array();
+	    <c:forEach items="${list}" var="item" varStatus="i">
+ 			list1=[];
+	    	list1.push("${item.store_seq}");
+	    	list1.push("${item.category_code}");
+	    	list1.push("${item.store_address}");
+	    	inbound["num_${i.index}"] = list1;
+	    </c:forEach>
+	    
+		var store_seq;
+		var category_code;
+		var store_address;
+	    for(i in inbound){
+// 	    	console.log(inbound[i][0]);
+// 	    	console.log(store_seq);
+// 	    	console.log(inbound[i][1]);
+// 	    	console.log(inbound[i][2]);
+			var store_seq=inbound[i][0];
+			var category_code=inbound[i][1];
+			var store_address=inbound[i][2];
+			// 주소-좌표 변환 객체를 생성합니다
+			var geocoder = new kakao.maps.services.Geocoder();
+			var bool=false;
+//         	console.log(inbound[i][0]+inbound[i][2]);
+
+			// 주소로 좌표를 검색합니다
+	// 		geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
+			geocoder.addressSearch(inbound[i][2], function(result, status) {
+				
+        	console.log(inbound[i][0]+inbound[i][2]);
+			    // 정상적으로 검색이 완료됐으면 
+			     if (status === kakao.maps.services.Status.OK) {
+			
+			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+			        //한번씩 돌면서 contain을 실행해서 true인 것만 반환해서 배열에 저장
+			        if(lb.contain(coords)==true){//지역에대한 좌표를 뽑아오는건 된다.
+// 						console.log(coords);	//하지만 geocoder밖에서의 정보들은 날아가있다. 
+												//geocoder실행 안과 밖이 이어지질 않는다.
+			        }
+			    } 
+			});
+	    }
+		 */
+
 		divToFit();
 		$(window).resize(function() {
 			divToFit();
@@ -117,7 +192,6 @@
 <!-- 	지도용 스크립트 -->
 <!-- 	<div id="map" style="width:2000px;height:800px;"></div> -->
 	<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bc283bd41dff040b5403d29f3172b43a&libraries=services,clusterer,drawing"></script>
 	<script>
 		var container = document.getElementById('mapbox'); //지도를 담을 영역의 DOM 레퍼런스
 		var options = { //지도를 생성할 때 필요한 기본 옵션

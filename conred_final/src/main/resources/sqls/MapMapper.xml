@@ -5,13 +5,21 @@
    
 <mapper namespace="con.hk.conred.Map">
 	
-	<select id="searchCate">
-		<![CDATA[
-			SELECT *
-			FROM CON_STORE cs, CON_CATEGORY_MAIN ccm 
-			WHERE cs.STORE_SEQ = ccm.STORE_SEQ
-			AND ccm.CATEGORY_CODE ='A'
-		]]>
+<!-- 	맵으로 이동할때 가져가는 전체 매장의 category_code -->
+	<select id="searchCateAll" parameterType="String" resultType="SDto">
+		SELECT cs.store_seq, cs.store_address, ccm.CATEGORY_CODE 
+		FROM CON_STORE cs, CON_CATEGORY_MAIN ccm
+		WHERE cs.STORE_SEQ = ccm.STORE_SEQ
+		AND STORE_ADMIN_STATE ='Y'
 	</select>
-
+	
+<!-- 	맵으로 이동할때 가져가는 카테고리별 store_seq들 -->
+	<select id="searchCate" parameterType="String" resultType="SDto">
+		SELECT cs.store_seq, ccm.CATEGORY_CODE 
+		FROM CON_STORE cs, CON_CATEGORY_MAIN ccm
+		WHERE cs.STORE_SEQ = ccm.STORE_SEQ
+		AND ccm.CATEGORY_CODE =#{category_code}
+		AND STORE_ADMIN_STATE ='Y'
+	</select>
+	
 </mapper>

@@ -1,6 +1,7 @@
 package com.hk.conred;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -12,8 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hk.conred.dtos.SDto;
+import com.hk.conred.service.IMapService;
 import com.hk.conred.service.ISService;
 import com.hk.conred.service.SServiceImp;
 
@@ -25,6 +28,8 @@ public class MapController {
 	
 	@Autowired
 	private ISService sService; 
+	@Autowired 
+	private IMapService mapService;
 	
 	//얘는 임시 테스트용 - 다른거 하나 만들면 바로 폐기각
 	@RequestMapping(value = "map.do", method = RequestMethod.GET)
@@ -58,16 +63,47 @@ public class MapController {
 	
 	
 	@RequestMapping(value = "map_category.do", method = RequestMethod.GET)
-	public String map_category(Locale locale, Model model,String category) {
+	public String map_category(Locale locale, Model model,String category_code) {
 		logger.info("맵으로 이동 : 카테고리검색 {}.", locale);
 		//2.카테고리검색(대분류 카테고리)(+all,내주변=select*(만약 내 위치 허용이 안되어있다면 내 주변 말고 기본지정위치에서 all))
 		//파라미터:category=카테고리&mylocation=내현재위치(없으면 지정위치)
 		//기본적으로 내 위치권한이 허용되어있다면 위치대로 / 아니라면 지정위치 
 		
+		List<SDto> list =new ArrayList<SDto>();
+		if(category_code.equals("all")) {
+			list=mapService.searchCateAll();
+		}else {
+			list=mapService.searchCate(category_code);
+		}
+		System.out.println(list);
 		
+		model.addAttribute("list",list);
 		
 		return "all/map"; 
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "map_test.do", method = RequestMethod.GET)
+	public String map_test(Locale locale, Model model,String category_code) {
+		logger.info("맵으로 이동 : 카테고리검색 {}.", locale);
+		//2.카테고리검색(대분류 카테고리)(+all,내주변=select*(만약 내 위치 허용이 안되어있다면 내 주변 말고 기본지정위치에서 all))
+		//파라미터:category=카테고리&mylocation=내현재위치(없으면 지정위치)
+		//기본적으로 내 위치권한이 허용되어있다면 위치대로 / 아니라면 지정위치 
+		
+		List<SDto> list =new ArrayList<SDto>();
+		if(category_code.equals("all")) {
+			list=mapService.searchCateAll();
+		}else {
+			list=mapService.searchCate(category_code);
+		}
+		System.out.println(list);
+		
+		model.addAttribute("list",list);
+		
+		return "all/map"; 
+	}
+	
+	
 	
 	@RequestMapping(value = "map_keyword_store.do", method = RequestMethod.GET)
 	public String map_keyword_store(Locale locale, Model model/*,String store_seq*/) {

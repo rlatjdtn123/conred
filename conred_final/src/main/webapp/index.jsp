@@ -92,18 +92,18 @@
 	
 	<div id="category">
 		<div class="categorybox">
-			<div class="categories allbtn" onclick="location.href='map_category.do?category=all'"><div class="alltext">all</div><span class="catetext_first">&emsp;전체</span></div>
-			<div class="categories" id="category_icon_a"><span class="catetext">동물병원</span></div>
-			<div class="categories" id="category_icon_b"><span class="catetext">카페/식당</span></div>
-			<div class="categories" id="category_icon_c"><span class="catetext">식품/용품</span></div>
-			<div class="categories" id="category_icon_d"><span class="catetext">동반숙박</span></div>
+			<div class="categories allbtn" onclick="location.href='map_category.do?category_code=all'"><div class="alltext">all</div><span class="catetext_first">&emsp;전체</span></div>
+			<div class="categories" id="category_icon_a" onclick="location.href='map_category.do?category_code=A'"><span class="catetext">동물병원</span></div>
+			<div class="categories" id="category_icon_b" onclick="location.href='map_category.do?category_code=B'"><span class="catetext">카페/식당</span></div>
+			<div class="categories" id="category_icon_c" onclick="location.href='map_category.do?category_code=C'"><span class="catetext">식품/용품</span></div>
+			<div class="categories" id="category_icon_d" onclick="location.href='map_category.do?category_code=D'"><span class="catetext">동반숙박</span></div>
 		</div>
 		<div class="categorybox">
-			<div class="categories" id="category_icon_e"><span class="catetext" style="font-size: 10.5px;padding-left:2px">돌봄서비스</span></div>
-			<div class="categories" id="category_icon_f"><span class="catetext">미용/목욕</span></div>
-			<div class="categories" id="category_icon_g"><span class="catetext">체험/활동</span></div>
-			<div class="categories" id="category_icon_h"><span class="catetext">교배/분양</span></div>
-			<div class="categories" id="category_icon_i"><span class="catetext">&emsp;장례</span></div>
+			<div class="categories" id="category_icon_e" onclick="location.href='map_category.do?category_code=E'"><span class="catetext" style="font-size: 10.5px;padding-left:2px">돌봄서비스</span></div>
+			<div class="categories" id="category_icon_f" onclick="location.href='map_category.do?category_code=F'"><span class="catetext">미용/목욕</span></div>
+			<div class="categories" id="category_icon_g" onclick="location.href='map_category.do?category_code=G'"><span class="catetext">체험/활동</span></div>
+			<div class="categories" id="category_icon_h" onclick="location.href='map_category.do?category_code=H'"><span class="catetext">분양/교배</span></div>
+			<div class="categories" id="category_icon_i" onclick="location.href='map_category.do?category_code=I'"><span class="catetext">&emsp;장례</span></div>
 		</div>
 		<div class="categorybox">
 			<div class="categories_invisible"></div>
