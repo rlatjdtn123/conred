@@ -58,7 +58,7 @@
 // 		$('#container').css("width",$bodyW);
 		$('#mapbox').css("width",$bodyW);
 // 		$(".righthider").css("top",$bodyH/2+45);
-	}
+	} 
 	$(document).ready(function(){
 // 		(2번방법)	영역정보를 ajax로 전달해서 모든세부값 가져오기	
 	    var bounds = map.getBounds();// 지도 영역정보를 얻어옵니다 
