@@ -33,6 +33,7 @@ import com.hk.conred.dtos.ODto;
 import com.hk.conred.dtos.QnaDto;
 import com.hk.conred.dtos.ReplyDto;
 import com.hk.conred.dtos.SDto;
+import com.hk.conred.dtos.SLocaDto;
 import com.hk.conred.dtos.SPhotoDto;
 import com.hk.conred.dtos.STimeDto;
 import com.hk.conred.dtos.UDto;
@@ -288,7 +289,7 @@ public class Yoonho {
 	}
 	
 	@RequestMapping(value = "owner_regist_menu.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String owner_regist_menu(Locale locale, Model model,SDto sdto, STimeDto stimedto,String [] store_photo_title , HttpServletRequest request/*, MultipartHttpServletRequest mprequest*/) {
+	public String owner_regist_menu(Locale locale, Model model,SDto sdto, STimeDto stimedto,String [] store_photo_title, SLocaDto slocadto, HttpServletRequest request) {
 		logger.info("점주: 매장등록 (메뉴정보 입력)으로 이동  {}.", locale);
 		
 		//세션에서 id정보 가져오기(store_seq구하기용)
@@ -333,8 +334,10 @@ public class Yoonho {
 			System.out.println(time_day[i]+" : "+time_open[i]+"~"+time_close[i]+"/폐점여부:"+time_break[i]); 
 		}
 		
+		System.out.println("위도 lat:"+slocadto.getStore_latitude());
+		System.out.println("경도 lng:"+slocadto.getStore_longitude());
 //		return ""; 
-		boolean isS=sService.updateStoreInfo(sdto,time_day,time_open,time_close,time_break,store_photo_title,request);
+		boolean isS=sService.updateStoreInfo(sdto,time_day,time_open,time_close,time_break,store_photo_title,slocadto,request);
 		if(isS) {
 			System.out.println("매장정보 업데이트성공~");
 			return "owner/owner_regist_menu";

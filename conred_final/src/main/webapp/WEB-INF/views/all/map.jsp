@@ -64,19 +64,30 @@
 	    var bounds = map.getBounds();// 지도 영역정보를 얻어옵니다 
 	    var sw = bounds.getSouthWest();// 영역정보의 남서쪽 정보를 얻어옵니다 
 	    var ne = bounds.getNorthEast();// 영역정보의 북동쪽 정보를 얻어옵니다 
+	    var nelat=ne.getLat();
+	    var nelng=ne.getLng();
+	    var swlat=sw.getLat();
+	    var swlng=sw.getLng();
+// 	    alert(nelat);
+// 	    alert(nelng);
+// 	    alert(swlat);
+// 	    alert(swlng);
+	    var category_code = '<c:out value="${category_code}"/>';
+	    alert("카테고리 : "+category_code);
 		$.ajax({
 			url:"map_test.do",
 			method:"post",
 			dataType: "json",
 			async: false,
-			data:{},
+			data:{"category_code":category_code,"nelat":nelat,"nelng":nelng,"swlat":swlat,"swlng":swlng},
 			success:function(obj) {
-				
+				console.log(obj);
+				alert("성공쓰");
 			},
 			error: function(request,error) {
 				alert("서버통신실패!!"+request.status+","+error);
 			}
-		})
+		});
 		
 
 
@@ -292,19 +303,19 @@
 // 		kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 // 		});
 		
-// 		kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
+		kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
 		    
-// 		    // 클릭한 위도, 경도 정보를 가져옵니다 
-// 		    var latlng = mouseEvent.latLng;
+		    // 클릭한 위도, 경도 정보를 가져옵니다 
+		    var latlng = mouseEvent.latLng;
 		    
-// 		    var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-// 		    message += '경도는 ' + latlng.getLng() + ' 입니다';
+		    var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+		    message += '경도는 ' + latlng.getLng() + ' 입니다';
 		    
-// 		    var resultDiv = document.getElementById('result'); 
-// 	// 	    resultDiv.innerHTML = message;
-// 		    alert(message);
-// 	// 	    37.525140657539495 이고, 경도는 126.89099029962803 
-// 		});
+		    var resultDiv = document.getElementById('result'); 
+	// 	    resultDiv.innerHTML = message;
+		    alert(message);
+	// 	    37.525140657539495 이고, 경도는 126.89099029962803 
+		});
 		
 		// 타일 로드가 완료되면 지도 중심에 마커를 표시합니다
 // 		kakao.maps.event.addListener(map, 'tilesloaded', displayMarker);

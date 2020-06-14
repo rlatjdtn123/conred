@@ -19,11 +19,13 @@ import com.hk.conred.daos.ICListDao;
 import com.hk.conred.daos.ICMainDao;
 import com.hk.conred.daos.IMenuDao;
 import com.hk.conred.daos.ISDao;
+import com.hk.conred.daos.ISLocaDao;
 import com.hk.conred.daos.ISPhotoDao;
 import com.hk.conred.daos.ISTimeDao;
 import com.hk.conred.dtos.CMainDto;
 import com.hk.conred.dtos.ODto;
 import com.hk.conred.dtos.SDto;
+import com.hk.conred.dtos.SLocaDto;
 import com.hk.conred.dtos.SPhotoDto;
 
 @Service
@@ -41,6 +43,8 @@ public class SServiceImp implements ISService {
 	private IMenuDao MenuDaoImp;
 	@Autowired
 	private ISPhotoDao SPhotoDaoImp;
+	@Autowired
+	private ISLocaDao SLocaDaoImp;
 	
 	//매장등록(사업자등록정보)
 	@Override
@@ -115,7 +119,7 @@ public class SServiceImp implements ISService {
 	//매장등록2(매장정보)
 	@Transactional
 	@Override
-	public boolean updateStoreInfo(SDto sdto,String[] time_day,String[] time_open,String[] time_close,String[] time_break, String[] store_photo_title, HttpServletRequest request) {
+	public boolean updateStoreInfo(SDto sdto,String[] time_day,String[] time_open,String[] time_close,String[] time_break, String[] store_photo_title, SLocaDto slocadto, HttpServletRequest request) {
 		
 		MultipartHttpServletRequest multi = (MultipartHttpServletRequest)request;
 		List<MultipartFile> fileList = multi.getFiles("photos");
@@ -157,7 +161,7 @@ public class SServiceImp implements ISService {
 			System.out.println("sdto에 넣는거 완료");
 			list.add(sphotodto);
 			try {
-				System.out.println("파일업로두시도");
+				System.out.println("파일업로드시도");
 				fileList.get(i).transferTo(file);
 				System.out.println("파일업로드완료");
 			} catch (IllegalStateException e) {
@@ -169,7 +173,8 @@ public class SServiceImp implements ISService {
 		
 		//매장사진 값넣기
 		SPhotoDaoImp.insertSPhoto(list);
-		
+		//매장좌표 값넣기
+		SLocaDaoImp.insertSLoca(sdto, slocadto);
 		//매장정보 값넣기
 		SDaoImp.updateStoreInfo(sdto);
 		//위의 updateStoreInfo을 true false 리턴 안해주는 이유

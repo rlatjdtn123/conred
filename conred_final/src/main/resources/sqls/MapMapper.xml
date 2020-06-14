@@ -5,21 +5,58 @@
    
 <mapper namespace="con.hk.conred.Map">
 	
-<!-- 	맵으로 이동할때 가져가는 전체 매장의 category_code -->
+<!-- 	맵으로 이동할때 -->
 	<select id="searchCateAll" parameterType="String" resultType="SDto">
+<!-- 		SELECT cs.STORE_SEQ ,cs.STORE_NAME ,cs.STORE_INTRO_SIMPLE,cs.STORE_STATE,cs.STORE_PHONE, cs.STORE_ADDRESS ,cs.STORE_ADDRESS_DETAIL ,ccm.CATEGORY_CODE -->
+<!-- 		FROM CON_STORE_LOCATION csl ,CON_STORE cs, CON_CATEGORY_MAIN ccm  -->
+<!-- 		WHERE cs.STORE_SEQ =csl.STORE_SEQ -->
+<!-- 		AND cs.STORE_SEQ =ccm.STORE_SEQ -->
+<!-- 		AND STORE_LATITUDE BETWEEN #{swlat} AND #{nelat} -->
+<!-- 		AND STORE_LONGITUDE BETWEEN #{swlng} AND #{nelng} -->
+<!-- 		AND STORE_ADMIN_STATE ='Y' -->
+
 		SELECT cs.store_seq, cs.store_address, ccm.CATEGORY_CODE 
 		FROM CON_STORE cs, CON_CATEGORY_MAIN ccm
 		WHERE cs.STORE_SEQ = ccm.STORE_SEQ
 		AND STORE_ADMIN_STATE ='Y'
 	</select>
 	
-<!-- 	맵으로 이동할때 가져가는 카테고리별 store_seq들 -->
+<!-- 	맵으로 이동할때-->
 	<select id="searchCate" parameterType="String" resultType="SDto">
 		SELECT cs.store_seq, ccm.CATEGORY_CODE 
 		FROM CON_STORE cs, CON_CATEGORY_MAIN ccm
 		WHERE cs.STORE_SEQ = ccm.STORE_SEQ
 		AND ccm.CATEGORY_CODE =#{category_code}
 		AND STORE_ADMIN_STATE ='Y'
+	</select>
+	
+	
+<!-- 	맵으로 이동할때 -->
+	<select id="searchCateAll_ajax" parameterType="String" resultType="SDto">
+		SELECT cs.STORE_SEQ ,cs.STORE_NAME ,cs.STORE_INTRO_SIMPLE,cs.STORE_STATE,cs.STORE_PHONE, cs.STORE_ADDRESS ,cs.STORE_ADDRESS_DETAIL ,ccm.CATEGORY_CODE
+		FROM CON_STORE_LOCATION csl ,CON_STORE cs, CON_CATEGORY_MAIN ccm 
+		WHERE cs.STORE_SEQ =csl.STORE_SEQ
+		AND cs.STORE_SEQ =ccm.STORE_SEQ
+		AND STORE_LATITUDE BETWEEN #{swlat} AND #{nelat}
+		AND STORE_LONGITUDE BETWEEN #{swlng} AND #{nelng}
+		AND STORE_ADMIN_STATE ='Y'
+
+<!-- 		SELECT cs.store_seq, cs.store_address, ccm.CATEGORY_CODE  -->
+<!-- 		FROM CON_STORE cs, CON_CATEGORY_MAIN ccm -->
+<!-- 		WHERE cs.STORE_SEQ = ccm.STORE_SEQ -->
+<!-- 		AND STORE_ADMIN_STATE ='Y' -->
+	</select>
+	
+<!-- 	맵으로 이동할때-->
+	<select id="searchCate_ajax" parameterType="String" resultType="SDto">
+		SELECT cs.STORE_SEQ ,cs.STORE_NAME ,cs.STORE_INTRO_SIMPLE,cs.STORE_STATE,cs.STORE_PHONE, cs.STORE_ADDRESS ,cs.STORE_ADDRESS_DETAIL ,ccm.CATEGORY_CODE
+		FROM CON_STORE_LOCATION csl ,CON_STORE cs, CON_CATEGORY_MAIN ccm 
+		WHERE cs.STORE_SEQ =csl.STORE_SEQ
+		AND cs.STORE_SEQ =ccm.STORE_SEQ
+		AND STORE_LATITUDE BETWEEN #{swlat} AND #{nelat}
+		AND STORE_LONGITUDE BETWEEN #{swlng} AND #{nelng}
+		AND STORE_ADMIN_STATE ='Y'
+		AND ccm.CATEGORY_CODE =#{category_code}
 	</select>
 	
 </mapper>

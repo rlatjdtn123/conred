@@ -18,9 +18,9 @@
 		<typeAlias type="com.hk.conred.dtos.LikeDto" alias="LikeDto"/>
 <!-- 		점주관련 -->
 		<typeAlias type="com.hk.conred.dtos.SDto" alias="SDto"/>
+		
 		<typeAlias type="com.hk.conred.dtos.SPhotoDto" alias="SPhotoDto"/>
 		<typeAlias type="com.hk.conred.dtos.SLocaDto" alias="SLocaDto"/>
-		
 		<typeAlias type="com.hk.conred.dtos.STimeDto" alias="STimeDto"/>
 		
 		<typeAlias type="com.hk.conred.dtos.CMainDto" alias="CMainDto"/>
@@ -45,9 +45,9 @@
     	<mapper resource="./sqls/LikeMapper.xml"/>
 <!-- 		점주관련 -->
     	<mapper resource="./sqls/SMapper.xml"/>
+    	
     	<mapper resource="./sqls/SPhotoMapper.xml"/>
     	<mapper resource="./sqls/SLocaMapper.xml"/>
-    	
     	<mapper resource="./sqls/STimeMapper.xml"/>
     	
     	<mapper resource="./sqls/CMainMapper.xml"/>

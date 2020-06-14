@@ -114,6 +114,7 @@
 	#magnifyglass{width:20px;}
 	#mapbox{border:1px solid grey; width:500px;height:500px;}
 	.pickedaddr{float:left;text-align: left;}
+	.picklat,.picklng{display: none;}
 /* 	.modal-content{min-width:530.5px} */
 	.modal-content{width:531px}
 
@@ -376,6 +377,8 @@
 // 					alert($("textarea[name=store_address]").val());
 // 					alert($(".realaddr").text());
 			    	$("textarea[name=store_address]").val($(".realaddr").text());
+			    	$("input[name=store_latitude]").val($(".picklat").text());
+			    	$("input[name=store_longitude]").val($(".picklng").text());
 				});
 				
 				$("#searchbtn").click(function() {
@@ -435,16 +438,22 @@
 		            if (status === kakao.maps.services.Status.OK) {
 		                var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
 		                detailAddr += '<div>지번 주소 : <span class="realaddr">' + result[0].address.address_name + '</span></div>';
+		                var latlng = mouseEvent.latLng;
 		                
 		                var content = '<div class="bAddr">' + 
 		                                detailAddr + 
 		                            '</div>';
+		                var lat = latlng.getLat();
+		                var lng = latlng.getLng();
+		                	
 		                // 마커를 클릭한 위치에 표시합니다 
 		                marker1.setPosition(mouseEvent.latLng);
 		                marker1.setMap(map);	
-	
+		
 		                // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
 		                $(".pickedaddr").html(content);
+		                $(".picklat").html(lat);
+		                $(".picklng").html(lng);
 // 		                document.getElementsByClassName("modal-footer")[0].value=content;
 // 		                infowindow.setContent(content);
 // 		                infowindow.open(map, marker);
@@ -460,6 +469,8 @@
 <!--       Footer -->
       <div class="modal-footer">
       	<div class="pickedaddr"></div>
+      	<div class="picklat" title="위도"></div>
+      	<div class="picklng" title="경도"></div>
         <button type="button" class="btn setaddr" data-dismiss="modal">등록</button>
         <button type="button" class="btn" data-dismiss="modal">닫기</button>
       </div>
@@ -575,6 +586,8 @@
 						<textarea name="store_address" class="flleft form-control" rows="1" placeholder="주소" readonly></textarea>
 						<div class="inputs">
 							<input class="form-control" name="store_address_detail" placeholder="상세주소"/>
+							<input type="hidden" name="store_latitude" title="위도"/>
+							<input type="hidden" name="store_longitude" title="경도"/>
 							<button type="button" class="btn flleft addrsearch">주소찾기</button>
 						</div>
 					</div>

@@ -8,13 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import com.hk.conred.dtos.CMainDto;
 import com.hk.conred.dtos.ODto;
 import com.hk.conred.dtos.SDto;
+import com.hk.conred.dtos.SLocaDto;
 
 public interface ISService {
 	//매장등록(사업자등록정보)
 	public boolean insertStoreCertify(SDto sdto,HttpServletRequest request);
 	//매장등록2(매장정보)
 	public boolean updateStoreInfo(SDto sdto,String[] time_day,	String[] time_open,
-			String[] time_close,String[] time_break, String[] store_photo_title, HttpServletRequest request);
+			String[] time_close,String[] time_break, String[] store_photo_title,
+			SLocaDto slocadto,HttpServletRequest request);
 	//매장등록3(메뉴/서비스정보)
 	public boolean updateStoreMenu(SDto sdto,CMainDto cmaindto,
 			String[] clist,String[] category_code_2,String[] name,

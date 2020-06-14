@@ -3,8 +3,10 @@ package com.hk.conred;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hk.conred.dtos.ReplyDto;
 import com.hk.conred.dtos.SDto;
 import com.hk.conred.service.IMapService;
 import com.hk.conred.service.ISService;
@@ -78,29 +81,36 @@ public class MapController {
 		System.out.println(list);
 		
 		model.addAttribute("list",list);
+		model.addAttribute("category_code",category_code);
 		
 		return "all/map"; 
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "map_test.do", method = RequestMethod.GET)
-	public String map_test(Locale locale, Model model,String category_code) {
-		logger.info("맵으로 이동 : 카테고리검색 {}.", locale);
+	@RequestMapping(value = "map_test.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public Map<String, Object> map_test(Locale locale, Model model,String category_code, String nelat, String nelng, String swlat, String swlng) {
+		logger.info("맵으로 이동 : 아작스로 카테고리검색 {}.", locale);
 		//2.카테고리검색(대분류 카테고리)(+all,내주변=select*(만약 내 위치 허용이 안되어있다면 내 주변 말고 기본지정위치에서 all))
 		//파라미터:category=카테고리&mylocation=내현재위치(없으면 지정위치)
 		//기본적으로 내 위치권한이 허용되어있다면 위치대로 / 아니라면 지정위치 
+		System.out.println(nelat);
+		System.out.println(nelng);
+		System.out.println(swlat);
+		System.out.println(swlng); 
+		System.out.println(category_code); 
 		
 		List<SDto> list =new ArrayList<SDto>();
 		if(category_code.equals("all")) {
-			list=mapService.searchCateAll();
+			list=mapService.searchCateAll_ajax(nelat,nelng,swlat,swlng);
 		}else {
 			list=mapService.searchCate(category_code);
 		}
+		Map<String, Object> map=new HashMap<>();
+		map.put("list", list); 
 		System.out.println(list);
+		System.out.println(map);
 		
-		model.addAttribute("list",list);
-		
-		return "all/map"; 
+		return map; 
 	}
 	
 	

@@ -8,11 +8,12 @@
 
 
 	<insert id="insertSLoca" parameterType="SLocaDto">
-	
+		INSERT INTO CON_STORE_LOCATION 
+		VALUES (CON_USER_LOCATION_SEQ.NEXTVAL,#{store_seq},#{store_latitude},#{store_longitude})
 	</insert>
 	
 	<update id="updateSLoca" parameterType="SLocaDto">
-	
+		
 	</update>
 </mapper>
 	   

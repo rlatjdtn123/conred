@@ -23,6 +23,11 @@ public class MapServiceImp implements IMapService{
 	public List<SDto> searchCate(String category_code) {
 		return mapDao.searchCate(category_code);
 	}
+	
+	@Override
+	public List<SDto> searchCateAll_ajax(String nelat, String nelng, String swlat, String swlng) {
+		return mapDao.searchCateAll_ajax(nelat,nelng,swlat,swlng);
+	}
 
 
 }
