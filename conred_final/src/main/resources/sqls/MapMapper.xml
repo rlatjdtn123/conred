@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="con.hk.conred.Map">
+	
+	<select id="searchCate">
+		<![CDATA[
+			SELECT *
+			FROM CON_STORE cs, CON_CATEGORY_MAIN ccm 
+			WHERE cs.STORE_SEQ = ccm.STORE_SEQ
+			AND ccm.CATEGORY_CODE ='A'
+		]]>
+	</select>
+
+</mapper>

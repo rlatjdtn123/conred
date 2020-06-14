@@ -58,11 +58,13 @@ public class MapController {
 	
 	
 	@RequestMapping(value = "map_category.do", method = RequestMethod.GET)
-	public String map_category(Locale locale, Model model/*,String store_seq*/) {
+	public String map_category(Locale locale, Model model,String category) {
 		logger.info("맵으로 이동 : 카테고리검색 {}.", locale);
 		//2.카테고리검색(대분류 카테고리)(+all,내주변=select*(만약 내 위치 허용이 안되어있다면 내 주변 말고 기본지정위치에서 all))
 		//파라미터:category=카테고리&mylocation=내현재위치(없으면 지정위치)
 		//기본적으로 내 위치권한이 허용되어있다면 위치대로 / 아니라면 지정위치 
+		
+		
 		
 		return "all/map"; 
 	}

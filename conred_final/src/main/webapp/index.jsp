@@ -92,7 +92,7 @@
 	
 	<div id="category">
 		<div class="categorybox">
-			<div class="categories allbtn" onclick="location.href='map.do'"><div class="alltext">all</div><span class="catetext_first">&emsp;전체</span></div>
+			<div class="categories allbtn" onclick="location.href='map_category.do?category=all'"><div class="alltext">all</div><span class="catetext_first">&emsp;전체</span></div>
 			<div class="categories" id="category_icon_a"><span class="catetext">동물병원</span></div>
 			<div class="categories" id="category_icon_b"><span class="catetext">카페/식당</span></div>
 			<div class="categories" id="category_icon_c"><span class="catetext">식품/용품</span></div>

@@ -26,6 +26,7 @@
 		<typeAlias type="com.hk.conred.dtos.CMainDto" alias="CMainDto"/>
 		<typeAlias type="com.hk.conred.dtos.CListDto" alias="CListDto"/>
 		<typeAlias type="com.hk.conred.dtos.MenuDto" alias="MenuDto"/>
+
 	</typeAliases>
  
 
@@ -52,6 +53,8 @@
     	<mapper resource="./sqls/CMainMapper.xml"/>
     	<mapper resource="./sqls/CListMapper.xml"/>
     	<mapper resource="./sqls/MenuMapper.xml"/>
+
+    	<mapper resource="./sqls/MapMapper.xml"/>
   	</mappers>
 </configuration>
 
