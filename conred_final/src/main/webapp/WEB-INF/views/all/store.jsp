@@ -210,7 +210,7 @@
 					<div class="navis2" onclick="location.href='owner_mystore_reservation.do'">
 						예약관리
 					</div>
-					<div class="navis2" onclick="location.href='owner_mystore_review.do'">
+					<div class="navis2" onclick="location.href='owner_mystore_review.do?store_seq=${store_detail.store_seq}'">
 						리뷰관리
 					</div>
 					<div class="navis2" onclick="location.href='owner_mystore_qna.do'">
@@ -362,7 +362,7 @@
 					</c:forEach>
 					<span class="allstartext">${all_s}/5</span>
 				</div>
-				<div class="s_btn" onclick="location.href='review.do'">리뷰 | 999+</div>
+				<div class="s_btn" onclick="location.href='review.do?store_seq=${store_detail.store_seq}'">리뷰 | 999+</div>
 			</div>
 		</div>
 		<div class="info2 width2" >
