@@ -25,4 +25,9 @@ public interface ISService {
 	public SDto selectStoreDetail(int store_seq);
 	//매장 리스트+각 리스트의 상세정보 가져오기
 	public List<SDto> StoreSeqList(String[] store_seq_list);
+	
+	
+	//평점 총점들
+	public List<SDto> listAvg(int store_seq);
 }
+

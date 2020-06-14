@@ -30,6 +30,10 @@ public class SDto {
 	private int store_maxman;
 	private CDto cDto;
 	private InterestsDto iDto;
+	private double clean_avg;
+	private double service_avg;
+	private double price_avg;
+	private double all_avg;
 	
 	public SDto() {
 		super();
@@ -37,6 +41,66 @@ public class SDto {
 	}
 	
 	
+	
+	public double getClean_avg() {
+		return clean_avg;
+	}
+
+
+
+	public void setClean_avg(double clean_avg) {
+		this.clean_avg = clean_avg;
+	}
+
+
+
+	public double getService_avg() {
+		return service_avg;
+	}
+
+
+
+	public void setService_avg(double service_avg) {
+		this.service_avg = service_avg;
+	}
+
+
+
+	public double getPrice_avg() {
+		return price_avg;
+	}
+
+
+
+	public void setPrice_avg(double price_avg) {
+		this.price_avg = price_avg;
+	}
+
+
+
+	public double getAll_avg() {
+		return all_avg;
+	}
+
+
+
+	public void setAll_avg(double all_avg) {
+		this.all_avg = all_avg;
+	}
+
+
+
+	public SDto(int store_seq, double clean_avg, double service_avg, double price_avg, double all_avg) {
+		super();
+		this.store_seq = store_seq;
+		this.clean_avg = clean_avg;
+		this.service_avg = service_avg;
+		this.price_avg = price_avg;
+		this.all_avg = all_avg;
+	}
+
+
+
 	public SDto(int store_seq, String owner_id, String store_name, String store_owner_name, String store_path,
 			String store_intro_simple, String store_intro, String store_state, String store_phone,
 			String store_phone_manager, String store_address, String store_address_detail, String store_time_other,
@@ -272,7 +336,9 @@ public class SDto {
 	public void setiDto(InterestsDto iDto) {
 		this.iDto = iDto;
 	}
-	
+
+
+
 	@Override
 	public String toString() {
 		return "SDto [store_seq=" + store_seq + ", owner_id=" + owner_id + ", store_name=" + store_name
@@ -287,8 +353,27 @@ public class SDto {
 				+ store_license_sales_origin + ", store_license_sales_stored=" + store_license_sales_stored
 				+ ", store_license_sales_size=" + store_license_sales_size + ", store_owner_phone=" + store_owner_phone
 				+ ", store_agreement=" + store_agreement + ", store_admin_state=" + store_admin_state
-				+ ", store_maxdate=" + store_maxdate + ", store_maxman=" + store_maxman + "]";
+				+ ", store_maxdate=" + store_maxdate + ", store_maxman=" + store_maxman + ", cDto=" + cDto + ", iDto="
+				+ iDto + ", clean_avg=" + clean_avg + ", service_avg=" + service_avg + ", price_avg=" + price_avg
+				+ ", all_avg=" + all_avg + "]";
 	}
+	
+//	@Override
+//	public String toString() {
+//		return "SDto [store_seq=" + store_seq + ", owner_id=" + owner_id + ", store_name=" + store_name
+//				+ ", store_owner_name=" + store_owner_name + ", store_path=" + store_path + ", store_intro_simple="
+//				+ store_intro_simple + ", store_intro=" + store_intro + ", store_state=" + store_state
+//				+ ", store_phone=" + store_phone + ", store_phone_manager=" + store_phone_manager + ", store_address="
+//				+ store_address + ", store_address_detail=" + store_address_detail + ", store_time_other="
+//				+ store_time_other + ", store_bank=" + store_bank + ", store_account=" + store_account
+//				+ ", store_license_number=" + store_license_number + ", store_license_biz_origin="
+//				+ store_license_biz_origin + ", store_license_biz_stored=" + store_license_biz_stored
+//				+ ", store_license_biz_size=" + store_license_biz_size + ", store_license_sales_origin="
+//				+ store_license_sales_origin + ", store_license_sales_stored=" + store_license_sales_stored
+//				+ ", store_license_sales_size=" + store_license_sales_size + ", store_owner_phone=" + store_owner_phone
+//				+ ", store_agreement=" + store_agreement + ", store_admin_state=" + store_admin_state
+//				+ ", store_maxdate=" + store_maxdate + ", store_maxman=" + store_maxman + "]";
+//	}
 	
 	
 }

@@ -72,4 +72,12 @@ public class SDaoImp implements ISDao {
 	}
 	
 	
+	//매장 총점들
+	@Override
+	public List<SDto> listAvg(int store_seq) {
+		List<SDto> listAvg=sqlSession.selectList(namespace+"listAvg", store_seq);
+		return listAvg;
+	}
+	
+	
 }

@@ -132,10 +132,10 @@
 	.info2{background-color: #fafafa;  height: 80px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 682px; min-height: 80px;margin-left: 220px;border-radius:5px;word-break:keep-all;}
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
 	.myboxmargin{margin-top:30px;}      
-	.store_img{width: 200px;height:250px;border: 1px solid black; float: left;margin-right: 20px; background: url("img/user_back_test.png");background-size: 200px 250px;} 
+	.store_img{width: 200px;height:280px; float: left;margin-right: 20px; background: url("img/user_back_test.png");background-size: 200px 250px;} 
 	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:935px;height:370px; font-size: 15px; margin-left: -10px;min-height: 370px;background-color: #f2f2f2;}
 	.bigtle{margin-left: 40px;}          
-	      
+	       
 	      
 	 .modal-title{margin-left: 400px;} 
 	.modal-body span{margin: 85px;}
@@ -192,10 +192,9 @@
 		for(ReplyDto dto : list){ 
  	%> 
 	<div class="bigtle" > 
-		<div class="mybox">     
+		<div class="mybox">      
 		 	<div class="store_img">     
-		 		<p>매장사진들어갈곳</p>
-		 		<p>+매장명</p>    
+		 		<div style="background-color:yellow; width: 200px;height: 30px; margin-top: 250px;"><%=dto.getStore_name()%></div>
 		 	</div>      
 			<img src="./img/profile_default.png" class="pf"/>  
 			<div class="info">        
@@ -212,7 +211,7 @@
 										<img class="starz" src="img/star_fill.png">
 									<%
 									}
-									for(int i=0;i<(Math.ceil(dto.getReply_service())-Math.floor(dto.getReply_service()));i++){
+					 				for(int i=0;i<(Math.ceil(dto.getReply_service())-Math.floor(dto.getReply_service()));i++){
 									%>
 										<img class="starz" src="img/star_half.png">
 									<%

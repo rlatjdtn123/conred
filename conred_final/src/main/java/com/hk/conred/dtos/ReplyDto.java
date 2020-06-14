@@ -23,15 +23,16 @@ public class ReplyDto {
 	private int reply_count;
 	private int answer_count;
 	private int rownum;
+	private String store_name;
 	
 	public ReplyDto() {
 		super();
 	}
-	
+
 	public ReplyDto(int reply_seq, String user_id, int store_seq, String reply_content, double reply_clean,
 			double reply_price, double reply_service, String reply_answer, String reply_read, Date reply_regdate,
 			String reply_delflag, double clean_avg, double service_avg, double price_avg, double all_avg,
-			int reply_count, int answer_count,int rownum) {
+			int reply_count, int answer_count, int rownum, String store_name) {
 		super();
 		this.reply_seq = reply_seq;
 		this.user_id = user_id;
@@ -51,6 +52,7 @@ public class ReplyDto {
 		this.reply_count = reply_count;
 		this.answer_count = answer_count;
 		this.rownum = rownum;
+		this.store_name = store_name;
 	}
 
 	public int getReply_seq() {
@@ -197,6 +199,14 @@ public class ReplyDto {
 		this.rownum = rownum;
 	}
 
+	public String getStore_name() {
+		return store_name;
+	}
+
+	public void setStore_name(String store_name) {
+		this.store_name = store_name;
+	}
+
 	@Override
 	public String toString() {
 		return "ReplyDto [reply_seq=" + reply_seq + ", user_id=" + user_id + ", store_seq=" + store_seq
@@ -204,8 +214,11 @@ public class ReplyDto {
 				+ ", reply_service=" + reply_service + ", reply_answer=" + reply_answer + ", reply_read=" + reply_read
 				+ ", reply_regdate=" + reply_regdate + ", reply_delflag=" + reply_delflag + ", clean_avg=" + clean_avg
 				+ ", service_avg=" + service_avg + ", price_avg=" + price_avg + ", all_avg=" + all_avg
-				+ ", reply_count=" + reply_count + ", answer_count=" + answer_count + ", rownum=" + rownum + "]";
+				+ ", reply_count=" + reply_count + ", answer_count=" + answer_count + ", rownum=" + rownum
+				+ ", store_name=" + store_name + "]";
 	}
+	
+	
 	
 	
 	

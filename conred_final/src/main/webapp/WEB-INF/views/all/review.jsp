@@ -1,3 +1,6 @@
+<%@page import="com.hk.conred.dtos.SDto"%>
+<%@page import="com.hk.conred.dtos.ReplyDto"%>
+<%@page import="java.util.List"%>
 <jsp:include page="../all/header2.jsp" />
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8");%>
@@ -303,6 +306,10 @@
 	
 </script> 
 </head>
+<% 
+	List<ReplyDto> list=(List<ReplyDto>)request.getAttribute("list");
+	List<SDto> listAvg=(List<SDto>)request.getAttribute("listAvg");
+%>
 <body>
 <!-- 모탈창 부분 -->
 <div class="modal fade" id="myModal" role="dialog">
@@ -386,10 +393,10 @@
 
 <div id="container"> 
 	<div id="main">
-		<span id="main2">리뷰 ★★★★★ &nbsp;<b style="font-size: 25px;">4.7</b>/5 &nbsp; &nbsp; &nbsp;후기2343개|답변2033개</span><button class="modal_Btn">리뷰 작성</button><br>
+		<span id="main2">리뷰&nbsp;<b style="font-size: 25px;"><%=listAvg.get(0).getAll_avg()%></b>/5 &nbsp; &nbsp; &nbsp;후기2343개|답변2033개</span><button class="modal_Btn">리뷰 작성</button><br>
 		<span>최근6개월 누적평점</span><br/><br/>
 		<table>
-			<col width="50px;"> 
+			<col width="50px;">  
 			<tr> 
 				<td><span>서비스</span></td>
 				<td>★★★★☆ 4.5<span>/5</span></td>
