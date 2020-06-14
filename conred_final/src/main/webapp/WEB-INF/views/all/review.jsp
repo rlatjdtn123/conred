@@ -26,18 +26,18 @@
 	.home{border-bottom:1px solid white;background-color: white;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
 	
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
-	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:800px;height:300px; margin:0 auto; font-size: 15px;}
+	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:935px;height:370px; font-size: 15px; margin-left: 30px;min-height: 370px;background-color: #f2f2f2;}
 	.myboxmargin{margin-top:30px;}
 	#main{width: 850px;height: 250px;margin: 0 auto; padding-top: 25px;} 
 	#main2{font-size: 20px;}  
 	#main2{} 
 	.pf{float: left; width: 40px;height: 40px;}     
 	.dt{margin-left: 600px;}
-	.info{}   
-	.contents{display:inline-block; width: 750px;height:40px;text-overflow: ellipsis; overflow: hidden;}     
-	.info2{background-color: #F2F2F2; margin-top: 50px; height: 100px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 770px;}
+	.info{}      
+	.contents{border-radius:5px;display:inline-block;padding: 10px; width: 895px;height:80px;text-overflow: ellipsis; overflow: hidden;word-break:keep-all;min-height: 80px; clear: both; background-color: #fafafa;margin-bottom: 15px;}        
+	.info2{background-color: #fafafa;  height: 80px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 895px; min-height: 80px;border-radius:5px;word-break:keep-all;}
 	.bot{margin: 0 auto; text-align: center;}
-	
+	.user_review_img{border: 1px solid red;width: 700px;height: 80px;margin-left: 210px;margin-bottom:22px;}
 	
 	 .modal-title{margin-left: 400px;}
 	.modal-body span{margin: 5px;}
@@ -56,6 +56,12 @@
  	.overfive{float: left;} 
  	.star_bigtle{margin-left: 65px; float: left;}
  	.upload_message{height: 40px; width: 400px;margin-left: 215px; text-align: center; line-height: 37px;}
+  	 .content_detail{background-color: #fafafa;margin-left: 765px;border-width: 0;}
+	 .content_detail:hover {background-color: grey;} 
+     .star_table{width: 200px; height: 80px;background-color: #fafafa;border-radius: 5px; padding: 10px;float: left;}
+      .starz{width:17px;height:auto;display: inline-block;margin:-2px;margin-bottom:4px;}
+      
+      
        
 </style>   
 <script type="text/javascript">
@@ -92,7 +98,24 @@
 			} 
 	    }
 	};
- 
+ 	
+	
+	
+	//////////////////////////자세히보기
+	$(function(){
+		$("body").on("click",".content_detail",function(){
+			if($(this).parent().parent().css("height")=="370px"){  
+				$(this).parent().parent().css("height","auto");  
+				$(this).parent().parent().find(".contents").css({"overflow":"visible","height":"auto","word-break":"break-all"});
+				$(this).parent().parent().find(".info2").css({"overflow":"visible","height":"auto","word-break":"break-all"});
+			}else{
+				$(this).parent().parent().css("height","200px");    
+				$(this).parent().parent().find(".contents").css({"height":"80px","overflow":"hidden","word-break":"keep-all"});
+				$(this).parent().parent().find(".info2").css({"height":"80px","overflow":"hidden","word-break":"keep-all"});
+			}   
+		});      
+   
+	});  
 	
 	
 	//////////////모달창
@@ -104,7 +127,6 @@
 	        var $star01 = $(".star-input01")
 		    var $result01;
 	        var $star_chacked=$star01.find(":checked"); 
-	       	alert($star_chacked);
 		  $(document)
 		    .on("focusin", ".star-input01>.input", function(){
 		    $(this).addClass("focus");
@@ -127,10 +149,10 @@
 		    var $checked = $star01.find(":checked");
 		    if($checked.length === 0){
 		    	$(this).parents(".star-input01").find("b").text("0");
-		    	alert($(this).parents(".star-input01").find("b").text("0")+"!!!");
+		    	$(this).parents(".star-input01").find("b").text("0");
 		    } else {
 		    	$(this).parents(".star-input01").find("b").text($checked.next().text());
-		    	alert($(this).parents(".star-input01").find("b").text($checked.next().text())+"@@@");
+		    	$(this).parents(".star-input01").find("b").text($checked.next().text());
 		    }
 		  }); 
 		
@@ -197,7 +219,6 @@
 	        
 	      ////완료버튼  
 		  $(".close").click(function(){
-	    	  alert($star_chacked.val()); 
 	      });  
 		   
 		  
@@ -383,32 +404,51 @@
 			</tr>
 		</table>  
 	</div>  
-    <div class="mybox">         
-		<img src="./img/profile_default.png" class="pf"/>
-		<div class="info">
-			<span>★★★★★</span><a style="margin-left: 560px;" id="md" onclick="mdTest()">자세히 보기</a> 
-			<span>닉네임:?? &nbsp;| 미용 / 컷트 </span><br><br><br>   
-			<span class="contents">asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjdddddddddddddddddddd
-			ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</span>   
-		</div>
-		<div class="info2">    
-			<span style="font-weight: bold;">가게답변</span><br>
-			<span>dddddddddddddddddddddddddddddddddd</span> 
-		</div>
-	</div>      
-	<br><br>
-	<div class="mybox">         
-		<img src="./img/profile_default.png" class="pf"/>
-		<div class="info">
-			<span>★★★★★</span><a style="margin-left: 560px;" id="md" onclick="mdTest()">자세히 보기</a> 
-			<span>닉네임:?? &nbsp;| 미용 / 컷트 </span><br><br><br>   
-			<span class="contents">asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjdddddddddddddddddddd
-			ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</span>   
-		</div> 
-		<div class="info2">    
-			<span style="font-weight: bold;">가게답변</span><br>
-			<span>dddddddddddddddddddddddddddddddddd</span>
-		</div>
+   <div class="bigtle" > 
+		<div class="mybox">          
+			<img src="./img/profile_default.png" class="pf"/>  
+			<div class="info">        
+				<button class="content_detail">자세히 보기</button><br> 
+				<span>닉네임:ㄴㅌㅇㅀ</span><span style="margin-left: 595px;">작성일: ㅁㄴㅇ</span><br>
+				<div class="star_table">
+					<table>
+						<tr> 
+							<td>서비스</td>
+							<td>
+									<img class="starz" src="img/star_fill.png">
+									<img class="starz" src="img/star_half.png">
+									<img class="starz" src="img/star_empty.png">
+							</td> 
+						</tr>
+						<tr>
+							<td>가격</td>
+							<td>
+										<img class="starz" src="img/star_fill.png">
+										<img class="starz" src="img/star_half.png">
+										<img class="starz" src="img/star_empty.png">
+							</td> 
+						</tr>
+						<tr>
+							<td>청결도</td>
+							<td>
+										<img class="starz" src="img/star_fill.png">
+										<img class="starz" src="img/star_half.png">
+										<img class="starz" src="img/star_empty.png">
+							</td> 
+						</tr>
+					</table>
+				</div>
+				<div class="user_review_img" ></div>     
+				<div class="contents">
+					<span style="font-weight: bold;">리뷰내용</span><br>
+					<span>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</span>
+				</div> 
+			</div>   
+			<div class="info2">     
+				<span style="font-weight: bold;">매장답변</span><br>
+				<span>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</span>						
+			</div>
+		</div>  
 	</div>      
 	<br><br>
     <div class="block">

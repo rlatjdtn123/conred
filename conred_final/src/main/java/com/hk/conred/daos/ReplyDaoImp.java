@@ -37,5 +37,14 @@ public class ReplyDaoImp implements IReplyDao{
 	public ReplyDto replyAvgStore(int store_seq) {
 		return sqlSession.selectOne(nameSpace+"replyAvgStore",store_seq);
 	}
+
+	@Override
+	public List<ReplyDto> replyListStoreDetail(int store_seq,int pnum) {
+		Map<String, Integer> map=new HashMap<>();
+		map.put("store_seq", store_seq);
+		map.put("pnum", pnum);
+		List<ReplyDto> list=sqlSession.selectList(nameSpace+"replyListStoreDetail", map);
+		return list;
+	}
 	
 }

@@ -31,6 +31,7 @@
 	    	//실행할 로직 (콘텐츠 추가) 
 	        count++;
 	        var addContent="";
+	        var star_service;
 	        ////////////////////////////////// A JAX
 	        $.ajax({ 
 			url:"review_ajax.do",
@@ -41,6 +42,9 @@
 			success:function(obj){				
 				var lists=obj.list; //[dto,dto,dto..]
 				$.each(lists, function(i){  
+					for (var j = 0; j < lists[i].reply_serivce; j++) {
+						star_service += '<img class="starz" src="img/star_fill.png"> '
+					}
 					addContent += ' <div class="bigtle"> '
 						+   '<div class="mybox">     '
 						+ 	'<div class="store_img">     '
@@ -55,10 +59,11 @@
 					+			'<table>'
 					+				'<tr>'
 						+				'<td>서비스</td>'
+						+             '<td>'+ star_service +'</td>'
 						+			'</tr>'
 						+			'<tr>'
 						+			'	<td>가격</td>'
-						+		'	</tr>'
+						+		'	</tr>' 
 						+		'	<tr>'
 						+		'		<td>청결도</td>'
 						+		'	</tr>'
