@@ -16,8 +16,8 @@
 	#container{height:100%;overflow: auto;}
 	#mapbox{border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:100%;height:100%;position:absolute;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	#show{z-index:10;width:408.5px;height:90.5%;position:absolute;right:0px;overflow: auto;}
-	#rightbox{z-index:10;background-color: rgba( 255, 255, 255, 1 ); border:0px solid grey;border-top-width: 1px;border-left-width:1px; width:390px;height:auto;position:absolute;right:0px;top:35px;border-radius: 10px 10px 0px 0px;}
-	.storelist{z-index:9;background-color:rgba( 255, 255, 255, 1);width:auto;height:140px;border:1px solid #dedede;margin:10px;position: relative;padding:10px;}
+	#rightbox{z-index:10;background-color: rgba( 255, 255, 255, 1 ); border:0px solid grey;border-top-width: 1px;border-left-width:1px; width:390px;height:auto;min-height:100%;position:absolute;top:35px;border-radius: 10px 10px 0px 0px;}
+	.storelist{z-index:9;background-color:rgba( 255, 255, 255, 1);width:auto;height:170px;border:1px solid #dedede;margin:10px;position: relative;padding:10px;}
 	.storelist:hover{cursor: pointer;background-color: #f2f2f2;border:1px solid black;}
 	.righthider{position:fixed;	width: 390px; display: inline-block; height: 36px; right: 19px; border:1px solid grey;
     border-top-width:0px; background-color: rgba( 255, 255, 255, 1 ); top:90px; cursor: pointer; border-radius: 0px 0px 10px 10px; z-index:50;}
@@ -41,8 +41,25 @@
 	.categories:first-child{border:1px solid grey; border-radius: 10px; width:50px; height:50px;position:relative;float: left;margin-left:0px;}
 	.categories{border:1px solid grey; border-radius: 10px; width:50px; height:50px;position:relative;float: left;margin-left:20px;}
 
+	.photobox{background-color: grey;width:140px; height:100px;float: left;margin-right:2px;}
+	.storestate{display: inline-block;width: 40px;height: 25px; float: right;font-size: 12px;}
+	.storename{display: inline-block;width: 155px;height: 25px; float: left;font-size: 20px;}
+	.medal{display: inline-block;width: 25px;height: 23px; float: left;font-size: 11px;margin-top:2px;}
+	.star{display: inline-block;width: 25px;height: 23px; float: left;margin-top:1px;}
+	.review{display: inline-block;width: 60px;height: 25px; float: left;font-size: 20px;margin-top:2px;}
+	.cate_big{display: inline-block;width: 205px;;height: 15px; float: left;font-size: 12px;margin-top:2px;}
+	.cate_small{display: inline-block;width: 205px;height: 29px; float: left;font-size: 11px;margin-top:2px;}
+	
+	.intro{display: inline-block;width: 345px;height: 17px; float: left;font-size: 13px;margin-top:2px;}
+	.storephone{display: inline-block;width: 80px;height: 15px; float: right;font-size: 12px;margin-top:5px;}
+	.address{display: inline-block;width: 250px;height: 15px; float: left;font-size: 13px;margin-top:5px;}
+	.storetime{display: inline-block;width: 200px;height: 20px; float: left;font-size: 14px;margin-top:5px;}
+	.reservebtn{display: inline-block;width: 60px;height: 20px; float: right;font-size: 14px;margin-top:5px;text-align: center;background-color: #9FF781;border-radius: 10px;color:white;transition: all 0.3s;line-height: 20px;}
+	.reservebtn:hover{background-color: #58D3F7;font-size: 16px;line-height: 20px}
 /* 	맵 */
 	.markerbox{height:100px;width:200px;border:1px solid grey; border-radius:8px;}
+
+
 </style>
 <!-- services와 clusterer, drawing 라이브러리 불러오기 -->
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bc283bd41dff040b5403d29f3172b43a&libraries=services,clusterer,drawing"></script>
@@ -73,7 +90,7 @@
 // 	    alert(swlat);
 // 	    alert(swlng);
 	    var category_code = '<c:out value="${category_code}"/>';
-	    alert("카테고리 : "+category_code);
+// 	    alert("카테고리 : "+category_code);
 		$.ajax({
 			url:"map_test.do",
 			method:"post",
@@ -82,7 +99,29 @@
 			data:{"category_code":category_code,"nelat":nelat,"nelng":nelng,"swlat":swlat,"swlng":swlng},
 			success:function(obj) {
 				console.log(obj);
-				alert("성공쓰");
+				var store_lists = obj.list;
+				var store_detail;
+				var rb =$("#rightbox");
+				$.each(store_lists, function(i){
+					store_detail=
+						'<div class="storelist" onclick="location.href=%7store.do?store_seq=1%7">'+
+									'<div class="photobox">사진</div>'+
+									'<div class="storestate">영업중</div>'+
+									'<div class="storename">성수애견카페</div>'+
+									'<div class="review"><img class="star" alt="" src="./img/star_fill.png"> 4.5</div>'+
+									'<div class="medal"><img class="medal" alt="" src="./img/gold.png"></div>'+
+									'<div class="cate_big">돌봄서비스</div>'+
+									'<div class="cate_small">소분류 | 소분류 | 소분류</div>'+
+									'<div class="storephone">02-0000-0000</div>'+
+									'<div class="address">양평구 양평동 양평빌딩 양평1호(지번주소)</div>'+
+									'<div class="storetime">영업시간: 월요일 09:00 ~ 18:00</div>'+
+									'<div class="reservebtn">예약</div>'+
+								'</div>';
+					
+				});
+				rb.append(store_detail);
+				console.log(store_lists[0].store_name);
+// 				alert("성공쓰");
 			},
 			error: function(request,error) {
 				alert("서버통신실패!!"+request.status+","+error);
@@ -149,19 +188,19 @@
 	    });
 		
 		$(".righthider").click(function() {
-			$("#rightbox").toggle( "fold", 1000 );
+			$("#rightbox").toggle( "fold", 500 );
 			if($(".arrow_down").length){
 				$("#show").css("height",window.innerHeight-90);
 				setTimeout(function() {
 					$(".arrow_down").addClass('arrow_up');
 					$(".arrow_down").removeClass('arrow_down');
-			    }, 1000 );
+			    }, 350 );
 			}else if($(".arrow_up").length){
 				setTimeout(function() {
 				$(".arrow_up").addClass('arrow_down');
 				$(".arrow_up").removeClass('arrow_up');
 					$("#show").css("height","36px");
-			    }, 1000 );
+			    }, 350 );
 			}
 // 			$("#rightbox").toggle(
 // 				function(){$("#rightbox").addClass('right_hide')}, //클릭하면 show클래스 적용되서 보이기
@@ -346,10 +385,34 @@
 			(임시 윤호가 테스트로 쓰는 매장 seq24)
 			</div>
 			<div class="storelist" onclick="location.href='store.do?store_seq=1'">
-			(임시 1번사장의 매장)
+<!-- 			(임시 1번사장의 매장) -->
+				<div class="photobox">사진</div>
+				<div class="storestate">영업중</div>
+				<div class="storename">성수애견카페</div>
+				<div class="review"><img class="star" alt="" src="./img/star_fill.png"> 4.5</div>
+				<div class="medal"><img class="medal" alt="" src="./img/gold.png"></div>
+				<div class="cate_big">돌봄서비스</div>
+				<div class="cate_small">소분류 | 소분류 | 소분류</div>
+<!-- 				<div class="intro">우리매장은 멍멍멍멍댕댕동동우리매장입니다.</div> -->
+				<div class="storephone">02-0000-0000</div>
+				<div class="address">양평구 양평동 양평빌딩 양평1호(지번주소)</div>
+				<div class="storetime">영업시간: 월요일 09:00 ~ 18:00</div>
+				<div class="reservebtn">예약</div>
 			</div>
-			<div class="storelist" onclick="location.href='store.do?store_seq=2'">
-			(임시 2번사장의 매장)
+			<div class="storelist" onclick="location.href='store.do?store_seq=1'">
+<!-- 			(임시 2번사장의 매장) -->
+				<div class="photobox">사진</div>
+				<div class="storestate">영업중</div>
+				<div class="storename">성수애견카페</div>
+				<div class="review"><img class="star" alt="" src="./img/star_fill.png"> 4.5</div>
+				<div class="medal"><img class="medal" alt="" src="./img/gold.png"></div>
+				<div class="cate_big">돌봄서비스</div>
+				<div class="cate_small">소분류 | 소분류 | 소분류</div>
+<!-- 				<div class="intro">우리매장은 멍멍멍멍댕댕동동우리매장입니다.</div> -->
+				<div class="storephone">02-0000-0000</div>
+				<div class="address">양평구 양평동 양평빌딩 양평1호(지번주소)</div>
+				<div class="storetime">영업시간: 월요일 09:00 ~ 18:00</div>
+				<div class="reservebtn">예약</div>
 			</div>
 			<div class="storelist" onclick="location.href='store.do?store_seq=3'">
 			(임시 3번사장의 매장)

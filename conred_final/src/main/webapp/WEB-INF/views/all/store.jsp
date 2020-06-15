@@ -468,7 +468,7 @@
 	</div>
 	<div class="infobox section">
 		<div class="s_bold flleft">리뷰</div>
-		<div class="s_btn flright" onclick="location.href='review.do'">전체보기</div>
+		<div class="s_btn flright" onclick="location.href='review.do?store_seq=${store_detail.store_seq}'">전체보기</div>
 			<div id="s_reviews" class="clrboth">
 				<div class="s_star">
 					<c:set var="all_s" value="${reply_avg.all_avg}"/>
@@ -722,7 +722,7 @@
 	</div>
 	<div class="infobox section">
 		<div class="s_bold flleft">문의</div>
-		<div class="s_btn flright" onclick="location.href='qna.do'">전체보기</div>
+		<div class="s_btn flright" onclick="location.href='qna.do?store_seq=${store_detail.store_seq}'">전체보기</div>
 		<div class="info1 replyqna flleft clrboth">
 			<c:choose>
 				<c:when test="${list_qna[0].qna_seq!=null}">
