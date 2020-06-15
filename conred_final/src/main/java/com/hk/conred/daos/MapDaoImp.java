@@ -9,8 +9,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.hk.conred.dtos.CListDto;
 import com.hk.conred.dtos.SDto;
 import com.hk.conred.dtos.SPhotoDto;
+import com.hk.conred.dtos.STimeDto;
 
 @Repository
 public class MapDaoImp implements IMapDao{
@@ -48,6 +50,23 @@ public class MapDaoImp implements IMapDao{
 		map.put("list", list);
 		return sqlSession.selectList(namespace+"getPhotos_ajax",map);
 	}
+
+	@Override
+	public List<CListDto> getCates_ajax(List<SDto> list) {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("list", list);
+		return sqlSession.selectList(namespace+"getCates_ajax",map);
+	}
+
+	@Override
+	public List<STimeDto> getStime_ajax(List<SDto> list) {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("list", list);
+		return sqlSession.selectList(namespace+"getStime_ajax",map);
+	}
+
 
 
 }

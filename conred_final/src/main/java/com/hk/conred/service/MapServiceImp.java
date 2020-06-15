@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hk.conred.daos.IMapDao;
+import com.hk.conred.dtos.CListDto;
 import com.hk.conred.dtos.SDto;
 import com.hk.conred.dtos.SPhotoDto;
+import com.hk.conred.dtos.STimeDto;
 
 @Service
 public class MapServiceImp implements IMapService{
@@ -33,6 +35,16 @@ public class MapServiceImp implements IMapService{
 	@Override
 	public List<SPhotoDto> getPhotos_ajax(List<SDto> list) {
 		return mapDao.getPhotos_ajax(list);
+	}
+
+	@Override
+	public List<CListDto> getCates_ajax(List<SDto> list) {
+		return mapDao.getCates_ajax(list);
+	}
+
+	@Override
+	public List<STimeDto> getStime_ajax(List<SDto> list) {
+		return mapDao.getStime_ajax(list);
 	}
 
 

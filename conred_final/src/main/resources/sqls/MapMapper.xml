@@ -63,18 +63,49 @@
 		AND ccm.CATEGORY_CODE =#{category_code}
 	</select>
 	
+<!-- 	매장사진+리뷰평균 구하기 -->
 	<select id="getPhotos_ajax" parameterType="Map" resultType="SPhotoDto">
-		SELECT cnp.STORE_SEQ ,cnp.STORE_PHOTO_SEQ ,cnp.STORE_PHOTO_STORED, cnp.rn
+		SELECT cnp.STORE_SEQ ,cnp.STORE_PHOTO_SEQ ,cnp.STORE_PHOTO_STORED, cnp.rn, cnr.all_avg
 		FROM (
 			SELECT cs.STORE_SEQ ,csp.STORE_PHOTO_SEQ ,csp.STORE_PHOTO_STORED,
 			ROW_NUMBER ()over(PARTITION BY cs.STORE_SEQ ORDER BY csp.STORE_PHOTO_SEQ) AS rn
 			FROM CON_STORE cs,CON_STORE_PHOTO csp 
 			WHERE cs.STORE_SEQ =csp.STORE_SEQ 
 			AND cs.STORE_SEQ IN 
+			<foreach collection="list" item="item" open="(" close=")" separator=",">
+				#{item.store_seq}
+			</foreach>
+			) cnp,
+			(SELECT STORE_SEQ ,TRUNC((AVG(REPLY_CLEAN)+AVG(REPLY_SERVICE )+AVG(REPLY_PRICE))/3,1) AS all_avg
+			FROM CON_REPLY cr 
+			WHERE cr.STORE_SEQ IN
+			<foreach collection="list" item="item" open="(" close=")" separator=",">
+				#{item.store_seq}
+			</foreach>
+			GROUP BY cr.STORE_SEQ) cnr
+		WHERE cnp.store_seq=cnr.store_seq
+		AND rn=1
+	</select>
+	
+	<select id="getCates_ajax" parameterType="Map" resultType="CListDto">
+		SELECT ccl.STORE_SEQ ,ccs.CATEGORY_NAME_SMALL
+		FROM CON_CATEGORY_LIST ccl, CON_CATEGORY_SMALL ccs 
+		WHERE ccl.CATEGORY_CODE_SMALL =ccs.CATEGORY_CODE_SMALL 
+		AND ccl.STORE_SEQ IN 
 		<foreach collection="list" item="item" open="(" close=")" separator=",">
 			#{item.store_seq}
 		</foreach>
-			) cnp
-		WHERE rn=1
+		ORDER BY ccl.STORE_SEQ, ccs.CATEGORY_CODE_SMALL
 	</select>
+	
+	<select id="getStime_ajax" parameterType="Map" resultType="STimeDto">
+		SELECT *
+		FROM CON_STORE_TIME cst 
+		WHERE cst.STORE_SEQ IN
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item.store_seq}
+		</foreach>
+		ORDER BY cst.STORE_SEQ ,cst.STORE_TIME_SEQ
+	</select>
+	
 </mapper>

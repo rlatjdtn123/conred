@@ -41,8 +41,10 @@
 	.categories:first-child{border:1px solid grey; border-radius: 10px; width:50px; height:50px;position:relative;float: left;margin-left:0px;}
 	.categories{border:1px solid grey; border-radius: 10px; width:50px; height:50px;position:relative;float: left;margin-left:20px;}
 
-	.photobox{background-color: grey;width:140px; height:100px;float: left;margin-right:2px;
-	background-size: cover; background-repeat: no-repeat;}
+	.photobox{background-color: grey;width:140px; height:105px;float: left;margin-right:2px;
+	background-size: cover; 
+/* 	background-size: 140px 100px; */
+	background-repeat: no-repeat;}
 	.storestate{display: inline-block;width: 40px;height: 25px; float: right;font-size: 12px;text-align: right;}
 	.storename{display: inline-block;width: 155px;height: 25px; float: left;font-size: 20px;
 	overflow: hidden;
@@ -79,7 +81,7 @@
 	.medal{display: inline-block;width: 25px;height: 23px; float: left;font-size: 11px;margin-top:2px;}
 	.star{display: inline-block;width: 25px;height: 23px; float: left;margin-top:1px;}
 	.review{display: inline-block;width: 60px;height: 25px; float: left;font-size: 20px;margin-top:2px;}
-	.cate_big{display: inline-block;width: 205px;;height: 15px; float: left;font-size: 12px;margin-top:2px;}
+	.cate_big{display: inline-block;width: 205px;;height: 18px; float: left;font-size: 15px;margin-top:2px;font-weight:bold;}
 	.cate_small{display: inline-block;width: 205px;height: 29px; float: left;font-size: 11px;margin-top:2px;}
 	
 	.intro{display: inline-block;width: 345px;height: 17px; float: left;font-size: 13px;margin-top:2px;}
@@ -142,8 +144,11 @@
 					console.log(obj);
 					var store_lists = obj.list;
 					var photo_lists = obj.photolist;
+					var cate_lists = obj.catelist;
+					var stime_lists = obj.stimelist1;
 					var store_detail;
 					var rb =$("#rightbox");
+					
 					$(".storelist").remove();
 						$.each(store_lists, function(i){
 							var store_state="";
@@ -158,17 +163,20 @@
 								'<div class="storelist" onclick="location.href=\'store.do?store_seq='+store_lists[i].store_seq+'\'">'+
 											'<div class="photobox" style="'+
 											'background: url(\'./upload_sphoto/'+photo_lists[i].store_photo_stored+'\');'+
-											'background-size: contain;'+
+											'background-size: 140px 105px;'+
+// 											'background-size: contain;'+
 										    'background-repeat: no-repeat;"></div>'+//사진:단일
 											store_state+
 											'<div class="storename">'+store_lists[i].store_name+'<span class="tooltiptext">'+store_lists[i].store_name+'</span></div>'+
-											'<div class="review"><img class="star" alt="" src="./img/star_fill.png"> 4.5</div>'+//--------------따로1??
+											'<div class="review"><img class="star" alt="" src="./img/star_fill.png">'+photo_lists[i].all_avg+'</div>'+//평균(매장사진이랑 같이 가져오기)
 											'<div class="medal"><img class="medal" alt="" src="./img/gold.png"></div>'+
 											'<div class="cate_big">'+store_lists[i].category_name+'</div>'+//대표카테고리
-											'<div class="cate_small">소분류 | 소분류 | 소분류</div>'+//세부카테고리--------------따로2
+											'<div class="cate_small">'+cate_lists[i]+'</div>'+//세부카테고리--------------따로1
 											'<div class="storephone">'+store_lists[i].store_phone+'</div>'+//전화번호
 											'<div class="address">'+store_lists[i].store_address+'</div>'+//주소
-											'<div class="storetime">영업시간: 월요일 09:00 ~ 18:00</div>'+//영업시간
+											'<div class="storetime">영업시간: <span onclick="()">샘한테 물어보던가 그냥 하지말기'+
+// 												stime_lists[i]
+											'</span></div>'+//영업시간--------------따로2
 											'<div class="reservebtn" onclick="location.href=\'user_store_reserve.do?store_seq='+store_lists[i].store_seq+'&store_name='+store_lists[i].store_name+'\'">예약</div>'+
 										'</div>';
 							
@@ -176,7 +184,7 @@
 						});
 					}else if (obj.list==null){
 						$(".storelist").remove();
-						$("#rightbox").append("<div class='storelist' style='height:100%'>----------현재 지역에서 검색되는 결과가없습니다----------</div>");
+						$("#rightbox").append("<div class='storelist' style='height:100%'>----------현재 지역에서 검색되는 결과가 없습니다----------</div>");
 					}
 // 					console.log(store_lists[0].store_name);
 	// 				alert("성공쓰");

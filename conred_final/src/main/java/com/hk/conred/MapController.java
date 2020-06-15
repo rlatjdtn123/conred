@@ -17,10 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hk.conred.dtos.CListDto;
 import com.hk.conred.dtos.ReplyDto;
 import com.hk.conred.dtos.SDto;
 import com.hk.conred.dtos.SPhotoDto;
+import com.hk.conred.dtos.STimeDto;
 import com.hk.conred.service.IMapService;
+import com.hk.conred.service.IReplyService;
 import com.hk.conred.service.ISService;
 import com.hk.conred.service.SServiceImp;
 
@@ -34,6 +37,8 @@ public class MapController {
 	private ISService sService; 
 	@Autowired 
 	private IMapService mapService;
+	@Autowired
+	private IReplyService replyService;
 	
 	//얘는 임시 테스트용 - 다른거 하나 만들면 바로 폐기각
 	@RequestMapping(value = "map.do", method = RequestMethod.GET)
@@ -110,21 +115,65 @@ public class MapController {
 		Map<String, Object> map=new HashMap<>();
 		System.out.println("2"+list);
 		
-		List<SPhotoDto> photolist =new ArrayList<>();
-		System.out.println("2.5"+photolist);
+//		List<SPhotoDto> photolist =new ArrayList<>();
 		if(list.isEmpty()) {
 			
 		}else {
-			System.out.println("3"+list);
-			photolist=mapService.getPhotos_ajax(list);
-			System.out.println(photolist);
-			System.out.println(list);
-			System.out.println(map);
+			System.out.println("3");
+			System.out.println("list:"+list);
+			List<SPhotoDto> photolist=mapService.getPhotos_ajax(list);
+			System.out.println("photolist:"+photolist);
+			List<CListDto> catelist=mapService.getCates_ajax(list);
+			System.out.println("catelist:"+catelist);
+			List<String> catenamelist = new ArrayList<>();
+			String box ="";
+			for (int i = 0; i < catelist.size(); i++) {
+				if(i==0){//처음시작엔 무조건 box안에 값저장
+					box=catelist.get(i).getCategory_name_small()+" | ";
+				}else if(catelist.get(i).getStore_seq()==catelist.get(i-1).getStore_seq()){//직전 seq와 같다면
+					box+=catelist.get(i).getCategory_name_small()+" | ";
+				}else if(catelist.get(i).getStore_seq()!=catelist.get(i-1).getStore_seq()){//직전 seq와 틀리다면
+					box = box.substring(0, box.length()-3);
+					catenamelist.add(box);
+					System.out.println("중간끝"+i+box);
+					box="";
+					box+=catelist.get(i).getCategory_name_small()+" | ";
+				}
+				if(i==catelist.size()-1) {//마지막이라면 이제까지것 저장(뒤에세글자제외하고)
+					box = box.substring(0, box.length()-3);
+					catenamelist.add(box);
+					System.out.println("완전끝"+i+box);
+				}
+				System.out.println(i+box);
+			}
+			System.out.println("catenamelist:"+catenamelist);
+			
+			List<STimeDto> stimelist= mapService.getStime_ajax(list);
+			System.out.println("stimelist:"+stimelist);
+			List<String> stimelist1=new ArrayList<>();
+//			List<List<String>> stimelist2=new ArrayList<>();
+			String stimeString="";
+			for (int i = 0; i < stimelist.size(); i++) {
+				stimeString=stimelist.get(i).getStore_time_day()+" "+
+								stimelist.get(i).getStore_time_open()+" ~ "+
+								stimelist.get(i).getStore_time_close();
+				stimelist1.add(stimeString);
+//				if(stimelist.get(i).getStore_time_day().equals("공휴일")) {
+//				}
+				
+//				System.out.println(stimelist.get(i).getStore_time_day()+" "+
+//									stimelist.get(i).getStore_time_open()+" ~ "+
+//									stimelist.get(i).getStore_time_close()
+//									);
+			}
+			System.out.println("stimelist1"+stimelist1);
 			map.put("list", list); 
 			map.put("photolist", photolist); 
+			map.put("catelist", catenamelist); 
+			map.put("stimelist1", stimelist1); 
 		}
 
-		System.out.println("4"+list);
+		System.out.println("4"+map);
 		
 		return map; 
 	}
