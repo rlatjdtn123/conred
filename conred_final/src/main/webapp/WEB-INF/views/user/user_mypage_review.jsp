@@ -34,17 +34,14 @@
 // 	        var star_service;
 	        ////////////////////////////////// A JAX
 	        $.ajax({ 
-			url:"review_ajax.do",
+			url:"user_review_ajax.do",
 			method:"post", 
 			data:{"pnum":count},
 			async: false,
 			dataType:"json",
 			success:function(obj){				
-				var lists=obj.list; //[dto,dto,dto..]
+				var lists=obj.list; 
 				$.each(lists, function(i){  
-// 					for (var j = 0; j < lists[i].reply_serivce; j++) {
-// 						star_service += '<img class="starz" src="img/star_fill.png"> '
-// 					}
 					addContent += ' <div class="bigtle"> '
 						+   '<div class="mybox">     '
 						+ 	'<div class="store_img">     '
@@ -58,15 +55,15 @@
 					+			'<table>'
 					+				'<tr>'
 						+				'<td>서비스</td>'
-						+             '<td>'+ test1(lists[i].reply_service)+test2(lists[i].reply_service)+test3(lists[i].reply_service)+ '</td>'
+						+             '<td>'+ star_fill(lists[i].reply_service)+star_half(lists[i].reply_service)+star_empty(lists[i].reply_service)+ '</td>'
 						+			'</tr>'
 						+			'<tr>'
 						+			'	<td>가격</td>'
-						+             '<td>'+ test1(lists[i].reply_price)+test2(lists[i].reply_price)+test3(lists[i].reply_price)+ '</td>'
+						+             '<td>'+ star_fill(lists[i].reply_price)+star_half(lists[i].reply_price)+star_empty(lists[i].reply_price)+ '</td>'
 						+		'	</tr>' 
 						+		'	<tr>'
 						+		'		<td>청결도</td>'
-						+             '<td>'+ test1(lists[i].reply_clean)+test2(lists[i].reply_clean)+test3(lists[i].reply_clean)+ '</td>'
+						+             '<td>'+ star_fill(lists[i].reply_clean)+star_half(lists[i].reply_clean)+star_empty(lists[i].reply_clean)+ '</td>'
 						+		'	</tr>'
 							+	'</table>'
 						+	'</div>'
@@ -116,7 +113,7 @@
 	
 
 	
-	 function test1(val){
+	 function star_fill(val){
 		 var v="";
 		for(var i=0;i<Math.floor(val);i++){
 		 
@@ -126,7 +123,7 @@
 		return v;
 	 }
  
-	function test2(val){
+	function star_half(val){
 		var v="";
 		for(var i=0;i<(Math.ceil(val)-Math.floor(val));i++){
 		
@@ -135,7 +132,7 @@
 		}
 		return v;
 	}
-	function test3(val){
+	function star_empty(val){
 		var v="";
 		for(var i=0;i<(5-Math.ceil(val));i++){
 			v+='<img class="starz" src="img/star_empty.png">';

@@ -40,7 +40,7 @@
 	.contents{border-radius:5px;display:inline-block;padding: 10px; width: 895px;height:80px;text-overflow: ellipsis; overflow: hidden;word-break:keep-all;min-height: 80px; clear: both; background-color: #fafafa;margin-bottom: 15px;}        
 	.info2{background-color: #fafafa;  height: 80px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 895px; min-height: 80px;border-radius:5px;word-break:keep-all;}
 	.bot{margin: 0 auto; text-align: center;}
-	.user_review_img{border: 1px solid red;width: 700px;height: 80px;margin-left: 210px;margin-bottom:22px;}
+	.user_review_img{background-color:#fafafa; width: 685px;height: 80px;margin-left: 210px;margin-bottom:22px; border-radius: 5px;}
 	
 	 .modal-title{margin-left: 400px;}
 	.modal-body span{margin: 5px;}
@@ -55,7 +55,7 @@
      .imgs_wrap { width: 880px;height:130px; border: 1px solid black;}
      .imgs_wrap img {max-width: 120px;max-height: 120px;min-width: 120px;min-height: 120px;margin-left: 25px;margin-right: 25px;}
 	.input_wrap {margin: 10px 0 10px 0;}
-	.modal_Btn{border: 0; margin-left: 690px; height: 50px; }
+	.modal_Btn{border: 0; margin-left: 690px; height: 50px;border-radius: 5px; }
 	.modal_Btn:hover{background-color: grey;} 
  	.overfive{float: left;} 
  	.star_bigtle{margin-left: 65px; float: left;}
@@ -73,7 +73,8 @@
 
 
 	//////////////스크롤 페이징
-	var count = 0;
+	var count = 1;
+	var store_seq=$("input[name=store_seq]").val();
 	//스크롤 바닥 감지 
 	window.onscroll = function(e) {
 	    //추가되는 임시 콘텐츠
@@ -81,28 +82,69 @@
 	    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
 	    	//실행할 로직 (콘텐츠 추가) 
 	        count++;
-	        var addContent = ' <div class="mybox">  '       
-	    		+'<img src="./img/profile_default.png" class="pf"/>'
-	    			+' <div class="info"> '
-	    			+	'<span>★★★★★</span><a style="margin-left: 560px;" id="md" onclick="mdTest()">자세히 보기</a> '
-	    			+	'<span>닉네임:?? &nbsp;| 미용 / 컷트 </span><br><br><br>   '
-	    			+	'<span class="contents">asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjdddddddddddddddddddd'
-	    			+	'ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</span>  ' 
-	    		+	'</div>'
-	    		+	'<div class="info2"> '   
-	    			+'	<span style="font-weight: bold;">가게답변</span><br>'
-	    			+	'<span>dddddddddddddddddddddddddddddddddd</span>'
-	    		+	'</div>'
-	    		+'</div> '     
-	    		+'<br><br>';
-	        //container에 추가되는 콘텐츠를 append
-	        for (var i = 0; i < 20; i++) {
-	        	if(count==i){
-			        $('#container').append(addContent);		
-	        	}
-			} 
+	        var addContent ="";
+			$.ajax({
+				url:"review_ajax.do", 
+				method:"post", 
+				data:{"pnum":count,"store_seq":store_seq},
+				dataType:"json", 
+				success:function(obj){  
+					alert("aaa");
+					var lists=obj.list;  
+					$.each(lists,function(i){
+						addContent+= ' <div class="bigtle" > '
+									+	'	<div class="mybox">     '     
+									+	'	<img src="./img/profile_default.png" class="pf"/>  '
+									+	'	<div class="info">        '
+									+	'		<button class="content_detail">자세히 보기</button><br> '
+									+	'		<span>닉네임: '+ lists[i].user_id +' </span><span style="margin-left: 595px;">작성일: '+ lists[i].reply_regdate +' </span><br>'
+									+	'		<div class="star_table">'
+									+	'			<table>'
+									+	'				<tr> '
+									+	'					<td>서비스</td>'
+									+	'					<td>'
+						 			+	'		            <td>'+ star_fill(lists[i].reply_service)+star_half(lists[i].reply_service)+star_empty(lists[i].reply_serivce) +'</td>         		'
+									+	'					</td> '
+									+	'				</tr>'
+									+	'				<tr>'
+									+	'					<td>가격</td>'
+									+	'					<td>'
+									+	'					<td>'+ star_fill(lists[i].reply_price)+star_half(lists[i].reply_price)+star_empty(lists[i].reply_price) +'</td>         		'
+									+	'					</td> '
+									+	'				</tr>'
+									+	'				<tr>'
+									+	'					<td>청결도</td>'
+									+	'					<td>'
+						+'									<td>'+ star_fill(lists[i].reply_clean)+star_half(lists[i].reply_clean)+star_empty(lists[i].reply_clean) +'</td>         		'
+						+'									</td> '
+						+'								</tr>'
+					+	'							</table>'
+					+	'						</div>'
+					+	'						<div class="user_review_img" ></div>     '
+					+	'						<div class="contents">'
+					+	'							<span style="font-weight: bold;">리뷰내용</span><br>'
+					+	'							<span>'+ lists[i].reply_content +'</span>'
+					+	'						</div> '
+					+	'					</div>   '
+					+	'					<div class="info2">     '
+					+	'						<span style="font-weight: bold;">매장답변</span><br> '
+					+'								<span>'+ lists[i].reply_answer +'</span>			'							
+					+'						</div> '
+					+'					</div>   '
+					+'				</div>      '
+					+'				<br><br>';
+						
+						
+					});
+					alert("asd");
+	        		$('.bigbig').append(addContent);		
+				}
+			});
+	   
+
+			}  
 	    }
-	};
+	
  	
 	
 	
@@ -304,6 +346,31 @@
 	
 
 	
+	
+	function star_fill(val){
+		 var v="";
+		for(var i=0;i<Math.floor(val);i++){	 
+			v+='<img class="starz" src="img/star_fill.png">';	
+		}
+		return v;
+	 }
+
+	function star_half(val){
+		var v="";
+		if(0<Math.ceil(val)-Math.floor(val)){	
+			v+='<img class="starz" src="img/star_half.png">';
+		}
+		return v;
+	}
+	function star_empty(val){
+		var v="";
+		for(var i=0;i<(5-Math.ceil(val));i++){
+			v+='<img class="starz" src="img/star_empty.png">';
+		}
+		return v;
+	}
+	
+	
 	 
 	
 </script> 
@@ -313,6 +380,7 @@
 	ReplyDto list_avg=(ReplyDto)request.getAttribute("list_avg");
 %>
 <body>
+<input type="hidden" name="store_seq" value="<%=list.get(0).getStore_seq()%>"/>
 <!-- 모탈창 부분 -->
 <div class="modal fade" id="myModal" role="dialog">
 	<div class="modal-dialog modal-lg">
@@ -587,7 +655,7 @@
 	<%
 	}
 	%>
-    <div class="block">
+    <div class="bigbig">
         
     </div>
     <!-- 반복 -->

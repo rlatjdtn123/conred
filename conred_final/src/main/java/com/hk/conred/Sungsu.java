@@ -200,8 +200,8 @@ public class Sungsu {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "review_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public Map<String, List<ReplyDto>> review_ajax(Locale locale, Model model,HttpServletRequest request,String pnum){
+	@RequestMapping(value = "user_review_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public Map<String, List<ReplyDto>> user_review_ajax(Locale locale, Model model,HttpServletRequest request,String pnum){
 		logger.info("사용자 리뷰 스크롤{}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
