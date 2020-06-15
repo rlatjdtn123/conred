@@ -4,6 +4,7 @@ package com.hk.conred;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
@@ -55,13 +56,13 @@ public class Haekang {
 	
 //	UDto uldto=(UDto)session.getAttribute("uldto");
 	@RequestMapping(value = "user_interests_recommended.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String user_interests_recommended(HttpServletRequest request, Locale locale, Model model, UDto udto, SDto sdto, String user_id) {
+	public String user_interests_recommended(HttpServletRequest request, Locale locale, Model model, UDto udto, SDto sdto, String user_id, String paging) {
 		logger.info("유저 로그인시 index 페이지 관심사 추천 기능 {}.", locale); 
 			
 		HttpSession session=request.getSession();
-		UDto uldto = (UDto)session.getAttribute("uldto");//Object(uldto객체)
+		UDto uldto = (UDto)session.getAttribute("uldto"); //Object(uldto객체)
 		
-		List<SDto> list = interService.user_interests_recommended(uldto.getUser_id());
+		List<SDto> list = interService.user_interests_recommended(uldto.getUser_id(), paging);
 							   
 		model.addAttribute("list",list);//list[sDto,sDto[c,c,c,cDto,iDto[c,c]]...]
 //			                                  new SDto().getcDto().getCategory_name()

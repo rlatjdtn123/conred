@@ -23,8 +23,7 @@
 		<result property="user_id" column="USER_ID" />
 	</resultMap>
 	
-	<select id="user_interests_recommended"  parameterType="String" resultMap="sDtoMap">
-	<![CDATA[
+	<select id="user_interests_recommended"  parameterType="Map" resultMap="sDtoMap">
 	SELECT USER_ID ,CATEGORY_CODE , CATEGORY_NAME,STORE_SEQ ,OWNER_ID
 	,STORE_NAME
 	FROM (
@@ -39,9 +38,8 @@
 	WHERE S.STORE_SEQ =M.STORE_SEQ) B
 	WHERE A.CATEGORY_CODE = B.CATEGORY_CODE
 	)
-	WHERE CEIL(RN/10) = #{paging};
-	]]>	 
-	</select>
+	WHERE CEIL(RN/10) = #{paging}
+	 </select>
 	
 	<!-- 임시로 아이디 test로 넣어줌 #{user_id}로 바꿔야됨 -->
 	<insert id="insertInterests" parameterType="InterestsDto">

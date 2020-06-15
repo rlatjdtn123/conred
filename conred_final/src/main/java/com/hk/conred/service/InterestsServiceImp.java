@@ -21,10 +21,10 @@ public class InterestsServiceImp implements IInterestsService{
 		return InterestsDaoImp.insertInterests(category_code,user_id);
 	}
 	@Override
-	public List<SDto> user_interests_recommended(String user_id) {
+	public List<SDto> user_interests_recommended(String user_id, String paging) {
 		// TODO Auto-generated method stub
-		return InterestsDaoImp.user_interests_recommended(user_id);
+		return InterestsDaoImp.user_interests_recommended(user_id , paging);
 	}
-
+	
 }
  

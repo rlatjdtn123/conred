@@ -36,10 +36,13 @@ public class InterestsDaoImp implements IInterestsDao{
 	}
 	
 	@Override
-	public List<SDto> user_interests_recommended(String user_id) {
+	public List<SDto> user_interests_recommended(String user_id, String paging) {
 			
-		return sqlSession.selectList(nameSpace+"user_interests_recommended", user_id); 			
-		
+		Map<String, String> map=new HashMap<String, String>();
+			map.put("user_id", user_id);	
+			map.put("paging", paging);
+			//결과 타입 리턴
+		return sqlSession.selectList(nameSpace+"user_interests_recommended", map);
 			
 	}
 } 
