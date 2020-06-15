@@ -193,8 +193,9 @@ public class Sungsu {
 		logger.info("사용자 마이페이지_리뷰{}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
+//		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@::"+uldto.getUser_id());
 		List<ReplyDto> list=replyService.replyList(uldto.getUser_id(),"1");
-		model.addAttribute("list",list);
+		model.addAttribute("list",list); 
 		return "user/user_mypage_review";  
 	}
 	

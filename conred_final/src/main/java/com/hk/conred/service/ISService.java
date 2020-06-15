@@ -29,7 +29,6 @@ public interface ISService {
 	public List<SDto> StoreSeqList(String[] store_seq_list);
 	
 	
-	//평점 총점들
-	public List<SDto> listAvg(int store_seq);
+
 }
 

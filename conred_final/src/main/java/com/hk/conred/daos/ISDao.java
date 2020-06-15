@@ -22,6 +22,4 @@ public interface ISDao {
 	
 	
 	
-	//평점 총점들
-	public List<SDto> listAvg(int store_seq);
 }

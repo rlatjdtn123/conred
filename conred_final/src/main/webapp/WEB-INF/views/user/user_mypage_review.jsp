@@ -31,25 +31,24 @@
 	    	//실행할 로직 (콘텐츠 추가) 
 	        count++;
 	        var addContent="";
-	        var star_service;
+// 	        var star_service;
 	        ////////////////////////////////// A JAX
 	        $.ajax({ 
 			url:"review_ajax.do",
-			method:"post",
+			method:"post", 
 			data:{"pnum":count},
 			async: false,
 			dataType:"json",
 			success:function(obj){				
 				var lists=obj.list; //[dto,dto,dto..]
 				$.each(lists, function(i){  
-					for (var j = 0; j < lists[i].reply_serivce; j++) {
-						star_service += '<img class="starz" src="img/star_fill.png"> '
-					}
+// 					for (var j = 0; j < lists[i].reply_serivce; j++) {
+// 						star_service += '<img class="starz" src="img/star_fill.png"> '
+// 					}
 					addContent += ' <div class="bigtle"> '
 						+   '<div class="mybox">     '
 						+ 	'<div class="store_img">     '
-					 +	'	<p>매장사진들어갈곳</p>'
-					 +	'	<p>+매장명</p>   '
+						+'<div style="background-color:yellow; width: 200px;height: 30px; margin-top: 250px;">'+ lists[i].store_name +'</div>'
 					 +	'</div>  '    
 					+	'<img src="./img/profile_default.png" class="pf"/>  '
 					+	'<div class="info">        ' 
@@ -59,7 +58,7 @@
 					+			'<table>'
 					+				'<tr>'
 						+				'<td>서비스</td>'
-						+             '<td>'+ star_service +'</td>'
+// 						+             '<td>'+ star_service +'</td>'
 						+			'</tr>'
 						+			'<tr>'
 						+			'	<td>가격</td>'
@@ -96,7 +95,7 @@
 	};
 	
 	
-	
+	 
 	
 	$(function(){
 		$("body").on("click",".content_detail",function(){
@@ -129,7 +128,7 @@
 	.dt{margin-left: 600px;}
 	.info{min-height: 95px;}    
 	.contents{border-radius:5px;display:inline-block;padding: 10px; width: 682px;height:80px;text-overflow: ellipsis; overflow: hidden;word-break:keep-all;min-height: 80px; clear: both; background-color: #fafafa;margin-bottom: 15px;}        
-	.info2{background-color: #fafafa;  height: 80px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 682px; min-height: 80px;margin-left: 220px;border-radius:5px;word-break:keep-all;}
+	.info2{background-color: #fafafa;  height: 80px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 682px; min-height: 80px;border-radius:5px;word-break:keep-all;}
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
 	.myboxmargin{margin-top:30px;}      
 	.store_img{width: 200px;height:280px; float: left;margin-right: 20px; background: url("img/user_back_test.png");background-size: 200px 250px;} 
@@ -188,7 +187,7 @@
 		<b>작성한 리뷰</b>  
 	</div> 
 	<div></div>
-	<%
+	<% 
 		for(ReplyDto dto : list){ 
  	%> 
 	<div class="bigtle" > 
@@ -275,7 +274,7 @@
 				<div class="contents">
 					<span style="font-weight: bold;">리뷰내용</span><br>
 					<span><%=dto.getReply_content()%></span>
-				</div> 
+				</div>  
 			</div>   
 			<div class="info2">     
 				<%

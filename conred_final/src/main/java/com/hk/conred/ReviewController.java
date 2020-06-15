@@ -27,7 +27,7 @@ public class ReviewController {
 	@Autowired
 	private IReplyService replyService;
 	
-	private ISService storeService;
+
 	
 	
 	@RequestMapping(value = "owner_mystore_review.do", method = {RequestMethod.GET,RequestMethod.POST})
@@ -39,12 +39,15 @@ public class ReviewController {
 	
 	
 	@RequestMapping(value = "review.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String review(Locale locale, Model model,int store_seq,int pnum) {
+	public String review(Locale locale, Model model,int store_seq) {
 		logger.info("리뷰로 이동  {}.", locale);
-		List<ReplyDto> list=replyService.replyListStoreDetail(store_seq, 1);
-		List<SDto> listAvg=storeService.listAvg(store_seq);
-		model.addAttribute("list", list);
-		model.addAttribute("listAvg", listAvg); 	
+//		List<ReplyDto> list=replyService.replyListStoreDetail(store_seq, 1);
+//		ReplyDto list_avg=replyService.replyAvgStore(store_seq); 
+//		System.out.println("@@@@@@@@@@@@@@@@@@::"+list_avg); 
+//		System.out.println("@@@@@@@@@@@store_seq=====:::::"+store_seq);
+//		System.out.println("@@@@@@@@@@@@@@@@@@@@@테스트@@@@@@@@@@@@@@@@@");
+//		model.addAttribute("list", list); 
+//		model.addAttribute("list_avg", list_avg); 	
 		return "all/review"; 
 	}
 

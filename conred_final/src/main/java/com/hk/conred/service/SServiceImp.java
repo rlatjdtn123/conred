@@ -211,10 +211,5 @@ public class SServiceImp implements ISService {
 	
 	
 	
-	//매장총점들
-	@Override
-	public List<SDto> listAvg(int store_seq) {
-		return SDaoImp.listAvg(store_seq);
-	}
 
 }

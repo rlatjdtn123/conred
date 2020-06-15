@@ -302,13 +302,13 @@
 	
 
 	
-	
+	 
 	
 </script> 
 </head>
 <% 
-	List<ReplyDto> list=(List<ReplyDto>)request.getAttribute("list");
-	List<SDto> listAvg=(List<SDto>)request.getAttribute("listAvg");
+// 	List<ReplyDto> list=(List<ReplyDto>)request.getAttribute("list");
+// 	ReplyDto list_avg=(ReplyDto)request.getAttribute("list_avg");
 %>
 <body>
 <!-- 모탈창 부분 -->
@@ -393,7 +393,7 @@
 
 <div id="container"> 
 	<div id="main">
-		<span id="main2">리뷰&nbsp;<b style="font-size: 25px;"><%=listAvg.get(0).getAll_avg()%></b>/5 &nbsp; &nbsp; &nbsp;후기2343개|답변2033개</span><button class="modal_Btn">리뷰 작성</button><br>
+		<span id="main2">리뷰&nbsp;<b style="font-size: 25px;"></b>/5 &nbsp; &nbsp; &nbsp;후기2343개|답변2033개</span><button class="modal_Btn">리뷰 작성</button><br>
 		<span>최근6개월 누적평점</span><br/><br/>
 		<table>
 			<col width="50px;">  

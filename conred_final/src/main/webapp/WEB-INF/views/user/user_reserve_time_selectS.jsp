@@ -400,7 +400,7 @@
 <% 
 	for(int i=0;i>stay_reserve_list.size();i++){
 		%>
-			<input type="hidden" class="sall" name="sall" value="<%=stay_reserve_list.get(i).getReserve_sdate()%>"/>
+			<input type="hidden" class="sall<%=i%>" name="sall" value="<%=stay_reserve_list.get(i).getReserve_sdate()%>"/>
 		<%
 	}
 	for(int i=0;i>stay_reserve_list.size();i++){ 
