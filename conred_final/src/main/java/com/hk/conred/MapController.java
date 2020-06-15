@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hk.conred.dtos.CListDto;
 import com.hk.conred.dtos.ReplyDto;
 import com.hk.conred.dtos.SDto;
+import com.hk.conred.dtos.SLocaDto;
 import com.hk.conred.dtos.SPhotoDto;
 import com.hk.conred.dtos.STimeDto;
 import com.hk.conred.service.IMapService;
@@ -167,10 +168,15 @@ public class MapController {
 //									);
 			}
 			System.out.println("stimelist1"+stimelist1);
+
+			List<SLocaDto> slocalist=mapService.getSloca_ajax(list);
+			System.out.println(slocalist);
+			
 			map.put("list", list); 
 			map.put("photolist", photolist); 
 			map.put("catelist", catenamelist); 
 			map.put("stimelist1", stimelist1); 
+			map.put("slocalist", slocalist); 
 		}
 
 		System.out.println("4"+map);

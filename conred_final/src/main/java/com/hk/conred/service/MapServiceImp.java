@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.hk.conred.daos.IMapDao;
 import com.hk.conred.dtos.CListDto;
 import com.hk.conred.dtos.SDto;
+import com.hk.conred.dtos.SLocaDto;
 import com.hk.conred.dtos.SPhotoDto;
 import com.hk.conred.dtos.STimeDto;
 
@@ -45,6 +46,11 @@ public class MapServiceImp implements IMapService{
 	@Override
 	public List<STimeDto> getStime_ajax(List<SDto> list) {
 		return mapDao.getStime_ajax(list);
+	}
+
+	@Override
+	public List<SLocaDto> getSloca_ajax(List<SDto> list) {
+		return mapDao.getSloca_ajax(list);
 	}
 
 

@@ -108,4 +108,14 @@
 		ORDER BY cst.STORE_SEQ ,cst.STORE_TIME_SEQ
 	</select>
 	
+	<select id="getSloca_ajax" parameterType="Map" resultType="SLocaDto">
+		SELECT csl.STORE_SEQ ,csl.STORE_LATITUDE ,csl.STORE_LONGITUDE 
+		FROM CON_STORE_LOCATION csl 
+		WHERE csl.STORE_SEQ IN
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item.store_seq}
+		</foreach>
+		ORDER BY csl.STORE_SEQ
+	</select>
+	
 </mapper>

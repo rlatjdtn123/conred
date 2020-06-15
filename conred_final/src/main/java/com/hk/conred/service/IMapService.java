@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.hk.conred.dtos.CListDto;
 import com.hk.conred.dtos.SDto;
+import com.hk.conred.dtos.SLocaDto;
 import com.hk.conred.dtos.SPhotoDto;
 import com.hk.conred.dtos.STimeDto;
 
@@ -16,4 +17,5 @@ public interface IMapService {
 	public List<SPhotoDto> getPhotos_ajax(List<SDto> list);
 	public List<CListDto> getCates_ajax(List<SDto> list);
 	public List<STimeDto> getStime_ajax(List<SDto> list);
+	public List<SLocaDto> getSloca_ajax(List<SDto> list);
 }

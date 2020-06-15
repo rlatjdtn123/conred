@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.hk.conred.dtos.CListDto;
 import com.hk.conred.dtos.SDto;
+import com.hk.conred.dtos.SLocaDto;
 import com.hk.conred.dtos.SPhotoDto;
 import com.hk.conred.dtos.STimeDto;
 
@@ -65,6 +66,14 @@ public class MapDaoImp implements IMapDao{
 		
 		map.put("list", list);
 		return sqlSession.selectList(namespace+"getStime_ajax",map);
+	}
+
+	@Override
+	public List<SLocaDto> getSloca_ajax(List<SDto> list) {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("list", list);
+		return sqlSession.selectList(namespace+"getSloca_ajax",map);
 	}
 
 

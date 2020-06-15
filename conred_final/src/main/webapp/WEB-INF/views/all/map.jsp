@@ -96,7 +96,18 @@
 	.s_state_color3{color:#FE2E2E;}
 /* 	맵 */
 	.markerbox{height:100px;width:200px;border:1px solid grey; border-radius:8px;}
-
+	.icon_info{
+	display: inline-block;
+    position: relative;
+    bottom: 130px;
+    background-color: #f2f2f2;
+    width: 170px;
+    height: 80px;
+    border-radius: 5px;
+    padding: 5px;
+    left: 0px;
+    border: 1px solid grey;}
+	.icon_text{} 
 
 </style>
 <!-- services와 clusterer, drawing 라이브러리 불러오기 -->
@@ -146,6 +157,7 @@
 					var photo_lists = obj.photolist;
 					var cate_lists = obj.catelist;
 					var stime_lists = obj.stimelist1;
+					var sloca_lists = obj.slocalist;
 					var store_detail;
 					var rb =$("#rightbox");
 					
@@ -186,8 +198,117 @@
 						$(".storelist").remove();
 						$("#rightbox").append("<div class='storelist' style='height:100%'>----------현재 지역에서 검색되는 결과가 없습니다----------</div>");
 					}
-// 					console.log(store_lists[0].store_name);
 	// 				alert("성공쓰");
+	
+					// 주소-좌표 변환 객체를 생성합니다
+					var geocoder = new kakao.maps.services.Geocoder();
+					
+					for (var i = 0; i < store_lists.length; i++) {
+					     var coords = new kakao.maps.LatLng(sloca_lists[i].store_latitude, sloca_lists[i].store_longitude);
+					     // 마커를 생성합니다
+					     var marker = new kakao.maps.Marker({
+					         map: map, // 마커를 표시할 지도
+					         position: coords, // 마커를 표시할 위치
+// 					         image : markerImage // 마커 이미지 
+					     });
+					     
+					     marker.setMap(map);
+					     
+					     var content = '<div class="icon_info"><span class="icon_text">'+store_lists[i].store_name+'</span></div>';
+					     var customOverlay = new kakao.maps.CustomOverlay({
+					    	    position: coords,
+					    	    content: content   
+					    	});
+						// 커스텀 오버레이를 지도에 표시합니다
+						 customOverlay.setMap(map);
+						
+						// 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+//						    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+//						    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+						    kakao.maps.event.addListener(marker, 'mouseleave', makeOverListener(map, marker, customOverlay));
+						    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(customOverlay));
+// 						    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+// 						    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+						}	
+						
+						// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+						function makeOverListener(map, marker, customOverlay) {
+						    return function() {
+						    	customOverlay.open(map, marker);
+						    };
+						}
+						
+						// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+						function makeOutListener(customOverlay) {
+						    return function() {
+						    	customOverlay.close();
+						    };
+						}
+					
+					// 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
+// 						var positions = [
+// 						    {
+// 						        content: '<div>'+store_lists[i].store_name+'</div>', //여기에 매장명
+// 						        latlng: new kakao.maps.LatLng(37.52715863724557, 126.89070453681288)
+// 						    },
+// 						    {
+// 						        content: '<div>냥냥병원</div>', 
+// 						        latlng: new kakao.maps.LatLng(37.526069654538986,126.89204104672005)
+// 						    },
+// 						    {
+// 						        content: '<div>댕대카페</div>', 
+// 						        latlng: new kakao.maps.LatLng(37.52412298508234,126.89148953463733)
+// 						    },
+// 						    {
+// 						        content: '<div>냥냥카페</div>',
+// 						        latlng: new kakao.maps.LatLng(37.52433501365076,126.88699811386819)
+// 						    }
+// 						];
+						
+// 						// 마커 이미지의 이미지 주소입니다
+// 						var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+						
+// 						for (var i = 0; i < positions.length; i ++) {
+// 						 // 마커 이미지의 이미지 크기 입니다
+// 						    var imageSize = new kakao.maps.Size(24, 35); 
+						    
+// 						    // 마커 이미지를 생성합니다    
+// 						    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+						    
+// 						    // 마커를 생성합니다
+// 						    var marker = new kakao.maps.Marker({
+// 						        map: map, // 마커를 표시할 지도
+// 						        position: positions[i].latlng, // 마커를 표시할 위치
+// 						        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+// 						        image : markerImage // 마커 이미지 
+// 						    });
+// 						    // 마커에 표시할 인포윈도우를 생성합니다 
+// 						    var infowindow = new kakao.maps.InfoWindow({
+// 						        content: positions[i].content // 인포윈도우에 표시할 내용
+// 						    });
+
+// 						    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+// 						    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+// 						    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+// 						    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+// 						    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+// 						}	
+						
+// 						// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+// 						function makeOverListener(map, marker, infowindow) {
+// 						    return function() {
+// 						        infowindow.open(map, marker);
+// 						    };
+// 						}
+						
+// 						// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+// 						function makeOutListener(infowindow) {
+// 						    return function() {
+// 						        infowindow.close();
+// 						    };
+// 						}
+	
+	
 				},
 				error: function(request,error) {
 					$(".storelist").remove();
@@ -321,54 +442,54 @@
 		var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 
 		//마커이미지관련정보
-		var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다    
-	    imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
-	    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+// 		var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다    
+// 	    imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+// 	    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 	      
 		// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-		var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
+// 		var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 	    // 마커가 표시될 위치입니다 
 // 		var markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667); 
-		var markerPosition  = new kakao.maps.LatLng(37.525026023695375, 126.8888353907293); 
+// 		var markerPosition  = new kakao.maps.LatLng(37.525026023695375, 126.8888353907293); 
 	    
 		// 마커를 생성합니다
-		var marker = new kakao.maps.Marker({
-		    position: markerPosition, 
-		    image: markerImage // 마커이미지 설정
-		});
+// 		var marker = new kakao.maps.Marker({
+// 		    position: markerPosition, 
+// 		    image: markerImage // 마커이미지 설정
+// 		});
 
 		// 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
-		var iwContent = '<div class="markerbox" style="padding:5px;">댕댕미용실</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-		    iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+// 		var iwContent = '<div class="markerbox" style="padding:5px;">댕댕미용실</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+// 		    iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
 		// 인포윈도우를 생성합니다
-		var infowindow = new kakao.maps.InfoWindow({
-		    content : iwContent,
-		    removable : iwRemoveable
-		});
+// 		var infowindow = new kakao.maps.InfoWindow({
+// 		    content : iwContent,
+// 		    removable : iwRemoveable
+// 		});
 		    
 		  
 		// 마커에 마우스오버 이벤트를 등록합니다
-		kakao.maps.event.addListener(marker, 'mouseover', function() {
-		  // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
-		    infowindow.open(map, marker);
-		});
+// 		kakao.maps.event.addListener(marker, 'mouseover', function() {
+// 		  // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+// 		    infowindow.open(map, marker);
+// 		});
 
 		// 마커에 마우스아웃 이벤트를 등록합니다
-		kakao.maps.event.addListener(marker, 'mouseout', function() {
-		    // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
-		    infowindow.close();
-		});
+// 		kakao.maps.event.addListener(marker, 'mouseout', function() {
+// 		    // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+// 		    infowindow.close();
+// 		});
 		
 		// 마커에 클릭이벤트를 등록합니다
-		kakao.maps.event.addListener(marker, 'click', function() {
-				alert("이거 누르면 옆에 리스트에서 해당 매장의 백그라운드컬러가 변하게");
-		      // 마커 위에 인포윈도우를 표시합니다
-		      infowindow.open(map, marker);  
-		});
+// 		kakao.maps.event.addListener(marker, 'click', function() {
+// 				alert("이거 누르면 옆에 리스트에서 해당 매장의 백그라운드컬러가 변하게");
+// 		      // 마커 위에 인포윈도우를 표시합니다
+// 		      infowindow.open(map, marker);  
+// 		});
 		
 		// 마커가 지도 위에 표시되도록 설정합니다
-		marker.setMap(map);
+// 		marker.setMap(map);
 		
 		function getInfo() {
 		    
@@ -390,6 +511,7 @@
 		    console.log(message);
 		}
 
+		
 		// 		드래그끝나면 실행1
 // 		kakao.maps.event.addListener(map, 'dragend', function () {        
 // 		});
