@@ -48,28 +48,30 @@
 					addContent += ' <div class="bigtle"> '
 						+   '<div class="mybox">     '
 						+ 	'<div class="store_img">     '
-						+'<div style="background-color:yellow; width: 200px;height: 30px; margin-top: 250px;">'+ lists[i].store_name +'</div>'
+						+'<div class="store_info">'+ lists[i].store_name +'</div>'
 					 +	'</div>  '    
 					+	'<img src="./img/profile_default.png" class="pf"/>  '
 					+	'<div class="info">        ' 
-					+	'	<button style="margin-left: 505px;background-color:#fafafa;">삭제</button> <button  class="content_detail">자세히 보기</button><br>' 
-					+	'	<span>닉네임:'+ lists[i].user_id +'</span><span style="margin-left: 310px;">작성일: '+ lists[i].reply_regdate +'</span><br>  '
+					+	'	<button style="margin-left: 435px;background-color:#fafafa;">삭제</button> <button  class="content_detail">자세히 보기</button><br>' 
+					+	'	<span>닉네임:'+ lists[i].user_id +'</span><span style="margin-left: 240px;">작성일: '+ lists[i].reply_regdate +'</span><br>  '
 					+		'<div class="star_table">'
 					+			'<table>'
 					+				'<tr>'
 						+				'<td>서비스</td>'
-// 						+             '<td>'+ star_service +'</td>'
+						+             '<td>'+ test1(lists[i].reply_service)+test2(lists[i].reply_service)+test3(lists[i].reply_service)+ '</td>'
 						+			'</tr>'
 						+			'<tr>'
 						+			'	<td>가격</td>'
+						+             '<td>'+ test1(lists[i].reply_price)+test2(lists[i].reply_price)+test3(lists[i].reply_price)+ '</td>'
 						+		'	</tr>' 
 						+		'	<tr>'
 						+		'		<td>청결도</td>'
+						+             '<td>'+ test1(lists[i].reply_clean)+test2(lists[i].reply_clean)+test3(lists[i].reply_clean)+ '</td>'
 						+		'	</tr>'
 							+	'</table>'
 						+	'</div>'
-					+		'<div class="user_review_img" ></div>'
-					+		'<div class="contents">'
+						+		'<div class="user_review_img" ></div>'
+						+		'<div class="contents">'
 					+		'	<span style="font-weight: bold;">리뷰내용</span><br>'
 					+		'	<span>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</span>'
 					+		'</div>'
@@ -112,7 +114,35 @@
    
 	});  
 	
+
 	
+	 function test1(val){
+		 var v="";
+		for(var i=0;i<Math.floor(val);i++){
+		 
+			v+='<img class="starz" src="img/star_fill.png">';
+		
+		}
+		return v;
+	 }
+ 
+	function test2(val){
+		var v="";
+		for(var i=0;i<(Math.ceil(val)-Math.floor(val));i++){
+		
+			v+='<img class="starz" src="img/star_half.png">';
+	
+		}
+		return v;
+	}
+	function test3(val){
+		var v="";
+		for(var i=0;i<(5-Math.ceil(val));i++){
+			v+='<img class="starz" src="img/star_empty.png">';
+		}
+		return v;
+	}
+
 	
 </script>     
 <style type="text/css">
@@ -127,13 +157,13 @@
 	.pf{float: left; width: 40px;height: 40px;}     
 	.dt{margin-left: 600px;}
 	.info{min-height: 95px;}    
-	.contents{border-radius:5px;display:inline-block;padding: 10px; width: 682px;height:80px;text-overflow: ellipsis; overflow: hidden;word-break:keep-all;min-height: 80px; clear: both; background-color: #fafafa;margin-bottom: 15px;}        
-	.info2{background-color: #fafafa;  height: 80px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 682px; min-height: 80px;border-radius:5px;word-break:keep-all;}
+	.contents{border-radius:5px;display:inline-block;padding: 10px; width: 612px;height:80px;text-overflow: ellipsis; overflow: hidden;word-break:keep-all;min-height: 80px; clear: both; background-color: #fafafa;margin-bottom: 15px;}        
+	.info2{background-color: #fafafa;  height: 80px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 612px; min-height: 80px;border-radius:5px;word-break:keep-all;}
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
 	.myboxmargin{margin-top:30px;}      
 	.store_img{width: 200px;height:280px; float: left;margin-right: 20px; background: url("img/user_back_test.png");background-size: 200px 250px;} 
-	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:935px;height:370px; font-size: 15px; margin-left: -10px;min-height: 370px;background-color: #f2f2f2;}
-	.bigtle{margin-left: 40px;}          
+	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:865px;height:370px; font-size: 15px; margin-left: -10px;min-height: 370px;background-color: #f2f2f2;}
+	.bigtle{margin-left: 75px;}          
 	       
 	      
 	 .modal-title{margin-left: 400px;} 
@@ -148,14 +178,16 @@
      .imgs_wrap img {max-width: 150px;margin-left: 5px;margin-right: 5px;}
 	.input_wrap {clear: both;} 
 	button {border: 0;  } 
-	 .user_review_img{border: 1px solid red;width: 485px;height: 80px;margin-left: 418px;margin-bottom:22px;}
+	 .user_review_img{background-color:#fafafa; width: 415px;height: 80px;margin-left: 418px;margin-bottom:22px;}
 	 .content_detail{background-color: #fafafa;}
 	 .content_detail:hover {background-color: grey;}
 	 
 	 .star_table{width: 187px; height: 80px;background-color: #fafafa;border-radius: 5px; padding: 10px;float: left;}
 	 .starz{width:17px;height:auto;display: inline-block;margin:-2px;margin-bottom:4px;}
-	 .content_delete{margin-left: 505px; background-color:#fafafa;}
+	 .content_delete{margin-left: 435px; background-color:#fafafa;}
 	 .content_delete:hover {background-color: grey;} 
+	 .store_info{text-align:center;background-color:#f2f2f2; width: 200px;height: 30px; margin-top: 250px;}
+	 
 	  
 </style>
 </head>
@@ -193,12 +225,12 @@
 	<div class="bigtle" > 
 		<div class="mybox">      
 		 	<div class="store_img">     
-		 		<div style="background-color:yellow; width: 200px;height: 30px; margin-top: 250px;"><%=dto.getStore_name()%></div>
+		 		<div class="store_info"><%=dto.getStore_name()%></div>
 		 	</div>      
 			<img src="./img/profile_default.png" class="pf"/>  
 			<div class="info">        
 				<button class="content_delete">삭제</button> <button class="content_detail">자세히 보기</button><br> 
-				<span>닉네임:<%=dto.getUser_id()%></span><span style="margin-left: 310px;">작성일: <%=dto.getReply_regdate()%></span><br>
+				<span>닉네임:<%=dto.getUser_id()%></span><span style="margin-left: 240px;">작성일: <%=dto.getReply_regdate()%></span><br>
 				<div class="star_table">
 					<table>
 						<tr> 

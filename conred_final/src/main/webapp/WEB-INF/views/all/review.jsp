@@ -31,7 +31,7 @@
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
 	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:935px;height:370px; font-size: 15px; margin-left: 30px;min-height: 370px;background-color: #f2f2f2;}
 	.myboxmargin{margin-top:30px;}
-	#main{width: 850px;height: 250px;margin: 0 auto; padding-top: 25px;} 
+	#main{width: 930px;height: 250px;margin-left:70px; padding-top: 25px;} 
 	#main2{font-size: 20px;}  
 	#main2{} 
 	.pf{float: left; width: 40px;height: 40px;}     
@@ -55,7 +55,8 @@
      .imgs_wrap { width: 880px;height:130px; border: 1px solid black;}
      .imgs_wrap img {max-width: 120px;max-height: 120px;min-width: 120px;min-height: 120px;margin-left: 25px;margin-right: 25px;}
 	.input_wrap {margin: 10px 0 10px 0;}
-	.modal_Btn{border: 0; margin-left: 300px; height: 50px; }
+	.modal_Btn{border: 0; margin-left: 690px; height: 50px; }
+	.modal_Btn:hover{background-color: grey;} 
  	.overfive{float: left;} 
  	.star_bigtle{margin-left: 65px; float: left;}
  	.upload_message{height: 40px; width: 400px;margin-left: 215px; text-align: center; line-height: 37px;}
@@ -63,7 +64,8 @@
 	 .content_detail:hover {background-color: grey;} 
      .star_table{width: 200px; height: 80px;background-color: #fafafa;border-radius: 5px; padding: 10px;float: left;}
       .starz{width:17px;height:auto;display: inline-block;margin:-2px;margin-bottom:4px;}
-      
+      .small_star{width: 25px;height: auto;margin: -2px;margin-bottom:4px;}
+      .big_star{width: 50px;height: auto;}
       
        
 </style>   
@@ -307,8 +309,8 @@
 </script> 
 </head>
 <% 
-// 	List<ReplyDto> list=(List<ReplyDto>)request.getAttribute("list");
-// 	ReplyDto list_avg=(ReplyDto)request.getAttribute("list_avg");
+	List<ReplyDto> list=(List<ReplyDto>)request.getAttribute("list");
+	ReplyDto list_avg=(ReplyDto)request.getAttribute("list_avg");
 %>
 <body>
 <!-- 모탈창 부분 -->
@@ -393,54 +395,169 @@
 
 <div id="container"> 
 	<div id="main">
-		<span id="main2">리뷰&nbsp;<b style="font-size: 25px;"></b>/5 &nbsp; &nbsp; &nbsp;후기2343개|답변2033개</span><button class="modal_Btn">리뷰 작성</button><br>
-		<span>최근6개월 누적평점</span><br/><br/>
+		<span id="main2">리뷰&nbsp;<%for(int i=0;i<Math.floor(list_avg.getAll_avg());i++){
+				%>
+					<img src="img/star_fill.png" class="big_star">
+				<%
+			}
+			if(0<Math.ceil(list_avg.getAll_avg())-Math.floor(list_avg.getAll_avg())){
+				%>
+				<img src="img/star_half.png" class="big_star">
+				<%
+			}
+			for(int i=0;i<(5-Math.ceil(list_avg.getAll_avg()));i++){
+				%>
+					<img src="img/star_empty.png" class="big_star">
+				<%
+			}
+		%>
+		<b style="font-size: 25px;"><%=list_avg.getAll_avg()%></b>/5 &nbsp; &nbsp; &nbsp;후기<%=list_avg.getReply_count()%>개|답변<%=list_avg.getAnswer_count()%>개</span><br>
+		<span>최근6개월 누적평점</span><button class="modal_Btn">리뷰 작성</button><br/><br/>
 		<table>
 			<col width="50px;">  
 			<tr> 
 				<td><span>서비스</span></td>
-				<td>★★★★☆ 4.5<span>/5</span></td>
+				<td>
+				<%for(int i=0;i<Math.floor(list_avg.getService_avg());i++){
+					%>
+					<img src="img/star_fill.png" class="small_star">
+					<%
+				}
+				if(0<Math.ceil(list_avg.getService_avg())-Math.floor(list_avg.getService_avg())){
+					%>
+					<img src="img/star_half.png" class="small_star">
+					<%
+				}
+				for(int i=0;i<5-Math.ceil(list_avg.getService_avg());i++){
+					%>
+					<img src="img/star_empty.png" class="small_star">
+					<%
+				}
+				%>
+				</td>
+				<td><span><%=list_avg.getService_avg()%>/5</span></td>
 			</tr>
 			<tr>
 				<td><span>가격</span></td>
-				<td>★★★★☆ 4.5<span>/5</span></td>
+				<td>
+				<%for(int i=0;i<Math.floor(list_avg.getPrice_avg());i++){
+					%>
+					<img src="img/star_fill.png" class="small_star">
+					<%
+				}
+				if(0<Math.ceil(list_avg.getPrice_avg())-Math.floor(list_avg.getPrice_avg())){
+					%>
+					<img src="img/star_half.png" class="small_star">
+					<%
+				}
+				for(int i=0;i<5-Math.ceil(list_avg.getPrice_avg());i++){
+					%>
+					<img src="img/star_empty.png" class="small_star">
+					<%
+				}
+				%>
+				</td>
+				<td><span><%=list_avg.getPrice_avg()%>/5</span></td>
 			</tr>
 			<tr>
 				<td><span>청결도</span></td>
-				<td>★★★★☆ 4.5<span>/5</span></td>
+				<td>
+				<%for(int i=0;i<Math.floor(list_avg.getClean_avg());i++){
+					%>
+					<img src="img/star_fill.png" class="small_star">
+					<%
+				}
+				if(0<Math.ceil(list_avg.getClean_avg())-Math.floor(list_avg.getClean_avg())){
+					%>
+					<img src="img/star_half.png" class="small_star">
+					<%
+				}
+				for(int i=0;i<5-Math.ceil(list_avg.getClean_avg());i++){
+					%>
+					<img src="img/star_empty.png" class="small_star">
+					<%
+				}
+				%>
+				</td>
+				<td><span><%=list_avg.getClean_avg()%>/5</span></td>
 			</tr>
 		</table>  
 	</div>  
+	<%
+	for(ReplyDto dto:list){ 
+	%>
    <div class="bigtle" > 
 		<div class="mybox">          
 			<img src="./img/profile_default.png" class="pf"/>  
 			<div class="info">        
 				<button class="content_detail">자세히 보기</button><br> 
-				<span>닉네임:ㄴㅌㅇㅀ</span><span style="margin-left: 595px;">작성일: ㅁㄴㅇ</span><br>
+				<span>닉네임:<%=dto.getUser_id()%> </span><span style="margin-left: 595px;">작성일: <%=dto.getReply_regdate()%></span><br>
 				<div class="star_table">
 					<table>
 						<tr> 
 							<td>서비스</td>
 							<td>
-									<img class="starz" src="img/star_fill.png">
-									<img class="starz" src="img/star_half.png">
-									<img class="starz" src="img/star_empty.png">
+							<%
+								for(int i=0;i<Math.floor(dto.getReply_service());i++){
+									%>
+									<img class="starz" src="img/star_fill.png">				
+									<%					
+								}
+								if(0<Math.ceil(dto.getReply_service())-Math.floor(dto.getReply_service())){
+									%>
+									<img class="starz" src="img/star_half.png">		
+									<%
+								}
+								for(int i=0;i<5-Math.ceil(dto.getReply_service());i++){
+									%>
+									<img class="starz" src="img/star_empty.png">			
+									<%					
+								}
+							%>
 							</td> 
 						</tr>
 						<tr>
 							<td>가격</td>
 							<td>
-										<img class="starz" src="img/star_fill.png">
-										<img class="starz" src="img/star_half.png">
-										<img class="starz" src="img/star_empty.png">
+							<%
+								for(int i=0;i<Math.floor(dto.getReply_price());i++){
+									%>
+									<img class="starz" src="img/star_fill.png">				
+									<%					
+								}
+								if(0<Math.ceil(dto.getReply_price())-Math.floor(dto.getReply_price())){
+									%>
+									<img class="starz" src="img/star_half.png">		
+									<%
+								}
+								for(int i=0;i<5-Math.ceil(dto.getReply_price());i++){
+									%>
+									<img class="starz" src="img/star_empty.png">			
+									<%					
+								}
+							%>
 							</td> 
 						</tr>
 						<tr>
 							<td>청결도</td>
 							<td>
-										<img class="starz" src="img/star_fill.png">
-										<img class="starz" src="img/star_half.png">
-										<img class="starz" src="img/star_empty.png">
+							<%
+								for(int i=0;i<Math.floor(dto.getReply_clean());i++){
+									%>
+									<img class="starz" src="img/star_fill.png">				
+									<%					
+								}
+								if(0<Math.ceil(dto.getReply_clean())-Math.floor(dto.getReply_clean())){
+									%>
+									<img class="starz" src="img/star_half.png">		
+									<%
+								}
+								for(int i=0;i<5-Math.ceil(dto.getReply_clean());i++){
+									%>
+									<img class="starz" src="img/star_empty.png">			
+									<%					
+								}
+							%>
 							</td> 
 						</tr>
 					</table>
@@ -448,16 +565,28 @@
 				<div class="user_review_img" ></div>     
 				<div class="contents">
 					<span style="font-weight: bold;">리뷰내용</span><br>
-					<span>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</span>
+					<span><%=dto.getReply_content()%></span>
 				</div> 
 			</div>   
 			<div class="info2">     
-				<span style="font-weight: bold;">매장답변</span><br>
-				<span>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</span>						
-			</div>
-		</div>  
+				<span style="font-weight: bold;">매장답변</span><br> 
+				<%if(dto.getReply_answer()==null||dto.getReply_answer().equals("")){
+				%>
+					<span>아직 답변이 없습니다.</span>										
+				<%
+				}else{
+				%>
+					<span><%=dto.getReply_answer()%></span>										
+				<%
+				}
+				%>
+			</div> 
+		</div>   
 	</div>      
 	<br><br>
+	<%
+	}
+	%>
     <div class="block">
         
     </div>

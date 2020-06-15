@@ -68,10 +68,14 @@
 	 //공백
 	 var emptyDay;
 	 $(function(){ 
-			var stay=$("input[name=stay]").val();
-		 	for (var i = 0; i < stay; i++) {
-				alert($("input[name=asdff]").val()); 
-// 				alert(stay); 
+// 		 ((endDay.getTime()-startDay.getTime()/(1000*60*60*24)));       //  1초---> 1000ms
+			var stay=$("input[name=stay]").val(); 
+		 	for (var i = 0; i < stay; i++) { 
+			 	var num=new Date($("input[name=sall1]").val());
+			 	alert(num.getDay()); 
+				var day_resultS=$("input[name=sall"+i+"]").val(); 
+ 				var day_resultE=$("input[name=eall"+i+"]").val(); 
+ 				alert(day_resultE-day_resultS);
 			}
 // 		  	var stay=document.getElementsByClassName('reserve_sdate')[1].value;
 // 		 	alert(stay);
@@ -194,7 +198,7 @@
 	 })
 	var datestr; 
 	function aaa(ele){
-		
+// 		alert($(".flatpickr-day").text());
 		datestr=$(".selector").val();
 		
 		var dates=datestr.split("to");
@@ -396,16 +400,15 @@
 <input type="hidden" name="sat" value="<%=list.get(5).getStore_time_break()%>"/><input type="hidden" name="satNum" value="<%=list.get(5).getRownum()%>"/>
 <input type="hidden" name="sun" value="<%=list.get(6).getStore_time_break()%>"/><input type="hidden" name="sunNum" value="<%=list.get(6).getRownum()%>"/>
 <input type="hidden" name="stay" value="<%=stay_reserve_list.size()%>">
-<input type="hidden" name="asdff" value="<%=stay_reserve_list.get(0).getReserve_sdate()%>"/>
 <% 
-	for(int i=0;i>stay_reserve_list.size();i++){
+	for(int i=0;i<stay_reserve_list.size();i++){
 		%>
-			<input type="hidden" class="sall<%=i%>" name="sall" value="<%=stay_reserve_list.get(i).getReserve_sdate()%>"/>
+			<input type="hidden" name="sall<%=i%>" value="<%=stay_reserve_list.get(i).getReserve_sdate()%>"/>
 		<%
 	}
-	for(int i=0;i>stay_reserve_list.size();i++){ 
+	for(int i=0;i<stay_reserve_list.size();i++){ 
 		%>
-			<input type="hidden" class="eall<%=i%>" name="eall<%=i%>" value="<%=stay_reserve_list.get(i).getReserve_edate()%>"/>
+			<input type="hidden" name="eall<%=i%>" value="<%=stay_reserve_list.get(i).getReserve_edate()%>"/>
 		<%
 	}
 %>
@@ -435,6 +438,8 @@ $(".selector").flatpickr({
   
 
 });	
+
+
 </script>
 </body>
 </html>
