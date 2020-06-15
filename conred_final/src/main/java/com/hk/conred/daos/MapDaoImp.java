@@ -1,5 +1,6 @@
 package com.hk.conred.daos;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.hk.conred.dtos.SDto;
+import com.hk.conred.dtos.SPhotoDto;
 
 @Repository
 public class MapDaoImp implements IMapDao{
@@ -36,6 +38,15 @@ public class MapDaoImp implements IMapDao{
 		map.put("swlat", swlat);
 		map.put("swlng", swlng);
 		return sqlSession.selectList(namespace+"searchCateAll_ajax",map);
+	}
+
+	@Override
+	public List<SPhotoDto> getPhotos_ajax(List<SDto> list) {
+		Map<String, Object> map = new HashMap<>();
+		System.out.println(list.get(0).getStore_seq());
+		
+		map.put("list", list);
+		return sqlSession.selectList(namespace+"getPhotos_ajax",map);
 	}
 
 

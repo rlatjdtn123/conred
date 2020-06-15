@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.hk.conred.daos.IMapDao;
 import com.hk.conred.dtos.SDto;
+import com.hk.conred.dtos.SPhotoDto;
 
 @Service
 public class MapServiceImp implements IMapService{
@@ -27,6 +28,11 @@ public class MapServiceImp implements IMapService{
 	@Override
 	public List<SDto> searchCateAll_ajax(String nelat, String nelng, String swlat, String swlng) {
 		return mapDao.searchCateAll_ajax(nelat,nelng,swlat,swlng);
+	}
+
+	@Override
+	public List<SPhotoDto> getPhotos_ajax(List<SDto> list) {
+		return mapDao.getPhotos_ajax(list);
 	}
 
 

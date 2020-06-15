@@ -33,10 +33,12 @@
 	
 <!-- 	맵으로 이동할때 -->
 	<select id="searchCateAll_ajax" parameterType="String" resultType="SDto">
-		SELECT cs.STORE_SEQ ,cs.STORE_NAME ,cs.STORE_INTRO_SIMPLE,cs.STORE_STATE,cs.STORE_PHONE, cs.STORE_ADDRESS ,cs.STORE_ADDRESS_DETAIL ,ccm.CATEGORY_CODE
-		FROM CON_STORE_LOCATION csl ,CON_STORE cs, CON_CATEGORY_MAIN ccm 
+		SELECT cs.STORE_SEQ ,cs.STORE_NAME ,cs.STORE_INTRO_SIMPLE,cs.STORE_STATE,cs.STORE_PHONE,
+		cs.STORE_ADDRESS ,cs.STORE_ADDRESS_DETAIL ,ccm.CATEGORY_CODE, cc.CATEGORY_NAME 
+		FROM CON_STORE_LOCATION csl ,CON_STORE cs, CON_CATEGORY_MAIN ccm, CON_CATEGORY cc 
 		WHERE cs.STORE_SEQ =csl.STORE_SEQ
 		AND cs.STORE_SEQ =ccm.STORE_SEQ
+		AND cc.CATEGORY_CODE =ccm.CATEGORY_CODE 
 		AND STORE_LATITUDE BETWEEN #{swlat} AND #{nelat}
 		AND STORE_LONGITUDE BETWEEN #{swlng} AND #{nelng}
 		AND STORE_ADMIN_STATE ='Y'
@@ -49,14 +51,30 @@
 	
 <!-- 	맵으로 이동할때-->
 	<select id="searchCate_ajax" parameterType="String" resultType="SDto">
-		SELECT cs.STORE_SEQ ,cs.STORE_NAME ,cs.STORE_INTRO_SIMPLE,cs.STORE_STATE,cs.STORE_PHONE, cs.STORE_ADDRESS ,cs.STORE_ADDRESS_DETAIL ,ccm.CATEGORY_CODE
-		FROM CON_STORE_LOCATION csl ,CON_STORE cs, CON_CATEGORY_MAIN ccm 
+		SELECT cs.STORE_SEQ ,cs.STORE_NAME ,cs.STORE_INTRO_SIMPLE,cs.STORE_STATE,cs.STORE_PHONE,
+				cs.STORE_ADDRESS ,cs.STORE_ADDRESS_DETAIL ,ccm.CATEGORY_CODE, cc.CATEGORY_NAME 
+		FROM CON_STORE_LOCATION csl ,CON_STORE cs, CON_CATEGORY_MAIN ccm, CON_CATEGORY cc 
 		WHERE cs.STORE_SEQ =csl.STORE_SEQ
 		AND cs.STORE_SEQ =ccm.STORE_SEQ
+		AND cc.CATEGORY_CODE =ccm.CATEGORY_CODE 
 		AND STORE_LATITUDE BETWEEN #{swlat} AND #{nelat}
 		AND STORE_LONGITUDE BETWEEN #{swlng} AND #{nelng}
 		AND STORE_ADMIN_STATE ='Y'
 		AND ccm.CATEGORY_CODE =#{category_code}
 	</select>
 	
+	<select id="getPhotos_ajax" parameterType="Map" resultType="SPhotoDto">
+		SELECT cnp.STORE_SEQ ,cnp.STORE_PHOTO_SEQ ,cnp.STORE_PHOTO_STORED, cnp.rn
+		FROM (
+			SELECT cs.STORE_SEQ ,csp.STORE_PHOTO_SEQ ,csp.STORE_PHOTO_STORED,
+			ROW_NUMBER ()over(PARTITION BY cs.STORE_SEQ ORDER BY csp.STORE_PHOTO_SEQ) AS rn
+			FROM CON_STORE cs,CON_STORE_PHOTO csp 
+			WHERE cs.STORE_SEQ =csp.STORE_SEQ 
+			AND cs.STORE_SEQ IN 
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item.store_seq}
+		</foreach>
+			) cnp
+		WHERE rn=1
+	</select>
 </mapper>

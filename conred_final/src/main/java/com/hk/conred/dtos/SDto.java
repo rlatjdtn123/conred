@@ -30,8 +30,13 @@ public class SDto {
 	private int store_maxman;
 	private CDto cDto;
 	private InterestsDto iDto;
+	private double clean_avg;
+	private double service_avg;
+	private double price_avg;
+	private double all_avg;
 	
 	private String category_code;
+	private String category_name;
 	
 	public SDto() {
 		super();
@@ -40,6 +45,74 @@ public class SDto {
 	
 	
 	
+	public String getCategory_name() {
+		return category_name;
+	}
+
+
+
+	public void setCategory_name(String category_name) {
+		this.category_name = category_name;
+	}
+
+
+
+	public double getClean_avg() {
+		return clean_avg;
+	}
+
+
+
+	public void setClean_avg(double clean_avg) {
+		this.clean_avg = clean_avg;
+	}
+
+
+
+	public double getService_avg() {
+		return service_avg;
+	}
+
+
+
+	public void setService_avg(double service_avg) {
+		this.service_avg = service_avg;
+	}
+
+
+
+	public double getPrice_avg() {
+		return price_avg;
+	}
+
+
+
+	public void setPrice_avg(double price_avg) {
+		this.price_avg = price_avg;
+	}
+
+
+
+	public double getAll_avg() {
+		return all_avg;
+	}
+
+
+
+	public void setAll_avg(double all_avg) {
+		this.all_avg = all_avg;
+	}
+
+
+
+	public SDto(int store_seq, double clean_avg, double service_avg, double price_avg, double all_avg) {
+		super();
+		this.store_seq = store_seq;
+		this.clean_avg = clean_avg;
+		this.service_avg = service_avg;
+		this.price_avg = price_avg;
+		this.all_avg = all_avg;
+	}
 
 
 
@@ -102,11 +175,11 @@ public class SDto {
 		this.store_agreement = store_agreement;
 	}
 
-	public SDto(int store_seq, String category_code) {
-		super();
-		this.store_seq = store_seq;
-		this.category_code = category_code;
-	}
+//	public SDto(int store_seq, String category_code) {
+//		super();
+//		this.store_seq = store_seq;
+//		this.category_code = category_code;
+//	}
 
 	public int getStore_seq() {
 		return store_seq;
@@ -278,7 +351,7 @@ public class SDto {
 	public void setcDto(CDto cDto) {
 		this.cDto = cDto;
 	}
-
+ 
 	public InterestsDto getiDto() {
 		return iDto;
 	}
@@ -297,9 +370,6 @@ public class SDto {
 
 
 
-
-
-
 	@Override
 	public String toString() {
 		return "SDto [store_seq=" + store_seq + ", owner_id=" + owner_id + ", store_name=" + store_name
@@ -315,10 +385,11 @@ public class SDto {
 				+ ", store_license_sales_size=" + store_license_sales_size + ", store_owner_phone=" + store_owner_phone
 				+ ", store_agreement=" + store_agreement + ", store_admin_state=" + store_admin_state
 				+ ", store_maxdate=" + store_maxdate + ", store_maxman=" + store_maxman + ", cDto=" + cDto + ", iDto="
-				+ iDto + ", category_code=" + category_code + "]";
+				+ iDto + ", clean_avg=" + clean_avg + ", service_avg=" + service_avg + ", price_avg=" + price_avg
+				+ ", all_avg=" + all_avg + ", category_code=" + category_code + ", category_name=" + category_name
+				+ "]";
 	}
 
-	
 	
 //	@Override
 //	public String toString() {
