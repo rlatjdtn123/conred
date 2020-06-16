@@ -23,7 +23,7 @@
 	.home{border-bottom:1px solid white;background-color: white;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
 	
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
-	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:800px;height:300px; margin:0 auto; font-size: 15px;}
+	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:800px;height:300px; margin:0 auto; font-size: 15px;background-color: #f2f2f2;}
 	.myboxmargin{margin-top:30px;}
 	#main{width: 850px;height: 100px;margin: 0 auto; padding-top: 25px;} 
 	#main2{font-size: 20px;}  
@@ -31,8 +31,8 @@
 	.pf{float: left; width: 40px;height: 40px;}     
 	.dt{margin-left: 600px;}
 	.info{}   
-	.contents{display:inline-block; width: 750px;height:40px;text-overflow: ellipsis; overflow: hidden;}     
-	.info2{background-color: #F2F2F2; margin-top: 50px; height: 100px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 770px;}
+	.contents{display:inline-block; width: 731px;height:80px;text-overflow: ellipsis; overflow: hidden;background-color: #fafafa;margin-left: 20px;min-height: 80px; padding: 10px;margin-bottom: 15px;}     
+	.info2{background-color: #fafafa; margin-left: 20px; height: 80px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 731px;min-height: 80px;}
 	.bot{margin: 0 auto; text-align: center;}
 	
 	#modal_Btn{margin-left: 440px; height: 50px; width: 100px;background-color: #F2F2F2; border: 0;}
@@ -40,9 +40,9 @@
 	.modal-body span{margin: 85px;}
 	textarea:focus::-webkit-input-placeholder { color: transparent; } 
 	.modal-footer  div{border: 1px solid black;width: 153px; height: 110px; float: left; margin: 10px;}
-	
+	button:hover {background-color: grey;}
 </style>
-<script type="text/javascript">	   
+<script type="text/javascript">	    
 	//Javascript
 	var count = 0; 
 	//스크롤 바닥 감지
@@ -105,27 +105,15 @@
     <div class="mybox">         
 		<img src="./img/profile_default.png" class="pf"/>
 		<div class="info">
-			<br><span>닉네임:?? &nbsp;<button style="margin-left: 160px;">수정</button> <button >삭제</button> <button  class="content_detail">자세히 보기</button><br>
-			<br><br><br>   
-			<span class="contents">asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjdddddddddddddddddddd
-			ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</span>   
+			<span style="line-height: 45px;">닉네임:</span><button style="margin-left:475px;">수정</button> <button >삭제</button> <button  class="content_detail">자세히 보기</button><br><br>
+			<div class="contents">
+				<span><b>문의내용</b></span>    
+				<span>asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjdddddddddddddddddddd
+				ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</span>   
+			</div>
 		</div>
 		<div class="info2">    
-			<span style="font-weight: bold;">가게답변</span><br>
-			<span>dddddddddddddddddddddddddddddddddd</span>
-		</div>
-	</div>      
-	<br><br>
-	<div class="mybox">          
-		<img src="./img/profile_default.png" class="pf"/>
-		<div class="info">
-			<br><span>닉네임:?? &nbsp; </span><a style="margin-left: 560px;" id="md" onclick="mdTest()">자세히 보기</a> 
-			<br><br><br>   
-			<span class="contents">asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjdddddddddddddddddddd
-			ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</span>   
-		</div>
-		<div class="info2">    
-			<span style="font-weight: bold;">가게답변</span><br>
+			<span><b>가게답변</b></span><br>
 			<span>dddddddddddddddddddddddddddddddddd</span>
 		</div>
 	</div>      

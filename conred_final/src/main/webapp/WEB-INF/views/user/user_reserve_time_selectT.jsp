@@ -22,7 +22,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <style type="text/css">
-	#container{box-sizing:border-box; border:1px solid grey;  border-bottom-width:0.1px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{box-sizing:border-box; border:1px solid grey;  border-bottom-width:0.1px; width:1000px;margin: 0 auto;background-color:#f5f5f5;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	.flatpickr-calendar{margin: 0 auto; width: 500px !important; height: 400px !important;}
 	.flatpickr-rContainer{margin: 0 auto !important;}
 	
@@ -30,7 +30,7 @@
 	.times_result{width: 315px;margin: 0 auto;border:solid #D8D8D8;border-width:1px 0 1px 0; clear: both; height: 30px;line-height: 30px;margin-bottom: 40px;margin-top: 40px;}
 	.selector{display: none;}
 	.times:hover{background-color: #00FF00;cursor: pointer;}
-	.reserve_time_select{border: 1px solid #A4A4A4; width: 500px; height: auto; margin: 0 auto; border-radius: 10px;margin-bottom: 400px; margin-top: 60px;}
+	.reserve_time_select{border: 1px solid #A4A4A4; width: 500px; height: auto; margin: 0 auto; border-radius: 10px;margin-bottom: 400px; margin-top: 60px;background-color: white;}
 	.time_box{margin: 0 auto; width: 400px; height: auto;}
 	.reserve_success{width: 100px;height: 25px; margin-left: 20px;font-size: 13px;line-height: 26px;border-width:0; display: none;border-radius: 10px;font-weight: bold;} 
 	.reserve_success:hover {background-color: lightgrey;}
@@ -112,13 +112,18 @@
 	// 				alert(parseInt(open[0])+4); 
 	// 				alert(open[0]);
 					var ing=parseInt(close[0])-parseInt(open[0]);
-	// 				alert(ing);
+// 					alert(ing); 
 // 					 alert(open[0]);
-					for (var j = 0; j < ing+1; j++) {
-// 						if((parseInt(open[0])+j)!=12){
-							addContent+= '<input class="times" value="'+ (parseInt(open[0])+j)+':00' +'" readonly="readonly">';							
-// 						}
+					 if(lists[i].store_time_open=lists[i].store_time_close){
+						 for(var j=0;j<25;j++){							 
+							addContent+= '<input class="times" value="'+ (parseInt(open[0])+j)+':00' +'" readonly="readonly">';	
+						 }
+					}else{
+						for (var j = 0; j < ing+1; j++) {
+							addContent+= '<input class="times" value="'+ (parseInt(open[0])+j)+':00' +'" readonly="readonly">';												
+						}						
 					}
+					
 					
 					$(".time_box").empty();
 					$(".time_box").append(addContent);
@@ -267,8 +272,10 @@
 				data:{"store_seq":store_seq,"menu_seq":menu_seq},
 				dataType:"json",
 				success:function(obj){
+			
 					$(".dayContainer > span").not(".flatpickr-disabled").not(".prevMonthDay").not(".nextMonthDay").each(function(){
 						emptyDay=$(".prevMonthDay").length;
+						alert(emptyDay);
 						if(getMon=="Y"){
 							if((parseInt($(this).text())+emptyDay)%7==monNum){//월
 								$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});

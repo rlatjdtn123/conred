@@ -466,12 +466,14 @@ public class Sungsu {
 	
 	@ResponseBody
 	@RequestMapping(value = "user_reserve_time_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public Map<String, List<MenuDto>> user_reserve_time_ajax(Locale locale, Model model,int menu_seq,int store_seq) {
+	public Map<String, Object> user_reserve_time_ajax(Locale locale, Model model,int menu_seq,int store_seq) {
 		logger.info("사용자 예약 ajax {}.", locale);
 //		System.out.println(menu_seq+"::@@@@@::"+store_seq);
 		List<MenuDto> list=menuService.detailMenu(menu_seq,store_seq);
-		Map<String, List<MenuDto>> map=new HashMap<>();
+		List<ReserveDto> stay_reserve_list=reserveService.stayReserve(store_seq, menu_seq);
+		Map<String, Object> map=new HashMap<>();
 		map.put("list", list);	
+		map.put("stay_reserve_list", stay_reserve_list);
 		return map;
 	}  
 	

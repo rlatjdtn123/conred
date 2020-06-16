@@ -74,82 +74,78 @@
 
 	//////////////스크롤 페이징
 	var count = 1;
-	var store_seq=$("input[name=store_seq]").val();
-	//스크롤 바닥 감지 
-	window.onscroll = function(e) {
-	    //추가되는 임시 콘텐츠
-	    //window height + window scrollY 값이 document height보다 클 경우,
-	    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-	    	//실행할 로직 (콘텐츠 추가) 
-	        count++;
-	        var addContent ="";
-			$.ajax({
-				url:"review_ajax.do", 
-				method:"post", 
-				data:{"pnum":count,"store_seq":store_seq},
-				dataType:"json", 
-				success:function(obj){  
-					alert("aaa");
-					var lists=obj.list;  
-					$.each(lists,function(i){
-						addContent+= ' <div class="bigtle" > '
-									+	'	<div class="mybox">     '     
-									+	'	<img src="./img/profile_default.png" class="pf"/>  '
-									+	'	<div class="info">        '
-									+	'		<button class="content_detail">자세히 보기</button><br> '
-									+	'		<span>닉네임: '+ lists[i].user_id +' </span><span style="margin-left: 595px;">작성일: '+ lists[i].reply_regdate +' </span><br>'
-									+	'		<div class="star_table">'
-									+	'			<table>'
-									+	'				<tr> '
-									+	'					<td>서비스</td>'
-									+	'					<td>'
-						 			+	'		            <td>'+ star_fill(lists[i].reply_service)+star_half(lists[i].reply_service)+star_empty(lists[i].reply_serivce) +'</td>         		'
-									+	'					</td> '
-									+	'				</tr>'
-									+	'				<tr>'
-									+	'					<td>가격</td>'
-									+	'					<td>'
-									+	'					<td>'+ star_fill(lists[i].reply_price)+star_half(lists[i].reply_price)+star_empty(lists[i].reply_price) +'</td>         		'
-									+	'					</td> '
-									+	'				</tr>'
-									+	'				<tr>'
-									+	'					<td>청결도</td>'
-									+	'					<td>'
-						+'									<td>'+ star_fill(lists[i].reply_clean)+star_half(lists[i].reply_clean)+star_empty(lists[i].reply_clean) +'</td>         		'
-						+'									</td> '
-						+'								</tr>'
-					+	'							</table>'
-					+	'						</div>'
-					+	'						<div class="user_review_img" ></div>     '
-					+	'						<div class="contents">'
-					+	'							<span style="font-weight: bold;">리뷰내용</span><br>'
-					+	'							<span>'+ lists[i].reply_content +'</span>'
-					+	'						</div> '
-					+	'					</div>   '
-					+	'					<div class="info2">     '
-					+	'						<span style="font-weight: bold;">매장답변</span><br> '
-					+'								<span>'+ lists[i].reply_answer +'</span>			'							
-					+'						</div> '
-					+'					</div>   '
-					+'				</div>      '
-					+'				<br><br>';
-						
-						
-					});
-					alert("asd");
-	        		$('.bigbig').append(addContent);		
-				}
-			});
-	   
-
-			}  
-	    }
+	$(function(){
+		var store_seq=$("input[name=store_seq]").val();
+		//스크롤 바닥 감지 
+		window.onscroll = function(e) {
+		    //추가되는 임시 콘텐츠
+		    //window height + window scrollY 값이 document height보다 클 경우,
+		    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+		    	//실행할 로직 (콘텐츠 추가) 
+		        count++;
+		        var addContent ="";
+				$.ajax({
+					url:"review_ajax.do", 
+					method:"post", 
+					data:{"pnum":count,"store_seq":store_seq},
+					dataType:"json", 
+					success:function(obj){  
+						var lists=obj.list;  
+						$.each(lists,function(i){
+							addContent+= ' <div class="bigtle" > '
+										+	'	<div class="mybox">     '     
+										+	'	<img src="./img/profile_default.png" class="pf"/>  '
+										+	'	<div class="info">        '
+										+	'		<button class="content_detail">자세히 보기</button><br> '
+										+	'		<span>닉네임: '+ lists[i].user_id +' </span><span style="margin-left: 595px;">작성일: '+ lists[i].reply_regdate +' </span><br>'
+										+	'		<div class="star_table">'
+										+	'			<table>'
+										+	'				<tr> '
+										+	'					<td>서비스</td>'
+										+	'					<td>'
+							 			+	'		            <td>'+ star_fill(lists[i].reply_service)+star_half(lists[i].reply_service)+star_empty(lists[i].reply_serivce) +'</td>         		'
+										+	'					</td> '
+										+	'				</tr>'
+										+	'				<tr>'
+										+	'					<td>가격</td>'
+										+	'					<td>'
+										+	'					<td>'+ star_fill(lists[i].reply_price)+star_half(lists[i].reply_price)+star_empty(lists[i].reply_price) +'</td>         		'
+										+	'					</td> '
+										+	'				</tr>'
+										+	'				<tr>'
+										+	'					<td>청결도</td>'
+										+	'					<td>'
+							+'									<td>'+ star_fill(lists[i].reply_clean)+star_half(lists[i].reply_clean)+star_empty(lists[i].reply_clean) +'</td>         		'
+							+'									</td> '
+							+'								</tr>'
+						+	'							</table>'
+						+	'						</div>'
+						+	'						<div class="user_review_img" ></div>     '
+						+	'						<div class="contents">'
+						+	'							<span style="font-weight: bold;">리뷰내용</span><br>'
+						+	'							<span>'+ lists[i].reply_content +'</span>'
+						+	'						</div> '
+						+	'					</div>   '
+						+	'					<div class="info2">     '
+						+	'						<span style="font-weight: bold;">매장답변</span><br> '
+						+'								<span>'+ (lists[i].reply_answer==null?"아직 답변이 없습니다.":lists[i].reply_answer) +'</span>			'							
+						+'						</div> '
+						+'					</div>   '
+						+'				</div>      '
+						+'				<br><br>';
+							
+							
+						});
+		        		$('.bigbig').append(addContent);		
+					}
+				});
+		   
 	
- 	
-	
+				}   
+		    }
 	
 	//////////////////////////자세히보기
-	$(function(){
+	
 		$("body").on("click",".content_detail",function(){
 			if($(this).parent().parent().css("height")=="370px"){  
 				$(this).parent().parent().css("height","auto");  
@@ -162,7 +158,7 @@
 			}   
 		});      
    
-	});  
+	});//$(function(){}) onload 끝  
 	
 	
 	//////////////모달창

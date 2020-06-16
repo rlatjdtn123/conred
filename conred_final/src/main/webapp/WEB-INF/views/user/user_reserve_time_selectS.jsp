@@ -23,7 +23,7 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <style type="text/css">
 /* 	.selector{display: none;} */
-	#container{box-sizing:border-box; border:1px solid grey; border-bottom-width:0.1px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{box-sizing:border-box; border:1px solid grey; border-bottom-width:0.1px; width:1000px;margin: 0 auto;background-color: #f5f5f5;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	.flatpickr-calendar{margin: 0 auto; width: 600px !important; height: 400px !important;}
 	.flatpickr-rContainer{margin: 0 auto !important;}
 	.day_result_box{width: 355px;margin: 0 auto;border:solid #D8D8D8;border-width:1px 0 1px 0;  height: 40px;line-height: 40px; margin-top: 60px;margin-bottom: 400px;}
@@ -31,54 +31,115 @@
 	.reserve_success{width: 100px;height: 25px; margin-left: 20px;font-size: 13px;line-height: 26px;border-width:0; display: none;border-radius: 10px;font-weight: bold;} 
 	.reserve_success:hover {background-color: lightgrey;}
  	.gongback{display: none;} 
-	.sungsoobox{margin-top: 100px;}
 	
 	
 </style> 
 <script> 
-	function isWeek(d){
-		var kk="";
-		switch (d) {
-		case 1:
-			kk="일요일";
-			break;
-		case 2:
-			kk="월요일";
-			break;
-		case 3:
-			kk="화요일";
-			break;
-		case 4:
-			kk="수요일";
-			break;
-		case 5:
-			kk="목요일";
-			break;
-		case 6:
-			kk="금요일";
-			break;
-		case 0:
-			kk="토요일";
-			break;
-		
-		}
-		return kk;
-	}
 	
+	function choiceMonth(d){
+		for (var i = 0; i < 12; i++) {
+			var month=isMonth($(".flatpickr-monthDropdown-month").eq(i).text());					
+		}
+
+	}
+
+	
+	function isMonth(d){
+		var mm="";
+		switch (d) {
+		case "January":
+			mm="01";
+			break;
+		case "February":
+			mm="02";
+			break;
+		case "March":
+			mm="03";
+			break;
+		case "April":
+			mm="04";
+			break;
+		case "May":
+			mm="05";
+			break;
+		case "June":
+			mm="06";
+			break;
+		case "July":
+			mm="07";
+			break;
+		case "August":
+			mm="08";
+			break;
+		case "September":
+			mm="09";
+			break;
+		case "October":
+			mm="10";
+			break;
+		case "November":
+			mm="11";
+			break;
+		case "December":
+			mm="12";
+			break;
+		} 
+		return mm;
+	}
+	 
 	 //공백
-	 var emptyDay;
+	 var emptyDay=$(".prevMonthDay").length;
+//		1590969600000
+	 function printDate(numS,numE,resultDay){  
+		var month=isMonth($(".flatpickr-monthDropdown-month").eq(0).text());
+		var year=$(".cur-year").val();
+
+		var today=$(".today").text();
+// 		alert("년도:"+year+"해당월:"+month); 
+		
+// 		var firstDay=new Date(""+year+month+"01");
+// 		alert(todayTime);
+// 		 alert($(".flatpickr-day").eq(0).text());
+// 		alert(emptyDay);
+		
+		 var s=numS.getDate();
+		 for(var i=0;i<resultDay+1;i++){ 
+			 $(".flatpickr-day").not(".flatpickr-disabled").not(".nextMonthDay").each(function(){
+				if($(this).text()==(s+i)){
+					$(this).css("background-color","red");
+// 					 alert($(this).text()*1000*60*60*24);
+				} 
+			 });
+			 
+		 }
+	 }
+	 
 	 $(function(){ 
 // 		 ((endDay.getTime()-startDay.getTime()/(1000*60*60*24)));       //  1초---> 1000ms
 			var stay=$("input[name=stay]").val(); 
+			var month=isMonth($(".flatpickr-monthDropdown-month").eq(0).text());
+			var year=$(".cur-year").val();
 		 	for (var i = 0; i < stay; i++) { 
-			 	var num=new Date($("input[name=sall1]").val());
-			 	alert(num.getDay()); 
-				var day_resultS=$("input[name=sall"+i+"]").val(); 
- 				var day_resultE=$("input[name=eall"+i+"]").val(); 
- 				alert(day_resultE-day_resultS);
+			 	var numS=new Date($("input[name=sall"+i+"]").val());
+			 	var numE=new Date($("input[name=eall"+i+"]").val()); 
+			 	
+			 	if(numS.getMonth()+1==parseInt(month)&&numS.getFullYear()==year){
+				 	var getTimeS=numS.getTime();
+				 	var getTimeE=numE.getTime(); 
+				 	var resultDay=(getTimeE-getTimeS)/(1000*60*60*24); //일수
+				 	printDate(numS, numE, resultDay);			 		
+			 	}
+			 	
+			 	
+			 	//해당 월의 마지막 날을 구해서 그날 보다 값이 커지면 1로 바꿔줌
+
+				//사이 3일 ---> 2020-06-16 + 17  18  19
+ 
+// 				var day_resultS=$("input[name=sall"+i+"]").val(); 
+//  			var day_resultE=$("input[name=eall"+i+"]").val();
+				//시작일의 날짜, 종료일의 날짜, 일수
 			}
-// 		  	var stay=document.getElementsByClassName('reserve_sdate')[1].value;
-// 		 	alert(stay);
+
 			//요일별 휴무여부
 			var getMon=$("input[name=mon]").val(); 
 			var getTue=$("input[name=tue]").val();
@@ -140,7 +201,30 @@
 				var menu_seq=$("input[name=menu_seq]").val();
 				
 				//////////////////////////////////AJAX
-				$(".flatpickr-months").click(function(){
+// 				$(".flatpickr-months").click(function(){
+					
+// 					////////////////////////////////////////////
+// 					var stay=$("input[name=stay]").val(); 
+// // 					alert(isMonth($(".flatpickr-monthDropdown-month").text());
+// // 					for (var i = 0; i < 12; i++) {
+// // 						var month=isMonth($(".flatpickr-monthDropdown-month").eq(i).text());					
+// // 					}
+// 					var year=$(".cur-year").val(); 
+// 				 	for (var i = 0; i < stay; i++) { 
+// 					 	var numS=new Date($("input[name=sall"+i+"]").val());
+// 					 	var numE=new Date($("input[name=eall"+i+"]").val()); 
+// 					 	var month=isMonth($(".flatpickr-monthDropdown-month").eq(i).text());
+					 
+// 					 	console.log(month);
+// 					 	if(numS.getMonth()+1==parseInt(month)&&numS.getFullYear()==year){
+// 						 	var getTimeS=numS.getTime();
+// 						 	var getTimeE=numE.getTime(); 
+// 						 	var resultDay=(getTimeE-getTimeS)/(1000*60*60*24); //일수
+// 						 	printDate(numS, numE, resultDay); 			 		
+// 					 	}
+// 					} 
+				 	//////////////////////////////////////////////
+				 	
 					$.ajax({
 						url:"user_reserve_time_ajax.do",
 						method:"post",
@@ -195,9 +279,51 @@
 		
 	 	});
 	 
+	 	$(".flatpickr-months").click(function(){
+			
+			////////////////////////////////////////////
+			var stay=$("input[name=stay]").val(); 
+//				alert(isMonth($(".flatpickr-monthDropdown-month").text());
+//				for (var i = 0; i < 12; i++) {
+//					var month=isMonth($(".flatpickr-monthDropdown-month").eq(i).text());					
+//				}
+			var year=$(".cur-year").val(); 
+		 	for (var i = 0; i < stay; i++) { 
+			 	var numS=new Date($("input[name=sall"+i+"]").val());
+			 	var numE=new Date($("input[name=eall"+i+"]").val()); 
+			 	var month=isMonth($(".flatpickr-monthDropdown-month").eq(i).text());
+			 
+			 	console.log(month);
+			 	if(numS.getMonth()+1==parseInt(month)&&numS.getFullYear()==year){
+				 	var getTimeS=numS.getTime();
+				 	var getTimeE=numE.getTime(); 
+				 	var resultDay=(getTimeE-getTimeS)/(1000*60*60*24); //일수
+				 	printDate(numS, numE, resultDay); 			 		
+			 	}
+			}
 	 })
 	var datestr; 
 	function aaa(ele){
+		 
+		
+		////////////////////////////////////////////
+		var stay=$("input[name=stay]").val(); 
+		var month=isMonth($(".flatpickr-monthDropdown-month").eq(0).text());
+		var year=$(".cur-year").val();
+	 	for (var i = 0; i < stay; i++) { 
+		 	var numS=new Date($("input[name=sall"+i+"]").val());
+		 	var numE=new Date($("input[name=eall"+i+"]").val()); 
+		 	
+		 	if(numS.getMonth()+1==parseInt(month)&&numS.getFullYear()==year){
+			 	var getTimeS=numS.getTime();
+			 	var getTimeE=numE.getTime(); 
+			 	var resultDay=(getTimeE-getTimeS)/(1000*60*60*24); //일수
+			 	printDate(numS, numE, resultDay);			 		
+		 	}
+		}
+	 	//////////////////////////////////////////////
+		
+		
 // 		alert($(".flatpickr-day").text());
 		datestr=$(".selector").val();
 		
@@ -229,8 +355,9 @@
 		var satNum=parseInt($("input[name=satNum]").val())+1;
 		var sunNum=parseInt($("input[name=sunNum]").val())-6;
 		
-		if(resultDay>4){
-			alert("5일을 넘길수 없습니다."); 
+		var store_maxdate=$("input[name=store_maxdate]").val();
+		if(resultDay>store_maxdate-1){
+			alert(store_maxdate+"일을 넘길수 없습니다."); 
 			$(".selector").val("");
 			$(".flatpickr-day").removeClass("selected startRange endRange inRange");
 			$(".day_result_box").children("span").empty();
@@ -400,6 +527,7 @@
 <input type="hidden" name="sat" value="<%=list.get(5).getStore_time_break()%>"/><input type="hidden" name="satNum" value="<%=list.get(5).getRownum()%>"/>
 <input type="hidden" name="sun" value="<%=list.get(6).getStore_time_break()%>"/><input type="hidden" name="sunNum" value="<%=list.get(6).getRownum()%>"/>
 <input type="hidden" name="stay" value="<%=stay_reserve_list.size()%>">
+<input type="hidden" name="store_maxdate" value="<%=stay_reserve_list.get(0).getStore_maxdate()%>"/>
 <% 
 	for(int i=0;i<stay_reserve_list.size();i++){
 		%>
@@ -420,7 +548,8 @@
 <input type="hidden" name="reserve_sdate" id="reserve_sdate" value=""/>
 <input type="hidden" name="reserve_edate" id="reserve_edate" value=""/>
 
-	<div id="container">  
+	<div id="container"> 
+		<div style="width: 200px;margin-left: 450px;margin-top: 100px;"><b>연박</b>:최대<%=stay_reserve_list.get(0).getStore_maxdate()%>일까지 가능</div> 
 		<div class="sungsoobox">
 			<input type="text" class="selector" placeholder="날짜를 선택하세요." onchange="aaa(this)"/>
 			<a class="input-button" title="toggle" data-toggle><i class="icon-calendar"></i></a>

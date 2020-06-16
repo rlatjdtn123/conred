@@ -56,8 +56,9 @@ public class ReviewController {
 	public Map<String, List<ReplyDto>> review_ajax(Locale locale, Model model,int store_seq,int pnum) {
 		logger.info("리뷰 ajax  {}.", locale);
 		System.out.println("@@@@@store_seq::::"+store_seq); 
-//		System.out.println("@@@@@pnum::::"+pnum); 
+		System.out.println("@@@@@pnum::::"+pnum); 
 		List<ReplyDto> list=replyService.replyListStoreDetail(store_seq, pnum); 
+		System.out.println("사이즈"+list.size());
 		Map<String, List<ReplyDto>> map=new HashMap<>();
 		map.put("list", list);		
 		return map; 
