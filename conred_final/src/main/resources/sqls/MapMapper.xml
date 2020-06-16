@@ -61,6 +61,7 @@
 		AND STORE_LONGITUDE BETWEEN #{swlng} AND #{nelng}
 		AND STORE_ADMIN_STATE ='Y'
 		AND ccm.CATEGORY_CODE =#{category_code}
+		ORDER BY cs.STORE_SEQ
 	</select>
 	
 <!-- 	매장사진+리뷰평균 구하기 -->

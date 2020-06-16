@@ -41,7 +41,7 @@
 	.categories:first-child{border:1px solid grey; border-radius: 10px; width:50px; height:50px;position:relative;float: left;margin-left:0px;}
 	.categories{border:1px solid grey; border-radius: 10px; width:50px; height:50px;position:relative;float: left;margin-left:20px;}
 
-	.photobox{background-color: grey;width:140px; height:105px;float: left;margin-right:2px;
+	.photobox{box-shadow: 1px 1.5px 2px grey;background-color: grey;width:140px; height:105px;float: left;margin-right:2px;
 	background-size: cover; 
 /* 	background-size: 140px 100px; */
 	background-repeat: no-repeat;}
@@ -54,16 +54,17 @@
 	display: -webkit-box;
 	-webkit-line-clamp: 1;
 	-webkit-box-orient: vertical;
-	
 	}
 /* 	.storename:hover{white-space: nowrap;} */
 	span.tooltiptext {
 		visibility: hidden;
 		opacity:0;
-		transition:visibility 0.3s linear,opacity 0.3s linear;
-		
+		transition:visibility 0.2s linear,opacity 0.2s linear;
+		transition-delay: 1s;
 		width: 300px;
-		background-color: rgba(225, 225, 225, 0.9);
+		background-color: #fff;
+		border: 1px solid #f2f2f2;
+		box-shadow:0px 1px 1px grey;
 		color:#000;
 		text-align: center;
 		border-radius: 6px;
@@ -90,7 +91,10 @@
 	.storetime{display: inline-block;width: 200px;height: 20px; float: left;font-size: 14px;margin-top:5px;}
 	.reservebtn{z-index:100;display: inline-block;width: 60px;height: 20px; float: right;font-size: 14px;margin-top:5px;text-align: center;background-color: #9FF781;border-radius: 10px;color:white;transition: all 0.3s;line-height: 20px;}
 	.reservebtn:hover{background-color: #58D3F7;font-size: 16px;line-height: 20px}
-
+	.storetime_today{z-index:100;display: inline-block;position: absolute;left: 80px;width:150px;border-radius:5px;padding-left:5px;}
+	.storetime_today:hover{background-color: #fff;box-shadow: 0px 1px 2px grey;}
+	.storetime_other{visibility:hidden;background-color:#E0F8E0;display: inline-block;position: absolute; right: 5px; bottom: 2px;width: 145px;border: 1px solid #f2f2f2;border-radius: 5px;padding: 5px;box-shadow: 0px 1px 2px grey;}
+/* 	visibility:hidden; */
 	.s_state_color1{color:#3ADF00;}
 	.s_state_color2{color:#FF8000;}
 	.s_state_color3{color:#FE2E2E;}
@@ -99,13 +103,11 @@
 	.icon_info{
 	display: inline-block;
     position: relative;
-    bottom: 130px;
     background-color: #f2f2f2;
     width: 170px;
     height: 80px;
     border-radius: 5px;
     padding: 5px;
-    left: 0px;
     border: 1px solid grey;}
 	.icon_text{} 
 
@@ -113,6 +115,7 @@
 <!-- services와 clusterer, drawing 라이브러리 불러오기 -->
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bc283bd41dff040b5403d29f3172b43a&libraries=services,clusterer,drawing"></script>
 <script type="text/javascript">
+
 	function divToFit() {
 		var $bodyH = window.innerHeight-90;
 // 		$('#container').css("height",$bodyH);
@@ -126,7 +129,15 @@
 // 		$(".righthider").css("top",$bodyH/2+45);
 	} 
 	$(document).ready(function(){
-		kakao.maps.event.addListener(map, 'dragend', function () {        
+		
+		
+		ajax_cate();
+		kakao.maps.event.addListener(map, 'dragend', function () {       
+			ajax_cate();
+		});
+		
+		function ajax_cate() {
+			
 // 		(2번방법)	영역정보를 ajax로 전달해서 모든세부값 가져오기	
 	    var bounds = map.getBounds();// 지도 영역정보를 얻어옵니다 
 	    var sw = bounds.getSouthWest();// 영역정보의 남서쪽 정보를 얻어옵니다 
@@ -156,8 +167,9 @@
 					var store_lists = obj.list;
 					var photo_lists = obj.photolist;
 					var cate_lists = obj.catelist;
-					var stime_lists = obj.stimelist1;
+					var stime_lists = obj.stimelist;
 					var sloca_lists = obj.slocalist;
+					var today = obj.today;
 					var store_detail;
 					var rb =$("#rightbox");
 					
@@ -172,7 +184,7 @@
 								store_state='<div class="storestate s_state_color3"><b>폐점</b></div>';
 							}
 							store_detail=
-								'<div class="storelist" onclick="location.href=\'store.do?store_seq='+store_lists[i].store_seq+'\'">'+
+								'<div class="storelist" onclick="event.stopPropagation(); location.href=\'store.do?store_seq='+store_lists[i].store_seq+'\'">'+
 											'<div class="photobox" style="'+
 											'background: url(\'./upload_sphoto/'+photo_lists[i].store_photo_stored+'\');'+
 											'background-size: 140px 105px;'+
@@ -186,30 +198,82 @@
 											'<div class="cate_small">'+cate_lists[i]+'</div>'+//세부카테고리--------------따로1
 											'<div class="storephone">'+store_lists[i].store_phone+'</div>'+//전화번호
 											'<div class="address">'+store_lists[i].store_address+'</div>'+//주소
-											'<div class="storetime">영업시간: <span onclick="()">샘한테 물어보던가 그냥 하지말기'+
-// 												stime_lists[i]
-											'</span></div>'+//영업시간--------------따로2
-											'<div class="reservebtn" onclick="location.href=\'user_store_reserve.do?store_seq='+store_lists[i].store_seq+'&store_name='+store_lists[i].store_name+'\'">예약</div>'+
+											'<div class="storetime">영업시간:'+
+												'<div class="storetime_today"></div>'+
+												'<div class="storetime_other"></div>'+
+											'</div>'+//영업시간--------------따로2
+											'<div class="reservebtn" onclick="event.stopPropagation(); location.href=\'user_store_reserve.do?store_seq='+store_lists[i].store_seq+'&store_name='+store_lists[i].store_name+'\'">예약</div>'+
 										'</div>';
 							
-						rb.append(store_detail);
+							rb.append(store_detail);
+							
 						});
-					}else if (obj.list==null){
-						$(".storelist").remove();
-						$("#rightbox").append("<div class='storelist' style='height:100%'>----------현재 지역에서 검색되는 결과가 없습니다----------</div>");
-					}
+						$.each(store_lists, function(i){//매장 개수
+							var stime="";
+							var stimeArray= new Array();
+							$.each(stime_lists, function(j) {//전체 요일 개수
+								if (stime_lists[j].store_seq==store_lists[i].store_seq) {
+									var stime=""
+									stime=
+									stime_lists[j].store_time_day+' '+
+									stime_lists[j].store_time_open+' ~ '+
+									stime_lists[j].store_time_close
+									stimeArray.push(stime);
+								}
+							});
+							console.log(i+"번째 매장"+stimeArray);
+							$(".storelist").eq(i).find($(".storetime_today")).append(stimeArray[today===0?7:today-1]);
+							$(".storelist").eq(i).find($(".storetime_other")).append(stimeArray);
+							
+// 							$(".storetime_today").eq(i).hover(function() {
+// //					 			$(".storetime_other").slideDown(500);
+// 								$(".storetime_other").eq(i).removeAttr("style");
+// 								$(".storetime_other").eq(i).css("visibility","visible");
+// 								$(".storetime_today").eq(i).css("z-index","0");
+// 							}, function() {
+// // 								$(".storetime_today").eq(i).removeAttr("style");
+// 								$(".storetime_today").eq(i).css("z-index","100");
+// 								$(".storetime_other").eq(i).css({"visibility":"hidden","z-index":"100"});
+// 							});
+							$(".storetime_today").eq(i).mouseover(function() {
+//					 			$(".storetime_other").slideDown(500);
+								$(".storetime_other").eq(i).removeAttr("style");
+								$(".storetime_other").eq(i).css("visibility","visible"); 
+								$(".storetime_today").eq(i).css("z-index","0");
+							});
+							$(".storetime_today").eq(i).mouseout(function() {
+// 								$(".storetime_today").eq(i).removeAttr("style");
+								$(".storetime_today").eq(i).css("z-index","100");
+								$(".storetime_other").eq(i).css({"visibility":"hidden","z-index":"100"});
+							});
+						});
+						
 	// 				alert("성공쓰");
-	
+					
+					
 					// 주소-좌표 변환 객체를 생성합니다
-					var geocoder = new kakao.maps.services.Geocoder();
+// 					var geocoder = new kakao.maps.services.Geocoder();
 					
 					for (var i = 0; i < store_lists.length; i++) {
 					     var coords = new kakao.maps.LatLng(sloca_lists[i].store_latitude, sloca_lists[i].store_longitude);
+					 		
+					     // 마커 이미지의 이미지 주소입니다
+// 	 					 var imageSrc = './img/icon/icon_map_'+store_lists[i].category_code+'.png'; 
+	 					 var imageSrc = './img/icon/icon_'+store_lists[i].category_code+'.png'; 
+							
+//	 					 // 마커 이미지의 이미지 크기 입니다
+	 					 var imageSize = new kakao.maps.Size(35, 35); 
+// 	 					 var imageSize = new kakao.maps.Size(24, 35); 
+							    
+//	 					 // 마커 이미지를 생성합니다    
+					     var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+							 
+					     
 					     // 마커를 생성합니다
 					     var marker = new kakao.maps.Marker({
 					         map: map, // 마커를 표시할 지도
 					         position: coords, // 마커를 표시할 위치
-// 					         image : markerImage // 마커 이미지 
+					         image : markerImage // 마커 이미지 
 					     });
 					     
 					     marker.setMap(map);
@@ -217,33 +281,44 @@
 					     var content = '<div class="icon_info"><span class="icon_text">'+store_lists[i].store_name+'</span></div>';
 					     var customOverlay = new kakao.maps.CustomOverlay({
 					    	    position: coords,
-					    	    content: content   
+					    	    content: content,
+					    	    xAnchor: 0.5,
+					    	    yAnchor: 1.5,
+					    	    clickable: true
 					    	});
 						// 커스텀 오버레이를 지도에 표시합니다
 						 customOverlay.setMap(map);
+// 						 customOverlay.setMap(null);
+						 customOverlay.setVisible(false);
 						
+// 						 var closeOverlay = function() {
+// 							    overlay.setMap(null);
+// 							};
+
 						// 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
 //						    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
 //						    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-						    kakao.maps.event.addListener(marker, 'mouseleave', makeOverListener(map, marker, customOverlay));
+						    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, customOverlay));
 						    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(customOverlay));
 // 						    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
 // 						    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 						}	
 						
-						// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
-						function makeOverListener(map, marker, customOverlay) {
-						    return function() {
-						    	customOverlay.open(map, marker);
-						    };
-						}
+// 						// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+// 						function makeOverListener(map, marker, customOverlay) {
+// 						    return function() {
+// // 						    	customOverlay.open(map, marker);
+// 						    	selectedOverlay.setMap(map);
+// 						    };
+// 						}
 						
-						// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
-						function makeOutListener(customOverlay) {
-						    return function() {
-						    	customOverlay.close();
-						    };
-						}
+// 						// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+// 						function makeOutListener(customOverlay) {
+// 						    return function() {
+// // 						    	customOverlay.close();
+// 						    	customOverlay.close();
+// 						    };
+// 						}
 					
 					// 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
 // 						var positions = [
@@ -307,7 +382,10 @@
 // 						        infowindow.close();
 // 						    };
 // 						}
-	
+					}else if (obj.list==null){
+						$(".storelist").remove();
+						$("#rightbox").append("<div class='storelist' style='height:100%'>----------현재 지역에서 검색되는 결과가 없습니다----------</div>");
+					}
 	
 				},
 				error: function(request,error) {
@@ -316,10 +394,65 @@
 					alert("서버통신실패!!"+request.status+","+error);
 				}
 			});
+		}
+	
+		// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+		function makeOverListener(map, marker, customOverlay) {
+		    return function() {
+// 		    	$(".storelist").removeAttr("style");
+// 			    	customOverlay.open(map, marker);
+// 		    	customOverlay.setMap(map);
+// 				setTimeout(function() {
+		    		customOverlay.setVisible(true);
+		    		var icon_name=customOverlay.a.innerText;
+		    		for (var i = 0; i < $(".storelist").length; i++) {
+						var right_name =$(".storelist").eq(i).find(".storename").find(".tooltiptext").text();		    			
+						if(right_name===icon_name){
+							$(".storelist").eq(i).css({"background-color":"#f2f2f2","border":"1px solid black"});
+// 					        var offset = $(".storelist").eq(i).offset();
+					        var position = $(".storelist").eq(i).position();
+// 					        $('html, body').animate({scrollTop : offset.top}, 400);
+// 					        $("#rightbox").animate({scrollTop : position.top}, 400);
+					        $("#show").animate({scrollTop : position.top}, 400);
+						}
+					}
+		    		console.log(customOverlay.a.innerText);
+		    		console.log(customOverlay);
+// 			    }, 350 );
+// 		    	customOverlay.setVisible(true);
+		    };
+		}
+		
+		// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+		function makeOutListener(customOverlay) {
+		    return function() {
+//			    	customOverlay.close();
+// 		    	customOverlay.setMap(null);
+// 				setTimeout(function() {
+		    		customOverlay.setVisible(false);
+		    		$(".storelist").removeAttr("style");
+// 					$(".storelist").css({"background-color":"rgba( 255, 255, 255, 1)","border":"1px solid #dedede"});
+// 					$(".storelist:hover").css({"background-color":"#f2f2f2","border":"1px solid black"});
+// 			    }, 350 );
+// 		    	customOverlay.setVisible(false);
+		    };
+		}
+		
+		function makeOverListener2(map, marker, customOverlay){
+		    return function() {
+		    	customOverlay.setVisible(true);
+		    };
+	    }
+		function makeOutListener2(customOverlay){
+		    return function() {
+		    	customOverlay.setVisible(false);
+		    };
+	    }
+		
+		$(".storelist").hover(function() {
+		}, function() {
+// 			alert("ㅇ");
 		});
-
-
-
 	    /*  실패한버전 (1번방법)
 	    var bounds = map.getBounds();// 지도 영역정보를 얻어옵니다 
 	    var sw = bounds.getSouthWest();// 영역정보의 남서쪽 정보를 얻어옵니다 
@@ -371,6 +504,7 @@
 	    }
 		 */
 
+		
 		divToFit();
 		$(window).resize(function() {
 			divToFit();
@@ -491,25 +625,25 @@
 		// 마커가 지도 위에 표시되도록 설정합니다
 // 		marker.setMap(map);
 		
-		function getInfo() {
+// 		function getInfo() {
 		    
-		    var center = map.getCenter(); // 지도의 현재 중심좌표를 얻어옵니다 
-		    var level = map.getLevel(); // 지도의 현재 레벨을 얻어옵니다
-		    var mapTypeId = map.getMapTypeId(); // 지도타입을 얻어옵니다
-		    var bounds = map.getBounds();// 지도의 현재 영역을 얻어옵니다 
-		    var swLatLng = bounds.getSouthWest(); // 영역의 남서쪽 좌표를 얻어옵니다 
-		    var neLatLng = bounds.getNorthEast();  // 영역의 북동쪽 좌표를 얻어옵니다 
-		    var boundsStr = bounds.toString(); // 영역정보를 문자열로 얻어옵니다. ((남,서), (북,동)) 형식입니다
-		    var message = '지도 중심좌표는 위도 ' + center.getLat() + ', <br>';
-		    message += '경도 ' + center.getLng() + ' 이고 <br>';
-		    message += '지도 레벨은 ' + level + ' 입니다 <br> <br>';
-		    message += '지도 타입은 ' + mapTypeId + ' 이고 <br> ';
-		    message += '지도의 남서쪽 좌표는 ' + swLatLng.getLat() + ', ' + swLatLng.getLng() + ' 이고 <br>';
-		    message += '북동쪽 좌표는 ' + neLatLng.getLat() + ', ' + neLatLng.getLng() + ' 입니다';
+// 		    var center = map.getCenter(); // 지도의 현재 중심좌표를 얻어옵니다 
+// 		    var level = map.getLevel(); // 지도의 현재 레벨을 얻어옵니다
+// 		    var mapTypeId = map.getMapTypeId(); // 지도타입을 얻어옵니다
+// 		    var bounds = map.getBounds();// 지도의 현재 영역을 얻어옵니다 
+// 		    var swLatLng = bounds.getSouthWest(); // 영역의 남서쪽 좌표를 얻어옵니다 
+// 		    var neLatLng = bounds.getNorthEast();  // 영역의 북동쪽 좌표를 얻어옵니다 
+// 		    var boundsStr = bounds.toString(); // 영역정보를 문자열로 얻어옵니다. ((남,서), (북,동)) 형식입니다
+// 		    var message = '지도 중심좌표는 위도 ' + center.getLat() + ', <br>';
+// 		    message += '경도 ' + center.getLng() + ' 이고 <br>';
+// 		    message += '지도 레벨은 ' + level + ' 입니다 <br> <br>';
+// 		    message += '지도 타입은 ' + mapTypeId + ' 이고 <br> ';
+// 		    message += '지도의 남서쪽 좌표는 ' + swLatLng.getLat() + ', ' + swLatLng.getLng() + ' 이고 <br>';
+// 		    message += '북동쪽 좌표는 ' + neLatLng.getLat() + ', ' + neLatLng.getLng() + ' 입니다';
 		    
-		    alert(message);
-		    console.log(message);
-		}
+// 		    alert(message);
+// 		    console.log(message);
+// 		}
 
 		
 		// 		드래그끝나면 실행1

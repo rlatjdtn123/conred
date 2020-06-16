@@ -24,19 +24,20 @@
 	header{border:1px solid grey;border-top-width:0px;border-bottom-color:lightgrey; height:70px;width:100%;}
 	#logo{width:400px; display: block; margin: 0 auto;position:relative; top:13px;}
 	#logo:hover{cursor: pointer;}
-	#secondheader{background-color:#fff; z-index:1;border:1px solid grey;border-top-width:0px; height:71px;width:100%;box-shadow: 0px 0.5px 2px grey;position:sticky;top:0px;}
-	#categorybox{margin:0 auto; width:548px;}
-	.categories{border:1px solid grey; border-radius: 10px; width:60px; height:60px;position:relative;top:4px;float: left;margin-left:5px;}
-	#profilebox{width:200px;height:30px;float:right;position: relative; bottom:22px;left:-10px;}
+	#secondheader{background-color:#fff; z-index:1;border:1px solid grey;border-top-width:0px; height:71px;width:100%;box-shadow: 0px 0.5px 2px grey;position:sticky;top:0px;text-align:center;}
+	#categorybox{width:655px;display: inline-block;padding:5px;}
+	.categories{border:1px solid grey; border-radius: 10px; width:60px; height:60px;position:relative;float: left;margin-left:5px;}
+	.categories_first{border:1px solid grey; border-radius: 10px; width:60px; height:60px;position:relative;float: left;}
+	#profilebox{width:200px;height:30px;float:right;position: absolute; top: 25px; right: 12px;}
 	.profile{float:right; height:100%;line-height: 23px;padding-right:10px;}
-	#navibox{float:right;width:380px;height:30px; padding-right:15px;clear:both;position: relative; bottom:40px;}
+	#navibox{float:right;width:380px;height:30px; padding-right:15px;clear:both;position: absolute; bottom: 20px; right: 0px;}
 	.navis{float:right; padding-right: 5px;padding-left: 5px;height:100%;line-height: 30px;border-radius: 3px;}
 	.navis:hover{cursor: pointer; background-color: lightgrey;transition:all .3s;}
 	#profilepic{width:30px;float:right;padding-right:10px;}
 	
-	#search{padding-top:18px;width:25%;position:absolute;left:20px;}
-	#searchbar{width:80%;}
-	#searchbtn{padding:3px;width:40px;height:35px;}
+	#search{padding-top:18px;width:25%;position:absolute;left:20px;min-width: 322px;}
+	#searchbar{width:280px;}
+	#searchbtn{padding:3px;width:40px;height:35px;float: left;}
 	#magnifyglass{width:20px;}
 	.display_none{display: none;}
 </style>
@@ -95,6 +96,8 @@
 			</form>
 
 	<div id="categorybox">
+		<div class="categories_first"></div>
+		<div class="categories"></div>
 		<div class="categories"></div>
 		<div class="categories"></div>
 		<div class="categories"></div>

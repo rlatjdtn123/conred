@@ -427,11 +427,11 @@ public class Yoonho {
 		List<MenuDto> list_menu =menuService.selectMenu(store_seq);
 		List<ReplyDto> list_reply=replyService.replyListStore(store_seq);
 		ReplyDto reply_avg = replyService.replyAvgStore(store_seq);
-		List<QnaDto> list_qna = qnaService.qnaListStore(store_seq);
+		List<QnaDto> list_qna = qnaService.qnaListStore(store_seq);//성수 수정후에 빨간줄뜨니까 1 넣기
 		List<SPhotoDto> list_sphoto = sPhotoService.selectSPhoto(store_seq);
 		
 		
-		System.out.println("store_detail : "+store_detail);
+		System.out.println("store_detail : "+store_detail); 
 		System.out.println("list_stime : "+list_stime);
 		System.out.println("cmain : "+cmain);
 		System.out.println("list_clist : "+list_clist);

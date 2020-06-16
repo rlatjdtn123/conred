@@ -2,6 +2,7 @@ package com.hk.conred;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -136,46 +137,59 @@ public class MapController {
 				}else if(catelist.get(i).getStore_seq()!=catelist.get(i-1).getStore_seq()){//직전 seq와 틀리다면
 					box = box.substring(0, box.length()-3);
 					catenamelist.add(box);
-					System.out.println("중간끝"+i+box);
+					System.out.println("중간끝");
+					System.out.println(i+box);
 					box="";
 					box+=catelist.get(i).getCategory_name_small()+" | ";
 				}
 				if(i==catelist.size()-1) {//마지막이라면 이제까지것 저장(뒤에세글자제외하고)
 					box = box.substring(0, box.length()-3);
 					catenamelist.add(box);
-					System.out.println("완전끝"+i+box);
+					System.out.println("완전끝");
+					System.out.println(i+box);
 				}
 				System.out.println(i+box);
 			}
 			System.out.println("catenamelist:"+catenamelist);
-			
+
 			List<STimeDto> stimelist= mapService.getStime_ajax(list);
 			System.out.println("stimelist:"+stimelist);
-			List<String> stimelist1=new ArrayList<>();
+//			List<String> stimelist1=new ArrayList<>();
 //			List<List<String>> stimelist2=new ArrayList<>();
-			String stimeString="";
-			for (int i = 0; i < stimelist.size(); i++) {
-				stimeString=stimelist.get(i).getStore_time_day()+" "+
-								stimelist.get(i).getStore_time_open()+" ~ "+
-								stimelist.get(i).getStore_time_close();
-				stimelist1.add(stimeString);
-//				if(stimelist.get(i).getStore_time_day().equals("공휴일")) {
-//				}
-				
-//				System.out.println(stimelist.get(i).getStore_time_day()+" "+
-//									stimelist.get(i).getStore_time_open()+" ~ "+
-//									stimelist.get(i).getStore_time_close()
-//									);
-			}
-			System.out.println("stimelist1"+stimelist1);
+//			String stimeString="";
+//			for (int i = 0; i < stimelist.size(); i++) {
+//				stimeString=stimelist.get(i).getStore_time_day()+" "+
+//								stimelist.get(i).getStore_time_open()+" ~ "+
+//								stimelist.get(i).getStore_time_close();
+//				stimelist1.add(stimeString);
+////				if(stimelist.get(i).getStore_time_day().equals("공휴일")) {
+////				}
+//				
+////				System.out.println(stimelist.get(i).getStore_time_day()+" "+
+////									stimelist.get(i).getStore_time_open()+" ~ "+
+////									stimelist.get(i).getStore_time_close()
+////									);
+//			}
+//			System.out.println("stimelist1"+stimelist1);
+			
+			String[] weekDay = { "일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일" };     
 
+			  Calendar cal = Calendar.getInstance(); 
+//			  int num = cal.get(Calendar.DAY_OF_WEEK)-1;
+		      int num = cal.get(Calendar.DAY_OF_WEEK)-1;// 
+		      String today = weekDay[num]; 
+		      System.out.println(num); 
+//		      System.out.println(today); 
+//		      System.out.println("오늘의 요일 : " + today ); 
+		      
 			List<SLocaDto> slocalist=mapService.getSloca_ajax(list);
 			System.out.println(slocalist);
 			
+			map.put("today", num);
 			map.put("list", list); 
 			map.put("photolist", photolist); 
 			map.put("catelist", catenamelist); 
-			map.put("stimelist1", stimelist1); 
+			map.put("stimelist", stimelist); 
 			map.put("slocalist", slocalist); 
 		}
 
