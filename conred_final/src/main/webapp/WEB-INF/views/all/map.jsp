@@ -259,11 +259,12 @@
 					 		
 					     // 마커 이미지의 이미지 주소입니다
 // 	 					 var imageSrc = './img/icon/icon_map_'+store_lists[i].category_code+'.png'; 
-	 					 var imageSrc = './img/icon/temp2.png'; 
+	 					 var imageSrc = './img/icon/icon_map_'+store_lists[i].category_code+'.png'; 
+// 	 					 var imageSrc = './img/icon/temp00.png'; 
 // 	 					 var imageSrc = './img/icon/icon_'+store_lists[i].category_code+'.png'; 
 							
 //	 					 // 마커 이미지의 이미지 크기 입니다
-	 					 var imageSize = new kakao.maps.Size(45, 45); 
+	 					 var imageSize = new kakao.maps.Size(60, 60); 
 // 	 					 var imageSize = new kakao.maps.Size(24, 35); 
 							    
 //	 					 // 마커 이미지를 생성합니다    
