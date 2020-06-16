@@ -92,8 +92,8 @@
 	.reservebtn{z-index:100;display: inline-block;width: 60px;height: 20px; float: right;font-size: 14px;margin-top:5px;text-align: center;background-color: #9FF781;border-radius: 10px;color:white;transition: all 0.3s;line-height: 20px;}
 	.reservebtn:hover{background-color: #58D3F7;font-size: 16px;line-height: 20px}
 	.storetime_today{z-index:100;display: inline-block;position: absolute;left: 80px;width:150px;border-radius:5px;padding-left:5px;}
-	.storetime_today:hover{background-color: #fff;box-shadow: 0px 1px 2px grey;}
-	.storetime_other{visibility:hidden;background-color:#E0F8E0;display: inline-block;position: absolute; right: 5px; bottom: 2px;width: 145px;border: 1px solid #f2f2f2;border-radius: 5px;padding: 5px;box-shadow: 0px 1px 2px grey;}
+	.storetime_today:hover{background-color: #fff;}
+	.storetime_other{visibility:hidden;background-color: #fff;display: inline-block;position: absolute; right: 0px; bottom: 2px;width: 145px;border: 1px solid #f2f2f2;border-radius: 5px;padding: 5px;box-shadow: 0px 1px 2px grey;}
 /* 	visibility:hidden; */
 	.s_state_color1{color:#3ADF00;}
 	.s_state_color2{color:#FF8000;}
@@ -259,10 +259,11 @@
 					 		
 					     // 마커 이미지의 이미지 주소입니다
 // 	 					 var imageSrc = './img/icon/icon_map_'+store_lists[i].category_code+'.png'; 
-	 					 var imageSrc = './img/icon/icon_'+store_lists[i].category_code+'.png'; 
+	 					 var imageSrc = './img/icon/temp2.png'; 
+// 	 					 var imageSrc = './img/icon/icon_'+store_lists[i].category_code+'.png'; 
 							
 //	 					 // 마커 이미지의 이미지 크기 입니다
-	 					 var imageSize = new kakao.maps.Size(35, 35); 
+	 					 var imageSize = new kakao.maps.Size(45, 45); 
 // 	 					 var imageSize = new kakao.maps.Size(24, 35); 
 							    
 //	 					 // 마커 이미지를 생성합니다    
@@ -275,7 +276,6 @@
 					         position: coords, // 마커를 표시할 위치
 					         image : markerImage // 마커 이미지 
 					     });
-					     
 					     marker.setMap(map);
 					     
 					     var content = '<div class="icon_info"><span class="icon_text">'+store_lists[i].store_name+'</span></div>';
@@ -413,7 +413,7 @@
 					        var position = $(".storelist").eq(i).position();
 // 					        $('html, body').animate({scrollTop : offset.top}, 400);
 // 					        $("#rightbox").animate({scrollTop : position.top}, 400);
-					        $("#show").animate({scrollTop : position.top}, 400);
+					        $("#show").stop().animate({scrollTop : position.top}, 400);
 						}
 					}
 		    		console.log(customOverlay.a.innerText);
