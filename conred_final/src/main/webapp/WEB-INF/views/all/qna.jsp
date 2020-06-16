@@ -1,3 +1,5 @@
+<%@page import="com.hk.conred.dtos.QnaDto"%>
+<%@page import="java.util.List"%>
 <jsp:include page="../all/header2.jsp" />
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8");%>
@@ -44,7 +46,7 @@
 </style>
 <script type="text/javascript">	    
 	//Javascript
-	var count = 0; 
+	var count = 1; 
 	//스크롤 바닥 감지
 	window.onscroll = function(e) {
 	    //추가되는 임시 콘텐츠
@@ -81,10 +83,12 @@
  
 </script> 
 </head>
+<%
+	List<QnaDto> list=(List<QnaDto>)request.getAttribute("list");
+%>
 <body>
 <!-- Modal -->
 <div class="modal fade" id="myModal" role="dialog">
-
 	<div class="modal-dialog modal-lg">
   		<!-- Modal content-->
    		<div class="modal-content">
@@ -99,25 +103,30 @@
 	</div>
 </div>
 <div id="container"> 
-	<div id="main">
-		<span id="main2"><b>문의</b> &nbsp; &nbsp; &nbsp; &nbsp;전체2343개|답변2033개</span><button id="modal_Btn">문의 작성</button><br/><br/> 
-	</div>  
-    <div class="mybox">         
-		<img src="./img/profile_default.png" class="pf"/>
-		<div class="info">
-			<span style="line-height: 45px;">닉네임:</span><button style="margin-left:475px;">수정</button> <button >삭제</button> <button  class="content_detail">자세히 보기</button><br><br>
-			<div class="contents">
-				<span><b>문의내용</b></span>    
-				<span>asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjdddddddddddddddddddd
-				ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</span>   
+	<div class="bigtle">
+		<div id="main">
+			<span id="main2"><b>문의</b> &nbsp; &nbsp; &nbsp; &nbsp;전체2343개|답변2033개</span><button id="modal_Btn">문의 작성</button><br/><br/> 
+		</div>  
+	    <div class="mybox">         
+			<img src="./img/profile_default.png" class="pf"/>
+			<div class="info">
+				<span style="line-height: 45px;">닉네임:</span><button style="margin-left:475px;">수정</button> <button >삭제</button> <button  class="content_detail">자세히 보기</button><br><br>
+				<div class="contents">
+					<span><b>문의내용</b></span>    
+					<span>asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjdddddddddddddddddddd
+					ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</span>   
+				</div>
 			</div>
-		</div>
-		<div class="info2">    
-			<span><b>가게답변</b></span><br>
-			<span>dddddddddddddddddddddddddddddddddd</span>
-		</div>
-	</div>      
+			<div class="info2">    
+				<span><b>가게답변</b></span><br>
+				<span>dddddddddddddddddddddddddddddddddd</span>
+			</div>
+		</div>      
+	</div>
 	<br><br>
+	<div class="bigbig">
+		
+	</div>
 </div> 
 </body>
 </html>
