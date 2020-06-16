@@ -50,6 +50,11 @@ public class UServiceImp implements IUService{
 		return UDaoImp.getStats(user_id);
 	}
 
+	@Override
+	public UDto userMyInfo(String user_id) {
+		return UDaoImp.userMyInfo(user_id);
+	}
+
 	
 
 	

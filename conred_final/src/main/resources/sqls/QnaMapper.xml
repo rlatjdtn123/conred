@@ -24,6 +24,12 @@
 		]]>
 	</select>
 	
+	<select id="qnaAvg" parameterType="Int" resultType="QnaDto">
+		SELECT count(QNA_CONTENT) AS QNA_CONTENT ,count(QNA_ANSWER) AS QNA_ANSWER 
+		FROM CON_QNA  
+		WHERE STORE_SEQ =#{store_seq}
+	</select>
+	
 	
 </mapper>
 	 

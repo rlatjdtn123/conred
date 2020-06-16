@@ -33,6 +33,9 @@
 	.myboxmargin{margin-top:30px;}  
 	.bigtle{margin-left: 50px;}
 	.reserve_info{width: 500px; margin-left: 220px;}
+	button{border-width: 0;} 
+	button:hover{background-color: grey;}
+	 .buttondle{background-color: #585858; color: white;border-radius: 5px;} 
 	  
 </style>
 <script type="text/javascript">
@@ -69,8 +72,8 @@
 									 	+'	<span>주소 : '+ lists[i].store_address +' </span><br>'
 									 	+'</div>'
 									 	+'	<div style="margin-left: 520px; margin-top: 40px;" >'
-										+ '		<button>예약취소</button>&nbsp;&nbsp;       '
-										+ '		<button>결제하기</button>       '
+										+ '		<button class="buttondle">예약취소</button>&nbsp;&nbsp;       '
+										+ '		<button class="buttondle">결제하기</button>       '
 									 	+	'</div>'
 								 		+'</div> 	' 
 								+	'</div>' 
@@ -153,8 +156,8 @@
 				 		<span>주소 : <%=dto.getStore_address()%> </span><br>
 				 		</div>
 				 		<div style="margin-left: 520px; margin-top: 40px;" >
-					 		<button>예약취소</button>&nbsp;&nbsp;       
-					 		<button>결제하기</button>       
+					 		<button class="buttondle">예약취소</button>&nbsp;&nbsp;       
+					 		<button class="buttondle">결제하기</button>       
 				 		</div>
 				 	</div> 	  
 				</div>

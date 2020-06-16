@@ -49,7 +49,7 @@
 					 +	'</div>  '    
 					+	'<img src="./img/profile_default.png" class="pf"/>  '
 					+	'<div class="info">        ' 
-					+	'	<button style="margin-left: 435px;background-color:#fafafa;">삭제</button> <button  class="content_detail">자세히 보기</button><br>' 
+					+	'	<button class="buttondle" style="margin-left: 435px;background-color:#fafafa;">삭제</button> <button  class="content_detail buttondle">자세히 보기</button><br>' 
 					+	'	<span>닉네임:'+ lists[i].user_id +'</span><span style="margin-left: 240px;">작성일: '+ lists[i].reply_regdate +'</span><br>  '
 					+		'<div class="star_table">'
 					+			'<table>'
@@ -175,6 +175,7 @@
      .imgs_wrap img {max-width: 150px;margin-left: 5px;margin-right: 5px;}
 	.input_wrap {clear: both;} 
 	button {border: 0;  } 
+	button:hover:{background-color: grey;}
 	 .user_review_img{background-color:#fafafa; width: 415px;height: 80px;margin-left: 418px;margin-bottom:22px;}
 	 .content_detail{background-color: #fafafa;}
 	 .content_detail:hover {background-color: grey;}
@@ -184,7 +185,7 @@
 	 .content_delete{margin-left: 435px; background-color:#fafafa;}
 	 .content_delete:hover {background-color: grey;} 
 	 .store_info{text-align:center;background-color:#f2f2f2; width: 200px;height: 30px; margin-top: 250px;}
-	 
+	 .buttondle{background-color: #585858; color: white;border-radius: 5px;}
 	  
 </style>
 </head>
@@ -226,7 +227,7 @@
 		 	</div>      
 			<img src="./img/profile_default.png" class="pf"/>  
 			<div class="info">        
-				<button class="content_delete">삭제</button> <button class="content_detail">자세히 보기</button><br> 
+				<button class="content_delete buttondle">삭제</button> <button class="content_detail buttondle">자세히 보기</button><br> 
 				<span>닉네임:<%=dto.getUser_id()%></span><span style="margin-left: 240px;">작성일: <%=dto.getReply_regdate()%></span><br>
 				<div class="star_table">
 					<table>

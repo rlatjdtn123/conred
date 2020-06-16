@@ -44,6 +44,12 @@ public class UDaoImp implements IUDao{
 		dto=sqlSession.selectOne(nameSpace+"getStats", user_id);
 		return dto;
 	}
+
+	@Override
+	public UDto userMyInfo(String user_id) {
+		UDto dto=sqlSession.selectOne(nameSpace+"userMyInfo", user_id);
+		return dto;
+	}
 	
 	
 	 

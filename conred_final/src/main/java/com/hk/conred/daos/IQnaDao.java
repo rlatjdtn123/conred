@@ -12,5 +12,6 @@ public interface IQnaDao {
 	//2.특정매장의 문의목록
 	public List<QnaDto> qnaListStore(int store_seq,int pnum);
 	
-	
+	//2.특정매장의 문의갯수
+	public QnaDto qnaAvg(int store_seq);
 }

@@ -175,6 +175,19 @@ public class Sungsu {
 	} 
 		
 	
+	@RequestMapping(value = "user_myinfo.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String user_myinfo(Locale locale, Model model,HttpServletRequest request) {
+		logger.info("사용자 마이페이지{}.", locale);
+		HttpSession session=request.getSession();
+		UDto uldto=(UDto)session.getAttribute("uldto");
+		UDto dto=uService.userMyInfo(uldto.getUser_id());
+		model.addAttribute("dto", dto);
+		System.out.println(dto.getUser_email());
+		return "user/user_myinfo";  
+	}
+	
+	
+	
 	@RequestMapping(value = "user_mypage.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String user_mypage(Locale locale, Model model,HttpServletRequest request) {
 		logger.info("사용자 마이페이지{}.", locale);
@@ -225,8 +238,8 @@ public class Sungsu {
 	}
 	 
 	@ResponseBody
-	@RequestMapping(value = "qna_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public Map<String, List<QnaDto>> qna_ajax(Locale locale, Model model,HttpServletRequest request,String pnum) {
+	@RequestMapping(value = "user_qna_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public Map<String, List<QnaDto>> user_qna_ajax(Locale locale, Model model,HttpServletRequest request,String pnum) {
 		logger.info("사용자 문의 스크롤{}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
@@ -234,7 +247,7 @@ public class Sungsu {
 		Map<String, List<QnaDto>> map=new HashMap<>();
 		map.put("list", list);
 		return map;  
-	} 
+	}  
 	
 	
 		
@@ -279,7 +292,7 @@ public class Sungsu {
 		UDto uldto=(UDto)session.getAttribute("uldto"); 
 		List<LikeDto> list=likeService.likeList(uldto.getUser_id(),pnum);
 		Map<String, List<LikeDto>> map=new HashMap<>();
-		map.put("list", list);
+		map.put("list", list); 
 		return map;   
 	}
 	
@@ -522,5 +535,7 @@ public class Sungsu {
 		
 		return "redirect:index.jsp";
 	}
+	
+	
 	
 } 

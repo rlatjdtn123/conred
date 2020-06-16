@@ -10,7 +10,7 @@ public interface IUDao {
 	//2.로그인
 	public UDto getLogin(String user_id,String user_password);
 	//3.나의정보조회
-	
+	public UDto userMyInfo(String user_id);
 	//4.나의정보수정
 	
 	//5.내 좋아요(찜)

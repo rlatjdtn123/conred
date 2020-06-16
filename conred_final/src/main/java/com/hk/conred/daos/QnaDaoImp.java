@@ -34,4 +34,10 @@ public class QnaDaoImp implements IQnaDao{
 		List<QnaDto> list=sqlSession.selectList(nameSpace+"qnaListStore",map);
 		return list;
 	}
+
+	@Override
+	public QnaDto qnaAvg(int store_seq) {
+		QnaDto dto=sqlSession.selectOne(nameSpace+"qnaAvg", store_seq);
+		return dto;
+	}
 }

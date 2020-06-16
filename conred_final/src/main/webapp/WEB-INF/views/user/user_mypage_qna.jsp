@@ -40,7 +40,9 @@
 	.store_img{width: 200px;height:170px;border: 1px solid black; float: left;margin-right: 20px;} 
 	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:720px;height:200px; font-size: 15px; margin-left: 100px;min-height: 200px;}
 	.bigtle{margin-left: 40px;}    
-	button {border: 0;}
+	button {border-width: 0;}   
+	button:hover:{background-color: grey !important;}
+	.buttondle{background-color: #585858; color: white;border-radius: 5px;}
 	   
 </style> 
 <script type="text/javascript">
@@ -58,7 +60,7 @@
 	        var addContent="";
 	        ////////////////////////////////// A JAX
 	        $.ajax({
-			url:"qna_ajax.do",
+			url:"user_qna_ajax.do",
 			method:"post",
 			data:{"pnum":count},
 			async: false,
@@ -74,13 +76,13 @@
 									+	' 	</div>      '
 									+	'	<img src="./img/profile_default.png" class="pf"/>'
 									+	'	<div class="info">  '
-									+	'		<button style="margin-left: 235px;">수정</button> <button >삭제</button> <button  class="content_detail">자세히 보기</button><br>'
+									+	'		<button style="margin-left: 235px;" class="buttondle">수정</button> <button class="buttondle">삭제</button> <button  class="content_detail buttondle">자세히 보기</button><br>'
 										+	'	<span>닉네임 :'+ lists[i].user_id +' &nbsp;| 가격문의 </span><br><br>   '
 										+	'	<div class="contents">'+ lists[i].qna_content +'</div>    '
 									+	'	</div>   '
 									+	'	<div class="info2">     '
 										+	'	<span style="font-weight: bold;">가게답변</span><br>'
-									+	'	<div class="contents contents2">'+ lists[i].qna_answer +'</div>'
+									+	'	<div class="contents contents2">'+ (lists[i].qna_answer==null?"아직 답변이 없습니다.":lists[i].qna_answer) +'</div>'
 									+	'	</div>  '
 								+	'	</div>'
 							+	'	</div>   '
@@ -173,7 +175,7 @@
 			 	</div>      
 				<img src="./img/profile_default.png" class="pf"/>
 				<div class="info">  
-					<button style="margin-left: 235px;">수정</button> <button >삭제</button> <button  class="content_detail">자세히 보기</button><br>
+					<button style="margin-left: 235px; " class="buttondle">수정</button> <button class="buttondle">삭제</button> <button  class="content_detail buttondle">자세히 보기</button><br>
 					<span>닉네임 :<%=dto.getUser_id()%> &nbsp;| 가격문의 </span><br><br>   
 					<div class="contents"><%=dto.getQna_content()%></div>    
 				</div>   
@@ -182,7 +184,7 @@
 					<%
 					if(dto.getQna_answer()==null||dto.getQna_answer().equals("")){
 					%>
-						<div class="contents contents2">----미답변----</div>
+						<div class="contents contents2">아직 답변이 없습니다.</div>
 					<%	
 					}else{
 					%>

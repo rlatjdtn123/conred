@@ -64,26 +64,26 @@
 		<div class="mybox_info_header" >내 통계</div><br/>
 			<div class="mybox_info"> 
 			 	<span class="stats_result"><a onclick="location.href='user_mypage_reservation.do'"><%=dto.getReserve_count()%></a></span><br/>
-			 	<span>예약수</span> 
+			 	<span><b>예약수</b></span> 
 			</div>  
 			<div class="mybox_info">  
 		        <span class="stats_result"><a onclick="location.href='user_mypage_like.do'"><%=dto.getLike_count()%></a></span><br/>
-		        <span>좋아요</span> 
+		        <span><b>좋아요</b></span> 
 			</div>     
 			<div class="mybox_info">  
 			  	<span class="stats_result point"><%=dto.getUser_point()%></span><br/>
-			  	<span>포인트</span> 
+			  	<span><b>포인트</b></span> 
 			</div>
 	</div>    
 	<div class="mybox">  
 		<div class="mybox_info_header">내가 쓴 글</div><br/>
 		<div class="mybox_info1">
 			  <span class="stats_result"><a onclick="location.href='user_mypage_qna.do'"><%=dto.getQna_count()%></a></span><br/>
-			  <span>문의수</span> 
+			  <span><b>문의수</b></span> 
 		</div>
 		<div class="mybox_info1">
 			  <span class="stats_result"><a onclick="location.href='user_mypage_review.do'"><%=dto.getReply_count()%></a></span><br/>
-			  <span>리뷰수</span> 
+			  <span><b>리뷰수</b></span> 
 		</div>
 	</div> 
 	<div class="mybox">

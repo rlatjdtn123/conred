@@ -15,7 +15,7 @@
 	.mname{border-top-width: 0px !important;font-size:18px;height:30px;text-align: left;}
 	.mnametext{background-color: #f5f5f5;border-radius: 5px 5px 0px 0px;padding: 11px 31px 11px;border: 1px solid #ddd;border-bottom-width: 0px;}
 	.s_bold{font-size:20px;font-weight: bold;display:block; margin-top: 50px;margin-bottom: 50px;}
-	#s_menubox{height:auto;}
+	#s_menubox{height:auto; border:2px solid #848484; border-width: 0 0 2px 0!important;}
 	#s_menu{text-align: center;}
 	.bigtle{width: 800px; margin: 0 auto; margin-bottom: 400px;}
 	.reserve_btn{background-color: #F2F2F2; border: 0;}

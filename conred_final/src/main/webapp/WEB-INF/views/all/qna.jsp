@@ -25,7 +25,7 @@
 	.home{border-bottom:1px solid white;background-color: white;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
 	
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
-	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:800px;height:300px; margin:0 auto; font-size: 15px;background-color: #f2f2f2;}
+	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:700px;height:300px; margin:0 auto; font-size: 15px;background-color: #f2f2f2;}
 	.myboxmargin{margin-top:30px;}
 	#main{width: 850px;height: 100px;margin: 0 auto; padding-top: 25px;} 
 	#main2{font-size: 20px;}  
@@ -33,20 +33,23 @@
 	.pf{float: left; width: 40px;height: 40px;}     
 	.dt{margin-left: 600px;}
 	.info{}   
-	.contents{display:inline-block; width: 731px;height:80px;text-overflow: ellipsis; overflow: hidden;background-color: #fafafa;margin-left: 20px;min-height: 80px; padding: 10px;margin-bottom: 15px;}     
-	.info2{background-color: #fafafa; margin-left: 20px; height: 80px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 731px;min-height: 80px;}
+	.contents{border-radius: 5px;display:inline-block; width: 631px;height:80px;text-overflow: ellipsis; overflow: hidden;background-color: #fafafa;margin-left: 17px;min-height: 80px; padding: 10px;margin-bottom: 15px;}     
+	.info2{background-color: #fafafa; margin-left: 17px; height: 80px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 631px;min-height: 80px; border-radius: 5px;}
 	.bot{margin: 0 auto; text-align: center;}
 	
-	#modal_Btn{margin-left: 440px; height: 50px; width: 100px;background-color: #F2F2F2; border: 0;}
-	.modal-title{margin-left: 400px;}
+	#modal_Btn{margin-left: 440px; height: 50px; width: 100px;background-color: #94B8FD; border: 0;border-radius: 5px;color: white;}
+	#modal_Btn:hover{background-color: #4a83ed;}  
+	.modal-title{margin-left: 400px;}  
 	.modal-body span{margin: 85px;}
 	textarea:focus::-webkit-input-placeholder { color: transparent; } 
 	.modal-footer  div{border: 1px solid black;width: 153px; height: 110px; float: left; margin: 10px;}
+	button{border-width: 0; }
 	button:hover {background-color: grey;}
+	.buttondle{background-color: #585858; color: white;border-radius: 5px;}
 </style>
-<script type="text/javascript">	    
+<script type="text/javascript">	      
 	//Javascript
-	var count = 1; 
+	var count = 1;  
 	//스크롤 바닥 감지
 	window.onscroll = function(e) {
 	    //추가되는 임시 콘텐츠
@@ -54,24 +57,36 @@
 	    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
 	    	//실행할 로직 (콘텐츠 추가) 
 	        count++;
-	        var addContent =  '<div class="mybox">   '      
-			+'<img src="./img/profile_default.png" class="pf"/>'
-				+'<div class="info">'
-				+	'<br><span>닉네임:?? &nbsp; </span><a style="margin-left: 560px;" id="md" onclick="mdTest()">자세히 보기</a>' 
-				+	'<br><br><br>   '
-				+	'<span class="contents">asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjdddddddddddddddddddd'
-				+	'ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</span>   '
-			+	'</div>'
-			+	'<div class="info2">    '
-				+	'<span style="font-weight: bold;">가게답변</span><br>'
-				+	'<span>dddddddddddddddddddddddddddddddddd</span>'
-			+	'</div>'
-			+'</div>  '    
-			+'<br><br>'
-	        //container에 추가되는 콘텐츠를 append
-	        for (var i = 0; i < 3; i++) {
-		        $('#container').append(addContent);				
-			}
+	    	var addContent="";
+	    	var store_seq=$("input[name=store_seq]").val(); 
+	    	$.ajax({
+	    		url:"qna_ajax.do",
+	    		method:"post",
+	    		data:{"pnum":count,"store_seq":store_seq},
+	    		dataType:"json",
+	    		success:function(obj){
+	    			var lists=obj.list
+	    			$.each(lists, function(i){ 
+				       addContent +=  '<div class="mybox">'         
+										+	'<img src="./img/profile_default.png" class="pf"/>'
+										+	'<div class="info">'
+										+	'	<button class="buttondle" style="margin-left:520px;">수정</button> <button class="buttondle">삭제</button> <button  class="content_detail buttondle">자세히 보기</button><br>'
+										+	'	<span ><b>닉네임</b>:'+lists[i].user_id+'</span><br><br>'
+										+	'	<div class="contents">'
+										+	'		<span><b>문의내용</b></span>    '
+										+	'		<span>'+ lists[i].qna_content +'</span>    '
+						 				+	'	</div>'
+										+	'</div>'
+										+	'<div class="info2">    '
+										+	'	<span><b>가게답변</b></span><br>'
+										+	'	<span>'+ (lists[i].qna_answer==null?"아직 답변이 없습니다.":lists[i].qna_answer) +'</span>'
+										+	'</div>'
+									+	'</div>     ' 
+										+'<br><br>';	    				
+	    			}); 
+		        $('.bigbig').append(addContent);				
+	    		}
+	    	});
 	    }
 	};
 	
@@ -85,9 +100,11 @@
 </head>
 <%
 	List<QnaDto> list=(List<QnaDto>)request.getAttribute("list");
+	QnaDto qnaAvg=(QnaDto)request.getAttribute("qnaAvg");
 %>
 <body>
 <!-- Modal -->
+<input type="hidden" name="store_seq" value="<%=list.get(0).getStore_seq()%>">
 <div class="modal fade" id="myModal" role="dialog">
 	<div class="modal-dialog modal-lg">
   		<!-- Modal content-->
@@ -105,25 +122,41 @@
 <div id="container"> 
 	<div class="bigtle">
 		<div id="main">
-			<span id="main2"><b>문의</b> &nbsp; &nbsp; &nbsp; &nbsp;전체2343개|답변2033개</span><button id="modal_Btn">문의 작성</button><br/><br/> 
-		</div>  
-	    <div class="mybox">         
-			<img src="./img/profile_default.png" class="pf"/>
-			<div class="info">
-				<span style="line-height: 45px;">닉네임:</span><button style="margin-left:475px;">수정</button> <button >삭제</button> <button  class="content_detail">자세히 보기</button><br><br>
-				<div class="contents">
-					<span><b>문의내용</b></span>    
-					<span>asdasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjdddddddddddddddddddd
-					ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</span>   
+			<span id="main2"><b>문의</b> &nbsp; &nbsp; &nbsp; &nbsp;전체<%=qnaAvg.getQna_content()%>개|답변<%=qnaAvg.getQna_answer()%>개</span><button id="modal_Btn"><b>문의 작성</b></button><br/><br/> 
+		</div> 
+		<% 
+			for(QnaDto dto:list){
+			%>
+		    <div class="mybox">         
+				<img src="./img/profile_default.png" class="pf"/>
+				<div class="info">
+					<button class="buttondle" style="margin-left:420px;">수정</button> <button class="buttondle" >삭제</button> <button  class="content_detail buttondle">자세히 보기</button><br>
+					<span><b>닉네임</b>:<%=dto.getUser_id()%></span><br><br>
+					<div class="contents">
+						<span><b>문의내용</b></span>     
+						<span><%=dto.getQna_content()%></span>    
+					</div>
 				</div>
-			</div>
-			<div class="info2">    
-				<span><b>가게답변</b></span><br>
-				<span>dddddddddddddddddddddddddddddddddd</span>
-			</div>
-		</div>      
-	</div>
-	<br><br>
+				<div class="info2">    
+					<span><b>가게답변</b></span><br>
+					<%
+						if(dto.getQna_answer()==null||dto.getQna_answer().equals("")){
+							%>
+							<span>아직 답변이 없습니다.</span>
+							<%
+						}else{
+							%>
+							<span><%=dto.getQna_answer()%></span>
+							<%
+						}
+					%>
+				</div>
+			</div>      
+			<br><br>		 	
+			<%
+			}
+		%> 
+		</div>
 	<div class="bigbig">
 		
 	</div>
