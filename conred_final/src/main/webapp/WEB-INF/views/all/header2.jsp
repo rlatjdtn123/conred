@@ -26,8 +26,10 @@
 	#logo:hover{cursor: pointer;}
 	#secondheader{background-color:#fff; z-index:1;border:1px solid grey;border-top-width:0px; height:71px;width:100%;box-shadow: 0px 0.5px 2px grey;position:sticky;top:0px;text-align:center;}
 	#categorybox{width:655px;display: inline-block;padding:5px;}
-	.categories{border:1px solid grey; border-radius: 10px; width:60px; height:60px;position:relative;float: left;margin-left:5px;}
-	.categories_first{border:1px solid grey; border-radius: 10px; width:60px; height:60px;position:relative;float: left;}
+	.categories{background-color:#fff;border:1px solid grey; border-radius: 10px; width:60px; height:60px;position:relative;float: left;margin-left:5px;border:0.5px solid #E6E6E6;}
+	.categories_first{border:1px solid grey; border-radius: 10px; width:60px; height:60px;position:relative;float: left;border:0.5px solid #E6E6E6;}
+	.categories:hover{cursor:pointer;box-shadow: 0px 1px 2px #000;}
+	.categories_first:hover{cursor:pointer;box-shadow: 0px 1px 2px #000;}
 	#profilebox{width:200px;height:30px;float:right;position: absolute; top: 25px; right: 12px;}
 	.profile{float:right; height:100%;line-height: 23px;padding-right:10px;}
 	#navibox{float:right;width:380px;height:30px; padding-right:15px;clear:both;position: absolute; bottom: 20px; right: 0px;}
@@ -40,6 +42,17 @@
 	#searchbtn{padding:3px;width:40px;height:35px;float: left;}
 	#magnifyglass{width:20px;}
 	.display_none{display: none;}
+	
+	#category_icon_a{background: url("./img/icon/icon_A.png");width: 60px; height: 60px; border-radius: 10px; background-size: 50px;background-position: center;background-repeat: no-repeat;} 
+ 	#category_icon_b{background: url("./img/icon/icon_B.png");width: 60px; height: 60px; border-radius: 10px; background-size: 50px;background-position: center;background-repeat: no-repeat;} 
+ 	#category_icon_c{background: url("./img/icon/icon_C.png");width: 60px; height: 60px; border-radius: 10px; background-size: 50px;background-position: center;background-repeat: no-repeat;} 
+ 	#category_icon_d{background: url("./img/icon/icon_D.png");width: 60px; height: 60px; border-radius: 10px; background-size: 50px;background-position: center;background-repeat: no-repeat;} 
+ 	#category_icon_e{background: url("./img/icon/icon_E.png");width: 60px; height: 60px; border-radius: 10px; background-size: 50px;background-position: center;background-repeat: no-repeat;} 
+ 	#category_icon_f{background: url("./img/icon/icon_F.png");width: 60px; height: 60px; border-radius: 10px; background-size: 50px;background-position: center;background-repeat: no-repeat;} 
+ 	#category_icon_g{background: url("./img/icon/icon_G.png");width: 60px; height: 60px; border-radius: 10px; background-size: 50px;background-position: center;background-repeat: no-repeat;} 
+ 	#category_icon_h{background: url("./img/icon/icon_H.png");width: 60px; height: 60px; border-radius: 10px; background-size: 50px;background-position: center;background-repeat: no-repeat;} 
+ 	#category_icon_i{background: url("./img/icon/icon_I.png");width: 60px; height: 60px; border-radius: 10px; background-size: 50px;background-position: center;background-repeat: no-repeat;} 
+ 
 </style>
 </head>
 <body>
@@ -96,16 +109,16 @@
 			</form>
 
 	<div id="categorybox">
-		<div class="categories_first"></div>
-		<div class="categories"></div>
-		<div class="categories"></div>
-		<div class="categories"></div>
-		<div class="categories"></div>
-		<div class="categories"></div>
-		<div class="categories"></div>
-		<div class="categories"></div>
-		<div class="categories"></div>
-		<div class="categories"></div>
+		<div class="categories_first" title="전체카테고리 검색"></div>
+		<div id="category_icon_a" class="categories" title="동물병원"></div>
+		<div id="category_icon_b" class="categories" title="카페/식당"></div>
+		<div id="category_icon_c" class="categories" title="식품/용품"></div>
+		<div id="category_icon_d" class="categories" title="숙박(글램핑,카라반,팬션,풀빌라,동반가능호텔)"></div>
+		<div id="category_icon_e" class="categories" title="돌봄서비스(호텔,펫시터,유치원,펫택시)"></div>
+		<div id="category_icon_f" class="categories" title="미용/목욕"></div>
+		<div id="category_icon_g" class="categories" title="체험(놀이터,운동장,훈련,수영장,스튜디오 등)"></div>
+		<div id="category_icon_h" class="categories" title="교배/분양/유기견"></div>
+		<div id="category_icon_i" class="categories" title="장례"></div>
 	</div>
 
 

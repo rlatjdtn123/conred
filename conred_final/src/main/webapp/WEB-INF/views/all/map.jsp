@@ -31,15 +31,53 @@
 	.right_hide{}
 	.right_show{}
 	
-	#mapbarbox{background-color:white; z-index:10;box-shadow: 0px 0.5px 1.5px grey;overflow:auto; width:300px;height:200px;border:1px solid grey;position:absolute;left:20px;top:20px;}
-	#search{padding:10px;width:280px;position:absolute;left:8px;}
-	#searchbar{width:220px;}
-	#searchbtn{padding:3px;width:40px;height:35px;}
+	#mapbarbox{background-color:white; z-index:10;box-shadow: 0px 0.5px 1.5px grey;overflow:auto; width:415px;height:300px;border:1px solid grey;position:absolute;left:20px;top:20px;}
+	#search{padding:10px;width:400px;position:absolute;left:8px;}
+	#searchbar{width: 338px;}
+	#searchbtn{padding:3px;width:40px;height:35px;margin-top:-0.5px;}
 	#magnifyglass{width:20px;}
 	#mapcategory{top:50px;position:relative;}
-	#categorybox{margin:0 auto; width:280px; overflow:auto;overflow-y: hidden; padding:10px;}
-	.categories:first-child{border:1px solid grey; border-radius: 10px; width:50px; height:50px;position:relative;float: left;margin-left:0px;}
-	.categories{border:1px solid grey; border-radius: 10px; width:50px; height:50px;position:relative;float: left;margin-left:20px;}
+	.categorybox{margin:0 auto; width:385px;height:90px; overflow:auto;overflow-y: hidden; padding:10px 10px 0px;}
+	.selectedbox{margin:0 auto; width:385px;height:40px; overflow:auto;overflow-y: hidden; padding:0px 10px;margin-top:5px;}
+	.categories:first-child{ border-radius: 10px; width:60px; height:60px;position:relative;float: left;margin-left:0px;}
+	.categories{ border-radius: 10px; width:60px; height:60px;position:relative;float: left;margin-left:16px;}
+	.categories input[type="checkbox"] {display: none;}
+	
+/* 	.categories input[type="checkbox"] + label {border:5px solid #E6E6E6;display: inline-block;width: 100%; height: 100%;cursor: pointer;border-radius: 10px;background-size: contain !important;background-repeat: no-repeat!important;} */
+	.categories input[type="checkbox"] + label {border:10px solid #fff;display: inline-block;width: 100%; height: 100%;cursor: pointer;border-radius: 10px;background-size: contain !important;background-repeat: no-repeat!important;
+/*  하나 클릭하면 나머지는 흑백이되게 할 수 있나?*/
+/* 	-webkit-filter: grayscale(100%); */
+/* 	filter: gray; */
+	}
+	.categories input[type="checkbox"] + label:hover{border:0px solid #fff;display: inline-block;width: 100%; height: 100%;cursor: pointer;border-radius: 10px;background-size: contain !important;background-repeat: no-repeat!important;
+/* 	-webkit-filter: grayscale(0%);filter: none; */
+	}
+	.categories input[id="cate_all"] + label {background-color:#ADEEF2;}
+	.categories input[id="cate_a"] + label {background:url(./img/icon/icon_A.png);}
+	.categories input[id="cate_b"] + label {background:url(./img/icon/icon_B.png);}
+	.categories input[id="cate_c"] + label {background:url(./img/icon/icon_C.png);}
+	.categories input[id="cate_d"] + label {background:url(./img/icon/icon_D.png);}
+	.categories input[id="cate_e"] + label {background:url(./img/icon/icon_E.png);}
+	.categories input[id="cate_f"] + label {background:url(./img/icon/icon_F.png);}
+	.categories input[id="cate_g"] + label {background:url(./img/icon/icon_G.png);}
+	.categories input[id="cate_h"] + label {background:url(./img/icon/icon_H.png);}
+	.categories input[id="cate_i"] + label {background:url(./img/icon/icon_I.png);}
+
+	.categories input[type="checkbox"]:checked + label {border:0px solid #fff;display: inline-block;width: 100%; height: 100%;cursor: pointer;border-radius: 10px;background-size: contain !important;background-repeat: no-repeat!important;
+/* 	-webkit-filter: grayscale(0%); */
+/* 	filter: none; */
+	}
+	.categories input[id="cate_all"]:checked + label {background-color:#ADEEF2; }
+	.categories input[id="cate_a"]:checked + label {background:url(./img/icon/icon_A.png);}
+	.categories input[id="cate_b"]:checked + label {background:url(./img/icon/icon_B.png);}
+	.categories input[id="cate_c"]:checked + label {background:url(./img/icon/icon_C.png);}
+	.categories input[id="cate_d"]:checked + label {background:url(./img/icon/icon_D.png);}
+	.categories input[id="cate_e"]:checked + label {background:url(./img/icon/icon_E.png);}
+	.categories input[id="cate_f"]:checked + label {background:url(./img/icon/icon_F.png);}
+	.categories input[id="cate_g"]:checked + label {background:url(./img/icon/icon_G.png);}
+	.categories input[id="cate_h"]:checked + label {background:url(./img/icon/icon_H.png);}
+	.categories input[id="cate_i"]:checked + label {background:url(./img/icon/icon_I.png);}
+	.cate_text{font-size: 11px;text-align: center;margin-top:-8px;}
 
 	.photobox{box-shadow: 1px 1.5px 2px grey;background-color: grey;width:140px; height:105px;float: left;margin-right:2px;
 	background-size: cover; 
@@ -88,12 +126,12 @@
 	.intro{display: inline-block;width: 345px;height: 17px; float: left;font-size: 13px;margin-top:2px;}
 	.storephone{display: inline-block;width: 80px;height: 15px; float: right;font-size: 12px;margin-top:5px;text-align: right;}
 	.address{display: inline-block;width: 250px;height: 15px; float: left;font-size: 13px;margin-top:5px;}
-	.storetime{display: inline-block;width: 200px;height: 20px; float: left;font-size: 14px;margin-top:5px;}
-	.reservebtn{z-index:100;display: inline-block;width: 60px;height: 20px; float: right;font-size: 14px;margin-top:5px;text-align: center;background-color: #9FF781;border-radius: 10px;color:white;transition: all 0.3s;line-height: 20px;}
-	.reservebtn:hover{background-color: #58D3F7;font-size: 16px;line-height: 20px}
-	.storetime_today{z-index:100;display: inline-block;position: absolute;left: 80px;width:150px;border-radius:5px;padding-left:5px;}
-	.storetime_today:hover{background-color: #fff;}
-	.storetime_other{visibility:hidden;background-color: #fff;display: inline-block;position: absolute; right: 0px; bottom: 2px;width: 145px;border: 1px solid #f2f2f2;border-radius: 5px;padding: 5px;box-shadow: 0px 1px 2px grey;}
+	.storetime{display: inline-block;width: 200px;height: 20px; float: left;font-size: 14px;margin-top:3px;padding:1px 0px;}
+	.reservebtn{z-index:100;display: inline-block;width: 60px;height: 20px; float: right;font-size: 14px;margin-top:3px;text-align: center;background-color: #94B8FD;border:1px solid #5882FA;border-radius: 10px;color:white;transition: all 0.3s;line-height: 18px;}
+	.reservebtn:hover{width: 130px;}
+	.storetime_today{z-index:100;display: inline-block;position: absolute;left: 74px;width:145px;border-radius:10px;padding-left:5px;height:22px;}
+	.storetime_today:hover{background-color: #94B8FD;border: 1px solid #5882FA;margin:-1px;color:#fff;}
+	.storetime_other{visibility:hidden;color:#fff;background-color: #94B8FD;;display: inline-block;position: absolute; right: -1px; bottom: -1px;width: 145px;border: 1px solid #5882FA;border-radius: 0px;padding: 5px;height:170px;}
 /* 	visibility:hidden; */
 	.s_state_color1{color:#3ADF00;}
 	.s_state_color2{color:#FF8000;}
@@ -116,7 +154,7 @@
 	.icon_text{font-size:20px;} 
 	.medal_in{display: inline-block;width: 25px;height: 23px; margin-top:-4px}
 	.bigcate_in{font-size:15px;padding-right:1px;}
-	.smallcate_in{font-size:15px;background-color: #94B8FD;color:#fff;padding:3px 6px;border-radius: 5px;margin-top:3px;border:1px solid #5882FA}
+ 	.smallcate_in{font-size:15px;background-color: #94B8FD;color:#fff;padding:3px 6px;border-radius: 5px;margin-top:3px;border:1px solid #5882FA} 
 </style>
 <!-- services와 clusterer, drawing 라이브러리 불러오기 -->
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bc283bd41dff040b5403d29f3172b43a&libraries=services,clusterer,drawing"></script>
@@ -259,7 +297,7 @@
 //					 			$(".storetime_other").slideDown(500);
 								$(".storetime_other").eq(i).removeAttr("style");
 								$(".storetime_other").eq(i).css("visibility","visible"); 
-								$(".storetime_today").eq(i).css("z-index","0");
+								$(".storetime_today").eq(i).css("z-index","100");
 							});
 							$(".storetime_today").eq(i).mouseout(function() {
 // 								$(".storetime_today").eq(i).removeAttr("style");
@@ -591,17 +629,34 @@
 			</form>
 			
 			<div id="mapcategory">
-				<div id="categorybox">
-					<div class="categories"><input type="checkbox"></div>
-					<div class="categories"><input type="checkbox"></div>
-					<div class="categories"><input type="checkbox"></div>
-					<div class="categories"><input type="checkbox"></div>
+<!-- 				<div id="categorybox"> -->
+<!-- 					<div class="categories"><input type="checkbox" id="cate_all" value="all"/><label for="cate_all"></label></div> -->
+<!-- 					<div class="categories"><input type="checkbox" id="cate_a" value="a"/><label for="cate_a"></label></div> -->
+<!-- 					<div class="categories"><input type="checkbox" id="cate_b" value="b"/><label for="cate_b"></label></div> -->
+<!-- 					<div class="categories"><input type="checkbox" id="cate_c" value="c"/><label for="cate_c"></label></div> -->
+<!-- 					<div class="categories"><input type="checkbox" id="cate_d" value="d"/><label for="cate_d"></label></div> -->
+<!-- 				</div> -->
+<!-- 				<div id="categorybox"> -->
+<!-- 					<div class="categories"><input type="checkbox" id="cate_e" value="e"/><label for="cate_e"></label></div> -->
+<!-- 					<div class="categories"><input type="checkbox" id="cate_f" value="f"/><label for="cate_f"></label></div> -->
+<!-- 					<div class="categories"><input type="checkbox" id="cate_g" value="g"/><label for="cate_g"></label></div> -->
+<!-- 					<div class="categories"><input type="checkbox" id="cate_h" value="h"/><label for="cate_h"></label></div> -->
+<!-- 					<div class="categories"><input type="checkbox" id="cate_i" value="i"/><label for="cate_i"></label></div> -->
+<!-- 				</div> -->
+				<div class="selectedbox">찾고싶은 카테고리를 선택하고 키워드로 검색해보세요.<br>키워드만으로, 카테고리만으로도 검색할수 있어요!</div>
+				<div class="categorybox">
+					<div class="categories"><input type="checkbox" id="cate_all" value="all"/><label for="cate_all"></label><div class="cate_text">전체</div></div>
+					<div class="categories"><input type="checkbox" id="cate_a" value="a"/><label for="cate_a"></label><div class="cate_text">동물병원</div></div>
+					<div class="categories"><input type="checkbox" id="cate_b" value="b"/><label for="cate_b"></label><div class="cate_text">카페/식당</div></div>
+					<div class="categories"><input type="checkbox" id="cate_c" value="c"/><label for="cate_c"></label><div class="cate_text">식품/용품</div></div>
+					<div class="categories"><input type="checkbox" id="cate_d" value="d"/><label for="cate_d"></label><div class="cate_text">숙박</div></div>
 				</div>
-				<div id="categorybox">
-					<div class="categories"><input type="checkbox"></div>
-					<div class="categories"><input type="checkbox"></div>
-					<div class="categories"><input type="checkbox"></div>
-					<div class="categories"><input type="checkbox"></div>
+				<div class="categorybox">
+					<div class="categories"><input type="checkbox" id="cate_e" value="e"/><label for="cate_e"></label><div class="cate_text">돌봄서비스</div></div>
+					<div class="categories"><input type="checkbox" id="cate_f" value="f"/><label for="cate_f"></label><div class="cate_text">미용/목욕</div></div>
+					<div class="categories"><input type="checkbox" id="cate_g" value="g"/><label for="cate_g"></label><div class="cate_text">체험</div></div>
+					<div class="categories"><input type="checkbox" id="cate_h" value="h"/><label for="cate_h"></label><div class="cate_text">분양/교배</div></div>
+					<div class="categories"><input type="checkbox" id="cate_i" value="i"/><label for="cate_i"></label><div class="cate_text">장례</div></div>
 				</div>
 			</div>
 		</div>

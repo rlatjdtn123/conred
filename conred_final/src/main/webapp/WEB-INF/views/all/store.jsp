@@ -19,11 +19,11 @@
 	#container{text-align:center; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:auto;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	#sticky{z-index:200;position: sticky; top:71px;display: inline-block;}
 	#navi2{width:999px;clear:both;position:relative;top:0px;text-align: center;line-height: 40px;border-top: 1px solid grey;display: inline-block;}
-	.navis2{border-bottom:1px solid grey; font-size:15px; float:left;width:199.7px;height:40px;background-color: #D8D8D8;}
-	.navis2:hover{transition:all .3s;border-bottom:1px solid white;background-color: white;cursor:pointer;border-right:1px solid grey;border-left:1px solid grey;}
-	.home{border-bottom:1px solid white;background-color: white;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
+	.navis2{border-bottom:1px solid grey; font-size:15px; float:left;width:199.7px;height:40px;background-color: #f2f2f2;color: #000;}
+	.navis2:hover{color:#000;transition:all .3s;border-bottom:1px solid white;background-color: white;cursor:pointer;border-right:1px solid grey;border-left:1px solid grey;}
+	.home{border-bottom:1px solid white;background-color: white;border-right:1px solid grey;border-left:1px solid grey;color:black;}
 	
-	#photozone{width:100.1%; height:430px;}
+	#photozone{width:100.1%; height:430px;margin-top: -5px;}
 	
 	.s_bold{font-size:20px;font-weight: bold;display:block;}
 	.s_bold2{font-size:15px;font-weight: bold;}
@@ -84,9 +84,9 @@
 	
 	hr{width:900px;border:0.5px solid grey;}
 	
-	#reserve_btn{position: sticky; bottom:0px;width:1000px;height:60px;background-color: #D8D8D8;margin:0 auto;border:1px solid grey;border-radius: 10px 10px 0px 0px;border-bottom: 0px;}
-	#reserve_btn:hover{background-color: white;cursor: pointer;height:80px; transition:all .3s;}
-	#reserve_btn:hover #reserve_text{font-size:25px; transition:all .3s;}
+	#reserve_btn{position: sticky; bottom:0px;width:1000px;height:60px;background-color: #f2f2f2;color: #000;margin:0 auto;border:1px solid grey;border-radius: 10px 10px 0px 0px;border-bottom: 0px;line-height: 60px;}
+	#reserve_btn:hover{background-color: white;color:black;cursor: pointer;height:80px; transition:all .1s;}
+	#reserve_btn:hover #reserve_text{ transition:all .3s;line-height: 60px;}
 	#reserve_text{width:300px;margin:0 auto;text-align: center;line-height: 60px;font-size:20px;}
 
 	.mname{border-top-width: 0px !important;font-size:18px;height:30px;text-align: left;}

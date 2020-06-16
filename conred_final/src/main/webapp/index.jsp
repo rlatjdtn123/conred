@@ -24,13 +24,13 @@
 	.categorybox{overflow:auto; margin:0 auto; width:665px;padding-bottom: 50px;overflow-y: hidden;}
 	.categorybox:last-child{overflow:auto; margin:0 auto; width:665px;padding-bottom: 40px;padding-top: 40px;overflow-y: hidden;}
 	.categories{border-radius: 10px; width:60px; height:60px;position:relative;top:4px;float: left;margin-left:60px;border:0.5px solid #E6E6E6;}
-	.categories:hover{cursor:pointer;box-shadow: 0px 1px 4px #D8D8D8; } 
+	.categories:hover{cursor:pointer;box-shadow: 0px 1px 2px #000; } 
 	.categories_invisible{border-radius: 10px; width:60px; height:60px;position:relative;top:4px;float: left;margin-left:60px;}
 	.categories_last{width:60px; height:60px;position:relative;top:4px;float: left;margin-left:60px;}
-	.categories_last{cursor:pointer;}
+	.categories_last:hover{cursor:pointer;box-shadow: 0px 1px 2px #000;border-radius: 10px; }
 	.allbtn{background-color: #ADEEF2;}
 	.alltext{padding-top:13px;padding-left: 16px;font-size:23px;color: #fff;}
-	#mylocation{width:60px;}
+	#mylocation{width:60px;padding :2px;}
 	.mylocationtext{font-size:14px; padding-left:5px;padding-top:10px;display:inline-block}
 	.catetext{font-size:12px;padding-left:4px;padding-top:65px;display:inline-block;}
 	.catetext_first{font-size:12px;padding-left:4px;padding-top:20px;display:inline-block;}
