@@ -10,5 +10,5 @@ public interface IQnaService {
 	public List<QnaDto> qnaList(String user_id,String pnum);
 	
 	//2.특정매장의 문의목록
-	public List<QnaDto> qnaListStore(int store_seq);
+	public List<QnaDto> qnaListStore(int store_seq,int pnum);
 }

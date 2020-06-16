@@ -27,7 +27,11 @@ public class QnaDaoImp implements IQnaDao{
 	}
 
 	@Override
-	public List<QnaDto> qnaListStore(int store_seq) {
-		return sqlSession.selectList(nameSpace+"qnaListStore",store_seq);
+	public List<QnaDto> qnaListStore(int store_seq,int pnum) {
+		Map<String, Integer> map=new HashMap<>();
+		map.put("store_seq", store_seq);
+		map.put("pnum", pnum);
+		List<QnaDto> list=sqlSession.selectList(nameSpace+"qnaListStore",map);
+		return list;
 	}
 }

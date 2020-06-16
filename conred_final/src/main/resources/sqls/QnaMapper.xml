@@ -14,12 +14,13 @@
 		WHERE CEIL(rn/5)=#{pnum} AND USER_ID =#{user_id}
 	</select>
 	
-	<select id="qnaListStore" parameterType="int" resultType="QnaDto">
+	<select id="qnaListStore" parameterType="Map" resultType="QnaDto">
 		<![CDATA[
-			SELECT *
-			FROM CON_QNA 
-			WHERE STORE_SEQ =${store_seq}
-			ORDER BY QNA_REGDATE DESC
+			SELECT rn QNA_SEQ ,STORE_SEQ ,USER_ID ,QNA_CONTENT ,QNA_ANSWER ,QNA_HIDE ,QNA_READ ,QNA_REGDATE ,QNA_DELFLAG 
+			FROM (SELECT ROW_NUMBER()over(ORDER BY QNA_REGDATE) AS rn ,QNA_SEQ ,STORE_SEQ ,USER_ID ,QNA_CONTENT ,QNA_ANSWER ,QNA_HIDE ,QNA_READ ,QNA_REGDATE ,QNA_DELFLAG 
+					FROM CON_QNA 
+					WHERE STORE_SEQ =#{store_seq})
+			WHERE CEIL(rn/5)=#{pnum}
 		]]>
 	</select>
 	

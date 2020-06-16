@@ -21,8 +21,8 @@ public class QnaServiceImp implements IQnaService{
 	}
 	
 	@Override
-	public List<QnaDto> qnaListStore(int store_seq) {
-		return QnaDaoImp.qnaListStore(store_seq);
-	}
+	public List<QnaDto> qnaListStore(int store_seq,int pnum) {
+		return QnaDaoImp.qnaListStore(store_seq,pnum);
+	} 
 
 }
