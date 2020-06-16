@@ -61,14 +61,14 @@
 		opacity:0;
 		transition:visibility 0.2s linear,opacity 0.2s linear;
 		transition-delay: 1s;
-		width: 300px;
+		min-width:100px;
 		background-color: #fff;
 		border: 1px solid #f2f2f2;
 		box-shadow:0px 1px 1px grey;
 		color:#000;
 		text-align: center;
 		border-radius: 6px;
-		padding: 5px 0;
+		padding: 5px 10px;
 		position: absolute;
 		z-index: 1;
 		transform: translate(-50%, -50%);
@@ -103,14 +103,20 @@
 	.icon_info{
 	display: inline-block;
     position: relative;
-    background-color: #f2f2f2;
-    width: 170px;
-    height: 80px;
+    background-color: #fff;
+    min-width: 170px;
+/*     width: 170px; */
+    min-height: 80px;
     border-radius: 5px;
-    padding: 5px;
-    border: 1px solid grey;}
-	.icon_text{} 
-
+    padding: 10px;
+    border: 1px solid grey;
+    box-shadow:1px 1px 1px grey;
+    text-align: center;
+    }
+	.icon_text{font-size:20px;} 
+	.medal_in{display: inline-block;width: 25px;height: 23px; margin-top:-4px}
+	.bigcate_in{font-size:15px;padding-right:1px;}
+	.smallcate_in{font-size:15px;background-color: #94B8FD;color:#fff;padding:3px 6px;border-radius: 5px;margin-top:3px;border:1px solid #5882FA}
 </style>
 <!-- services와 clusterer, drawing 라이브러리 불러오기 -->
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bc283bd41dff040b5403d29f3172b43a&libraries=services,clusterer,drawing"></script>
@@ -120,7 +126,7 @@
 		var $bodyH = window.innerHeight-90;
 // 		$('#container').css("height",$bodyH);
 		$('#mapbox').css("height",$bodyH);
-		$('#show').css("height",$bodyH);
+		$('#show').css("height",$bodyH); 
 		
 // 		var $bodyW = window.innerWidth-405;
 		var $bodyW = window.innerWidth-19;
@@ -183,6 +189,20 @@
 							}else if (store_lists[i].store_state==='C') {
 								store_state='<div class="storestate s_state_color3"><b>폐점</b></div>';
 							}
+							
+							//메달색정해주기
+							//4이상 금
+							//3이상4이하 은
+							//3이하 동
+							var medal ="";
+							if(photo_lists[i].all_avg>=4){//금
+								medal="gold";
+							}else if(photo_lists[i].all_avg<4&&photo_lists[i].all_avg>=3){//은
+								medal="silver";
+							}else if(photo_lists[i].all_avg<3){//동
+								medal="bronze";
+							}
+							
 							store_detail=
 								'<div class="storelist" onclick="event.stopPropagation(); location.href=\'store.do?store_seq='+store_lists[i].store_seq+'\'">'+
 											'<div class="photobox" style="'+
@@ -193,7 +213,7 @@
 											store_state+
 											'<div class="storename">'+store_lists[i].store_name+'<span class="tooltiptext">'+store_lists[i].store_name+'</span></div>'+
 											'<div class="review"><img class="star" alt="" src="./img/star_fill.png">'+photo_lists[i].all_avg+'</div>'+//평균(매장사진이랑 같이 가져오기)
-											'<div class="medal"><img class="medal" alt="" src="./img/gold.png"></div>'+
+											'<div class="medal"><img class="medal" alt="" src="./img/'+medal+'.png"></div>'+
 											'<div class="cate_big">'+store_lists[i].category_name+'</div>'+//대표카테고리
 											'<div class="cate_small">'+cate_lists[i]+'</div>'+//세부카테고리--------------따로1
 											'<div class="storephone">'+store_lists[i].store_phone+'</div>'+//전화번호
@@ -279,12 +299,31 @@
 					     });
 					     marker.setMap(map);
 					     
-					     var content = '<div class="icon_info"><span class="icon_text">'+store_lists[i].store_name+'</span></div>';
+						var medal ="";
+						if(photo_lists[i].all_avg>=4){//금
+							medal="gold";
+						}else if(photo_lists[i].all_avg<4&&photo_lists[i].all_avg>=3){//은
+							medal="silver";
+						}else if(photo_lists[i].all_avg<3){//동
+							medal="bronze";
+						}
+							
+					     var content = '<div class="icon_info">'+
+					     					'<div class="icon_text">'+
+						     					'<img class="medal_in" alt="" src="./img/'+medal+'.png">'+
+					     						store_lists[i].store_name+
+						     					'<span class="bigcate_in"> | '+
+													store_lists[i].category_name+
+												'</span>'+
+					     					'</div>'+
+					     					'<div class="smallcate_in">'+cate_lists[i]+'</div>'+
+// 					     					'<div class="smallcate_in">제공서비스 : '+cate_lists[i]+'</div>'+
+					     				'</div>';
 					     var customOverlay = new kakao.maps.CustomOverlay({
 					    	    position: coords,
 					    	    content: content,
 					    	    xAnchor: 0.5,
-					    	    yAnchor: 1.5,
+					    	    yAnchor: 2,
 					    	    clickable: true
 					    	});
 						// 커스텀 오버레이를 지도에 표시합니다
@@ -385,7 +424,9 @@
 // 						}
 					}else if (obj.list==null){
 						$(".storelist").remove();
-						$("#rightbox").append("<div class='storelist' style='height:100%'>----------현재 지역에서 검색되는 결과가 없습니다----------</div>");
+						$("#rightbox").append("<div class='storelist' style='height:170px;text-align:center;padding-top:70px;'>----------현재 지역에서 검색되는 결과가 없습니다----------</div>");
+						var position = $(".storelist").eq(0).position();
+						$("#show").stop().animate({scrollTop : position.top}, 400);
 					}
 	
 				},
@@ -405,11 +446,21 @@
 // 		    	customOverlay.setMap(map);
 // 				setTimeout(function() {
 		    		customOverlay.setVisible(true);
-		    		var icon_name=customOverlay.a.innerText;
+		    		var icon_name_temp=customOverlay.a.innerText;
+		    		var icon_name=customOverlay.a.innerText.substring(0,icon_name_temp.indexOf(" |"));
+		    		for (var i = 0; i < $(".storelist").length; i++) {
+			    		if($(".storelist").eq(i).css("background-color") == "rgb(217, 230, 254)"){
+// 			    		if($(".storelist").eq(i).Attr("style")){
+							
+// 			    			alert($(".storelist").eq(i).find(".storename").text());
+			    			$(".storelist").removeAttr("style");//여기서 말고 따로 펑션 만들어서 조건엔 이미 속성값이 (배경값) 있으면 없애고하기
+			    		}
+					}
+			    	//true인데 만약 bool이 false이면==이미하나있으면 맵에표시안함
 		    		for (var i = 0; i < $(".storelist").length; i++) {
 						var right_name =$(".storelist").eq(i).find(".storename").find(".tooltiptext").text();		    			
 						if(right_name===icon_name){
-							$(".storelist").eq(i).css({"background-color":"#f2f2f2","border":"1px solid black"});
+							$(".storelist").eq(i).css({"background-color":"#D9E6FE","border":"1px solid #5882FA"});
 // 					        var offset = $(".storelist").eq(i).offset();
 					        var position = $(".storelist").eq(i).position();
 // 					        $('html, body').animate({scrollTop : offset.top}, 400);
@@ -417,9 +468,11 @@
 					        $("#show").stop().animate({scrollTop : position.top}, 400);
 						}
 					}
+		    		
 		    		console.log(customOverlay.a.innerText);
 		    		console.log(customOverlay);
 // 			    }, 350 );
+
 // 		    	customOverlay.setVisible(true);
 		    };
 		}
@@ -431,7 +484,8 @@
 // 		    	customOverlay.setMap(null);
 // 				setTimeout(function() {
 		    		customOverlay.setVisible(false);
-		    		$(".storelist").removeAttr("style");
+
+// 			    			$(".storelist").removeAttr("style");//여기서 말고 따로 펑션 만들어서 조건엔 이미 속성값이 (배경값) 있으면 없애고하기
 // 					$(".storelist").css({"background-color":"rgba( 255, 255, 255, 1)","border":"1px solid #dedede"});
 // 					$(".storelist:hover").css({"background-color":"#f2f2f2","border":"1px solid black"});
 // 			    }, 350 );
@@ -439,16 +493,6 @@
 		    };
 		}
 		
-		function makeOverListener2(map, marker, customOverlay){
-		    return function() {
-		    	customOverlay.setVisible(true);
-		    };
-	    }
-		function makeOutListener2(customOverlay){
-		    return function() {
-		    	customOverlay.setVisible(false);
-		    };
-	    }
 		
 		$(".storelist").hover(function() {
 		}, function() {
