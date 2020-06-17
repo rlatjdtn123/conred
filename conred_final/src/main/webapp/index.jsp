@@ -63,11 +63,61 @@
 */
 
 </style>
+<script src="js/jquery-3.4.1.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script type="text/javascript">
+
+$( function() {
+    var availableTags = [//박스안에 글자가 하나 입력될 때 마다 >>아작스를 실행>>해당 글자가 앞에 포함 되는지여부를 통해 알파벳순으로 orderby로데이터를가져옴>>10개씩끊어서가져온다>>10개의 데이터를 이 안에 넣으면 그 데이터들로 자동완성기능이 실행. 
+      "ActionScript",
+
+      "acathexis",
+      "acathisia",
+      "acaudal",
+      "acaulescent",
+      "acauline",
+      "acausal",
+      "acausality",
+      "acc",
+      "acc.",
+      "acca",
+      "accad",
+      "accademia",
+      "accadian",
+      "accardo",
+      "accc",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskell",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+    ];
+    $( "#searchbar" ).autocomplete({
+      source: availableTags
+    });
+});
+</script>
 
 </head>
 <body>

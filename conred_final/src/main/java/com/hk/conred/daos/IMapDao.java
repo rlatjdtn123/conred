@@ -13,6 +13,8 @@ public interface IMapDao {
 	public List<SDto> searchCate(String category_code);
 	
 	public List<SDto> searchCateAll_ajax(String nelat, String nelng, String swlat, String swlng);
+	public List<SDto> searchCate_ajax(String category_code,String nelat, String nelng, String swlat, String swlng);
+	
 	public List<SPhotoDto> getPhotos_ajax(List<SDto> list);
 	public List<CListDto> getCates_ajax(List<SDto> list);
 	public List<STimeDto> getStime_ajax(List<SDto> list);

@@ -32,6 +32,11 @@ public class MapServiceImp implements IMapService{
 	public List<SDto> searchCateAll_ajax(String nelat, String nelng, String swlat, String swlng) {
 		return mapDao.searchCateAll_ajax(nelat,nelng,swlat,swlng);
 	}
+	
+	@Override
+	public List<SDto> searchCate_ajax(String category_code, String nelat, String nelng, String swlat, String swlng) {
+		return mapDao.searchCate_ajax(category_code,nelat,nelng,swlat,swlng);
+	}
 
 	@Override
 	public List<SPhotoDto> getPhotos_ajax(List<SDto> list) {
@@ -52,6 +57,7 @@ public class MapServiceImp implements IMapService{
 	public List<SLocaDto> getSloca_ajax(List<SDto> list) {
 		return mapDao.getSloca_ajax(list);
 	}
+
 
 
 }

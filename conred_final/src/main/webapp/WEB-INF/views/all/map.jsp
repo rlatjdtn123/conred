@@ -11,150 +11,9 @@
 <title>Insert title here</title>
  <script src="//code.jquery.com/jquery-1.12.4.js"></script>
  <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ <link href="./css/map.css" rel="stylesheet"> 
+<!-- <script src="./js/map.js"></script> -->
 <style type="text/css">
-	body{margin:0px;padding:0px;}
-	#container{height:100%;overflow: auto;}
-	#mapbox{border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:100%;height:100%;position:absolute;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
-	#show{z-index:10;width:408.5px;height:90.5%;position:absolute;right:0px;overflow: auto;}
-	#rightbox{z-index:10;background-color: rgba( 255, 255, 255, 1 ); border:0px solid grey;border-top-width: 1px;border-left-width:1px; width:390px;height:auto;min-height:100%;position:absolute;top:35px;border-radius: 10px 10px 0px 0px;}
-	.storelist{z-index:9;background-color:rgba( 255, 255, 255, 1);width:auto;height:170px;border:1px solid #dedede;margin:10px;position: relative;padding:10px;}
-	.storelist:hover{cursor: pointer;background-color: #f2f2f2;border:1px solid black;}
-	.righthider{position:fixed;	width: 390px; display: inline-block; height: 36px; right: 19px; border:1px solid grey;
-    border-top-width:0px; background-color: rgba( 255, 255, 255, 1 ); top:90px; cursor: pointer; border-radius: 0px 0px 10px 10px; z-index:50;}
-	.righthider2{position:fixed; width: 85px; display: inline-block; height: 100px; right: 408px; border:1px solid grey;
-    border-right-width:0px; background-color: rgba( 255, 255, 255, 1 ); top:101px; cursor: pointer; border-radius: 20px 0px 0px 20px; z-index:50;}
-	.righthider:hover{border:1px solid black;border-right-width:0px;border-top-width:0px;}
-
-/* 	.arrow_next{margin-top:42px;margin-left: 13px;background: url("./img/next.png");} */
-	.arrow_down{margin:0 auto;margin-top:5px;background: url("./img/down.png");background-size: contain; width: 25px;height: 25px;}
-	.arrow_up{margin:0 auto;margin-top:5px;background: url("./img/up.png");background-size: contain; width: 25px;height: 25px;}
-	.right_hide{}
-	.right_show{}
-	
-	#mapbarbox{background-color:white; z-index:10;box-shadow: 0px 0.5px 1.5px grey;overflow:auto; width:415px;height:300px;border:1px solid grey;position:absolute;left:20px;top:20px;}
-	#search{padding:10px;width:400px;position:absolute;left:8px;}
-	#searchbar{width: 338px;}
-	#searchbtn{padding:3px;width:40px;height:35px;margin-top:-0.5px;}
-	#magnifyglass{width:20px;}
-	#mapcategory{top:50px;position:relative;}
-	.categorybox{margin:0 auto; width:385px;height:90px; overflow:auto;overflow-y: hidden; padding:10px 10px 0px;}
-	.selectedbox{margin:0 auto; width:385px;height:40px; overflow:auto;overflow-y: hidden; padding:0px 10px;margin-top:5px;}
-	.categories:first-child{ border-radius: 10px; width:60px; height:60px;position:relative;float: left;margin-left:0px;}
-	.categories{ border-radius: 10px; width:60px; height:60px;position:relative;float: left;margin-left:16px;}
-	.categories input[type="checkbox"] {display: none;}
-	
-/* 	.categories input[type="checkbox"] + label {border:5px solid #E6E6E6;display: inline-block;width: 100%; height: 100%;cursor: pointer;border-radius: 10px;background-size: contain !important;background-repeat: no-repeat!important;} */
-	.categories input[type="checkbox"] + label {border:10px solid #fff;display: inline-block;width: 100%; height: 100%;cursor: pointer;border-radius: 10px;background-size: contain !important;background-repeat: no-repeat!important;
-/*  하나 클릭하면 나머지는 흑백이되게 할 수 있나?*/
-/* 	-webkit-filter: grayscale(100%); */
-/* 	filter: gray; */
-	}
-	.categories input[type="checkbox"] + label:hover{border:0px solid #fff;display: inline-block;width: 100%; height: 100%;cursor: pointer;border-radius: 10px;background-size: contain !important;background-repeat: no-repeat!important;
-/* 	-webkit-filter: grayscale(0%);filter: none; */
-	}
-	.categories input[id="cate_all"] + label {background-color:#ADEEF2;}
-	.categories input[id="cate_a"] + label {background:url(./img/icon/icon_A.png);}
-	.categories input[id="cate_b"] + label {background:url(./img/icon/icon_B.png);}
-	.categories input[id="cate_c"] + label {background:url(./img/icon/icon_C.png);}
-	.categories input[id="cate_d"] + label {background:url(./img/icon/icon_D.png);}
-	.categories input[id="cate_e"] + label {background:url(./img/icon/icon_E.png);}
-	.categories input[id="cate_f"] + label {background:url(./img/icon/icon_F.png);}
-	.categories input[id="cate_g"] + label {background:url(./img/icon/icon_G.png);}
-	.categories input[id="cate_h"] + label {background:url(./img/icon/icon_H.png);}
-	.categories input[id="cate_i"] + label {background:url(./img/icon/icon_I.png);}
-
-	.categories input[type="checkbox"]:checked + label {border:0px solid #fff;display: inline-block;width: 100%; height: 100%;cursor: pointer;border-radius: 10px;background-size: contain !important;background-repeat: no-repeat!important;
-/* 	-webkit-filter: grayscale(0%); */
-/* 	filter: none; */
-	}
-	.categories input[id="cate_all"]:checked + label {background-color:#ADEEF2; }
-	.categories input[id="cate_a"]:checked + label {background:url(./img/icon/icon_A.png);}
-	.categories input[id="cate_b"]:checked + label {background:url(./img/icon/icon_B.png);}
-	.categories input[id="cate_c"]:checked + label {background:url(./img/icon/icon_C.png);}
-	.categories input[id="cate_d"]:checked + label {background:url(./img/icon/icon_D.png);}
-	.categories input[id="cate_e"]:checked + label {background:url(./img/icon/icon_E.png);}
-	.categories input[id="cate_f"]:checked + label {background:url(./img/icon/icon_F.png);}
-	.categories input[id="cate_g"]:checked + label {background:url(./img/icon/icon_G.png);}
-	.categories input[id="cate_h"]:checked + label {background:url(./img/icon/icon_H.png);}
-	.categories input[id="cate_i"]:checked + label {background:url(./img/icon/icon_I.png);}
-	.cate_text{font-size: 11px;text-align: center;margin-top:-8px;}
-
-	.photobox{box-shadow: 1px 1.5px 2px grey;background-color: grey;width:140px; height:105px;float: left;margin-right:2px;
-	background-size: cover; 
-/* 	background-size: 140px 100px; */
-	background-repeat: no-repeat;}
-	.storestate{display: inline-block;width: 40px;height: 25px; float: right;font-size: 12px;text-align: right;}
-	.storename{display: inline-block;width: 155px;height: 25px; float: left;font-size: 20px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: normal;
-	word-wrap: break-word;
-	display: -webkit-box;
-	-webkit-line-clamp: 1;
-	-webkit-box-orient: vertical;
-	}
-/* 	.storename:hover{white-space: nowrap;} */
-	span.tooltiptext {
-		visibility: hidden;
-		opacity:0;
-		transition:visibility 0.2s linear,opacity 0.2s linear;
-		transition-delay: 1s;
-		min-width:100px;
-		background-color: #fff;
-		border: 1px solid #f2f2f2;
-		box-shadow:0px 1px 1px grey;
-		color:#000;
-		text-align: center;
-		border-radius: 6px;
-		padding: 5px 10px;
-		position: absolute;
-		z-index: 1;
-		transform: translate(-50%, -50%);
-		bottom: 65%;
-		left: 50%;
-	}
-	.storename:hover span.tooltiptext {
-	  visibility: visible;
-	   opacity:1;
-	}
-	.medal{display: inline-block;width: 25px;height: 23px; float: left;font-size: 11px;margin-top:2px;}
-	.star{display: inline-block;width: 25px;height: 23px; float: left;margin-top:1px;}
-	.review{display: inline-block;width: 60px;height: 25px; float: left;font-size: 20px;margin-top:2px;}
-	.cate_big{display: inline-block;width: 205px;;height: 18px; float: left;font-size: 15px;margin-top:2px;font-weight:bold;}
-	.cate_small{display: inline-block;width: 205px;height: 29px; float: left;font-size: 11px;margin-top:2px;}
-	
-	.intro{display: inline-block;width: 345px;height: 17px; float: left;font-size: 13px;margin-top:2px;}
-	.storephone{display: inline-block;width: 80px;height: 15px; float: right;font-size: 12px;margin-top:5px;text-align: right;}
-	.address{display: inline-block;width: 250px;height: 15px; float: left;font-size: 13px;margin-top:5px;}
-	.storetime{display: inline-block;width: 200px;height: 20px; float: left;font-size: 14px;margin-top:3px;padding:1px 0px;}
-	.reservebtn{z-index:100;display: inline-block;width: 60px;height: 20px; float: right;font-size: 14px;margin-top:3px;text-align: center;background-color: #94B8FD;border:1px solid #5882FA;border-radius: 10px;color:white;transition: all 0.3s;line-height: 18px;}
-	.reservebtn:hover{width: 130px;}
-	.storetime_today{z-index:100;display: inline-block;position: absolute;left: 74px;width:145px;border-radius:10px;padding-left:5px;height:22px;}
-	.storetime_today:hover{background-color: #94B8FD;border: 1px solid #5882FA;margin:-1px;color:#fff;}
-	.storetime_other{visibility:hidden;color:#fff;background-color: #94B8FD;;display: inline-block;position: absolute; right: -1px; bottom: -1px;width: 145px;border: 1px solid #5882FA;border-radius: 0px;padding: 5px;height:170px;}
-/* 	visibility:hidden; */
-	.s_state_color1{color:#3ADF00;}
-	.s_state_color2{color:#FF8000;}
-	.s_state_color3{color:#FE2E2E;}
-/* 	맵 */
-	.markerbox{height:100px;width:200px;border:1px solid grey; border-radius:8px;}
-	.icon_info{
-	display: inline-block;
-    position: relative;
-    background-color: #fff;
-    min-width: 170px;
-/*     width: 170px; */
-    min-height: 80px;
-    border-radius: 5px;
-    padding: 10px;
-    border: 1px solid grey;
-    box-shadow:1px 1px 1px grey;
-    text-align: center;
-    }
-	.icon_text{font-size:20px;} 
-	.medal_in{display: inline-block;width: 25px;height: 23px; margin-top:-4px}
-	.bigcate_in{font-size:15px;padding-right:1px;}
- 	.smallcate_in{font-size:15px;background-color: #94B8FD;color:#fff;padding:3px 6px;border-radius: 5px;margin-top:3px;border:1px solid #5882FA} 
 </style>
 <!-- services와 clusterer, drawing 라이브러리 불러오기 -->
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bc283bd41dff040b5403d29f3172b43a&libraries=services,clusterer,drawing"></script>
@@ -172,15 +31,16 @@
 		$('#mapbox').css("width",$bodyW);
 // 		$(".righthider").css("top",$bodyH/2+45);
 	} 
-	$(document).ready(function(){
-		
-		
+	$(document).ready(function(){//온로드실행
+		//여기서 if문으로 무슨검색을 할건지 나눠주자
+		//
 		ajax_cate();
-		kakao.maps.event.addListener(map, 'dragend', function () {       
+	
+		kakao.maps.event.addListener(map, 'dragend', function () {       //드래그끝나면실행
 			ajax_cate();
 		});
 		
-		function ajax_cate() {
+		function ajax_cate() {//아작스를 담은 function
 			
 // 		(2번방법)	영역정보를 ajax로 전달해서 모든세부값 가져오기	
 	    var bounds = map.getBounds();// 지도 영역정보를 얻어옵니다 
@@ -196,8 +56,7 @@
 // 	    alert(swlng);
 	    var category_code = '<c:out value="${category_code}"/>';
 // 	    alert("카테고리 : "+category_code);
-	// 		드래그끝나면 실행1
-			$.ajax({
+			$.ajax({//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@카테고리검색:all
 				url:"searchCateAll_ajax.do",
 				method:"post",
 				dataType: "json",
@@ -473,8 +332,8 @@
 					$("#rightbox").append("<div class='storelist' style='height:100%'>----------현재 지역에서 검색되는 결과가없습니다----------</div>");
 					alert("서버통신실패!!"+request.status+","+error);
 				}
-			});
-		}
+			});//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%카테고리검색:all끝
+		}//아작스담은 function 끝
 	
 		// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
 		function makeOverListener(map, marker, customOverlay) {
@@ -594,7 +453,7 @@
 	    });
 		
 		$(".righthider").click(function() {
-			$("#rightbox").toggle( "fold", 500 );
+			$("#rightbox").toggle( "fold", 700 );
 			if($(".arrow_down").length){
 				$("#show").css("height",window.innerHeight-90);
 				setTimeout(function() {
@@ -606,6 +465,43 @@
 				$(".arrow_up").addClass('arrow_down');
 				$(".arrow_up").removeClass('arrow_up');
 					$("#show").css("height","36px");
+			    }, 700 );
+			}
+// 			$("#rightbox").toggle(
+// 				function(){$("#rightbox").addClass('right_hide')}, //클릭하면 show클래스 적용되서 보이기
+// 				function(){$("#rightbox").addClass('right_show')} //한 번 더 클릭하면 hide클래스가 숨기기
+// 	        );
+		});
+		
+		$(".mapbarbox_btn").click(function() {
+// 			$("#mapbarbox").toggle( "fold", 500 );
+// 			$("#mapcategory").addClass("");
+// 			$("#mapcategory").css({"height":"20px","overflow":"hidden"});
+// 			$("#mapcategory").css({"height":"0px"});
+
+			if($(".arrow_down2").length){
+// 				$("#show").css("height",window.innerHeight-90);.
+				$("#mapcategory").animate({
+					height:225
+				},500);
+				$("#mapbarbox").animate({
+					 height:330
+				},500);
+				setTimeout(function() {
+					$(".arrow_down2").addClass('arrow_up2');
+					$(".arrow_down2").removeClass('arrow_down2');
+			    }, 350 );
+			}else if($(".arrow_up2").length){
+				$("#mapcategory").animate({
+					height:0
+				},500);
+				$("#mapbarbox").animate({
+					 height:100
+				},500);
+				setTimeout(function() {
+				$(".arrow_up2").addClass('arrow_down2');
+				$(".arrow_up2").removeClass('arrow_up2');
+// 					$("#show").css("height","36px");
 			    }, 350 );
 			}
 // 			$("#rightbox").toggle(
@@ -658,6 +554,9 @@
 					<div class="categories"><input type="checkbox" id="cate_h" value="h"/><label for="cate_h"></label><div class="cate_text">분양/교배</div></div>
 					<div class="categories"><input type="checkbox" id="cate_i" value="i"/><label for="cate_i"></label><div class="cate_text">장례</div></div>
 				</div>
+			</div>
+			<div class="mapbarbox_btn">
+				<div class="arrow_up2"></div>
 			</div>
 		</div>
 	</div>

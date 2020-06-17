@@ -42,6 +42,18 @@ public class MapDaoImp implements IMapDao{
 		map.put("swlng", swlng);
 		return sqlSession.selectList(namespace+"searchCateAll_ajax",map);
 	}
+	
+	@Override
+	public List<SDto> searchCate_ajax(String category_code, String nelat, String nelng, String swlat, String swlng) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("nelat", nelat);
+		map.put("nelng", nelng);
+		map.put("swlat", swlat);
+		map.put("swlng", swlng);
+		System.out.println("dddddd"+category_code);
+		map.put("category_code", category_code);
+		return sqlSession.selectList(namespace+"searchCate_ajax",map);
+	}
 
 	@Override
 	public List<SPhotoDto> getPhotos_ajax(List<SDto> list) {

@@ -97,7 +97,7 @@ public class MapController {
 	@ResponseBody
 	@RequestMapping(value = "searchCateAll_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public Map<String, Object> map_test(Locale locale, Model model,String category_code, String nelat, String nelng, String swlat, String swlng) {
-		logger.info("맵으로 이동 : 아작스로 카테고리검색 {}.", locale);
+		logger.info("맵에서 아작스로 카테고리검색 {}.", locale);
 		//2.카테고리검색(대분류 카테고리)(+all,내주변=select*(만약 내 위치 허용이 안되어있다면 내 주변 말고 기본지정위치에서 all))
 		//파라미터:category=카테고리&mylocation=내현재위치(없으면 지정위치)
 		//기본적으로 내 위치권한이 허용되어있다면 위치대로 / 아니라면 지정위치 
@@ -109,9 +109,14 @@ public class MapController {
 		
 		List<SDto> list =new ArrayList<SDto>();
 		if(category_code.equals("all")) {
+			//전체 카테고리 검색
+			System.out.println("전체카테고리검색 실행!");
 			list=mapService.searchCateAll_ajax(nelat,nelng,swlat,swlng);
 		}else {
-			list=mapService.searchCate(category_code);
+			//각 카테고리별 검색
+			System.out.println("카테고리코드 : '"+category_code+"' 검색 실행!");
+			list=mapService.searchCate_ajax(category_code,nelat,nelng,swlat,swlng);
+//			list=mapService.searchCate(category_code);
 		}
 		System.out.println("1"+list);
 		Map<String, Object> map=new HashMap<>();
