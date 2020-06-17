@@ -29,14 +29,14 @@
 	.home{border-bottom:1px solid white;background-color: white;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
 	
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
-	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:700px;height:405px; font-size: 15px; margin-left: 150px;min-height: 370px;background-color: #f2f2f2;}
+	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:700px;height:390px; font-size: 15px; margin-left: 150px;min-height: 390px;background-color: #f2f2f2;}
 	.myboxmargin{margin-top:30px;}
 	#main{width: 930px;height: 250px;margin-left:70px; padding-top: 25px;} 
 	#main2{font-size: 20px;}  
 	#main2{} 
 	.pf{float: left; width: 40px;height: 40px;}     
 	.dt{margin-left: 600px;}
-	.info{}      
+	.info{min-height: 267px;}      
 	.contents{border-radius:5px;display:inline-block;padding: 10px; width: 669px;height:80px;text-overflow: ellipsis; overflow: hidden;word-break:keep-all;min-height: 80px; clear: both; background-color: #fafafa;margin-bottom: 15px;}        
 	.info2{background-color: #fafafa;  height: 80px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 669px; min-height: 80px;border-radius:5px;word-break:keep-all;}
 	.bot{margin: 0 auto; text-align: center;}
@@ -96,8 +96,8 @@
 										+	'	<div class="mybox">     '     
 										+	'	<img src="./img/profile_default.png" class="pf"/>  '
 										+	'	<div class="info">        '
-										+	'		<button class="content_detail">자세히 보기</button><br> '
-										+	'		<span>닉네임: '+ lists[i].user_id +' </span><span style="margin-left: 595px;">작성일: '+ lists[i].reply_regdate +' </span><br>'
+										+	'		<button class="content_detail buttondle">자세히 보기</button><br> '
+										+	'		<span>닉네임: '+ lists[i].user_id +' </span><span style="margin-left: 386px;">작성일: '+ lists[i].reply_regdate +' </span><br>'
 										+	'		<div class="star_table">'
 										+	'			<table>'
 										+	'				<tr> '
@@ -147,12 +147,12 @@
 	//////////////////////////자세히보기
 	
 		$("body").on("click",".content_detail",function(){
-			if($(this).parent().parent().css("height")=="370px"){  
+			if($(this).parent().parent().css("height")=="390px"){   
 				$(this).parent().parent().css("height","auto");  
 				$(this).parent().parent().find(".contents").css({"overflow":"visible","height":"auto","word-break":"break-all"});
 				$(this).parent().parent().find(".info2").css({"overflow":"visible","height":"auto","word-break":"break-all"});
 			}else{
-				$(this).parent().parent().css("height","200px");    
+				$(this).parent().parent().css("height","390px");    
 				$(this).parent().parent().find(".contents").css({"height":"80px","overflow":"hidden","word-break":"keep-all"});
 				$(this).parent().parent().find(".info2").css({"height":"80px","overflow":"hidden","word-break":"keep-all"});
 			}   

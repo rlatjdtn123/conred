@@ -103,7 +103,7 @@
 			data:{"menu_seq":menu_seq,"store_seq":store_seq,"store_time_day":store_time_day},
 			async: false,
 			dataType:"json",
-			success:function(obj){
+			success:function(obj){ 
 				var lists=obj.listWeek;
 				
 				$.each(lists,function(i){
@@ -114,10 +114,10 @@
 					var ing=parseInt(close[0])-parseInt(open[0]);
 // 					alert(ing); 
 // 					 alert(open[0]);
-					 if(lists[i].store_time_open=lists[i].store_time_close){
-						 for(var j=0;j<25;j++){							 
-							addContent+= '<input class="times" value="'+ (parseInt(open[0])+j)+':00' +'" readonly="readonly">';	
-						 }
+					if(open[0]=="00"&&close[0]=="00"){
+						for (var j = 0; j < 24; j++) {
+							addContent+= '<input class="times" value="'+ (parseInt(open[0])+j)+':00' +'" readonly="readonly">';												
+						}		
 					}else{
 						for (var j = 0; j < ing+1; j++) {
 							addContent+= '<input class="times" value="'+ (parseInt(open[0])+j)+':00' +'" readonly="readonly">';												
@@ -275,7 +275,7 @@
 			
 					$(".dayContainer > span").not(".flatpickr-disabled").not(".prevMonthDay").not(".nextMonthDay").each(function(){
 						emptyDay=$(".prevMonthDay").length;
-						alert(emptyDay);
+// 						alert(emptyDay);
 						if(getMon=="Y"){
 							if((parseInt($(this).text())+emptyDay)%7==monNum){//월
 								$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});

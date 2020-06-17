@@ -23,8 +23,15 @@
 		SELECT user_id,user_password,user_name,user_email,user_birth,USER_SEX ,USER_REGDATE ,USER_AGREEMENT ,USER_OUT ,USER_BLACK ,USER_ROLE ,USER_POINT 
 		FROM con_user
 		WHERE USER_ID =#{user_id}
-	</select>   
-	    
+	</select>     
+	
+	<update id="userUpdate" parameterType="UDto"> 
+		UPDATE CON_USER SET USER_BIRTH =#{user_birth} WHERE USER_ID =#{user_id}
+	</update>
+	 
+	<update id="userDelete" parameterType="String"> 
+		UPDATE CON_USER SET USER_OUT='Y' WHERE USER_ID =#{user_id}
+	</update>     
 	    
 	<select id="getStats" resultType="UDto" parameterType="String">
 		SELECT reserve_count ,qna_count,reply_count,like_count,cu.USER_POINT AS USER_POINT

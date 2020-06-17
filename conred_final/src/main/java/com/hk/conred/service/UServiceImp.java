@@ -25,7 +25,7 @@ public class UServiceImp implements IUService{
 	private IUDao UDaoImp;
 	@Autowired
 	private IInterestsDao interestsDaoImp;
-	
+	@Autowired
 	private ILikeDao likeDaoImp;
 	
 	
@@ -53,6 +53,16 @@ public class UServiceImp implements IUService{
 	@Override
 	public UDto userMyInfo(String user_id) {
 		return UDaoImp.userMyInfo(user_id);
+	}
+
+	@Override
+	public boolean userUpdate(UDto dto) {
+		return UDaoImp.userUpdate(dto);
+	}
+
+	@Override
+	public boolean userDelete(String user_id) {
+		return UDaoImp.userDelete(user_id);
 	}
 
 	

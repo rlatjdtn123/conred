@@ -392,16 +392,21 @@
 					geocoder.addressSearch(search_val, function(result, status) {
 		// 			geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
 		
+// 					        var coords = new kakao.maps.LatLng(37.526944462562646, 126.88344188869179);
 					    // 정상적으로 검색이 완료됐으면 
 					     if (status === kakao.maps.services.Status.OK) {
-		
+
 					        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 					        
 					        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 					        map.panTo(coords);
 //	 				        map.setCenter(coords);
 
-					    } 
+					    }else{  
+					    	 var coords = new kakao.maps.LatLng(37.526944462562646, 126.88344188869179);
+					    	 map.panTo(coords);    
+					    }
+					    
 					});    
 					
 				});

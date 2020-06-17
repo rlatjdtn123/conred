@@ -1,5 +1,5 @@
 <%-- <%@page import="org.apache.jasper.tagplugins.jstl.core.Out"%> --%>
-<%@page import="org.junit.internal.matchers.SubstringMatcher"%>
+<%-- <%@page import="org.junit.internal.matchers.SubstringMatcher"%> --%>
 <%@page import="com.hk.conred.dtos.UDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8");%>
@@ -42,20 +42,30 @@
 	.user_infos{background-color: #D8D8D8;border-width: 0;}
 </style>
 <script type="text/javascript">
-
+	function changeType(){
+		$("input[name=user_birth]").prop("type","date");
+	}
+	function deleteCheck(){
+		var result=confirm("정말 탈퇴 하시겠습니까?");
+		if(result){
+			location.href="user_myinfo_delete.do";
+		}else{
+			
+		}
+	}
 </script>
 </head>
 <%
 	UDto dto=(UDto)request.getAttribute("dto");  
-// 	String[] email=dto.getUser_email().split("@");
+	String[] email=dto.getUser_email().split("@");
 %>
 <body>
 <div id="container">
 <%-- <input type="hidden"  name="user_email" value="<%=dto.getUser_email()%>"/> --%>
-	<form action="user_insert.do" method="post">
+	<form action="user_myinfo_update.do" method="post">
 		<div id="tle">
 			<div id="regist">
-				사용자 회원가입
+				나의 정보
 			</div> 
 				<table class="table table-hover" >
 					<tr>
@@ -69,32 +79,30 @@
 					<tr> 
 						<td><span class="req"> </span>이메일</td>
 					<td> 
-						<input type="text" name="user_email1" readonly="readonly" class="user_infos"/>@
-						<input id="email" type="text" name="user_email3" style="width:120px;" readonly="readonly" class="user_infos"/>
+						<input type="text" name="user_email1" readonly="readonly" class="user_infos" value="<%=email[0]%>"/>@
+						<input value="<%=email[1]%>" id="email" type="text" name="user_email3" style="width:120px;" readonly="readonly" class="user_infos"/>
 <!-- 						<input type="hidden" name="emailConfirm" required="required" value="N"/> -->
 					</td>
-					</tr>
-					<tr>
-						<td>생일</td>
+					</tr> 
+					<tr>  
+						<td>생년월일</td>
 						<td>
-							<input style="height:26px;" type="text" readonly="readonly" name="user_birth" class="user_infos"/>
+							<input value="<%=dto.getUser_birth()%>" style="height:26px;" type="text" onclick="changeType()" name="user_birth" style="background-color: white;border:1px solid black;"/>
 						</td>
 					</tr>
 					<tr>
 						<td>성별</td>
 					<td>
-						<input type="text" readonly="readonly" name="user_sex" value="<%=dto.getUser_sex()%>" class="user_infos"/>
+						<input type="text" readonly="readonly"  name="user_sex" value="<%=dto.getUser_sex()%>" class="user_infos"/>
 					</td>
 					</tr>
-				</table>
-		</div>
+				</table> 
+		</div> 
 		<div id="bot">
 			<input class="btn redbtn" value="취소" onclick="location.href='index.jsp'" type="button"/>
-			<input class="btn greenbtn" value="회원가입 완료" type="submit"/> 
+			<input class="btn greenbtn" value="수정완료" type="submit"/>
+			<input type="button" value="탈퇴" class="btn redbtn" onclick="deleteCheck()"/> 
 		</div>
-	</form>
-	<form id="emailform" action="email_ok_start.do">
-		<input type="hidden" name="email" required="required" />
 	</form>
 </div>
 

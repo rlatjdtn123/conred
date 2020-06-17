@@ -359,7 +359,7 @@
 		if(resultDay>store_maxdate-1){
 			alert(store_maxdate+"일을 넘길수 없습니다."); 
 			$(".selector").val("");
-			$(".flatpickr-day").removeClass("selected startRange endRange inRange");
+			$(".flatpickr-day").removeClass("selected startRange endRange inRange"); 
 			$(".day_result_box").children("span").empty();
 			$(".gongback").css("display", "none"); 
 			$(".reserve_success").css("display", "none");

@@ -50,6 +50,20 @@ public class UDaoImp implements IUDao{
 		UDto dto=sqlSession.selectOne(nameSpace+"userMyInfo", user_id);
 		return dto;
 	}
+
+	@Override
+	public boolean userUpdate(UDto dto) {
+		int count=0;
+		count=sqlSession.update(nameSpace+"userUpdate", dto);
+		return count>0?true:false;
+	}
+
+	@Override
+	public boolean userDelete(String user_id) {
+		int count=0;
+		count=sqlSession.update(nameSpace+"userDelete",user_id);
+		return count>0?true:false;
+	}
 	
 	
 	 

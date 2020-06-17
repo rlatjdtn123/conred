@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -182,8 +183,34 @@ public class Sungsu {
 		UDto uldto=(UDto)session.getAttribute("uldto");
 		UDto dto=uService.userMyInfo(uldto.getUser_id());
 		model.addAttribute("dto", dto);
-		System.out.println(dto.getUser_email());
 		return "user/user_myinfo";  
+	}
+	
+	@RequestMapping(value = "user_myinfo_update.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String user_myinfo_update(Locale locale, Model model,UDto dto,String user_email1,String user_email3) {
+		logger.info("사용자 마이페이지{}.", locale);
+		System.out.println("유저생일@::"+dto.getUser_birth());
+		dto.setUser_email(user_email1+"@"+user_email3);
+		boolean isS=uService.userUpdate(dto);
+		if(isS) {
+			return "redirect:user_myinfo.do"; 
+		}else { 
+			return "";  			
+		}
+	}
+	
+	@RequestMapping(value = "user_myinfo_delete.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String user_myinfo_delete(Locale locale, Model model,HttpServletRequest request) {
+		logger.info("사용자 마이페이지{}.", locale);
+		HttpSession session=request.getSession();
+		UDto uldto=(UDto)session.getAttribute("uldto");
+		boolean isS=uService.userDelete(uldto.getUser_id());
+		if(isS) { 
+			request.getSession().invalidate();
+			return "redirect:index.jsp";
+		}else { 
+			return "";  			
+		}
 	}
 	
 	
