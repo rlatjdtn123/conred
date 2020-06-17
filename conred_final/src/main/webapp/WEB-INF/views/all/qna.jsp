@@ -19,22 +19,22 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style type="text/css">
-	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 /* 	#sticky{position: sticky; top:71px;} */
 	#navi2{width:998px;background-color: lightblue;clear:both;position:relative;top:-20px;text-align: center;line-height: 40px;border-top: 1px solid grey;}
 	.home{border-bottom:1px solid white;background-color: white;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
 	
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
-	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:700px;height:300px; margin:0 auto; font-size: 15px;background-color: #f2f2f2;}
+	.mybox{padding:15px;border-top:1px solid grey;width:700px;height:300px; margin:0 auto; font-size: 15px;}
 	.myboxmargin{margin-top:30px;}
 	#main{width: 850px;height: 100px;margin: 0 auto; padding-top: 25px;} 
 	#main2{font-size: 20px;}  
 	#main2{} 
-	.pf{float: left; width: 40px;height: 40px;}     
+	.pf{float: left; width: 40px;height: 40px;}      
 	.dt{margin-left: 600px;}
 	.info{}   
-	.contents{border-radius: 5px;display:inline-block; width: 631px;height:80px;text-overflow: ellipsis; overflow: hidden;background-color: #fafafa;margin-left: 17px;min-height: 80px; padding: 10px;margin-bottom: 15px;}     
-	.info2{background-color: #fafafa; margin-left: 17px; height: 80px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 631px;min-height: 80px; border-radius: 5px;}
+	.contents{display:inline-block; width: 631px;height:80px;text-overflow: ellipsis; word-break:keep-all;overflow: hidden;margin-left: 17px;min-height: 80px; padding: 10px;margin-bottom: 15px;}     
+	.info2{background-color: #fafafa; margin-left: 42px; height: 80px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 580px;min-height: 80px; border-radius: 5px;}
 	.bot{margin: 0 auto; text-align: center;}
 	
 	#modal_Btn{margin-left: 440px; height: 50px; width: 100px;background-color: #94B8FD; border: 0;border-radius: 5px;color: white;}
@@ -46,6 +46,9 @@
 	button{border-width: 0; }
 	button:hover {background-color: grey;}
 	.buttondle{background-color: #585858; color: white;border-radius: 5px;}
+	.tle_final{width: 700px;border-top: 1px solid grey;margin-left: 150px;margin-bottom: 200px;}
+	
+	 
 </style>
 <script type="text/javascript">	      
 	//Javascript
@@ -70,8 +73,8 @@
 				       addContent +=  '<div class="mybox">'         
 										+	'<img src="./img/profile_default.png" class="pf"/>'
 										+	'<div class="info">'
-										+	'	<button class="buttondle" style="margin-left:520px;">수정</button> <button class="buttondle">삭제</button> <button  class="content_detail buttondle">자세히 보기</button><br>'
-										+	'	<span ><b>닉네임</b>:'+lists[i].user_id+'</span><br><br>'
+										+	'	<button class="buttondle" style="margin-left:436px;">수정</button> <button class="buttondle">삭제</button> <button  class="content_detail buttondle">자세히 보기</button><br>'
+										+	'	<span ><b>닉네임</b>:'+lists[i].user_id+'</span><span>'+ lists[i].qna_regdate +'</span><br>'
 										+	'	<div class="contents">'
 										+	'		<span><b>문의내용</b></span>    '
 										+	'		<span>'+ lists[i].qna_content +'</span>    '
@@ -94,7 +97,21 @@
 	    $("#modal_Btn").click(function(){
 	        $("div.modal").modal(); 
 	    });
+	    
+	    
+		$("body").on("click",".content_detail",function(){
+			if($(this).parent().parent().css("height")=="300px"){   
+				$(this).parent().parent().css("height","auto");  
+				$(this).parent().parent().find(".contents").css({"overflow":"visible","height":"auto","word-break":"break-all"});
+				$(this).parent().parent().find(".info2").css({"overflow":"visible","height":"auto","word-break":"break-all"});
+			}else{
+				$(this).parent().parent().css("height","300px");    
+				$(this).parent().parent().find(".contents").css({"height":"80px","overflow":"hidden","word-break":"keep-all"});
+				$(this).parent().parent().find(".info2").css({"height":"80px","overflow":"hidden","word-break":"keep-all"});
+			}   
+		}); 
 	});
+	
  
 </script> 
 </head>
@@ -130,13 +147,13 @@
 		    <div class="mybox">         
 				<img src="./img/profile_default.png" class="pf"/>
 				<div class="info">
-					<button class="buttondle" style="margin-left:420px;">수정</button> <button class="buttondle" >삭제</button> <button  class="content_detail buttondle">자세히 보기</button><br>
-					<span><b>닉네임</b>:<%=dto.getUser_id()%></span><br><br>
+					<button class="buttondle" style="margin-left:436px;">수정</button> <button class="buttondle" >삭제</button> <button  class="content_detail buttondle">자세히 보기</button><br>
+					<span style="color:#919191;">닉네임:<%=dto.getUser_id()%></span><span style="color:#919191; float: right;"><%=dto.getQna_regdate()%></span><br>
 					<div class="contents">
-						<span><b>문의내용</b></span>     
+						<span><b>문의내용</b></span><br>      
 						<span><%=dto.getQna_content()%></span>    
 					</div>
-				</div>
+				</div> 
 				<div class="info2">    
 					<span><b>가게답변</b></span><br>
 					<%
@@ -160,6 +177,7 @@
 	<div class="bigbig">
 		
 	</div>
+	<div class="tle_final"></div>
 </div> 
 </body>
 </html>

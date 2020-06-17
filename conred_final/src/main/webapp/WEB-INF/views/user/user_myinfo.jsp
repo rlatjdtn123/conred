@@ -99,7 +99,7 @@
 				</table> 
 		</div> 
 		<div id="bot">
-			<input class="btn redbtn" value="취소" onclick="location.href='index.jsp'" type="button"/>
+			<input class="btn redbtn" value="돌아가기" onclick="location.href='index.jsp'" type="button"/>
 			<input class="btn greenbtn" value="수정완료" type="submit"/>
 			<input type="button" value="탈퇴" class="btn redbtn" onclick="deleteCheck()"/> 
 		</div>

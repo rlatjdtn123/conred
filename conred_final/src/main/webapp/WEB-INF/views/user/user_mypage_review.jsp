@@ -49,8 +49,8 @@
 					 +	'</div>  '    
 					+	'<img src="./img/profile_default.png" class="pf"/>  '
 					+	'<div class="info">        ' 
-					+	'	<button class="buttondle" style="margin-left: 435px;background-color:#fafafa;">삭제</button> <button  class="content_detail buttondle">자세히 보기</button><br>' 
-					+	'	<span>닉네임:'+ lists[i].user_id +'</span><span style="margin-left: 240px;">작성일: '+ lists[i].reply_regdate +'</span><br>  '
+					+	'	<button class="content_delete buttondle">삭제</button> <button  class="content_detail buttondle">자세히 보기</button><br>' 
+					+	'	<span>닉네임:'+ lists[i].user_id +'</span><span style="float:right">작성일: '+ lists[i].reply_regdate +'</span><br>  '
 					+		'<div class="star_table">'
 					+			'<table>'
 					+				'<tr>'
@@ -107,11 +107,21 @@
 				$(this).parent().parent().find(".contents").css({"height":"80px","overflow":"hidden","word-break":"keep-all"});
 				$(this).parent().parent().find(".info2").css({"height":"80px","overflow":"hidden","word-break":"keep-all"});
 			}   
-		});      
+		});   
    
 	});  
 	
 
+	function user_review_delete(reply_seq){
+		var result=confirm("정말 삭제 하시겠습니까?");
+		if(result){
+			location.href="user_review_delete.do?reply_seq="+reply_seq;
+		}else{
+			
+		} 
+		
+	}
+	
 	
 	 function star_fill(val){
 		 var v="";
@@ -177,8 +187,8 @@
 	button {border: 0;  } 
 	button:hover:{background-color: grey;}
 	 .user_review_img{background-color:#fafafa; width: 415px;height: 80px;margin-left: 418px;margin-bottom:22px;}
-	 .content_detail{background-color: #fafafa;}
-	 .content_detail:hover {background-color: grey;}
+	 .buttondle{background-color: #fafafa;}
+	 .buttondle:hover {background-color: grey;}
 	 
 	 .star_table{width: 187px; height: 80px;background-color: #fafafa;border-radius: 5px; padding: 10px;float: left;}
 	 .starz{width:17px;height:auto;display: inline-block;margin:-2px;margin-bottom:4px;}
@@ -219,111 +229,114 @@
 	<div></div>
 	<% 
 		for(ReplyDto dto : list){ 
- 	%> 
-	<div class="bigtle" > 
-		<div class="mybox">      
-		 	<div class="store_img">     
-		 		<div class="store_info"><%=dto.getStore_name()%></div>
-		 	</div>      
-			<img src="./img/profile_default.png" class="pf"/>  
-			<div class="info">        
-				<button class="content_delete buttondle">삭제</button> <button class="content_detail buttondle">자세히 보기</button><br> 
-				<span>닉네임:<%=dto.getUser_id()%></span><span style="margin-left: 240px;">작성일: <%=dto.getReply_regdate()%></span><br>
-				<div class="star_table">
-					<table>
-						<tr> 
-							<td>서비스</td>
-							<td>
-								<%  
-									for(int i=0;i<Math.floor(dto.getReply_service());i++){
-									%> 
-										<img class="starz" src="img/star_fill.png">
-									<%
-									}
-					 				for(int i=0;i<(Math.ceil(dto.getReply_service())-Math.floor(dto.getReply_service()));i++){
+		if(!dto.getReply_delflag().equals("Y")){
+		%>
+		<div class="bigtle" > 
+			<div class="mybox">      
+			 	<div class="store_img">     
+			 		<div class="store_info"><%=dto.getStore_name()%></div>
+			 	</div>      
+				<img src="./img/profile_default.png" class="pf"/>  
+				<div class="info">        
+					<button class="content_delete buttondle" onclick="user_review_delete(<%=dto.getReply_seq()%>)">삭제</button> <button class="content_detail buttondle">자세히 보기</button><br> 
+					<span>닉네임:<%=dto.getUser_id()%></span><span style="float:right;"><%=dto.getReply_regdate()%></span><br>
+					<div class="star_table"> 
+						<table>
+							<tr> 
+								<td>서비스</td>
+								<td>
+									<%  
+										for(int i=0;i<Math.floor(dto.getReply_service());i++){
+										%> 
+											<img class="starz" src="img/star_fill.png">
+										<%
+										}
+						 				for(int i=0;i<(Math.ceil(dto.getReply_service())-Math.floor(dto.getReply_service()));i++){
+										%>
+											<img class="starz" src="img/star_half.png">
+										<%
+										}
+										for(int i=0;i<(5-Math.ceil(dto.getReply_service()));i++){
+										%>
+											<img class="starz" src="img/star_empty.png">
+										<%
+										}
 									%>
-										<img class="starz" src="img/star_half.png">
-									<%
-									}
-									for(int i=0;i<(5-Math.ceil(dto.getReply_service()));i++){
+								</td>  
+							</tr>
+							<tr>
+								<td>가격</td>
+								<td>
+									<%  
+										for(int i=0;i<Math.floor(dto.getReply_price());i++){
+										%> 
+											<img class="starz" src="img/star_fill.png">
+										<%
+										}
+										for(int i=0;i<(Math.ceil(dto.getReply_price())-Math.floor(dto.getReply_price()));i++){
+										%>
+											<img class="starz" src="img/star_half.png">
+										<%
+										}
+										for(int i=0;i<(5-Math.ceil(dto.getReply_price()));i++){
+										%>
+											<img class="starz" src="img/star_empty.png">
+										<%
+										}
 									%>
-										<img class="starz" src="img/star_empty.png">
-									<%
-									}
-								%>
-							</td>  
-						</tr>
-						<tr>
-							<td>가격</td>
-							<td>
-								<%  
-									for(int i=0;i<Math.floor(dto.getReply_price());i++){
-									%> 
-										<img class="starz" src="img/star_fill.png">
-									<%
-									}
-									for(int i=0;i<(Math.ceil(dto.getReply_price())-Math.floor(dto.getReply_price()));i++){
+								</td> 
+							</tr>
+							<tr>
+								<td>청결도</td>
+								<td>
+									<%  
+										for(int i=0;i<Math.floor(dto.getReply_clean());i++){
+										%> 
+											<img class="starz" src="img/star_fill.png">
+										<%
+										}
+										for(int i=0;i<(Math.ceil(dto.getReply_clean())-Math.floor(dto.getReply_clean()));i++){
+										%>
+											<img class="starz" src="img/star_half.png">
+										<%
+										}
+										for(int i=0;i<(5-Math.ceil(dto.getReply_clean()));i++){
+										%>
+											<img class="starz" src="img/star_empty.png">
+										<%
+										}
 									%>
-										<img class="starz" src="img/star_half.png">
-									<%
-									}
-									for(int i=0;i<(5-Math.ceil(dto.getReply_price()));i++){
-									%>
-										<img class="starz" src="img/star_empty.png">
-									<%
-									}
-								%>
-							</td> 
-						</tr>
-						<tr>
-							<td>청결도</td>
-							<td>
-								<%  
-									for(int i=0;i<Math.floor(dto.getReply_clean());i++){
-									%> 
-										<img class="starz" src="img/star_fill.png">
-									<%
-									}
-									for(int i=0;i<(Math.ceil(dto.getReply_clean())-Math.floor(dto.getReply_clean()));i++){
-									%>
-										<img class="starz" src="img/star_half.png">
-									<%
-									}
-									for(int i=0;i<(5-Math.ceil(dto.getReply_clean()));i++){
-									%>
-										<img class="starz" src="img/star_empty.png">
-									<%
-									}
-								%>
-							</td> 
-						</tr>
-					</table>
+								</td> 
+							</tr>
+						</table>
+					</div>
+					<div class="user_review_img" ></div>     
+					<div class="contents">
+						<span style="font-weight: bold;">리뷰내용</span><br>
+						<span><%=dto.getReply_content()%></span>
+					</div>  
+				</div>   
+				<div class="info2">     
+					<%
+						if(dto.getReply_answer()==null||dto.getReply_answer().equals("")){
+							%>					
+								<span style="font-weight: bold;">매장답변</span><br>
+								<span>아직 답변이 없습니다.</span>
+							<%
+						}else{  
+							%>
+								<span style="font-weight: bold;">매장답변</span><br>
+								<span><%=dto.getReply_answer()%></span>						
+							<%
+						}
+					%>  
 				</div>
-				<div class="user_review_img" ></div>     
-<%-- 				<div class="contents"><%=dto.getReply_content()%></div> --%>
-				<div class="contents">
-					<span style="font-weight: bold;">리뷰내용</span><br>
-					<span><%=dto.getReply_content()%></span>
-				</div>  
-			</div>   
-			<div class="info2">     
-				<%
-					if(dto.getReply_answer()==null||dto.getReply_answer().equals("")){
-						%>					
-							<span style="font-weight: bold;">매장답변</span><br>
-							<span>아직 답변이 없습니다.</span>
-						<%
-					}else{  
-						%>
-							<span style="font-weight: bold;">매장답변</span><br>
-							<span><%=dto.getReply_answer()%></span>						
-						<%
-					}
-				%>  
-			</div>
-		</div>  
-	</div>      
-	<br><br>	
+			</div>  
+		</div>      
+		<br><br>
+		<%
+		}
+ 	%> 
 	<%		
 		} 
 	%>

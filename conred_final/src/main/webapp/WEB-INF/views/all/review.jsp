@@ -23,31 +23,31 @@
 <link href="css/star_price.css" rel="stylesheet">
 <link href="css/star_clean.css" rel="stylesheet">
 <style type="text/css">
-	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 /* 	#sticky{position: sticky; top:71px;} */
 	#navi2{width:998px;background-color: lightblue;clear:both;position:relative;top:-20px;text-align: center;line-height: 40px;border-top: 1px solid grey;}
 	.home{border-bottom:1px solid white;background-color: white;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
 	
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
-	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:700px;height:390px; font-size: 15px; margin-left: 150px;min-height: 390px;background-color: #f2f2f2;}
+	.mybox{padding:20px;border-top:1px solid grey; width:700px;height:370px; font-size: 15px; margin-left: 150px;min-height: 370px;}
 	.myboxmargin{margin-top:30px;}
 	#main{width: 930px;height: 250px;margin-left:70px; padding-top: 25px;} 
 	#main2{font-size: 20px;}  
-	#main2{} 
+	#main2{}  
 	.pf{float: left; width: 40px;height: 40px;}     
 	.dt{margin-left: 600px;}
-	.info{min-height: 267px;}      
-	.contents{border-radius:5px;display:inline-block;padding: 10px; width: 669px;height:80px;text-overflow: ellipsis; overflow: hidden;word-break:keep-all;min-height: 80px; clear: both; background-color: #fafafa;margin-bottom: 15px;}        
-	.info2{background-color: #fafafa;  height: 80px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 669px; min-height: 80px;border-radius:5px;word-break:keep-all;}
+	.info{min-height: 250px;}      
+	.contents{display:inline-block;padding: 10px; width: 669px;height:80px;text-overflow: ellipsis; overflow: hidden;word-break:keep-all;min-height: 80px; clear: both; margin-bottom: 15px;}        
+	.info2{background-color: #fafafa;  height: 80px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 600px; min-height: 80px;border-radius:5px;word-break:keep-all;margin-left: 33px;}
 	.bot{margin: 0 auto; text-align: center;}
-	.user_review_img{background-color:#fafafa; width: 458px;height: 80px;margin-left: 210px;margin-bottom:22px; border-radius: 5px;}
-	
+	.user_review_img{width: 458px;height: 80px;margin-left: 210px; border-radius: 5px;}
+	 
 	 .modal-title{margin-left: 400px;}
 	.modal-body span{margin: 5px;}
 	textarea:focus::-webkit-input-placeholder { color: transparent; }
 	.modal-footer{width: 897px; height: 630px;border-width: 0px;}
 	
-	
+	 
 	input[type=file] {display: none;}
      .my_button {
          display: inline-block; width: 200px;  text-align: center; padding: 10px; background-color: #006BCC;color: #fff;
@@ -60,13 +60,16 @@
  	.overfive{float: left;} 
  	.star_bigtle{margin-left: 65px; float: left;}
  	.upload_message{height: 40px; width: 400px;margin-left: 215px; text-align: center; line-height: 37px;}
-  	 .content_detail{background-color: #fafafa;margin-left: 530px;border-width: 0;}
+  	 .content_detail{background-color: #fafafa;margin-left: 528px;border-width: 0;}
 	 .content_detail:hover {background-color: grey;} 
      .star_table{width: 200px; height: 80px;background-color: #fafafa;border-radius: 5px; padding: 10px;float: left;}
       .starz{width:17px;height:auto;display: inline-block;margin:-2px;margin-bottom:4px;}
       .small_star{width: 25px;height: auto;margin: -2px;margin-bottom:4px;}
       .big_star{width: 50px;height: auto;}
       .buttondle{background-color: #585858; color: white;border-radius: 5px;}
+      .user_avg{float: right; font-size: 20px;padding-top: 17px;}
+      .star_score{float: left;}
+      .tle_final{width: 700px;border-top: 1px solid grey;margin-left: 150px;margin-bottom: 200px;}
        
 </style>   
 <script type="text/javascript">
@@ -97,9 +100,9 @@
 										+	'	<img src="./img/profile_default.png" class="pf"/>  '
 										+	'	<div class="info">        '
 										+	'		<button class="content_detail buttondle">자세히 보기</button><br> '
-										+	'		<span>닉네임: '+ lists[i].user_id +' </span><span style="margin-left: 386px;">작성일: '+ lists[i].reply_regdate +' </span><br>'
+										+	'		<span style="color:#919191;">닉네임: '+ lists[i].user_id +' </span><span style="float:right;color:#919191;">작성일: '+ lists[i].reply_regdate +' </span><br>'
 										+	'		<div class="star_table">'
-										+	'			<table>'
+										+	'			<table class="star_score">'
 										+	'				<tr> '
 										+	'					<td>서비스</td>'
 										+	'					<td>'
@@ -119,6 +122,7 @@
 							+'									</td> '
 							+'								</tr>'
 						+	'							</table>'
+						+							'<div class="user_avg">'+ Math.round(((lists[i].reply_clean+lists[i].reply_price+lists[i].reply_service)/3)*10)/10 +'</div>'
 						+	'						</div>'
 						+	'						<div class="user_review_img" ></div>     '
 						+	'						<div class="contents">'
@@ -147,12 +151,12 @@
 	//////////////////////////자세히보기
 	
 		$("body").on("click",".content_detail",function(){
-			if($(this).parent().parent().css("height")=="390px"){   
+			if($(this).parent().parent().css("height")=="370px"){   
 				$(this).parent().parent().css("height","auto");  
 				$(this).parent().parent().find(".contents").css({"overflow":"visible","height":"auto","word-break":"break-all"});
 				$(this).parent().parent().find(".info2").css({"overflow":"visible","height":"auto","word-break":"break-all"});
 			}else{
-				$(this).parent().parent().css("height","390px");    
+				$(this).parent().parent().css("height","370px");    
 				$(this).parent().parent().find(".contents").css({"height":"80px","overflow":"hidden","word-break":"keep-all"});
 				$(this).parent().parent().find(".info2").css({"height":"80px","overflow":"hidden","word-break":"keep-all"});
 			}   
@@ -555,9 +559,9 @@
 			<img src="./img/profile_default.png" class="pf"/>  
 			<div class="info">        
 				<button class="content_detail buttondle">자세히 보기</button><br> 
-				<span>닉네임:<%=dto.getUser_id()%> </span><span style="margin-left: 360px;">작성일: <%=dto.getReply_regdate()%></span><br>
+				<span style="color:#919191;">닉네임:<%=dto.getUser_id()%> </span><span style="float:right; color:#919191;">작성일: <%=dto.getReply_regdate()%></span><br>
 				<div class="star_table">
-					<table>
+					<table class="star_score">
 						<tr> 
 							<td>서비스</td>
 							<td>
@@ -623,8 +627,9 @@
 								}
 							%>
 							</td> 
-						</tr>
-					</table>
+						</tr>  
+					</table>   
+					<div class="user_avg"><%=Math.round(((dto.getReply_clean()+dto.getReply_price()+dto.getReply_service())/3)*10d)/10d%></div>
 				</div>
 				<div class="user_review_img" ></div>     
 				<div class="contents">
@@ -654,7 +659,7 @@
     <div class="bigbig">
         
     </div>
-    <!-- 반복 -->
+    <div class="tle_final"></div>    
 </div> 
 </body>
 </html>

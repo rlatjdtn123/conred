@@ -65,6 +65,11 @@ public class UServiceImp implements IUService{
 		return UDaoImp.userDelete(user_id);
 	}
 
+	@Override
+	public String userIdCheck(String user_id) {
+		return UDaoImp.userIdCheck(user_id);
+	}
+
 	
 
 	

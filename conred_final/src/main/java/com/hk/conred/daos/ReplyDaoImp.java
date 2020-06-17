@@ -46,5 +46,15 @@ public class ReplyDaoImp implements IReplyDao{
 		List<ReplyDto> list=sqlSession.selectList(nameSpace+"replyListStoreDetail", map);
 		return list;
 	}
+
+	@Override
+	public boolean userReplyDelete(String user_id, int reply_seq) {
+		int count=0;
+		Map<String, Object> map=new HashMap<>();
+		map.put("user_id", user_id);
+		map.put("reply_seq", reply_seq);
+		count=sqlSession.update(nameSpace+"userReplyDelete", map);
+		return count>0?true:false;
+	}
 	
 }

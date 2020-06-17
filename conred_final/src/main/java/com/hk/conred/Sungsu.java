@@ -102,12 +102,26 @@ public class Sungsu {
 	
 	@RequestMapping(value = "user_regist.do", method = RequestMethod.GET)
 	public String user_regist(Locale locale, Model model) {
-		logger.info("테스트용 유저 회원가입 접근 {}.", locale);
+		logger.info("유저 회원가입 접근 {}.", locale);
 
 		return "user/user_regist"; 
 		
 	}
 		
+	
+	@ResponseBody
+	@RequestMapping(value = "user_idcheck_ajax.do", method = RequestMethod.GET)
+	public Map<String, String> user_idcheck_ajax(Locale locale, Model model,String user_id) {
+		logger.info("유저 아이디체크ajax {}.", locale);
+		String user_result=(String)uService.userIdCheck(user_id);
+		Map<String, String> map=new HashMap<>();
+		map.put("user_result", user_result);
+		return map; 
+		
+	}
+	
+	
+	
 //	@RequestMapping(value = "user_insert.do", method = {RequestMethod.GET,RequestMethod.POST})
 //	public String user_insert(Locale locale, Model model,UDto dto,String user_email1,String user_email3,HttpServletRequest request) {
 //		logger.info("테스트용 유저 회원가입 폼 {}.", locale);
@@ -233,7 +247,6 @@ public class Sungsu {
 		logger.info("사용자 마이페이지_리뷰{}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
-//		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@::"+uldto.getUser_id());
 		List<ReplyDto> list=replyService.replyList(uldto.getUser_id(),"1");
 		model.addAttribute("list",list); 
 		return "user/user_mypage_review";  
@@ -251,6 +264,20 @@ public class Sungsu {
 		return map;
 	}
 	
+	@RequestMapping(value = "user_review_delete.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String user_review_delete(Locale locale, Model model,HttpServletRequest request,int reply_seq) {
+		logger.info("사용자 리뷰삭제 {}.", locale);
+		System.out.println("@@@@reply_seq:::"+reply_seq);
+		HttpSession session=request.getSession(); 
+		UDto uldto=(UDto)session.getAttribute("uldto");
+		boolean isS=replyService.userReplyDelete(uldto.getUser_id(), reply_seq);
+		if(isS) {
+			return "redirect:user_mypage_review.do";
+		}else {
+			return "";
+		}
+	}
+	
 
 	
 	
@@ -263,7 +290,7 @@ public class Sungsu {
 		model.addAttribute("list",list);
 		return "user/user_mypage_qna";  
 	}
-	 
+	  
 	@ResponseBody
 	@RequestMapping(value = "user_qna_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public Map<String, List<QnaDto>> user_qna_ajax(Locale locale, Model model,HttpServletRequest request,String pnum) {
@@ -554,7 +581,7 @@ public class Sungsu {
 	
 	@RequestMapping(value = "reserve_successS.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String reserve_successS(Locale locale, Model model,int menu_seq,int store_seq,String reserve_price,HttpServletRequest request,String reserve_sdate, String reserve_edate) {
-		logger.info("날짜,시간선택후 예약 {}.", locale);
+		logger.info("날짜,시간 선택후 예약 {}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
 //		System.out.println("@@@아이디::"+uldto.getUser_id()+"@@@메뉴일렬번호::"+menu_seq+"@@@가게일렬번호::"+store_seq+"@@@예약시작날짜::"+reserve_sdate+"::@@@@예약마지막날짜::"+reserve_edate+"@@@예약가격::"+reserve_price);
@@ -562,6 +589,7 @@ public class Sungsu {
 		
 		return "redirect:index.jsp";
 	}
+	
 	
 	
 	

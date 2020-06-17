@@ -17,4 +17,7 @@ public interface IReplyDao {
 	
 	//2.리뷰목록 - 점주: 특정 매장에 달린 모든 리뷰 -- 상세 
 	public List<ReplyDto> replyListStoreDetail(int store_seq,int pnum);
+	
+	//5.리뷰삭제 - 사용자:자기가쓴 모든리뷰 개별삭제
+	public boolean userReplyDelete(String user_id,int reply_seq);
 }

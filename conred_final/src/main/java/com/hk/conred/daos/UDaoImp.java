@@ -64,6 +64,13 @@ public class UDaoImp implements IUDao{
 		count=sqlSession.update(nameSpace+"userDelete",user_id);
 		return count>0?true:false;
 	}
+
+	@Override 
+	public String userIdCheck(String user_id) {
+		String resultId=null;
+		resultId=sqlSession.selectOne(nameSpace+"userIdCheck", user_id);
+		return resultId;
+	}
 	
 	
 	 

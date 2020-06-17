@@ -33,7 +33,15 @@ public class ODaoImp implements IODao {
 		dto=sqlSession.selectOne(nameSpace+"getLogin", map);
 		return dto;
 	}
- 
+
+	@Override
+	public ODto ownerMyInfo(String owner_id) {
+		ODto dto=null;
+		dto=sqlSession.selectOne(nameSpace+"ownerMyInfo", owner_id);
+		return dto;
+	}
+	
+	
 	
 	
 }

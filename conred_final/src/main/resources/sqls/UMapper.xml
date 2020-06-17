@@ -12,6 +12,10 @@
 		SYSDATE,#{user_agreement},'N','N','user',0)
 	</insert> 
 	 
+	<select id="userIdCheck" resultType="String" parameterType="String">
+		SELECT USER_ID FROM CON_USER WHERE USER_ID =#{user_id}
+	</select> 
+	
 	
 	<select id="getLogin" resultType="UDto" parameterType="Map">
 		SELECT USER_ID,USER_NAME ,USER_BIRTH ,USER_SEX ,USER_REGDATE,USER_OUT,USER_BLACK ,USER_ROLE ,USER_POINT 

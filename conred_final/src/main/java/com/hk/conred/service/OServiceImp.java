@@ -22,4 +22,9 @@ public class OServiceImp implements IOService{
 		return ODaoImp.getLogin(Owner_id, Owner_password);
 	}
 
+	@Override
+	public ODto ownerMyInfo(String owner_id) {
+		return ODaoImp.ownerMyInfo(owner_id); 
+	}
+
 }

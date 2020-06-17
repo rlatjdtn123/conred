@@ -34,4 +34,9 @@ public class ReplyServiceImp implements IReplyService{
 		return replyDao.replyListStoreDetail(store_seq, pnum);
 	}
 
+	@Override
+	public boolean userReplyDelete(String user_id, int reply_seq) {
+		return replyDao.userReplyDelete(user_id, reply_seq);
+	}
+
 }

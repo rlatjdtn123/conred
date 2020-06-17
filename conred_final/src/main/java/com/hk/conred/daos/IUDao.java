@@ -17,6 +17,8 @@ public interface IUDao {
 	public boolean userDelete(String user_id);
 	//6.내 통계 (좋아요,예약,문의,포인트,리뷰)
 	public UDto getStats(String user_id);
+	//7.유저 아이디 중복체크
+	public String userIdCheck(String user_id);
 	
 	//9.사용자 블랙처리 (신고3번받으면)
 	

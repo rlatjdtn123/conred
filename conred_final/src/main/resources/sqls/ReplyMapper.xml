@@ -44,5 +44,9 @@
 		WHERE CEIL(rn/5)=#{pnum} 
 	</select>
 	
+	<update id="userReplyDelete" parameterType="Map">
+		UPDATE con_reply SET REPLY_DELFLAG ='Y' WHERE USER_ID =#{user_id} AND REPLY_SEQ =#{reply_seq}
+	</update>
+	
 </mapper>
 	 

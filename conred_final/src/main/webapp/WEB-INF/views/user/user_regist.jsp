@@ -88,6 +88,31 @@
 // 		var re2 = [0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 // 		var email = document.getElementById("email");
 // 	}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+	$(function(){
+	var user_id=$("input[name=user_id]");
+	
+	user_id[0].onblur=function(){ 
+		var resultId=user_id.val();
+		$.ajax({
+			url:"user_idcheck_ajax.do",
+			method:"post",
+			data:{"user_id":resultId},
+			dataType:"json",
+			success:function(obj){
+				var result=obj.user_result;
+				alert(result[0].user_id);  
+			} 	
+		}); 
+	}
+	 
+	
+})
+
+
+
 </script>
 </head>
 <body>
