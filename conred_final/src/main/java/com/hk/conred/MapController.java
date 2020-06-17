@@ -73,22 +73,59 @@ public class MapController {
 	}
 	
 	
+
+	
+	@RequestMapping(value = "map_keyword.do",  method = {RequestMethod.GET,RequestMethod.POST})
+	public String map_keyword(Locale locale, Model model, String keyword) {
+		logger.info("맵으로 이동 : 키워드검색 {}.", locale);
+		//1.검색창(지역명, 지하철역명, 매장명 검색 = 얘네도 각각 따로 나눠줄지? 왜냐하면 연관검색어로 나오는 키워드로만 검색이되기때문에 나눠줄 수 있음)
+		//안나눠줄경우 검색의 정확도가 떨어질 가능성이 높다.
+		//하지만 나눠줄경우 검색어+카테고리로 검색시 번거로워질 수 있다.(걔도 3개씩짜야할 수 있다는 뜻: 하나하면 나머지는 쉽겠지만.)
+		//파라미터:keyword=검색어&myloca=내현재위치(없으면 지정위치)
+		//내 현재위치 값은 받지 않는다.
+		//파라미터:keyword=검색어
+		
+		model.addAttribute("keyword",keyword);
+		
+		return "all/map"; 
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "map_category_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String map_category_ajax(Locale locale, Model model,String category_code) {
+		logger.info("지역검색성공시, 카테고리로 store_seq 검색해주는 아작스 {}.", locale);
+		//밑에 map_category.do 를 ajax화시킨것 뿐
+//		List<SDto> list =new ArrayList<SDto>();
+//		if(category_code.equals("all")) {
+//			list=mapService.searchCateAll();
+//		}else {
+//			list=mapService.searchCate(category_code);
+//		}
+//		System.out.println(list);
+//		
+//		model.addAttribute("list",list);
+		System.out.println(category_code);
+		model.addAttribute("category_code",category_code);
+		
+		return category_code; 
+	}
+	
 	@RequestMapping(value = "map_category.do", method = RequestMethod.GET)
 	public String map_category(Locale locale, Model model,String category_code) {
-		logger.info("맵으로 이동 : 카테고리검색 {}.", locale);
+		logger.info("맵으로 이동 : 카테고리검색 {}.", locale);//카테고리로 store_seq검색해줌
 		//2.카테고리검색(대분류 카테고리)(+all,내주변=select*(만약 내 위치 허용이 안되어있다면 내 주변 말고 기본지정위치에서 all))
 		//파라미터:category=카테고리&mylocation=내현재위치(없으면 지정위치)
 		//기본적으로 내 위치권한이 허용되어있다면 위치대로 / 아니라면 지정위치 
 		
-		List<SDto> list =new ArrayList<SDto>();
-		if(category_code.equals("all")) {
-			list=mapService.searchCateAll();
-		}else {
-			list=mapService.searchCate(category_code);
-		}
-		System.out.println(list);
-		
-		model.addAttribute("list",list);
+//		List<SDto> list =new ArrayList<SDto>();
+//		if(category_code.equals("all")) {
+//			list=mapService.searchCateAll();
+//		}else {
+//			list=mapService.searchCate(category_code);
+//		}
+//		System.out.println(list);
+//		
+//		model.addAttribute("list",list);
 		model.addAttribute("category_code",category_code);
 		
 		return "all/map"; 
@@ -108,7 +145,7 @@ public class MapController {
 		System.out.println(category_code); 
 		
 		List<SDto> list =new ArrayList<SDto>();
-		if(category_code.equals("all")) {
+		if(category_code.equals("all")||category_code=="") {
 			//전체 카테고리 검색
 			System.out.println("전체카테고리검색 실행!");
 			list=mapService.searchCateAll_ajax(nelat,nelng,swlat,swlng);

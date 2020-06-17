@@ -116,7 +116,12 @@ $( function() {
     $( "#searchbar" ).autocomplete({
       source: availableTags
     });
+    
+    
+    $("")
 });
+
+
 </script>
 
 </head>
@@ -133,8 +138,9 @@ $( function() {
 <div id="container">
 	<div id="message1">더 넓은 세상을 선물하세요<img id="footprint1" src="./img/footprint1.png"></div>
 	
-	<form id="search">
-	  <input type="text" id="searchbar" class="form-control pull-left" placeholder="지역명, 지하철역, 매장명으로 검색">
+	<form id="search" action="map_keyword.do">
+<!-- 	  <input type="text" id="searchbar" class="form-control pull-left" name="keyword" placeholder="지역명, 지하철역, 매장명으로 검색" required/> -->
+	  <input type="text" id="searchbar" class="form-control pull-left" name="keyword" placeholder="지역명, 지하철역, 매장명으로 검색" required/>
 	  <button type="submit" id="searchbtn" class="btn"><img id="magnifyglass" src="./img/magnifyglass.png"></button>
 	</form>
 	

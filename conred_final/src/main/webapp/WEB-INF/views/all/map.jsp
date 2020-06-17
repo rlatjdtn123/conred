@@ -34,11 +34,165 @@
 	$(document).ready(function(){//온로드실행
 		//여기서 if문으로 무슨검색을 할건지 나눠주자
 		//
-		ajax_cate();
+		var keyword = '<c:out value="${keyword}"/>';
+		var category_code = '<c:out value="${category_code}"/>';
+// 		if(category_code==null||category_code==undefined||category_code==""){
+// 			alert("카테고리없으니실행안행!");
+// 		}else 
 	
-		kakao.maps.event.addListener(map, 'dragend', function () {       //드래그끝나면실행
+		//1★★★★★if 카테고리검색으로 맵에 들어온경우: 온로드로 카테고리 뿌려줌(키워드:지역검색성공으로 들어온경우도 해당)
+		if(category_code!=""){
+// 			alert("카테고리검색실행!");
 			ajax_cate();
-		});
+
+			//어떻게 맵에 들어왔든지 드래그끝날 경우: 카테고리 뿌려줌(키워드검색으로 들어왔어도? >키워드검색으로 들어왔으면 새로 검색을 하기 전까진 카테고리뿌려주면안된다.)
+			kakao.maps.event.addListener(map, 'dragend', function () {       //드래그끝나면실행
+				ajax_cate();
+			});
+		}
+		//(키워드:지역검색성공으로 들어온경우에도 드래그시 전체카테고리검색이되게 해야함)
+		
+		//2★★★★★if 키워드검색으로 맵에 들어온경우: 온로드로 키워드 뿌려줌
+		if(keyword!=""){
+// 			alert(keyword);
+// 			alert("키워드검색실행!");
+			ajax_keyword();
+			
+			
+// 			kakao.maps.event.addListener(map, 'dragend', function () {       //드래그끝나면실행
+// 				ajax_keyword();
+// 			});
+		}
+		
+		//if 키워드검색으로 들어왔어도 지역검색이면 : 드래그시 카테고리 전체 뿌려줌
+		//얘를 여기서 처리하는게 아닌 ajax_keyword()에서 하기 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+// 		kakao.maps.event.addListener(map, 'dragend', function () {       //드래그끝나면실행
+// 			if(bool==false){
+// 				ajax_cate_keysearch();
+// 			}
+// 		});
+		
+		//키워드로 들어온경우에 지역검색에 성공시 true로 바꿔줄 boolean값
+		//근데 고민중인게 밑에 hello()있는곳안에서밖에 어차피 못쓰기에
+		//거기서 parameter값으로 받아서할지 헷갈리지않게.
+// 		var bool=false;
+			
+		//키워드 검색 로직(1): 지역검색 성공시 해당 지역의 모든카테고리값을 뿌려준다.(온로드로 한번만?ㄴㄴ 온로드 후 드래그까지 가능ㅇㅋ)
+		function ajax_keyword(){
+// 			jsp에서 키워드를 받아서 화면으로 넘어감
+// 			넘어간 화면에서 그 검색어로 panto를 시키고 ajax로 모든정보 뿌려줌//지역|주소검색
+// 			if(여기서 panto가 실행안되면(넘어가지 않으면){
+// 				지하철 ajax를 실행시킴
+// 				지하철 db로 가서 해당되는 데이터가 있는지 확인
+// 				만약 해당되는 데이터가 있다면 > 정확히 맞는 데이터(지하철, 호선)
+// 				해당 지하철의 좌표를 가져와서 panto 후 좌표이동
+// 				if(지하철 검색결과가 없을경우){
+// 					모든 매장의 이름을 첫번째글자부터 검색해서 나온 결과 중
+// 					제일처음에나오는 데이터(가장 비슷한 데이터)를 출력
+// 					if(여기서조차 검색결과가 없을경우){
+// 						해당되는 데이터가 없습니다 ( 창으로 띄워주기)
+// 					}
+// 				}
+// 			}
+			
+			//panto-- 해당화면으로 이동 실행
+				//if
+				//true --검색결과가 있을경우 해당화면으로 이동 후 영역정보 받아오기
+					//1.ajax카테all로 store_seq들 가져오기
+					//2.ajax_cate()실행
+				//false --검색결과가 없을경우 지하철정보 보러가기
+					//1.ajax로 컨트롤러가서 subway db 뒤지기 :지하철 db로 가서 해당되는 정확한 데이터(지하철, 호선)가 있는지 확인
+						//if
+						//true --검색결과가 없을경우 지하철정보 보러가기
+ 							//1.해당 지하철의 좌표를 가져와서 panto 후 좌표이동
+ 						//false
+ 							//1.ajax로 컨트롤러가서 store db 뒤지기 :store : 모든 매장의 이름을 첫번째글자부터 검색해서 나온 결과 중
+		 					//제일처음에나오는 데이터(가장 비슷한 데이터)를 출력
+	 							//if
+			
+			//panto
+// 			var bool=false;
+			// 주소-좌표 변환 객체를 생성합니다
+			var geocoder = new kakao.maps.services.Geocoder();
+// 			alert("주소로좌표검색하러갑니다"+keyword);
+			// 주소로 좌표를 검색합니다
+			geocoder.addressSearch(keyword, function(result, status) {
+// 			geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
+// 			alert("검색중");
+			
+// 	        var coords = new kakao.maps.LatLng(37.526944462562646, 126.88344188869179);
+			    // 정상적으로 검색이 완료됐으면 
+				if (status === kakao.maps.services.Status.OK) {
+
+			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+			        
+			        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+			        map.panTo(coords);
+//	 				        map.setCenter(coords);
+					ajax_cate_keysearch();//위에꺼 여기서 처리@@@@@@@@@@@@@@@@@@@@@@@
+			    }else{  
+			    	var coords = new kakao.maps.LatLng(37.526944462562646, 126.88344188869179);
+			    	map.panTo(coords);
+// 			    	alert("잘못된검색어:"+keyword);
+
+// 			    	var sbool=true;//정상적인 검색이 안되었으면 true :그에해당하는 매서드실행 (지하철,매장명)
+			    	//bool이 꼭 필요한가? 없어도 그냥 특정 펑션으로 이동해서 해주면 되는거 아닌가?
+			    			//안되는이유는 여기서해주면 한번밖에 안먹는다..? 맨위에가서 얘 전체를 drag시를 추가해주면되는거아닌가?
+			    			//어차피 한번 결과 실행 시에만 한번 뿌려주고
+			    			//드래그할 땐 별다른 작업을 수행하지않기때문에 괜찮다
+			    			//맵안의 검색창에서 새로운 값을 쳐야만 다른검색이 실시되기때문.
+// 			    	hello(sbool);
+					hello();//여기서 지하철,매장을 검색해주면된다.@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+					//검색은 실행시 단한번 ->맵안의검색창에서 새로운 검색을 해줘야만 사라짐.
+					//카테고리검색은 실행후에도 드래그마다 계속
+			    }
+			
+			});    
+			
+// 			alert(bool);
+			
+		    var bounds = map.getBounds();// 지도 영역정보를 얻어옵-니다 
+		    var sw = bounds.getSouthWest();// 영역정보의 남서쪽 정보를 얻어옵니다 
+		    var ne = bounds.getNorthEast();// 영역정보의 북동쪽 정보를 얻어옵니다 
+		    var nelat=ne.getLat();
+		    var nelng=ne.getLng();
+		    var swlat=sw.getLat();
+		    var swlng=sw.getLng();
+		    
+		}
+		
+// 		function hello(bool) {
+// 			alert("ddㄹㄹ");
+// 			alert(bool);
+// 		}
+		function hello() {
+			alert("ddㄹㄹ");
+			alert(bool);
+		}
+		
+		//키워드검색:지역검색성공시 실행될 카테고리전체검색
+		function ajax_cate_keysearch(){
+			$.ajax({
+				url:"map_category_ajax.do",
+				method:"post",
+				dataType: "text",
+				async: false,
+				data:{"category_code":"all"},
+				success:function(category_code) {
+// 					var cate =obj;
+// 					alert("성공2"+obj);
+					alert("성공! 카테고리명:"+category_code);
+					$(".storelist").remove();
+					$("#rightbox").append("<div class='storelist' style='height:170px;text-align:center;padding-top:70px;'>----------현재 지역에서 검색되는 결과가 없습니다----------</div>");
+					var position = $(".storelist").eq(0).position();
+					$("#show").stop().animate({scrollTop : position.top}, 400);
+				},
+				error: function(request,error) {
+					alert("서버통신실패!!"+request.status+","+error);
+				}
+			});
+		}
+		
 		
 		function ajax_cate() {//아작스를 담은 function
 			
@@ -704,25 +858,23 @@
 		</div>
 		<div id="rightbox">
 										<!-- location.href='store.do?store_seq=__'<- 원래 여기는 화면안의 seq를 각각 넣어줘야한다. -->
-			<div class="storelist" onclick="location.href='store.do?store_seq=24'">
-			(임시 윤호가 테스트로 쓰는 매장 seq24)
-			</div>
-			<div class="storelist" onclick="location.href='store.do?store_seq=1'">
+<!-- 			<div class="storelist" onclick="location.href='store.do?store_seq=24'"> -->
+<!-- 			(임시 윤호가 테스트로 쓰는 매장 seq24) -->
+<!-- 			</div> -->
+<!-- 			<div class="storelist" onclick="location.href='store.do?store_seq=1'"> -->
 <!-- 			(임시 1번사장의 매장) -->
-				<div class="photobox">사진</div>
-				<div class="storestate">영업중</div>
-<!-- 				<div class="storename">테스트테스트테스테스트트</div> -->
-				<div class="storename">테스트테스트테스테스트트<span class="tooltiptext">테스트테스트테스테스트트</span></div>
-				<div class="review"><img class="star" alt="" src="./img/star_fill.png"> 4.5</div>
-				<div class="medal"><img class="medal" alt="" src="./img/gold.png"></div>
-				<div class="cate_big">돌봄서비스</div>
-				<div class="cate_small">소분류 | 소분류 | 소분류</div>
-<!-- 				<div class="intro">우리매장은 멍멍멍멍댕댕동동우리매장입니다.</div> -->
-				<div class="storephone">02-0000-0000</div>
-				<div class="address">양평구 양평동 양평빌딩 양평1호(지번주소)</div>
-				<div class="storetime">영업시간: 월요일 09:00 ~ 18:00</div>
-				<div class="reservebtn">예약</div>
-			</div>
+<!-- 				<div class="photobox">사진</div> -->
+<!-- 				<div class="storestate">영업중</div> -->
+<!-- 				<div class="storename">테스트테스트테스테스트트<span class="tooltiptext">테스트테스트테스테스트트</span></div> -->
+<!-- 				<div class="review"><img class="star" alt="" src="./img/star_fill.png"> 4.5</div> -->
+<!-- 				<div class="medal"><img class="medal" alt="" src="./img/gold.png"></div> -->
+<!-- 				<div class="cate_big">돌봄서비스</div> -->
+<!-- 				<div class="cate_small">소분류 | 소분류 | 소분류</div> -->
+<!-- 				<div class="storephone">02-0000-0000</div> -->
+<!-- 				<div class="address">양평구 양평동 양평빌딩 양평1호(지번주소)</div> -->
+<!-- 				<div class="storetime">영업시간: 월요일 09:00 ~ 18:00</div> -->
+<!-- 				<div class="reservebtn">예약</div> -->
+<!-- 			</div> -->
 <!-- 			<div class="storelist" onclick="location.href='store.do?store_seq=2'"> -->
 <!-- 			(임시 2번사장의 매장) -->
 <!-- 			</div> -->
