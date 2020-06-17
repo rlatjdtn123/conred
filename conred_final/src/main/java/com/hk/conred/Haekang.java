@@ -63,7 +63,7 @@ public class Haekang {
 		UDto uldto = (UDto)session.getAttribute("uldto"); //Object(uldto객체)
 		
 		List<SDto> list = interService.user_interests_recommended(uldto.getUser_id(), paging);
-							   
+		System.out.println(list);   
 		model.addAttribute("list",list);//list[sDto,sDto[c,c,c,cDto,iDto[c,c]]...]
 //			                                  new SDto().getcDto().getCategory_name()
 			

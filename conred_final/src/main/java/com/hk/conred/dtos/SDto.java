@@ -30,6 +30,7 @@ public class SDto {
 	private int store_maxman;
 	private CDto cDto;
 	private InterestsDto iDto;
+	private SPhotoDto spDto;
 	private double clean_avg;
 	private double service_avg;
 	private double price_avg;
@@ -37,12 +38,25 @@ public class SDto {
 	
 	private String category_code;
 	private String category_name;
+	private String store_photo_stored;
 	
+
+
+
 	public SDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
+	public String getStore_photo_stored() {
+		return store_photo_stored;
+	}
+	
+	
+	
+	public void setStore_photo_stored(String store_photo_stored) {
+		this.store_photo_stored = store_photo_stored;
+	}
 	
 	
 	public String getCategory_name() {
@@ -360,6 +374,13 @@ public class SDto {
 		this.iDto = iDto;
 	}
 	
+	public SPhotoDto getSpDto() {
+		return spDto;
+	}
+	
+	public void setSpDto(SPhotoDto spDto) {
+		this.spDto = spDto;
+	}
 	public String getCategory_code() {
 		return category_code;
 	}
@@ -367,8 +388,6 @@ public class SDto {
 	public void setCategory_code(String category_code) {
 		this.category_code = category_code;
 	}
-
-
 
 	@Override
 	public String toString() {
@@ -385,10 +404,15 @@ public class SDto {
 				+ ", store_license_sales_size=" + store_license_sales_size + ", store_owner_phone=" + store_owner_phone
 				+ ", store_agreement=" + store_agreement + ", store_admin_state=" + store_admin_state
 				+ ", store_maxdate=" + store_maxdate + ", store_maxman=" + store_maxman + ", cDto=" + cDto + ", iDto="
-				+ iDto + ", clean_avg=" + clean_avg + ", service_avg=" + service_avg + ", price_avg=" + price_avg
-				+ ", all_avg=" + all_avg + ", category_code=" + category_code + ", category_name=" + category_name
-				+ "]";
+				+ iDto + ", spDto=" + spDto + ", clean_avg=" + clean_avg + ", service_avg=" + service_avg
+				+ ", price_avg=" + price_avg + ", all_avg=" + all_avg + ", category_code=" + category_code
+				+ ", category_name=" + category_name + ", store_photo_stored=" + store_photo_stored + "]";
 	}
+
+
+
+
+
 
 	
 //	@Override

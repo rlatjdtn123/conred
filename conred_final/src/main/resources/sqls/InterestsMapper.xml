@@ -12,6 +12,7 @@
 		<result property="store_name" column="STORE_NAME" />
 		<collection property="cDto" resultMap="cDtoMap"></collection>
 		<collection property="iDto" resultMap="interestsDtoMap"></collection>
+		<collection property="spDto" resultMap="SPhotoDtoMap"></collection>
 	</resultMap>
 	
 	<resultMap type="com.hk.conred.dtos.CDto"  id="cDtoMap">
@@ -23,22 +24,28 @@
 		<result property="user_id" column="USER_ID" />
 	</resultMap>
 	
+	<resultMap type="com.hk.conred.dtos.SPhotoDto"  id="SPhotoDtoMap">
+		<result property="store_photo_stored" column="STORE_PHOTO_STORED" />
+	</resultMap>
+<!-- 	관심사 추천 기능 쿼리 -->
 	<select id="user_interests_recommended"  parameterType="Map" resultMap="sDtoMap">
-	SELECT USER_ID ,CATEGORY_CODE , CATEGORY_NAME,STORE_SEQ ,OWNER_ID
-	,STORE_NAME
-	FROM (
-	SELECT ROWNUM AS RN, A.USER_ID ,A.CATEGORY_CODE , A.CATEGORY_NAME,B.STORE_SEQ
-	,B.OWNER_ID ,B.STORE_NAME
-	FROM ( SELECT U.USER_ID ,C.CATEGORY_CODE , C.CATEGORY_NAME
-	FROM CON_USER U, CON_INTERESTS I, CON_CATEGORY C
-	WHERE U.USER_ID = I.USER_ID AND I.CATEGORY_CODE = C.CATEGORY_CODE
-	AND U.USER_ID = #{user_id}) A,
-	(SELECT S.STORE_SEQ ,S.OWNER_ID ,S.STORE_NAME, M.CATEGORY_CODE
-	FROM CON_STORE S,CON_CATEGORY_MAIN M
-	WHERE S.STORE_SEQ =M.STORE_SEQ) B
-	WHERE A.CATEGORY_CODE = B.CATEGORY_CODE
-	)
-	WHERE CEIL(RN/10) = #{paging}
+	SELECT STORE_SEQ , STORE_PHOTO_STORED, STORE_NAME
+	FROM(
+		SELECT USER_ID , CATEGORY_CODE , CATEGORY_NAME , STORE_SEQ , OWNER_ID, STORE_PHOTO_STORED
+			,STORE_NAME, ROW_NUMBER() over(PARTITION BY store_seq ORDER BY STORE_PHOTO_STORED ) AS RNUM 
+		FROM (
+		   	SELECT ROWNUM AS RN, A.USER_ID ,A.CATEGORY_CODE , A.CATEGORY_NAME, B.STORE_SEQ, B.STORE_PHOTO_STORED
+		   	,B.OWNER_ID ,B.STORE_NAME
+		    FROM ( SELECT U.USER_ID ,C.CATEGORY_CODE , C.CATEGORY_NAME
+		            FROM CON_USER U, CON_INTERESTS I, CON_CATEGORY C
+		            WHERE U.USER_ID = I.USER_ID AND I.CATEGORY_CODE = C.CATEGORY_CODE AND U.USER_ID = #{user_id}) A,
+		          ( SELECT S.STORE_SEQ, S.OWNER_ID, S.STORE_NAME, M.CATEGORY_CODE, P.STORE_PHOTO_STORED 
+		            FROM CON_STORE S, CON_CATEGORY_MAIN M, CON_STORE_PHOTO P 
+		            WHERE S.STORE_SEQ = M.STORE_SEQ AND S.STORE_SEQ = P.STORE_SEQ) B
+		    WHERE A.CATEGORY_CODE = B.CATEGORY_CODE)
+		WHERE CEIL(RN/20) = #{paging}
+		) A
+	WHERE RNUM = 1
 	 </select>
 	
 	<!-- 임시로 아이디 test로 넣어줌 #{user_id}로 바꿔야됨 -->

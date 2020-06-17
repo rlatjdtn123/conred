@@ -9,8 +9,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+<script type="text/javascript" src="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script> -->
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 				
 <style type="text/css">
@@ -75,7 +75,7 @@ $(function(){
 	$('.multiple-items').slick({
 		  infinite: true,
 		  slidesToShow: 3,
-		  slidesToScroll: 3
+		  slidesToScroll: 3,
 	});
 	
 	$('.autoplay').slick({
@@ -87,11 +87,11 @@ $(function(){
 });
 
 // // 만들고 있는것
-// $function(.slidebars){
-// 	$.ajax({
+// 	$(".slidebars")(function(){
+// 		$.ajax({
 // 		url:"user_interests_recommended.do",  //요청URL
 // 		data:{"paging":paging}, //서버쪽으로 보낼 데이터
-// 		dataType:"json","jpg"          //서버에서 받게 될 데이터 타입 정의
+// 		dataType:"json",          //서버에서 받게 될 데이터 타입 정의
 // 		method:"post",      //전송방식 정의
 // 		success:function(obj){//서버통신에 성공했다면 기능실행(obj는 전달된 데이터 받기)
 // 			//주요코드작성
@@ -117,7 +117,6 @@ $(function(){
 <h1><a href="sungsu.do">성수입장</a></h1>
 <h1><a href="yoonho.do">윤호입장</a></h1>
 <h1><a href="haekang.do">해강입장</a></h1>
-<h1><a href="haekang.do">바보입장</a></h1>
 
 </div>
 
@@ -171,7 +170,7 @@ $(function(){
 										</c:when>
 										<c:otherwise>
 											<c:forEach items="${list}" var="dto">
-												<div><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQv9x6Iv7Jm3qvlzfEi-Qf_nwCRZOHL2isq-CfCDjHE7S3HdaAS&usqp=CAU"/>
+												<div><img src="./upload_sphoto/${dto.spDto.store_photo_stored}" style="width: 160px; height: 110px;"/>
 												<h3><a href="#">${dto.store_name}</a></h3></div>	
 											</c:forEach>
 										</c:otherwise>
