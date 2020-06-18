@@ -40,26 +40,23 @@
 	.contents{display:inline-block;padding: 10px; width: 669px;height:80px;text-overflow: ellipsis; overflow: hidden;word-break:keep-all;min-height: 80px; clear: both; margin-bottom: 15px;}        
 	.info2{background-color: #fafafa;  height: 80px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 600px; min-height: 80px;border-radius:5px;word-break:keep-all;margin-left: 33px;}
 	.bot{margin: 0 auto; text-align: center;}
-	.user_review_img{width: 458px;height: 80px;margin-left: 210px; border-radius: 5px;}
 	 
 	 .modal-title{margin-left: 400px;}
 	.modal-body span{margin: 5px;}
 	textarea:focus::-webkit-input-placeholder { color: transparent; }
 	.modal-footer{width: 897px; height: 630px;border-width: 0px;}
+	.inputs{width:600px;float: left;height:auto;}
 	
 	 
-	input[type=file] {display: none;}
+
      .my_button {
          display: inline-block; width: 200px;  text-align: center; padding: 10px; background-color: #006BCC;color: #fff;
          text-decoration: none; border-radius: 5px; float: left;}
-     .imgs_wrap { width: 880px;height:130px; border: 1px solid black;}
-     .imgs_wrap img {max-width: 120px;max-height: 120px;min-width: 120px;min-height: 120px;margin-left: 25px;margin-right: 25px;}
-	.input_wrap {margin: 10px 0 10px 0;}
 	.modal_Btn{border: 0; margin-left: 690px; height: 50px;border-radius: 5px; background-color: #94B8FD;}
 	.modal_Btn:hover{background-color: #4a83ed;} 
  	.overfive{float: left;} 
  	.star_bigtle{margin-left: 65px; float: left;}
- 	.upload_message{height: 40px; width: 400px;margin-left: 215px; text-align: center; line-height: 37px;}
+/*  	.upload_message{height: 40px; width: 400px;margin-left: 215px; text-align: center; line-height: 37px;} */
   	 .content_detail{background-color: #fafafa;margin-left: 528px;border-width: 0;}
 	 .content_detail:hover {background-color: grey;} 
      .star_table{width: 200px; height: 80px;background-color: #fafafa;border-radius: 5px; padding: 10px;float: left;}
@@ -71,7 +68,17 @@
       .star_score{float: left;}
       .tle_final{width: 700px;border-top: 1px solid grey;margin-left: 150px;margin-bottom: 200px;}
       .bigNumber{font-size: 25px;font-weight: bold;} 
-       
+      
+      
+      #preview img {width: 180px;height: 100px;overflow: hidden;}
+	#preview p {text-overflow: ellipsis;overflow: hidden;}
+	.preview-box {border: 0px solid grey;padding: 5px;border-radius: 2px;margin-bottom: 5px;margin-right:5px;
+				display: inline-block;
+    			border-radius: 5px;
+    			border-right-width: 1px;
+    			border-bottom-width: 1px;}
+	.thumbnail{margin-bottom:0px;}
+       input[type=file] {display: none;}
 </style>   
 <script type="text/javascript">
 
@@ -489,7 +496,6 @@
 	     		  
 	     		<div class="modal-footer">  
 					<div class="inputbox">
-					<div class="inputtitle">사진업로드</div>
 					<div class="inputs">
 					<!-- 파일업로드 관련 -->
 					    <div class="wrapper">
@@ -689,8 +695,7 @@
 						</tr>  
 					</table>   
 					<div class="user_avg"><%=Math.round(((dto.getReply_clean()+dto.getReply_price()+dto.getReply_service())/3)*10d)/10d%></div>
-				</div>
-				<div class="user_review_img" ></div>     
+				</div>  
 				<div class="contents">
 					<span style="font-weight: bold;">리뷰내용</span><br>
 					<span><%=dto.getReply_content()%></span>

@@ -134,7 +134,7 @@ public class Sungsu {
 //		HttpSession session=request.getSession();
 //		session.setAttribute("udto", dto);
 //		return "user/user_regist_category";
-//	}	 
+//	}	  
 		 
 		
 	
