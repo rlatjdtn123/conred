@@ -24,9 +24,11 @@ import com.hk.conred.dtos.SDto;
 import com.hk.conred.dtos.SLocaDto;
 import com.hk.conred.dtos.SPhotoDto;
 import com.hk.conred.dtos.STimeDto;
+import com.hk.conred.dtos.SubwayDto;
 import com.hk.conred.service.IMapService;
 import com.hk.conred.service.IReplyService;
 import com.hk.conred.service.ISService;
+import com.hk.conred.service.ISubwayService;
 import com.hk.conred.service.SServiceImp;
 
 
@@ -41,6 +43,8 @@ public class MapController {
 	private IMapService mapService;
 	@Autowired
 	private IReplyService replyService;
+	@Autowired
+	private ISubwayService subwayService;
 	
 	//얘는 임시 테스트용 - 다른거 하나 만들면 바로 폐기각
 	@RequestMapping(value = "map.do", method = RequestMethod.GET)
@@ -73,8 +77,17 @@ public class MapController {
 	}
 	
 	
+	//index에서 카테고리로 검색
+	@RequestMapping(value = "map_category.do", method = RequestMethod.GET)
+	public String map_category(Locale locale, Model model,String category_code) {
+		logger.info("맵으로 이동 : 카테고리검색 {}.", locale);//카테고리로 store_seq검색해줌
 
+		model.addAttribute("category_code",category_code);
+		
+		return "all/map"; 
+	}
 	
+	//index에서 키워드로 검색
 	@RequestMapping(value = "map_keyword.do",  method = {RequestMethod.GET,RequestMethod.POST})
 	public String map_keyword(Locale locale, Model model, String keyword) {
 		logger.info("맵으로 이동 : 키워드검색 {}.", locale);
@@ -90,47 +103,132 @@ public class MapController {
 		return "all/map"; 
 	}
 	
+	
+	//ajax - 키워드검색 : 지역검색성공시 실행될 카테고리전체검색
+	//지금 얘는 사용안함. 추후에 사용할일 있을지몰라 지우진않음.
+	//map_category.do 를 ajax화시킨것 뿐 
 	@ResponseBody
 	@RequestMapping(value = "map_category_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String map_category_ajax(Locale locale, Model model,String category_code) {
-		logger.info("지역검색성공시, 카테고리로 store_seq 검색해주는 아작스 {}.", locale);
-		//밑에 map_category.do 를 ajax화시킨것 뿐
-//		List<SDto> list =new ArrayList<SDto>();
-//		if(category_code.equals("all")) {
-//			list=mapService.searchCateAll();
-//		}else {
-//			list=mapService.searchCate(category_code);
-//		}
-//		System.out.println(list);
-//		
-//		model.addAttribute("list",list);
+		logger.info("ajax : 지역검색성공시, 카테고리로 store_seq 검색 {}.", locale);
 		System.out.println(category_code);
 		model.addAttribute("category_code",category_code);
 		
 		return category_code; 
 	}
-	
-	@RequestMapping(value = "map_category.do", method = RequestMethod.GET)
-	public String map_category(Locale locale, Model model,String category_code) {
-		logger.info("맵으로 이동 : 카테고리검색 {}.", locale);//카테고리로 store_seq검색해줌
-		//2.카테고리검색(대분류 카테고리)(+all,내주변=select*(만약 내 위치 허용이 안되어있다면 내 주변 말고 기본지정위치에서 all))
-		//파라미터:category=카테고리&mylocation=내현재위치(없으면 지정위치)
-		//기본적으로 내 위치권한이 허용되어있다면 위치대로 / 아니라면 지정위치 
-		
-//		List<SDto> list =new ArrayList<SDto>();
-//		if(category_code.equals("all")) {
-//			list=mapService.searchCateAll();
-//		}else {
-//			list=mapService.searchCate(category_code);
-//		}
-//		System.out.println(list);
-//		
-//		model.addAttribute("list",list);
-		model.addAttribute("category_code",category_code);
-		
-		return "all/map"; 
+
+	//ajax - 키워드검색 : 지역검색실패시 실행될 지하철검색
+	@ResponseBody
+	@RequestMapping(value = "map_subway_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public Map<String,Object> map_subway_ajax(Locale locale, Model model,String keyword) {
+		logger.info("ajax : 지하철 정보 검색 {}.", locale);
+		String keyword_subway =keyword.replace("역","");
+		System.out.println(keyword_subway);
+		SubwayDto dto = subwayService.subway_search(keyword_subway);
+		System.out.println(dto);
+		Map<String, Object> map = new HashMap<>();
+		if(dto!=null) {
+//			model.addAttribute("subway_info",dto);
+			map.put("subway_info", dto);
+		}else if(dto==null){
+			Map<String, Object> map2 = new HashMap<>();
+			map2.put("subway_name", "false");
+			map.put("subway_info", map2);
+		}
+		return map;
 	}
 	
+	//ajax - 키워드검색 : 지하철역검색실패시 실행될 매장검색
+	@ResponseBody
+	@RequestMapping(value = "map_store_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public Map<String,Object> map_store_ajax(Locale locale, Model model,String keyword) {
+		logger.info("ajax : 매장 정보 검색 {}.", locale);
+		System.out.println(keyword);
+		SDto dto = mapService.searchKey_ajax(keyword);
+		System.out.println(dto);
+		Map<String, Object> map = new HashMap<>();
+		if(dto!=null) {
+			map.put("store_info", dto);
+		}else if(dto==null){
+			Map<String, Object> map2 = new HashMap<>();
+			map2.put("store_name", "false");
+			map.put("store_info", map2);
+		}
+		return map;
+	}
+	
+	//ajax - 키워드검색 : 매장검색 성공시 가져올 특정 매장의 상세정보
+	@ResponseBody
+	@RequestMapping(value = "map_storedetail_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public Map<String,Object> map_storedetail_ajax(Locale locale, Model model,int store_seq) {
+		logger.info("ajax : 매장 정보 검색_detail {}.", locale);
+		System.out.println("매장번호:"+store_seq);
+		SDto sdto = new SDto();
+		sdto.setStore_seq(store_seq);
+		List<SDto> list =new ArrayList<SDto>();
+		list.add(sdto);
+		System.out.println("과연들어가질까"+list.get(0).getStore_seq());
+		List<SPhotoDto> photolist=mapService.getPhotos_ajax(list);
+		System.out.println("photolist:"+photolist);
+		List<CListDto> catelist=mapService.getCates_ajax(list);
+		System.out.println("catelist:"+catelist);
+		List<String> catenamelist = new ArrayList<>();
+		String box ="";
+		for (int i = 0; i < catelist.size(); i++) {
+			if(i==0){//처음시작엔 무조건 box안에 값저장
+				box=catelist.get(i).getCategory_name_small()+" | ";
+			}else if(catelist.get(i).getStore_seq()==catelist.get(i-1).getStore_seq()){//직전 seq와 같다면
+				box+=catelist.get(i).getCategory_name_small()+" | ";
+			}else if(catelist.get(i).getStore_seq()!=catelist.get(i-1).getStore_seq()){//직전 seq와 틀리다면
+				box = box.substring(0, box.length()-3);
+				catenamelist.add(box);
+				System.out.println("중간끝");
+				System.out.println(i+box);
+				box="";
+				box+=catelist.get(i).getCategory_name_small()+" | ";
+			}
+			if(i==catelist.size()-1) {//마지막이라면 이제까지것 저장(뒤에세글자제외하고)
+				box = box.substring(0, box.length()-3);
+				catenamelist.add(box);
+				System.out.println("완전끝");
+				System.out.println(i+box);
+			}
+			System.out.println(i+box);
+		}
+		System.out.println("catenamelist:"+catenamelist);
+
+		List<STimeDto> stimelist= mapService.getStime_ajax(list);
+		System.out.println("stimelist:"+stimelist);
+
+		Calendar cal = Calendar.getInstance(); 
+		int num = cal.get(Calendar.DAY_OF_WEEK)-1;// 
+	    System.out.println(num); 
+//	      System.out.println(today); 
+//	      System.out.println("오늘의 요일 : " + today ); 
+	      
+		List<SLocaDto> slocalist=mapService.getSloca_ajax(list);
+		System.out.println(slocalist);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("today", num);
+//		map.put("list", list); 
+		map.put("photolist", photolist); 
+		map.put("catelist", catenamelist); 
+		map.put("stimelist", stimelist); 
+		map.put("slocalist", slocalist); 
+		
+//		if(dto!=null) {
+//			map.put("store_info", dto);
+//		}else if(dto==null){
+//			Map<String, Object> map2 = new HashMap<>();
+//			map2.put("store_name", "false");
+//			map.put("store_info", map2);
+//		}
+		
+		return map;
+	}
+	
+	//ajax - 카테고리검색 : 카테고리검색 실행(전체카테고리, 개별카테고리)
 	@ResponseBody
 	@RequestMapping(value = "searchCateAll_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public Map<String, Object> map_test(Locale locale, Model model,String category_code, String nelat, String nelng, String swlat, String swlng) {
@@ -240,8 +338,7 @@ public class MapController {
 		return map; 
 	}
 	
-	
-	
+		
 	@RequestMapping(value = "map_keyword_store.do", method = RequestMethod.GET)
 	public String map_keyword_store(Locale locale, Model model/*,String store_seq*/) {
 		logger.info("맵으로 이동 : 키워드검색 {}.", locale);

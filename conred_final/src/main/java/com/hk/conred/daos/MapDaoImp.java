@@ -56,6 +56,11 @@ public class MapDaoImp implements IMapDao{
 	}
 
 	@Override
+	public SDto searchKey_ajax(String keyword) {
+		return sqlSession.selectOne(namespace+"searchKey_ajax",keyword);
+	}
+
+	@Override
 	public List<SPhotoDto> getPhotos_ajax(List<SDto> list) {
 		Map<String, Object> map = new HashMap<>();
 		System.out.println(list.get(0).getStore_seq());
@@ -87,6 +92,7 @@ public class MapDaoImp implements IMapDao{
 		map.put("list", list);
 		return sqlSession.selectList(namespace+"getSloca_ajax",map);
 	}
+
 
 
 

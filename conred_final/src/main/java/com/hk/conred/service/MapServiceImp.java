@@ -39,6 +39,11 @@ public class MapServiceImp implements IMapService{
 	}
 
 	@Override
+	public SDto searchKey_ajax(String keyword) {
+		return mapDao.searchKey_ajax(keyword);
+	}
+	
+	@Override
 	public List<SPhotoDto> getPhotos_ajax(List<SDto> list) {
 		return mapDao.getPhotos_ajax(list);
 	}
@@ -57,6 +62,7 @@ public class MapServiceImp implements IMapService{
 	public List<SLocaDto> getSloca_ajax(List<SDto> list) {
 		return mapDao.getSloca_ajax(list);
 	}
+
 
 
 

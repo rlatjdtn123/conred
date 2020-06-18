@@ -43,9 +43,9 @@
 		//1★★★★★if 카테고리검색으로 맵에 들어온경우: 온로드로 카테고리 뿌려줌(키워드:지역검색성공으로 들어온경우도 해당)
 		if(category_code!=""){
 // 			alert("카테고리검색실행!");
-			ajax_cate();
+			ajax_cate();//카테고리 뿌려주는 매서드
 
-			//어떻게 맵에 들어왔든지 드래그끝날 경우: 카테고리 뿌려줌(키워드검색으로 들어왔어도? >키워드검색으로 들어왔으면 새로 검색을 하기 전까진 카테고리뿌려주면안된다.)
+			//※draggable > 어떻게 맵에 들어왔든지 드래그끝날 경우: 카테고리 뿌려줌(키워드검색으로 들어왔어도? >키워드검색으로 들어왔으면 새로 검색을 하기 전까진 카테고리뿌려주면안된다.)
 			kakao.maps.event.addListener(map, 'dragend', function () {       //드래그끝나면실행
 				ajax_cate();
 			});
@@ -56,21 +56,13 @@
 		if(keyword!=""){
 // 			alert(keyword);
 // 			alert("키워드검색실행!");
-			ajax_keyword();
-			
+			ajax_keyword(keyword);//검색하러가는 매서드(전체:지역->지하철->매장)
 			
 // 			kakao.maps.event.addListener(map, 'dragend', function () {       //드래그끝나면실행
 // 				ajax_keyword();
 // 			});
 		}
 		
-		//if 키워드검색으로 들어왔어도 지역검색이면 : 드래그시 카테고리 전체 뿌려줌
-		//얘를 여기서 처리하는게 아닌 ajax_keyword()에서 하기 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-// 		kakao.maps.event.addListener(map, 'dragend', function () {       //드래그끝나면실행
-// 			if(bool==false){
-// 				ajax_cate_keysearch();
-// 			}
-// 		});
 		
 		//키워드로 들어온경우에 지역검색에 성공시 true로 바꿔줄 boolean값
 		//근데 고민중인게 밑에 hello()있는곳안에서밖에 어차피 못쓰기에
@@ -78,38 +70,8 @@
 // 		var bool=false;
 			
 		//키워드 검색 로직(1): 지역검색 성공시 해당 지역의 모든카테고리값을 뿌려준다.(온로드로 한번만?ㄴㄴ 온로드 후 드래그까지 가능ㅇㅋ)
-		function ajax_keyword(){
-// 			jsp에서 키워드를 받아서 화면으로 넘어감
-// 			넘어간 화면에서 그 검색어로 panto를 시키고 ajax로 모든정보 뿌려줌//지역|주소검색
-// 			if(여기서 panto가 실행안되면(넘어가지 않으면){
-// 				지하철 ajax를 실행시킴
-// 				지하철 db로 가서 해당되는 데이터가 있는지 확인
-// 				만약 해당되는 데이터가 있다면 > 정확히 맞는 데이터(지하철, 호선)
-// 				해당 지하철의 좌표를 가져와서 panto 후 좌표이동
-// 				if(지하철 검색결과가 없을경우){
-// 					모든 매장의 이름을 첫번째글자부터 검색해서 나온 결과 중
-// 					제일처음에나오는 데이터(가장 비슷한 데이터)를 출력
-// 					if(여기서조차 검색결과가 없을경우){
-// 						해당되는 데이터가 없습니다 ( 창으로 띄워주기)
-// 					}
-// 				}
-// 			}
-			
-			//panto-- 해당화면으로 이동 실행
-				//if
-				//true --검색결과가 있을경우 해당화면으로 이동 후 영역정보 받아오기
-					//1.ajax카테all로 store_seq들 가져오기
-					//2.ajax_cate()실행
-				//false --검색결과가 없을경우 지하철정보 보러가기
-					//1.ajax로 컨트롤러가서 subway db 뒤지기 :지하철 db로 가서 해당되는 정확한 데이터(지하철, 호선)가 있는지 확인
-						//if
-						//true --검색결과가 없을경우 지하철정보 보러가기
- 							//1.해당 지하철의 좌표를 가져와서 panto 후 좌표이동
- 						//false
- 							//1.ajax로 컨트롤러가서 store db 뒤지기 :store : 모든 매장의 이름을 첫번째글자부터 검색해서 나온 결과 중
-		 					//제일처음에나오는 데이터(가장 비슷한 데이터)를 출력
-	 							//if
-			
+		function ajax_keyword(keyword){
+
 			//panto
 // 			var bool=false;
 			// 주소-좌표 변환 객체를 생성합니다
@@ -122,19 +84,43 @@
 			
 // 	        var coords = new kakao.maps.LatLng(37.526944462562646, 126.88344188869179);
 			    // 정상적으로 검색이 완료됐으면 
-				if (status === kakao.maps.services.Status.OK) {
-
+				if (status === kakao.maps.services.Status.OK) {									//지역출력 성공 : 화면으로 + allcate
+				 																			    //1.setCenter()로 해당위치 이동
+																								//2.ajax_cate()로 화면안의매장가져오기(all)
 			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 			        
 			        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-			        map.panTo(coords);
-//	 				        map.setCenter(coords);
-					ajax_cate_keysearch();//위에꺼 여기서 처리@@@@@@@@@@@@@@@@@@@@@@@
-			    }else{  
+// 			        map.panTo(coords);
+// 			        																			//1
+	 				map.setCenter(coords); //여기서 panto 쓰면 화면안에 스토어가 하나라도 잡힐 경우, 화면 bound를 잘못잡는경우가 생긴다. 이유는 모른다.
+// 					map_category_ajax();//이거 안거쳐도 될듯		
+																								//2
+					ajax_cate();
+					kakao.maps.event.addListener(map, 'dragend', function () {       //드래그끝나면실행
+// 						map_category_ajax();
+						ajax_cate();
+					});
+				}else{  																		//지역출력 실패 : if 지하철검색 else if 매장검색
 			    	var coords = new kakao.maps.LatLng(37.526944462562646, 126.88344188869179);
-			    	map.panTo(coords);
+// 			    	map.panTo(coords);
 // 			    	alert("잘못된검색어:"+keyword);
-
+																								//지역출력 실패: 지하철ajax + allcate
+																								//1.아작스 : 지하철 정보 검색 쿼리(반환값 subway좌표)
+																								//2.setCenter()로 해당위치 이동
+																								//3.ajax_cate()로 화면안의매장가져오기(all)
+																								
+																								//1
+// 					ajax_subway(keyword);
+					ajax_subway(keyword);
+// 					alert("호호"+subway_info.subway_name);																			
+																								//2
+// 					map.setCenter(coords);
+// 																								//3
+// 					ajax_cate();
+// 					kakao.maps.event.addListener(map, 'dragend', function () {       //드래그끝나면실행
+// 						ajax_cate();
+// 					});
+					
 // 			    	var sbool=true;//정상적인 검색이 안되었으면 true :그에해당하는 매서드실행 (지하철,매장명)
 			    	//bool이 꼭 필요한가? 없어도 그냥 특정 펑션으로 이동해서 해주면 되는거 아닌가?
 			    			//안되는이유는 여기서해주면 한번밖에 안먹는다..? 맨위에가서 얘 전체를 drag시를 추가해주면되는거아닌가?
@@ -142,7 +128,7 @@
 			    			//드래그할 땐 별다른 작업을 수행하지않기때문에 괜찮다
 			    			//맵안의 검색창에서 새로운 값을 쳐야만 다른검색이 실시되기때문.
 // 			    	hello(sbool);
-					hello();//여기서 지하철,매장을 검색해주면된다.@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+// 					ajax_subway();//여기서 지하철,매장을 검색해주면된다.@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 					//검색은 실행시 단한번 ->맵안의검색창에서 새로운 검색을 해줘야만 사라짐.
 					//카테고리검색은 실행후에도 드래그마다 계속
 			    }
@@ -151,13 +137,13 @@
 			
 // 			alert(bool);
 			
-		    var bounds = map.getBounds();// 지도 영역정보를 얻어옵-니다 
-		    var sw = bounds.getSouthWest();// 영역정보의 남서쪽 정보를 얻어옵니다 
-		    var ne = bounds.getNorthEast();// 영역정보의 북동쪽 정보를 얻어옵니다 
-		    var nelat=ne.getLat();
-		    var nelng=ne.getLng();
-		    var swlat=sw.getLat();
-		    var swlng=sw.getLng();
+// 		    var bounds = map.getBounds();// 지도 영역정보를 얻어옵-니다 
+// 		    var sw = bounds.getSouthWest();// 영역정보의 남서쪽 정보를 얻어옵니다 
+// 		    var ne = bounds.getNorthEast();// 영역정보의 북동쪽 정보를 얻어옵니다 
+// 		    var nelat=ne.getLat();
+// 		    var nelng=ne.getLng();
+// 		    var swlat=sw.getLat();
+// 		    var swlng=sw.getLng();
 		    
 		}
 		
@@ -165,35 +151,290 @@
 // 			alert("ddㄹㄹ");
 // 			alert(bool);
 // 		}
-		function hello() {
-			alert("ddㄹㄹ");
-			alert(bool);
-		}
-		
-		//키워드검색:지역검색성공시 실행될 카테고리전체검색
-		function ajax_cate_keysearch(){
+
+		//키워드 검색 로직(2): 지역검색 실패시 지하철db에서 해당되는 데이터가 있는지 검색한다.
+		function ajax_subway(keyword) {
+// 			alert("지역명 검색 실패! 지하철명으로 검색합니다.");
+// 			alert("키워드는 "+keyword);
+
+			//ajax 지하철 검색쿼리
 			$.ajax({
-				url:"map_category_ajax.do",
+				url:"map_subway_ajax.do",
 				method:"post",
-				dataType: "text",
+				dataType:"json",
 				async: false,
-				data:{"category_code":"all"},
-				success:function(category_code) {
-// 					var cate =obj;
-// 					alert("성공2"+obj);
-					alert("성공! 카테고리명:"+category_code);
-					$(".storelist").remove();
-					$("#rightbox").append("<div class='storelist' style='height:170px;text-align:center;padding-top:70px;'>----------현재 지역에서 검색되는 결과가 없습니다----------</div>");
-					var position = $(".storelist").eq(0).position();
-					$("#show").stop().animate({scrollTop : position.top}, 400);
+				data:{"keyword":keyword},
+				success:function(obj){
+// 					alert("해당 지하철 유무 여부를 확인하겠습니다.");
+					if(obj.subway_info.subway_name!="false"){
+// 						alert("지하철역: "+obj.subway_info.subway_name);
+// 						alert("위도: "+obj.subway_info.subway_latitude);
+// 						alert("경도: "+obj.subway_info.subway_longitude);
+	 					var coords = new kakao.maps.LatLng(obj.subway_info.subway_latitude, obj.subway_info.subway_longitude);
+						map.setCenter(coords);
+						//3
+						ajax_cate();
+						kakao.maps.event.addListener(map, 'dragend', function () {       //드래그끝나면실행
+							ajax_cate();
+						});
+					}else if(obj.subway_info.subway_name=="false"){
+// 						alert("없는  지하철역입니다.");
+						ajax_store(keyword);
+					}
+
 				},
-				error: function(request,error) {
+				error: function(request,error){
 					alert("서버통신실패!!"+request.status+","+error);
 				}
 			});
 		}
 		
+		//키워드 검색 로직(3): 지하철검색 실패시 매장db에서 해당되는 데이터가 있는지 검색한다.
+		function ajax_store(keyword){
+// 			alert("지하철명 검색 실패! 매장명으로 검색합니다.");
+// 			alert("키워드는 "+keyword);
+			$.ajax({
+				url:"map_store_ajax.do",
+				method:"post",
+				dataType:"json",
+				async:false,
+				data:{"keyword":keyword},
+				success:function(obj){
+// 					alert("가장 유사한 매장이름을 고르겠습니다.");
+					if(obj.store_info.store_name!="false"){
+// 						alert("매장번호: "+obj.store_info.store_seq);
+// 						alert("매장이름: "+obj.store_info.store_name);
+// 						alert("위도: "+obj.store_info.store_latitude);
+// 						alert("경도: "+obj.store_info.store_longitude);
+	 					var coords = new kakao.maps.LatLng(obj.store_info.store_latitude, obj.store_info.store_longitude);
+						map.setCenter(coords);
+						//3
+						ajax_store_detail(obj.store_info);
+// 						ajax_store_detail(obj.store_info.store_seq);
+						
+// 						ajax_cate();
+						
+// 						kakao.maps.event.addListener(map, 'dragend', function () {       //드래그끝나면실행
+// 							ajax_cate();
+// 						});
+					}else if(obj.store_info.store_name=="false"){
+// 						alert("검색결과가 존재하지 않습니다.");
+// 						ajax_store(keyword);
+					}
+				},
+				error:function(request,error){
+					alert("서버통신실패!"+request+","+error);
+				}
+			});
+		}
+		//키워드검색:지역검색성공시 실행될 카테고리전체검색
+// 		function map_category_ajax(){
+// 			$.ajax({
+// 				url:"map_category_ajax.do",
+// 				method:"post",
+// 				dataType: "text",
+// 				async: false,
+// 				data:{"category_code":"all"},
+// 				success:function(category_code) {
+// // 					var cate =obj;
+// // 					alert("성공2"+obj);
+// // 					alert("성공! 카테고리명:"+category_code);
+// 					ajax_cate();
+					
+// 				},
+// 				error: function(request,error) {
+// 					alert("서버통신실패!!"+request.status+","+error);
+// 				}
+// 			});
+// 		}
 		
+		//키워드 검색 로직(4): 매장db에서 검색 성공시 해당 매장의 세부 정보들을 가져온다.
+		function ajax_store_detail(store_info){
+			$.ajax({
+				url:"map_storedetail_ajax.do",
+				method:"post",
+				dataType:"json",
+				async:false,
+				data:{"store_seq":store_info.store_seq},
+				success:function(obj){
+					if(obj.catelist!=null){
+						console.log(obj);
+						var store_lists = store_info;
+						var photo_lists = obj.photolist;
+						var cate_lists = obj.catelist;
+						var stime_lists = obj.stimelist;
+						var sloca_lists = obj.slocalist;
+						var today = obj.today;
+						var store_detail;
+						var rb =$("#rightbox");
+						
+						$(".storelist").remove();
+// 							$.each(store_lists, function(i){
+								var store_state="";
+								if (store_lists.store_state==='O') {
+									store_state='<div class="storestate s_state_color1"><b>영업중</b></div>';
+								}else if (store_lists.store_state==='B') {
+									store_state='<div class="storestate s_state_color2"><b>휴업중</b></div>';
+								}else if (store_lists.store_state==='C') {
+									store_state='<div class="storestate s_state_color3"><b>폐점</b></div>';
+								}
+								
+								//메달색정해주기
+								//4이상 금
+								//3이상4이하 은
+								//3이하 동
+								var medal ="";
+								if(photo_lists[0].all_avg>=4){//금
+									medal="gold";
+								}else if(photo_lists[0].all_avg<4&&photo_lists[0].all_avg>=3){//은
+									medal="silver";
+								}else if(photo_lists[0].all_avg<3){//동
+									medal="bronze";
+								}
+								
+								store_detail=
+									'<div class="storelist" onclick="event.stopPropagation(); location.href=\'store.do?store_seq='+store_lists.store_seq+'\'">'+
+												'<div class="photobox" style="'+
+												'background: url(\'./upload_sphoto/'+photo_lists[0].store_photo_stored+'\');'+
+												'background-size: 140px 105px;'+
+//	 											'background-size: contain;'+
+											    'background-repeat: no-repeat;"></div>'+//사진:단일
+												store_state+
+												'<div class="storename">'+store_lists.store_name+'<span class="tooltiptext">'+store_lists.store_name+'</span></div>'+
+												'<div class="review"><img class="star" alt="" src="./img/star_fill.png">'+photo_lists[0].all_avg+'</div>'+//평균(매장사진이랑 같이 가져오기)
+												'<div class="medal"><img class="medal" alt="" src="./img/'+medal+'.png"></div>'+
+												'<div class="cate_big">'+store_lists.category_name+'</div>'+//대표카테고리
+												'<div class="cate_small">'+cate_lists+'</div>'+//세부카테고리--------------따로1
+												'<div class="storephone">'+store_lists.store_phone+'</div>'+//전화번호
+												'<div class="address">'+store_lists.store_address+'</div>'+//주소
+												'<div class="storetime">영업시간:'+
+													'<div class="storetime_today"></div>'+
+													'<div class="storetime_other"></div>'+
+												'</div>'+//영업시간--------------따로2
+												'<div class="reservebtn" onclick="event.stopPropagation(); location.href=\'user_store_reserve.do?store_seq='+store_lists.store_seq+'&store_name='+store_lists.store_name+'\'">예약</div>'+
+											'</div>';
+								
+								rb.append(store_detail);
+								
+// 							});
+// 							$.each(store_lists, function(i){//매장 개수
+								var stime="";
+								var stimeArray= new Array();
+								$.each(stime_lists, function(j) {//전체 요일 개수
+									if (stime_lists[j].store_seq==store_lists.store_seq) {
+										var stime=""
+										stime=
+										stime_lists[j].store_time_day+' '+
+										stime_lists[j].store_time_open+' ~ '+
+										stime_lists[j].store_time_close
+										stimeArray.push(stime);
+									}
+								});
+								console.log("매장시간"+stimeArray);
+								$(".storelist").eq(0).find($(".storetime_today")).append(stimeArray[today===0?7:today-1]);
+								$(".storelist").eq(0).find($(".storetime_other")).append(stimeArray);
+								$(".storetime_today").eq(0).mouseover(function() {
+//						 			$(".storetime_other").slideDown(500);
+									$(".storetime_other").eq(0).removeAttr("style");
+									$(".storetime_other").eq(0).css("visibility","visible"); 
+									$(".storetime_today").eq(0).css("z-index","100");
+								});
+								$(".storetime_today").eq(0).mouseout(function() {
+//	 								$(".storetime_today").eq(i).removeAttr("style");
+									$(".storetime_today").eq(0).css("z-index","100");
+									$(".storetime_other").eq(0).css({"visibility":"hidden","z-index":"100"});
+								});
+// 							});
+							
+		// 				alert("성공쓰");
+						
+// 						for (var i = 0; i < store_lists.length; i++) {
+// 						     var coords = new kakao.maps.LatLng(sloca_lists.store_latitude, sloca_lists.store_longitude);
+						 		
+						     
+						     
+							var medal ="";
+							if(photo_lists[0].all_avg>=4){//금
+								medal="gold";
+							}else if(photo_lists[0].all_avg<4&&photo_lists[0].all_avg>=3){//은
+								medal="silver";
+							}else if(photo_lists[0].all_avg<3){//동
+								medal="bronze";
+							}
+// 								alert("latitude:"+store_lists.store_name);
+// 								alert("latitude:"+store_lists.store_latitude);
+// 								alert("longitude:"+store_lists.store_longitude);
+								var lat =parseFloat(store_lists.store_latitude);
+								var lng =parseFloat(store_lists.store_longitude);
+								var coords = new kakao.maps.LatLng(lat, lng);
+// 								alert("coords:"+coords);
+								
+								// 마커 이미지의 이미지 주소입니다
+			 					 var imageSrc = './img/icon/icon_map_'+store_lists.category_code+'.png'; 
+									
+//			 					 // 마커 이미지의 이미지 크기 입니다
+			 					 var imageSize = new kakao.maps.Size(60, 60); 
+									    
+//			 					 // 마커 이미지를 생성합니다    
+							     var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+									 
+							     
+							     // 마커를 생성합니다
+							     var marker = new kakao.maps.Marker({
+							         map: map, // 마커를 표시할 지도
+							         position: coords, // 마커를 표시할 위치
+							         image : markerImage // 마커 이미지 
+							     });
+							     marker.setMap(map);
+							     
+						     var content = '<div class="icon_info">'+
+						     					'<div class="icon_text">'+
+							     					'<img class="medal_in" alt="" src="./img/'+medal+'.png">'+
+						     						store_lists.store_name+
+							     					'<span class="bigcate_in"> | '+
+														store_lists.category_name+
+													'</span>'+
+						     					'</div>'+
+						     					'<div class="smallcate_in">'+cate_lists+'</div>'+
+						     				'</div>';
+						     var customOverlay = new kakao.maps.CustomOverlay({
+						    	    position: coords,
+						    	    content: content,
+						    	    xAnchor: 0.5,
+						    	    yAnchor: 2,
+						    	    clickable: true
+						    	});
+							// 커스텀 오버레이를 지도에 표시합니다
+							 customOverlay.setMap(map);
+							 customOverlay.setVisible(false);
+							
+
+							// 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+//							    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+//							    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+							    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, customOverlay));
+							    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(customOverlay));
+// 						}	
+							
+//	 						
+						}else if (obj.catelist==null){
+							$(".storelist").remove();
+							$("#rightbox").append("<div class='storelist' style='height:170px;text-align:center;padding-top:70px;'>----------현재 지역에서 검색되는 결과가 없습니다----------</div>");
+							var position = $(".storelist").eq(0).position();
+							$("#show").stop().animate({scrollTop : position.top}, 400);
+						}
+								
+				},
+				error:function(request,error){
+					$(".storelist").remove();
+					$("#rightbox").append("<div class='storelist' style='height:100%'>----------현재 지역에서 검색되는 결과가없습니다----------</div>");
+					alert("서버통신실패!!"+request.status+","+error);
+				}
+					
+			});
+		};
+		
+		//카테고리 검색(+전체검색) 로직(1):화면의 크기를 구한 후, 전달받은 카테고리 값에따라(전체or개별카테고리) 화면안에 포함되는 매장들의 세부적인 데이터들을 가져온다.
 		function ajax_cate() {//아작스를 담은 function
 			
 // 		(2번방법)	영역정보를 ajax로 전달해서 모든세부값 가져오기	
@@ -209,6 +450,10 @@
 // 	    alert(swlat);
 // 	    alert(swlng);
 	    var category_code = '<c:out value="${category_code}"/>';
+	    if(category_code==""){//키워드검색 -> 지역 or 지하철 일때
+	    	category_code=="all";
+	    }
+	    
 // 	    alert("카테고리 : "+category_code);
 			$.ajax({//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@카테고리검색:all
 				url:"searchCateAll_ajax.do",

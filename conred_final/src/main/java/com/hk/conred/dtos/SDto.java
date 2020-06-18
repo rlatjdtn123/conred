@@ -40,6 +40,9 @@ public class SDto {
 	private String category_name;
 	private String store_photo_stored;
 	
+	private String store_latitude;
+	private String store_longitude;
+//	private SLocaDto slocadto;
 
 
 
@@ -406,8 +409,57 @@ public class SDto {
 				+ ", store_maxdate=" + store_maxdate + ", store_maxman=" + store_maxman + ", cDto=" + cDto + ", iDto="
 				+ iDto + ", spDto=" + spDto + ", clean_avg=" + clean_avg + ", service_avg=" + service_avg
 				+ ", price_avg=" + price_avg + ", all_avg=" + all_avg + ", category_code=" + category_code
-				+ ", category_name=" + category_name + ", store_photo_stored=" + store_photo_stored + "]";
+				+ ", category_name=" + category_name + ", store_photo_stored=" + store_photo_stored
+				+ ", store_latitude=" + store_latitude + ", store_longitude=" + store_longitude + "]";
 	}
+
+	public String getStore_latitude() {
+		return store_latitude;
+	}
+
+	public void setStore_latitude(String store_latitude) {
+		this.store_latitude = store_latitude;
+	}
+
+	public String getStore_longitude() {
+		return store_longitude;
+	}
+
+	public void setStore_longitude(String store_longitude) {
+		this.store_longitude = store_longitude;
+	}
+
+
+
+//	public SLocaDto getSlocadto() {
+//		return slocadto;
+//	}
+//
+//	public void setSlocadto(SLocaDto slocadto) {
+//		this.slocadto = slocadto;
+//	}
+
+
+	
+//	@Override
+//	public String toString() {
+//		return "SDto [store_seq=" + store_seq + ", owner_id=" + owner_id + ", store_name=" + store_name
+//				+ ", store_owner_name=" + store_owner_name + ", store_path=" + store_path + ", store_intro_simple="
+//				+ store_intro_simple + ", store_intro=" + store_intro + ", store_state=" + store_state
+//				+ ", store_phone=" + store_phone + ", store_phone_manager=" + store_phone_manager + ", store_address="
+//				+ store_address + ", store_address_detail=" + store_address_detail + ", store_time_other="
+//				+ store_time_other + ", store_bank=" + store_bank + ", store_account=" + store_account
+//				+ ", store_license_number=" + store_license_number + ", store_license_biz_origin="
+//				+ store_license_biz_origin + ", store_license_biz_stored=" + store_license_biz_stored
+//				+ ", store_license_biz_size=" + store_license_biz_size + ", store_license_sales_origin="
+//				+ store_license_sales_origin + ", store_license_sales_stored=" + store_license_sales_stored
+//				+ ", store_license_sales_size=" + store_license_sales_size + ", store_owner_phone=" + store_owner_phone
+//				+ ", store_agreement=" + store_agreement + ", store_admin_state=" + store_admin_state
+//				+ ", store_maxdate=" + store_maxdate + ", store_maxman=" + store_maxman + ", cDto=" + cDto + ", iDto="
+//				+ iDto + ", spDto=" + spDto + ", clean_avg=" + clean_avg + ", service_avg=" + service_avg
+//				+ ", price_avg=" + price_avg + ", all_avg=" + all_avg + ", category_code=" + category_code
+//				+ ", category_name=" + category_name + ", store_photo_stored=" + store_photo_stored + "]";
+//	}
 
 
 
