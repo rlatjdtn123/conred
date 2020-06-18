@@ -70,6 +70,7 @@
       .user_avg{float: right; font-size: 20px;padding-top: 17px;}
       .star_score{float: left;}
       .tle_final{width: 700px;border-top: 1px solid grey;margin-left: 150px;margin-bottom: 200px;}
+      .bigNumber{font-size: 25px;font-weight: bold;} 
        
 </style>   
 <script type="text/javascript">
@@ -100,13 +101,13 @@
 										+	'	<img src="./img/profile_default.png" class="pf"/>  '
 										+	'	<div class="info">        '
 										+	'		<button class="content_detail buttondle">자세히 보기</button><br> '
-										+	'		<span style="color:#919191;">닉네임: '+ lists[i].user_id +' </span><span style="float:right;color:#919191;">작성일: '+ lists[i].reply_regdate +' </span><br>'
+										+	'		<span style="color:#919191;">닉네임: '+ lists[i].user_id +' </span><span style="float:right;color:#919191;">'+ lists[i].reply_regdate +' </span><br>'
 										+	'		<div class="star_table">'
 										+	'			<table class="star_score">'
 										+	'				<tr> '
 										+	'					<td>서비스</td>'
 										+	'					<td>'
-							 			+	'		            <td>'+ star_fill(lists[i].reply_service)+star_half(lists[i].reply_service)+star_empty(lists[i].reply_serivce) +'</td>         		'
+							 			+	'		            <td>'+ star_fill(lists[i].reply_service)+star_half(lists[i].reply_service)+star_empty(lists[i].reply_service) +'</td>         		'
 										+	'					</td> '
 										+	'				</tr>'
 										+	'				<tr>'
@@ -167,9 +168,18 @@
 	
 	//////////////모달창
 	$(document).ready(function(){
+		
+		//숨겨져있을때  -> 모달영역밖에누를때포함
+		$(".modal").on("hidden.bs.modal", function(){
+			  $("textarea").val("");
+			  $("input[type=radio]").prop("checked",false); 
+			  $("b").text("0"); 
+			 
+		}); 
+		
 	    $(".modal_Btn").click(function(){
 	        $("div.modal").modal();
-	        
+    
 	        ////////////////////////
 	        var $star01 = $(".star-input01")
 		    var $result01;
@@ -201,6 +211,7 @@
 		    	$(this).parents(".star-input01").find("b").text($checked.next().text());
 		    	$(this).parents(".star-input01").find("b").text($checked.next().text());
 		    }
+// 		    alert($(".star-input01").find(":checked").val());
 		  }); 
 		
 		 /////////////////가격 평점
@@ -219,10 +230,10 @@
 		    }, 100); 
 		  })
 		    .on("change", ".star-input02 :radio", function(){ 
-		    	$(this).parents(".star-input01").find("b").text($(this).val());
+		    	$(this).parents(".star-input02").find("b").text($(this).val());
 		  })
 		    .on("mouseover", ".star-input02 label", function(){
-		    	$(this).parents(".star-input01").find("b").text($(this).text());
+		    	$(this).parents(".star-input02").find("b").text($(this).text());
 		  })
 		    .on("mouseleave", ".star-input02>.input", function(){
 		    var $checked = $star02.find(":checked");
@@ -264,8 +275,95 @@
 		  }); 
 	        
 	        
-	      ////완료버튼  
+		  //닫기버튼
+// 		  $(".btn-default").click(function(){ 
+// 			  $("input[type=radio]").prop("checked",false); 
+// 			  $("b").text("0");
+// 			  $("textarea").val(""); 
+// 			  alert($("textarea").val().length);  
+			 
+// 		  });  
+		   
+		   
+
+	      ////완료버튼   
 		  $(".close").click(function(){
+// 			  $(".bigtle").empty();
+			  var store_seq=$("input[name=store_seq]").val();
+			  var reply_content=$("textarea").val();
+			  var reply_service=$(".star-input01").find(":checked").val();
+			  var reply_price=$(".star-input02").find(":checked").val();
+		      var reply_clean=$(".star-input03").find(":checked").val();
+		      var addReview ="";
+		      
+		      if($("textarea").val().length<=100){
+				  alert("100자 이상 작성해주세요"); 
+				  $("textarea").focus();
+		    	  return false;
+			  }
+		      if(reply_service==0||reply_service==null||reply_price==0||reply_price==null||reply_clean==0||reply_clean==null){
+		    	  alert("평점을 입력해주세요");
+		    	  return false;
+		      }  
+		      
+			  $.ajax({
+				  url:"store_review_ajax.do",
+				  method:"post",
+				  data:{"store_seq":store_seq,"reply_content":reply_content,"reply_service":reply_service,"reply_price":reply_price,"reply_clean":reply_clean},
+				  dataType:"json",
+				  success:function(obj){
+					   var lists=obj.list;			 	  
+					   $(".bigtle").empty();
+					   $.each(lists,function(i){
+							addReview+= 	'	<div class="mybox">     '     
+										+	'	<img src="./img/profile_default.png" class="pf"/>  '
+										+	'	<div class="info">        '
+										+	'		<button class="content_detail buttondle">자세히 보기</button><br> '
+										+	'		<span style="color:#919191;">닉네임: '+ lists[i].user_id +' </span><span style="float:right;color:#919191;">'+ lists[i].reply_regdate +' </span><br>'
+										+	'		<div class="star_table">'
+										+	'			<table class="star_score">'
+										+	'				<tr> '
+										+	'					<td>서비스</td>'
+	 									+	'					<td>'
+							 			+	'		            <td>'+ star_fill(lists[i].reply_service)+star_half(lists[i].reply_service)+star_empty(lists[i].reply_serivce) +'</td>         		'
+										+	'					</td> '
+										+	'				</tr>'
+										+	'				<tr>'
+										+	'					<td>가격</td>'
+										+	'					<td>'
+										+	'					<td>'+ star_fill(lists[i].reply_price)+star_half(lists[i].reply_price)+star_empty(lists[i].reply_price) +'</td>         		'
+										+	'					</td> '
+										+	'				</tr>'
+										+	'				<tr>'
+										+	'					<td>청결도</td>'
+										+	'					<td>'
+							+'									<td>'+ star_fill(lists[i].reply_clean)+star_half(lists[i].reply_clean)+star_empty(lists[i].reply_clean) +'</td>         		'
+							+'									</td> '
+							+'								</tr>'
+						+	'							</table>'
+						+							'<div class="user_avg">'+ Math.round(((lists[i].reply_clean+lists[i].reply_price+lists[i].reply_service)/3)*10)/10 +'</div>'
+						+	'						</div>'
+						+	'						<div class="user_review_img" ></div>     '
+						+	'						<div class="contents">'
+						+	'							<span style="font-weight: bold;">리뷰내용</span><br>'
+						+	'							<span>'+ lists[i].reply_content +'</span>'
+						+	'						</div> '
+						+	'					</div>   '
+						+	'					<div class="info2">     '
+						+	'						<span style="font-weight: bold;">매장답변</span><br> '
+						+'								<span>'+ (lists[i].reply_answer==null?"아직 답변이 없습니다.":lists[i].reply_answer) +'</span>			'							
+						+'						</div> '
+						+'					</div>   ';	
+						
+						});
+					   
+					    $(".bigtle").append(addReview);
+					  
+				  }
+				  
+			  }); 
+
+			   
 	      });  
 		   
 		  
@@ -279,74 +377,14 @@
 	
 	
 	///////////////파일업로드
-	// 이미지 정보들을 담을 배열
-	var sel_files = [];
 	
 	
-	$(document).ready(function() {
-	    $("#input_imgs").on("change", handleImgFileSelect);
-	}); 
-	
-	function fileUploadAction() {
-	    console.log("fileUploadAction");
-	    $("#input_imgs").trigger('click');
-	}
-	
-	function handleImgFileSelect(e) {
-	
-	    // 이미지 정보들을 초기화
-	    sel_files = [];
-	    $(".imgs_wrap").empty();
-	
-	    var files = e.target.files;
-	    var filesArr = Array.prototype.slice.call(files);
-	
-	    var index = 0;
-	    filesArr.forEach(function(f) {
-	        if(!f.type.match("image.*")) {
-	            alert("확장자는 이미지 확장자만 가능합니다.");
-	            return;
-	        }
-	
-	        sel_files.push(f);
-	
-	        var reader = new FileReader();
-	        reader.onload = function(e) {
-	            var html = "<a style='width:120px;height:120px;' href=\"javascript:void(0);\" onclick=\"deleteImageAction("+index+")\" id=\"img_id_"+index+"\"><img src=\"" + e.target.result + "\" data-file='"+f.name+"' class='selProductFile overfive' title='Click to remove'></a>";
-	            $(".imgs_wrap").append(html);
-	                index++;
-	                if(index>5){ 
-						$(".overfive").eq(5).remove();
-						$(".upload_message").text("5개까지만 등록할 수 있습니다.").css("color", "red");
-					}else{
-						$(".upload_message").text("");
-					}
-	        }
-	        reader.readAsDataURL(f);
-	        
-	    });
-	}
-
-
-
-	function deleteImageAction(index) {
-	    console.log("index : "+index);
-	    console.log("sel length : "+sel_files.length);
-	
-	    sel_files.splice(index, 1);
-	
-	    var img_id = "#img_id_"+index;
-	    $(img_id).remove(); 
-	}
-	
-	function fileUploadAction() {
-	    console.log("fileUploadAction");
-	    $("#input_imgs").trigger('click');
-	}
-	
-
+ 
 	
 	
+	
+	
+	//////////////평점 한개,반개,빈거
 	function star_fill(val){
 		 var v="";
 		for(var i=0;i<Math.floor(val);i++){	 
@@ -366,14 +404,16 @@
 		var v="";
 		for(var i=0;i<(5-Math.ceil(val));i++){
 			v+='<img class="starz" src="img/star_empty.png">';
-		}
+		} 
 		return v;
 	}
 	
 	
+
+
 	 
 	
-</script> 
+</script>  
 </head>
 <% 
 	List<ReplyDto> list=(List<ReplyDto>)request.getAttribute("list");
@@ -381,84 +421,103 @@
 %>
 <body>
 <input type="hidden" name="store_seq" value="<%=list.get(0).getStore_seq()%>"/>
-<!-- 모탈창 부분 -->
-<div class="modal fade" id="myModal" role="dialog">
-	<div class="modal-dialog modal-lg">
-  		<!-- Modal content-->
-   		<div class="modal-content">
-     		<div class="modal-header"> 
-       			<button type="button" class="close" data-dismiss="modal">리뷰 작성 완료</button>
-       			<h4 class="modal-title">가게이름</h4>
-     		</div>
-     		<div class="modal-body"> 
-     			<div class="star_bigtle"> 
-  				<span class="star-input01">서비스
-				    <span class="input">
-					    <input type="radio" name="star-input01" id="s1" value="0.5"><label for="s1" class="star_service">0.5</label>
-					    <input type="radio" name="star-input01" id="s2" value="1"><label for="s2" class="star_service">1</label>
-					    <input type="radio" name="star-input01" id="s3" value="1.5"><label for="s3"class="star_service">1.5</label>
-					    <input type="radio" name="star-input01" id="s4" value="2"><label for="s4" class="star_service">2</label>
-					    <input type="radio" name="star-input01" id="s5" value="2.5"><label for="s5" class="star_service">2.5</label>
-					    <input type="radio" name="star-input01" id="s6" value="3"><label for="s6" class="star_service">3</label>
-					    <input type="radio" name="star-input01" id="s7" value="3.5"><label for="s7" class="star_service">3.5</label>
-					    <input type="radio" name="star-input01" id="s8" value="4"><label for="s8" class="star_service">4</label>
-					    <input type="radio" name="star-input01" id="s9" value="4.5"><label for="s9" class="star_service">4.5</label>
-					    <input type="radio" name="star-input01" id="s10" value="5"><label for="s10" class="star_service">5</label>
-				    </span>
-			    	<output for="star-input"><b>0</b>점</output>
-				</span>
-				</div>
-				<div class="star_bigtle">  
-				<span class="star-input02">가격
-				    <span class="input">
-					    <input type="radio" name="star-input02" id="p1" value="0.5"><label for="p1" class="star_price">0.5</label>
-					    <input type="radio" name="star-input02" id="p2" value="1"><label for="p2" class="star_price">1</label>
-					    <input type="radio" name="star-input02" id="p3" value="1.5"><label for="p3" class="star_price">1.5</label>
-					    <input type="radio" name="star-input02" id="p4" value="2"><label for="p4" class="star_price">2</label>
-					    <input type="radio" name="star-input02" id="p5" value="2.5"><label for="p5" class="star_price">2.5</label>
-					    <input type="radio" name="star-input02" id="p6" value="3"><label for="p6" class="star_price">3</label>
-					    <input type="radio" name="star-input02" id="p7" value="3.5"><label for="p7" class="star_price">3.5</label>
-					    <input type="radio" name="star-input02" id="p8" value="4"><label for="p8" class="star_price">4</label>
-					    <input type="radio" name="star-input02" id="p9" value="4.5"><label for="p9" class="star_price">4.5</label>
-					    <input type="radio" name="star-input02" id="p10" value="5"><label for="p10" class="star_price">5</label>
-				    </span>
-			    	<output for="star-input"><b>0</b>점</output>
-		    	</span>
-		    	</div>
-		    	<div class="star_bigtle">
-			    <span class="star-input03">청결도 
-				    <span class="input">
-					    <input type="radio" name="star-input03" id="c1" value="0.5"><label for="c1">0.5</label>
-					    <input type="radio" name="star-input03" id="c2" value="1"><label for="c2">1</label>
-					    <input type="radio" name="star-input03" id="c3" value="1.5"><label for="c3">1.5</label>
-					    <input type="radio" name="star-input03" id="c4" value="2"><label for="c4">2</label>
-					    <input type="radio" name="star-input03" id="c5" value="2.5"><label for="c5">2.5</label>
-					    <input type="radio" name="star-input03" id="c6" value="3"><label for="c6">3</label>
-					    <input type="radio" name="star-input03" id="c7" value="3.5"><label for="c7">3.5</label>
-					    <input type="radio" name="star-input03" id="c8" value="4"><label for="c8">4</label>
-					    <input type="radio" name="star-input03" id="c9" value="4.5"><label for="c9">4.5</label>
-					    <input type="radio" name="star-input03" id="c10" value="5"><label for="c10">5</label>
-				    </span>
-			    	<output for="star-input"><b>0</b>점</output>
-		    	</span>
-				</div>
-     		</div>
-     		
-     		  
-     		<div class="modal-footer">  
-				    <div class="imgs_wrap">    
-			          
-				    </div>          
-			    <div class="input_wrap">  
-			        <a href="javascript:" onclick="fileUploadAction();" class="my_button">파일 업로드</a>
-		    		<div class="upload_message"></div>
-			        <input type="file" id="input_imgs" multiple/>
-			    </div>   
-       			<textarea rows="20" cols="120" style="resize: none;" placeholder="리뷰 작성 해주세요."></textarea>
-     		</div>
-   		</div>  
-	</div> 
-</div>
+<form action="user_review_img.do" method="post" enctype="multipart/form-data">
+	<!-- 모탈창 부분 -->
+	<div class="modal fade" id="myModal" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+	  		<!-- Modal content-->
+	   		<div class="modal-content">
+	     		<div class="modal-header"> 
+	     			<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+	       			<button type="button" class="close" data-dismiss="modal">리뷰 작성 완료</button>
+	       			<h4 class="modal-title">가게이름</h4>
+	     		</div>
+	     		<div class="modal-body"> 
+	     			<div class="star_bigtle">  
+	  				<span class="star-input01">서비스
+					    <span class="input">
+						    <input type="radio" name="star-input01" id="s1" value="0.5"><label for="s1" class="star_service">0.5</label>
+						    <input type="radio" name="star-input01" id="s2" value="1"><label for="s2" class="star_service">1</label>
+						    <input type="radio" name="star-input01" id="s3" value="1.5"><label for="s3"class="star_service">1.5</label>
+						    <input type="radio" name="star-input01" id="s4" value="2"><label for="s4" class="star_service">2</label>
+						    <input type="radio" name="star-input01" id="s5" value="2.5"><label for="s5" class="star_service">2.5</label>
+						    <input type="radio" name="star-input01" id="s6" value="3"><label for="s6" class="star_service">3</label>
+						    <input type="radio" name="star-input01" id="s7" value="3.5"><label for="s7" class="star_service">3.5</label>
+						    <input type="radio" name="star-input01" id="s8" value="4"><label for="s8" class="star_service">4</label>
+						    <input type="radio" name="star-input01" id="s9" value="4.5"><label for="s9" class="star_service">4.5</label>
+						    <input type="radio" name="star-input01" id="s10" value="5"><label for="s10" class="star_service">5</label>
+					    </span>
+				    	<output for="star-input"><b>0</b>점</output>
+					</span>
+					</div>
+					<div class="star_bigtle">  
+					<span class="star-input02">가격
+					    <span class="input">
+						    <input type="radio" name="star-input02" id="p1" value="0.5"><label for="p1" class="star_price">0.5</label>
+						    <input type="radio" name="star-input02" id="p2" value="1"><label for="p2" class="star_price">1</label>
+						    <input type="radio" name="star-input02" id="p3" value="1.5"><label for="p3" class="star_price">1.5</label>
+						    <input type="radio" name="star-input02" id="p4" value="2"><label for="p4" class="star_price">2</label>
+						    <input type="radio" name="star-input02" id="p5" value="2.5"><label for="p5" class="star_price">2.5</label>
+						    <input type="radio" name="star-input02" id="p6" value="3"><label for="p6" class="star_price">3</label>
+						    <input type="radio" name="star-input02" id="p7" value="3.5"><label for="p7" class="star_price">3.5</label>
+						    <input type="radio" name="star-input02" id="p8" value="4"><label for="p8" class="star_price">4</label>
+						    <input type="radio" name="star-input02" id="p9" value="4.5"><label for="p9" class="star_price">4.5</label>
+						    <input type="radio" name="star-input02" id="p10" value="5"><label for="p10" class="star_price">5</label>
+					    </span>
+				    	<output for="star-input"><b>0</b>점</output>
+			    	</span>
+			    	</div>
+			    	<div class="star_bigtle">
+				    <span class="star-input03">청결도 
+					    <span class="input">
+						    <input type="radio" name="star-input03" id="c1" value="0.5"><label for="c1">0.5</label>
+						    <input type="radio" name="star-input03" id="c2" value="1"><label for="c2">1</label>
+						    <input type="radio" name="star-input03" id="c3" value="1.5"><label for="c3">1.5</label>
+						    <input type="radio" name="star-input03" id="c4" value="2"><label for="c4">2</label>
+						    <input type="radio" name="star-input03" id="c5" value="2.5"><label for="c5">2.5</label>
+						    <input type="radio" name="star-input03" id="c6" value="3"><label for="c6">3</label>
+						    <input type="radio" name="star-input03" id="c7" value="3.5"><label for="c7">3.5</label>
+						    <input type="radio" name="star-input03" id="c8" value="4"><label for="c8">4</label>
+						    <input type="radio" name="star-input03" id="c9" value="4.5"><label for="c9">4.5</label>
+						    <input type="radio" name="star-input03" id="c10" value="5"><label for="c10">5</label>
+					    </span>
+				    	<output for="star-input"><b>0</b>점</output>
+			    	</span>
+					</div>
+	     		</div>
+	     		
+	     		  
+	     		<div class="modal-footer">  
+					<div class="inputbox">
+					<div class="inputtitle">사진업로드</div>
+					<div class="inputs">
+					<!-- 파일업로드 관련 -->
+					    <div class="wrapper">
+					        <div class="body">
+					            <!-- 첨부 버튼 -->
+					            <div id="attach">
+					                <label class="btn f_insert" for="uploadInputBox">사진 첨부하기</label>
+					                <input id="uploadInputBox" style="display: none" type="file" name="photos" multiple="multiple" />
+					            </div>
+					            <!-- 미리보기 영역 -->
+					            <div id="preview" class="content"></div>
+					            
+					            <!-- multipart 업로드시 영역 -->
+<!-- 					            <form id="uploadForm" style="display: none;" /> -->
+					        </div>
+					        <div class="footer">
+<!-- 					            <button class="submit"><a href="#" title="등록" class="btnlink">등록</a></button> -->
+					        </div>
+					    </div>
+
+						</div>
+					</div>
+	       			<textarea rows="20" cols="120" style="resize: none;" placeholder="리뷰 작성 해주세요."></textarea>
+	     		</div>
+	   		</div>  
+		</div> 
+	</div>
+</form>
 
 
 <div id="container"> 
@@ -479,7 +538,7 @@
 				<%
 			}
 		%>
-		<b style="font-size: 25px;"><%=list_avg.getAll_avg()%></b>/5 &nbsp; &nbsp; &nbsp;후기<%=list_avg.getReply_count()%>개|답변<%=list_avg.getAnswer_count()%>개</span><br>
+		<span class="bigNumber" ><%=list_avg.getAll_avg()%></span>/5 &nbsp; &nbsp; &nbsp;후기<%=list_avg.getReply_count()%>개|답변<%=list_avg.getAnswer_count()%>개</span><br>
 		<span>최근6개월 누적평점</span><button class="modal_Btn">리뷰 작성</button><br/><br/>
 		<table>
 			<col width="50px;">  
@@ -559,7 +618,7 @@
 			<img src="./img/profile_default.png" class="pf"/>  
 			<div class="info">        
 				<button class="content_detail buttondle">자세히 보기</button><br> 
-				<span style="color:#919191;">닉네임:<%=dto.getUser_id()%> </span><span style="float:right; color:#919191;">작성일: <%=dto.getReply_regdate()%></span><br>
+				<span style="color:#919191;">닉네임:<%=dto.getUser_id()%> </span><span style="float:right; color:#919191;"><%=dto.getReply_regdate()%></span><br>
 				<div class="star_table">
 					<table class="star_score">
 						<tr> 

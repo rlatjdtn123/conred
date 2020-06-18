@@ -40,6 +40,27 @@ public class ODaoImp implements IODao {
 		dto=sqlSession.selectOne(nameSpace+"ownerMyInfo", owner_id);
 		return dto;
 	}
+
+	@Override
+	public boolean ownerUpdate(ODto dto) {
+		int count=0;
+		count=sqlSession.update(nameSpace+"ownerUpdate", dto);
+		return count>0?true:false;
+	}
+
+	@Override
+	public boolean ownerDelete(String owner_id) {
+		int count=0;
+		count=sqlSession.update(nameSpace+"ownerDelete", owner_id);
+		return count>0?true:false; 
+	}
+
+	@Override
+	public String ownerIdCheck(String owner_id) {
+		String resultId=null;
+		resultId=sqlSession.selectOne(nameSpace+"ownerIdCheck", owner_id);
+		return resultId;
+	}
 	
 	
 	

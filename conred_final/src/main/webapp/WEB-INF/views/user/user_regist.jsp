@@ -37,6 +37,8 @@
 	.redbtn:hover{background-color: #FE2E2E;color:white} 
 	.req{color: red;font-weight: bold;font-size:20px;}
 	#sel{border:1px solid grey;height:24px;vertical-align: middle;}
+	.idCheck{width: 180px;color:red;height: 24px;margin-left: 45px;display: none;}
+	
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -95,19 +97,46 @@
 	var user_id=$("input[name=user_id]");
 	
 	user_id[0].onblur=function(){ 
-		var resultId=user_id.val();
-		$.ajax({
+		var resultId=user_id.val().trim().replace(" ", "");
+		$.ajax({ 
 			url:"user_idcheck_ajax.do",
 			method:"post",
 			data:{"user_id":resultId},
 			dataType:"json",
 			success:function(obj){
 				var result=obj.user_result;
-				alert(result[0].user_id);  
+				if(result!=null){
+					$(".idCheck").css("display","inline-block");
+					user_id.val("") 
+				}else{
+					$(".idCheck").css("display","none"); 
+				}
 			} 	
 		}); 
 	}
+	
+	var pwInputs=$("input[type=password]");
+	pwInputs[1].onblur=function(){
+		if(pwInputs.eq(0).val()!=pwInputs.eq(1).val()){
+			alert("패스워드를 확인하세요");
+			pwInputs[0].value="";
+			pwInputs[1].value="";
+			pwInputs[0].focus(); 
+			
+		}
+	}
 	 
+	var form=$("form")[0];
+	form.onsubmit=function(){ 
+		var pwInputs=$("input[type=password]");
+		if(pwInputs.eq(0).val()!=pwInputs.eq(1).val()){
+			alert("패스워드를 확인하세요"); 
+			pwInputs[0].value="";
+			pwInputs[1].value="";
+			pwInputs[0].focus(); 
+			return false;
+		}
+	} 
 	
 })
 
@@ -125,7 +154,7 @@
 				<table class="table table-hover" >
 					<tr>
 						<td><span class="req">* </span>아이디</td>
-						<td><input type="text" name="user_id" required="required"/></td>
+						<td><input type="text" name="user_id" required="required"/><div class="idCheck">중복된 아이디 입니다.</div></td>
 					</tr>
 					<tr>
 						<td><span class="req">* </span>비밀번호</td>

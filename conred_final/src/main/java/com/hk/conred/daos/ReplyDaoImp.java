@@ -56,5 +56,19 @@ public class ReplyDaoImp implements IReplyDao{
 		count=sqlSession.update(nameSpace+"userReplyDelete", map);
 		return count>0?true:false;
 	}
+
+	@Override
+	public boolean userInsertReview(String user_id,int store_seq,String reply_content,double reply_service,double reply_clean,double reply_price) {
+		int count=0;
+		Map<String, Object> map=new HashMap<>();
+		map.put("user_id", user_id);
+		map.put("store_seq", store_seq);
+		map.put("reply_content", reply_content);
+		map.put("reply_service", reply_service);
+		map.put("reply_clean", reply_clean);
+		map.put("reply_price", reply_price); 
+		count=sqlSession.insert(nameSpace+"userInsertReview", map);
+		return count>0?true:false;
+	}
 	
 }

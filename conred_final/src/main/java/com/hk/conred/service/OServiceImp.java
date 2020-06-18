@@ -27,4 +27,20 @@ public class OServiceImp implements IOService{
 		return ODaoImp.ownerMyInfo(owner_id); 
 	}
 
+	@Override
+	public boolean ownerUpdate(ODto dto) {
+		return ODaoImp.ownerUpdate(dto);
+	}
+
+	@Override
+	public boolean ownerDelete(String owner_id) {
+		return ODaoImp.ownerDelete(owner_id);
+	}
+
+	@Override
+	public String ownerIdCheck(String owner_id) {
+		System.out.println("@@@@@@@@@@@@@서비스쪽:::"+owner_id);
+		return ODaoImp.ownerIdCheck(owner_id);
+	}
+
 }

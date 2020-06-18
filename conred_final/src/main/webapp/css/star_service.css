@@ -5,14 +5,14 @@
 .star-input01>.input>input:checked+label{
     display: inline-block;
     vertical-align: top; 
-    background: url("img/star_avg.png") no-repeat;
-}
+    background: url("./img/star_avg.png") no-repeat;
+} 
 .star-input01{
     white-space: nowrap;
 }
 .star-input01>.input{
     display:inline-block;
-    width: 100px;
+    width: 100px;  
     background-size: 100px;
     height: 19px;
     white-space: nowrap;

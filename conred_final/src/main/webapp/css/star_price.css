@@ -5,8 +5,8 @@
 .star-input02>.input>input:checked+label{
     display: inline-block;
     vertical-align: top;
-    background: url("img/star_avg.png") no-repeat;
-}
+    background: url("./img/star_avg.png") no-repeat;
+} 
 .star-input02{
     white-space: nowrap;
 }
@@ -19,7 +19,7 @@
     overflow: hidden;
     position: relative;  
 }
-.star-input02>.input>input{
+.star-input02>.input>input{ 
     position: absolute;
     width: 1px;
     height: 1px;

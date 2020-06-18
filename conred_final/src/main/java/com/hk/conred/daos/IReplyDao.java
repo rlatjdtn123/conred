@@ -20,4 +20,7 @@ public interface IReplyDao {
 	
 	//5.리뷰삭제 - 사용자:자기가쓴 모든리뷰 개별삭제
 	public boolean userReplyDelete(String user_id,int reply_seq);
+	
+	//6.리뷰 등록 - 사용자:매장에대한 평점과 리뷰글 등록
+	public boolean userInsertReview(String user_id,int store_seq,String reply_content,double reply_service,double reply_clean,double reply_price);
 }

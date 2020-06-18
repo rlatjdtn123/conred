@@ -12,7 +12,10 @@
 		#{owner_email},#{owner_birth},#{owner_sex},SYSDATE,#{owner_agreement},'N')
 	</insert>
 	
-	
+	<select id="ownerIdCheck" parameterType="String" resultType="String">
+		SELECT OWNER_ID FROM CON_OWNER WHERE OWNER_ID =#{owner_id}
+	</select>
+	 
 	<select id="getLogin" resultType="ODto" parameterType="Map">
 		SELECT OWNER_ID ,OWNER_NAME ,OWNER_EMAIL ,OWNER_BIRTH ,OWNER_SEX ,OWNER_REGDATE ,OWNER_AGREEMENT ,OWNER_OUT  
 		FROM CON_OWNER 
@@ -24,6 +27,13 @@
 		FROM CON_OWNER 
 		WHERE OWNER_ID =#{owner_id}
 	</select>
+	 
+	<update id="ownerUpdate" parameterType="ODto">
+		UPDATE CON_OWNER SET OWNER_BIRTH=#{owner_birth} WHERE OWNER_ID=#{owner_id}
+	</update>
 	
+	<update id="ownerDelete" parameterType="String">
+		UPDATE CON_OWNER SET OWNER_OUT='Y' WHERE OWNER_ID=#{owner_id}
+	</update>
 </mapper> 
 	 

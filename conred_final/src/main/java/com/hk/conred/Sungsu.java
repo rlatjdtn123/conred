@@ -1,5 +1,6 @@
 package com.hk.conred;
 
+import java.awt.geom.Arc2D.Double;
 import java.rmi.server.RemoteServer;
 import java.text.DateFormat;
 import java.util.Date;
@@ -18,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -110,14 +112,13 @@ public class Sungsu {
 		
 	
 	@ResponseBody
-	@RequestMapping(value = "user_idcheck_ajax.do", method = RequestMethod.GET)
+	@RequestMapping(value = "user_idcheck_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public Map<String, String> user_idcheck_ajax(Locale locale, Model model,String user_id) {
 		logger.info("유저 아이디체크ajax {}.", locale);
 		String user_result=(String)uService.userIdCheck(user_id);
 		Map<String, String> map=new HashMap<>();
 		map.put("user_result", user_result);
 		return map; 
-		
 	}
 	
 	
@@ -591,6 +592,37 @@ public class Sungsu {
 	}
 	
 	
+	@ResponseBody
+	@RequestMapping(value = "store_review_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public Map<String, Object> store_review_ajax(Locale locale, Model model,int store_seq,String reply_content,double reply_service,double reply_price,double reply_clean ,HttpServletRequest request) {
+		logger.info("매장 리뷰 ajax {}.", locale);
+		Map<String, Object> map=new HashMap<>();
+		HttpSession session=request.getSession();
+		UDto uldto=(UDto)session.getAttribute("uldto");
+		System.out.println(uldto.getUser_id());
+		System.out.println(store_seq);
+		System.out.println(reply_content);
+		System.out.println(reply_service);
+		System.out.println(reply_price);
+		System.out.println(reply_clean); 
+		List<ReplyDto> list=replyService.replyListStoreDetail(store_seq, 1);
+		map.put("list", list);
+		boolean isS=replyService.userInsertReview(uldto.getUser_id(),store_seq,reply_content,reply_service,reply_price,reply_clean);
+		if(isS) {
+			return map;  
+		}else { 
+			return null;			
+		}
+		
+	}
+	
+	
+	@RequestMapping(value = "user_review_img.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String user_review_img(Locale locale, Model model) {
+		logger.info("유저 리뷰사진등록 {}.", locale);
+		
+		return "redirect:index.jsp";
+	}
 	
 	
 } 

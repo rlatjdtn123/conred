@@ -5,7 +5,7 @@
 .star-input03>.input>input:checked+label{
     display: inline-block;
     vertical-align: top;
-    background: url("img/star_avg.png") no-repeat;
+    background: url("./img/star_avg.png") no-repeat;
 }
 .star-input03{
     white-space: nowrap;
