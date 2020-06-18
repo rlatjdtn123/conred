@@ -103,22 +103,22 @@
 	%>
 </header>
 <div id="secondheader">
-			<form id="search">
-			  <input type="text" id="searchbar" class="form-control pull-left" placeholder="지역명, 지하철역, 매장명으로 검색">
-			  <button type="submit" id="searchbtn" class="btn"><img id="magnifyglass" src="./img/magnifyglass.png"></button>
-			</form>
+	<form id="search" action="map_keyword.do">
+		<input type="text" id="searchbar" class="form-control pull-left" name="keyword" placeholder="지역명, 지하철역, 매장명으로 검색">
+		<button type="submit" id="searchbtn" class="btn"><img id="magnifyglass" src="./img/magnifyglass.png"></button>
+	</form>
 
 	<div id="categorybox">
-		<div class="categories_first" title="전체카테고리 검색"></div>
-		<div id="category_icon_a" class="categories" title="동물병원"></div>
-		<div id="category_icon_b" class="categories" title="카페/식당"></div>
-		<div id="category_icon_c" class="categories" title="식품/용품"></div>
-		<div id="category_icon_d" class="categories" title="숙박(글램핑,카라반,팬션,풀빌라,동반가능호텔)"></div>
-		<div id="category_icon_e" class="categories" title="돌봄서비스(호텔,펫시터,유치원,펫택시)"></div>
-		<div id="category_icon_f" class="categories" title="미용/목욕"></div>
-		<div id="category_icon_g" class="categories" title="체험(놀이터,운동장,훈련,수영장,스튜디오 등)"></div>
-		<div id="category_icon_h" class="categories" title="교배/분양/유기견"></div>
-		<div id="category_icon_i" class="categories" title="장례"></div>
+		<div class="categories_first" onclick="location.href='map_category.do?category_code=all'" title="전체카테고리 검색"></div>
+		<div id="category_icon_a" class="categories" onclick="location.href='map_category.do?category_code=A'" title="동물병원"></div>
+		<div id="category_icon_b" class="categories" onclick="location.href='map_category.do?category_code=B'" title="카페/식당"></div>
+		<div id="category_icon_c" class="categories" onclick="location.href='map_category.do?category_code=C'" title="식품/용품"></div>
+		<div id="category_icon_d" class="categories" onclick="location.href='map_category.do?category_code=D'" title="숙박(글램핑,카라반,팬션,풀빌라,동반가능호텔)"></div>
+		<div id="category_icon_e" class="categories" onclick="location.href='map_category.do?category_code=E'" title="돌봄서비스(호텔,펫시터,유치원,펫택시)"></div>
+		<div id="category_icon_f" class="categories" onclick="location.href='map_category.do?category_code=F'" title="미용/목욕"></div>
+		<div id="category_icon_g" class="categories" onclick="location.href='map_category.do?category_code=G'" title="체험(놀이터,운동장,훈련,수영장,스튜디오 등)"></div>
+		<div id="category_icon_h" class="categories" onclick="location.href='map_category.do?category_code=H'" title="교배/분양/유기견"></div>
+		<div id="category_icon_i" class="categories" onclick="location.href='map_category.do?category_code=I'" title="장례"></div>
 	</div>
 
 

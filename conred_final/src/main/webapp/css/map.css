@@ -43,10 +43,13 @@
 /* 	-webkit-filter: grayscale(100%); */
 /* 	filter: gray; */
 	}
+
 	.categories input[type="checkbox"] + label:hover{border:0px solid #fff;display: inline-block;width: 100%; height: 100%;cursor: pointer;border-radius: 10px;background-size: contain !important;background-repeat: no-repeat!important;
-/* 	-webkit-filter: grayscale(0%);filter: none; */
+	-webkit-filter: grayscale(0%);filter: none;
 	}
-	.categories input[id="cate_all"] + label {background-color:#ADEEF2;}
+	.categories input[id="cate_all"] + label:hover{background-color:#ADEEF2; margin-bottom: 10px;font-size: 25px; padding-left: 15px; padding-top: 12px;color:#fff}
+	
+	.categories input[id="cate_all"] + label {background-color:#ADEEF2; margin-bottom: 10px;font-size: 17px; padding-left: 9.5px; padding-top: 8px;color:#fff}
 	.categories input[id="cate_a"] + label {background:url(../img/icon/icon_A.png);}
 	.categories input[id="cate_b"] + label {background:url(../img/icon/icon_B.png);}
 	.categories input[id="cate_c"] + label {background:url(../img/icon/icon_C.png);}
@@ -58,10 +61,10 @@
 	.categories input[id="cate_i"] + label {background:url(../img/icon/icon_I.png);}
 
 	.categories input[type="checkbox"]:checked + label {border:0px solid #fff;display: inline-block;width: 100%; height: 100%;cursor: pointer;border-radius: 10px;background-size: contain !important;background-repeat: no-repeat!important;
-/* 	-webkit-filter: grayscale(0%); */
-/* 	filter: none; */
+	-webkit-filter: grayscale(0%);
+	filter: none;
 	}
-	.categories input[id="cate_all"]:checked + label {background-color:#ADEEF2; }
+	.categories input[id="cate_all"]:checked + label {background-color:#ADEEF2; margin-bottom: 10px; font-size: 25px; padding-left: 15px; padding-top: 12px; color:#fff}
 	.categories input[id="cate_a"]:checked + label {background:url(../img/icon/icon_A.png);}
 	.categories input[id="cate_b"]:checked + label {background:url(../img/icon/icon_B.png);}
 	.categories input[id="cate_c"]:checked + label {background:url(../img/icon/icon_C.png);}
@@ -72,7 +75,11 @@
 	.categories input[id="cate_h"]:checked + label {background:url(../img/icon/icon_H.png);}
 	.categories input[id="cate_i"]:checked + label {background:url(../img/icon/icon_I.png);}
 	.cate_text{font-size: 11px;text-align: center;margin-top:-8px;}
-
+	
+/*  하나 클릭하면 나머지는 흑백이되게 할 클래스들*/
+	.to_grey{-webkit-filter: grayscale(100%);filter: gray;}
+	.to_color{-webkit-filter: grayscale(0%);filter: none;}
+	
 	.photobox{box-shadow: 1px 1.5px 2px grey;background-color: grey;width:140px; height:105px;float: left;margin-right:2px;
 	background-size: cover; 
 /* 	background-size: 140px 100px; */

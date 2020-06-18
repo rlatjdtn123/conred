@@ -15,6 +15,8 @@
 <!-- <script src="./js/map.js"></script> -->
 <style type="text/css">
 </style>
+<!-- 스윗알러트! -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-- services와 clusterer, drawing 라이브러리 불러오기 -->
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bc283bd41dff040b5403d29f3172b43a&libraries=services,clusterer,drawing"></script>
 <script type="text/javascript">
@@ -63,12 +65,30 @@
 // 			});
 		}
 		
-		
-		//키워드로 들어온경우에 지역검색에 성공시 true로 바꿔줄 boolean값
-		//근데 고민중인게 밑에 hello()있는곳안에서밖에 어차피 못쓰기에
-		//거기서 parameter값으로 받아서할지 헷갈리지않게.
-// 		var bool=false;
+		//맵에서 카테고리 체크시 실행 로직:해당 카테고리만 출력되도록
+		$(".categories input[type='checkbox']").change(function() {
+//	 		alert($(".categories input[type='checkbox'] + label").length);
 			
+			var selected_cates ="";
+			var labels=$(".categories input[type='checkbox'] + label");
+			var inputs=$(".categories input[type='checkbox']");
+			for (var i = 0; i < labels.length; i++) {
+				if(inputs.eq(i).is(":checked")==true){
+					//만약 하나가 체크되어있다면: 체크된 값을 var(String)에 +=한다 ,와 함께
+					//마지막글자에선 ,를 빼준다.
+					selected_cates+=inputs.eq(i).val()+","; 
+				}
+				if(inputs.eq(i).is(":checked")==false){
+					selected_cates.replace(inputs.eq(i).val(),"");
+				}
+			}
+			if(selected_cates!=""){//안에값이 비어있지 않을경우 마지막","를 떼준다.
+				selected_cates=selected_cates.slice(0,-1);
+			}
+			alert(selected_cates.toUpperCase());
+			ajax_cate(selected_cates.toUpperCase());
+		});
+		
 		//키워드 검색 로직(1): 지역검색 성공시 해당 지역의 모든카테고리값을 뿌려준다.(온로드로 한번만?ㄴㄴ 온로드 후 드래그까지 가능ㅇㅋ)
 		function ajax_keyword(keyword){
 
@@ -219,6 +239,7 @@
 // 						});
 					}else if(obj.store_info.store_name=="false"){
 // 						alert("검색결과가 존재하지 않습니다.");
+						swal("검색결과가 존재하지 않습니다!", "지역, 주소, 지하철, 매장명으로 검색해주세요", "error");
 // 						ajax_store(keyword);
 					}
 				},
@@ -378,7 +399,6 @@
 //			 					 // 마커 이미지를 생성합니다    
 							     var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
 									 
-							     
 							     // 마커를 생성합니다
 							     var marker = new kakao.maps.Marker({
 							         map: map, // 마커를 표시할 지도
@@ -435,8 +455,8 @@
 		};
 		
 		//카테고리 검색(+전체검색) 로직(1):화면의 크기를 구한 후, 전달받은 카테고리 값에따라(전체or개별카테고리) 화면안에 포함되는 매장들의 세부적인 데이터들을 가져온다.
-		function ajax_cate() {//아작스를 담은 function
-			
+		function ajax_cate(selected_cates) {//만약 파라미터값이 있다면 사용.
+
 // 		(2번방법)	영역정보를 ajax로 전달해서 모든세부값 가져오기	
 	    var bounds = map.getBounds();// 지도 영역정보를 얻어옵니다 
 	    var sw = bounds.getSouthWest();// 영역정보의 남서쪽 정보를 얻어옵니다 
@@ -453,8 +473,12 @@
 	    if(category_code==""){//키워드검색 -> 지역 or 지하철 일때
 	    	category_code=="all";
 	    }
+		if(selected_cates!=undefined&&selected_cates!=""){
+			alert("값이들어있다!"+selected_cates);
+			category_code=selected_cates;
+		}
 	    
-// 	    alert("카테고리 : "+category_code);
+	    alert("카테고리 : "+category_code);
 			$.ajax({//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@카테고리검색:all
 				url:"searchCateAll_ajax.do",
 				method:"post",
@@ -569,7 +593,8 @@
 					
 					// 주소-좌표 변환 객체를 생성합니다
 // 					var geocoder = new kakao.maps.services.Geocoder();
-					
+						 
+				     
 					for (var i = 0; i < store_lists.length; i++) {
 					     var coords = new kakao.maps.LatLng(sloca_lists[i].store_latitude, sloca_lists[i].store_longitude);
 					 		
@@ -585,8 +610,7 @@
 							    
 //	 					 // 마커 이미지를 생성합니다    
 					     var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
-							 
-					     
+						
 					     // 마커를 생성합니다
 					     var marker = new kakao.maps.Marker({
 					         map: map, // 마커를 표시할 지도
@@ -908,6 +932,21 @@
 // 				function(){$("#rightbox").addClass('right_show')} //한 번 더 클릭하면 hide클래스가 숨기기
 // 	        );
 		});
+		
+		$(".categories input[type='checkbox']").change(function() {
+// 			alert($(".categories input[type='checkbox'] + label").length);
+			var count =0;
+			for (var i = 0; i < $(".categories input[type='checkbox'] + label").length; i++) {
+				if($(".categories input[type='checkbox']").eq(i).is(":checked")==true){
+					count++;
+				}
+			}
+			if(count>0){
+				$(".categories input[type='checkbox'] + label").addClass("to_grey");
+			}else if(count==0){
+				$(".categories input[type='checkbox'] + label").removeClass("to_grey");
+			}
+		});
 	});
 </script>
 </head>
@@ -918,11 +957,26 @@
 	<div id="mapbox">
 		<div id="mapbarbox">
 		
-			<form id="search">
-			  <input type="text" id="searchbar" class="form-control pull-left" placeholder="지역명, 지하철역, 매장명 검색">
-			  <button type="submit" id="searchbtn" class="btn"><img id="magnifyglass" src="./img/magnifyglass.png"></button>
+<!-- 			<form id="search" action="map_keyword.do" onsubmit="return search_inMap()"> -->
+			<form id="search" action="map_keyword.do">
+				<input type="text" id="searchbar" class="form-control pull-left" name="keyword" placeholder="지역명, 지하철역, 매장명 검색">
+				<button id="searchbtn" class="btn"><img id="magnifyglass" src="./img/magnifyglass.png"></button>
 			</form>
-			
+			<script type="text/javascript">
+			function search_inMap() {
+// 				if(false){//만약 체크된 카테고리가 없다면 일반 검색창기능
+// 					return true;
+// 				}else if(true){//만약 하나라도 체크된 카테고리가 있다면 일반검색창 기능 + 카테고리
+					
+// 					return false;
+// 				}
+			}
+
+// 			function clickSearchBtn() {
+// 				$("#searchbtn").click();
+// 				alert("엔터!");
+// 			}
+			</script>
 			<div id="mapcategory">
 <!-- 				<div id="categorybox"> -->
 <!-- 					<div class="categories"><input type="checkbox" id="cate_all" value="all"/><label for="cate_all"></label></div> -->
@@ -940,7 +994,7 @@
 <!-- 				</div> -->
 				<div class="selectedbox">찾고싶은 카테고리를 선택하고 키워드로 검색해보세요.<br>키워드만으로, 카테고리만으로도 검색할수 있어요!</div>
 				<div class="categorybox">
-					<div class="categories"><input type="checkbox" id="cate_all" value="all"/><label for="cate_all"></label><div class="cate_text">전체</div></div>
+					<div class="categories"><input type="checkbox" id="cate_all" value="all"/><label for="cate_all">all</label><div class="cate_text">전체</div></div>
 					<div class="categories"><input type="checkbox" id="cate_a" value="a"/><label for="cate_a"></label><div class="cate_text">동물병원</div></div>
 					<div class="categories"><input type="checkbox" id="cate_b" value="b"/><label for="cate_b"></label><div class="cate_text">카페/식당</div></div>
 					<div class="categories"><input type="checkbox" id="cate_c" value="c"/><label for="cate_c"></label><div class="cate_text">식품/용품</div></div>

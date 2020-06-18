@@ -50,8 +50,18 @@ public class MapDaoImp implements IMapDao{
 		map.put("nelng", nelng);
 		map.put("swlat", swlat);
 		map.put("swlng", swlng);
-		System.out.println("dddddd"+category_code);
-		map.put("category_code", category_code);
+		System.out.println("fffffffff"+category_code);
+		System.out.println("length"+category_code.length());
+		List<String> list=new ArrayList<>();
+//		if(category_code.length()>1) {
+		String [] array = category_code.split(",");
+		System.out.println(array);
+		for (int i = 0; i < array.length; i++) {
+			list.add(array[i]);
+		}
+		System.out.println(list);
+//		}
+		map.put("list", list);
 		return sqlSession.selectList(namespace+"searchCate_ajax",map);
 	}
 
