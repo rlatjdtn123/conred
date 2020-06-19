@@ -17,6 +17,7 @@
 		<typeAlias type="com.hk.conred.dtos.ReplyDto" alias="ReplyDto"/>
 		<typeAlias type="com.hk.conred.dtos.QnaDto" alias="QnaDto"/>
 		<typeAlias type="com.hk.conred.dtos.LikeDto" alias="LikeDto"/>
+		<typeAlias type="com.hk.conred.dtos.RPhotoDto" alias="RPhotoDto"/>
 <!-- 		매장관련 -->
 		<typeAlias type="com.hk.conred.dtos.SDto" alias="SDto"/>
 		
@@ -48,6 +49,7 @@
     	<mapper resource="./sqls/ReplyMapper.xml"/>
     	<mapper resource="./sqls/QnaMapper.xml"/>
     	<mapper resource="./sqls/LikeMapper.xml"/>
+    	<mapper resource="./sqls/RPhotoMapper.xml"/>
 <!-- 		매장관련 -->
     	<mapper resource="./sqls/SMapper.xml"/>
     	

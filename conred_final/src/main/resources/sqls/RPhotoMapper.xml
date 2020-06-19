@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+  
+<mapper namespace="com.hk.conred.RPhoto">
+	<insert id="reviewPhotoInsert" parameterType="Map">
+		INSERT ALL
+		<foreach collection="list" item="item">
+			INTO CON_REPLY_PHOTO VALUES (GET_REPLY_PHOTO_SEQ,CON_REPLY_SEQ.CURRVAL,#{item.reply_photo_origin},
+			#{item.reply_photo_stored},#{item.reply_photo_size})
+		</foreach> 
+		SELECT *FROM DUAL
+	</insert>
+
+	
+	
+</mapper>
+	 

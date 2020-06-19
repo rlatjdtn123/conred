@@ -43,7 +43,7 @@ public class ReviewController {
 	
 	@RequestMapping(value = "review.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String review(Locale locale, Model model,int store_seq) {
-		logger.info("리뷰로 이동  {}.", locale);
+		logger.info("리뷰폼으로 이동  {}.", locale);
 		List<ReplyDto> list=replyService.replyListStoreDetail(store_seq, 1);
 		ReplyDto list_avg=replyService.replyAvgStore(store_seq); 
 		model.addAttribute("list", list); 

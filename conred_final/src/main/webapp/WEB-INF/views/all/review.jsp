@@ -69,16 +69,21 @@
       .tle_final{width: 700px;border-top: 1px solid grey;margin-left: 150px;margin-bottom: 200px;}
       .bigNumber{font-size: 25px;font-weight: bold;} 
       
-      
-      #preview img {width: 180px;height: 100px;overflow: hidden;}
-	#preview p {text-overflow: ellipsis;overflow: hidden;}
-	.preview-box {border: 0px solid grey;padding: 5px;border-radius: 2px;margin-bottom: 5px;margin-right:5px;
+/*       파일업로드 */
+	  #preview{ float: left; width: 870px;padding-left: 13px;min-height: 5px;}
+      #preview img {width: 135px;height: 80px;overflow: hidden;} 
+	  #preview p {text-overflow: ellipsis;overflow: hidden;}
+	  .preview-box {border: 0px solid grey;padding: 5px;border-radius: 2px;margin-bottom: 5px;margin-right:25px;
 				display: inline-block;
-    			border-radius: 5px;
+    			border-radius: 5px; 
     			border-right-width: 1px;
-    			border-bottom-width: 1px;}
-	.thumbnail{margin-bottom:0px;}
-       input[type=file] {display: none;}
+    			border-bottom-width: 1px; float: left;}
+	 .thumbnail{margin-bottom:0px; width: 135px;height: 80px;}
+     input[type=file] {display: none;}
+     .f_insert{background-color: #2E2EFE;font-weight: bold;color: white;}
+     .f_insert:hover{color: #BDBDBD;font-size: 15px;}
+	 #attach{width: 140px;margin-bottom: 10px;}
+	.user_review_img{width: 455px;height: 80px;margin-left: 205px;border: 1px solid red;}
 </style>   
 <script type="text/javascript">
 
@@ -130,7 +135,7 @@
 							+'									</td> '
 							+'								</tr>'
 						+	'							</table>'
-						+							'<div class="user_avg">'+ Math.round(((lists[i].reply_clean+lists[i].reply_price+lists[i].reply_service)/3)*10)/10 +'</div>'
+						+							'<div class="user_avg">'+ (Math.round(((lists[i].reply_clean+lists[i].reply_price+lists[i].reply_service)/3)*10)/10) +'</div>'
 						+	'						</div>'
 						+	'						<div class="user_review_img" ></div>     '
 						+	'						<div class="contents">'
@@ -181,7 +186,7 @@
 			  $("textarea").val("");
 			  $("input[type=radio]").prop("checked",false); 
 			  $("b").text("0"); 
-			 
+			  $("#preview").empty();
 		}); 
 		
 	    $(".modal_Btn").click(function(){
@@ -264,7 +269,7 @@
 		      if($this.find(":focus").length === 0){
 		        $this.removeClass("focus");
 		      }
-		    }, 100); 
+		    }, 100);  
 		  }) 
 		    .on("change", ".star-input03 :radio", function(){ 
 		    	$(this).parents(".star-input03").find("b").text($(this).val());
@@ -301,7 +306,6 @@
 			  var reply_service=$(".star-input01").find(":checked").val();
 			  var reply_price=$(".star-input02").find(":checked").val();
 		      var reply_clean=$(".star-input03").find(":checked").val();
-		      var addReview ="";
 		      
 		      if($("textarea").val().length<=100){
 				  alert("100자 이상 작성해주세요"); 
@@ -311,82 +315,107 @@
 		      if(reply_service==0||reply_service==null||reply_price==0||reply_price==null||reply_clean==0||reply_clean==null){
 		    	  alert("평점을 입력해주세요");
 		    	  return false;
-		      }  
-		      
-			  $.ajax({
-				  url:"store_review_ajax.do",
-				  method:"post",
-				  data:{"store_seq":store_seq,"reply_content":reply_content,"reply_service":reply_service,"reply_price":reply_price,"reply_clean":reply_clean},
-				  dataType:"json",
-				  success:function(obj){
-					   var lists=obj.list;			 	  
-					   $(".bigtle").empty();
-					   $.each(lists,function(i){
-							addReview+= 	'	<div class="mybox">     '     
-										+	'	<img src="./img/profile_default.png" class="pf"/>  '
-										+	'	<div class="info">        '
-										+	'		<button class="content_detail buttondle">자세히 보기</button><br> '
-										+	'		<span style="color:#919191;">닉네임: '+ lists[i].user_id +' </span><span style="float:right;color:#919191;">'+ lists[i].reply_regdate +' </span><br>'
-										+	'		<div class="star_table">'
-										+	'			<table class="star_score">'
-										+	'				<tr> '
-										+	'					<td>서비스</td>'
-	 									+	'					<td>'
-							 			+	'		            <td>'+ star_fill(lists[i].reply_service)+star_half(lists[i].reply_service)+star_empty(lists[i].reply_serivce) +'</td>         		'
-										+	'					</td> '
-										+	'				</tr>'
-										+	'				<tr>'
-										+	'					<td>가격</td>'
-										+	'					<td>'
-										+	'					<td>'+ star_fill(lists[i].reply_price)+star_half(lists[i].reply_price)+star_empty(lists[i].reply_price) +'</td>         		'
-										+	'					</td> '
-										+	'				</tr>'
-										+	'				<tr>'
-										+	'					<td>청결도</td>'
-										+	'					<td>'
-							+'									<td>'+ star_fill(lists[i].reply_clean)+star_half(lists[i].reply_clean)+star_empty(lists[i].reply_clean) +'</td>         		'
-							+'									</td> '
-							+'								</tr>'
-						+	'							</table>'
-						+							'<div class="user_avg">'+ Math.round(((lists[i].reply_clean+lists[i].reply_price+lists[i].reply_service)/3)*10)/10 +'</div>'
-						+	'						</div>'
-						+	'						<div class="user_review_img" ></div>     '
-						+	'						<div class="contents">'
-						+	'							<span style="font-weight: bold;">리뷰내용</span><br>'
-						+	'							<span>'+ lists[i].reply_content +'</span>'
-						+	'						</div> '
-						+	'					</div>   '
-						+	'					<div class="info2">     '
-						+	'						<span style="font-weight: bold;">매장답변</span><br> '
-						+'								<span>'+ (lists[i].reply_answer==null?"아직 답변이 없습니다.":lists[i].reply_answer) +'</span>			'							
-						+'						</div> '
-						+'					</div>   ';	
-						
-						});
-					   
-					    $(".bigtle").append(addReview);
-					  
-				  }
-				  
-			  }); 
-
-			   
+		      }  	   
 	      });  
-		   
+		  /////////////////////////
+		  
+///////////////파일업로드
+		    var fileTarget = $('.filebox .upload-hidden');
+			fileTarget.on('change', function(){
+				// 값이 변경되면
+				if(window.FileReader){ // modern browser
+					var filename = $(this)[0].files[0].name;
+				} else { // old IE
+					var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출 
+				} // 추출한 파일명 삽입
+				$(this).siblings('.upload-name').val(filename);
+			});
+		    
+		    
+			$('#attach input[type=file]').change(function() {
+				addPreview($(this)); //preview form 추가하기
+				$(".attach_count").text();
+			});
+		    
+	/////////-------------------파일업로드관련
+			
+		    //임의의 file object영역
+		    var files = {};
+		    var previewIndex = 0;
+
+		    // image preview 기능 구현
+		    // input = file object[]
+		    function addPreview(input) {
+		        if (input[0].files) {
+		            //파일 선택이 여러개였을 시의 대응
+		            for (var fileIndex = 0; fileIndex < input[0].files.length; fileIndex++) {
+		                var file = input[0].files[fileIndex];
+		                if(validation(file.name)) continue;
+		                setPreviewForm(file);
+		            }
+		        } else
+		            alert('invalid file input'); // 첨부클릭 후 취소시의 대응책은 세우지 않았다.
+		    }
+		    
+		    function setPreviewForm(file, img){
+		        var reader = new FileReader();
+		        
+		        //div id="preview" 내에 동적코드추가.
+		        //이 부분을 수정해서 이미지 링크 외 파일명, 사이즈 등의 부가설명을 할 수 있을 것이다.
+		        reader.onload = function(img) {
+		            var imgNum = previewIndex++;
+		            $("#preview").append(
+		                    "<div class=\"preview-box\" value=\"" + imgNum +"\">" +
+		                    "<img class=\"thumbnail\" src=\"" + img.target.result + "\"\/>" +
+		                    "<p class=\"f_name\">" + file.name + "</p>" +
+		                    "<a class=\"del_btn\" href=\"#a\" value=\"" + imgNum + "\" onclick=\"deletePreview(this)\">" +
+		                    "삭제" + "</a>"
+		                    + "</div>"
+		            );
+		            files[imgNum] = file;   
+		            $(".attach_count").text($(".preview-box").length+"/30");
+		        };
+		        
+		        reader.readAsDataURL(file);
+		    }
+
+		    //preview 영역에서 삭제 버튼 클릭시 해당 미리보기이미지 영역 삭제
+		    function deletePreview(obj) {
+		        var imgNum = obj.attributes['value'].value;
+		        delete files[imgNum];
+		        $(".attach_count").text($(".preview-box").length-1+"/30");
+		        $("#preview .preview-box[value=" + imgNum + "]").remove();
+//		         resizeHeight();
+		    }
+
+		    //client-side validation
+		    //always server-side validation required
+		    function validation(fileName) {
+		        fileName = fileName + "";
+		        var fileNameExtensionIndex = fileName.lastIndexOf('.') + 1;
+		        var fileNameExtension = fileName.toLowerCase().substring(
+		                fileNameExtensionIndex, fileName.length);
+		        if (!((fileNameExtension === 'jpg')
+		                || (fileNameExtension === 'gif') || (fileNameExtension === 'png'))) {
+		            alert('jpg, gif, png 확장자만 업로드 가능합니다.');
+		            return true;
+		        } else {
+		            return false;
+		        }
+		    }
+		    
+		    /////////-------------------
 		  
 		  
-	    });
+		  
+		  
+		  
+		  
+	    });//modal끝
+	    
+	    
+	    
 	});
-	
-	
-	
-	
-	
-	
-	///////////////파일업로드
-	
-	
- 
 	
 	
 	
@@ -427,8 +456,8 @@
 	ReplyDto list_avg=(ReplyDto)request.getAttribute("list_avg");
 %>
 <body>
+<form action="user_store_review.do" method="post" enctype="multipart/form-data">
 <input type="hidden" name="store_seq" value="<%=list.get(0).getStore_seq()%>"/>
-<form action="user_review_img.do" method="post" enctype="multipart/form-data">
 	<!-- 모탈창 부분 -->
 	<div class="modal fade" id="myModal" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
@@ -436,7 +465,8 @@
 	   		<div class="modal-content">
 	     		<div class="modal-header"> 
 	     			<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-	       			<button type="button" class="close" data-dismiss="modal">리뷰 작성 완료</button>
+	     			<button type="submit"  >리뷰 작성 완료</button>
+	       			
 	       			<h4 class="modal-title">가게이름</h4>
 	     		</div>
 	     		<div class="modal-body"> 
@@ -496,29 +526,28 @@
 	     		  
 	     		<div class="modal-footer">  
 					<div class="inputbox">
-					<div class="inputs">
-					<!-- 파일업로드 관련 -->
-					    <div class="wrapper">
-					        <div class="body">
-					            <!-- 첨부 버튼 -->
-					            <div id="attach">
-					                <label class="btn f_insert" for="uploadInputBox">사진 첨부하기</label>
-					                <input id="uploadInputBox" style="display: none" type="file" name="photos" multiple="multiple" />
-					            </div>
-					            <!-- 미리보기 영역 -->
-					            <div id="preview" class="content"></div>
-					            
-					            <!-- multipart 업로드시 영역 -->
-<!-- 					            <form id="uploadForm" style="display: none;" /> -->
-					        </div>
-					        <div class="footer">
-<!-- 					            <button class="submit"><a href="#" title="등록" class="btnlink">등록</a></button> -->
-					        </div>
-					    </div>
-
+						<div class="inputs">
+						<!-- 파일업로드 관련 -->
+						    <div class="wrapper">
+						        <div class="body">
+						            <!-- 미리보기 영역 -->
+						            <div id="preview" class="content"></div>
+						            <!-- 첨부 버튼 -->
+						            <div id="attach">
+						                <label class="btn f_insert" for="uploadInputBox">사진 첨부하기</label>
+						                <input id="uploadInputBox" style="display: none" type="file" name="photos" multiple="multiple" />
+						            </div>
+						            
+						            <!-- multipart 업로드시 영역 -->
+	<!-- 					            <form id="uploadForm" style="display: none;" /> -->
+						        </div>
+						        <div class="footer">
+	<!-- 					            <button class="submit"><a href="#" title="등록" class="btnlink">등록</a></button> -->
+						        </div>
+						    </div>
 						</div>
 					</div>
-	       			<textarea rows="20" cols="120" style="resize: none;" placeholder="리뷰 작성 해주세요."></textarea>
+	       			<textarea rows="20" cols="120" name="reply_content " style="resize: none;" placeholder="리뷰 작성 해주세요."></textarea>
 	     		</div>
 	   		</div>  
 		</div> 
@@ -696,6 +725,9 @@
 					</table>   
 					<div class="user_avg"><%=Math.round(((dto.getReply_clean()+dto.getReply_price()+dto.getReply_service())/3)*10d)/10d%></div>
 				</div>  
+				<div class="user_review_img">
+					
+				</div>
 				<div class="contents">
 					<span style="font-weight: bold;">리뷰내용</span><br>
 					<span><%=dto.getReply_content()%></span>

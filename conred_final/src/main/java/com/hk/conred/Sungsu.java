@@ -1,15 +1,20 @@
 package com.hk.conred;
 
 import java.awt.geom.Arc2D.Double;
+import java.io.File;
+import java.io.IOException;
 import java.rmi.server.RemoteServer;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -22,12 +27,16 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.hk.conred.dtos.InterestsDto;
 import com.hk.conred.dtos.LikeDto;
 import com.hk.conred.dtos.MenuDto;
 import com.hk.conred.dtos.QnaDto;
+import com.hk.conred.dtos.RPhotoDto;
 import com.hk.conred.dtos.ReplyDto;
 import com.hk.conred.dtos.ReserveDto;
 import com.hk.conred.dtos.UDto;
@@ -35,6 +44,7 @@ import com.hk.conred.service.ILikeService;
 import com.hk.conred.service.IMenuService;
 import com.hk.conred.service.IOService;
 import com.hk.conred.service.IQnaService;
+import com.hk.conred.service.IRPhotoService;
 import com.hk.conred.service.IReplyService;
 import com.hk.conred.service.IReserveService;
 import com.hk.conred.service.IUService;
@@ -85,6 +95,9 @@ public class Sungsu {
 	
 	@Autowired
 	private IMenuService menuService;
+	
+	@Autowired
+	private IRPhotoService rPhotoService;
 	
 	
 	
@@ -592,37 +605,111 @@ public class Sungsu {
 	}
 	
 	
-	@ResponseBody
-	@RequestMapping(value = "store_review_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public Map<String, Object> store_review_ajax(Locale locale, Model model,int store_seq,String reply_content,double reply_service,double reply_price,double reply_clean ,HttpServletRequest request) {
-		logger.info("매장 리뷰 ajax {}.", locale);
-		Map<String, Object> map=new HashMap<>();
+//	@ResponseBody
+//	@RequestMapping(value = "store_review_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
+//	public Map<String, Object> store_review_ajax(Locale locale, Model model,int store_seq,String reply_content,double reply_service,double reply_price,double reply_clean ,HttpServletRequest request) {
+//		logger.info("매장 리뷰 ajax {}.", locale);
+//		Map<String, Object> map=new HashMap<>();
+//		HttpSession session=request.getSession();
+//		UDto uldto=(UDto)session.getAttribute("uldto");
+//		List<ReplyDto> list=replyService.replyListStoreDetail(store_seq, 1);
+//		map.put("list", list);
+//		boolean isS=replyService.userInsertReview(uldto.getUser_id(),store_seq,reply_content,reply_service,reply_price,reply_clean);
+//		if(isS) {
+//			return map;  
+//		}else { 
+//			return null;			
+//		}	
+//	}
+	
+	
+	@RequestMapping(value = "user_store_review.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String user_review_img(Locale locale, Model model,HttpServletRequest request,int store_seq,String reply_content,
+			@RequestParam("star-input01") double reply_service,@RequestParam("star-input02") double reply_price,@RequestParam("star-input03") double reply_clean ) {
+		logger.info("유저 매장 리뷰,사진등록 {}.", locale);
+		System.out.println("@@@@@@@@@@store_seq::"+store_seq);
+		System.out.println("@@@@@@@@@@reply_content::"+reply_content);
+		System.out.println("@@@@@@@@@@reply_service::"+reply_service);
+		System.out.println("@@@@@@@@@@reply_price::"+reply_price);
+		System.out.println("@@@@@@@@@@reply_clean::"+reply_clean);
+		MultipartHttpServletRequest multi=(MultipartHttpServletRequest)request;
+		List<MultipartFile> fileList=multi.getFiles("photos");
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
-		System.out.println(uldto.getUser_id());
-		System.out.println(store_seq);
-		System.out.println(reply_content);
-		System.out.println(reply_service);
-		System.out.println(reply_price);
-		System.out.println(reply_clean); 
+
 		List<ReplyDto> list=replyService.replyListStoreDetail(store_seq, 1);
-		map.put("list", list);
-		boolean isS=replyService.userInsertReview(uldto.getUser_id(),store_seq,reply_content,reply_service,reply_price,reply_clean);
-		if(isS) {
-			return map;  
+		ReplyDto list_avg=replyService.replyAvgStore(store_seq);
+		System.out.println("fileList:"+fileList.size());
+		//리뷰사진 안넣을때
+		if(fileList.get(0).getOriginalFilename()=="") {
+			replyService.userInsertReview(uldto.getUser_id(), store_seq, reply_content, reply_service, reply_clean, reply_price); 
+			list=replyService.replyListStoreDetail(store_seq, 1);
+			list_avg=replyService.replyAvgStore(store_seq);
+			model.addAttribute("list", list); 
+			model.addAttribute("list_avg", list_avg); 	
+			return "all/review";
+			
+		//리뷰사진 넣을때	
 		}else { 
-			return null;			
+			replyService.userInsertReview(uldto.getUser_id(), store_seq, reply_content, reply_service, reply_clean, reply_price);
+			
+			List<RPhotoDto> rPhoto_list=new ArrayList<>();
+			
+			for (int i = 0; i < fileList.size(); i++) {
+				RPhotoDto dto=new RPhotoDto();
+				
+				//originName
+				String originName=fileList.get(i).getOriginalFilename();
+				//storedName
+				String createUUID=UUID.randomUUID().toString().replace("-", "");
+				String storedName=createUUID+originName.substring(originName.indexOf("."));
+				//fileSize
+				double fileSize=fileList.get(i).getSize();
+				
+				//path
+				String path=request.getSession().getServletContext().getRealPath("upload_rphoto/");
+				System.out.println("@@@@@@@@사진경로::"+path);
+				File file=new File(path+storedName);
+				
+				//////////////////
+				dto.setReply_photo_origin(originName);
+				dto.setReply_photo_stored(storedName);
+				dto.setReply_photo_size(fileSize);
+				rPhoto_list.add(dto);
+				
+				try {
+					System.out.println("파일업로드 시작!!");
+					fileList.get(i).transferTo(file);
+					System.out.println("파일업로드 성공");
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+			}
+			
+			rPhotoService.reviewPhotoInsert(rPhoto_list);
+			list=replyService.replyListStoreDetail(store_seq, 1);
+			list_avg=replyService.replyAvgStore(store_seq);
+			model.addAttribute("list", list); 
+			model.addAttribute("list_avg", list_avg); 	
+			return "all/review";
+			 
 		}
 		
 	}
 	
 	
-	@RequestMapping(value = "user_review_img.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_review_img(Locale locale, Model model) {
-		logger.info("유저 리뷰사진등록 {}.", locale);
-		
-		return "redirect:index.jsp";
-	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 } 
