@@ -103,7 +103,6 @@ public class MapController {
 		return "all/map"; 
 	}
 	
-	
 	//ajax - 키워드검색 : 지역검색성공시 실행될 카테고리전체검색
 	//지금 얘는 사용안함. 추후에 사용할일 있을지몰라 지우진않음.
 	//map_category.do 를 ajax화시킨것 뿐 

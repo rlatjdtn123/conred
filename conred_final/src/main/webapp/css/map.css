@@ -13,6 +13,8 @@
     border-right-width:0px; background-color: rgba( 255, 255, 255, 1 ); top:101px; cursor: pointer; border-radius: 20px 0px 0px 20px; z-index:50;}
 	.righthider:hover{border:1px solid black;border-right-width:0px;border-top-width:0px;}
 
+	.subinfo{font-size:12px;color: grey;}
+
 /* 	.arrow_next{margin-top:42px;margin-left: 13px;background: url("../img/next.png");} */
 	.arrow_down{margin:0 auto;margin-top:5px;background: url("../img/down.png");background-size: contain; width: 25px;height: 25px;}
 	.arrow_up{margin:0 auto;margin-top:5px;background: url("../img/up.png");background-size: contain; width: 25px;height: 25px;}
