@@ -67,6 +67,11 @@ public class RPhotoServiceImp implements IRPhotoService{
 		return rPhotoDao.reviewPhotoInsert(list);
 	}
 
+	@Override
+	public List<RPhotoDto> reviewPhotoList(int store_seq) {
+		return rPhotoDao.reviewPhotoList(store_seq);
+	}
+
 	
 
 }

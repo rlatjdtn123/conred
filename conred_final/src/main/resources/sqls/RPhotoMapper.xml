@@ -14,7 +14,11 @@
 		SELECT *FROM DUAL
 	</insert>
 
-	
+	<select id="reviewPhotoList" parameterType="Int" resultType="RPhotoDto">
+		SELECT crp.REPLY_PHOTO_STORED ,crp.REPLY_SEQ 
+		FROM CON_REPLY_PHOTO crp,con_reply cr 
+		WHERE crp.REPLY_SEQ =cr.REPLY_SEQ AND cr.STORE_SEQ =#{store_seq}
+	</select>
 	
 </mapper>
-	 
+	  

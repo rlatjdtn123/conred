@@ -639,14 +639,17 @@ public class Sungsu {
 
 		List<ReplyDto> list=replyService.replyListStoreDetail(store_seq, 1);
 		ReplyDto list_avg=replyService.replyAvgStore(store_seq);
+		List<RPhotoDto> list_photo=rPhotoService.reviewPhotoList(store_seq);
 		System.out.println("fileList:"+fileList.size());
 		//리뷰사진 안넣을때
 		if(fileList.get(0).getOriginalFilename()=="") {
 			replyService.userInsertReview(uldto.getUser_id(), store_seq, reply_content, reply_service, reply_clean, reply_price); 
 			list=replyService.replyListStoreDetail(store_seq, 1);
 			list_avg=replyService.replyAvgStore(store_seq);
+			list_photo=rPhotoService.reviewPhotoList(store_seq);
 			model.addAttribute("list", list); 
 			model.addAttribute("list_avg", list_avg); 	
+			model.addAttribute("list_photo", list_photo); 	
 			return "all/review";
 			
 		//리뷰사진 넣을때	
@@ -675,7 +678,7 @@ public class Sungsu {
 				dto.setReply_photo_origin(originName);
 				dto.setReply_photo_stored(storedName);
 				dto.setReply_photo_size(fileSize);
-				rPhoto_list.add(dto);
+				rPhoto_list.add(dto); 
 				
 				try {
 					System.out.println("파일업로드 시작!!");
@@ -692,8 +695,10 @@ public class Sungsu {
 			rPhotoService.reviewPhotoInsert(rPhoto_list);
 			list=replyService.replyListStoreDetail(store_seq, 1);
 			list_avg=replyService.replyAvgStore(store_seq);
+			list_photo=rPhotoService.reviewPhotoList(store_seq);
 			model.addAttribute("list", list); 
 			model.addAttribute("list_avg", list_avg); 	
+			model.addAttribute("list_photo", list_photo); 
 			return "all/review";
 			 
 		}

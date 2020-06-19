@@ -1,3 +1,4 @@
+<%@page import="com.hk.conred.dtos.RPhotoDto"%>
 <%@page import="com.hk.conred.dtos.SDto"%>
 <%@page import="com.hk.conred.dtos.ReplyDto"%>
 <%@page import="java.util.List"%>
@@ -84,6 +85,8 @@
      .f_insert:hover{color: #BDBDBD;font-size: 15px;}
 	 #attach{width: 140px;margin-bottom: 10px;}
 	.user_review_img{width: 455px;height: 80px;margin-left: 205px;border: 1px solid red;}
+	
+	
 </style>   
 <script type="text/javascript">
 
@@ -91,6 +94,11 @@
 	//////////////스크롤 페이징
 	var count = 1;
 	$(function(){
+		var aa=$("input[name=zz]").val();
+		$(".asdasd").css({"width":"300px","height":"300px","border":"1px solid red","background":"url(upload_rphoto/"+aa+")"});
+		
+		
+		
 		var store_seq=$("input[name=store_seq]").val();
 		//스크롤 바닥 감지 
 		window.onscroll = function(e) {
@@ -454,6 +462,7 @@
 <% 
 	List<ReplyDto> list=(List<ReplyDto>)request.getAttribute("list");
 	ReplyDto list_avg=(ReplyDto)request.getAttribute("list_avg");
+	List<RPhotoDto> list_photo=(List<RPhotoDto>)request.getAttribute("list_photo");
 %>
 <body>
 <form action="user_store_review.do" method="post" enctype="multipart/form-data">
@@ -554,8 +563,9 @@
 	</div>
 </form>
 
-
+<input type="hidden" name="zz" value="<%=list_photo.get(0).getReply_photo_stored()%>"/>
 <div id="container"> 
+	<div class="asdasd"></div> 
 	<div id="main">
 		<span id="main2">리뷰&nbsp;<%for(int i=0;i<Math.floor(list_avg.getAll_avg());i++){
 				%>

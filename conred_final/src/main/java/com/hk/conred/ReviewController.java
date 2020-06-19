@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hk.conred.dtos.RPhotoDto;
 import com.hk.conred.dtos.ReplyDto;
 import com.hk.conred.dtos.SDto;
+import com.hk.conred.service.IRPhotoService;
 import com.hk.conred.service.IReplyService;
 import com.hk.conred.service.ISService;
 
@@ -29,7 +31,8 @@ public class ReviewController {
 	
 	@Autowired
 	private IReplyService replyService;
-	
+	@Autowired
+	private IRPhotoService rPhotoService;
 
 	
 	
@@ -46,9 +49,11 @@ public class ReviewController {
 		logger.info("리뷰폼으로 이동  {}.", locale);
 		List<ReplyDto> list=replyService.replyListStoreDetail(store_seq, 1);
 		ReplyDto list_avg=replyService.replyAvgStore(store_seq); 
+		List<RPhotoDto> list_photo=rPhotoService.reviewPhotoList(store_seq);
 		model.addAttribute("list", list); 
 		model.addAttribute("list_avg", list_avg); 	
-		return "all/review"; 
+		model.addAttribute("list_photo", list_photo); 	
+		return "all/review";  
 	}
 	
 	@ResponseBody

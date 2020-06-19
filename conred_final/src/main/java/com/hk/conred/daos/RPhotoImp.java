@@ -1,5 +1,7 @@
 package com.hk.conred.daos;
 
+
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +29,14 @@ public class RPhotoImp implements IRPhotoDao{
 		count=sqlSession.insert(nameSpace+"reviewPhotoInsert", map);
 		
 		return count>0?true:false;
+	}
+
+
+	@Override
+	public List<RPhotoDto> reviewPhotoList(int store_seq) {
+		List<RPhotoDto> list=null;
+		list=sqlSession.selectList(nameSpace+"reviewPhotoList", store_seq);
+		return list;
 	}
 
 }
