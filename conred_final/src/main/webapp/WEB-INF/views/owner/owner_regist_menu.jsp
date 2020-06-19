@@ -345,7 +345,7 @@
     </div>
   </div>
 </div>
-	<form id="testform" action="owner_regist_finish.do" method="post">
+	<form id="testform" action="owner_insert_menu.do" method="post">
 		<div id="tle">
 			<div id="regist" class="testmod">
 				서비스/메뉴 정보 입력

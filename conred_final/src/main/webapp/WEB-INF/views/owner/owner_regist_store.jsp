@@ -348,13 +348,6 @@
 <div class="modal fade" id="layerpop" >
   <div class="modal-dialog">
     <div class="modal-content">
-<!--       header -->
-<!--       <div class="modal-header"> -->
-<!--         닫기(x) 버튼 -->
-<!--         <button type="button" class="close" data-dismiss="modal">×</button> -->
-<!--         header title -->
-<!--         <h4 class="modal-title">Header</h4> -->
-<!--       </div> -->
 <!--       body -->
       <div class="modal-body">
        	<div id="search" action="">
@@ -390,10 +383,6 @@
 						
 					// 주소로 좌표를 검색합니다
 					geocoder.addressSearch(search_val, function(result, status) {
-		// 			geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
-		
-// 					        var coords = new kakao.maps.LatLng(37.526944462562646, 126.88344188869179);
-					    // 정상적으로 검색이 완료됐으면 
 					     if (status === kakao.maps.services.Status.OK) {
 
 					        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
@@ -423,11 +412,6 @@
 				map.relayout();
 			});	
 			
-			 // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
-	 		// 마커를 생성합니다
-// 			var marker1 = new kakao.maps.Marker({
-// 			    position: markerPosition
-// 			});
 			
 			// 주소-좌표 변환 객체를 생성합니다
 		 	var geocoder = new kakao.maps.services.Geocoder();
@@ -467,9 +451,6 @@
 		    });
 			
 			</script>
-<!--         <button type="button" class="btn" data-dismiss="modal">시간예약제</button> -->
-<!--         <button type="button" class="btn" data-dismiss="modal">숙박예약제</button> -->
-<!--         <button type="button" class="btn" data-dismiss="modal">설정안함제</button> -->
       </div>
 <!--       Footer -->
       <div class="modal-footer">
@@ -482,7 +463,7 @@
     </div>
   </div>
 </div>
-	<form action="owner_regist_menu.do" method="post" enctype="multipart/form-data">
+	<form action="owner_insert_store.do" method="post" enctype="multipart/form-data">
 		<div id="tle">
 			<div id="regist" class="testmod">
 				매장 정보 입력

@@ -205,7 +205,7 @@ public class Yoonho {
 	
 	@RequestMapping(value = "owner_regist_certify.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String owner_regist_certify(Locale locale, Model model) {
-		logger.info("점주: 매장등록(사업자정보 입력)으로 이동  {}.", locale);
+		logger.info("점주: 매장등록1-1(사업자정보 입력 폼)으로 이동  {}.", locale);
 		
 		return "owner/owner_regist_certify"; 
 	}
@@ -252,9 +252,9 @@ public class Yoonho {
 //	}
 //	
 
-	@RequestMapping(value = "owner_regist_store.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String owner_regist_store(Locale locale, Model model, SDto sdto, HttpServletRequest request) {
-		logger.info("점주: 매장등록(매장정보 입력)으로 이동  {}.", locale);
+	@RequestMapping(value = "owner_insert_certify.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String owner_insert_certify(Locale locale, Model model, SDto sdto, HttpServletRequest request) {
+		logger.info("점주: 매장등록1-2(사업자정보 입력)  {}.", locale);
 
 		HttpSession session=request.getSession();
 		ODto odto= (ODto)session.getAttribute("oldto");
@@ -281,16 +281,23 @@ public class Yoonho {
 //		boolean isS=false;//임시 false: 사진업로드 test중 
 		if(isS) {
 			System.out.println("매장생성 + 사업자정보등록 :성공");
-			return "owner/owner_regist_store";
+//			return "owner/owner_regist_store";
+			return "redirect:owner_regist_store.do";
+//			http://localhost:8090/conred/egist_store.jsp
 		}else{
 			System.out.println("매장생성 + 사업자정보등록 :실패");
 			return ""; 
 		}	
 	}
 	
-	@RequestMapping(value = "owner_regist_menu.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String owner_regist_menu(Locale locale, Model model,SDto sdto, STimeDto stimedto,String [] store_photo_title, SLocaDto slocadto, HttpServletRequest request) {
-		logger.info("점주: 매장등록 (메뉴정보 입력)으로 이동  {}.", locale);
+	@RequestMapping(value = "owner_regist_store.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String owner_regist_store(Locale locale, Model model,SDto sdto, STimeDto stimedto,String [] store_photo_title, SLocaDto slocadto, HttpServletRequest request) {
+		logger.info("점주: 매장등록2-1 (상세정보, 사진, 주소, 영업시간 입력 폼)으로 이동  {}.", locale);
+		return "owner/owner_regist_store";
+	}
+	@RequestMapping(value = "owner_insert_store.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String owner_insert_store(Locale locale, Model model,SDto sdto, STimeDto stimedto,String [] store_photo_title, SLocaDto slocadto, HttpServletRequest request) {
+		logger.info("점주: 매장등록2-2 (상세정보, 사진, 주소, 영업시간 입력) {}.", locale);
 		
 		//세션에서 id정보 가져오기(store_seq구하기용)
 		HttpSession session=request.getSession();
@@ -340,16 +347,23 @@ public class Yoonho {
 		boolean isS=sService.updateStoreInfo(sdto,time_day,time_open,time_close,time_break,store_photo_title,slocadto,request);
 		if(isS) {
 			System.out.println("매장정보 업데이트성공~");
-			return "owner/owner_regist_menu";
+//			return "owner/owner_regist_menu";
+			return "redirect:owner_regist_menu.do";
 		}else{
 			System.out.println("매장정보 업데이트실패~");
 			return ""; 
 		}	
 	}
 	
-	@RequestMapping(value = "owner_regist_finish.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String owner_regist_finish(Locale locale, Model model,String[] category_code_2, SDto sdto, CMainDto cmaindto, CListDto clistdto, MenuDto menudto, HttpServletRequest request/*,String store_maxdate*/) {
-		logger.info("점주: 매장등록 신청완료 로 이동  {}.", locale);
+	@RequestMapping(value = "owner_regist_menu.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String owner_regist_menu(Locale locale, Model model,String[] category_code_2, SDto sdto, CMainDto cmaindto, CListDto clistdto, MenuDto menudto, HttpServletRequest request/*,String store_maxdate*/) {
+		logger.info("점주: 매장등록3-1 (카테고리, 메뉴 입력 폼)으로 이동 {}.", locale);
+		return "owner/owner_regist_menu";
+	}
+	
+	@RequestMapping(value = "owner_insert_menu.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String owner_insert_menu(Locale locale, Model model,String[] category_code_2, SDto sdto, CMainDto cmaindto, CListDto clistdto, MenuDto menudto, HttpServletRequest request/*,String store_maxdate*/) {
+		logger.info("점주: 매장등록3-2 (카테고리, 메뉴 입력)+(입점신청) {}.", locale);
 		
 		//세션에서 id정보 가져오기(store_seq구하기용)
 		HttpSession session = request.getSession();
@@ -397,15 +411,22 @@ public class Yoonho {
 		boolean isS=sService.updateStoreMenu(sdto,cmaindto,clist,category_code_2,name,content,price,state);
 		if(isS) {
 			System.out.println("메뉴정보 업데이트성공~");
-			seq =sService.selectStoreSeq(odto);
-			session.setAttribute("sdto", seq);
-			return "owner/owner_regist_finish"; 
+//			seq =sService.selectStoreSeq(odto);
+//			session.setAttribute("sdto", seq);
+//			return "owner/owner_regist_finish"; 
+			return "redirect:owner_regist_finish.do"; 
 		}else{
 			System.out.println("메뉴정보 업데이트실패~");
 			return ""; 
 		}	
 	}
 	
+	@RequestMapping(value = "owner_regist_finish.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String owner_regist_finish(Locale locale, Model model, HttpServletRequest request) {
+		logger.info("입점신청 완료 페이지로 이동  {}.", locale);
+		return "owner/owner_regist_finish";
+	}
+
 	@RequestMapping(value = "store.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String store(Locale locale, Model model,int store_seq, HttpServletRequest request) {
 		logger.info("(일렬번호 : "+store_seq+")번 매장(사용자별 매장)으로 이동  {}.", locale);

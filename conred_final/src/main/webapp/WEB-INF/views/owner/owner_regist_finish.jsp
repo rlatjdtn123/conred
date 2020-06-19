@@ -15,6 +15,7 @@
 <div id="container">
 <br>
 <h1>점주 회원가입완료!</h1>
+<button onclick="location.href='login.do'">로그인하러가긔</button>
 </div>
 </body>
 </html>
