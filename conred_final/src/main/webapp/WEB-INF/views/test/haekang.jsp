@@ -9,7 +9,7 @@
 </head>
 <body>
 <h1>푸터 페이지</h1>
-<a href="test_index.do">테스트 메인페이지</a>
+<a href="test_index.do?paging=1">테스트 메인페이지</a>
 </body>
 <footer> 
 	<div id="main1"> 

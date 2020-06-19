@@ -11,6 +11,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="js/jquery-3.4.1.js"></script>
 <script type="text/javascript">
 	function allSel(bool) {
 		var chks = document.getElementsByName("owner_ids");
@@ -30,7 +31,7 @@
 				alert("최소하나이상 선택해야 됩니다!");
 				bool = false;
 			}else {
-				if(confirm("정말 삭제 하시겠습니까?")){
+				if(confirm("정말 변경 하시겠습니까?")){
 					return bool;
 				}else{
 					bool = false;
@@ -123,7 +124,7 @@ List<ODto>list=(List<ODto>)request.getAttribute("list");
 				}
 			%>	
 		</table>
-			<button type="submit" formaction="adminMuldelOwner.do" >삭제</button>
+			<button type="submit" formaction="adminMuldelOwner.do" >탈퇴처리</button>
 		</form>
 	</div>
  </body>
