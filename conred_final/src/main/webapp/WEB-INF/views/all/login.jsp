@@ -55,7 +55,7 @@
 					<input type="password" name="user_password" required="required" placeholder="비밀번호를 입력해주세요" class="tx"/><br/>
 					<input type="submit" value="로그인" class="bt"/><br/>
 					<input type="button" value="회원가입" onclick="location.href='user_regist.do'" class="bt"/><br/>
-					<input type="button" class="nv"/> 
+					<input type="button" class="nv" id="naver_id_login" onclick="location.href='${url}'"/>
 				</div>  
 			</div>
 		</form>
@@ -67,7 +67,11 @@
 					<input type="password" name="owner_password" required="required" class="tx" placeholder="비밀번호를 입력해주세요"/><br/>
 					<input type="submit" value="로그인" class="bt"/><br/>
 					<input type="button" value="회원가입" onclick="location.href='owner_regist.do'" class="bt"/><br/>
-					<input type="button" class="nv"/>
+					<input type="button" class="nv" id="naver_id_login" onclick="location.href='${url}'"/>
+					
+<%-- 					<div id="naver_id_login" style="text-align:center"><a href="${url}"> --%>
+<!-- 					<img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a></div> -->
+					
 				</div>
 			</div>
 		</form>
