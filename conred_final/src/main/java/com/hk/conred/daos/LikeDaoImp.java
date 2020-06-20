@@ -27,4 +27,17 @@ public class LikeDaoImp implements ILikeDao{
 		return list;
 	}
 
+	@Override
+	public boolean userLikeDelete(int like_list_seq) {
+		int count=0;
+		count=sqlSession.delete(nameSpace+"userLikeDelete", like_list_seq);
+		return count>0?true:false;
+	}
+
+	@Override
+	public List<LikeDto> likeStoreImg(String user_id) {
+		List<LikeDto> list=sqlSession.selectList(nameSpace+"likeStoreImg", user_id);
+		return list;
+	}
+
 }

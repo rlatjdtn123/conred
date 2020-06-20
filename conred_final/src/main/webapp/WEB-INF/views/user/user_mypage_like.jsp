@@ -159,7 +159,7 @@
 										 +		'<span>'+ lists[i].store_intro_simple +' </span><br><br>'
 										 	+'</div> '	   
 									 +		'<div style="margin-left: 630px; margin-top: 40px;">'
-										+ 		'<button type="button" class="btn_like">'
+										+ 		'<button type="button" class="btn_like btn_unlike">'
 												+	'<span class="img_emoti">좋아요</span>'
 												+	'<span class="ani_heart_m"></span>  '	
 										+        '</button>'
@@ -171,17 +171,19 @@
 					//AJAX쪽 찜버튼
 					$(function(){
 						$('button').click(function(){
-							  if($(this).hasClass('btn_unlike')){
-							    $(this).removeClass('btn_unlike');
-							    $(this).parent().find('.ani_heart_m').removeClass('hi');
-							    $(this).parent().find('.ani_heart_m').addClass('bye');
-							  }
-							  else{  
-							    $(this).addClass('btn_unlike');
-							    $(this).parent().find('.ani_heart_m').addClass('hi');
-							    $(this).parent().find('.ani_heart_m').removeClass('bye');
-							  }
-							});
+							var result=confirm("좋아요를 취소하시겠습니까?");
+							if(result){
+								  if($(this).hasClass('btn_unlike')){
+								    $(this).removeClass('btn_unlike');
+								    $(this).parent().find('.ani_heart_m').removeClass('hi');
+								    $(this).parent().find('.ani_heart_m').addClass('bye');
+								    var seq=$(this).parent().find("input[name=like_list_seq]").val();
+								    location.href="user_like_delete.do?like_list_seq="+seq;
+								  }			 			
+							}else{
+								
+							}
+						});
 					});
 				/////////////////////////////////////////////////////////////////////
 						}); 
@@ -193,19 +195,36 @@
 	        }
 		};
 		
+// 		function unLike(like_list_seq){
+// 			var result=confirm("좋아요를 취소하시겠습니까?");
+// 			alert($(this).val());
+// 			if(result){
+// 			    $(this).removeClass('btn_unlike');
+// 			    $(this).parent().find('.ani_heart_m').removeClass('hi');
+// 			    $(this).parent().find('.ani_heart_m').addClass('bye');
+// 			    var seq=$(this).parent().find("input[name=like_list_seq]").val();
+// 			    location.href="user_like_delete.do?like_list_seq="+seq;
+// 			}else{
+				
+// 			}
+// 		}
+		
 		//찜버튼
-		$(function(){
+		$(function(){		
 			$('button').click(function(){
-				  if($(this).hasClass('btn_unlike')){
-				    $(this).removeClass('btn_unlike');
-				    $(this).parent().find('.ani_heart_m').removeClass('hi');
-				    $(this).parent().find('.ani_heart_m').addClass('bye');
-				  }
-				  else{  
-				    $(this).addClass('btn_unlike');
-				    $(this).parent().find('.ani_heart_m').addClass('hi');
-				    $(this).parent().find('.ani_heart_m').removeClass('bye');
-				  }
+					var result=confirm("좋아요를 취소하시겠습니까?");
+					if(result){
+						  if($(this).hasClass('btn_unlike')){
+						    $(this).removeClass('btn_unlike');
+						    $(this).parent().find('.ani_heart_m').removeClass('hi');
+						    $(this).parent().find('.ani_heart_m').addClass('bye');
+						    var seq=$(this).parent().find("input[name=like_list_seq]").val();
+						    location.href="user_like_delete.do?like_list_seq="+seq;
+						  }			 			
+					}else{
+						
+					}
+					
 				});
 		});
 		
@@ -214,6 +233,7 @@
 </head>
 <% 
 	List<LikeDto> list=(List<LikeDto>)request.getAttribute("list");
+	List<LikeDto> list_store_img=(List<LikeDto>)request.getAttribute("list_store_img");
 %>
 <body>
 <div id="container">
@@ -225,7 +245,7 @@
 			<div class="navis2 home" onclick="location.href='user_mypage_like.do'">
 				좋아요
 			</div>
-			<div class="navis2" onclick="location.href='user_mypage_reservation.do'">
+			<div class="navis2" onclick="location.href='user_mypage_reserve.do'">
 				내 예약
 			</div>
 			<div class="navis2" onclick="location.href='user_mypage_review.do'">
@@ -245,18 +265,27 @@
 		<div class="bigtle">
 			<div class="mybox">
 				<div class="store_img"> 
-			 		<p>매장사진들어갈곳</p>
+					<%
+					for(int i=0;i<list_store_img.size();i++){
+						if(dto.getLike_list_seq()==list_store_img.get(i).getLike_list_seq()){
+						%>
+					 		<div><%=list_store_img.get(i).getStore_photo_stored()%></div>							
+						<%
+						}						
+					}
+					%>
 			 		<p>+매장명(<%=dto.getStore_name()%>)</p> 
 			 	</div> 
 			 	<div class="like_info">
-			 		<span>주소 : 서울 영등포  </span><br><br>
+			 		<span>주소 : <%=dto.getStore_address()%>  </span><br><br>
 			 		<span> <%=dto.getStore_intro_simple()%> </span><br><br>
 		 		</div>
 		 		<div style="margin-left: 630px; margin-top: 40px;">
-			 		<button type="button" class="btn_like">
+			 		<button type="button" class="btn_like btn_unlike" >
 						<span class="img_emoti">좋아요</span>
 						<span class="ani_heart_m" ></span>  
 					</button>
+					<input type="hidden" name="like_list_seq" value="<%=dto.getLike_list_seq()%>"/>
 		 		</div> 
 		 	</div> 	     
 		</div>  

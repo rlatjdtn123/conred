@@ -8,12 +8,13 @@ public class RPhotoDto {
 	private String reply_photo_stored;
 	private double reply_photo_size;
 	private int store_seq;
+	private String user_id;
 	
 	public RPhotoDto() {
 	}
 
 	public RPhotoDto(int reply_photo_seq, int reply_seq, String reply_photo_origin, String reply_photo_stored,
-			double reply_photo_size, int store_seq) {
+			double reply_photo_size, int store_seq, String user_id) {
 		super();
 		this.reply_photo_seq = reply_photo_seq;
 		this.reply_seq = reply_seq;
@@ -21,6 +22,7 @@ public class RPhotoDto {
 		this.reply_photo_stored = reply_photo_stored;
 		this.reply_photo_size = reply_photo_size;
 		this.store_seq = store_seq;
+		this.user_id = user_id;
 	}
 
 	public int getReply_photo_seq() {
@@ -71,12 +73,22 @@ public class RPhotoDto {
 		this.store_seq = store_seq;
 	}
 
+	public String getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
+
 	@Override
 	public String toString() {
 		return "RPhotoDto [reply_photo_seq=" + reply_photo_seq + ", reply_seq=" + reply_seq + ", reply_photo_origin="
 				+ reply_photo_origin + ", reply_photo_stored=" + reply_photo_stored + ", reply_photo_size="
-				+ reply_photo_size + ", store_seq=" + store_seq + "]";
+				+ reply_photo_size + ", store_seq=" + store_seq + ", user_id=" + user_id + "]";
 	}
+
+	
 	
 	
 	

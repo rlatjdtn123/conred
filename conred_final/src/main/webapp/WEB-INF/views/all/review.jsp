@@ -1,3 +1,4 @@
+<%@page import="com.hk.conred.dtos.UDto"%>
 <%@page import="com.hk.conred.dtos.RPhotoDto"%>
 <%@page import="com.hk.conred.dtos.SDto"%>
 <%@page import="com.hk.conred.dtos.ReplyDto"%>
@@ -32,7 +33,7 @@
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
 	.mybox{padding:20px;border-top:1px solid grey; width:700px;height:370px; font-size: 15px; margin-left: 150px;min-height: 370px;}
 	.myboxmargin{margin-top:30px;}
-	#main{width: 930px;height: 250px;margin-left:70px; padding-top: 25px;} 
+	#main{width: 702px;height: 250px;margin-left:147px; padding-top: 25px;} 
 	#main2{font-size: 20px;}  
 	#main2{}  
 	.pf{float: left; width: 40px;height: 40px;}     
@@ -53,7 +54,7 @@
      .my_button {
          display: inline-block; width: 200px;  text-align: center; padding: 10px; background-color: #006BCC;color: #fff;
          text-decoration: none; border-radius: 5px; float: left;}
-	.modal_Btn{border: 0; margin-left: 690px; height: 50px;border-radius: 5px; background-color: #94B8FD;}
+	.modal_Btn{border: 0; margin-left: 630px; height: 50px;border-radius: 5px; background-color: #94B8FD;}
 	.modal_Btn:hover{background-color: #4a83ed;} 
  	.overfive{float: left;} 
  	.star_bigtle{margin-left: 65px; float: left;}
@@ -63,7 +64,7 @@
      .star_table{width: 200px; height: 80px;background-color: #fafafa;border-radius: 5px; padding: 10px;float: left;}
       .starz{width:17px;height:auto;display: inline-block;margin:-2px;margin-bottom:4px;}
       .small_star{width: 25px;height: auto;margin: -2px;margin-bottom:4px;}
-      .big_star{width: 50px;height: auto;}
+      .big_star{width: 40px;height: auto;}
       .buttondle{background-color: #585858; color: white;border-radius: 5px;}
       .user_avg{float: right; font-size: 20px;padding-top: 17px;}
       .star_score{float: left;}
@@ -84,8 +85,10 @@
      .f_insert{background-color: #2E2EFE;font-weight: bold;color: white;}
      .f_insert:hover{color: #BDBDBD;font-size: 15px;}
 	 #attach{width: 140px;margin-bottom: 10px;}
-	.user_review_img{width: 455px;height: 80px;margin-left: 205px;border: 1px solid red;}
+	.user_review_img{width: 455px;height: 80px;margin-left: 205px;}
 	
+	.reply_write{height: 34px;float: right;border-color:#ccc;border-radius:5px;}
+	.reply_write:hover {background-color: #D8D8D8;}
 	
 </style>   
 <script type="text/javascript">
@@ -93,9 +96,9 @@
 
 	//////////////스크롤 페이징
 	var count = 1;
-	$(function(){
-		var aa=$("input[name=zz]").val();
-		$(".asdasd").css({"width":"300px","height":"300px","border":"1px solid red","background":"url(upload_rphoto/"+aa+")"});
+	$(function(){ 
+// 		var aa=$("input[name=zz]").val();
+// 		$(".asdasd").css({"width":"80px","height":"80px","background":"url(upload_rphoto/"+aa+")","background-size":"80px 80px","background-repeat":"no-repeat"});
 		
 		
 		
@@ -115,6 +118,7 @@
 					dataType:"json", 
 					success:function(obj){  
 						var lists=obj.list;  
+						var lists_photo=obj.list_photo;
 						$.each(lists,function(i){
 							addContent+= ' <div class="bigtle" > '
 										+	'	<div class="mybox">     '     
@@ -145,8 +149,10 @@
 						+	'							</table>'
 						+							'<div class="user_avg">'+ (Math.round(((lists[i].reply_clean+lists[i].reply_price+lists[i].reply_service)/3)*10)/10) +'</div>'
 						+	'						</div>'
-						+	'						<div class="user_review_img" ></div>     '
-						+	'						<div class="contents">'
+						+	'						<div class="user_review_img" >'
+						+   '							<div style="background: url(upload_rphoto/'+(lists.user_id==lists_photo.user_id?review_photo(lists_photo.reply_photo_stored):"")+');width: 80px;height: 80px;background-size: 80px 80px;background-repeat: no-repeat;float:left;margin-left:10px;"></div>'
+						+   '						</div>     ' 
+						+	'						<div class="contents">' 
 						+	'							<span style="font-weight: bold;">리뷰내용</span><br>'
 						+	'							<span>'+ lists[i].reply_content +'</span>'
 						+	'						</div> '
@@ -188,6 +194,7 @@
 	
 	//////////////모달창
 	$(document).ready(function(){
+	
 		
 		//숨겨져있을때  -> 모달영역밖에누를때포함
 		$(".modal").on("hidden.bs.modal", function(){
@@ -198,101 +205,119 @@
 		}); 
 		
 	    $(".modal_Btn").click(function(){
-	        $("div.modal").modal();
-    
-	        ////////////////////////
-	        var $star01 = $(".star-input01")
-		    var $result01;
-	        var $star_chacked=$star01.find(":checked"); 
-		  $(document)
-		    .on("focusin", ".star-input01>.input", function(){
-		    $(this).addClass("focus");
-		  })
-		    .on("focusout", ".star-input01>.input", function(){
-		    var $this = $(this);
-		    setTimeout(function(){
-		      if($this.find(":focus").length === 0){
-		        $this.removeClass("focus");
-		      }
-		    }, 100); 
-		  })
-		    .on("change", ".star-input01 :radio", function(){ 
-		    	$(this).parents(".star-input01").find("b").text($(this).val());
-		  })
-		    .on("mouseover", ".star-input01 label", function(){
-		    	$(this).parents(".star-input01").find("b").text($(this).text());
-		  })
-		    .on("mouseleave", ".star-input01>.input", function(){
-		    var $checked = $star01.find(":checked");
-		    if($checked.length === 0){
-		    	$(this).parents(".star-input01").find("b").text("0");
-		    	$(this).parents(".star-input01").find("b").text("0");
-		    } else {
-		    	$(this).parents(".star-input01").find("b").text($checked.next().text());
-		    	$(this).parents(".star-input01").find("b").text($checked.next().text());
-		    }
-// 		    alert($(".star-input01").find(":checked").val());
-		  }); 
+	    	//로그인여부확인
+	    	if($(".modal_Btn").val()==1){
+	    		
+	    		$("div.modal").modal();
+	 	        ////////////////////////
+	 	        var $star01 = $(".star-input01")
+	 		    var $result01;
+	 	        var $star_chacked=$star01.find(":checked"); 
+	 		  $(document)
+	 		    .on("focusin", ".star-input01>.input", function(){
+	 		    $(this).addClass("focus");
+	 		  })
+	 		    .on("focusout", ".star-input01>.input", function(){
+	 		    var $this = $(this);
+	 		    setTimeout(function(){
+	 		      if($this.find(":focus").length === 0){
+	 		        $this.removeClass("focus");
+	 		      }
+	 		    }, 100); 
+	 		  })
+	 		    .on("change", ".star-input01 :radio", function(){ 
+	 		    	$(this).parents(".star-input01").find("b").text($(this).val());
+	 		  })
+	 		    .on("mouseover", ".star-input01 label", function(){
+	 		    	$(this).parents(".star-input01").find("b").text($(this).text());
+	 		  })
+	 		    .on("mouseleave", ".star-input01>.input", function(){
+	 		    var $checked = $star01.find(":checked");
+	 		    if($checked.length === 0){
+	 		    	$(this).parents(".star-input01").find("b").text("0");
+	 		    	$(this).parents(".star-input01").find("b").text("0");
+	 		    } else {
+	 		    	$(this).parents(".star-input01").find("b").text($checked.next().text());
+	 		    	$(this).parents(".star-input01").find("b").text($checked.next().text());
+	 		    }
+//	  		    alert($(".star-input01").find(":checked").val());
+	 		  }); 
+	 		
+	 		 /////////////////가격 평점
+	 		  var $star02 = $(".star-input02"),
+	 		      $result = $star02.find("output>b");
+	 		  $(document)
+	 		    .on("focusin", ".star-input02>.input", function(){
+	 		    $(this).addClass("focus");
+	 		  })
+	 		    .on("focusout", ".star-input02>.input", function(){
+	 		    var $this = $(this);
+	 		    setTimeout(function(){
+	 		      if($this.find(":focus").length === 0){
+	 		        $this.removeClass("focus");
+	 		      }
+	 		    }, 100); 
+	 		  })
+	 		    .on("change", ".star-input02 :radio", function(){ 
+	 		    	$(this).parents(".star-input02").find("b").text($(this).val());
+	 		  })
+	 		    .on("mouseover", ".star-input02 label", function(){
+	 		    	$(this).parents(".star-input02").find("b").text($(this).text());
+	 		  })
+	 		    .on("mouseleave", ".star-input02>.input", function(){
+	 		    var $checked = $star02.find(":checked");
+	 		    if($checked.length === 0){
+	 		    	$(this).parents(".star-input02").find("b").text("0");
+	 		    } else {
+	 		    	$(this).parents(".star-input02").find("b").text($checked.next().text());
+	 		    }
+	 		  }); 
+	 		
+	 		  /////////////////청결도 평점
+	 		  var $star03 = $(".star-input03"),
+	 		      $result = $star03.find("output>b");
+	 		  $(document)
+	 		    .on("focusin", ".star-input03>.input", function(){ 
+	 		    $(this).addClass("focus");
+	 		  })
+	 		    .on("focusout", ".star-input03>.input", function(){
+	 		    var $this = $(this);
+	 		    setTimeout(function(){
+	 		      if($this.find(":focus").length === 0){
+	 		        $this.removeClass("focus");
+	 		      }
+	 		    }, 100);  
+	 		  }) 
+	 		    .on("change", ".star-input03 :radio", function(){ 
+	 		    	$(this).parents(".star-input03").find("b").text($(this).val());
+	 		  })
+	 		    .on("mouseover", ".star-input03 label", function(){ 
+	 		    	$(this).parents(".star-input03").find("b").text($(this).text());
+	 		  })
+	 		    .on("mouseleave", ".star-input03>.input", function(){
+	 		    var $checked = $star03.find(":checked"); 
+	 		    if($checked.length === 0){
+	 		    	$(this).parents(".star-input03").find("b").text("0");
+	 		    } else {
+	 		    	$(this).parents(".star-input03").find("b").text($checked.next().text());
+	 		    }
+	 		  });	
 		
-		 /////////////////가격 평점
-		  var $star02 = $(".star-input02"),
-		      $result = $star02.find("output>b");
-		  $(document)
-		    .on("focusin", ".star-input02>.input", function(){
-		    $(this).addClass("focus");
-		  })
-		    .on("focusout", ".star-input02>.input", function(){
-		    var $this = $(this);
-		    setTimeout(function(){
-		      if($this.find(":focus").length === 0){
-		        $this.removeClass("focus");
-		      }
-		    }, 100); 
-		  })
-		    .on("change", ".star-input02 :radio", function(){ 
-		    	$(this).parents(".star-input02").find("b").text($(this).val());
-		  })
-		    .on("mouseover", ".star-input02 label", function(){
-		    	$(this).parents(".star-input02").find("b").text($(this).text());
-		  })
-		    .on("mouseleave", ".star-input02>.input", function(){
-		    var $checked = $star02.find(":checked");
-		    if($checked.length === 0){
-		    	$(this).parents(".star-input02").find("b").text("0");
-		    } else {
-		    	$(this).parents(".star-input02").find("b").text($checked.next().text());
-		    }
-		  }); 
-		
-		  /////////////////청결도 평점
-		  var $star03 = $(".star-input03"),
-		      $result = $star03.find("output>b");
-		  $(document)
-		    .on("focusin", ".star-input03>.input", function(){ 
-		    $(this).addClass("focus");
-		  })
-		    .on("focusout", ".star-input03>.input", function(){
-		    var $this = $(this);
-		    setTimeout(function(){
-		      if($this.find(":focus").length === 0){
-		        $this.removeClass("focus");
-		      }
-		    }, 100);  
-		  }) 
-		    .on("change", ".star-input03 :radio", function(){ 
-		    	$(this).parents(".star-input03").find("b").text($(this).val());
-		  })
-		    .on("mouseover", ".star-input03 label", function(){ 
-		    	$(this).parents(".star-input03").find("b").text($(this).text());
-		  })
-		    .on("mouseleave", ".star-input03>.input", function(){
-		    var $checked = $star03.find(":checked"); 
-		    if($checked.length === 0){
-		    	$(this).parents(".star-input03").find("b").text("0");
-		    } else {
-		    	$(this).parents(".star-input03").find("b").text($checked.next().text());
-		    }
-		  }); 
+	    		 
+	    	}else{
+		    	var yesNo=confirm("로그인 후에 작성 가능합니다. \n\n로그인 하시겠습니까?");
+	    		if(yesNo){
+	    			location.href="login.do";
+	    		}else{
+	    			
+	    		}
+	    	}
+	 	
+	 			 
+	 			
+	
+	    	
+	       
 	        
 	        
 		  //닫기버튼
@@ -307,7 +332,9 @@
 		   
 
 	      ////완료버튼   
-		  $(".close").click(function(){
+	       
+		  function checkValue(){
+			  alert("aa");
 // 			  $(".bigtle").empty();
 			  var store_seq=$("input[name=store_seq]").val();
 			  var reply_content=$("textarea").val();
@@ -323,8 +350,11 @@
 		      if(reply_service==0||reply_service==null||reply_price==0||reply_price==null||reply_clean==0||reply_clean==null){
 		    	  alert("평점을 입력해주세요");
 		    	  return false;
-		      }  	   
-	      });  
+		      }  	    	  
+	      }	      
+			  
+		 
+	 
 		  /////////////////////////
 		  
 ///////////////파일업로드
@@ -452,6 +482,14 @@
 		return v;
 	}
 	
+	////////////////////리뷰 사진 ajax
+	function review_photo(name){
+		var v="";
+		for (var i = 0; i < 5; i++) {
+			v+=name;
+		}
+		return v;
+	}
 	
 
 
@@ -463,22 +501,23 @@
 	List<ReplyDto> list=(List<ReplyDto>)request.getAttribute("list");
 	ReplyDto list_avg=(ReplyDto)request.getAttribute("list_avg");
 	List<RPhotoDto> list_photo=(List<RPhotoDto>)request.getAttribute("list_photo");
+	UDto uldto=(UDto)session.getAttribute("uldto");
 %>
 <body>
-<form action="user_store_review.do" method="post" enctype="multipart/form-data">
+<form action="user_store_review.do" onsubmit="return checkValue()" method="post" enctype="multipart/form-data">
 <input type="hidden" name="store_seq" value="<%=list.get(0).getStore_seq()%>"/>
 	<!-- 모탈창 부분 -->
 	<div class="modal fade" id="myModal" role="dialog" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
+		<div class="modal-dialog modal-lg">  
 	  		<!-- Modal content-->
 	   		<div class="modal-content">
 	     		<div class="modal-header"> 
 	     			<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-	     			<button type="submit"  >리뷰 작성 완료</button>
+	     			<button type="submit" class="reply_write" >리뷰 작성 완료</button>
 	       			
-	       			<h4 class="modal-title">가게이름</h4>
+	       			<h4 class="modal-title"><%=list.get(0).getStore_name()%></h4>
 	     		</div>
-	     		<div class="modal-body"> 
+	     		<div class="modal-body">  
 	     			<div class="star_bigtle">  
 	  				<span class="star-input01">서비스
 					    <span class="input">
@@ -563,9 +602,9 @@
 	</div>
 </form>
 
-<input type="hidden" name="zz" value="<%=list_photo.get(0).getReply_photo_stored()%>"/>
+<%-- <input type="hidden" name="zz" value="<%=list_photo.get(0).getReply_photo_stored()%>"/> --%>
 <div id="container"> 
-	<div class="asdasd"></div> 
+<!-- 	<div class="asdasd"></div>  -->
 	<div id="main">
 		<span id="main2">리뷰&nbsp;<%for(int i=0;i<Math.floor(list_avg.getAll_avg());i++){
 				%>
@@ -584,7 +623,19 @@
 			}
 		%>
 		<span class="bigNumber" ><%=list_avg.getAll_avg()%></span>/5 &nbsp; &nbsp; &nbsp;후기<%=list_avg.getReply_count()%>개|답변<%=list_avg.getAnswer_count()%>개</span><br>
-		<span>최근6개월 누적평점</span><button class="modal_Btn">리뷰 작성</button><br/><br/>
+		<span>최근6개월 누적평점</span>
+		<%
+		if(uldto==null){
+			%>
+			<button class="modal_Btn">리뷰 작성</button>
+			<%
+		}else if(uldto!=null){ 
+			%>
+			<button class="modal_Btn" value="1">리뷰 작성</button>
+			<%
+		}
+		%>
+		<br/><br/>
 		<table>
 			<col width="50px;">  
 			<tr> 
@@ -736,7 +787,14 @@
 					<div class="user_avg"><%=Math.round(((dto.getReply_clean()+dto.getReply_price()+dto.getReply_service())/3)*10d)/10d%></div>
 				</div>  
 				<div class="user_review_img">
-					
+					<%for(RPhotoDto rphoto_dto :list_photo){ 
+						if(dto.getUser_id().equals(rphoto_dto.getUser_id())){
+						%> 
+						<div style="background: url('upload_rphoto/<%=rphoto_dto.getReply_photo_stored()%>');width: 80px;height: 80px;background-size: 80px 80px;background-repeat: no-repeat;float:left;margin-left:10px;"></div>
+						<%							
+						}  
+					}
+					%>
 				</div>
 				<div class="contents">
 					<span style="font-weight: bold;">리뷰내용</span><br>

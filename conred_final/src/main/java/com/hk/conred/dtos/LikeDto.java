@@ -8,14 +8,15 @@ public class LikeDto {
 	private String store_name;
 	private String store_intro_simple;
 	private String store_address;
-	
+	private String store_photo_stored;
+
 	
 	public LikeDto() {
 	}
 
 
 	public LikeDto(int like_list_seq, String user_id, int store_seq, String store_name, String store_intro_simple,
-			String store_address) {
+			String store_address, String store_photo_stored) {
 		super();
 		this.like_list_seq = like_list_seq;
 		this.user_id = user_id;
@@ -23,6 +24,7 @@ public class LikeDto {
 		this.store_name = store_name;
 		this.store_intro_simple = store_intro_simple;
 		this.store_address = store_address;
+		this.store_photo_stored = store_photo_stored;
 	}
 
 
@@ -86,13 +88,25 @@ public class LikeDto {
 	}
 
 
+	public String getStore_photo_stored() {
+		return store_photo_stored;
+	}
+
+
+	public void setStore_photo_stored(String store_photo_stored) {
+		this.store_photo_stored = store_photo_stored;
+	}
+
+
 	@Override
 	public String toString() {
 		return "LikeDto [like_list_seq=" + like_list_seq + ", user_id=" + user_id + ", store_seq=" + store_seq
 				+ ", store_name=" + store_name + ", store_intro_simple=" + store_intro_simple + ", store_address="
-				+ store_address + "]";
+				+ store_address + ", store_photo_stored=" + store_photo_stored + "]";
 	}
 
+
+	
 
 	
 

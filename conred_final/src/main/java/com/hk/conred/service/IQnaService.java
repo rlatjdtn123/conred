@@ -12,6 +12,15 @@ public interface IQnaService {
 	//2.특정매장의 문의목록
 	public List<QnaDto> qnaListStore(int store_seq,int pnum);
 	
-	//2.특정매장의 문의갯수
+	//3.특정매장의 문의갯수
 	public QnaDto qnaAvg(int store_seq);
+	
+	//4.사용자 문의 삭제
+	public boolean userQnaDelete(int qna_seq);
+	
+	//5.사용자 문의 수정
+	public boolean userQnaUpdate(int qna_seq,String qna_title,String qna_content,String qna_hide);
+	
+	//6.사용자 특정문의 한개
+	public QnaDto getUserQna(int qna_seq);
 }

@@ -17,7 +17,7 @@
 			RESERVE_SDATE ,RESERVE_EDATE ,RESERVE_REGDATE ,cm.MENU_NAME ,cs.STORE_NAME ,cs.STORE_ADDRESS  
 			FROM
 			    (SELECT  rownum AS rn,RESERVE_SEQ ,USER_ID ,MENU_SEQ ,STORE_SEQ ,RESERVE_TIME ,RESERVE_STATE ,RESERVE_PRICE ,RESERVE_SDATE ,RESERVE_EDATE ,RESERVE_REGDATE
-			     FROM CON_RESERVE ) cr ,CON_MENU cm ,CON_STORE cs 
+			     FROM CON_RESERVE WHERE RESERVE_STATE='Y') cr ,CON_MENU cm ,CON_STORE cs 
 			WHERE cr.menu_seq=cm.MENU_SEQ AND cr.store_seq=cs.STORE_SEQ AND CEIL(rn/5)=#{pnum} AND USER_ID =#{user_id}
 		</select>
 		
@@ -40,6 +40,9 @@
 			WHERE cr.STORE_SEQ =cs.STORE_SEQ AND cr.STORE_SEQ =#{store_seq} AND MENU_SEQ =#{menu_seq} AND RESERVE_STATE='Y'
 		 </select> 
 		 
+		 <update id="userReserveCancel" parameterType="Int">
+		 	UPDATE CON_RESERVE SET reserve_state='C' WHERE reserve_seq=#{reserve_seq}
+		 </update>
 		
 	</mapper>
 		  

@@ -28,6 +28,22 @@ public class QnaServiceImp implements IQnaService{
 	@Override
 	public QnaDto qnaAvg(int store_seq) {
 		return QnaDaoImp.qnaAvg(store_seq);
+	}
+
+	@Override
+	public boolean userQnaDelete(int qna_seq) {
+		return QnaDaoImp.userQnaDelete(qna_seq);
+	}
+
+	@Override
+	public boolean userQnaUpdate(int qna_seq, String qna_title, String qna_content, String qna_hide) {
+		return QnaDaoImp.userQnaUpdate(qna_seq, qna_title, qna_content, qna_hide);
+	}
+
+
+	@Override
+	public QnaDto getUserQna(int qna_seq) {
+		return QnaDaoImp.getUserQna(qna_seq);
 	} 
 
 }

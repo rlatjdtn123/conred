@@ -40,4 +40,30 @@ public class QnaDaoImp implements IQnaDao{
 		QnaDto dto=sqlSession.selectOne(nameSpace+"qnaAvg", store_seq);
 		return dto;
 	}
+
+	@Override
+	public boolean userQnaDelete(int qna_seq) {
+		int count=0;
+		count=sqlSession.update(nameSpace+"userQnaDelete", qna_seq);
+		return count>0?true:false;
+	}
+
+	@Override
+	public boolean userQnaUpdate(int qna_seq,String qna_title, String qna_content, String qna_hide) {
+		int count=0;
+		Map<String, Object> map=new HashMap<>();
+		map.put("qna_seq", qna_seq);
+		map.put("qna_title", qna_title);
+		map.put("qna_content", qna_content);
+		map.put("qna_hide", qna_hide);
+		count=sqlSession.update(nameSpace+"userQnaUpdate", map);
+		return count>0?true:false;
+	}
+
+	@Override
+	public QnaDto getUserQna(int qna_seq) {
+		QnaDto dto=null;
+		dto=sqlSession.selectOne(nameSpace+"getUserQna", qna_seq);
+		return dto;
+	}
 }

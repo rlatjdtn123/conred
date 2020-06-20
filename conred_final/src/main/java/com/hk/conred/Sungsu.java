@@ -317,9 +317,42 @@ public class Sungsu {
 		return map;  
 	}  
 	
+	@RequestMapping(value = "user_qna_update_form.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String user_qna_update_form(Locale locale, Model model,int qna_seq) {
+		logger.info("사용자_문의 수정 {}.", locale);
+		QnaDto dto=qnaService.getUserQna(qna_seq);
+		model.addAttribute("dto", dto);
+		return "user/user_mypage_qna_update";  
+	}
+	
+	@RequestMapping(value = "user_qna_update.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String user_qna_update(Locale locale, Model model,int qna_seq,String qna_title,String qna_content,String qna_hide) {
+		logger.info("사용자_문의 수정완료 {}.", locale);
+		System.out.println("@@@@@::"+qna_seq);
+		System.out.println("@@@@@::"+qna_title);
+		System.out.println("@@@@@::"+qna_content);
+		System.out.println("@@@@@::"+qna_hide);
+		boolean isS=qnaService.userQnaUpdate(qna_seq, qna_title, qna_content, qna_hide);
+		if(isS) {
+			return "redirect:user_mypage_qna.do"; 
+		}else {
+			return ""; 
+		} 
+	}
+	
+	@RequestMapping(value = "user_qna_delete.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String user_qna_delete(Locale locale, Model model,int qna_seq) {
+		logger.info("사용자_문의 삭제 {}.", locale);
+		boolean isS=qnaService.userQnaDelete(qna_seq); 
+		if(isS) {
+			return "redirect:user_mypage_qna.do";  			
+		}else {
+			return "";
+		}
+	}
 	
 		
-	@RequestMapping(value = "user_mypage_reservation.do", method = {RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value = "user_mypage_reserve.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String user_mypage_reservation(Locale locale, Model model,HttpServletRequest request) {
 		logger.info("사용자 마이페이지_예약{}.", locale);
 		HttpSession session=request.getSession();
@@ -341,6 +374,28 @@ public class Sungsu {
 		return map;  
 	}
 	
+	@RequestMapping(value = "user_reserve_cancel.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String user_reserve_cancel(Locale locale, Model model,int reserve_seq) {
+		logger.info("사용자 예약 취소{}.", locale);
+		boolean isS=reserveService.userReserveCancel(reserve_seq);
+		if(isS) { 
+			return "redirect:user_mypage_reserve.do"; 
+		}else {
+			return "";
+		}
+	}
+	
+	@RequestMapping(value = "user_reserve_success.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String user_reserve_success(String msg, Locale locale, Model model,HttpServletRequest request,String imp_uid,String merchant_uid) {
+		logger.info("유저 선택메뉴 결제{}.", locale);
+//		System.out.println(imp_uid);
+//		System.out.println(merchant_uid); 
+		model.addAttribute("msg", msg);
+		return "user/user_reserve_success";  
+	}
+	
+	
+	
 	
 	@RequestMapping(value = "user_mypage_like.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String user_mypage_like(Locale locale, Model model,HttpServletRequest request) {
@@ -348,7 +403,9 @@ public class Sungsu {
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
 		List<LikeDto> list=likeService.likeList(uldto.getUser_id(),"1"); 
+		List<LikeDto> list_store_img=likeService.likeStoreImg(uldto.getUser_id());
 		model.addAttribute("list",list);
+		model.addAttribute("list_store_img", list_store_img);
 		return "user/user_mypage_like";  
 	}
 	
@@ -363,6 +420,19 @@ public class Sungsu {
 		map.put("list", list); 
 		return map;   
 	}
+	
+	@RequestMapping(value = "user_like_delete.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String user_like_delete(Locale locale, Model model,int like_list_seq) {
+		logger.info("사용자 좋아요 취소{}.", locale);
+		boolean isS=likeService.userLikeDelete(like_list_seq);
+		if(isS) { 
+			return "redirect:user_mypage_like.do";  	 		
+		}else {
+			return "";
+		}
+	}
+	
+	
 	
 	
 	@RequestMapping(value = "select_regist.do", method = RequestMethod.GET)

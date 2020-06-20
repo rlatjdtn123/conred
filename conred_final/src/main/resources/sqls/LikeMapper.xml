@@ -14,6 +14,15 @@
 		WHERE cl.store_seq=cs.STORE_SEQ AND CEIL(rn/5)=#{pnum} AND USER_ID =#{user_id}
 	</select>
 	
+	<delete id="userLikeDelete" parameterType="Int">
+		DELETE FROM CON_LIKE WHERE like_list_seq=#{like_list_seq}
+	</delete> 
+	
+	<select id="likeStoreImg" resultType="LikeDto" parameterType="String">
+		SELECT cl.store_seq,csp.store_photo_stored,cl.like_list_seq
+		FROM CON_STORE_PHOTO csp,CON_LIKE cl
+		WHERE csp.store_seq=cl.store_seq AND user_id=#{user_id}
+	</select>
 	
 </mapper>
 	  

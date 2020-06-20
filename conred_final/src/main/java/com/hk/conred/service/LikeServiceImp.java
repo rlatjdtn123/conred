@@ -18,5 +18,15 @@ public class LikeServiceImp implements ILikeService{
 	public List<LikeDto> likeList(String user_id,String pnum) {
 		return likeDaoImp.likeList(user_id,pnum);
 	}
+
+	@Override
+	public boolean userLikeDelete(int like_list_seq) {
+		return likeDaoImp.userLikeDelete(like_list_seq);
+	}
+
+	@Override
+	public List<LikeDto> likeStoreImg(String user_id) {
+		return likeDaoImp.likeStoreImg(user_id);
+	}
 	
 }

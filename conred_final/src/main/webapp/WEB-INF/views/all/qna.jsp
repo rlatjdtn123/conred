@@ -1,3 +1,4 @@
+<%@page import="com.hk.conred.dtos.UDto"%>
 <%@page import="com.hk.conred.dtos.QnaDto"%>
 <%@page import="java.util.List"%>
 <jsp:include page="../all/header2.jsp" />
@@ -25,20 +26,20 @@
 	.home{border-bottom:1px solid white;background-color: white;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
 	
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
-	.mybox{padding:15px;border-top:1px solid grey;width:700px;height:300px; margin:0 auto; font-size: 15px;}
+	.mybox{padding:15px;border-top:1px solid grey;width:700px;height:250px; margin:0 auto; font-size: 15px;min-height: 250px;}
 	.myboxmargin{margin-top:30px;}
-	#main{width: 850px;height: 100px;margin: 0 auto; padding-top: 25px;} 
+	#main{width: 702px;height: 100px;margin: 0 auto; padding-top: 25px;} 
 	#main2{font-size: 20px;}  
 	#main2{} 
 	.pf{float: left; width: 40px;height: 40px;}      
 	.dt{margin-left: 600px;}
-	.info{}   
+	.info{min-height: 144px;}   
 	.contents{display:inline-block; width: 631px;height:80px;text-overflow: ellipsis; word-break:keep-all;overflow: hidden;margin-left: 17px;min-height: 80px; padding: 10px;margin-bottom: 15px;}     
 	.info2{background-color: #fafafa; margin-left: 42px; height: 80px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 580px;min-height: 80px; border-radius: 5px;}
 	.bot{margin: 0 auto; text-align: center;}
 	
-	#modal_Btn{margin-left: 440px; height: 50px; width: 100px;background-color: #94B8FD; border: 0;border-radius: 5px;color: white;}
-	#modal_Btn:hover{background-color: #4a83ed;}  
+	.modal_Btn{float:right; height: 50px; width: 100px;background-color: #94B8FD; border: 0;border-radius: 5px;color: white;}
+	.modal_Btn:hover{background-color: #4a83ed;}  
 	.modal-title{margin-left: 400px;}  
 	.modal-body span{margin: 85px;}
 	textarea:focus::-webkit-input-placeholder { color: transparent; } 
@@ -48,6 +49,8 @@
 	.buttondle{background-color: #585858; color: white;border-radius: 5px;}
 	.tle_final{width: 700px;border-top: 1px solid grey;margin-left: 150px;margin-bottom: 200px;}
 	
+	.zxczxc{width: 631px;display: inline-block;} 
+	 
 	 
 </style>
 <script type="text/javascript">	      
@@ -76,7 +79,7 @@
 										+	'	<button class="buttondle" style="margin-left:436px;">수정</button> <button class="buttondle">삭제</button> <button  class="content_detail buttondle">자세히 보기</button><br>'
 										+	'	<span ><b>닉네임</b>:'+lists[i].user_id+'</span><span>'+ lists[i].qna_regdate +'</span><br>'
 										+	'	<div class="contents">'
-										+	'		<span><b>문의내용</b></span>    '
+										+	'		<span class="zxczxc"><b>문의내용</b></span>    '
 										+	'		<span>'+ lists[i].qna_content +'</span>    '
 						 				+	'	</div>'
 										+	'</div>'
@@ -94,18 +97,30 @@
 	};
 	
 	$(document).ready(function(){
-	    $("#modal_Btn").click(function(){
-	        $("div.modal").modal(); 
-	    });
+// 		alert($("input[name=session_id]").data('value')); -> 특정 값 가져와야함
+		
+		
+	    $(".modal_Btn").click(function(){
+	    	if($(".modal_Btn").val()==1){
+		        $("div.modal").modal(); 
+ 			}else{
+ 				var yesNo=confirm("로그인 후에 작성 가능합니다. \n\n로그인 하시겠습니까?");
+ 				if(yesNo){
+ 					location.href="login.do";
+ 				}else{
+ 					
+ 				}
+ 			}
+	    }); 
 	    
 	    
 		$("body").on("click",".content_detail",function(){
-			if($(this).parent().parent().css("height")=="300px"){   
+			if($(this).parent().parent().css("height")=="250px"){   
 				$(this).parent().parent().css("height","auto");  
 				$(this).parent().parent().find(".contents").css({"overflow":"visible","height":"auto","word-break":"break-all"});
 				$(this).parent().parent().find(".info2").css({"overflow":"visible","height":"auto","word-break":"break-all"});
 			}else{
-				$(this).parent().parent().css("height","300px");    
+				$(this).parent().parent().css("height","250px");    
 				$(this).parent().parent().find(".contents").css({"height":"80px","overflow":"hidden","word-break":"keep-all"});
 				$(this).parent().parent().find(".info2").css({"height":"80px","overflow":"hidden","word-break":"keep-all"});
 			}   
@@ -118,8 +133,10 @@
 <%
 	List<QnaDto> list=(List<QnaDto>)request.getAttribute("list");
 	QnaDto qnaAvg=(QnaDto)request.getAttribute("qnaAvg");
-%>
-<body>
+	UDto uldto=(UDto)session.getAttribute("uldto");
+%> 
+<body>  
+<input type="hidden" name="session_id"  data-value="<%=uldto%>"/>
 <!-- Modal -->
 <input type="hidden" name="store_seq" value="<%=list.get(0).getStore_seq()%>">
 <div class="modal fade" id="myModal" role="dialog">
@@ -139,7 +156,19 @@
 <div id="container"> 
 	<div class="bigtle">
 		<div id="main">
-			<span id="main2"><b>문의</b> &nbsp; &nbsp; &nbsp; &nbsp;전체<%=qnaAvg.getQna_content()%>개|답변<%=qnaAvg.getQna_answer()%>개</span><button id="modal_Btn"><b>문의 작성</b></button><br/><br/> 
+			<span id="main2"><b>문의</b> &nbsp; &nbsp; &nbsp; &nbsp;전체<%=qnaAvg.getQna_content()%>개|답변<%=qnaAvg.getQna_answer()%>개</span>
+			<%
+			if(uldto==null){
+				%>
+				<button class="modal_Btn">문의 작성</button>
+				<%
+			}else if(uldto!=null){ 
+				%>
+				<button class="modal_Btn" value="1">문의 작성</button>
+				<%
+			}
+			%>
+			<br/><br/> 
 		</div> 
 		<% 
 			for(QnaDto dto:list){
@@ -148,13 +177,35 @@
 				<img src="./img/profile_default.png" class="pf"/>
 				<div class="info">
 					<button class="buttondle" style="margin-left:436px;">수정</button> <button class="buttondle" >삭제</button> <button  class="content_detail buttondle">자세히 보기</button><br>
-					<span style="color:#919191;">닉네임:<%=dto.getUser_id()%></span><span style="color:#919191; float: right;"><%=dto.getQna_regdate()%></span><br>
+					<span style="color:#919191;">닉네임:<%=dto.getUser_id()%>|<%=dto.getQna_title()%></span><span style="color:#919191; float: right;"><%=dto.getQna_regdate()%></span><br>
 					<div class="contents">
-						<span><b>문의내용</b></span><br>      
-						<span><%=dto.getQna_content()%></span>    
+						<span class="zxczxc"><b>문의내용</b></span><br>  
+						<%
+						if(uldto!=null){
+							if(uldto.getUser_id().equals(dto.getUser_id())){
+							%>
+								<span><%=dto.getQna_content()%></span>    						
+							<%	
+							}else{
+							%> 
+								<span style="color:#aaa;">비공개글 입니다.</span>
+							<%	
+							}
+						}else{
+							if(dto.getQna_hide().equals("Y")){
+							%> 
+								<span style="color:#aaa;">비공개글 입니다.</span>
+							<%
+							}else{
+							%>
+								<span><%=dto.getQna_content()%></span>
+							<%	 
+							}
+						}
+						%>   
 					</div>
 				</div> 
-				<div class="info2">    
+				<div class="info2">      
 					<span><b>가게답변</b></span><br>
 					<%
 						if(dto.getQna_answer()==null||dto.getQna_answer().equals("")){

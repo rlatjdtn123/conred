@@ -21,4 +21,7 @@ public interface IReserveDao {
 	//숙박 예약 출력
 	public List<ReserveDto> stayReserve(int store_seq,int menu_seq);
 	
+	//사용자 예약취소
+	public boolean userReserveCancel(int reserve_seq);
+	
 }

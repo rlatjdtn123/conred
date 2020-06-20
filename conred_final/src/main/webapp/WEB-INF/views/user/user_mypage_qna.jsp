@@ -111,15 +111,21 @@
 		};
 	
 	
+	//문의삭제
+	function deleteQnA(qna_seq){
+		var result=confirm("정말 삭제 하시겠습니까?");
+		if(result){
+			location.href="user_qna_delete.do?qna_seq="+qna_seq;
+		}else{
+			
+		} 
+	}
+	//문의수정
+	function updateQnA(qna_seq,qna_title,qna_content,qna_hide){
+		location.href="user_qna_update_form.do?qna_seq="+qna_seq+"&qna_title="+qna_title+"&qna_content="+qna_content+"&qna_hide="+qna_hide;
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
+	//더보기
 	$(function(){
 		$("body").on("click",".content_detail",function(){     
 			if($(this).parent().parent().css("height")=="200px"){  
@@ -150,7 +156,7 @@
 			<div class="navis2" onclick="location.href='user_mypage_like.do'">
 				좋아요
 			</div>
-			<div class="navis2" onclick="location.href='user_mypage_reservation.do'">
+			<div class="navis2" onclick="location.href='user_mypage_reserve.do'">
 				내 예약
 			</div>
 			<div class="navis2" onclick="location.href='user_mypage_review.do'">
@@ -172,11 +178,11 @@
 			 	<div class="store_img">
 			 		<p>매장사진들어갈곳</p>
 			 		<p>+매장명</p> 
-			 	</div>      
+			 	</div>       
 				<img src="./img/profile_default.png" class="pf"/>
 				<div class="info">  
-					<button style="margin-left: 235px; " class="buttondle">수정</button> <button class="buttondle">삭제</button> <button  class="content_detail buttondle">자세히 보기</button><br>
-					<span>닉네임 :<%=dto.getUser_id()%> &nbsp;| 가격문의 </span><br><br>   
+					<button style="margin-left: 235px; " class="buttondle" onclick="updateQnA(<%=dto.getQna_seq()%>,'<%=dto.getQna_title()%>','<%=dto.getQna_content()%>','<%=dto.getQna_hide()%>')">수정</button> <button class="buttondle" onclick="deleteQnA(<%=dto.getQna_seq()%>)">삭제</button> <button  class="content_detail buttondle">자세히 보기</button><br>
+					<span>닉네임 :<%=dto.getUser_id()%> &nbsp;| <%=dto.getQna_title()%> </span><br><br>   
 					<div class="contents"><%=dto.getQna_content()%></div>    
 				</div>   
 				<div class="info2">     

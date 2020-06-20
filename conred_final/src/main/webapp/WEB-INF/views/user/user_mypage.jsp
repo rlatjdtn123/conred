@@ -44,7 +44,7 @@
 			<div class="navis2" onclick="location.href='user_mypage_like.do'">
 				좋아요
 			</div>
-			<div class="navis2" onclick="location.href='user_mypage_reservation.do'">
+			<div class="navis2" onclick="location.href='user_mypage_reserve.do'">
 				내 예약
 			</div>
 			<div class="navis2" onclick="location.href='user_mypage_review.do'">
@@ -63,7 +63,7 @@
 	<div class="mybox">   
 		<div class="mybox_info_header" >내 통계</div><br/>
 			<div class="mybox_info"> 
-			 	<span class="stats_result"><a onclick="location.href='user_mypage_reservation.do'"><%=dto.getReserve_count()%></a></span><br/>
+			 	<span class="stats_result"><a onclick="location.href='user_mypage_reserve.do'"><%=dto.getReserve_count()%></a></span><br/>
 			 	<span><b>예약수</b></span> 
 			</div>  
 			<div class="mybox_info">  

@@ -212,7 +212,7 @@
 			<div class="navis2" onclick="location.href='user_mypage_like.do'">
 				좋아요
 			</div>
-			<div class="navis2" onclick="location.href='user_mypage_reservation.do'">
+			<div class="navis2" onclick="location.href='user_mypage_reserve.do'">
 				내 예약
 			</div>
 			<div class="navis2 home" onclick="location.href='user_mypage_review.do'">

@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hk.conred.dtos.RPhotoDto;
 import com.hk.conred.dtos.ReplyDto;
 import com.hk.conred.dtos.SDto;
+import com.hk.conred.dtos.UDto;
 import com.hk.conred.service.IRPhotoService;
 import com.hk.conred.service.IReplyService;
 import com.hk.conred.service.ISService;
@@ -58,14 +62,14 @@ public class ReviewController {
 	
 	@ResponseBody
 	@RequestMapping(value = "review_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public Map<String, List<ReplyDto>> review_ajax(Locale locale, Model model,int store_seq,int pnum) {
+	public Map<String, Object> review_ajax(Locale locale, Model model,int store_seq,int pnum) {
 		logger.info("리뷰 ajax  {}.", locale);
-		System.out.println("@@@@@store_seq::::"+store_seq); 
-		System.out.println("@@@@@pnum::::"+pnum); 
 		List<ReplyDto> list=replyService.replyListStoreDetail(store_seq, pnum); 
+		List<RPhotoDto> list_photo=rPhotoService.reviewPhotoList(store_seq);
 		System.out.println("사이즈"+list.size());
-		Map<String, List<ReplyDto>> map=new HashMap<>();
+		Map<String, Object> map=new HashMap<>();
 		map.put("list", list);		
+		map.put("list_photo", list_photo);
 		return map; 
 	}
 

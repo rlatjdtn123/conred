@@ -42,4 +42,9 @@ public class ReserveServiceImp implements IReserveService{
 		return reserveDaoImp.stayReserve(store_seq, menu_seq);
 	}
 
+	@Override
+	public boolean userReserveCancel(int reserve_seq) {
+		return reserveDaoImp.userReserveCancel(reserve_seq);
+	}
+
 }

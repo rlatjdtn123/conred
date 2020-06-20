@@ -69,4 +69,11 @@ public class ReserveDaoImp implements IReserveDao{
 		return list;
 	}
 
+	@Override
+	public boolean userReserveCancel(int reserve_seq) {
+		int count=0;
+		count=sqlSession.update(nameSpace+"userReserveCancel",reserve_seq);
+		return count>0?true:false;
+	}
+
 }

@@ -7,20 +7,20 @@
 <mapper namespace="com.hk.conred.Qna">
 	
 	<select id="qnaList" parameterType="Map" resultType="QnaDto">
-		SELECT  rn, QNA_SEQ ,STORE_SEQ ,USER_ID ,QNA_CONTENT ,QNA_ANSWER,QNA_HIDE ,QNA_READ ,QNA_REGDATE ,QNA_DELFLAG 
+		SELECT  rn, QNA_SEQ ,STORE_SEQ ,USER_ID ,QNA_TITLE,QNA_CONTENT ,QNA_ANSWER,QNA_HIDE ,QNA_READ ,QNA_REGDATE ,QNA_DELFLAG 
 		FROM
-		    (SELECT  rownum AS rn, QNA_SEQ ,STORE_SEQ ,USER_ID ,QNA_CONTENT ,QNA_ANSWER,QNA_HIDE ,QNA_READ ,QNA_REGDATE ,QNA_DELFLAG 
-		     FROM CON_QNA)
+		    (SELECT  rownum AS rn, QNA_SEQ ,STORE_SEQ ,USER_ID ,QNA_TITLE,QNA_CONTENT ,QNA_ANSWER,QNA_HIDE ,QNA_READ ,QNA_REGDATE ,QNA_DELFLAG 
+		     FROM CON_QNA WHERE QNA_DELFLAG='N')
 		WHERE CEIL(rn/5)=#{pnum} AND USER_ID =#{user_id}
 	</select>
 	
 	<select id="qnaListStore" parameterType="Map" resultType="QnaDto">
 		<![CDATA[
-			SELECT rn QNA_SEQ ,STORE_SEQ ,USER_ID ,QNA_CONTENT ,QNA_ANSWER ,QNA_HIDE ,QNA_READ ,QNA_REGDATE ,QNA_DELFLAG 
-			FROM (SELECT ROW_NUMBER()over(ORDER BY QNA_REGDATE) AS rn ,QNA_SEQ ,STORE_SEQ ,USER_ID ,QNA_CONTENT ,QNA_ANSWER ,QNA_HIDE ,QNA_READ ,QNA_REGDATE ,QNA_DELFLAG 
+			SELECT rn QNA_SEQ ,STORE_SEQ ,USER_ID ,QNA_TITLE ,QNA_CONTENT ,QNA_ANSWER ,QNA_HIDE ,QNA_READ ,QNA_REGDATE ,QNA_DELFLAG 
+			FROM (SELECT ROW_NUMBER()over(ORDER BY QNA_REGDATE) AS rn ,QNA_SEQ ,STORE_SEQ ,USER_ID,QNA_TITLE  ,QNA_CONTENT ,QNA_ANSWER ,QNA_HIDE ,QNA_READ ,QNA_REGDATE ,QNA_DELFLAG 
 					FROM CON_QNA 
 					WHERE STORE_SEQ =#{store_seq})
-			WHERE CEIL(rn/5)=#{pnum}
+			WHERE CEIL(rn/5)=#{pnum} 
 		]]>
 	</select>
 	
@@ -30,6 +30,19 @@
 		WHERE STORE_SEQ =#{store_seq}
 	</select>
 	
+	<update id="userQnaUpdate" parameterType="Map">
+		UPDATE con_qna SET qna_title=#{qna_title},QNA_CONTENT=#{qna_content} ,QNA_HIDE =#{qna_hide},QNA_REGDATE=SYSDATE
+		WHERE QNA_SEQ =#{qna_seq}
+	</update>
+	
+	
+	<update id="userQnaDelete" parameterType="Int">
+		UPDATE con_qna SET QNA_DELFLAG ='Y' WHERE  qna_seq=#{qna_seq}
+	</update>
+	
+	<select id="getUserQna" parameterType="QnaDto" resultType="QnaDto">
+		SELECT *FROM CON_QNA WHERE QNA_SEQ =#{qna_seq}
+	</select>
 	
 </mapper>
 	 

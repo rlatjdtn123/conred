@@ -1,3 +1,4 @@
+<%@page import="com.hk.conred.dtos.UDto"%>
 <%@page import="com.hk.conred.dtos.ReserveDto"%>
 <%@page import="java.util.List"%>
 <jsp:include page="../all/header2.jsp" />
@@ -18,6 +19,7 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <style type="text/css">
 	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	#sticky{position: sticky; top:71px;}
@@ -89,11 +91,105 @@
 		
 	        }
 		};
+		
+		
+		$(function(){		
+			//취소하기
+			$('#cancel').click(function(){
+					var result=confirm("예약을 취소하시겠습니까?");
+					if(result){
+						    var seq=$(this).parent().find("input[name=reserve_seq]").val();
+						    location.href="user_reserve_cancel.do?reserve_seq="+seq;	 			
+					}else{
+						 
+					}
+					
+				});
+			
+		});//$(function(){})
+		
+		
+		function requestPay(reserve_seq,user_id,user_email,store_address,menu_name,reserve_price){
+			///결제하기 
+			var IMP=window.IMP;
+			IMP.init('imp83419041');  
+			alert(reserve_seq);
+			alert(user_id);  
+			alert(user_email);  // 이메일 null이라 잠시보류
+			alert(store_address);
+			alert(reserve_price);
+			alert(menu_name);
+
+			 
+			IMP.request_pay({
+			    pg : 'kakaopay',
+			    pay_method : 'card',
+			    merchant_uid :''+reserve_seq+'',   
+			    name : '주문명:'+menu_name+'',
+			    amount : reserve_price, 
+			    buyer_email : user_email,
+			    buyer_name : user_id,
+			    buyer_addr : store_address
+			}, function(rsp) {
+			    if ( rsp.success ) {
+			    	//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
+			    	jQuery.ajax({
+			    		url: "test_reserve2.do", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
+			    		type: 'POST',
+			    		dataType: 'json',
+			    		async:false,
+			    		data: { 
+			    			imp_uid : rsp.imp_uid,
+				    		merchant_uid: rsp.merchant_uid
+				    		
+				    		//기타 필요한 데이터가 있으면 추가 전달  
+			    		} 
+			    	}).done(function(data) {
+			    		//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
+			    	
+//		 	    		if ( everythings_fine ) {
+			    			var msg = '결제가 완료되었습니다.';
+			    			msg += '\n고유ID asd: ' + rsp.imp_uid;
+			    			msg += '\n상점 거래ID asd: ' + rsp.merchant_uid;
+			    			msg += '\결제 금액asd : ' + rsp.paid_amount;
+			    			msg += '카드 승인번호asd : ' + rsp.apply_num;
+//		 	    			location.href='test_reserve_success.do?msg='+msg;
+			    			alert(msg);
+//		 	    		} else {
+//		 	    			alert("ㅜㅜ")
+			    			//[3] 아직 제대로 결제가 되지 않았습니다.
+			    			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
+//		 	    		}
+			            
+			    	});
+			    	var msg = '결제가 완료되었습니다.';
+					msg += '\n고유ID asd: ' + rsp.imp_uid;
+					msg += '\n상점 거래ID asd: ' + rsp.merchant_uid;
+					msg += '\결제 금액asd : ' + rsp.paid_amount;
+					msg += '카드 승인번호asd : ' + rsp.apply_num;
+			    	//성공시 이동할 페이지
+					location.href='user_reserve_success.do?msg='+msg;
+			    } else {
+			        var msg = '결제에 실패하였습니다.';
+			        msg += '에러내용 : ' + rsp.error_msg;
+
+			        alert(msg); 
+			    }
+
+			});
+			
+		}
+			
+			
+		
+		
+		
 </script>
 
 </head>
 <%
 	List<ReserveDto> list=(List<ReserveDto>)request.getAttribute("list");
+	UDto uldto=(UDto)session.getAttribute("uldto");
 %>
 <body>
 <div id="container">
@@ -105,7 +201,7 @@
 			<div class="navis2" onclick="location.href='user_mypage_like.do'">
 				좋아요
 			</div>
-			<div class="navis2 home" onclick="location.href='user_mypage_reservation.do'">
+			<div class="navis2 home" onclick="location.href='user_mypage_reserve.do'">
 				내 예약
 			</div>
 			<div class="navis2" onclick="location.href='user_mypage_review.do'">
@@ -122,47 +218,53 @@
 	<%
 		for(ReserveDto dto:list){
 			%>
-				<div class="bigtle" >
-				 	<div class="mybox">
-						<div class="store_img">
-					 		<p>매장사진들어갈곳</p>  
-					 		<p>+매장명(<%=dto.getStore_name()%>)</p> 
-					 	</div>
-					 	<div class="reserve_info">
-				 		<a>메뉴명 : <%=dto.getMenu_name()%> </a><br>  
-				 		<span>가격 정보 : <%=dto.getReserve_price()%></span><br>
-				 		<%
-				 			if(dto.getReserve_edate()==null||dto.getReserve_edate().equals("")){
-				 				%>
-				 				<span>예약 날짜 : <%=dto.getReserve_sdate()%> </span><br>
-				 				<%
-				 			}else{
-				 				%>
-				 				<span>예약 날짜 : <%=dto.getReserve_sdate()%> ~ <%=dto.getReserve_edate()%> </span><br>
-				 				<%
-				 			}
-				 		%>
-				 		<%
-				 			if(dto.getReserve_time()==null||dto.getReserve_time().equals("")){
-				 				%>
-						 					 				
-				 				<%
-				 			}else{
-				 				%>
-						 		<span>예약 시간 : <%=dto.getReserve_time()%></span><br>				 				
-				 				<%
-				 			} 
-				 		%>
-				 		<span>주소 : <%=dto.getStore_address()%> </span><br>
-				 		</div>
-				 		<div style="margin-left: 520px; margin-top: 40px;" >
-					 		<button class="buttondle">예약취소</button>&nbsp;&nbsp;       
-					 		<button class="buttondle">결제하기</button>       
-				 		</div>
-				 	</div> 	  
-				</div>
-				<br><br> 
-			<%
+			<div class="bigtle" >
+			 	<div class="mybox">
+					<div class="store_img">
+				 		<p>매장사진들어갈곳</p>  
+				 		<p>+매장명(<%=dto.getStore_name()%>)</p> 
+				 	</div>
+				 	<div class="reserve_info">
+			 		<a>메뉴명 : <%=dto.getMenu_name()%> </a><br>  
+			 		<span>가격 정보 : <%=dto.getReserve_price()%></span><br>
+			 		<%
+			 			if(dto.getReserve_edate()==null||dto.getReserve_edate().equals("")){
+			 				%>
+			 				<span>예약 날짜 : <%=dto.getReserve_sdate()%> </span><br>
+			 				<%
+			 			}else{
+			 				%>
+			 				<span>예약 날짜 : <%=dto.getReserve_sdate()%> ~ <%=dto.getReserve_edate()%> </span><br>
+			 				<%
+			 			}
+			 		%>
+			 		<%
+			 			if(dto.getReserve_time()==null||dto.getReserve_time().equals("")){
+			 				%>
+					 					 				
+			 				<%
+			 			}else{
+			 				%>
+					 		<span>예약 시간 : <%=dto.getReserve_time()%></span><br>				 				
+			 				<%
+			 			} 
+			 		%>
+			 		<span>주소 : <%=dto.getStore_address()%> </span><br>
+			 		</div>
+			 		<div style="margin-left: 520px; margin-top: 40px;" >
+				 		<button class="buttondle" id="cancel">예약취소</button>&nbsp;&nbsp;       
+				 		<button class="buttondle" id="requestPay" onclick="requestPay(<%=dto.getReserve_seq()%>,'<%=dto.getUser_id()%>','<%=uldto.getUser_email()%>','<%=dto.getStore_address()%>','<%=dto.getMenu_name()%>','<%=dto.getReserve_price()%>')">결제하기</button>  
+				 		<input type="hidden" name="reserve_seq" value="<%=dto.getReserve_seq()%>"/>   
+				 		<input type="hidden" name="user_id" value="<%=dto.getUser_id()%>"/>  
+				 		<input type="hidden" name="user_email" value="<%=uldto.getUser_email()%>"/>
+				 		<input type="hidden" name="store_address" value="<%=dto.getStore_address()%>"/>
+				 		<input type="hidden" name="menu_name" value="<%=dto.getMenu_name()%>"/>
+				 		<input type="hidden" name="reserve_price" value="<%=dto.getReserve_price()%>"/>
+			 		</div>
+			 	</div> 	  
+			</div>
+			<br><br> 
+			<%	
 		}
 	%>
 	<div class="bigbig">
