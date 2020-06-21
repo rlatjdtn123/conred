@@ -66,4 +66,17 @@ public class QnaDaoImp implements IQnaDao{
 		dto=sqlSession.selectOne(nameSpace+"getUserQna", qna_seq);
 		return dto;
 	}
+
+	@Override
+	public boolean insertQna(int store_seq,String user_id,String qna_title,String qna_content,String qna_hide) {
+		int count=0;
+		Map<String, Object> map=new HashMap<>();
+		map.put("store_seq", store_seq);
+		map.put("user_id", user_id);
+		map.put("qna_title", qna_title);
+		map.put("qna_content", qna_content);
+		map.put("qna_hide", qna_hide);
+		count=sqlSession.insert(nameSpace+"insertQna", map);
+		return count>0?true:false;
+	}
 }

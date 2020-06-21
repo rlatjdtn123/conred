@@ -59,7 +59,7 @@
  	.overfive{float: left;} 
  	.star_bigtle{margin-left: 65px; float: left;}
 /*  	.upload_message{height: 40px; width: 400px;margin-left: 215px; text-align: center; line-height: 37px;} */
-  	 .content_detail{background-color: #fafafa;margin-left: 528px;border-width: 0;}
+  	 .content_detail{background-color: #fafafa;border-width: 0;}
 	 .content_detail:hover {background-color: grey;} 
      .star_table{width: 200px; height: 80px;background-color: #fafafa;border-radius: 5px; padding: 10px;float: left;}
       .starz{width:17px;height:auto;display: inline-block;margin:-2px;margin-bottom:4px;}
@@ -89,6 +89,12 @@
 	
 	.reply_write{height: 34px;float: right;border-color:#ccc;border-radius:5px;}
 	.reply_write:hover {background-color: #D8D8D8;}
+	
+	.nologin{border: 0;margin-left: 528px;}
+	.onlogin{margin-left: 475px;border: 0;}
+	.nologin:hover {background-color: grey;}
+	.onlogin:hover {background-color: grey;}
+	
 	
 </style>   
 <script type="text/javascript">
@@ -333,9 +339,7 @@
 
 	      ////완료버튼   
 	       
-		  function checkValue(){
-			  alert("aa");
-// 			  $(".bigtle").empty();
+		  $("form").on("submit",function(){
 			  var store_seq=$("input[name=store_seq]").val();
 			  var reply_content=$("textarea").val();
 			  var reply_service=$(".star-input01").find(":checked").val();
@@ -350,8 +354,9 @@
 		      if(reply_service==0||reply_service==null||reply_price==0||reply_price==null||reply_clean==0||reply_clean==null){
 		    	  alert("평점을 입력해주세요");
 		    	  return false;
-		      }  	    	  
-	      }	      
+		      }  	    	    
+		  });
+	           
 			  
 		 
 	 
@@ -491,9 +496,26 @@
 		return v;
 	}
 	
+	function user_review_delete(reply_seq){
+		var result=confirm("정말 삭제 하시겠습니까?");
+		if(result){
+			location.href="user_review_delete.do?reply_seq="+reply_seq;
+		}else{
+			
+		} 
+	}
 
-
-	 
+	$(function(){
+		$('.reply_content').keyup(function (e){
+		    var reply_content = $(this).val();
+		    $('#counter').html("("+reply_content.length+" / 최대 200자)");  
+		    if (reply_content.length > 200){
+		        alert("최대 200자까지 입력 가능합니다.");
+		        $(this).val(reply_content.substring(0, 100));
+		        $('#counter').html("(200 / 최대 200자)");  
+		    }
+		});		
+	})
 	
 </script>  
 </head>
@@ -504,7 +526,7 @@
 	UDto uldto=(UDto)session.getAttribute("uldto");
 %>
 <body>
-<form action="user_store_review.do" onsubmit="return checkValue()" method="post" enctype="multipart/form-data">
+<form action="user_store_review.do"  method="post" enctype="multipart/form-data">
 <input type="hidden" name="store_seq" value="<%=list.get(0).getStore_seq()%>"/>
 	<!-- 모탈창 부분 -->
 	<div class="modal fade" id="myModal" role="dialog" aria-hidden="true">
@@ -515,7 +537,7 @@
 	     			<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 	     			<button type="submit" class="reply_write" >리뷰 작성 완료</button>
 	       			
-	       			<h4 class="modal-title"><%=list.get(0).getStore_name()%></h4>
+	       			<h4 class="modal-title">가게 이름</h4>
 	     		</div>
 	     		<div class="modal-body">  
 	     			<div class="star_bigtle">  
@@ -595,7 +617,8 @@
 						    </div>
 						</div>
 					</div>
-	       			<textarea rows="20" cols="120" name="reply_content " style="resize: none;" placeholder="리뷰 작성 해주세요."></textarea>
+	       			<textarea rows="20" cols="120" class="reply_content" name="reply_content " style="resize: none;" placeholder="리뷰 작성 해주세요."></textarea>
+	       			<span style="color:#aaa;" id="counter">(0 / 최대 200자)</span>
 	     		</div>
 	   		</div>  
 		</div> 
@@ -712,8 +735,25 @@
    <div class="bigtle" > 
 		<div class="mybox">          
 			<img src="./img/profile_default.png" class="pf"/>  
-			<div class="info">        
-				<button class="content_detail buttondle">자세히 보기</button><br> 
+			<div class="info"> 
+			    <%
+			    	if(uldto!=null){
+			    		if(uldto.getUser_id().equals(dto.getUser_id())){
+			    		%>
+			    		<button class="buttondle onlogin" onclick="user_review_delete(<%=dto.getReply_seq()%>)">삭제</button>
+			    		<button class="content_detail buttondle">자세히 보기</button><br> 
+			    		<%
+			    		}else{ 
+		    			%>
+			    		<button class="content_detail buttondle nologin">자세히 보기</button><br> 
+			    		<%	
+			    		}
+			    	}else{
+		    		%>
+		    		<button class="content_detail buttondle nologin">자세히 보기</button><br> 
+		    		<%	
+			    	}
+			    %>	
 				<span style="color:#919191;">닉네임:<%=dto.getUser_id()%> </span><span style="float:right; color:#919191;"><%=dto.getReply_regdate()%></span><br>
 				<div class="star_table">
 					<table class="star_score">

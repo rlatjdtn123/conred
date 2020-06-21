@@ -37,9 +37,6 @@
   
 </style>
 <script type="text/javascript">
-	function asd(){
-		alert($("select[name=qna_hide]").val());
-	}
 	
 	$(function(){
 		$('.qna_content').keyup(function (e){

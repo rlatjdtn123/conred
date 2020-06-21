@@ -50,9 +50,13 @@
 	.tle_final{width: 700px;border-top: 1px solid grey;margin-left: 150px;margin-bottom: 200px;}
 	
 	.zxczxc{width: 631px;display: inline-block;} 
+	 .nologin{margin-left: 537px;}
+	 .qna_content{resize: none;}
+	 .qna_title{margin-bottom: 10px; float: left;}
+	 .qna_hide{float: left;margin-left: 10px;}
+	 .qna_write{height: 34px;float: right;border-color:#ccc;border-radius:5px;}
 	 
-	 
-</style>
+</style> 
 <script type="text/javascript">	      
 	//Javascript
 	var count = 1;  
@@ -134,25 +138,39 @@
 	List<QnaDto> list=(List<QnaDto>)request.getAttribute("list");
 	QnaDto qnaAvg=(QnaDto)request.getAttribute("qnaAvg");
 	UDto uldto=(UDto)session.getAttribute("uldto");
-%> 
+%>  
 <body>  
 <input type="hidden" name="session_id"  data-value="<%=uldto%>"/>
 <!-- Modal -->
+<form action="insert_qna.do" method="post">
 <input type="hidden" name="store_seq" value="<%=list.get(0).getStore_seq()%>">
-<div class="modal fade" id="myModal" role="dialog">
-	<div class="modal-dialog modal-lg">
-  		<!-- Modal content-->
-   		<div class="modal-content">
-     		<div class="modal-header">
-       			<button type="button" class="close" data-dismiss="modal">문의 작성 완료</button>
-       			<h4 class="modal-title">가게이름</h4>
-     		</div>
-     		<div class="modal-footer"> 
-       			<textarea rows="20" cols="120" style="resize: none;" placeholder="문의 작성 해주세요."></textarea>
-     		</div>
-   		</div>
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog modal-lg">
+	  		<!-- Modal content--> 
+	   		<div class="modal-content">
+	     		<div class="modal-header">
+	     			<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+	       			<button type="submit" class="qna_write">문의 작성 완료</button>
+	       			<h4 class="modal-title">가게이름</h4>
+	     		</div>
+	     		<div class="modal-footer"> 
+	     			<select class="qna_title" name="qna_title" >
+	     				<option>문의 선택</option>	 
+						<option>가격 문의</option>
+						<option>예약 문의</option>
+						<option>기타 문의</option>	
+	     			</select>
+	     			<select class="qna_hide" name="qna_hide">
+	     				<option>비공개 여부</option>
+				    	<option value="Y">비공개</option>
+				    	<option value="N">공개</option>
+	     			</select>
+	       			<textarea rows="20" cols="120" class="qna_content" name="qna_content"  placeholder="문의 작성 해주세요."></textarea>
+	     		</div>
+	   		</div>
+		</div>
 	</div>
-</div>
+</form>
 <div id="container"> 
 	<div class="bigtle">
 		<div id="main">
@@ -176,7 +194,24 @@
 		    <div class="mybox">         
 				<img src="./img/profile_default.png" class="pf"/>
 				<div class="info">
-					<button class="buttondle" style="margin-left:436px;">수정</button> <button class="buttondle" >삭제</button> <button  class="content_detail buttondle">자세히 보기</button><br>
+				<%
+					if(uldto!=null){
+						if(uldto.getUser_id().equals(dto.getUser_id())){
+							%>
+							<button class="buttondle" style="margin-left:436px;">수정</button><button class="buttondle" >삭제</button> 
+							<button  class="content_detail buttondle">자세히 보기</button><br>							
+							<%
+						}else{
+							%>
+							<button  class="content_detail buttondle nologin">자세히 보기</button><br> 							
+							<%
+						}
+					}else{
+						%>
+						<button  class="content_detail buttondle nologin">자세히 보기</button><br> 							
+						<% 
+					}
+				%>			
 					<span style="color:#919191;">닉네임:<%=dto.getUser_id()%>|<%=dto.getQna_title()%></span><span style="color:#919191; float: right;"><%=dto.getQna_regdate()%></span><br>
 					<div class="contents">
 						<span class="zxczxc"><b>문의내용</b></span><br>  

@@ -23,4 +23,7 @@ public interface IQnaService {
 	
 	//6.사용자 특정문의 한개
 	public QnaDto getUserQna(int qna_seq);
+	
+	//7.사용자 문의등록
+	public boolean insertQna(int store_seq,String user_id,String qna_title,String qna_content,String qna_hide);
 }
