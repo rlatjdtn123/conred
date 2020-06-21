@@ -289,6 +289,67 @@ public class Yoonho {
 			return ""; 
 		}	
 	}
+	@RequestMapping(value = "owner_toUpdate_certify.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String owner_toUpdate_certify(Locale locale, Model model, SDto sdto, HttpServletRequest request) {
+		logger.info("점주: 매장수정1-1(사업자정보 수정 폼으로 이동(일단 도중수정ver))  {}.", locale);
+		HttpSession session=request.getSession();
+		ODto odto= (ODto)session.getAttribute("oldto");
+		SDto seq =sService.selectStoreSeq(odto);
+		System.out.println(seq);
+		model.addAttribute("sdto",seq);
+		return "owner/owner_update_certify";
+	}
+	@RequestMapping(value = "owner_update_certify.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String owner_update_certify(Locale locale, Model model, SDto sdto, String sales_change, String biz_change, HttpServletRequest request) {
+		logger.info("점주: 매장수정1-2(사업자정보 수정(일단 도중수정ver))  {}.", locale);
+		
+		HttpSession session=request.getSession();
+		ODto odto= (ODto)session.getAttribute("oldto");
+		System.out.println("odto 아이디:"+odto.getOwner_id());
+		
+		sdto.setOwner_id(odto.getOwner_id()); 
+		System.out.println("odto 아이디 sdto에 넣기 완료");
+		
+		System.out.println(sdto.getStore_license_number());
+		System.out.println(sdto.getStore_license_number().replace(",",""));
+		
+		sdto.setStore_license_number(sdto.getStore_license_number().replace(",",""));
+		System.out.println("사업자번호 sdto에 넣기 완료");
+		sdto.setStore_owner_phone(sdto.getStore_owner_phone().replace(",",""));
+		System.out.println("점주전화번호 sdto에 넣기 완료");
+		
+		System.out.println("sdto 아이디:"+sdto.getOwner_id());
+		System.out.println("sdto 사업자이름:"+sdto.getStore_owner_name());
+		System.out.println("sdto 사업자등록번호:"+sdto.getStore_license_number());
+		System.out.println("sdto 사업자전화번호:"+sdto.getStore_owner_phone());
+		System.out.println("sdto 약관동의:"+sdto.getStore_agreement());
+		System.out.println("sdto 관리자승인:"+sdto.getStore_admin_state());
+		
+		//만약 값이 바뀌지 않았으면 --이게 필요하지 않으려면? 
+		//화면쪽에서 값을 넣는순간 기존값이 담긴 hidden을 없애주면 되긴한다.
+		//하지만 여러파일일 경우? 이경우에도 마찬가지로 기존값이 담긴 hidden을 없애주면 된다.
+		//이 경우에도 마찬가지로 service에 가서 hidden안의 값을 넣을지 말지를 판별해줘야한다.
+		
+//		얘넨 서비스에가서 if바꼈는지 안바꼈는지에 따라 값을 넣고말고를 정해주면 된다.
+//		if(sales_change.equals("N")) {//sales값이 안바뀌었으면 기존sales값 넣기 dao
+//			
+//		}else if (biz_change.equals("N")) {//biz값이 안바뀌었으면 기존biz값 넣기 dao
+//			
+//		}
+
+		//무조건 한가지
+		
+		boolean isS=sService.updateStoreCertify(sdto, request, sales_change, biz_change);
+//		boolean isS=false;//임시 false: 사진업로드 test중 
+		if(isS) {
+			System.out.println("매장생성 + 사업자정보등록 :성공");
+//			return "owner/owner_regist_store";
+			return "redirect:owner_regist_store.do";
+		}else{
+			System.out.println("매장생성 + 사업자정보등록 :실패");
+			return ""; 
+		}	
+	}
 	
 	@RequestMapping(value = "owner_regist_store.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String owner_regist_store(Locale locale, Model model,SDto sdto, STimeDto stimedto,String [] store_photo_title, SLocaDto slocadto, HttpServletRequest request) {

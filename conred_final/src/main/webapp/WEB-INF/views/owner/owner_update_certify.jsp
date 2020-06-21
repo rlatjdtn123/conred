@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=utf-8"); %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,11 +55,7 @@
 						-moz-appearance: none; appearance: none; }
 </style>
 <script type="text/javascript">
-	//뒤로가기버튼 막기 : 문제점 연속클릭3번하면 뒤로가짐ㅎ
-	//나중에 세션이랑 캐쉬로 처리하자. 세션에 if(ex.이미등록된정보가 있으면)면 redirect시키기
-// 	window.history.forward();
-// 	function noBack(){window.history.forward();}
-	
+
 	$(document).ready(function(){
 		var fileTarget = $('.filebox .upload-hidden');
 		fileTarget.on('change', function(){
@@ -70,24 +67,30 @@
 			} // 추출한 파일명 삽입
 			$(this).siblings('.upload-name').val(filename);
 		});
+		fileTarget.eq(0).change(function() {
+			alert("biz");
+			$(".biz_change").val("Y");
+		});
+		fileTarget.eq(1).change(function() {
+			alert("sales");
+			$(".sales_change").val("Y");
+		});
 	});
 
 </script>
 </head>
-<!-- 뒤로가기버튼막기 by javascript -->
-<!-- <body onload="noback();" onpageshow="if(event.persisted)noBack();" onunload=""> -->
-<body onload="noback();" onpageshow="if(event.persisted)noBack();" onunload="">
+<body>
 <div id="container">
-	<form action="owner_insert_certify.do" method="post" enctype="multipart/form-data">
+	<form action="owner_update_certify.do" method="post" enctype="multipart/form-data">
 		<div id="tle">
 			<div id="regist">
 				사업자등록번호 인증
 			</div> 
 			<table class="table table-hover" >
 				<tr>
-					<td>사업자등록번호</td>
+					<td>사업자등록번호${oldto.owner_name}</td>
 					<td>
-						<input class="numbers form-control" type="text" name="store_license_number"/> -
+						<input class="numbers form-control" type="text" name="store_license_number" value="${sdto.store_license_number}"/> -
 						<input class="numbers form-control" type="text" name="store_license_number"/> -
 						<input class="numbers form-control" type="text" name="store_license_number"/>
 
@@ -102,8 +105,9 @@
 					<td>사업자등록증  사본등록</td>
 					<td>
 						<div class="filebox">
-							<input class="upload-name" value="파일선택" disabled="disabled">
+							<input class="upload-name"  value="${sdto.store_license_biz_origin}" readonly="readonly" >
 							<label class="btn" for="biz">업로드</label>
+							<input type="hidden" class="biz_change" name="biz_change" value="N">
 							<input type="file" id="biz" name="biz" class="upload-hidden">
 <!-- 							<input type="file" id="biz" class="upload-hidden" required="required"> -->
 						</div>
@@ -117,8 +121,9 @@
 <!-- 							<input type="hidden" name="store_license_sales_origin" value="영업증원본명테스트a"/>테스트용 -->
 <!-- 							<input type="hidden" name="store_license_sales_stored" value="영업증저장명테스트a"/>테스트용 -->
 <!-- 							<input type="hidden" name="store_license_sales_size" value="2345"/>			테스트용 -->
-							<input class="upload-name" value="파일선택" disabled="disabled">
+							<input class="upload-name" value="${sdto.store_license_sales_origin}" disabled="disabled">
 							<label class="btn" for="sales">업로드</label>
+							<input type="hidden" class="sales_change" name="sales_change" value="N">
 							<input type="file" id="sales" name="sales" class="upload-hidden">
 <!-- 							<input type="file" id="filename02" class="upload-hidden" required="required"> -->
 						</div>
@@ -127,18 +132,17 @@
 				<tr>
 					<td>사업자명</td>
 					<td>
-						<input class="form-control" type="text" name="store_owner_name"/>
-						<input type="hidden" name="store_owner_name" value="111"/><!-- 테스트용 -->
+						<input class="form-control" type="text" name="store_owner_name" value="${sdto.store_owner_name}"/>
+						<input type="hidden" name="store_owner_name"/><!-- 테스트용 -->
 					</td>
 <!-- 					<td><input type="text" name="store_owner_name" required="required"/></td> -->
 				</tr>
 				<tr>
 					<td>사업자 휴대폰번호</td>
 					<td>
-						<input class="numbers form-control" type="text" name="store_owner_phone"/>- 
+						<input class="numbers form-control" type="text" name="store_owner_phone" value="${sdto.store_owner_phone}"/>- 
 						<input class="numbers form-control" type="text" name="store_owner_phone"/>- 
 						<input class="numbers form-control" type="text" name="store_owner_phone"/>
-						<input type="hidden" name="store_owner_phone" value="111"/><!-- 테스트용 -->
 <!-- 						<input class="numbers" type="text" name="store_owner_phone1" required="required"/>-  -->
 <!-- 						<input class="numbers" type="text" name="store_owner_phone2" required="required"/>-  -->
 <!-- 						<input class="numbers" type="text" name="store_owner_phone3" required="required"/> -->
@@ -156,10 +160,10 @@
 				<tr>
 					<td>입점 약관</td>
 					<td>
-						입점 약관에 동의하시겠습니까? <input name="store_agreement" value="Y" type="checkbox"/>
-						<input type="hidden" name="store_agreement" value="Y"/><!-- 테스트용 -->
+<!-- 						얘는 수정할때도 required 해두기 -->
+						입점 약관에 동의하셨습니다 <input name="store_agreement" value="Y" type="checkbox" checked="checked" disabled/>
+						<input type="hidden" name="store_agreement" value="Y" /><!-- 테스트용 -->
 <!-- 						입점 약관에 동의하시겠습니까? <input name="owner_agreement" value="Y" type="checkbox" required="required"/> -->
-						<button type="button"  class="btn"> 입점약관:모달처리하기</button>
 					</td>
 				</tr>
 			</table>

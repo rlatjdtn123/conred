@@ -11,7 +11,8 @@ import com.hk.conred.dtos.SDto;
 import com.hk.conred.dtos.SLocaDto;
 
 public interface ISService {
-	//매장등록(사업자등록정보)
+//매장등록
+	//매장등록1(사업자등록정보)
 	public boolean insertStoreCertify(SDto sdto,HttpServletRequest request);
 	//매장등록2(매장정보)
 	public boolean updateStoreInfo(SDto sdto,String[] time_day,	String[] time_open,
@@ -21,6 +22,14 @@ public interface ISService {
 	public boolean updateStoreMenu(SDto sdto,CMainDto cmaindto,
 			String[] clist,String[] category_code_2,String[] name,
 			String[] content,String[] price,String[] state);
+	
+//매장수정
+	//매장수정1(사업자등록정보)
+	public boolean updateStoreCertify(SDto sdto, HttpServletRequest request, String sales_change, String biz_change);
+	//매장수정2(매장정보)
+	//매장수정3(메뉴/서비스정보)
+	
+//매장정보가져오기
 	//Store Seq 가져오기
 	public SDto selectStoreSeq(ODto odto);
 	//일반 매장 상세정보들 가져오기

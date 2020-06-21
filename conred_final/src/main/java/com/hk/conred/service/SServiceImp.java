@@ -125,7 +125,7 @@ public class SServiceImp implements ISService {
 		List<MultipartFile> fileList = multi.getFiles("photos");
 		
 		List<SPhotoDto> list = new ArrayList<>();
-//		for (MultipartFile mf : fileList) {
+//		for (MultipartFile mf : fileList) {s
 		for (int i = 0; i < fileList.size(); i++) {
 			SPhotoDto sphotodto = new SPhotoDto();
 			//originName
@@ -193,6 +193,97 @@ public class SServiceImp implements ISService {
 //		MenuDaoImp.insertMenu(sdto, category_code_2, name, content, price, state);
 		return MenuDaoImp.insertMenu(sdto, category_code_2, name, content, price, state);
 	}
+	
+	
+	//매장수정1(사업자등록정보)
+	@Override
+	public boolean updateStoreCertify(SDto sdto, HttpServletRequest request, String sales_change, String biz_change) {
+		MultipartHttpServletRequest multi = (MultipartHttpServletRequest)request;
+//		if(sales_change=="N") {
+//			sdto.setStore_license_biz_origin(sdto.getStore_license_biz_origin());
+//			sdto.setStore_license_biz_stored(sdto.getStore_license_biz_stored());
+//			sdto.setStore_license_biz_size(sdto.getStore_license_biz_size());
+//		}
+//		if(biz_change=="N") {
+//			sdto.setStore_license_sales_origin(sdto.getStore_license_sales_origin());
+//			sdto.setStore_license_sales_stored(sdto.getStore_license_biz_stored());
+//			sdto.setStore_license_sales_size(sdto.getStore_license_biz_size());
+//		}
+		
+		if(sales_change=="Y"&&sales_change=="Y") {
+			
+		}
+		
+//		MultipartFile multiFile_biz=multi.getFile("biz");
+//		MultipartFile multiFile_sales=multi.getFile("sales");
+//		
+//		//originName
+//		String originName_biz=multiFile_biz.getOriginalFilename();
+//		System.out.println("biz의 원본파일명:"+originName_biz);
+//		String originName_sales=multiFile_sales.getOriginalFilename();
+//		System.out.println("sales의 원본파일명:"+originName_sales);
+//			
+//		//storedName
+//		String createUUid_biz=UUID.randomUUID().toString().replaceAll("-", "");
+//		String storedName_biz = createUUid_biz+originName_biz.substring(originName_biz.indexOf("."));
+//		System.out.println("biz의 저장파일명:"+storedName_biz);
+//		String createUUid_sales=UUID.randomUUID().toString().replaceAll("-", "");
+//		String storedName_sales = createUUid_sales+originName_sales.substring(originName_sales.indexOf("."));
+//		System.out.println("sales의 저장파일명:"+storedName_sales);
+//			
+//		//fileSize
+//		String fileSize_biz=Long.toString(multiFile_biz.getSize());
+//		System.out.println("biz의 사이즈:"+fileSize_biz);
+//		String fileSize_sales=Long.toString(multiFile_sales.getSize());
+//		System.out.println("sales의 사이즈:"+fileSize_sales);
+//		
+		//path
+//		//String path_biz="C:/Users/hkedu/git/conred/conred_final/src/main/webapp/upload_biz/";
+//		String path_biz = request.getSession().getServletContext().getRealPath("upload_biz/");
+//		System.out.println("가져온 경로:"+path_biz);
+//		//String path_sales="C:/Users/hkedu/git/conred/conred_final/src/main/webapp/upload_sales/";
+//		String path_sales = request.getSession().getServletContext().getRealPath("upload_sales/");
+//		System.out.println("가져온 경로:"+path_sales);
+//		File file_biz = new File(path_biz+storedName_biz);
+//		File file_sales = new File(path_sales+storedName_sales);
+		
+//		sdto.setStore_license_biz_origin(originName_biz);
+//		sdto.setStore_license_biz_stored(storedName_biz);
+//		sdto.setStore_license_biz_size(fileSize_biz);
+//		sdto.setStore_license_sales_origin(originName_sales);
+//		sdto.setStore_license_sales_stored(storedName_sales);
+//		sdto.setStore_license_sales_size(fileSize_sales);
+
+
+			
+		boolean isS=false; 
+		try {
+			//이건 선생님이 알려준 방식 사용시
+//			isS=SDaoImp.insertStoreCertify(new SDto (odto.getOwner_id(), store_owner_name, store_license_number,
+//					originName_biz, storedName_biz, fileSize_biz, store_license_sales_origin, 
+//					store_license_sales_stored, store_license_sales_size, store_owner_phone, store_agreement));
+			isS=SDaoImp.insertStoreCertify(sdto);
+			if(isS) {
+//				multiFile_biz.transferTo(file_biz);
+//				multiFile_sales.transferTo(file_sales);
+			}
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+		}
+		return isS;
+	}
+	
+	//매장수정2(매장정보)
+	
+	
+	//매장수정3(메뉴/서비스정보)
+	
+	
+	
+	
+	
 	//Store Seq 가져오기
 	@Override
 	public SDto selectStoreSeq(ODto odto) {
@@ -208,6 +299,7 @@ public class SServiceImp implements ISService {
 	public List<SDto> StoreSeqList(String[] store_seq_list) {
 		return SDaoImp.StoreSeqList(store_seq_list);
 	}
+
 	
 	
 	

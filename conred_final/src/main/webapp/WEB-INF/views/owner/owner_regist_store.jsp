@@ -681,7 +681,7 @@
 				</div>
 				<br>
 				<div id="bot" class="flright" >
-					<input class="btn greenbtn" value="전단계로" onclick="location.href='owner_regist_certify.do'" type="button"/>
+					<input class="btn greenbtn" value="전단계로" onclick="location.href='owner_toUpdate_certify.do'" type="button"/>
 					<input class="btn redbtn" value="취소" onclick="location.href='index.jsp'" type="button"/>
 					<input class="btn greenbtn" value="다음 단계로" type="submit"/>
 				</div>
