@@ -67,14 +67,14 @@
 			} // 추출한 파일명 삽입
 			$(this).siblings('.upload-name').val(filename);
 		});
-		fileTarget.eq(0).change(function() {
-			alert("biz");
-			$(".biz_change").val("Y");
-		});
-		fileTarget.eq(1).change(function() {
-			alert("sales");
-			$(".sales_change").val("Y");
-		});
+// 		fileTarget.eq(0).change(function() {
+// 			alert("biz");
+// 			$(".biz_change").val("Y");
+// 		});
+// 		fileTarget.eq(1).change(function() {
+// 			alert("sales");
+// 			$(".sales_change").val("Y");
+// 		});
 	});
 
 </script>
@@ -107,7 +107,7 @@
 						<div class="filebox">
 							<input class="upload-name"  value="${sdto.store_license_biz_origin}" readonly="readonly" >
 							<label class="btn" for="biz">업로드</label>
-							<input type="hidden" class="biz_change" name="biz_change" value="N">
+<!-- 							<input type="hidden" class="biz_change" name="biz_change" value="N"> -->
 							<input type="file" id="biz" name="biz" class="upload-hidden">
 <!-- 							<input type="file" id="biz" class="upload-hidden" required="required"> -->
 						</div>
@@ -123,7 +123,7 @@
 <!-- 							<input type="hidden" name="store_license_sales_size" value="2345"/>			테스트용 -->
 							<input class="upload-name" value="${sdto.store_license_sales_origin}" disabled="disabled">
 							<label class="btn" for="sales">업로드</label>
-							<input type="hidden" class="sales_change" name="sales_change" value="N">
+<!-- 							<input type="hidden" class="sales_change" name="sales_change" value="N"> -->
 							<input type="file" id="sales" name="sales" class="upload-hidden">
 <!-- 							<input type="file" id="filename02" class="upload-hidden" required="required"> -->
 						</div>

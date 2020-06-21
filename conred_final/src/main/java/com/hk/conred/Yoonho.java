@@ -39,6 +39,7 @@ import com.hk.conred.dtos.STimeDto;
 import com.hk.conred.dtos.UDto;
 import com.hk.conred.service.ICListService;
 import com.hk.conred.service.ICMainService;
+import com.hk.conred.service.IMapService;
 import com.hk.conred.service.IMenuService;
 import com.hk.conred.service.IOService;
 import com.hk.conred.service.IQnaService;
@@ -71,6 +72,8 @@ public class Yoonho {
 	private IQnaService qnaService;
 	@Autowired
 	private ISPhotoService sPhotoService;
+	@Autowired
+	private IMapService mapService;
 	
 	@RequestMapping(value = "yoonho.do", method = RequestMethod.GET)
 	public String yoonho(Locale locale, Model model) {
@@ -296,15 +299,20 @@ public class Yoonho {
 		ODto odto= (ODto)session.getAttribute("oldto");
 		SDto seq =sService.selectStoreSeq(odto);
 		System.out.println(seq);
+		System.out.println("sdto seq:"+seq.getStore_seq());
 		model.addAttribute("sdto",seq);
 		return "owner/owner_update_certify";
 	}
+	
 	@RequestMapping(value = "owner_update_certify.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String owner_update_certify(Locale locale, Model model, SDto sdto, String sales_change, String biz_change, HttpServletRequest request) {
+	public String owner_update_certify(Locale locale, Model model, SDto sdto,
+			/* String sales_change, String biz_change, */HttpServletRequest request) {
 		logger.info("점주: 매장수정1-2(사업자정보 수정(일단 도중수정ver))  {}.", locale);
 		
 		HttpSession session=request.getSession();
 		ODto odto= (ODto)session.getAttribute("oldto");
+		SDto seq =sService.selectStoreSeq(odto);
+		
 		System.out.println("odto 아이디:"+odto.getOwner_id());
 		
 		sdto.setOwner_id(odto.getOwner_id()); 
@@ -313,11 +321,14 @@ public class Yoonho {
 		System.out.println(sdto.getStore_license_number());
 		System.out.println(sdto.getStore_license_number().replace(",",""));
 		
+		sdto.setStore_seq(seq.getStore_seq());
+		System.out.println("매장seq sdto에 넣기 완료");
 		sdto.setStore_license_number(sdto.getStore_license_number().replace(",",""));
 		System.out.println("사업자번호 sdto에 넣기 완료");
 		sdto.setStore_owner_phone(sdto.getStore_owner_phone().replace(",",""));
 		System.out.println("점주전화번호 sdto에 넣기 완료");
 		
+		System.out.println("sdto seq:"+sdto.getStore_seq());
 		System.out.println("sdto 아이디:"+sdto.getOwner_id());
 		System.out.println("sdto 사업자이름:"+sdto.getStore_owner_name());
 		System.out.println("sdto 사업자등록번호:"+sdto.getStore_license_number());
@@ -339,17 +350,19 @@ public class Yoonho {
 
 		//무조건 한가지
 		
-		boolean isS=sService.updateStoreCertify(sdto, request, sales_change, biz_change);
+//		boolean isS=sService.updateStoreCertify(sdto, request, sales_change, biz_change);
+		boolean isS=sService.updateStoreCertify(sdto, request ,seq);
 //		boolean isS=false;//임시 false: 사진업로드 test중 
 		if(isS) {
-			System.out.println("매장생성 + 사업자정보등록 :성공");
+			System.out.println("매장수정 + 사업자정보수정 :성공");
 //			return "owner/owner_regist_store";
 			return "redirect:owner_regist_store.do";
 		}else{
-			System.out.println("매장생성 + 사업자정보등록 :실패");
+			System.out.println("매장수정 + 사업자정보수정 :실패");
 			return ""; 
 		}	
 	}
+	
 	
 	@RequestMapping(value = "owner_regist_store.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String owner_regist_store(Locale locale, Model model,SDto sdto, STimeDto stimedto,String [] store_photo_title, SLocaDto slocadto, HttpServletRequest request) {
@@ -415,6 +428,93 @@ public class Yoonho {
 			return ""; 
 		}	
 	}
+	
+	@RequestMapping(value = "owner_toUpdate_store.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String owner_toUpdate_store(Locale locale, Model model, SDto sdto, HttpServletRequest request) {
+		logger.info("점주: 매장수정2-1(상세정보, 사진, 주소, 영업시간 수정 폼으로 이동(일단 도중수정ver)) {}.", locale);
+		HttpSession session=request.getSession();
+		ODto odto= (ODto)session.getAttribute("oldto");
+		SDto seq =sService.selectStoreSeq(odto);
+		System.out.println(seq);
+		System.out.println("sdto seq:"+seq.getStore_seq());
+		List<STimeDto> list_stime =sTimeService.selectStime(seq.getStore_seq());
+		System.out.println("list_stime : "+list_stime);
+		List<SPhotoDto> list_sphoto = sPhotoService.selectSPhoto(seq.getStore_seq());
+		System.out.println("list_sphoto : "+list_sphoto);
+		List<SDto> list = new ArrayList<SDto>();
+		list.add(seq);
+		List<SLocaDto> list_sloca= mapService.getSloca_ajax(list);
+		System.out.println(list_sloca);
+		model.addAttribute("sdto",seq);
+		model.addAttribute("list_stime",list_stime);// 영업시간
+		model.addAttribute("list_sphoto",list_sphoto);// 매장사진
+		model.addAttribute("list_sloca",list_sloca);// 매장좌표
+		return "owner/owner_update_store";
+	}
+	
+	@RequestMapping(value = "owner_update_store.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String owner_update_store(Locale locale, Model model,SDto sdto, STimeDto stimedto,String [] store_photo_title, SLocaDto slocadto, HttpServletRequest request) {
+		logger.info("점주: 매장수정2-2 (상세정보, 사진, 주소, 영업시간 수정) {}.", locale);
+		
+		//insert때랑 다른점:기존의 store는 그대로 수정이고,
+		//stime, sloca, sphoto만 insert아닌 update개념으로 바뀐다.
+		
+		//세션에서 id정보 가져오기(store_seq구하기용)
+		HttpSession session=request.getSession();
+		ODto odto= (ODto)session.getAttribute("oldto");
+		SDto seq =sService.selectStoreSeq(odto);
+		
+		for (int i = 0; i < store_photo_title.length; i++) {
+			System.out.println(i+"번째 사진이름"+store_photo_title[i]);
+		}
+		
+		System.out.println("세션에서가져온sdto2의 store_seq값: "+seq.getStore_seq());
+		sdto.setStore_seq(seq.getStore_seq());
+		System.out.println("sdto에 넣은 store_seq값: "+sdto.getStore_seq());
+
+		System.out.println("sdto 매장명:"+sdto.getStore_name());
+		System.out.println("sdto 매장홈피링크:"+sdto.getStore_path());
+		System.out.println("sdto 간단소개:"+sdto.getStore_intro_simple());
+		System.out.println("sdto 상세소개:"+sdto.getStore_intro());
+		System.out.println("sdto 영업상태:"+sdto.getStore_state());
+		System.out.println("sdto 매장번호:"+sdto.getStore_phone());
+		System.out.println("sdto 담당자번호:"+sdto.getStore_phone_manager());
+		System.out.println("sdto 주소:"+sdto.getStore_address());
+		System.out.println("sdto 상세주소:"+sdto.getStore_address_detail());
+		System.out.println("sdto 영업시간 기타사항:"+sdto.getStore_time_other());
+		System.out.println("sdto 은행명:"+sdto.getStore_bank());
+		System.out.println("sdto 계좌번호:"+sdto.getStore_account());
+//		System.out.println("배열로받아온 요일:"+store_time_day.toString());
+		
+		stimedto.setStore_seq(seq.getStore_seq());
+		System.out.println("매장번호:"+stimedto.getStore_seq());
+		System.out.println("요일:"+stimedto.getStore_time_day());
+		System.out.println("개점시간:"+stimedto.getStore_time_open());
+		System.out.println("폐점시간:"+stimedto.getStore_time_close());
+		System.out.println("휴무여부:"+stimedto.getStore_time_break());
+		String [] time_day=stimedto.getStore_time_day().split(",");
+		String [] time_open=stimedto.getStore_time_open().split(",");
+		String [] time_close=stimedto.getStore_time_close().split(",");
+		String [] time_break=stimedto.getStore_time_break().split(",");
+		
+		for (int i = 0; i < time_day.length; i++) {
+			System.out.println(time_day[i]+" : "+time_open[i]+"~"+time_close[i]+"/폐점여부:"+time_break[i]); 
+		}
+		
+		System.out.println("위도 lat:"+slocadto.getStore_latitude());
+		System.out.println("경도 lng:"+slocadto.getStore_longitude());
+//		return ""; 
+		boolean isS=sService.updateStoreInfo(sdto,time_day,time_open,time_close,time_break,store_photo_title,slocadto,request);
+		if(isS) {
+			System.out.println("매장정보 업데이트성공~");
+//			return "owner/owner_regist_menu";
+			return "redirect:owner_regist_menu.do";
+		}else{
+			System.out.println("매장정보 업데이트실패~");
+			return ""; 
+		}	
+	}
+	
 	
 	@RequestMapping(value = "owner_regist_menu.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String owner_regist_menu(Locale locale, Model model,String[] category_code_2, SDto sdto, CMainDto cmaindto, CListDto clistdto, MenuDto menudto, HttpServletRequest request/*,String store_maxdate*/) {

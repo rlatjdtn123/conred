@@ -15,7 +15,7 @@ public interface ISService {
 	//매장등록1(사업자등록정보)
 	public boolean insertStoreCertify(SDto sdto,HttpServletRequest request);
 	//매장등록2(매장정보)
-	public boolean updateStoreInfo(SDto sdto,String[] time_day,	String[] time_open,
+	public boolean insertStoreInfo(SDto sdto,String[] time_day,	String[] time_open,
 			String[] time_close,String[] time_break, String[] store_photo_title,
 			SLocaDto slocadto,HttpServletRequest request);
 	//매장등록3(메뉴/서비스정보)
@@ -25,9 +25,14 @@ public interface ISService {
 	
 //매장수정
 	//매장수정1(사업자등록정보)
-	public boolean updateStoreCertify(SDto sdto, HttpServletRequest request, String sales_change, String biz_change);
+//	public boolean updateStoreCertify(SDto sdto, HttpServletRequest request, String sales_change, String biz_change);
+	public boolean updateStoreCertify(SDto sdto, HttpServletRequest request, SDto seq);
 	//매장수정2(매장정보)
+	public boolean updateStoreInfo(SDto sdto,String[] time_day,	String[] time_open,
+			String[] time_close,String[] time_break, String[] store_photo_title,
+			SLocaDto slocadto,HttpServletRequest request);
 	//매장수정3(메뉴/서비스정보)
+//	public boolean updateStoreCertify(SDto sdto, HttpServletRequest request, SDto seq);
 	
 //매장정보가져오기
 	//Store Seq 가져오기

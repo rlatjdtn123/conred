@@ -119,7 +119,7 @@ public class SServiceImp implements ISService {
 	//매장등록2(매장정보)
 	@Transactional
 	@Override
-	public boolean updateStoreInfo(SDto sdto,String[] time_day,String[] time_open,String[] time_close,String[] time_break, String[] store_photo_title, SLocaDto slocadto, HttpServletRequest request) {
+	public boolean insertStoreInfo(SDto sdto,String[] time_day,String[] time_open,String[] time_close,String[] time_break, String[] store_photo_title, SLocaDto slocadto, HttpServletRequest request) {
 		
 		MultipartHttpServletRequest multi = (MultipartHttpServletRequest)request;
 		List<MultipartFile> fileList = multi.getFiles("photos");
@@ -176,7 +176,7 @@ public class SServiceImp implements ISService {
 		//매장좌표 값넣기
 		SLocaDaoImp.insertSLoca(sdto, slocadto);
 		//매장정보 값넣기
-		SDaoImp.updateStoreInfo(sdto);
+		SDaoImp.insertStoreInfo(sdto);
 		//위의 updateStoreInfo을 true false 리턴 안해주는 이유
 		//	>>어차피 여기서 오류나면 밑에 return은 실행되지않으니, 실행되면 true라는걸 알 수 있다.s
 		return STimeDaoImp.insertStime(sdto,time_day,time_open,time_close,time_break);
@@ -197,86 +197,184 @@ public class SServiceImp implements ISService {
 	
 	//매장수정1(사업자등록정보)
 	@Override
-	public boolean updateStoreCertify(SDto sdto, HttpServletRequest request, String sales_change, String biz_change) {
+//	public boolean updateStoreCertify(SDto sdto, HttpServletRequest request, String sales_change, String biz_change) {
+	public boolean updateStoreCertify(SDto sdto, HttpServletRequest request, SDto seq) {
 		MultipartHttpServletRequest multi = (MultipartHttpServletRequest)request;
-//		if(sales_change=="N") {
-//			sdto.setStore_license_biz_origin(sdto.getStore_license_biz_origin());
-//			sdto.setStore_license_biz_stored(sdto.getStore_license_biz_stored());
-//			sdto.setStore_license_biz_size(sdto.getStore_license_biz_size());
-//		}
-//		if(biz_change=="N") {
-//			sdto.setStore_license_sales_origin(sdto.getStore_license_sales_origin());
-//			sdto.setStore_license_sales_stored(sdto.getStore_license_biz_stored());
-//			sdto.setStore_license_sales_size(sdto.getStore_license_biz_size());
-//		}
+
+		//파일가져오기 biz
+		MultipartFile multiFile_biz=multi.getFile("biz");
+		System.out.println("파일명(값없으면 공백):"+multiFile_biz.getOriginalFilename());
 		
-		if(sales_change=="Y"&&sales_change=="Y") {
-			
+		File file_biz = null;
+		File file_sales = null;
+		if(multiFile_biz.getOriginalFilename()!="") {
+			//originName
+			String originName_biz=multiFile_biz.getOriginalFilename();
+			System.out.println("biz의 원본파일명:"+originName_biz);
+			//storedName
+			String createUUid_biz=UUID.randomUUID().toString().replaceAll("-", "");
+			String storedName_biz = createUUid_biz+originName_biz.substring(originName_biz.indexOf("."));
+			System.out.println("biz의 저장파일명:"+storedName_biz);
+			//fileSize
+			String fileSize_biz=Long.toString(multiFile_biz.getSize());
+			System.out.println("biz의 사이즈:"+fileSize_biz);
+			//path
+			//String path_biz="C:/Users/hkedu/git/conred/conred_final/src/main/webapp/upload_biz/";
+			String path_biz = request.getSession().getServletContext().getRealPath("upload_biz/");
+			System.out.println("가져온 경로(biz):"+path_biz);
+			//저장될파일경로+이름
+//			File file_biz = new File(path_biz+storedName_biz);
+			file_biz = new File(path_biz+storedName_biz);
+			//새로운값들 dto에 넣기
+			sdto.setStore_license_biz_origin(originName_biz);
+			sdto.setStore_license_biz_stored(storedName_biz);
+			sdto.setStore_license_biz_size(fileSize_biz);
+		}else if(multiFile_biz.getOriginalFilename()==""){
+			//기존값 dto에 넣기
+			System.out.println("들어갈 biz기존원본명:"+seq.getStore_license_biz_origin());
+			System.out.println("들어갈 biz기존저장명:"+seq.getStore_license_biz_stored());
+			System.out.println("들어갈 biz기존사이즈:"+seq.getStore_license_biz_size());
+			sdto.setStore_license_biz_origin(seq.getStore_license_biz_origin());
+			sdto.setStore_license_biz_stored(seq.getStore_license_biz_stored());
+			sdto.setStore_license_biz_size(seq.getStore_license_biz_size());
+		}
+		//파일가져오기 sales
+		MultipartFile multiFile_sales=multi.getFile("sales");
+		System.out.println("파일명(값없으면 공백):"+multiFile_sales.getOriginalFilename());
+		if(multiFile_sales.getOriginalFilename()!="") {
+			//originName
+			String originName_sales=multiFile_sales.getOriginalFilename();
+			System.out.println("sales의 원본파일명:"+originName_sales);
+			//storedName
+			String createUUid_sales=UUID.randomUUID().toString().replaceAll("-", "");
+			String storedName_sales = createUUid_sales+originName_sales.substring(originName_sales.indexOf("."));
+			System.out.println("sales의 저장파일명:"+storedName_sales);
+			//fileSize
+			String fileSize_sales=Long.toString(multiFile_sales.getSize());
+			System.out.println("sales의 사이즈:"+fileSize_sales);
+			//path
+			//String path_sales="C:/Users/hkedu/git/conred/conred_final/src/main/webapp/upload_sales/";
+			String path_sales = request.getSession().getServletContext().getRealPath("upload_sales/");
+			System.out.println("가져온 경로(sales):"+path_sales);
+			//저장될파일경로+이름
+//			File file_sales = new File(path_sales+storedName_sales);
+			file_sales = new File(path_sales+storedName_sales);
+			//새로운값들 dto에 넣기
+			sdto.setStore_license_sales_origin(originName_sales);
+			sdto.setStore_license_sales_stored(storedName_sales);
+			sdto.setStore_license_sales_size(fileSize_sales);
+		}else if(multiFile_sales.getOriginalFilename()==""){
+			//기존값 dto에 넣기
+			System.out.println("들어갈 sales기존원본명:"+seq.getStore_license_sales_origin());
+			System.out.println("들어갈 sales기존저장명:"+seq.getStore_license_sales_stored());
+			System.out.println("들어갈 sales기존사이즈:"+seq.getStore_license_sales_size());
+			sdto.setStore_license_sales_origin(seq.getStore_license_sales_origin());
+			sdto.setStore_license_sales_stored(seq.getStore_license_sales_stored());
+			sdto.setStore_license_sales_size(seq.getStore_license_sales_size());
 		}
 		
-//		MultipartFile multiFile_biz=multi.getFile("biz");
-//		MultipartFile multiFile_sales=multi.getFile("sales");
-//		
-//		//originName
-//		String originName_biz=multiFile_biz.getOriginalFilename();
-//		System.out.println("biz의 원본파일명:"+originName_biz);
-//		String originName_sales=multiFile_sales.getOriginalFilename();
-//		System.out.println("sales의 원본파일명:"+originName_sales);
-//			
-//		//storedName
-//		String createUUid_biz=UUID.randomUUID().toString().replaceAll("-", "");
-//		String storedName_biz = createUUid_biz+originName_biz.substring(originName_biz.indexOf("."));
-//		System.out.println("biz의 저장파일명:"+storedName_biz);
-//		String createUUid_sales=UUID.randomUUID().toString().replaceAll("-", "");
-//		String storedName_sales = createUUid_sales+originName_sales.substring(originName_sales.indexOf("."));
-//		System.out.println("sales의 저장파일명:"+storedName_sales);
-//			
-//		//fileSize
-//		String fileSize_biz=Long.toString(multiFile_biz.getSize());
-//		System.out.println("biz의 사이즈:"+fileSize_biz);
-//		String fileSize_sales=Long.toString(multiFile_sales.getSize());
-//		System.out.println("sales의 사이즈:"+fileSize_sales);
-//		
-		//path
-//		//String path_biz="C:/Users/hkedu/git/conred/conred_final/src/main/webapp/upload_biz/";
-//		String path_biz = request.getSession().getServletContext().getRealPath("upload_biz/");
-//		System.out.println("가져온 경로:"+path_biz);
-//		//String path_sales="C:/Users/hkedu/git/conred/conred_final/src/main/webapp/upload_sales/";
-//		String path_sales = request.getSession().getServletContext().getRealPath("upload_sales/");
-//		System.out.println("가져온 경로:"+path_sales);
-//		File file_biz = new File(path_biz+storedName_biz);
-//		File file_sales = new File(path_sales+storedName_sales);
-		
-//		sdto.setStore_license_biz_origin(originName_biz);
-//		sdto.setStore_license_biz_stored(storedName_biz);
-//		sdto.setStore_license_biz_size(fileSize_biz);
-//		sdto.setStore_license_sales_origin(originName_sales);
-//		sdto.setStore_license_sales_stored(storedName_sales);
-//		sdto.setStore_license_sales_size(fileSize_sales);
-
-
-			
 		boolean isS=false; 
-		try {
-			//이건 선생님이 알려준 방식 사용시
-//			isS=SDaoImp.insertStoreCertify(new SDto (odto.getOwner_id(), store_owner_name, store_license_number,
-//					originName_biz, storedName_biz, fileSize_biz, store_license_sales_origin, 
-//					store_license_sales_stored, store_license_sales_size, store_owner_phone, store_agreement));
-			isS=SDaoImp.insertStoreCertify(sdto);
-			if(isS) {
-//				multiFile_biz.transferTo(file_biz);
-//				multiFile_sales.transferTo(file_sales);
+		isS=SDaoImp.updateStoreCertify(sdto);
+		if(isS) {
+			if(multiFile_biz.getOriginalFilename()!=""){
+				try {
+					multiFile_biz.transferTo(file_biz);
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
+			if(multiFile_sales.getOriginalFilename()!=""){
+				try {
+					multiFile_sales.transferTo(file_sales);
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
+		
 		return isS;
 	}
 	
 	//매장수정2(매장정보)
-	
+	@Override
+	public boolean updateStoreInfo(SDto sdto, String[] time_day, String[] time_open, String[] time_close,
+			String[] time_break, String[] store_photo_title, SLocaDto slocadto, HttpServletRequest request) {
+
+		MultipartHttpServletRequest multi = (MultipartHttpServletRequest)request;
+		List<MultipartFile> fileList = multi.getFiles("photos");
+		
+		//여기서 추가로 해줘야만 할 것:
+		//사진만 다른데 
+		//사진을 만약 추가되었으면 전송한다. 인데
+		//if문 필요없이 현재 있는 값들을 다 넣어주면된다.
+		
+		//삽입,수정,삭제 다 되야함
+		//삽입:새로 추가된 파일for문돌려서 넣어주기(기존과같음)
+		//수정:글자가 바뀐 것들을 update처리
+		//삭제:hidden으로 삭제하라고 넘겨받은 기존 sphoto의 seq값들로 삭제처리
+		
+		
+		List<SPhotoDto> list = new ArrayList<>();
+//		for (MultipartFile mf : fileList) {s
+		for (int i = 0; i < fileList.size(); i++) {
+			SPhotoDto sphotodto = new SPhotoDto();
+			//originName
+//			String originName=mf.getOriginalFilename(); //상향된 for문 이용시
+			String originName=fileList.get(i).getOriginalFilename();
+			System.out.println("원본파일명:"+originName);
+			
+			//storedName
+			String createUUid=UUID.randomUUID().toString().replaceAll("-", "");
+			String storedName = createUUid+originName.substring(originName.indexOf("."));
+			System.out.println("저장파일명:"+storedName);
+			
+			//fileSize
+//			double fileSize=mf.getSize(); //상향된 for문 이용시
+			double fileSize=fileList.get(i).getSize();
+			System.out.println("파일사이즈:"+fileSize);
+//			String fileSize=Long.toString(mf.getSize()); //String으로 형변환하려면
+			
+			System.out.println(store_photo_title[i]);
+			
+			String path = request.getSession().getServletContext().getRealPath("upload_sphoto/");
+			System.out.println("가져온 경로:"+path);
+//			String path="C:/Users/hkedu/git/conred/conred_final/src/main/webapp/upload_sphoto/";
+			File file = new File(path+storedName);
+			
+			System.out.println("sdto에 넣으러간다");
+			sphotodto.setStore_seq(sdto.getStore_seq());
+			sphotodto.setStore_photo_origin(originName);
+			sphotodto.setStore_photo_stored(storedName);
+			sphotodto.setStore_photo_size(fileSize);
+			sphotodto.setStore_photo_title(store_photo_title[i]);
+			
+			System.out.println("sdto에 넣는거 완료");
+			list.add(sphotodto);
+			try {
+				System.out.println("파일업로드시도");
+				fileList.get(i).transferTo(file);
+				System.out.println("파일업로드완료");
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		//매장사진 값넣기
+		SPhotoDaoImp.insertSPhoto(list);
+		//매장좌표 값넣기
+		SLocaDaoImp.insertSLoca(sdto, slocadto);
+		//매장정보 값넣기
+		SDaoImp.insertStoreInfo(sdto);
+		//위의 updateStoreInfo을 true false 리턴 안해주는 이유
+		//	>>어차피 여기서 오류나면 밑에 return은 실행되지않으니, 실행되면 true라는걸 알 수 있다.s
+		return STimeDaoImp.insertStime(sdto,time_day,time_open,time_close,time_break);
+	}
 	
 	//매장수정3(메뉴/서비스정보)
 	
@@ -299,6 +397,7 @@ public class SServiceImp implements ISService {
 	public List<SDto> StoreSeqList(String[] store_seq_list) {
 		return SDaoImp.StoreSeqList(store_seq_list);
 	}
+
 
 	
 	

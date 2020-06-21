@@ -20,7 +20,7 @@ public class SDaoImp implements ISDao {
 	
 	private String namespace="com.hk.conred.S.";
 	
-	//매장등록(사업자등록정보)
+	//매장등록1(사업자등록정보)
 	@Override
 	public boolean insertStoreCertify(SDto sdto) {    
 		int count= 0;
@@ -29,7 +29,7 @@ public class SDaoImp implements ISDao {
 	}
 	//매장등록2(매장정보)
 	@Override
-	public boolean updateStoreInfo(SDto sdto) {
+	public boolean insertStoreInfo(SDto sdto) {
 		int count= 0;
 		count=sqlSession.update(namespace+"updateStoreInfo",sdto);
 		return count>0?true:false;
@@ -41,6 +41,16 @@ public class SDaoImp implements ISDao {
 		count=sqlSession.update(namespace+"updateStoreMenu",sdto);
 		return count>0?true:false;
 	}
+	
+	//매장수정1(사업자등록정보)
+	@Override
+	public boolean updateStoreCertify(SDto sdto) {
+		int count= 0;
+		count=sqlSession.update(namespace+"updateStoreCertify",sdto);
+		return count>0?true:false;
+	}
+	
+	
 	//Store Seq 가져오기
 	@Override
 	public SDto selectStoreSeq(ODto odto) {
@@ -70,6 +80,7 @@ public class SDaoImp implements ISDao {
 		list=sqlSession.selectList(namespace+"StoreSeqList",store_seq_list);
 		return list;
 	}
+
 	
 	
 	
