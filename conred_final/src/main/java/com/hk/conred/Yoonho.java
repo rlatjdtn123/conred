@@ -479,6 +479,41 @@ public class Yoonho {
 		return "owner/owner_update_store";
 	}
 	
+	@RequestMapping(value = "owner_toReupdate_store.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String owner_toReupdate_store(Locale locale, Model model, SDto sdto, HttpServletRequest request) {
+		logger.info("점주: 매장수정2-1(상세정보, 사진, 주소, 영업시간 수정 폼으로 이동(일단 도중수정ver)) {}.", locale);
+		HttpSession session=request.getSession();
+		ODto odto= (ODto)session.getAttribute("oldto");
+		SDto seq =sService.selectStoreSeq(odto);
+		System.out.println(seq);
+		System.out.println("sdto seq:"+seq.getStore_seq());
+		List<STimeDto> list_stime =sTimeService.selectStime(seq.getStore_seq());
+		System.out.println("list_stime : "+list_stime);
+		List<SPhotoDto> list_sphoto = sPhotoService.selectSPhoto(seq.getStore_seq());
+		System.out.println("list_sphoto : "+list_sphoto);
+		List<SDto> list = new ArrayList<SDto>();
+		list.add(seq);
+		List<SLocaDto> list_sloca= mapService.getSloca_ajax(list);
+		System.out.println("list_sloca:"+list_sloca);
+		
+		//cmain, clist, menu
+		CMainDto cmain =cMainService.selectCMain(seq.getStore_seq());
+		System.out.println("cmain:"+cmain);
+		List<CListDto> list_clist =cListService.selectCList(seq.getStore_seq());
+		System.out.println("list_clist:"+list_clist);
+		List<MenuDto> list_menu =menuService.selectMenu(seq.getStore_seq());
+		System.out.println("list_menu:"+list_menu);
+		
+		model.addAttribute("sdto",seq);//store_info정보
+		model.addAttribute("list_stime",list_stime);// 영업시간
+		model.addAttribute("list_sphoto",list_sphoto);// 매장사진
+		model.addAttribute("list_sloca",list_sloca);// 매장좌표
+		model.addAttribute("cmain",cmain);// 대분류카테고리
+		model.addAttribute("list_clist",list_clist);// 소분류카테고리
+		model.addAttribute("list_menu",list_menu);// 메뉴
+		return "owner/owner_mystore_update";
+	}
+	
 	@RequestMapping(value = "owner_update_store.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String owner_update_store(Locale locale, Model model,SDto sdto, STimeDto stimedto,String [] store_photo_title,String [] store_photo_title_before, String[] before_seq,SLocaDto slocadto,String del, HttpServletRequest request) {
 		logger.info("점주: 매장수정2-2 (상세정보, 사진, 주소, 영업시간 수정) {}.", locale);

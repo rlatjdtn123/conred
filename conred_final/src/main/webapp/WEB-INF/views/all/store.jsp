@@ -204,7 +204,7 @@
 					<div class="navis2 home" onclick="location.href='store.do?store_seq=${store_detail.store_seq}'">
 						매장 홈
 					</div>
-					<div class="navis2" onclick="location.href='owner_mystore_update.do'">
+					<div class="navis2" onclick="location.href='owner_toReupdate_store.do'">
 						매장정보 수정
 					</div>
 					<div class="navis2" onclick="location.href='owner_mystore_reservation.do'">

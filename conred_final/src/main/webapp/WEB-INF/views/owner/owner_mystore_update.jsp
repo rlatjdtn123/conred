@@ -1,78 +1,662 @@
+<%@page import="com.hk.conred.dtos.SDto"%>
 <jsp:include page="../all/header2.jsp" />
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
 <%response.setContentType("text/html; charset=utf-8"); %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script src="js/jquery-3.4.1.js"></script>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+<!-- 스윗알러트! -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<!-- 시간지정용 데이트피커 소스 -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bc283bd41dff040b5403d29f3172b43a&libraries=services,clusterer,drawing"></script>
+
 <style type="text/css">
-	#container{text-align:center; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:900px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
-	#sticky{position: sticky; top:71px;}
-	#navi2{width:998px;background-color: lightblue;clear:both;position:relative;top:-20px;text-align: center;line-height: 40px;border-top: 1px solid grey;}
-	.navis2{border-bottom:1px solid grey; font-size:15px; float:left;width:199.6px;height:40px;background-color: #D8D8D8;}
-	.navis2:hover{border-bottom:1px solid white;background-color: white;cursor:pointer;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
-	.home{border-bottom:1px solid white;background-color: white;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
-	
-	#photozone{width:100%; height:400px;border:1px solid grey;}
-	
-	.s_bold{font-size:20px;font-weight: bold;display:block;}
-	.s_bold2{font-size:15px;font-weight: bold;}
-	.s_week{font-size:15px;width:70px;display: inline-block;}
-	.redfont{color:red;}
-
-	.section{width:900px;display: inline-block;}
-	#infobox_title{ height:290px;}
-	#infobox_timeaddr{ height:230px;border:0px solid grey;border-top-width: 0.5px;border-bottom-width: 0.5px;}
-	#infobox_intro{text-align: left; height:auto;border:0px solid grey;border-bottom-width: 0.5px;padding:30px 15px;}
-	#infobox_menu{text-align: left; height:auto;border:0px solid grey;border-bottom-width: 0.5px;padding:30px 15px;}
-	.infobox{text-align: left; height:auto;border:0px solid grey;border-bottom-width: 0.5px;padding:30px 15px;}
-	.infobox:last-child{text-align: left; border-bottom-width: 0px;height:auto;padding:30px 15px 80px;}
-	
-	.info1{width:449.5px;height:100%; text-align: left;float: left;margin-bottom: 0px;padding:30px 15px;}
-	.info2{width:449.5px;height:100%; text-align: left;float: left;margin-bottom: 0px; padding:30px 15px;}
-	.width1{width:650px}
-	.width2{width:250px}
-	.seroline{border-left: 1px solid grey }
-	
-	#s_state{font-size:15px;color:#3ADF00;font-weight: bold;display: inline-block;}
-	.medal{width:30px;padding-bottom:13px}
-	#s_title{font-size:30px;display: inline-block;}
-	#s_tinfo{height:60px;font-size:15px;display:inline-block;}
-
-	#s_cates{overflow: auto;}
-	.s_cate{float:left; font-size:12px;width:45px;text-align: center;}
-	.icons{width:35px;padding-bottom: 12px;}
-
-	#s_reviews{width:auto;}
-	#s_star{font-size:25px;display:block;width:190px;}
-	.s_btn{font-size:15px;display: inline-block; width:190px;background-color: #F2F2F2;padding:0px 5px; border-radius: 10px;text-align: center;}
-	.s_btn:hover{cursor: pointer;background-color: lightgrey}
-	
-	#addr{height:60px;font-size:15px;}
-	.s_mapbtn{float: right;margin-top: 40px;position:relative;bottom: 0px;}
-	.s_phone{font-size:15px;}
-	
-	#s_menubox{height:auto;}
-	#s_menu{text-align: center;}
-	
-	.replyqna{height: 250px; width:410px; background-color: #f2f2f2;border-radius: 5px;margin-top: 20px;}
-	.marginleft{margin-left: 50px;}
-	
-	.flleft{float: left;}
-	.flright{float: right;}
+	.t1,.t2{transition:all .5s;}
+	.greenbtn:hover{background-color: #04B404;color:white} 
+	.redbtn:hover{background-color: #FE2E2E;color:white} 
 	.clrboth{clear: both;}
-	hr{width:900px;border:0.5px solid grey;}
+	.flright{float: right;}
+	.flleft{float: left;}
+	.btn{background-color: grey;margin-left:10px;color:white;}
+	.btn2{margin-left:0px;}
+	
+	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:auto;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+/* 	#container{text-align:center; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:900px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/ */
+	#sticky{z-index:200;position: sticky; top:71px;display: inline-block;}
+	#navi2{width:999px;clear:both;position:relative;top:0px;text-align: center;line-height: 40px;border-top: 1px solid grey;display: inline-block;}
+	.navis2{border-bottom:1px solid grey; font-size:15px; float:left;width:199.7px;height:40px;background-color: #f2f2f2;color: #000;}
+	.navis2:hover{color:#000;transition:all .3s;border-bottom:1px solid white;background-color: white;cursor:pointer;border-right:1px solid grey;border-left:1px solid grey;}
+	.home{border-bottom:1px solid white;background-color: white;border-right:1px solid grey;border-left:1px solid grey;color:black;}
+	
+	#regist{font-weight: bold; font-size: 20px;margin-bottom: 40px;}
+	 
+	#tle{margin:0 auto;padding-top:40px;width: 800px;}
+	.inputbox{margin-top:0px;margin-bottom:-5px; padding:26px 10px 26px;height:auto;width:800px; display: inline-block;border: 0px solid lightgrey;border-bottom-width: 1px;}
+	.inputbox:hover{background-color: #f3f3f3;}
+	.lastbox{border: 0px solid lightgrey;}
+	.inputtitle{float:left;height:auto;line-height: 200%;padding-right:20px;width:140px;}
+	input{margin-top:2px;}
+	textarea{margin-top:2px;resize: none;}
+	select {position:relative;top:1px;height:26px;}
+	.form-control{width:180px;}
+	.inputs{width:600px;float: left;height:auto;}
+	.width_500{width:500px;}
 	
 	
+	textarea[name=store_time_other]{width:544px;}
+	textarea[name=store_intro_simple]{width:500px;}
+	textarea[name=store_intro]{width:500px;height:100px;}
+ 	textarea[name=store_address]{width:500px;} 
+	
+	.catechkboxes_big{width:150px;height:100px;float: left;}
+	.catechkboxes{float: left;}
+	.catechkbox{padding-bottom:10px;}
+	input[name=category_code_small],input[name=category_code]{margin-left:10px;}
+	
+	.filebox input[type="file"] { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }
+ 	.filebox label { display: inline-block; padding: .5em .75em;  font-size: inherit; line-height: normal; 
+ 					vertical-align: middle; background-color: grey; cursor: pointer; border: 1px solid #ebebeb; 
+					border-bottom-color: #e2e2e2; border-radius: .25em; margin-bottom: 0px;}
+	.filebox .upload-name { display : inline-block; padding: .5em .75em; height:34px;/* label의 패딩값과 일치 */
+						
+						font-size: inherit; font-family: inherit; line-height: normal;
+						vertical-align: middle; background-color: #f5f5f5; border: 1px solid #ebebeb;
+						border-bottom-color: #e2e2e2; border-radius: .25em; -webkit-appearance: none;
+						/* 네이티브 외형 감추기 */
+						-moz-appearance: none; appearance: none; }
+						
+	#timeboxhead{line-height: 29px;}
+	.timebox{display: inline-block;width:50px;text-align: center;margin-left:10px;margin-right:10px;}
+	.timebox2{display: inline-block; width:140px;text-align: center;}
+	.menubox{display: inline-block; width:310px;text-align: center;}
+	ul{list-style: none;padding:0px;}
+ 	li{width:650px;} 
+/* 	.hidmenu{display: none;} */
+	
+	.timepicker{width:140px;}
+	
+	#show_menu,#time_makesame,.hide_menu{margin-bottom:2.5px;}
+	
+	input[name=store_maxdate],input[name=store_maxman]{width:30px;background-color: #f0f0f0;border:1px solid grey}
+	input[name=store_address_detail]{width:407.5px;float: left;}
+	.subinfo{font-size:12px;color: grey;}
+	#bot{margin:30px 10px 30px;}
+	
+	/*--파일업로드관련--*/
+	#preview img {width: 180px;height: 100px;overflow: hidden;}
+	#preview p {text-overflow: ellipsis;overflow: hidden;}
+	.preview-box {border: 0px solid grey;padding: 5px;border-radius: 2px;margin-bottom: 5px;margin-right:5px;
+				display: inline-block;
+    			border-radius: 5px;
+    			border-right-width: 1px;
+    			border-bottom-width: 1px;
+					}
+	.thumbnail{margin-bottom:0px;}
+/* 	.del_btn{float: right;display: inline-block;} */
+/* 	.f_name{float:left;display: inline-block;margin-left:0px;} */
+	.f_insert{margin:0px;display: inline-block;float: left;}
+	.attach_count{display: inline-block;margin:5px 10px 15px;font-size:18px;}
+/* 	.attach_count::after{clear:both;} */
+	/*-------------*/
+	
+	/*주소찾기*/
+	.addrsearch{margin-top:3px;}
+	#search{width:500px;padding-bottom: 10px;}
+	#searchbar{width: 444px;margin-top: 0.5px;}
+	#magnifyglass{width:20px;}
+	#mapbox{border:1px solid grey; width:500px;height:500px;}
+	.pickedaddr{float:left;text-align: left;}
+	.picklat,.picklng{display: none;}
+/* 	.modal-content{min-width:530.5px} */
+	.modal-content{width:531px}
+
+	.greenfont{color:#3ADF00;}
+	
+	.toSubmit{text-align: center;z-index:100;position: sticky; bottom:0px;width:998px;height:60px;background-color: #f2f2f2;color: #000;border:1px solid grey;border-radius: 10px 10px 0px 0px;border-bottom: 0px;line-height: 60px;}
+	.toSubmit:hover{background-color: white;color:black;cursor: pointer;height:80px; transition:all .1s;}
+	.toSubmit_text:hover #reserve_text{ transition:all .3s;line-height: 60px;}
+	.toSubmit_text_first{float:left ;width:498px;text-align: center;line-height: 60px;font-size:20px;}
+	.toSubmit_text{float:left ;width:498px;text-align: center;line-height: 60px;font-size:20px;}
+	.toSubmit_text_box{margin:0 auto;display: inline-block;width:1000px;}
+	.toSubmit_text_first:hover{border-top-left-radius:10px;box-sizing:border-box;border:1px solid black;height:80px;}
+	.toSubmit_text:hover{border-top-right-radius:10px;box-sizing:border-box;border:1px solid black;height:80px;}
+	
+	
+/* 	여기부턴menu,category관련 */
+	.greenbtn:hover{background-color: #04B404;color:white} 
+	.redbtn:hover{background-color: #FE2E2E;color:white} 
+	.clrboth{clear: both;}
+	.flright{float: right;}
+	.flleft{float: left;}
+	.btn{background-color: grey;margin-left:10px;color:white;}
+	.btn2{margin-left:0px;}
+
+	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:auto;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	
+	#regist{font-weight: bold; font-size: 20px;margin-bottom: 40px;}
+	 
+	#tle{margin:0 auto;padding-top:40px;width: 800px;}
+	.inputbox{margin-top:0px;margin-bottom:-5px; padding:26px 10px 26px;height:auto;width:800px; display: inline-block;border: 0px solid lightgrey;border-bottom-width: 1px;}
+	.inputbox:hover{background-color: #f3f3f3;}
+	.lastbox{border: 0px solid lightgrey;}
+	.inputtitle{float:left;height:auto;line-height: 200%;padding-right:20px;width:140px;}
+	textarea{margin-top:2px;resize: none;}
+	.inputs{width:600px;float: left;height:auto;}
+	
+	.catechkboxes_big{width:150px;height:100px;float: left;}
+	.catechkboxes{float: left;}
+	.catechkbox{padding-bottom:10px;}
+	input[name=category_code_small],input[name=category_code]{margin-left:10px;}
+	
+	.menu_name{vertical-align:middle; display: inline-block;width:100px;text-align: center;}
+	.menu_price{vertical-align:middle;display: inline-block; width:100px;text-align: center;}
+	.menu_price2{width: 150px;}
+	.menu_reserve{width: 150px;margin-top: 5px;}
+	.menubox_long{vertical-align:middle;display: inline-block; width:310px;text-align: center;}
+	ul{list-style: none;padding:0px;display: inline-block;}
+ 	li{width:610px;float:left;padding:0px;margin:0px;} 
+	.hidmenu{display: none;}
+	
+	.show_menu{margin-bottom:2.5px;position:relative;top:0px;height:24px; width:35px;line-height: 10px}
+	.hide_menu{margin-bottom:2.5px;position:relative;top:0px;height:24px; width:35px;line-height: 10px}
+	
+	input[name=store_maxdate],input[name=store_maxman]{width:50px;background-color: #f0f0f0;border:1px solid grey}
+	.subinfo{font-size:12px;color: grey;}
+	#bot{margin:30px 10px 30px;}
+	
+	.big_cate{text-align:center;font-size:20px;font-weight:bold; height:30px;line-height: 30px;background-color: #f2f2f2;border-radius: 30px;}
+	.subinfo{font-size:12px;color: grey;}
 </style>
+<script type="text/javascript">
+	//store_info관련
+	$(document).ready(function(){
+		var fileTarget = $('.filebox .upload-hidden');
+		fileTarget.on('change', function(){
+			// 값이 변경되면
+			if(window.FileReader){ // modern browser
+				var filename = $(this)[0].files[0].name;
+			} else { // old IE
+				var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출 
+			} // 추출한 파일명 삽입
+			$(this).siblings('.upload-name').val(filename);
+		});
+
+		$("#time_makesame").on('click',function(){
+
+			for (var i = 0; i < 5; i++) {//평일값이 월화수목금에 똑같이 들어가게
+				var t1val=$("#t1").val();
+				$(".t1").eq(i).val(t1val);
+				var t2val=$("#t2").val();
+				$(".t2").eq(i).val(t2val);
+				$(".t1").eq(i).css("background-color","yellow");
+				$(".t2").eq(i).css("background-color","yellow");
+			}
+		        setTimeout(function() {
+					$(".t1").css("background-color","white");
+					$(".t2").css("background-color","white");
+		        }, 100 );
+				
+		});
+		
+		$("body").on("change","input:checkbox[name=store_time_break]",function(){
+			if($(this).is(':checked') == true){
+				$(this).attr('value', 'Y');
+				$(this).parent().find("input:hidden[name=store_time_break]").attr("disabled",true);
+			}
+			if($(this).is(':checked') == false){
+				$(this).attr('value', 'N');
+				$(this).parent().find("input:hidden[name=store_time_break]").attr("disabled",false);
+			}
+		});
+		
+		$("#show_menu").click(function(){
+			$("#menuboxes").append('<li>'+
+			'<input class="timebox2 t1" type="text" name="menu_name" style="width:110px;"/> '+
+			'<input class="menubox t1" type="text" name="menu_content"/> '+
+			'<input class="timebox2 t2" type="text" name="menu_price"/> '+
+			'<select class="settime" name="menu_state" style="width:70px;">'+
+			'<option value="N">미사용</option><option value="T">시간제</option><option value="S">숙박제</option>'+
+			'</select> '+
+			'<span class="btn btn2 timebox2 hide_menu" style="height:24px; width:48px;line-height: 10px">-</span>'+
+			'</li> ');
+		});
+		
+		$("body").on("click",".hide_menu",function(){
+			$(this).parent("li").remove();
+		});
+
+		//만약 메뉴등록에서 예약 셀렉트박스에 시간제, 숙박제가 있다가 없어질 경우
+		//readonly 다시 주기
+		$("body").on("change",".settime",function(){
+			var n=0;
+			var t=0;
+			var s=0;
+			for (var i = 0; i < $("input[name=menu_name]").length; i++) {
+				if($(".settime").eq(i).val()=="S"){
+					s++;
+				}else if($(".settime").eq(i).val()=="T"){
+					t++;
+				}else if($(".settime").eq(i).val()=="N"){
+					n++;
+				}
+			}
+			if(s>0){ //'숙박제'가 0보다크면 readonly 없애기
+// 				alert("숙박제가 입력가능해집니다");
+				$("input[name=store_maxdate]").removeAttr("readonly");
+				$("input[name=store_maxdate]").css("background-color","white");
+			}
+			if(t>0){ //'시간제'가 0보다크면 readonly 없애기
+// 				alert("시간제가 입력가능해집니다");
+				$("input[name=store_maxman]").removeAttr("readonly");
+				$("input[name=store_maxman]").css("background-color","white");
+			}
+
+			if(s==0){ //'숙박제'가 0이면 안에 값 지우고readonly 처리
+// 				alert("숙박제가 리드온리처리됩니다.");
+				$("input[name=store_maxdate]").val("");
+				$("input[name=store_maxdate]").attr("readonly","readonly");
+				$("input[name=store_maxdate]").css("background-color","#f2f2f2");
+			}
+			if(t==0){ //'시간제'가 0이면 안에 값 지우고 readonly 처리
+// 				alert("시간제가 리드온리처리됩니다.");
+				$("input[name=store_maxman]").val("");
+				$("input[name=store_maxman]").attr("readonly","readonly");
+				$("input[name=store_maxman]").css("background-color","#f2f2f2");
+			}
+		}); 
+// 		$('.timepicker').timepicker({
+// 		    timeFormat: 'HH:mm ',
+// 		    interval: 30,
+// 		    minTime: '0',
+// 		    maxTime: '23:50pm',
+// 		    defaultTime: '9',
+// 		    startTime: '00:00',
+// 		    dynamic: false	,
+// 		    dropdown: true,
+// 		    scrollbar: true
+// 		});
+		
+		//여기에 기존값 뿌려주는거 만들기 (defalutTime부분에 )
+		var list_stime_open = 
+			"<c:forEach var='list' items='${list_stime}'>"+
+				"<c:out value='${list.store_time_open}'/>"+
+			"</c:forEach>";
+		var lt_open=list_stime_open.split(" ");
+		var c1=0;
+		for (var i = 0; i < 8; i++) {//1,2,3,4,5,6,7,8
+			var list_stime1= "<c:out value='${list_stime[0].store_time_open}'/>";
+	 		$('.timepicker').eq(c1).timepicker({
+			    timeFormat: 'HH:mm ',
+			    interval: 30,
+			    minTime: '0',
+			    maxTime: '23:50pm',
+			    defaultTime: lt_open[i],
+			    startTime: '00:00',
+			    dynamic: false	,
+			    dropdown: true,
+			    scrollbar: true
+	 		});
+		 	c1=c1+2;//0,2,4,6,8,10,12
+	 	};
+	 	
+	 	var list_stime_close = 
+			"<c:forEach var='list2' items='${list_stime}'>"+
+				"<c:out value='${list2.store_time_close}'/>"+
+			"</c:forEach>";
+		var lt_close=list_stime_close.split(" ");
+// 			alert(lt_close[0]);
+		var c2=1;
+		for (var i = 0; i < 8; i++) {//1,2,3,4,5,6,7,8
+	 		$('.timepicker').eq(c2).timepicker({
+			    timeFormat: 'HH:mm ',
+			    interval: 30,
+			    minTime: '0',
+			    maxTime: '23:50pm',
+			    defaultTime: lt_close[i],
+			    startTime: '00:00',
+			    dynamic: false,
+			    dropdown: true,
+			    scrollbar: true
+	 		});
+		 	c2=c2+2;//1,3,5,7,9,11
+	 	};
+		
+		// <input type=file> 태그 기능 구현
+		$('#attach input[type=file]').change(function() {
+			addPreview($(this)); //preview form 추가하기
+			$(".attach_count").text();
+		});
+	    $(".addrsearch").click(function(){
+	        $("div.modal").modal();
+	        setTimeout(function() {
+	        	map.relayout();
+	        }, 300 );
+	    });
+		
+	    //기존에있던거 넣어주기(값만, 어차피파일은 못넣음)
+	    	 	
+	    
+	});
+	
+	/////////-------------------파일업로드관련
+	
+    //임의의 file object영역
+    var files = {};
+    var previewIndex = 0;
+    $(document).ready(function(){//기존사진들에게 미리 imgNum을 넣어주기위하 처리
+	    previewIndex =$(".preview-box").length;
+    });
+    
+	// image preview 기능 구현
+    // input = file object[]
+    function addPreview(input) {
+        if (input[0].files) {
+            //파일 선택이 여러개였을 시의 대응
+            for (var fileIndex = 0; fileIndex < input[0].files.length; fileIndex++) {
+                var file = input[0].files[fileIndex];
+                if(validation(file.name)) continue;
+                setPreviewForm(file);
+            }
+        } else
+            alert('invalid file input'); // 첨부클릭 후 취소시의 대응책은 세우지 않았다.
+    }
+    
+    function setPreviewForm(file, img){
+        var reader = new FileReader();
+        
+        //div id="preview" 내에 동적코드추가.
+        //이 부분을 수정해서 이미지 링크 외 파일명, 사이즈 등의 부가설명을 할 수 있을 것이다.
+        reader.onload = function(img) {
+            var imgNum = previewIndex++;
+            $("#preview").append(
+                    "<div class=\"preview-box\" value=\"" + imgNum +"\">" +
+                    "<img class=\"thumbnail\" src=\"" + img.target.result + "\"\/>" +
+                    "<p class=\"f_name\">" + file.name + "</p>" +
+                    "<div class=\"f_name\"><input class=\"form-control\" type=\"text\" name=\"store_photo_title\" placeholder=\"사진제목/이름(선택사항)\"></div>" +
+                    "<a class=\"del_btn\" href=\"#a\" value=\"" + imgNum + "\" onclick=\"deletePreview(this)\">" +
+                    "삭제" + "</a>"
+                    + "</div>"
+            );
+            files[imgNum] = file;   
+            $(".attach_count").text($(".preview-box").length+"/30");
+        };
+        
+        reader.readAsDataURL(file);
+    }
+
+    //preview 영역에서 삭제 버튼 클릭시 해당 미리보기이미지 영역 삭제
+    //(와 동시에 해당 삭제된 사진의 seq를 배열안에 저장)
+    var del_list = new Array();
+    function deletePreview(obj) {
+    	if(obj.attributes['value_seq']){
+    		alert("d?");
+    		
+//     		alert(obj.attributes['value_seq'].value);
+//     		alert("지우는 사진 seq : "+obj.attributes['value_seq'].value);
+    		$(".del_list").append('<input type="hidden" name="del" value="'+obj.attributes['value_seq'].value+'">')
+    	}
+        var imgNum = obj.attributes['value'].value;
+        delete files[imgNum];
+        $(".attach_count").text($(".preview-box").length-1+"/30");
+        $("#preview .preview-box[value=" + imgNum + "]").remove();
+//         resizeHeight();
+    }
+
+    //client-side validation
+    //always server-side validation required
+    function validation(fileName) {
+        fileName = fileName + "";
+        var fileNameExtensionIndex = fileName.lastIndexOf('.') + 1;
+        var fileNameExtension = fileName.toLowerCase().substring(
+                fileNameExtensionIndex, fileName.length);
+        if (!((fileNameExtension === 'jpg')
+                || (fileNameExtension === 'gif') || (fileNameExtension === 'png'))) {
+            alert('jpg, gif, png 확장자만 업로드 가능합니다.');
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    
+	//카테고리, 메뉴관련
+	$(document).ready(function(){
+		
+		//체크했을 때 : 같은값 없으면 추가, 같은값 있으면 추가안함
+		//풀었을 때 : 같은값이 하나라도 없으면 그대로, 같은값이 하나라도 있어도 그대로
+		//		새 방안 : 체크박스의 갯수를 세어야한다. 
+		// 			추가하기:같은라인 div안에 체크된 박스가 하나라도 있다면 추가하고, 체크된 박스가 하나도 없으면 없애기
+		// 			없애기:같은라인 div안에 체크된 박스가 하나라도 있다면 안없애고, 체크된 박스가 하나도 없으면 없애기
+		$("body").on("change","input:checkbox[name=category_code_small]", function() {
+			//체크한 박스와 일치하는 대분류를 찾아서 대분류의 이름을 변수에 저장해주는 실행문들 ---------------------------------------------
+			
+			var smallcate =$(this).val();//체크한 박스의 소분류
+			var bigcate=["a","b","c","d","e","f","g","h","i"];
+			var bigcatetext;//체크한 박스와 일치하는 대분류의 이름
+			var cateval; 
+			for(var i in bigcate){
+				if(smallcate.indexOf(bigcate[i])!=-1){
+					cateval=bigcate[i];
+				}
+			}
+			switch(cateval){
+				case "a": bigcatetext = "동물병원";
+					break;
+				case "b": bigcatetext = "카페/식당";
+					break;
+				case "c": bigcatetext = "식품/용품";
+					break;
+				case "d": bigcatetext = "숙박";
+					break;
+				case "e": bigcatetext = "돌봄서비스";
+					break;
+				case "f": bigcatetext = "미용";
+					break;
+				case "g": bigcatetext = "체험";
+					break;
+				case "h": bigcatetext = "분양/교배";
+					break;
+				case "i": bigcatetext = "장례";
+					break;
+			}
+			//------------------------------------------------------------------------------------------
+			var scate=$(this).parent().find("input:checkbox[name=category_code_small]");
+			var scateval=0;
+			for (var i = 0; i < scate.length; i++) {//체크된 박스와 같은라인의 체크박스들을 둘러봄
+				if(scate.eq(i).is(":checked")==true){
+					scateval+=1; //체크된게 하나도 없으면 0, 하나라도 있으면 0보다 큼
+				}
+			}
+// 			alert("체크된 갯수:"+scateval);
+			if(scateval==0){//체크된 박스가 하나도 없으면 (없애기)
+// 				alert("체크된게 1개도 없어요");
+				for (var i = 0; i < $(".big_cate").length; i++) {//현재 대분류의 갯수만큼 돌면서 내가 체크한 카테박스와 같은 이름의 대분류를 지워주기
+					if($(".big_cate").eq(i).text().indexOf(bigcatetext)!=-1){//대분류중에 카테박스에 해당하는 대분류가 있으면
+																			//다른말로는 :이번 턴의 대분류가 내가 체크한 박스의 대분류와 같으면
+						$(".big_cate").eq(i).parent().parent("ul").remove();
+					}
+				}
+			}
+			if(scateval==1){//체크된 박스가 하나 있으면 추가하기
+// 				alert("1개가 체크되었습니다.");
+				//지금 누른 체크박스가 체크되어있을 경우에만 해당: 체크를 풀때는 적용되지 않음
+				if($(this).is(":checked")==true){
+// 					alert("체크를 눌때 조건에 충족했으니 추가합니다.");
+					$("#menubigbox").append(
+							'<ul class="menuboxes">'+
+								'<li>'+
+								'<div class="big_cate">'+bigcatetext+' 메뉴</div>'+
+								'<input type="hidden" name="category_code_ex" value="'+cateval.toUpperCase()+'">'+
+								'<br>'+
+							'</li>'+
+							'<li>'+
+								'<span class="menu_name">메뉴명</span>'+
+								'<span class="menubox_long">설명</span>'+
+								'<span class="menu_price" style="width: 145px;">가격 / 예약</span>'+
+								'<span class="menu_name"></span>'+
+							'</li> '+
+							'<li>'+
+								'<input type="hidden" name="category_code_2" value="'+cateval.toUpperCase()+'">'+
+								'<input class="menu_name form-control" type="text" name="menu_name" placeholder="메뉴명"/> '+
+								'<textarea rows="3" class="menubox_long form-control" type="text" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~"></textarea> '+
+								'<div class="menu_price">'+
+									'<div class="menu_price2">'+
+									'가격'+
+									' <input class="menu_price form-control" type="text" name="menu_price" placeholder="10000"/>'+
+									'</div>'+
+									'<div class="menu_reserve">'+
+									'예약'+
+									' <select class="settime form-control menu_price" name="menu_state">'+
+										'<option value="N">미사용</option>'+
+										'<option value="T">시간제</option>'+
+										'<option value="S">숙박제</option>'+
+									'</select>'+
+									'</div>'+
+								'</div>'+
+								'<span class="show_menu flright btn btn2 menu_price btn" >'+
+									'+'+
+								'</span>'+
+							'</li> '+
+						'</ul>');
+				}
+			}
+			if(scateval>1){//체크된 박스가 2개 이상이면 아무기능도 안하기
+// 				alert("이미 1개이상 체크되어있어요.");
+			}
+			
+		});
+		
+		$("body").on("click",".show_menu", function() {
+			var cateval = $(this).parent().parent().find("input[name=category_code_ex]").val();
+// 			alert(cateval);
+			$(this).parent().parent($(".menuboxes")).append(
+			'<li>'+
+				'<input type="hidden" name="category_code_2" value="'+cateval.toUpperCase()+'"/>'+
+				'<input class="menu_name form-control" type="text" name="menu_name" placeholder="멍멍개껌"/> '+
+				'<textarea rows="3" class="menubox_long form-control" type="text" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~"></textarea> '+
+				'<div class="menu_price">'+
+					'<div class="menu_price2">'+
+					'가격 '+
+					'<input class="menu_price form-control" type="text" name="menu_price" placeholder="10000"/>'+
+					'</div>'+
+					'<div class="menu_reserve">'+
+					'예약 '+
+					'<select class="settime form-control menu_price" name="menu_state">'+
+						'<option value="N">미사용</option>'+
+						'<option value="T">시간제</option>'+
+						'<option value="S">숙박제</option>'+
+					'</select>'+
+					'</div>'+
+				'</div>'+
+				'<span class="flright btn btn2 menu_price hide_menu">'+
+					'-'+
+				'</span>'+
+			'</li>');
+		});
+		
+		$("body").on("click",".hide_menu",function(){
+			$(this).parent("li").remove();
+		});
+		
+// 		$("body").on("click",".settime",function(){
+// 			$('div.modal').modal();
+// 		})
+
+		//만약 메뉴등록에서 예약 셀렉트박스에 시간제, 숙박제가 있을 경우
+		//readonly 풀어주기
+// 		$("body").on("change",".settime",function(){
+// 			if($(this).val()=="T"){
+// 				alert("당일:시간제");
+// 				$("input[name=store_maxman]").removeAttr("readonly");
+// 			}else if($(this).val()=="S"){
+// 				alert("숙박:숙박제");
+// 				$("input[name=store_maxdate]").removeAttr("readonly");
+// 			}
+// 		});
+		//만약 메뉴등록에서 예약 셀렉트박스에 시간제, 숙박제가 있다가 없어질 경우
+		//readonly 다시 주기
+		$("body").on("change",".settime",function(){
+			var n=0;
+			var t=0;
+			var s=0;
+			for (var i = 0; i < $("input[name=menu_name]").length; i++) {
+				if($(".settime").eq(i).val()=="S"){
+					s++;
+				}else if($(".settime").eq(i).val()=="T"){
+					t++;
+				}else if($(".settime").eq(i).val()=="N"){
+					n++;
+				}
+			}
+			if(s>0){ //'숙박제'가 0보다크면 readonly 없애기
+// 				alert("숙박제가 입력가능해집니다");
+				$("input[name=store_maxdate]").removeAttr("readonly");
+				$("input[name=store_maxdate]").css("background-color","white");
+			}
+			if(t>0){ //'시간제'가 0보다크면 readonly 없애기
+// 				alert("시간제가 입력가능해집니다");
+				$("input[name=store_maxman]").removeAttr("readonly");
+				$("input[name=store_maxman]").css("background-color","white");
+				
+			}
+
+			if(s==0){ //'숙박제'가 0이면 안에 값 지우고readonly 처리
+// 				alert("숙박제가 리드온리처리됩니다.");
+				$("input[name=store_maxdate]").val("0");
+				$("input[name=store_maxdate]").attr("readonly","readonly");
+				$("input[name=store_maxdate]").css("background-color","#f2f2f2");
+			}
+			if(t==0){ //'시간제'가 0이면 안에 값 지우고 readonly 처리
+// 				alert("시간제가 리드온리처리됩니다.");
+				$("input[name=store_maxman]").val("0");
+				$("input[name=store_maxman]").attr("readonly","readonly");
+				$("input[name=store_maxman]").css("background-color","#f2f2f2");
+			}
+		});
+		
+		
+		
+// 		$("#testform").submit(function(){
+// // 			$("input[name=store_maxman]").trigger('click') ;
+// 			$(".lastbox input").each(function(){
+// 				if($(this).val()=="0"){
+// 					$(this).val("0");
+// 				}
+// 			});
+			
+// 		});
+	});
+    /////////-------------------
+</script>
 </head>
+<%
+	SDto sdto=(SDto)request.getAttribute("sdto");
+// 	sdto.getStore_seq();
+	SDto asd=(SDto)session.getAttribute("asdf");
+%>
 <body>
 <div id="container">
-	<div id="sticky">
+<div id="sticky">
 		<div id="navi2">
-			<div class="navis2" onclick="location.href='store.do'">
+			<div class="navis2" onclick="location.href='store.do?store_seq=${sdto.store_seq}'">
 				매장 홈
 			</div>
 			<div class="navis2 home" onclick="location.href='owner_mystore_update.do'">
@@ -89,7 +673,531 @@
 			</div>
 		</div>
 	</div>
-	<h1>매장정보 수정 페이지</h1>
+<!-- <div class="modal fade" id="layerpop" > -->
+<!--   <div class="modal-dialog"> -->
+<!--     <div class="modal-content"> -->
+<!--       header -->
+<!--       <div class="modal-header"> -->
+<!--         닫기(x) 버튼 -->
+<!--         <button type="button" class="close" data-dismiss="modal">×</button> -->
+<!--         header title -->
+<!--         <h4 class="modal-title">Header</h4> -->
+<!--       </div> -->
+<!--       body -->
+<!--       <div class="modal-body"> -->
+<!--             flkqnwkrtj -->
+<!--       </div> -->
+<!--       Footer -->
+<!--       <div class="modal-footer"> -->
+<!--         Footer -->
+<!--         <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button> -->
+<!--       </div> -->
+<!--     </div> -->
+<!--   </div> -->
+<!-- </div> -->
+<div class="modal fade" id="layerpop" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+<!--       body -->
+      <div class="modal-body">
+       	<div id="search" action="">
+		  <input onkeypress="if( event.keyCode==13 ){goSearch();}" type="text" id="searchbar" class="form-control pull-left" placeholder="ex) 영등포구 양산로 53, 양평동 3가 15-1">
+		  <button type="submit" id="searchbtn" class="btn"><img id="magnifyglass" src="./img/magnifyglass.png"></button>
+		</div>
+		<div class="subinfo">*도로명주소 혹은 번지수로 검색</div> 
+		<div class="subinfo">*검색 후 정확한 위치(주소)를 지도상에서 클릭해주세요</div> 
+		<div class="subinfo">*스크롤시 확대/축소 됩니다</div> 
+		<div id="mapbox">
+		</div>
+			<script>
+			var search_val ="";
+			
+			function goSearch() {
+				$("#searchbtn").click();
+			}
+			$(function() {
+			    $(".setaddr").click(function name() {
+// 					alert($("textarea[name=store_address]").val());
+// 					alert($(".realaddr").text());
+			    	$("textarea[name=store_address]").val($(".realaddr").text());
+			    	$("input[name=store_latitude]").val($(".picklat").text());
+			    	$("input[name=store_longitude]").val($(".picklng").text());
+				});
+				
+				$("#searchbtn").click(function() {
+					
+					search_val=$("#searchbar").val();
+					
+					// 주소-좌표 변환 객체를 생성합니다
+					var geocoder = new kakao.maps.services.Geocoder();
+						
+					// 주소로 좌표를 검색합니다
+					geocoder.addressSearch(search_val, function(result, status) {
+					     if (status === kakao.maps.services.Status.OK) {
+
+					        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+					        
+					        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+					        map.panTo(coords);
+//	 				        map.setCenter(coords);
+
+					    }else{  
+					    	 var coords = new kakao.maps.LatLng(37.526944462562646, 126.88344188869179);
+					    	 map.panTo(coords);    
+					    }
+					    
+					});    
+					
+				});
+			});
+			var container = document.getElementById('mapbox'); //지도를 담을 영역의 DOM 레퍼런스
+			var options = { //지도를 생성할 때 필요한 기본 옵션
+	// 			center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+				center: new kakao.maps.LatLng(37.525026023695375, 126.8888353907293), //지도의 중심좌표.
+				level: 4 //지도의 레벨(확대, 축소 정도)
+			};
+			var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+			
+			kakao.maps.event.addListener(map, 'idle',  function() {
+				map.relayout();
+			});	
+			
+			
+			// 주소-좌표 변환 객체를 생성합니다
+		 	var geocoder = new kakao.maps.services.Geocoder();
+			
+		    // 좌표로 법정동 상세 주소 정보를 요청합니다
+			function searchDetailAddrFromCoords(coords, callback) {
+		    	geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+			}
+			 
+			var marker1 = new kakao.maps.Marker();
+		    kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+		        searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
+		            if (status === kakao.maps.services.Status.OK) {
+		                var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+		                detailAddr += '<div>지번 주소 : <span class="realaddr">' + result[0].address.address_name + '</span></div>';
+		                var latlng = mouseEvent.latLng;
+		                
+		                var content = '<div class="bAddr">' + 
+		                                detailAddr + 
+		                            '</div>';
+		                var lat = latlng.getLat();
+		                var lng = latlng.getLng();
+		                	
+		                // 마커를 클릭한 위치에 표시합니다 
+		                marker1.setPosition(mouseEvent.latLng);
+		                marker1.setMap(map);	
+		
+		                // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+		                $(".pickedaddr").html(content);
+		                $(".picklat").html(lat);
+		                $(".picklng").html(lng);
+// 		                document.getElementsByClassName("modal-footer")[0].value=content;
+// 		                infowindow.setContent(content);
+// 		                infowindow.open(map, marker);
+		            }   
+		        });
+		    });
+			
+			</script>
+      </div>
+<!--       Footer -->
+      <div class="modal-footer">
+      	<div class="pickedaddr"></div>
+      	<div class="picklat" title="위도"></div>
+      	<div class="picklng" title="경도"></div>
+        <button type="button" class="btn setaddr" data-dismiss="modal">등록</button>
+        <button type="button" class="btn" data-dismiss="modal">닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+	<form id="udtform" action="owner_update_store.do" method="post" enctype="multipart/form-data">
+		<div id="tle">
+			<div id="regist" class="testmod">
+				매장 정보 수정
+			</div> 
+			<div>
+				<div class="inputbox">
+					<div class="inputtitle">매장명</div> 
+					<div class="inputs"><input class="form-control" type="text" name="store_name" value="${sdto.store_name}" placeholder="예)양평 동물병원"/></div>
+				</div>
+				<div class="inputbox">
+					<div class="inputtitle">대표명</div>
+					<div class="inputs"><input class="form-control" type="text" value="${sdto.store_owner_name}" readonly/></div>
+				</div>
+				<div class="inputbox">
+					<div class="inputtitle">홈페이지 링크</div>
+					<div class="inputs">
+						<input class="width_500 form-control" type="text" name="store_path" value="${sdto.store_path}" placeholder="http://www.naver.com"/>
+						<br>
+						<div class="subinfo">*자사 홈페이지 링크를 입력할 수 있어요.(선택사항)</div>
+						<div class="subinfo">*http://까지 정확히 입력해주세요</div>
+					</div>
+				</div>
+				<div class="inputbox">
+					<div class="inputtitle">사진업로드</div>
+					<div class="inputs">
+					<!-- 파일업로드 관련 -->
+					    <div class="wrapper">
+					        <div class="body">
+					            <!-- 첨부 버튼 -->
+					            <div id="attach">
+					                <label class="btn f_insert" for="uploadInputBox">사진 첨부하기</label>
+					                <input id="uploadInputBox" style="display: none" type="file" name="photos" multiple="multiple" />
+					            </div>
+					            <div class="attach_count">
+					            	0/30
+					            </div>
+					            <!-- 미리보기 영역 -->
+					            <div id="preview" class="content">
+<!-- 					            	<input class="del_list" type="hidden" name="del"/> -->
+					            	<div class="del_list" style="display:none;"></div>
+						            <c:choose>
+						            	<c:when test="${not empty list_sphoto}">
+						            		<c:forEach var="photos" items="${list_sphoto}" varStatus="status">
+					            		        <div class="preview-box" value="${status.index}">
+								                    <img class="thumbnail" src="./upload_sphoto/${photos.store_photo_stored}"/>
+								                    <p class="f_name">${photos.store_photo_origin}</p>
+								                    <div class="f_name"><input class="form-control" type="text" name="store_photo_title_before" value="${photos.store_photo_title}" placeholder="사진제목/이름(선택사항)"></div>
+								                    <input class="form-control" type="hidden" name="before_seq" value="${photos.store_photo_seq}">
+								                    <a class="del_btn" href="#a" value="${status.index}" value_seq="${photos.store_photo_seq}" onclick="deletePreview(this)">
+								                   	삭제</a>
+							                    </div>
+						                    </c:forEach>
+						            	</c:when>
+						            	<c:otherwise>
+						            		
+						            	</c:otherwise>
+						            </c:choose>
+					            </div>
+					            <!-- multipart 업로드시 영역 -->
+<!-- 					            <form id="uploadForm" style="display: none;" /> -->
+					        </div>
+					        <div class="footer">
+<!-- 					            <button class="submit"><a href="#" title="등록" class="btnlink">등록</a></button> -->
+					        </div>
+					    </div>
+					    
+						<div class="subinfo">
+							<br>
+							* 매장의 사진을 최소 5개 업로드해주세요.
+						</div>
+						<div class="subinfo">
+							* 메뉴의 사진을 올리고싶다면 해당 사진 입력란에 메뉴명을 적어주세요.
+						</div>
+						<div class="subinfo">
+							* 가로1200px*세로400px에 가까운 사진일수록 매장사진이 이쁘게 들어갑니다.
+						</div>
+						</div>
+					</div>
+				</div>
+				<div class="inputbox">
+					<div class="inputtitle">간단소개<br>(30자이내)</div>
+					<div class="inputs">
+						<textarea class="form-control" name="store_intro_simple" placeholder="매장이름과 함께 지도에 노출될 간단 소개글을 입력해주세요. (40자 이내)">${sdto.store_intro_simple}</textarea>
+					</div>
+				</div>
+				<div class="inputbox">
+					<div class="inputtitle">매장소개<br>(500자이내)</div>
+					<div class="inputs">
+						<textarea class="form-control" name="store_intro" placeholder="매장의 상세소개글을 입력해주세요. (500자 이내)">${sdto.store_intro}</textarea>
+					</div>
+				</div>
+				<div class="inputbox">
+					<div class="inputtitle">영업상태</div>
+					<div class="inputs">
+						<select class="form-control" name="store_state">
+							<option value="O" <c:if test="${sdto.store_state eq 'O'}">selected</c:if>>영업중</option>
+							<option value="B" <c:if test="${sdto.store_state eq 'B'}">selected</c:if>>휴업중</option>
+							<option value="C" <c:if test="${sdto.store_state eq 'C'}">selected</c:if>>폐점</option>
+						</select>
+					</div>
+				</div>
+				<div class="inputbox">
+					<div class="inputtitle">매장<br>전화번호</div>
+					<div class="inputs"><input class="form-control" type="text" name="store_phone" value="${sdto.store_phone}" placeholder="'-' 없이 입력"/></div>
+				</div>
+				<div class="inputbox">
+					<div class="inputtitle">담당자<br>전화번호</div>
+					<div class="inputs"><input class="form-control" type="text" name="store_phone_manager" value="${sdto.store_phone_manager}" placeholder="'-' 없이 입력"/></div>
+				</div>
+				<div class="inputbox">
+					<div class="inputtitle">주소</div>
+					<div class="inputs">
+						<textarea name="store_address" class="flleft form-control" rows="1" placeholder="주소" readonly>${sdto.store_address}</textarea>
+						<div class="inputs">
+							<input class="form-control" name="store_address_detail" value="${sdto.store_address_detail}" placeholder="상세주소"/>
+							<input type="hidden" name="store_latitude" value="${list_sloca[0].store_latitude}" title="위도"/>
+							<input type="hidden" name="store_longitude" value="${list_sloca[0].store_longitude}" title="경도"/>
+							<button type="button" class="btn flleft addrsearch">주소찾기</button>
+						</div>
+					</div>
+				</div>
+				<div class="inputbox">
+					<div class="inputtitle">영업시간등록</div>
+					<div class="inputs">
+					<div class="subinfo">*<span class="greenfont">24시간</span>영업의 경우에는 <span class="greenfont">24시간</span>영업하는 요일의 영업시간을 00:00시~ 00:00시 로 맞춰주세요!</div>
+					<div class="subinfo">*평일맞추기를 누르시면 월요일부터 금요일까지 시간이 통일됩니다!</div>
+							<br>
+							<ul>
+								<li id="timeboxhead">
+									<span class="timebox" style="margin:0px">휴점일</span>
+									<span class="timebox mar_right1">요일</span>
+									<span class="timebox2">오픈시간</span>
+									<span class="timebox2">&nbsp;&nbsp;마감시간</span>
+								</li> 
+							</ul>
+							<ul>
+								<li>
+									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[0].store_time_break eq 'Y'}">checked</c:if>/>
+									<input type="hidden" name="store_time_break" value="N"/>
+									<span class="timebox weekbox mar_right1">월요일</span>
+									<input type="hidden" name="store_time_day" value="월요일">
+									<input id="t1" class="timebox2 ronly timepicker form-control" name="store_time_open"/> - <input id="t2" class="timebox2 ronly timepicker form-control" name="store_time_close"/>
+									<span id="time_makesame" class="btn timebox2" style="height:24px; width:100px;line-height: 10px">
+										평일 맞추기
+									</span>
+									<span class="subinfo">*월요일기준</span>
+								</li> 
+								<li>
+									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[1].store_time_break eq 'Y'}">checked</c:if>/>
+									<input type="hidden" name="store_time_break" value="N"/>
+									<span class="timebox">화요일</span>
+									<input type="hidden" name="store_time_day" value="화요일">
+									<input class="timebox2 t1 timepicker form-control" name="store_time_open" value="5"/> - <input class="timebox2 t2 timepicker form-control" name="store_time_close"/>
+								</li> 
+								<li>
+									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[2].store_time_break eq 'Y'}">checked</c:if>/>
+									<input type="hidden" name="store_time_break" value="N"/>
+									<span class="timebox">수요일</span>
+									<input type="hidden" name="store_time_day" value="수요일">
+									<input class="timebox2 t1 timepicker form-control" name="store_time_open"/> - <input class="timebox2 t2 timepicker form-control" name="store_time_close"/>
+								</li> 
+								<li>
+									<input class="timebox " type="checkbox" name="store_time_break" <c:if test="${list_stime[3].store_time_break eq 'Y'}">checked</c:if>/>
+									<input type="hidden" name="store_time_break" value="N"/>
+									<span class="timebox">목요일</span>
+									<input type="hidden" name="store_time_day" value="목요일">
+									<input class="timebox2 t1 timepicker form-control" name="store_time_open"/> - <input class="timebox2 t2 timepicker form-control" name="store_time_close"/>
+								</li> 
+								<li>
+									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[4].store_time_break eq 'Y'}">checked</c:if>/>
+									<input type="hidden" name="store_time_break" value="N"/>
+									<span class="timebox">금요일</span>
+									<input type="hidden" name="store_time_day" value="금요일">
+									<input class="timebox2 t1 timepicker form-control" name="store_time_open"/> - <input class="timebox2 t2 timepicker form-control" name="store_time_close"/>
+								</li> 
+								<li>
+									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[5].store_time_break eq 'Y'}">checked</c:if>/>
+									<input type="hidden" name="store_time_break" value="N"/>
+									<span class="timebox">토요일</span>
+									<input type="hidden" name="store_time_day" value="토요일">
+									<input class="timebox2 timepicker form-control" name="store_time_open"/> - <input class="timebox2 timepicker form-control" name="store_time_close"/>
+								</li> 
+								<li>
+									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[6].store_time_break eq 'Y'}">checked</c:if>/>
+									<input type="hidden" name="store_time_break" value="N"/>
+									<span class="timebox">일요일</span>
+									<input type="hidden" name="store_time_day" value="일요일">
+									<input class="timebox2 timepicker form-control" name="store_time_open"/> - <input class="timebox2 timepicker form-control" name="store_time_close"/>
+								</li> 
+								<li>
+									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[7].store_time_break eq 'Y'}">checked</c:if>/>
+									<input type="hidden" name="store_time_break" value="N"/>
+									<span class="timebox">공휴일</span>
+									<input type="hidden" name="store_time_day" value="공휴일">
+									<input class="timebox2 timepicker form-control" name="store_time_open"/> - <input class="timebox2 timepicker form-control" name="store_time_close"/>
+								</li> 
+								<li>
+									<br>
+									<div class="inputs"><textarea class="form-control" name="store_time_other" placeholder="영업시간 관련된 공지사항이 추가로 있으실경우 이곳에 적어주세요.">${sdto.store_time_other}</textarea></div>
+								</li>
+							</ul>
+					</div>
+				</div>
+				<div class="inputbox lastbox">
+					<div class="inputtitle">계좌등록</div>
+					<div class="inputs">
+						은행
+						<select class="form-control" name="store_bank">
+							<option>--은행선택--</option>
+							<option value="신한" <c:if test="${sdto.store_bank eq '신한'}">selected</c:if>>신한</option>
+							<option value="기업" <c:if test="${sdto.store_bank eq '기업'}">selected</c:if>>기업</option>
+							<option value="하나" <c:if test="${sdto.store_bank eq '하나'}">selected</c:if>>하나</option>
+							<option value="우리" <c:if test="${sdto.store_bank eq '우리'}">selected</c:if>>우리</option>
+							<option value="농협" <c:if test="${sdto.store_bank eq '농협'}">selected</c:if>>농협</option>
+							<option value="국민" <c:if test="${sdto.store_bank eq '국민'}">selected</c:if>>국민</option>
+						</select>
+						<br>
+						계좌번호
+						<input class="form-control" name="store_account" value="${sdto.store_account}" placeholder="'-' 없이 입력"/>
+					</div>
+					
+				</div>
+				<br>
+							<div id="regist" class="testmod">
+							<br><br><br>
+				서비스/메뉴 정보 수정
+			</div> 
+			<div>
+				<div class="inputbox">
+					<div class="inputtitle">매장종류</div>
+					<div class="inputs">
+						<div class="catechkboxes_big">
+							<div class="catechkbox">
+								<div>대표 매장종류</div>
+								<div class="subinfo">*한가지만 선택</div>
+								<div class="subinfo">*지도위의 아이콘용</div>
+								
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code" value="A" <c:if test="${cmain.category_code eq 'A'}">checked</c:if>/>동물병원
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code" value="B" <c:if test="${cmain.category_code eq 'B'}">checked</c:if>/>카페/식당
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code" value="C" <c:if test="${cmain.category_code eq 'C'}">checked</c:if>/>식품/용품
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code" value="D" <c:if test="${cmain.category_code eq 'D'}">checked</c:if>/>숙박
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code" value="E" <c:if test="${cmain.category_code eq 'E'}">checked</c:if>/>돌봄서비스
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code" value="F" <c:if test="${cmain.category_code eq 'F'}">checked</c:if>/>미용
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code" value="G" <c:if test="${cmain.category_code eq 'G'}">checked</c:if>/>체험
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code" value="H" <c:if test="${cmain.category_code eq 'H'}">checked</c:if>/>분양/교배
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code" value="I" <c:if test="${cmain.category_code eq 'I'}">checked</c:if>/>장례
+							</div>
+						</div>
+						<div class="catechkboxes">
+							<div class="catechkbox">
+								<div>해당되는 항목을 모두 체크해주세요</div>
+								<div class="subinfo">*대표 매장종류에 해당되지 않아도 선택 가능합니다</div>
+								<div class="subinfo">&nbsp;</div>
+								
+								
+							</div> 
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code_small" value="a1"/>종합
+								<input type="checkbox" name="category_code_small" value="a2"/>내과
+								<input type="checkbox" name="category_code_small" value="a3"/>외과
+								<input type="checkbox" name="category_code_small" value="a4"/>치과
+								<input type="checkbox" name="category_code_small" value="a5"/>24시
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code_small" value="b1"/>동반가능 카페
+								<input type="checkbox" name="category_code_small" value="b2"/>동반가능 식당
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code_small" value="c1"/>용품
+								<input type="checkbox" name="category_code_small" value="c2"/>식품
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code_small" value="d1"/>글램핑/카라반
+								<input type="checkbox" name="category_code_small" value="d2"/>펜션
+								<input type="checkbox" name="category_code_small" value="d3"/>풀빌라
+								<input type="checkbox" name="category_code_small" value="d4"/>호텔
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code_small" value="e1"/>호텔
+								<input type="checkbox" name="category_code_small" value="e2"/>펫시터
+								<input type="checkbox" name="category_code_small" value="e3"/>유치원
+								<input type="checkbox" name="category_code_small" value="e4"/>펫택시
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code_small" value="f1"/>미용
+								<input type="checkbox" name="category_code_small" value="f2"/>목욕
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code_small" value="g1"/>놀이터
+								<input type="checkbox" name="category_code_small" value="g2"/>운동장
+								<input type="checkbox" name="category_code_small" value="g3"/>훈련
+								<input type="checkbox" name="category_code_small" value="g4"/>수영장
+								<input type="checkbox" name="category_code_small" value="g5"/>스튜디오
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code_small" value="h1"/>분양 
+								<input type="checkbox" name="category_code_small" value="h2"/>교배
+								<input type="checkbox" name="category_code_small" value="h3"/>유기견
+							</div>
+							<div class="catechkbox">
+								<input type="checkbox" name="category_code_small" value="i1"/>장례
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="inputbox">
+					<div class="inputtitle">메뉴등록</div>
+					<div id="menubigbox" class="inputs">
+					</div>
+				</div>
+				<div class="inputbox lastbox">
+					<div class="inputtitle">예약관련 설정</div>
+					<div class="inputs">
+						<div>※최대 예약일 : <input type="number" min="0" max="180" name="store_maxdate" placeholder="0" value="0" readonly/>일</div>
+						<div class="subinfo">*최대 몇 일까지 예약 가능한가요? 1박2일의 경우 : 2일</div>
+						<div class="subinfo">*숙박제 예약메뉴가 있는경우에 한해 작성가능합니다.</div>
+						<div class="subinfo">*모든 숙박제에 공통으로 적용됩니다.</div>
+						<div class="subinfo">*최대 1개월(30일)까지 작성할 수 있습니다.</div>
+						<br>
+						<div>※시간당 최대 허용인원 : <input type="number" min="0" max="200" name="store_maxman" placeholder="0" value="0" readonly/>명</div>
+						<div class="subinfo">*한시간에 몇 명의 예약을 받을 수 있나요?</div>
+						<div class="subinfo">*시간제 예약메뉴가 있는경우에 한해 작성가능합니다.</div>
+						<div class="subinfo">*모든 숙박제에 공통으로 적용됩니다.</div>
+						<div class="subinfo">*최대 한시간당 200명까지 등록할 수 있습니다.</div>
+					</div>
+				</div>
+			
+				<br>
+					<div id="bot" class="flright" >
+						<input class="btn greenbtn" value="이전 단계로" onclick="location.href='owner_toUpdate_store.do'" type="button"/>
+						<input class="btn redbtn" value="취소" onclick="location.href='index.jsp'" type="button"/>
+						<input class="btn greenbtn" value="입점신청" type="submit"/>
+					</div>
+					<br>
+					<br>
+					<br><br>
+					<br>
+					<br>
+				
+			</div>
+				
+		</div>
+	</form>
+	<div class="toSubmit">
+		<div class="toSubmit_text_box">
+			<div class="toSubmit_text_first" onclick="location.href='index.jsp'">취소</div>
+			<div class="toSubmit_text" onclick="update()">수정완료</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		function update() {
+			var boool=swal("정말 수정하시겠습니까?", {
+// 				buttons: ["아니오, 아직이예요.", "예, 수정합니다."],
+				buttons: ["아니오, 아직이예요.", true],
+			});
+			alert(boool);
+// 			if(boool){
+// 				$("#udtform").submit();
+// 			}
+// 			}else{
+// 				return false;
+// 			}
+		}
+	</script>
 </div>
 </body>
 </html>

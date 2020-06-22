@@ -450,60 +450,6 @@
 				<div class="inputbox">
 					<div class="inputtitle">메뉴등록</div>
 					<div id="menubigbox" class="inputs">
-<!-- 					<ul class="menuboxes"> -->
-<!-- 						<li> -->
-<!-- 							<div class="big_cate">동물병원 메뉴</div> -->
-<!-- 							<br> -->
-<!-- 						</li> -->
-<!-- 						<li> -->
-<!-- 							<span class="menu_name">메뉴명</span> -->
-<!-- 							<span class="menubox_long">설명</span> -->
-<!-- 							<span class="menu_price" style="width: 145px;">가격 / 예약</span> -->
-<!-- 							<span class="menu_name"></span> -->
-<!-- 						</li>  -->
-<!-- 						<li> -->
-<!-- 							<input class="menu_name form-control" type="text" name="menu_name" placeholder="메뉴명"/> -->
-<!-- 							<textarea rows="3" class="menubox_long form-control" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~"></textarea> -->
-<!-- 							<div class="menu_price"> -->
-<!-- 								<div class="menu_price2"> -->
-<!-- 								가격 -->
-<!-- 								<input class="menu_price form-control" type="text" name="menu_price" placeholder="10000"/> -->
-<!-- 								</div> -->
-<!-- 								<div class="menu_reserve"> -->
-<!-- 								예약 -->
-<!-- 								<select class="settime form-control menu_price" name="menu_state"> -->
-<!-- 									<option value="N">미사용</option> -->
-<!-- 									<option value="T">시간제</option> -->
-<!-- 									<option value="S">숙박제</option> -->
-<!-- 								</select> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 							<span class="show_menu flright btn btn2 menu_price btn" > -->
-<!-- 								+ -->
-<!-- 							</span> -->
-<!-- 						</li>  -->
-<!-- 						<li> -->
-<!-- 							<input class="menu_name form-control" type="text" name="menu_name" placeholder="멍멍개껌"/> -->
-<!-- 							<textarea rows="3" class="menubox_long form-control" type="text" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~"></textarea> -->
-<!-- 							<div class="menu_price"> -->
-<!-- 								<div class="menu_price2"> -->
-<!-- 								가격 -->
-<!-- 								<input class="menu_price form-control" type="text" name="menu_price" placeholder="10000"/> -->
-<!-- 								</div> -->
-<!-- 								<div class="menu_reserve"> -->
-<!-- 								예약 -->
-<!-- 								<select class="settime form-control menu_price" name="menu_state"> -->
-<!-- 									<option value="N">미사용</option> -->
-<!-- 									<option value="T">시간제</option> -->
-<!-- 									<option value="S">숙박제</option> -->
-<!-- 								</select> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 							<span class="flright btn btn2 menu_price hide_menu"> -->
-<!-- 								- -->
-<!-- 							</span> -->
-<!-- 						</li>  -->
-<!-- 					</ul> -->
 					</div>
 				</div>
 				<div class="inputbox lastbox">

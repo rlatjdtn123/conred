@@ -9,11 +9,11 @@
 <title>Insert title here</title>
 <style type="text/css">
 	#container{text-align:center; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:900px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
-	#sticky{position: sticky; top:71px;}
-	#navi2{width:998px;background-color: lightblue;clear:both;position:relative;top:-20px;text-align: center;line-height: 40px;border-top: 1px solid grey;}
-	.navis2{border-bottom:1px solid grey; font-size:15px; float:left;width:199.6px;height:40px;background-color: #D8D8D8;}
-	.navis2:hover{border-bottom:1px solid white;background-color: white;cursor:pointer;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
-	.home{border-bottom:1px solid white;background-color: white;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
+	#sticky{z-index:200;position: sticky; top:71px;display: inline-block;}
+	#navi2{width:999px;clear:both;position:relative;top:0px;text-align: center;line-height: 40px;border-top: 1px solid grey;display: inline-block;}
+	.navis2{border-bottom:1px solid grey; font-size:15px; float:left;width:199.7px;height:40px;background-color: #f2f2f2;color: #000;}
+	.navis2:hover{color:#000;transition:all .3s;border-bottom:1px solid white;background-color: white;cursor:pointer;border-right:1px solid grey;border-left:1px solid grey;}
+	.home{border-bottom:1px solid white;background-color: white;border-right:1px solid grey;border-left:1px solid grey;color:black;}
 	
 	#photozone{width:100%; height:400px;border:1px solid grey;}
 	
@@ -72,10 +72,10 @@
 <div id="container">
 	<div id="sticky">
 		<div id="navi2">
-			<div class="navis2" onclick="location.href='store.do'">
+			<div class="navis2" onclick="location.href='store.do?store_seq=${sdto.store_seq}'">
 				매장 홈
 			</div>
-			<div class="navis2" onclick="location.href='owner_mystore_update.do'">
+			<div class="navis2" onclick="location.href='owner_toReupdate_store.do'">
 				매장정보 수정
 			</div>
 			<div class="navis2" onclick="location.href='owner_mystore_reservation.do'">
