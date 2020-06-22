@@ -43,10 +43,10 @@
 	.info2{background-color: #F2F2F2;  height: 80px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 600px; min-height: 80px;border-radius:5px;word-break:keep-all;margin-left: 33px;}
 	.bot{margin: 0 auto; text-align: center;}
 	 
-	 .modal-title{margin-left: 400px;}
+	 .modal-title{text-align: center;font-size: 25px;}
 	.modal-body span{margin: 5px;}
 	textarea:focus::-webkit-input-placeholder { color: transparent; }
-	.modal-footer{width: 897px; height: 630px;border-width: 0px;}
+	.modal-footer{width: 897px; height: auto;border-width: 0px;}
 	.inputs{width:600px;float: left;height:auto;}
 	
 	 
@@ -75,9 +75,8 @@
 	  #preview{ float: left; width: 870px;padding-left: 13px;min-height: 5px;}
       #preview img {width: 135px;height: 80px;overflow: hidden;} 
 	  #preview p {text-overflow: ellipsis;overflow: hidden;}
-	  .preview-box {border: 0px solid grey;padding: 5px;border-radius: 2px;margin-bottom: 5px;margin-right:25px;
-				display: inline-block;
-    			border-radius: 5px; 
+	  .preview-box {border: 0px solid grey;padding: 5px;border-radius: 2px;margin-bottom: 5px;margin-right:25px;display: inline-block;
+    			border-radius: 5px;max-width:146px;
     			border-right-width: 1px;
     			border-bottom-width: 1px; float: left;}
 	 .thumbnail{margin-bottom:0px; width: 135px;height: 80px;}
@@ -125,55 +124,103 @@
 					success:function(obj){  
 						var lists=obj.list;  
 						var lists_photo=obj.list_photo;
-						$.each(lists,function(i){
-							addContent+= ' <div class="bigtle" > '
-										+	'	<div class="mybox">     '     
-										+	'	<img src="./img/profile_default.png" class="pf"/>  '
-										+	'	<div class="info">        '
-										+	''		+ buttonChk(lists[i].user_id,lists[i].reply_seq) + ''
-										+	'		<span style="color:#919191;">닉네임: '+ lists[i].user_id +' </span><span style="float:right;color:#919191;">'+ lists[i].reply_regdate +' </span><br>'
-										+	'		<div class="star_table">'
-										+	'			<table class="star_score">'
-										+	'				<tr> '
-										+	'					<td>서비스</td>'
-										+	'					<td>'
-							 			+	'		            <td>'+ star_fill(lists[i].reply_service)+star_half(lists[i].reply_service)+star_empty(lists[i].reply_service) +'</td>         		'
-										+	'					</td> '
-										+	'				</tr>'
-										+	'				<tr>'
-										+	'					<td>가격</td>'
-										+	'					<td>'
-										+	'					<td>'+ star_fill(lists[i].reply_price)+star_half(lists[i].reply_price)+star_empty(lists[i].reply_price) +'</td>         		'
-										+	'					</td> '
-										+	'				</tr>'
-										+	'				<tr>'
-										+	'					<td>청결도</td>'
-										+	'					<td>'
-							+'									<td>'+ star_fill(lists[i].reply_clean)+star_half(lists[i].reply_clean)+star_empty(lists[i].reply_clean) +'</td>         		'
-							+'									</td> '
-							+'								</tr>'
-						+	'							</table>'
-						+							'<div class="user_avg">'+ (Math.round(((lists[i].reply_clean+lists[i].reply_price+lists[i].reply_service)/3)*10)/10) +'</div>'
-						+	'						</div>'
-						+	'						<div class="user_review_img" >'
-						+   							''+ reviewImg(lists[i].user_id,lists_photo[i].reply_photo_stored) +''
-						+   '						</div>     ' 
-						+	'						<div class="contents">' 
-						+	'							<span style="font-weight: bold;">리뷰내용</span><br>'
-						+	'							<span>'+ lists[i].reply_content +'</span>'
-						+	'						</div> '
-						+	'					</div>   '
-						+	'					<div class="info2">     '
-						+	'						<span style="font-weight: bold;">매장답변</span><br> '
-						+'								<span>'+ (lists[i].reply_answer==null?"아직 답변이 없습니다.":lists[i].reply_answer) +'</span>			'							
-						+'						</div> '
-						+'					</div>   '
-						+'				</div>      '
-						+'				<br><br>';
-							
-							
-						});
-		        		$('.bigbig').append(addContent);		
+						if(lists_photo==""){
+							$.each(lists,function(i){
+								addContent+= ' <div class="bigtle" > '
+											+	'	<div class="mybox">     '     
+											+	'	<img src="./img/profile_default.png" class="pf"/>  '
+											+	'	<div class="info">        '
+											+	''		+ buttonChk(lists[i].user_id,lists[i].reply_seq) + ''
+											+	'		<span style="color:#919191;">닉네임: '+ lists[i].user_id +' </span><span style="float:right;color:#919191;">'+ lists[i].reply_regdate +' </span><br>'
+											+	'		<div class="star_table">'
+											+	'			<table class="star_score">'
+											+	'				<tr> '
+											+	'					<td>서비스</td>'
+											+	'					<td>'
+								 			+	'		            <td>'+ star_fill(lists[i].reply_service)+star_half(lists[i].reply_service)+star_empty(lists[i].reply_service) +'</td>         		'
+											+	'					</td> '
+											+	'				</tr>'
+											+	'				<tr>'
+											+	'					<td>가격</td>'
+											+	'					<td>'
+											+	'					<td>'+ star_fill(lists[i].reply_price)+star_half(lists[i].reply_price)+star_empty(lists[i].reply_price) +'</td>         		'
+											+	'					</td> '
+											+	'				</tr>'
+											+	'				<tr>'
+											+	'					<td>청결도</td>'
+											+	'					<td>'
+								+'									<td>'+ star_fill(lists[i].reply_clean)+star_half(lists[i].reply_clean)+star_empty(lists[i].reply_clean) +'</td>         		'
+								+'									</td> '
+								+'								</tr>'
+							+	'							</table>'
+							+							'<div class="user_avg">'+ (Math.round(((lists[i].reply_clean+lists[i].reply_price+lists[i].reply_service)/3)*10)/10) +'</div>'
+							+	'						</div>' 
+							+	'						<div class="user_review_img" >'
+							+   '						</div>     ' 
+							+	'						<div class="contents">' 
+							+	'							<span style="font-weight: bold;">리뷰내용</span><br>'
+							+	'							<span>'+ lists[i].reply_content +'</span>'
+							+	'						</div> '
+							+	'					</div>   '
+							+	'					<div class="info2">     '
+							+	'						<span style="font-weight: bold;">매장답변</span><br> '
+							+'								<span>'+ (lists[i].reply_answer==null?"아직 답변이 없습니다.":lists[i].reply_answer) +'</span>			'							
+							+'						</div> '
+							+'					</div>   '
+							+'				</div>      '
+							+'				<br><br>';
+							});
+			        		$('.bigbig').append(addContent);
+						}else{
+							$.each(lists,function(i){
+								addContent+= ' <div class="bigtle" > '
+											+	'	<div class="mybox">     '     
+											+	'	<img src="./img/profile_default.png" class="pf"/>  '
+											+	'	<div class="info">        '
+											+	''		+ buttonChk(lists[i].user_id,lists[i].reply_seq) + ''
+											+	'		<span style="color:#919191;">닉네임: '+ lists[i].user_id +' </span><span style="float:right;color:#919191;">'+ lists[i].reply_regdate +' </span><br>'
+											+	'		<div class="star_table">'
+											+	'			<table class="star_score">'
+											+	'				<tr> '
+											+	'					<td>서비스</td>'
+											+	'					<td>'
+								 			+	'		            <td>'+ star_fill(lists[i].reply_service)+star_half(lists[i].reply_service)+star_empty(lists[i].reply_service) +'</td>         		'
+											+	'					</td> '
+											+	'				</tr>'
+											+	'				<tr>'
+											+	'					<td>가격</td>'
+											+	'					<td>'
+											+	'					<td>'+ star_fill(lists[i].reply_price)+star_half(lists[i].reply_price)+star_empty(lists[i].reply_price) +'</td>         		'
+											+	'					</td> '
+											+	'				</tr>'
+											+	'				<tr>'
+											+	'					<td>청결도</td>'
+											+	'					<td>'
+								+'									<td>'+ star_fill(lists[i].reply_clean)+star_half(lists[i].reply_clean)+star_empty(lists[i].reply_clean) +'</td>         		'
+								+'									</td> '
+								+'								</tr>'
+							+	'							</table>'
+							+							'<div class="user_avg">'+ (Math.round(((lists[i].reply_clean+lists[i].reply_price+lists[i].reply_service)/3)*10)/10) +'</div>'
+							+	'						</div>' 
+							+	'						<div class="user_review_img" >'
+							+   							''+ reviewImg(lists[i].reply_seq,lists_photo[i].reply_seq,lists_photo[i].reply_photo_stored) +''
+							+   '						</div>     ' 
+							+	'						<div class="contents">' 
+							+	'							<span style="font-weight: bold;">리뷰내용</span><br>'
+							+	'							<span>'+ lists[i].reply_content +'</span>'
+							+	'						</div> '
+							+	'					</div>   '
+							+	'					<div class="info2">     '
+							+	'						<span style="font-weight: bold;">매장답변</span><br> '
+							+'								<span>'+ (lists[i].reply_answer==null?"아직 답변이 없습니다.":lists[i].reply_answer) +'</span>			'							
+							+'						</div> '
+							+'					</div>   '
+							+'				</div>      '
+							+'				<br><br>';
+							});
+			        		$('.bigbig').append(addContent);
+						}
+								
 					}
 				});
 		   
@@ -412,7 +459,7 @@
 		                    "<div class=\"preview-box\" value=\"" + imgNum +"\">" +
 		                    "<img class=\"thumbnail\" src=\"" + img.target.result + "\"\/>" +
 		                    "<p class=\"f_name\">" + file.name + "</p>" +
-		                    "<a class=\"del_btn\" href=\"#a\" value=\"" + imgNum + "\" onclick=\"deletePreview(this)\">" +
+		                    "<a class=\"del_btn\" href=\"#a\"value=\""  + imgNum + "\" onclick=\"deletePreview(this)\">" +
 		                    "삭제" + "</a>"
 		                    + "</div>"
 		            );
@@ -427,9 +474,8 @@
 		    function deletePreview(obj) {
 		        var imgNum = obj.attributes['value'].value;
 		        delete files[imgNum];
-		        $(".attach_count").text($(".preview-box").length-1+"/30");
 		        $("#preview .preview-box[value=" + imgNum + "]").remove();
-//		         resizeHeight();
+
 		    }
 
 		    //client-side validation
@@ -539,19 +585,19 @@
 		
 	}
 	//사용자 리뷰 이미지
-	function reviewImg(user_id,reply_photo_stored){
+	function reviewImg(reply_seq,preply_seq,reply_photo_stored){
 		var session_id=$("input[name=session_id]").val();
 		var v="";
 		var photo_length=parseInt($("input[name=photo_length]").val()); 
 		alert(photo_length);
 		
-		for(var i=0;i<photo_length;i++){ 
-			if(session_id==user_id&&reply_photo_stored!=null){
+		for(var i=0;i<photo_length;i++){   
+			if(reply_seq==preply_seq&&reply_photo_stored!=null){
 			v+='<div style="background: url(upload_rphoto/'+reply_photo_stored+');width: 80px;height: 80px;background-size: 80px 80px;background-repeat: no-repeat;float:left;margin-left:10px;"></div>';						
 			return v; 
 			}else{
 				v=""; 
-				return v;
+				return v; 
 			}  
 		}  
 		
@@ -567,6 +613,7 @@
 	ReplyDto list_avg=(ReplyDto)request.getAttribute("list_avg");
 	List<RPhotoDto> list_photo=(List<RPhotoDto>)request.getAttribute("list_photo");
 	UDto uldto=(UDto)session.getAttribute("uldto");
+	ReplyDto store_name=(ReplyDto)request.getAttribute("store_name");
 %>
 <body>
 <input type="hidden" name="photo_length" value="<%=list_photo.size()%>">
@@ -582,7 +629,7 @@
 	     			<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 	     			<button type="submit" class="reply_write" >리뷰 작성 완료</button>
 	       			
-	       			<h4 class="modal-title">가게 이름</h4>
+	       			<h4 class="modal-title"><b><%=store_name.getStore_name()%></b></h4>
 	     		</div>
 	     		<div class="modal-body">  
 	     			<div class="star_bigtle">  
@@ -873,11 +920,11 @@
 				</div>  
 				<div class="user_review_img">
 					<%for(RPhotoDto rphoto_dto :list_photo){ 
-						if(dto.getUser_id().equals(rphoto_dto.getUser_id())){
+						if(dto.getReply_seq()==rphoto_dto.getReply_seq()){
 						%> 
 						<div style="background: url('upload_rphoto/<%=rphoto_dto.getReply_photo_stored()%>');width: 80px;height: 80px;background-size: 80px 80px;background-repeat: no-repeat;float:left;margin-left:10px;"></div>
 						<%							
-						}  
+						}   
 					}
 					%>
 				</div>

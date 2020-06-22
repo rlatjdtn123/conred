@@ -63,6 +63,10 @@
 			WHERE cr.STORE_SEQ =csp.STORE_SEQ AND user_id=#{user_id})
 		WHERE rn=1
 	</select>
+	 
+	<select id="modalStoreName" parameterType="Int" resultType="ReplyDto">
+		SELECT store_name FROM con_store WHERE store_seq=#{store_seq}
+	</select>
 	
 </mapper>
 	 

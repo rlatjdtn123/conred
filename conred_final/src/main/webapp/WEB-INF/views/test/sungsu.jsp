@@ -54,7 +54,8 @@
 	<a href="test_calendar02.do">캘린더 테스트2</a>
 	<a href="test_time.do">시간 테스트</a>
 	<a href="test_like.do">찜버튼 테스트</a>
-	<a href="test_star.do">별점 라이브러리 테스트</a>
+	<a href="test_star.do">별점 라이브러리 테스트</a> 
+	<a href="user_regist_finish.do">asd</a>
 </body>
 <footer> 
 	<div id="main1"> 

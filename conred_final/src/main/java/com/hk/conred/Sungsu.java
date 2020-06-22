@@ -3,6 +3,7 @@ package com.hk.conred;
 import java.awt.geom.Arc2D.Double;
 import java.io.File;
 import java.io.IOException;
+import java.lang.ProcessBuilder.Redirect;
 import java.rmi.server.RemoteServer;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hk.conred.dtos.InterestsDto;
 import com.hk.conred.dtos.LikeDto;
@@ -100,7 +102,14 @@ public class Sungsu {
 	private IRPhotoService rPhotoService;
 	
 	
-	
+	@RequestMapping(value = "user_regist_finish.do", method = RequestMethod.GET)
+	public String user_regist_finish(Locale locale, Model model) {
+		logger.info("테스트용 푸터 접근 {}.", locale);
+		
+		
+		
+		return "user/user_regist_finish"; 
+	}
 	
 
 	
@@ -377,13 +386,15 @@ public class Sungsu {
 	
 	@ResponseBody 
 	@RequestMapping(value = "user_reserve_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public Map<String, List<ReserveDto>> user_reserve_ajax(Locale locale, Model model,HttpServletRequest request,String pnum           ) {
+	public Map<String, List<ReserveDto>> user_reserve_ajax(Locale locale, Model model,HttpServletRequest request,String pnum) {
 		logger.info("사용자예약 스크롤{}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
 		List<ReserveDto> list=reserveService.reserveList(uldto.getUser_id(), pnum);
+		List<ReserveDto> photo_list=reserveService.userReservePhoto(uldto.getUser_id());
 		Map<String, List<ReserveDto>> map=new HashMap<>();
 		map.put("list", list);
+		map.put("photo_list", photo_list);
 		return map;  
 	}
 	
@@ -429,8 +440,11 @@ public class Sungsu {
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto"); 
 		List<LikeDto> list=likeService.likeList(uldto.getUser_id(),pnum);
-		Map<String, List<LikeDto>> map=new HashMap<>();
+		List<LikeDto> list_store_img=likeService.likeStoreImg(uldto.getUser_id());
+		System.out.println("@@@list_store_img::"+list_store_img); 
+		Map<String, List<LikeDto>> map=new HashMap<>(); 
 		map.put("list", list); 
+		map.put("list_store_img", list_store_img); 
 		return map;   
 	}
 	
@@ -708,7 +722,7 @@ public class Sungsu {
 	
 	@RequestMapping(value = "user_store_review.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String user_review_img(Locale locale, Model model,HttpServletRequest request,int store_seq,String reply_content,
-			@RequestParam("star-input01") double reply_service,@RequestParam("star-input02") double reply_price,@RequestParam("star-input03") double reply_clean ) {
+			@RequestParam("star-input01") double reply_service,@RequestParam("star-input02") double reply_price,@RequestParam("star-input03") double reply_clean,RedirectAttributes redirect ) {
 		logger.info("유저 매장 리뷰,사진등록 {}.", locale);
 		System.out.println("@@@@@@@@@@store_seq::"+store_seq);
 		System.out.println("@@@@@@@@@@reply_content::"+reply_content);
@@ -722,18 +736,20 @@ public class Sungsu {
 
 		List<ReplyDto> list=replyService.replyListStoreDetail(store_seq, 1);
 		ReplyDto list_avg=replyService.replyAvgStore(store_seq);
-		List<RPhotoDto> list_photo=rPhotoService.reviewPhotoList(store_seq);
+		List<RPhotoDto> list_photo=rPhotoService.reviewPhotoList(store_seq,1);
 		System.out.println("fileList:"+fileList.size());
 		//리뷰사진 안넣을때
 		if(fileList.get(0).getOriginalFilename()=="") {
 			replyService.userInsertReview(uldto.getUser_id(), store_seq, reply_content, reply_service, reply_clean, reply_price); 
-			list=replyService.replyListStoreDetail(store_seq, 1);
-			list_avg=replyService.replyAvgStore(store_seq);
-			list_photo=rPhotoService.reviewPhotoList(store_seq);
-			model.addAttribute("list", list); 
-			model.addAttribute("list_avg", list_avg); 	
-			model.addAttribute("list_photo", list_photo); 	
-			return "all/review";
+//			list=replyService.replyListStoreDetail(store_seq, 1);
+//			list_avg=replyService.replyAvgStore(store_seq); 
+//			list_photo=rPhotoService.reviewPhotoList(store_seq);
+//			model.addAttribute("list", list); 
+//			model.addAttribute("list_avg", list_avg); 	
+//			model.addAttribute("list_photo", list_photo); 	
+//			return "all/review"; 
+			redirect.addAttribute("store_seq", store_seq);
+			return "redirect:review.do";
 			
 		//리뷰사진 넣을때	
 		}else { 
@@ -742,7 +758,7 @@ public class Sungsu {
 			List<RPhotoDto> rPhoto_list=new ArrayList<>();
 			
 			for (int i = 0; i < fileList.size(); i++) {
-				RPhotoDto dto=new RPhotoDto();
+				RPhotoDto dto=new RPhotoDto(); 
 				
 				//originName
 				String originName=fileList.get(i).getOriginalFilename();
@@ -776,14 +792,15 @@ public class Sungsu {
 			}
 			
 			rPhotoService.reviewPhotoInsert(rPhoto_list);
-			list=replyService.replyListStoreDetail(store_seq, 1);
-			list_avg=replyService.replyAvgStore(store_seq);
-			list_photo=rPhotoService.reviewPhotoList(store_seq);
-			model.addAttribute("list", list); 
-			model.addAttribute("list_avg", list_avg); 	
-			model.addAttribute("list_photo", list_photo); 
-			return "all/review";
-			 
+//			list=replyService.replyListStoreDetail(store_seq, 1);
+//			list_avg=replyService.replyAvgStore(store_seq);
+//			list_photo=rPhotoService.reviewPhotoList(store_seq);
+//			model.addAttribute("list", list); 
+//			model.addAttribute("list_avg", list_avg); 	
+//			model.addAttribute("list_photo", list_photo); 
+//			return "all/review";
+			redirect.addAttribute("store_seq", store_seq);
+			return "redirect:review.do";
 		}
 		
 	}

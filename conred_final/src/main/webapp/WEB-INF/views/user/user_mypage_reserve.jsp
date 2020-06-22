@@ -31,7 +31,7 @@
 	 
 	.store_img{width: 200px;height:170px; float: left; } 
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
-	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:720px;height:200px; font-size: 15px; margin-left: 100px;}
+	.mybox{padding:15px;border-bottom:1px solid #BDBDBD;border-top:1px solid #BDBDBD; width:720px;height:200px; font-size: 15px; margin-left: 100px;}
 	.myboxmargin{margin-top:30px;}  
 	.bigtle{margin-left: 50px;}
 	.reserve_info{width: 500px; margin-left: 220px;}
@@ -41,7 +41,7 @@
 	.store_title{text-align: center;}
 	 
 	  
-</style>
+</style> 
 <script type="text/javascript"> 
 //무한스크롤	
 	var count = 1;
@@ -60,13 +60,14 @@
 			data:{"pnum":count},
 			dataType:"json", 
 			success:function(obj){				
-				var lists=obj.list; //[dto,dto,dto..]
+				var lists=obj.list; 
+				var photo_lists=obj.photo_list
 				$.each(lists, function(i){    		
-					addContent += 	'<div class="bigtle">'
+					addContent += 	'<div class="bigtle">' 
 									+'<div class="mybox">'
 									+	'<div class="store_img">'
-									+ 	'	<p>매장사진들어갈곳</p>  '
-									 +	'	<p>+매장명('+ lists[i].store_name +')</p> '
+									+ 	'	'+ storeImg(lists.reserve_seq,photo_lists.reserve_seq,photo_lists.store_photo_stored) +' '
+									 +	'	<p class="store_title"><b>'+ lists[i].store_name +'</b></p> '
 									 +	'</div>'
 										+'<div class="reserve_info">'
 									 	+'	<a>메뉴명 : '+ lists[i].menu_name +' </a><br>'  
@@ -181,7 +182,16 @@
 			});
 			
 		}
-			
+	function storeImg(reserve_seq,preserve_seq,store_photo_stored){
+		var v="";
+		var photo_length=$("input[name=photo_length]").val();
+		for(var i=0;i<photo_length;i++){
+			if(reserve_seq==preserve_seq){
+				var v='<div style="background: url(upload_sphoto/'+store_photo_stored+');width: 200px;height: 155px;background-size: 200px 150px;background-repeat: no-repeat;float:left;"></div>';					
+				return v;
+			}						 
+		} 
+	}		
 			
 		
 		
@@ -195,6 +205,7 @@
 	List<ReserveDto> photo_list=(List<ReserveDto>)request.getAttribute("photo_list");
 %>
 <body>
+<input type="hidden" name="photo_length" value="<%=photo_list.size()%>">
 <div id="container">
 	<div id="sticky">
 		<div id="navi2">

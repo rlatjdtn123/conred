@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hk.conred.dtos.RPhotoDto;
@@ -49,27 +50,29 @@ public class ReviewController {
 	
 	
 	@RequestMapping(value = "review.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String review(Locale locale, Model model,int store_seq) {
+	public String review(Locale locale, Model model,@RequestParam("store_seq") int store_seq) {
 		logger.info("리뷰폼으로 이동  {}.", locale);
 		List<ReplyDto> list=replyService.replyListStoreDetail(store_seq, 1);
 		ReplyDto list_avg=replyService.replyAvgStore(store_seq); 
-		List<RPhotoDto> list_photo=rPhotoService.reviewPhotoList(store_seq);
+		List<RPhotoDto> list_photo=rPhotoService.reviewPhotoList(store_seq,1);
+		ReplyDto store_name=replyService.modalStoreName(store_seq);
 		model.addAttribute("list", list); 
 		model.addAttribute("list_avg", list_avg); 	
-		model.addAttribute("list_photo", list_photo); 	
-		return "all/review";  
+		model.addAttribute("list_photo", list_photo); 
+		model.addAttribute("store_name", store_name);
+		return "all/review";    
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "review_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public Map<String, Object> review_ajax(Locale locale, Model model,int store_seq,int pnum) {
+	public Map<String, Object> review_ajax(Locale locale, Model model,@RequestParam("store_seq") int store_seq,@RequestParam("pnum") int pnum) {
 		logger.info("리뷰 ajax  {}.", locale);
 		List<ReplyDto> list=replyService.replyListStoreDetail(store_seq, pnum); 
-		List<RPhotoDto> list_photo=rPhotoService.reviewPhotoList(store_seq);
-		System.out.println("사이즈"+list.size());
+		List<RPhotoDto> list_photo=rPhotoService.reviewPhotoList(store_seq,pnum); 
+		System.out.println("@@@@list_photo::"+list_photo); 
 		Map<String, Object> map=new HashMap<>();
 		map.put("list", list);		
-		map.put("list_photo", list_photo);
+		map.put("list_photo", list_photo); 
 		return map; 
 	}
 

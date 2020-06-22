@@ -49,4 +49,9 @@ public class ReplyServiceImp implements IReplyService{
 		return replyDao.userReplyStorePhoto(user_id);
 	}
 
+	@Override
+	public ReplyDto modalStoreName(int store_seq) {
+		return replyDao.modalStoreName(store_seq);
+	}
+
 }

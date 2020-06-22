@@ -38,7 +38,7 @@
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
 	.myboxmargin{margin-top:30px;}      
 	.store_img{width: 200px;height:170px; float: left;margin-right: 20px;text-align: center;} 
-	.mybox{padding:15px;border-top:1px solid black; width:720px;height:200px; font-size: 15px; margin-left: 100px;min-height: 200px;}
+	.mybox{padding:15px;border-top:1px solid #BDBDBD; width:720px;height:200px; font-size: 15px; margin-left: 100px;min-height: 200px;}
 	.bigtle{margin-left: 40px;}    
 	button {border-width: 0;}   
 	button:hover:{background-color: grey !important;}

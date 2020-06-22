@@ -27,6 +27,7 @@ public class ReplyDto {
 	
 	private String store_photo_stored;
 	
+	
 	public ReplyDto() {
 		super();
 	}

@@ -26,4 +26,7 @@ public interface IReplyDao {
 
 	//7.사용자 리뷰 매장사진
 	public List<ReplyDto> userReplyStorePhoto(String user_id);
+	
+	//8. 리뷰 모달창 매장명
+	public ReplyDto modalStoreName(int store_seq);
 }

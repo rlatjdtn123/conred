@@ -76,5 +76,11 @@ public class ReplyDaoImp implements IReplyDao{
 		List<ReplyDto> list=sqlSession.selectList(nameSpace+"userReplyStorePhoto", user_id);
 		return list;
 	}
+
+	@Override
+	public ReplyDto modalStoreName(int store_seq) {
+		ReplyDto store_name=sqlSession.selectOne(nameSpace+"modalStoreName", store_seq);
+		return store_name;
+	}
 	
 }

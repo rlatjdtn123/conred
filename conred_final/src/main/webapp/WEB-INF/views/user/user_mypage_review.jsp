@@ -45,49 +45,99 @@
 				var lists=obj.list;
 				var sphoto_lists=obj.sphoto_list;
 				var rphoto_lists=obj.rphoto_list;
-				$.each(lists, function(i){  
-					addContent += ' <div class="bigtle"> '
-						+   '<div class="mybox">     '
-						+ 	''+ sPhoto() +''
-						+'<div class="store_info">'+ lists[i].store_name +'</div>'
-					 +	'</div>  '    
-					+	'<img src="./img/profile_default.png" class="pf"/>  '
-					+	'<div class="info">        ' 
-					+	'	<button class="content_delete buttondle">삭제</button> <button  class="content_detail buttondle">자세히 보기</button><br>' 
-					+	'	<span>닉네임:'+ lists[i].user_id +'</span><span style="float:right">작성일: '+ lists[i].reply_regdate +'</span><br>  '
-					+		'<div class="star_table">'
-					+			'<table>'
-					+				'<tr>'
-						+				'<td>서비스</td>'
-						+             '<td>'+ star_fill(lists[i].reply_service)+star_half(lists[i].reply_service)+star_empty(lists[i].reply_service)+ '</td>'
-						+			'</tr>'
-						+			'<tr>'
-						+			'	<td>가격</td>'
-						+             '<td>'+ star_fill(lists[i].reply_price)+star_half(lists[i].reply_price)+star_empty(lists[i].reply_price)+ '</td>'
-						+		'	</tr>' 
-						+		'	<tr>'
-						+		'		<td>청결도</td>'
-						+             '<td>'+ star_fill(lists[i].reply_clean)+star_half(lists[i].reply_clean)+star_empty(lists[i].reply_clean)+ '</td>'
-						+		'	</tr>'
-							+	'</table>'
-						+	'</div>'
-						+		'<div class="user_review_img" ></div>'
-						+		'<div class="contents">'
-					+		'	<span style="font-weight: bold;">리뷰내용</span><br>'
-					+		'	<span>'+lists[i].reply_content+'</span>'
-					+		'</div>'
-					+	'</div>  '
-					+	'<div class="info2">    '
-					+	'	<span style="font-weight: bold;">가게답변</span><br>  '
-					+	'	<span>'+ (lists[i].reply_answer==null?'아직 답변이 없습니다.':lists[i].reply_answer) +'</span>'
-					+	'</div>'
-				+	'</div>  ' 
-				+    ' </div> '
-				+     '<br><br>';	 
-			 	
-				}); 
-				
-				 $('.bigbig').append(addContent); 
+				if(rphoto_lists==""||rphoto_lists.reply_seq==null){
+					$.each(lists, function(i){  
+						addContent += 	'<div class="bigtle" > '
+										+'<div class="mybox">      '
+									+	' 	<div class="store_img">    '
+									+            ''+sPhoto(lists[i].reply_seq,sphoto_lists[i].reply_seq,sphoto_lists[i].store_photo_stored)+''
+									+	 '		<div class="store_info">'+lists[i].store_name+'</div>'
+									+	 '	</div>      '
+									+		'<img src="./img/profile_default.png" class="pf"/>  '
+									+		'<div class="info">  '      
+									+			'<button class="content_delete buttondle" onclick="user_review_delete(reply_seq)">삭제</button> <button class="content_detail buttondle">자세히 보기</button><br>' 
+									+			'<span>닉네임:'+lists[i].user_id+'</span><span style="float:right;">'+lists[i].reply_regdate+'</span><br>'
+												+		'<div class="star_table">'
+												+			'<table>'
+												+				'<tr>'
+													+				'<td>서비스</td>'
+													+             '<td>'+ star_fill(lists[i].reply_service)+star_half(lists[i].reply_service)+star_empty(lists[i].reply_service)+ '</td>'
+													+			'</tr>'
+													+			'<tr>'
+													+			'	<td>가격</td>'
+													+             '<td>'+ star_fill(lists[i].reply_price)+star_half(lists[i].reply_price)+star_empty(lists[i].reply_price)+ '</td>'
+													+		'	</tr>' 
+													+		'	<tr>'
+													+		'		<td>청결도</td>'
+													+             '<td>'+ star_fill(lists[i].reply_clean)+star_half(lists[i].reply_clean)+star_empty(lists[i].reply_clean)+ '</td>'
+													+		'	</tr>'
+														+	'</table>'
+													+	'</div>'
+											+	'<div class="user_review_img" >'
+											+	'</div> '
+											+	'<div class="contents">'
+											+	'	<span style="font-weight: bold;">리뷰내용</span><br>'
+											+	'	<span>'+lists[i].reply_content+'</span>'
+											+'	</div>  '
+										+'	</div>   '
+										+	'<div class="info2">     '
+										+	'	<span style="font-weight: bold;">매장답변</span><br>'
+										+	'<span>	'+(lists[i].reply_answer==null?"아직 답변이 없습니다.":lists[i].reply_answer)+'<span>'
+									+	'	</div>'
+									+'	</div>  '
+								+'	</div>     ' 
+								+'	<br><br>';
+					}); 
+					
+					 $('.bigbig').append(addContent);
+				}else{
+					$.each(lists, function(i){  
+						addContent += 	'<div class="bigtle" > '
+										+'<div class="mybox">      '
+									+	' 	<div class="store_img">    '
+									+            ''+sPhoto(lists[i].reply_seq,sphoto_lists[i].reply_seq,sphoto_lists[i].store_photo_stored)+''
+									+	 '		<div class="store_info">'+lists[i].store_name+'</div>'
+									+	 '	</div>      '
+									+		'<img src="./img/profile_default.png" class="pf"/>  '
+									+		'<div class="info">  '      
+									+			'<button class="content_delete buttondle" onclick="user_review_delete(reply_seq)">삭제</button> <button class="content_detail buttondle">자세히 보기</button><br>' 
+									+			'<span>닉네임:'+lists[i].user_id+'</span><span style="float:right;">'+lists[i].reply_regdate+'</span><br>'
+												+		'<div class="star_table">'
+												+			'<table>'
+												+				'<tr>'
+													+				'<td>서비스</td>'
+													+             '<td>'+ star_fill(lists[i].reply_service)+star_half(lists[i].reply_service)+star_empty(lists[i].reply_service)+ '</td>'
+													+			'</tr>'
+													+			'<tr>'
+													+			'	<td>가격</td>'
+													+             '<td>'+ star_fill(lists[i].reply_price)+star_half(lists[i].reply_price)+star_empty(lists[i].reply_price)+ '</td>'
+													+		'	</tr>' 
+													+		'	<tr>'
+													+		'		<td>청결도</td>'
+													+             '<td>'+ star_fill(lists[i].reply_clean)+star_half(lists[i].reply_clean)+star_empty(lists[i].reply_clean)+ '</td>'
+													+		'	</tr>'
+														+	'</table>'
+													+	'</div>'
+											+	'<div class="user_review_img" >'
+											+    ' '+rPhoto(lists[i].reply_seq,rphoto_lists[i].reply_seq,rphoto_lists[i].reply_photo_stored)+'  '
+											+	'</div> '
+											+	'<div class="contents">'
+											+	'	<span style="font-weight: bold;">리뷰내용</span><br>'
+											+	'	<span>'+lists[i].reply_content+'</span>'
+											+'	</div>  '
+										+'	</div>   '
+										+	'<div class="info2">     '
+										+	'	<span style="font-weight: bold;">매장답변</span><br>'
+										+	'<span>	'+(lists[i].reply_answer==null?"아직 답변이 없습니다.":lists[i].reply_answer)+'<span>'
+									+	'	</div>'
+									+'	</div>  '
+								+'	</div>     ' 
+								+'	<br><br>';
+					}); 
+					
+					 $('.bigbig').append(addContent);
+				}
+				 
 				 
 			}
 			}); 
@@ -166,24 +216,28 @@
 	
 	//매장사진
 	function sPhoto(uReply_seq,sReply_seq,store_photo_stored){
-		var slist_length=$("slist_length").val();
+		var slist_length=$("input[name=slist_length]").val();
 		var v="";
-		
  		for(var i=0;i<slist_length;i++){
  			if(uReply_seq==sReply_seq){
-				v+='<div style="background: url(upload_sphoto/'+store_photo_stored+');width: 200px;height: 123px;background-size: 200px 123px;background-repeat: no-repeat;float:left;"></div>'
+				v+='<div style="background: url(upload_sphoto/'+store_photo_stored+');width: 200px;height: 123px;background-size: 200px 123px;background-repeat: no-repeat;float:left;"></div>';
  				return v;
  			}
- 		}
-		
-		
-		
+ 		} 		
 	}
 	
 	
 	//사용자리뷰사진
-	function rPhoto(){
-		
+	function rPhoto(uReply_seq,reply_seq,reply_photo_stored){
+		var v="";
+		var rlist_length=$("input[name=rlist_length]");
+		for(var i=0;i<rlist_length;i++){
+			if(uReply_seq==reply_seq){
+			v='<div class="asd" style="background: url(upload_rphoto/'+reply_photo_stored+');width: 80px;height: 80px;background-size: 80px 80px;background-repeat: no-repeat;float:left;margin-left:45px;"></div>';	
+			}else{
+				
+			}
+		}
 	}
 
 	
@@ -205,7 +259,7 @@
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
 	.myboxmargin{margin-top:30px;}      
 	.store_img{width: 200px;height:155px; float: left;margin-right: 20px; background: white;background-size: 200px 250px;} 
-	.mybox{padding:15px;border-top:1px solid grey; width:700px;height:450px; font-size: 15px; margin-left: -10px;min-height: 450px;}
+	.mybox{padding:15px;border-top:1px solid #BDBDBD; width:700px;height:450px; font-size: 15px; margin-left: -10px;min-height: 450px;}
 	.bigtle{margin-left: 165px;}          
 	       
 	       
@@ -244,7 +298,6 @@
 	List<RPhotoDto> rphoto_list=(List<RPhotoDto>)request.getAttribute("rphoto_list");
 %>
 <body>
-<input type="hidden" name="session_id" value="<%=%>">
 <input name="slist_length" type="hidden" value="<%=sphoto_list.size()%>"/>
 <input name="rlist_length" type="hidden" value="<%=rphoto_list.size()%>"/>
 <div id="container">
