@@ -29,7 +29,7 @@
 	.home{border-bottom:1px solid white;background-color: white;border-right:1px solid grey;border-left:1px solid grey;}
 	
 	 
-	.store_img{width: 200px;height:170px;border: 1px solid black; float: left; } 
+	.store_img{width: 200px;height:170px; float: left; } 
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
 	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:720px;height:200px; font-size: 15px; margin-left: 100px;}
 	.myboxmargin{margin-top:30px;}  
@@ -38,9 +38,11 @@
 	button{border-width: 0;} 
 	button:hover{background-color: grey;}
 	 .buttondle{background-color: #585858; color: white;border-radius: 5px;} 
+	.store_title{text-align: center;}
+	 
 	  
 </style>
-<script type="text/javascript">
+<script type="text/javascript"> 
 //무한스크롤	
 	var count = 1;
 	//스크롤 바닥 감지 
@@ -190,6 +192,7 @@
 <%
 	List<ReserveDto> list=(List<ReserveDto>)request.getAttribute("list");
 	UDto uldto=(UDto)session.getAttribute("uldto");
+	List<ReserveDto> photo_list=(List<ReserveDto>)request.getAttribute("photo_list");
 %>
 <body>
 <div id="container">
@@ -221,8 +224,16 @@
 			<div class="bigtle" >
 			 	<div class="mybox">
 					<div class="store_img">
-				 		<p>매장사진들어갈곳</p>  
-				 		<p>+매장명(<%=dto.getStore_name()%>)</p> 
+					<%
+					for(int i=0;i<photo_list.size();i++){
+						if(dto.getReserve_seq()==photo_list.get(i).getReserve_seq()){
+						%>
+							<div style="background: url('upload_sphoto/<%=photo_list.get(i).getStore_photo_stored()%>');width: 200px;height: 155px;background-size: 200px 150px;background-repeat: no-repeat;float:left;"></div>						
+						<%
+						}						 
+					} 
+					%>	 
+				 		<p class="store_title"><b><%=dto.getStore_name()%></b></p> 
 				 	</div>
 				 	<div class="reserve_info">
 			 		<a>메뉴명 : <%=dto.getMenu_name()%> </a><br>  

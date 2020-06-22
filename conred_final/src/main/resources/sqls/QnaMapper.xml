@@ -13,11 +13,11 @@
 	
 	
 	<select id="qnaList" parameterType="Map" resultType="QnaDto">
-		SELECT  rn, QNA_SEQ ,STORE_SEQ ,USER_ID ,QNA_TITLE,QNA_CONTENT ,QNA_ANSWER,QNA_HIDE ,QNA_READ ,QNA_REGDATE ,QNA_DELFLAG 
+		SELECT  rn, QNA_SEQ ,cq.STORE_SEQ ,USER_ID ,QNA_TITLE,QNA_CONTENT ,QNA_ANSWER,QNA_HIDE ,QNA_READ ,QNA_REGDATE ,QNA_DELFLAG ,cs.store_name
 		FROM
 		    (SELECT  rownum AS rn, QNA_SEQ ,STORE_SEQ ,USER_ID ,QNA_TITLE,QNA_CONTENT ,QNA_ANSWER,QNA_HIDE ,QNA_READ ,QNA_REGDATE ,QNA_DELFLAG 
-		     FROM CON_QNA WHERE QNA_DELFLAG='N')
-		WHERE CEIL(rn/5)=#{pnum} AND USER_ID =#{user_id}
+		     FROM CON_QNA WHERE QNA_DELFLAG='N') cq,(SELECT STORE_SEQ ,STORE_NAME FROM CON_STORE )cs
+		WHERE CEIL(rn/5)=#{pnum} AND USER_ID =#{user_id} AND cq.store_seq=cs.store_seq
 	</select>
 	
 	<select id="qnaListStore" parameterType="Map" resultType="QnaDto">
@@ -25,7 +25,7 @@
 			SELECT rn QNA_SEQ ,STORE_SEQ ,USER_ID ,QNA_TITLE ,QNA_CONTENT ,QNA_ANSWER ,QNA_HIDE ,QNA_READ ,QNA_REGDATE ,QNA_DELFLAG 
 			FROM (SELECT ROW_NUMBER()over(ORDER BY QNA_REGDATE DESC) AS rn ,QNA_SEQ ,STORE_SEQ ,USER_ID,QNA_TITLE  ,QNA_CONTENT ,QNA_ANSWER ,QNA_HIDE ,QNA_READ ,QNA_REGDATE ,QNA_DELFLAG 
 					FROM CON_QNA 
-					WHERE STORE_SEQ =#{store_seq})
+					WHERE STORE_SEQ =#{store_seq} AND QNA_DELFLAG ='N')
 			WHERE CEIL(rn/5)=#{pnum} 
 		]]>
 	</select>
@@ -50,5 +50,14 @@
 		SELECT *FROM CON_QNA WHERE QNA_SEQ =#{qna_seq}
 	</select>
 	
+	<select id="userQnaPhoto" parameterType="String" resultType="QnaDto">
+		SELECT rn,qna_seq,STORE_SEQ ,store_photo_stored
+		FROM (
+			SELECT  ROW_NUMBER()over(PARTITION BY cq.QNA_SEQ ORDER BY qna_SEQ ) AS rn,cq.qna_SEQ ,cq.STORE_SEQ ,csp.STORE_PHOTO_STORED 
+			FROM CON_qna cq,CON_STORE_PHOTO csp
+			WHERE cq.STORE_SEQ =csp.STORE_SEQ AND user_id=#{user_id})
+		WHERE rn=1
+	</select>
+	 
 </mapper>
 	 

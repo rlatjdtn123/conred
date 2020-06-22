@@ -37,8 +37,8 @@
 	.info2{background-color: #F2F2F2;  height: 62px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 450px;}
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
 	.myboxmargin{margin-top:30px;}      
-	.store_img{width: 200px;height:170px;border: 1px solid black; float: left;margin-right: 20px;} 
-	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:720px;height:200px; font-size: 15px; margin-left: 100px;min-height: 200px;}
+	.store_img{width: 200px;height:170px; float: left;margin-right: 20px;text-align: center;} 
+	.mybox{padding:15px;border-top:1px solid black; width:720px;height:200px; font-size: 15px; margin-left: 100px;min-height: 200px;}
 	.bigtle{margin-left: 40px;}    
 	button {border-width: 0;}   
 	button:hover:{background-color: grey !important;}
@@ -46,8 +46,8 @@
 	   
 </style> 
 <script type="text/javascript">
-	
-		
+	 
+		 
 	//무한스크롤	
 	var count = 1;
 	//스크롤 바닥 감지
@@ -145,6 +145,7 @@
 </head>
 <%
 	List<QnaDto> list=(List<QnaDto>)request.getAttribute("list");
+	List<QnaDto> photo_list=(List<QnaDto>)request.getAttribute("photo_list");
 %>
 <body> 
 <div id="container">
@@ -176,13 +177,21 @@
 		<div class="bigtle">
 			<div class="mybox">   
 			 	<div class="store_img">
-			 		<p>매장사진들어갈곳</p>
-			 		<p>+매장명</p> 
+			 		<%
+			 		for(int i=0;i<photo_list.size();i++){
+			 			if(dto.getQna_seq()==photo_list.get(i).getQna_seq()){
+			 			%>
+			 			<div style="background: url('upload_sphoto/<%=photo_list.get(i).getStore_photo_stored()%>');width: 200px;height: 155px;background-size: 200px 150px;background-repeat: no-repeat;float:left;"></div>
+			 			<%	
+			 			}
+			 		}  
+			 		%>
+			 		<p><%=dto.getStore_name()%></p> 
 			 	</div>       
 				<img src="./img/profile_default.png" class="pf"/>
 				<div class="info">  
 					<button style="margin-left: 235px; " class="buttondle" onclick="updateQnA(<%=dto.getQna_seq()%>,'<%=dto.getQna_title()%>','<%=dto.getQna_content()%>','<%=dto.getQna_hide()%>')">수정</button> <button class="buttondle" onclick="deleteQnA(<%=dto.getQna_seq()%>)">삭제</button> <button  class="content_detail buttondle">자세히 보기</button><br>
-					<span>닉네임 :<%=dto.getUser_id()%> &nbsp;| <%=dto.getQna_title()%> </span><br><br>   
+					<span style="color: #919191">닉네임 :<%=dto.getUser_id()%> &nbsp;| <%=dto.getQna_title()%> </span><br><br>   
 					<div class="contents"><%=dto.getQna_content()%></div>    
 				</div>   
 				<div class="info2">     

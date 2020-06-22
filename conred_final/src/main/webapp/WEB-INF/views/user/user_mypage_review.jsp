@@ -1,3 +1,4 @@
+<%@page import="com.hk.conred.dtos.RPhotoDto"%>
 <%@page import="com.hk.conred.dtos.ReplyDto"%>
 <%@page import="java.util.List"%>
 <jsp:include page="../all/header2.jsp" />
@@ -95,19 +96,29 @@
 	
 	
 	 
-	
+	//더보기
 	$(function(){
 		$("body").on("click",".content_detail",function(){
-			if($(this).parent().parent().css("height")=="370px"){  
+			if($(this).parent().parent().find(".contents").css("height")=="80px"&&$(this).parent().parent().find(".info2").css("height")=="80px"){  
 				$(this).parent().parent().css("height","auto");  
 				$(this).parent().parent().find(".contents").css({"overflow":"visible","height":"auto","word-break":"break-all"});
 				$(this).parent().parent().find(".info2").css({"overflow":"visible","height":"auto","word-break":"break-all"});
 			}else{
-				$(this).parent().parent().css("height","200px");    
+				$(this).parent().parent().css("height","450px");    
 				$(this).parent().parent().find(".contents").css({"height":"80px","overflow":"hidden","word-break":"keep-all"});
 				$(this).parent().parent().find(".info2").css({"height":"80px","overflow":"hidden","word-break":"keep-all"});
 			}   
 		});   
+		 
+// 		alert($(".user_review_img").children(".asd").length);
+		
+		//유저리뷰사진
+		$("div").each(function(){
+			if($(".user_review_img").children().hasClass("asd")){
+				$(this).find(".asd").parent().addClass("img_tle");
+			}		  
+		});
+		  
    
 	});  
 	
@@ -149,6 +160,8 @@
 		}
 		return v;
 	}
+	
+	
 
 	
 </script>     
@@ -164,15 +177,15 @@
 	.pf{float: left; width: 40px;height: 40px;}     
 	.dt{margin-left: 600px;}
 	.info{min-height: 95px;}    
-	.contents{border-radius:5px;display:inline-block;padding: 10px; width: 612px;height:80px;text-overflow: ellipsis; overflow: hidden;word-break:keep-all;min-height: 80px; clear: both; background-color: #fafafa;margin-bottom: 15px;}        
-	.info2{background-color: #fafafa;  height: 80px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 612px; min-height: 80px;border-radius:5px;word-break:keep-all;}
+	.contents{display:inline-block;padding: 10px; width: 671px;height:80px;text-overflow: ellipsis; overflow: hidden;word-break:keep-all;min-height: 80px; clear: both;margin-bottom: 15px; margin-top: 5px;}        
+	.info2{background-color: #F2F2F2;  height: 80px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 612px; min-height: 80px;border-radius:5px;word-break:keep-all; margin-left: 30px;}
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
 	.myboxmargin{margin-top:30px;}      
-	.store_img{width: 200px;height:280px; float: left;margin-right: 20px; background: url("img/user_back_test.png");background-size: 200px 250px;} 
-	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:865px;height:370px; font-size: 15px; margin-left: -10px;min-height: 370px;background-color: #f2f2f2;}
-	.bigtle{margin-left: 75px;}          
+	.store_img{width: 200px;height:155px; float: left;margin-right: 20px; background: white;background-size: 200px 250px;} 
+	.mybox{padding:15px;border-top:1px solid grey; width:700px;height:450px; font-size: 15px; margin-left: -10px;min-height: 450px;}
+	.bigtle{margin-left: 165px;}          
 	       
-	      
+	       
 	 .modal-title{margin-left: 400px;} 
 	.modal-body span{margin: 85px;}
 	textarea:focus::-webkit-input-placeholder { color: transparent; }
@@ -186,23 +199,29 @@
 	.input_wrap {clear: both;} 
 	button {border: 0;  } 
 	button:hover:{background-color: grey;}
-	 .user_review_img{background-color:#fafafa; width: 415px;height: 80px;margin-left: 418px;margin-bottom:22px;}
+	 
 	 .buttondle{background-color: #fafafa;}
 	 .buttondle:hover {background-color: grey;}
 	 
 	 .star_table{width: 187px; height: 80px;background-color: #fafafa;border-radius: 5px; padding: 10px;float: left;}
 	 .starz{width:17px;height:auto;display: inline-block;margin:-2px;margin-bottom:4px;}
-	 .content_delete{margin-left: 435px; background-color:#fafafa;}
+	 .content_delete{ background-color:#fafafa; margin-left: 270px;}
 	 .content_delete:hover {background-color: grey;} 
-	 .store_info{text-align:center;background-color:#f2f2f2; width: 200px;height: 30px; margin-top: 250px;}
+	 .store_info{text-align:center; width: 200px;height: 30px; margin-top: 128px;background-color: white;}
 	 .buttondle{background-color: #585858; color: white;border-radius: 5px;}
+	 .img_tle{width: 670px;height: 80px;margin-top: 120px;margin-bottom: 10px;} 
 	  
-</style>
+	  
+</style> 
+
 </head>
 <% 
 	List<ReplyDto> list=(List<ReplyDto>)request.getAttribute("list");
+	List<ReplyDto> sphoto_list=(List<ReplyDto>)request.getAttribute("sphoto_list");
+	List<RPhotoDto> rphoto_list=(List<RPhotoDto>)request.getAttribute("rphoto_list");
 %>
 <body>
+<input name="list_length" type="hidden" value="<%=rphoto_list.size()%>"/>
 <div id="container">
 	<div id="sticky">
 		<div id="navi2">
@@ -233,7 +252,16 @@
 		%>
 		<div class="bigtle" > 
 			<div class="mybox">      
-			 	<div class="store_img">     
+			 	<div class="store_img">    
+			 		<%
+			 		for(int i=0;i<sphoto_list.size();i++){
+			 			if(dto.getReply_seq()==sphoto_list.get(i).getReply_seq()){
+		 				%>
+		 				<div style="background: url('upload_sphoto/<%=sphoto_list.get(i).getStore_photo_stored()%>');width: 200px;height: 123px;background-size: 200px 123px;background-repeat: no-repeat;float:left;"></div>
+		 				<%
+			 			}
+			 		}
+			 		%> 
 			 		<div class="store_info"><%=dto.getStore_name()%></div>
 			 	</div>      
 				<img src="./img/profile_default.png" class="pf"/>  
@@ -308,9 +336,21 @@
 									%>
 								</td> 
 							</tr>
-						</table>
+						</table>  
 					</div>
-					<div class="user_review_img" ></div>     
+					<div class="user_review_img" >
+					<%
+					for(int i=0;i<rphoto_list.size();i++){
+						if(dto.getReply_seq()==rphoto_list.get(i).getReply_seq()){
+						%>
+						<div class="asd" style="background: url('upload_rphoto/<%=rphoto_list.get(i).getReply_photo_stored()%>');width: 80px;height: 80px;background-size: 80px 80px;background-repeat: no-repeat;float:left;margin-left:45px;"></div>	
+						<%
+						}else{
+							
+						}
+					}
+					%>
+					</div> 
 					<div class="contents">
 						<span style="font-weight: bold;">리뷰내용</span><br>
 						<span><%=dto.getReply_content()%></span>

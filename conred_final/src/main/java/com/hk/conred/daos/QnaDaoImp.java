@@ -79,4 +79,10 @@ public class QnaDaoImp implements IQnaDao{
 		count=sqlSession.insert(nameSpace+"insertQna", map);
 		return count>0?true:false;
 	}
+
+	@Override
+	public List<QnaDto> userQnaPhoto(String user_id) {
+		List<QnaDto> list=sqlSession.selectList(nameSpace+"userQnaPhoto", user_id);
+		return list;
+	}
 }

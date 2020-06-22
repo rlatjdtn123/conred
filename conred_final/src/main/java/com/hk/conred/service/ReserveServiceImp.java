@@ -47,4 +47,9 @@ public class ReserveServiceImp implements IReserveService{
 		return reserveDaoImp.userReserveCancel(reserve_seq);
 	}
 
+	@Override
+	public List<ReserveDto> userReservePhoto(String user_id) {
+		return reserveDaoImp.userReservePhoto(user_id);
+	}
+
 }

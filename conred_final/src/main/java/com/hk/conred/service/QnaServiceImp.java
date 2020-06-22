@@ -49,6 +49,11 @@ public class QnaServiceImp implements IQnaService{
 	@Override
 	public boolean insertQna(int store_seq,String user_id,String qna_title,String qna_content,String qna_hide) {
 		return QnaDaoImp.insertQna(store_seq, user_id, qna_title, qna_content, qna_hide);
+	}
+
+	@Override
+	public List<QnaDto> userQnaPhoto(String user_id){ 
+		return QnaDaoImp.userQnaPhoto(user_id);
 	} 
 
 }

@@ -76,4 +76,10 @@ public class ReserveDaoImp implements IReserveDao{
 		return count>0?true:false;
 	}
 
+	@Override
+	public List<ReserveDto> userReservePhoto(String user_id) {
+		List<ReserveDto> list=sqlSession.selectList(nameSpace+"userReservePhoto", user_id);
+		return list;
+	}
+
 }

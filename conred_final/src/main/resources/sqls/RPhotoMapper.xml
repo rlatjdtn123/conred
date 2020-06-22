@@ -20,5 +20,10 @@
 		WHERE crp.REPLY_SEQ =cr.REPLY_SEQ AND cr.STORE_SEQ =#{store_seq} 
 	</select>
 	
+	<select id="userReplyPhoto" resultType="RPhotoDto">
+		SELECT REPLY_PHOTO_SEQ,crp.REPLY_SEQ,REPLY_PHOTO_STORED 
+		FROM CON_REPLY_PHOTO crp, CON_REPLY cr 
+		WHERE crp.REPLY_SEQ =cr.REPLY_SEQ
+	</select>
 </mapper>
 	  

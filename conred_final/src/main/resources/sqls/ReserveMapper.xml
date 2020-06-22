@@ -43,6 +43,16 @@
 		 <update id="userReserveCancel" parameterType="Int">
 		 	UPDATE CON_RESERVE SET reserve_state='C' WHERE reserve_seq=#{reserve_seq}
 		 </update>
+		 
+		 <select id="userReservePhoto" parameterType="String" resultType="ReserveDto">
+		 	SELECT rn,reserve_seq,STORE_SEQ ,store_photo_stored
+			FROM (
+				SELECT ROW_NUMBER()over(PARTITION BY cr.RESERVE_SEQ ORDER BY RESERVE_SEQ DESC) AS rn,cr.RESERVE_SEQ ,cr.STORE_SEQ ,csp.STORE_PHOTO_STORED 
+				FROM CON_RESERVE cr,CON_STORE_PHOTO csp
+				WHERE cr.STORE_SEQ =csp.STORE_SEQ AND user_id=#{user_id})
+			WHERE rn=1
+		 </select> 
+		 
 		
 	</mapper>
 		  

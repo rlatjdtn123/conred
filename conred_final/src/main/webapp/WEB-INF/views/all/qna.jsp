@@ -35,7 +35,7 @@
 	.dt{margin-left: 600px;}
 	.info{min-height: 144px;}   
 	.contents{display:inline-block; width: 631px;height:80px;text-overflow: ellipsis; word-break:keep-all;overflow: hidden;margin-left: 17px;min-height: 80px; padding: 10px;margin-bottom: 15px;}     
-	.info2{background-color: #fafafa; margin-left: 42px; height: 80px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 580px;min-height: 80px; border-radius: 5px;}
+	.info2{background-color: #F2F2F2; margin-left: 42px; height: 80px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 580px;min-height: 80px; border-radius: 5px;}
 	.bot{margin: 0 auto; text-align: center;}
 	
 	.modal_Btn{float:right; height: 50px; width: 100px;background-color: #94B8FD; border: 0;border-radius: 5px;color: white;}
@@ -80,11 +80,11 @@
 				       addContent +=  '<div class="mybox">'         
 										+	'<img src="./img/profile_default.png" class="pf"/>'
 										+	'<div class="info">'
-										+	'	<button class="buttondle" style="margin-left:436px;">수정</button> <button class="buttondle">삭제</button> <button  class="content_detail buttondle">자세히 보기</button><br>'
-										+	'	<span ><b>닉네임</b>:'+lists[i].user_id+'</span><span>'+ lists[i].qna_regdate +'</span><br>'
+										+   ''+ buttonChk(lists[i].user_id) +''
+										+	'	<span style="color:#919191;"><b>닉네임</b>:'+lists[i].user_id+'|'+ lists[i].qna_title +'</span><span style="color:#919191; float: right;">'+ lists[i].qna_regdate +'</span><br>'
 										+	'	<div class="contents">'
 										+	'		<span class="zxczxc"><b>문의내용</b></span>    '
-										+	'		<span>'+ lists[i].qna_content +'</span>    '
+										+    ''+ hideContent(lists[i].user_id,lists[i].qna_content,lists[i].qna_hide) +''
 						 				+	'	</div>'
 										+	'</div>'
 										+	'<div class="info2">    '
@@ -101,7 +101,12 @@
 	};
 	
 	$(document).ready(function(){
-// 		alert($("input[name=session_id]").data('value')); -> 특정 값 가져와야함
+		
+// 		var sss=$("input[name=session_id]").data('value') ;
+		var session_id=$("input[name=session_id]").val();
+		if(session_id!=""){
+// 			alert(session_id);   
+		}
 		
 		
 	    $(".modal_Btn").click(function(){
@@ -115,6 +120,47 @@
  					
  				}
  			}
+	    	
+	    	
+	    	$('.qna_content').keyup(function (e){
+			    var qna_content = $(this).val();
+			    $('#counter').html("("+qna_content.length+" / 최대 200자)");  
+			    if (qna_content.length > 200){
+			        alert("최대 200자까지 입력 가능합니다.");
+			        $(this).val(qna_content.substring(0, 100));
+			        $('#counter').html("(200 / 최대 200자)");  
+			    }
+			});	
+	    	
+	    	
+	    	
+	    	$("form").on("submit",function(){
+				  var store_seq=$("input[name=store_seq]").val();
+				  var qna_content=$("textarea").val();
+				  var qna_title=$(".qna_title").val();
+				  var qna_hide=$(".qna_hide").val();
+				   
+				  if(qna_title=='문의 선택'){
+					  alert("문의를 선택해주세요");
+					  return false;
+				  }
+				  if(qna_hide=='비공개 여부'){
+					  alert("비공개 여부를 선택해주세요");
+					  return false;
+				  }
+				  
+			      
+			      if($("textarea").val().length<=100){
+					  alert("100자 이상 작성해주세요"); 
+					  $("textarea").focus();
+			    	  return false;
+				  }
+			      	    	    
+			  });
+	    	
+	    	
+	    	
+	    	
 	    }); 
 	    
 	    
@@ -131,6 +177,49 @@
 		}); 
 	});
 	
+	//수정,삭제 버튼
+	function buttonChk(user_id){
+		var session_id=$("input[name=session_id]").val();
+		var v="";
+		if(session_id!=""){
+			if(session_id==user_id){
+				v='<button class="buttondle" style="margin-left:436px;">수정</button><button class="buttondle" >삭제</button><button  class="content_detail buttondle">자세히 보기</button><br>';							
+				return v;
+			}else{
+				v='<button  class="content_detail buttondle nologin">자세히 보기</button><br>';						
+				return v;
+			}
+		}else{ 
+			v='<button  class="content_detail buttondle nologin">자세히 보기</button><br>'; 							
+			return v;
+		}
+	}
+	
+	
+	//비공개글
+	function hideContent(user_id,qna_content,qna_hide){
+		var session_id=$("input[name=session_id]").val();
+		var v="";
+		if(session_id!=""){
+			if(session_id==user_id){
+				v='<span>'+qna_content+'</span>';    						
+				return v;
+			}else{
+				v='<span style="color:#aaa;">비공개글 입니다.</span>';
+				return v;
+			}
+		}else{
+			if(qna_hide=="Y"){
+				v='<span style="color:#aaa;">비공개글 입니다.</span>';
+				return v;
+			}else{
+				v='<span>'+qna_content+'</span>'; 
+				return v;
+			}
+		}
+	}
+	
+	
  
 </script> 
 </head>
@@ -140,7 +229,8 @@
 	UDto uldto=(UDto)session.getAttribute("uldto");
 %>  
 <body>  
-<input type="hidden" name="session_id"  data-value="<%=uldto%>"/>
+<%-- <input type="hidden" name="session_id"  data-value="<%=session.getAttribute("uldto")==null?"":uldto.getUser_id()%>"/> --%>
+<input type="hidden" name="session_id" value="<%=session.getAttribute("uldto")==null?"":uldto.getUser_id()%>">
 <!-- Modal -->
 <form action="insert_qna.do" method="post">
 <input type="hidden" name="store_seq" value="<%=list.get(0).getStore_seq()%>">
@@ -166,6 +256,7 @@
 				    	<option value="N">공개</option>
 	     			</select>
 	       			<textarea rows="20" cols="120" class="qna_content" name="qna_content"  placeholder="문의 작성 해주세요."></textarea>
+	       			<span style="color:#aaa;" id="counter">(0 / 최대 200자)</span>
 	     		</div>
 	   		</div>
 		</div>

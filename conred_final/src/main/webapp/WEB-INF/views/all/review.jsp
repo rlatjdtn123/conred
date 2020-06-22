@@ -40,7 +40,7 @@
 	.dt{margin-left: 600px;}
 	.info{min-height: 250px;}      
 	.contents{display:inline-block;padding: 10px; width: 669px;height:80px;text-overflow: ellipsis; overflow: hidden;word-break:keep-all;min-height: 80px; clear: both; margin-bottom: 15px;}        
-	.info2{background-color: #fafafa;  height: 80px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 600px; min-height: 80px;border-radius:5px;word-break:keep-all;margin-left: 33px;}
+	.info2{background-color: #F2F2F2;  height: 80px;padding: 10px;text-overflow: ellipsis; overflow: hidden;display:inline-block; width: 600px; min-height: 80px;border-radius:5px;word-break:keep-all;margin-left: 33px;}
 	.bot{margin: 0 auto; text-align: center;}
 	 
 	 .modal-title{margin-left: 400px;}
@@ -130,7 +130,7 @@
 										+	'	<div class="mybox">     '     
 										+	'	<img src="./img/profile_default.png" class="pf"/>  '
 										+	'	<div class="info">        '
-										+	'		<button class="content_detail buttondle">자세히 보기</button><br> '
+										+	''		+ buttonChk(lists[i].user_id,lists[i].reply_seq) + ''
 										+	'		<span style="color:#919191;">닉네임: '+ lists[i].user_id +' </span><span style="float:right;color:#919191;">'+ lists[i].reply_regdate +' </span><br>'
 										+	'		<div class="star_table">'
 										+	'			<table class="star_score">'
@@ -156,7 +156,7 @@
 						+							'<div class="user_avg">'+ (Math.round(((lists[i].reply_clean+lists[i].reply_price+lists[i].reply_service)/3)*10)/10) +'</div>'
 						+	'						</div>'
 						+	'						<div class="user_review_img" >'
-						+   '							<div style="background: url(upload_rphoto/'+(lists.user_id==lists_photo.user_id?review_photo(lists_photo.reply_photo_stored):"")+');width: 80px;height: 80px;background-size: 80px 80px;background-repeat: no-repeat;float:left;margin-left:10px;"></div>'
+						+   							''+ reviewImg(lists[i].user_id,lists_photo[i].reply_photo_stored) +''
 						+   '						</div>     ' 
 						+	'						<div class="contents">' 
 						+	'							<span style="font-weight: bold;">리뷰내용</span><br>'
@@ -201,6 +201,7 @@
 	//////////////모달창
 	$(document).ready(function(){
 	
+		
 		
 		//숨겨져있을때  -> 모달영역밖에누를때포함
 		$(".modal").on("hidden.bs.modal", function(){
@@ -504,7 +505,8 @@
 			
 		} 
 	}
-
+	
+	//모달 글자수제한
 	$(function(){
 		$('.reply_content').keyup(function (e){
 		    var reply_content = $(this).val();
@@ -517,6 +519,47 @@
 		});		
 	})
 	
+	//삭제,자세히보기버튼
+	function buttonChk(user_id,reply_seq){
+		var session_id=$("input[name=session_id]").val();
+		var v="";
+		if(session_id!=""){
+    		if(session_id==user_id){
+    		v='<button class="buttondle onlogin" onclick="user_review_delete('+reply_seq+')">삭제</button><button class="content_detail buttondle">자세히 보기</button><br>';
+    		return v;
+    		}else{ 
+    		v='<button class="content_detail buttondle nologin">자세히 보기</button><br>';
+    		return v;
+    		}
+    	}else{
+			v='<button class="content_detail buttondle nologin">자세히 보기</button><br>';
+			return v;
+    	}
+		
+		
+	}
+	//사용자 리뷰 이미지
+	function reviewImg(user_id,reply_photo_stored){
+		var session_id=$("input[name=session_id]").val();
+		var v="";
+		var photo_length=parseInt($("input[name=photo_length]").val()); 
+		alert(photo_length);
+		
+		for(var i=0;i<photo_length;i++){ 
+			if(session_id==user_id&&reply_photo_stored!=null){
+			v+='<div style="background: url(upload_rphoto/'+reply_photo_stored+');width: 80px;height: 80px;background-size: 80px 80px;background-repeat: no-repeat;float:left;margin-left:10px;"></div>';						
+			return v; 
+			}else{
+				v=""; 
+				return v;
+			}  
+		}  
+		
+	}
+	
+	
+	
+	
 </script>  
 </head>
 <% 
@@ -526,6 +569,8 @@
 	UDto uldto=(UDto)session.getAttribute("uldto");
 %>
 <body>
+<input type="hidden" name="photo_length" value="<%=list_photo.size()%>">
+<input type="hidden" name="session_id" value="<%=session.getAttribute("uldto")==null?"":uldto.getUser_id()%>"/>
 <form action="user_store_review.do"  method="post" enctype="multipart/form-data">
 <input type="hidden" name="store_seq" value="<%=list.get(0).getStore_seq()%>"/>
 	<!-- 모탈창 부분 -->

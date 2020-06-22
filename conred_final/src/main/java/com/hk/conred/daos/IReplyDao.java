@@ -23,4 +23,7 @@ public interface IReplyDao {
 	
 	//6.리뷰 등록 - 사용자:매장에대한 평점과 리뷰글 등록
 	public boolean userInsertReview(String user_id,int store_seq,String reply_content,double reply_service,double reply_clean,double reply_price);
+
+	//7.사용자 리뷰 매장사진
+	public List<ReplyDto> userReplyStorePhoto(String user_id);
 }

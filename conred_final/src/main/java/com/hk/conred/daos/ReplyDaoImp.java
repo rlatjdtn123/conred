@@ -70,5 +70,11 @@ public class ReplyDaoImp implements IReplyDao{
 		count=sqlSession.insert(nameSpace+"userInsertReview", map);
 		return count>0?true:false;
 	}
+
+	@Override
+	public List<ReplyDto> userReplyStorePhoto(String user_id) {
+		List<ReplyDto> list=sqlSession.selectList(nameSpace+"userReplyStorePhoto", user_id);
+		return list;
+	}
 	
 }

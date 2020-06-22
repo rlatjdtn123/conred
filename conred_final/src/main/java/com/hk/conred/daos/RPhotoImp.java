@@ -39,4 +39,11 @@ public class RPhotoImp implements IRPhotoDao{
 		return list;
 	}
 
+
+	@Override
+	public List<RPhotoDto> userReplyPhoto() {
+		List<RPhotoDto> list=sqlSession.selectList(nameSpace+"userReplyPhoto");
+		return list;
+	}
+
 }

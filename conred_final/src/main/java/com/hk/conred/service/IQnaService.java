@@ -26,4 +26,7 @@ public interface IQnaService {
 	
 	//7.사용자 문의등록
 	public boolean insertQna(int store_seq,String user_id,String qna_title,String qna_content,String qna_hide);
+
+	//8.사용자 문의 매장사진
+	public List<QnaDto> userQnaPhoto(String uesr_id);
 }

@@ -41,14 +41,12 @@ public class ReplyServiceImp implements IReplyService{
 
 	@Override
 	public boolean userInsertReview(String user_id,int store_seq,String reply_content,double reply_service,double reply_clean,double reply_price) {
-		
-		//여기서 리뷰사진인설트실행!!
-		
-		
-		
-		
-		
 		return replyDao.userInsertReview(user_id, store_seq,reply_content, reply_service, reply_clean, reply_price); 
+	}
+
+	@Override
+	public List<ReplyDto> userReplyStorePhoto(String user_id) {
+		return replyDao.userReplyStorePhoto(user_id);
 	}
 
 }

@@ -26,7 +26,7 @@
 	.navis2:hover{border-bottom:1px solid white;background-color: white;cursor:pointer;border-right:1px solid grey;border-left:1px solid grey;}
 	.home{border-bottom:1px solid white;background-color: white;border-right:1px solid grey;border-left:1px solid grey;}
 	
-	.store_img{width: 200px;height:170px;border: 1px solid black; float: left; } 
+	.store_img{width: 200px;height:170px; float: left; } 
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
 	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:720px;height:200px; font-size: 15px; margin-left: 100px;}
 	.myboxmargin{margin-top:30px;}
@@ -124,6 +124,8 @@
 	  to { background-position: -8250px }
 	}
 	.btn_like:focus { outline:none; }
+	
+	.store_title{text-align: center;}
 	
 	
 </style>
@@ -269,12 +271,12 @@
 					for(int i=0;i<list_store_img.size();i++){
 						if(dto.getLike_list_seq()==list_store_img.get(i).getLike_list_seq()){
 						%>
-					 		<div><%=list_store_img.get(i).getStore_photo_stored()%></div>							
+							<div style="background: url('upload_sphoto/<%=list_store_img.get(i).getStore_photo_stored()%>');width: 200px;height: 155px;background-size: 200px 150px;background-repeat: no-repeat;float:left;"></div>						
 						<%
-						}						
-					}
+						}						 
+					} 
 					%>
-			 		<p>+매장명(<%=dto.getStore_name()%>)</p> 
+			 		<p class="store_title"><b><%=dto.getStore_name()%></b></p> 
 			 	</div> 
 			 	<div class="like_info">
 			 		<span>주소 : <%=dto.getStore_address()%>  </span><br><br>

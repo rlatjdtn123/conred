@@ -72,6 +72,13 @@ public class RPhotoServiceImp implements IRPhotoService{
 		return rPhotoDao.reviewPhotoList(store_seq);
 	}
 
+	@Override
+	public List<RPhotoDto> userReplyPhoto() {
+		return rPhotoDao.userReplyPhoto();
+	}
+	
+	
+
 	
 
 }

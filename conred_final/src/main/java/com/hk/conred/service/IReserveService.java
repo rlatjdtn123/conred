@@ -25,5 +25,8 @@ public interface IReserveService {
 	
 	//사용자 예약취소
 	public boolean userReserveCancel(int reserve_seq);
+	
+	//사용자 예약메뉴 매장사진
+	public List<ReserveDto> userReservePhoto(String user_id);
 }
  

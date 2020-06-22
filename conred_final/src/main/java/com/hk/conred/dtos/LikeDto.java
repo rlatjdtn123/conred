@@ -9,7 +9,7 @@ public class LikeDto {
 	private String store_intro_simple;
 	private String store_address;
 	private String store_photo_stored;
-
+	
 	
 	public LikeDto() {
 	}

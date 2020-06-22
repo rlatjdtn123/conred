@@ -262,7 +262,11 @@ public class Sungsu {
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
 		List<ReplyDto> list=replyService.replyList(uldto.getUser_id(),"1");
+		List<ReplyDto> sphoto_list=replyService.userReplyStorePhoto(uldto.getUser_id());
+		List<RPhotoDto> rphoto_list=rPhotoService.userReplyPhoto();
 		model.addAttribute("list",list); 
+		model.addAttribute("sphoto_list",sphoto_list); 
+		model.addAttribute("rphoto_list",rphoto_list); 
 		return "user/user_mypage_review";  
 	}
 	
@@ -301,8 +305,10 @@ public class Sungsu {
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
 		List<QnaDto> list=(List<QnaDto>)qnaService.qnaList(uldto.getUser_id(),"1");
+		List<QnaDto> photo_list=(List<QnaDto>)qnaService.userQnaPhoto(uldto.getUser_id());
 		model.addAttribute("list",list);
-		return "user/user_mypage_qna";  
+		model.addAttribute("photo_list",photo_list);
+		return "user/user_mypage_qna";   
 	}
 	  
 	@ResponseBody
@@ -358,7 +364,9 @@ public class Sungsu {
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
 		List<ReserveDto> list=reserveService.reserveList(uldto.getUser_id(), "1");
+		List<ReserveDto> photo_list=reserveService.userReservePhoto(uldto.getUser_id());
 		model.addAttribute("list", list);
+		model.addAttribute("photo_list", photo_list);
 		return "user/user_mypage_reserve";  
 	}
 	
