@@ -272,13 +272,18 @@ public class Sungsu {
 	
 	@ResponseBody
 	@RequestMapping(value = "user_review_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public Map<String, List<ReplyDto>> user_review_ajax(Locale locale, Model model,HttpServletRequest request,String pnum){
+	public Map<String, Object> user_review_ajax(Locale locale, Model model,HttpServletRequest request,String pnum){
 		logger.info("사용자 리뷰 스크롤{}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
 		List<ReplyDto> list=replyService.replyList(uldto.getUser_id(),pnum);
-		Map<String, List<ReplyDto>> map=new HashMap<>();
+		List<ReplyDto> sphoto_list=replyService.userReplyStorePhoto(uldto.getUser_id());
+		List<RPhotoDto> rphoto_list=rPhotoService.userReplyPhoto();
+		
+		Map<String, Object> map=new HashMap<>();
 		map.put("list", list); 
+		map.put("sphoto_list", sphoto_list);
+		map.put("rphoto_list", rphoto_list);
 		return map;
 	}
 	

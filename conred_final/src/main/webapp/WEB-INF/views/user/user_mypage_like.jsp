@@ -18,9 +18,11 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- 스윗알러트! -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style type="text/css">
 	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
-	#sticky{position: sticky; top:71px;}
+	#sticky{position: sticky; top:71px;z-index: 1;}
 	#navi2{width:998px;background-color: lightblue;clear:both;position:relative;text-align: center;line-height: 40px;}
 	.navis2{border-bottom:1px solid grey; font-size:15px; float:left;width:199.6px;height:40px;background-color: #D8D8D8;}
 	.navis2:hover{border-bottom:1px solid white;background-color: white;cursor:pointer;border-right:1px solid grey;border-left:1px solid grey;}
@@ -173,6 +175,13 @@
 					//AJAX쪽 찜버튼
 					$(function(){
 						$('button').click(function(){
+// 							var result=swal({
+// 								  title: "좋아요를 취소하시겠습니까?",
+// 								  text: "Once deleted, you will not be able to recover this imaginary file!",
+// 								  icon: "warning",
+// 								  buttons: true,
+// 								  dangerMode: true,
+// 								});
 							var result=confirm("좋아요를 취소하시겠습니까?");
 							if(result){
 								  if($(this).hasClass('btn_unlike')){

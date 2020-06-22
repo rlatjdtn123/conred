@@ -1,3 +1,4 @@
+<%@page import="com.hk.conred.dtos.UDto"%>
 <%@page import="com.hk.conred.dtos.RPhotoDto"%>
 <%@page import="com.hk.conred.dtos.ReplyDto"%>
 <%@page import="java.util.List"%>
@@ -41,11 +42,13 @@
 			async: false,
 			dataType:"json",
 			success:function(obj){				
-				var lists=obj.list; 
+				var lists=obj.list;
+				var sphoto_lists=obj.sphoto_list;
+				var rphoto_lists=obj.rphoto_list;
 				$.each(lists, function(i){  
 					addContent += ' <div class="bigtle"> '
 						+   '<div class="mybox">     '
-						+ 	'<div class="store_img">     '
+						+ 	''+ sPhoto() +''
 						+'<div class="store_info">'+ lists[i].store_name +'</div>'
 					 +	'</div>  '    
 					+	'<img src="./img/profile_default.png" class="pf"/>  '
@@ -71,7 +74,7 @@
 						+		'<div class="user_review_img" ></div>'
 						+		'<div class="contents">'
 					+		'	<span style="font-weight: bold;">리뷰내용</span><br>'
-					+		'	<span>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</span>'
+					+		'	<span>'+lists[i].reply_content+'</span>'
 					+		'</div>'
 					+	'</div>  '
 					+	'<div class="info2">    '
@@ -161,7 +164,27 @@
 		return v;
 	}
 	
+	//매장사진
+	function sPhoto(uReply_seq,sReply_seq,store_photo_stored){
+		var slist_length=$("slist_length").val();
+		var v="";
+		
+ 		for(var i=0;i<slist_length;i++){
+ 			if(uReply_seq==sReply_seq){
+				v+='<div style="background: url(upload_sphoto/'+store_photo_stored+');width: 200px;height: 123px;background-size: 200px 123px;background-repeat: no-repeat;float:left;"></div>'
+ 				return v;
+ 			}
+ 		}
+		
+		
+		
+	}
 	
+	
+	//사용자리뷰사진
+	function rPhoto(){
+		
+	}
 
 	
 </script>     
@@ -221,7 +244,9 @@
 	List<RPhotoDto> rphoto_list=(List<RPhotoDto>)request.getAttribute("rphoto_list");
 %>
 <body>
-<input name="list_length" type="hidden" value="<%=rphoto_list.size()%>"/>
+<input type="hidden" name="session_id" value="<%=%>">
+<input name="slist_length" type="hidden" value="<%=sphoto_list.size()%>"/>
+<input name="rlist_length" type="hidden" value="<%=rphoto_list.size()%>"/>
 <div id="container">
 	<div id="sticky">
 		<div id="navi2">

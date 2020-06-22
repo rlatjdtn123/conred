@@ -25,5 +25,9 @@
 		FROM CON_REPLY_PHOTO crp, CON_REPLY cr 
 		WHERE crp.REPLY_SEQ =cr.REPLY_SEQ
 	</select>
+	
+	
+	
+	
 </mapper>
 	  
