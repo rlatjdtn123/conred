@@ -342,10 +342,13 @@
     //(와 동시에 해당 삭제된 사진의 seq를 배열안에 저장)
     var del_list = new Array();
     function deletePreview(obj) {
-    	alert(obj.attributes['value_seq'].value);
-
-    	del_list.push(obj.attributes['value_seq'].value);
-    	alert("지우는 사진 seq : "+del_list);
+    	if(obj.attributes['value_seq']){
+    		alert("d?");
+    		
+//     		alert(obj.attributes['value_seq'].value);
+//     		alert("지우는 사진 seq : "+obj.attributes['value_seq'].value);
+    		$(".del_list").append('<input type="hidden" name="del" value="'+obj.attributes['value_seq'].value+'">')
+    	}
         var imgNum = obj.attributes['value'].value;
         delete files[imgNum];
         $(".attach_count").text($(".preview-box").length-1+"/30");
@@ -558,14 +561,16 @@
 					            </div>
 					            <!-- 미리보기 영역 -->
 					            <div id="preview" class="content">
-					            	<input class="del_list" type="hidden" name="del"/>
+<!-- 					            	<input class="del_list" type="hidden" name="del"/> -->
+					            	<div class="del_list" style="display:none;"></div>
 						            <c:choose>
 						            	<c:when test="${not empty list_sphoto}">
 						            		<c:forEach var="photos" items="${list_sphoto}" varStatus="status">
 					            		        <div class="preview-box" value="${status.index}">
 								                    <img class="thumbnail" src="./upload_sphoto/${photos.store_photo_stored}"/>
 								                    <p class="f_name">${photos.store_photo_origin}</p>
-								                    <div class="f_name"><input class="form-control" type="text" name="store_photo_title" value="${photos.store_photo_title}" placeholder="사진제목/이름(선택사항)"></div>
+								                    <div class="f_name"><input class="form-control" type="text" name="store_photo_title_before" value="${photos.store_photo_title}" placeholder="사진제목/이름(선택사항)"></div>
+								                    <input class="form-control" type="hidden" name="before_seq" value="${photos.store_photo_seq}">
 								                    <a class="del_btn" href="#a" value="${status.index}" value_seq="${photos.store_photo_seq}" onclick="deletePreview(this)">
 								                   	삭제</a>
 							                    </div>

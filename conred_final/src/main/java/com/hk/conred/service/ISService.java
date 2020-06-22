@@ -30,7 +30,7 @@ public interface ISService {
 	//매장수정2(매장정보)
 	public boolean updateStoreInfo(SDto sdto,String[] time_day,	String[] time_open,
 			String[] time_close,String[] time_break, String[] store_photo_title,
-			SLocaDto slocadto,HttpServletRequest request);
+			SLocaDto slocadto,HttpServletRequest request,String[] dels,String[] store_photo_title_before,String[] before_seq);
 	//매장수정3(메뉴/서비스정보)
 //	public boolean updateStoreCertify(SDto sdto, HttpServletRequest request, SDto seq);
 	

@@ -1,5 +1,7 @@
 package com.hk.conred.daos;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,5 +35,29 @@ public class SPhotoDaoImp implements ISPhotoDao{
 	public List<SPhotoDto> selectSPhoto(int store_seq) {
 		List<SPhotoDto> list = sqlSession.selectList(namespace+"selectSPhoto",store_seq);
 		return list;
+	}
+
+	@Override
+	public boolean updateSPhoto(List<SPhotoDto> list) {
+		int count=0;
+		System.out.println("list : "+list);
+		Map<String, Object> map =new HashMap<>();
+		map.put("list", list);
+		System.out.println("map : "+map);
+		count =sqlSession.insert(namespace+"updateSPhoto",list);
+		return count>0?true:false;
+	}
+
+	@Override
+	public boolean deleteSPhoto(String[] dels) {
+		int count=0;
+
+		System.out.println("dels:"+dels[0]);
+		Map<String, Object> map =new HashMap<>();
+		
+		map.put("arr", dels);
+		count =sqlSession.delete(namespace+"deleteSPhoto",map);
+		return count>0?true:false;
+		
 	}
 }

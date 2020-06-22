@@ -170,7 +170,16 @@
 		</div>
 		<div id="bot">
 			<input class="btn redbtn" value="취소" onclick="location.href='index.jsp'" type="button"/>
-			<input class="btn greenbtn" value="다음 단계로" type="submit"/>
+			<c:choose>
+				<c:when test="${cmaindto==null}">
+					<!-- update 하는 버튼(수정하러가는버튼) -->
+					<input class="btn greenbtn" value="다음 단계로1" type="submit" onclick="javascript: form.action='owner_toUpdate_store.do';"/>
+				</c:when>
+				<c:otherwise>
+					<!-- update 하는 버튼(다음페이지에 값이 이미 들어가 있음) -->
+					<input class="btn greenbtn" value="다음 단계로2" type="submit" />
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</form>
 </div>

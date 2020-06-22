@@ -187,6 +187,13 @@ public class Yoonho {
 		SDto seq =sService.selectStoreSeq(oldto);
 		System.out.println(seq);
 		
+		//문제는 seq값이 아직 없을경우에 밑에 cmain구할때 오류가난다.
+		//그렇다고 if문으로 seq!=null을 넣어주면 
+		CMainDto cmain =null;
+		if(seq!=null) {//만약 seq있을때(store 만들긴 한 사람인 경우)-- 이 경우 뿌려줄때도 조건값을바꿔야한다. 
+			cmain =cMainService.selectCMain(seq.getStore_seq());
+			System.out.println("대표카테!"+cmain);
+		}
 		/*탈퇴컬럼 만들기 owner_out*/
 		if(oldto.getOwner_id()==null||oldto.getOwner_id().equals("")) {
 			System.out.println("아이디 다시한번 확인해주세요");
@@ -194,6 +201,9 @@ public class Yoonho {
 		}else{
 			session.setAttribute("oldto", oldto);
 			session.setAttribute("sdto", seq);
+			if(cmain!=null) {
+				session.setAttribute("cmaindto", cmain);
+			}
 			session.setMaxInactiveInterval(60*10*6);
 			return "redirect:index.jsp"; 
 		}	
@@ -418,13 +428,12 @@ public class Yoonho {
 		System.out.println("위도 lat:"+slocadto.getStore_latitude());
 		System.out.println("경도 lng:"+slocadto.getStore_longitude());
 //		return ""; 
-		boolean isS=sService.updateStoreInfo(sdto,time_day,time_open,time_close,time_break,store_photo_title,slocadto,request);
+		boolean isS=sService.insertStoreInfo(sdto,time_day,time_open,time_close,time_break,store_photo_title,slocadto,request);
 		if(isS) {
-			System.out.println("매장정보 업데이트성공~");
-//			return "owner/owner_regist_menu";
+			System.out.println("매장정보 신규등록성공~");
 			return "redirect:owner_regist_menu.do";
 		}else{
-			System.out.println("매장정보 업데이트실패~");
+			System.out.println("매장정보 신규등록실패~");
 			return ""; 
 		}	
 	}
@@ -453,7 +462,7 @@ public class Yoonho {
 	}
 	
 	@RequestMapping(value = "owner_update_store.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String owner_update_store(Locale locale, Model model,SDto sdto, STimeDto stimedto,String [] store_photo_title, SLocaDto slocadto, HttpServletRequest request) {
+	public String owner_update_store(Locale locale, Model model,SDto sdto, STimeDto stimedto,String [] store_photo_title,String [] store_photo_title_before, String[] before_seq,SLocaDto slocadto,String del, HttpServletRequest request) {
 		logger.info("점주: 매장수정2-2 (상세정보, 사진, 주소, 영업시간 수정) {}.", locale);
 		
 		//insert때랑 다른점:기존의 store는 그대로 수정이고,
@@ -463,11 +472,17 @@ public class Yoonho {
 		HttpSession session=request.getSession();
 		ODto odto= (ODto)session.getAttribute("oldto");
 		SDto seq =sService.selectStoreSeq(odto);
-		
-		for (int i = 0; i < store_photo_title.length; i++) {
-			System.out.println(i+"번째 사진이름"+store_photo_title[i]);
+		if(store_photo_title!=null) {
+			for (int i = 0; i < store_photo_title.length; i++) {
+				System.out.println(i+"번째 사진이름: "+store_photo_title[i]);
+			}
 		}
-		
+		if(store_photo_title_before!=null) {
+			for (int i = 0; i < store_photo_title_before.length; i++) {
+				System.out.println(i+"번째 기존사진seq: "+before_seq[i]);
+				System.out.println(i+"번째 기존사진이름: "+store_photo_title_before[i]);
+			}
+		}
 		System.out.println("세션에서가져온sdto2의 store_seq값: "+seq.getStore_seq());
 		sdto.setStore_seq(seq.getStore_seq());
 		System.out.println("sdto에 넣은 store_seq값: "+sdto.getStore_seq());
@@ -503,11 +518,18 @@ public class Yoonho {
 		
 		System.out.println("위도 lat:"+slocadto.getStore_latitude());
 		System.out.println("경도 lng:"+slocadto.getStore_longitude());
+		
+		System.out.println(del);
+		String [] dels=null;
+		if(del==null||del=="") {
+			del=" ";
+		}
+		dels=del.split(",");
+		System.out.println(dels[0]);
 //		return ""; 
-		boolean isS=sService.updateStoreInfo(sdto,time_day,time_open,time_close,time_break,store_photo_title,slocadto,request);
+		boolean isS=sService.updateStoreInfo(sdto,time_day,time_open,time_close,time_break,store_photo_title,slocadto,request,dels,store_photo_title_before,before_seq);
 		if(isS) {
 			System.out.println("매장정보 업데이트성공~");
-//			return "owner/owner_regist_menu";
 			return "redirect:owner_regist_menu.do";
 		}else{
 			System.out.println("매장정보 업데이트실패~");

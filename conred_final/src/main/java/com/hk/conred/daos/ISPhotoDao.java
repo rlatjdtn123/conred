@@ -9,6 +9,10 @@ public interface ISPhotoDao {
 	public boolean insertSPhoto(List<SPhotoDto> list);
 	
 	//매장사진수정
+	public boolean updateSPhoto(List<SPhotoDto> list);
+	
+	//매장사진삭제
+	public boolean deleteSPhoto(String[] dels);
 	
 	//매장사진 가져오기
 	public List<SPhotoDto> selectSPhoto(int store_seq);

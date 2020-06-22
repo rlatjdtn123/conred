@@ -16,9 +16,26 @@
 		SELECT *FROM DUAL
 	</insert>
 	
-	<update id="updateSPhoto" parameterType="SPhotoDto">
-	
+	<update id="updateSPhoto" parameterType="Map">
+		UPDATE CON_STORE_PHOTO
+		SET STORE_PHOTO_TITLE = case STORE_PHOTO_SEQ 
+		<foreach collection="list" item="item">
+			 when #{item.store_photo_seq} then #{item.store_photo_title}
+		</foreach>
+        else STORE_PHOTO_TITLE end
+		WHERE STORE_PHOTO_SEQ IN 
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item.store_photo_seq}
+		</foreach>
 	</update>
+	
+	<delete id="deleteSPhoto" parameterType="Map">
+		DELETE FROM CON_STORE_PHOTO csp 
+		WHERE STORE_PHOTO_SEQ IN 
+		<foreach collection="arr" item="seq" open="(" close=")" separator=",">
+			#{seq}
+		</foreach>
+	</delete>
 	
 	<select id="selectSPhoto" parameterType="int" resultType="SPhotoDto">
 		<![CDATA[
