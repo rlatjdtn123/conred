@@ -358,15 +358,26 @@ public class Yoonho {
 //			
 //		}
 
-		//무조건 한가지
+		//얘는 다음페이지에서 값을 뿌려줄건지 말건지 정해주기위한 녀석
+		//null이면 뿌려주고 아니면 안뿌려주고. 근데 이렇게되면 나중에 그냥 수정할때는 못쓰나
+		//아니다. 나중에도 더 큰 틀에 if문 걸어주면 된다. 뭐하면 하나더 만들어도되고
+//		CMainDto cmain = cMainService.selectCMain(seq.getStore_seq());
 		
 //		boolean isS=sService.updateStoreCertify(sdto, request, sales_change, biz_change);
 		boolean isS=sService.updateStoreCertify(sdto, request ,seq);
 //		boolean isS=false;//임시 false: 사진업로드 test중 
+		
+		
+		
 		if(isS) {
-			System.out.println("매장수정 + 사업자정보수정 :성공");
-//			return "owner/owner_regist_store";
-			return "redirect:owner_regist_store.do";
+			if(seq.getStore_name()==null) {
+				System.out.println("매장수정 + 사업자정보수정 :성공");
+				return "redirect:owner_regist_store.do";
+			}else{
+				System.out.println("매장수정 + 사업자정보수정 :성공");
+				System.out.println("이미 다음페이지에 값이 있기 때문에 다음페이지에 값을 넣어서 이동합니다.");
+				return "redirect:owner_toUpdate_store.do";
+			}
 		}else{
 			System.out.println("매장수정 + 사업자정보수정 :실패");
 			return ""; 
@@ -377,6 +388,13 @@ public class Yoonho {
 	@RequestMapping(value = "owner_regist_store.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String owner_regist_store(Locale locale, Model model,SDto sdto, STimeDto stimedto,String [] store_photo_title, SLocaDto slocadto, HttpServletRequest request) {
 		logger.info("점주: 매장등록2-1 (상세정보, 사진, 주소, 영업시간 입력 폼)으로 이동  {}.", locale);
+		HttpSession session=request.getSession();
+		ODto odto= (ODto)session.getAttribute("oldto");
+		SDto seq =sService.selectStoreSeq(odto);
+		System.out.println(seq);
+		System.out.println("sdto seq:"+seq.getStore_seq());
+		model.addAttribute("sdto",seq);
+		
 		return "owner/owner_regist_store";
 	}
 	@RequestMapping(value = "owner_insert_store.do", method = {RequestMethod.GET,RequestMethod.POST})

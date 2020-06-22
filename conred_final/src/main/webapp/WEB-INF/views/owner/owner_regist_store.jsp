@@ -475,7 +475,7 @@
 				</div>
 				<div class="inputbox">
 					<div class="inputtitle">대표명</div>
-					<div class="inputs"><input class="form-control" type="text" readonly/></div>
+					<div class="inputs"><input class="form-control" type="text" value="${sdto.store_owner_name}" readonly/></div>
 				</div>
 				<div class="inputbox">
 					<div class="inputtitle">홈페이지 링크</div>
