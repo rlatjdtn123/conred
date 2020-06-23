@@ -513,6 +513,8 @@ public class Yoonho {
 		model.addAttribute("list_clist",list_clist);// 소분류카테고리
 		model.addAttribute("list_menu",list_menu);// 메뉴
 		return "owner/owner_mystore_update";
+		
+		
 	}
 	
 	@RequestMapping(value = "owner_update_store.do", method = {RequestMethod.GET,RequestMethod.POST})
