@@ -1,7 +1,5 @@
 package com.hk.conred;
 
-
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -26,42 +24,41 @@ import com.hk.conred.dtos.UDto;
 import com.hk.conred.service.IInterestsService;
 
 
-
-
- 
-public class Haekang {
-
+@Controller
+public class InterestsController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(Haekang.class);
+	private static final Logger logger = LoggerFactory.getLogger(InterestsController.class);
 	
-	@RequestMapping(value = "haekang.do", method = RequestMethod.GET)
-	public String Haekang(Locale locale, Model model) {
-		logger.info("테스트용 푸터 접근 {}.", locale);
 	
-		
-		
-		return "test/haekang"; 
-	}
+	@Autowired 
+	IInterestsService interService ;
 	
-	@Autowired IInterestsService interService ;
 	HttpSession session;
 	
-	@RequestMapping(value = "test_index.do", method = RequestMethod.GET)
+	@RequestMapping(value = "index.do", method = RequestMethod.GET)
 	public String test_index(HttpServletRequest request,String paging,Locale locale, Model model) {
 		logger.info("테스트 인덱스 접근 {}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto = (UDto)session.getAttribute("uldto"); //Object(uldto객체)
 		//test_index페이지로 이동하면서 관심점포list 전달해서 바로 뿌려주기
-		List<SDto> list = interService.user_interests_recommended(uldto.getUser_id(), paging);
+		if(paging==null) {
+			paging="1"; 
+		}
 		
+		List<SDto> list = null;
+		if(uldto!=null) {
+			
+			list = interService.user_interests_recommended(uldto.getUser_id(), paging);
+			request.getSession().setAttribute("list", list);
+			System.out.println(list);   
+		}
+	
 //		int count=interService.user_interests_count(uldto.getUser_id());//해강씨가 mapper.xml,dao,service구현
 		int count=1;
 		
-		System.out.println(list);   
-		model.addAttribute("list",list);//list[sDto,sDto[c,c,c,cDto,iDto[c,c]]...]
-//			                                  new SDto().getcDto().getCategory_name()
-		model.addAttribute("count", count);
-		return "index"; 
+
+		request.getSession().setAttribute("count", count);
+		return "redirect:index.jsp"; 
 	}
 	
 	@ResponseBody
@@ -83,6 +80,7 @@ public class Haekang {
 						// {list:[sdto,sdto...]}    obj.list[0].
 		return map;  // [key:value,key:value]   -----> js : json객체형태와 유사 {key:value,key:value}
 	}	
-	
-	
+
 }
+
+

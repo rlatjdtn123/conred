@@ -9,6 +9,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+<script type="text/javascript" src="js/jquery-3.4.1.js"></script>
 <style type="text/css">
 	#container{border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	
@@ -62,14 +64,65 @@
 	#category_icon_i{background: url("img/icon/icon_I.png");width: 60px; height: 60px; border-radius: 50%; background-size: 40px;background-position: center;background-repeat: no-repeat;}
 */
 
+	html, body {
+      position: relative; 
+      height: 100%;
+    }
+    body {
+      background: #eee;
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color:#000;
+      margin: 0;
+      padding: 0;
+    }
+    .swiper-container {
+      width: 100%;
+      height: 100%;
+     
+    }
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+
+      /* Center slide text vertically */
+/*       display: -webkit-box; */
+/*       display: -ms-flexbox; */
+/*       display: -webkit-flex-wrap; */
+/*       display: flex-wrap; */
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+      
+    }
+  	
+  	.swiper-slide>h4{
+  		margin: 0px;
+  		font-size: 10pt;
+  	}
+  	
+  	.swiper-pagination{
+  		top:135px;
+  	}
+
 </style>
-<script src="js/jquery-3.4.1.js"></script>
+<!-- Swiper JS -->
+<script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+<%
+	int count=(Integer)session.getAttribute("count");
+%>
 <script type="text/javascript">
 
 $( function() {
@@ -120,6 +173,74 @@ $( function() {
     
     $("")
 });
+
+
+$(function(){
+	$(".interestSearch").click(function(){         
+ 		
+		var paging=~~(Math.random()*<%=count%>+1);
+									
+ 		$.ajax({
+	 		url:"user_interests_recommended.do",  //요청URL
+	 		data:{"paging":paging}, //서버쪽으로 보낼 데이터
+	 		dataType:"json",          //서버에서 받게 될 데이터 타입 정의
+	 		method:"post",      //전송방식 정의
+	 		async:false,
+	 		success:function(obj){//서버통신에 성공했다면 기능실행(obj는 전달된 데이터 받기)
+	 			//주요코드작성      // {list:[sdto,sdto...]}    obj.list[0].store_name
+// 	 				alert(obj.list[0].store_name);//obj{"dto":{seq:3,id:hk,content:"내용"}}
+	 				var storeList="";
+	 				
+	 				for(var i=0;i<obj.list.length;i++){
+		 				storeList+='<div class="swiper-slide">' 
+							+'<a href="#">'
+							+'<img src="./upload_sphoto/'+obj.list[i].spDto.store_photo_stored+'"'
+							+'	style="width: 163px; height: 77%;"/>'
+							+'</a>'
+							+'<h4>'
+							+	'<a href="#">'+obj.list[i].store_name+'</a>'
+							+'</h4>'
+						    +'</div>';
+		 				 
+	 				}
+	 			console.log(storeList);
+	 			
+					$(".swiper-wrapper").html(storeList);//점포 목록만든거 화면에 반영하기
+					swiperObj();//새로운 이미지로 교체--> 다시 셋팅해주기 slide효과
+	 			
+	 		},
+	 		error:function(){
+	 				alert("서버통신실패!!");
+	 		}
+  		});
+ 	});
+	
+	swiperObj();//실행하기
+});
+
+//slide효과주는 객체
+function swiperObj(){
+	var swiper = new Swiper('.swiper-container', {
+	      slidesPerView: 3,
+	      spaceBetween: 30,
+	      slidesPerGroup: 3,
+	      loop: true,
+	      loopFillGroupWithBlank: true,
+	      autoplay: {
+	          delay: 2500,
+	          disableOnInteraction: false,
+	        },
+	      
+	      pagination: {
+	        el: '.swiper-pagination',
+	        clickable: true,
+	      },
+	      navigation: {
+	        nextEl: '.swiper-button-next',
+	        prevEl: '.swiper-button-prev',
+	      },
+	    });
+}
 
 
 </script>
@@ -173,13 +294,50 @@ $( function() {
 		</div>
 	</div>
 	
-	<div id="slidebar">
-		<div class="slidebarbox">
-			<div class="slidetitle" style="border:1px solid white;border-top-color:lightgrey;border-top-width:1px;padding-top:70px;">이런곳은 어떠세요?</div>
-			<div class="slidebars">
-			이안에매장들
-			</div>
-		</div>
+	<!--  관심사 추천 기능 부분  -->
+		<div id="slidebar">
+			<div class="slidebarbox" style="overflow: auto;">
+				<div class="slidetitle"
+					style="border: 1px solid white; border-top-color: lightgrey; border-top-width: 1px; padding-top: 8px;">이런곳은
+					어떠세요?</div>
+				<div class="slidebars">
+<%-- 					<form action="user_interests_recommended.do" method="post"> --%>
+					<div class="slider multiple-items autoplay">
+						<c:choose>
+							<c:when test="${empty sessionScope.list}">
+											---AI고양이: 추천 상점을 로딩중이다냥---
+							</c:when>
+							<c:otherwise>
+								<div class="slider multiple-items autoplay"
+									style="width: 550px; height: 150px;">
+									<!-- Swiper -->
+									<div class="swiper-container">
+										<div class="swiper-wrapper">
+											<c:forEach items="${sessionScope.list}" var="dto">
+												<div class="swiper-slide"> 
+													<a href="#">
+													<img src="./upload_sphoto/${dto.spDto.store_photo_stored}"
+														style="width: 163px; height: 77%;"/>
+													</a>
+													<h4>
+														<a href="#">${dto.store_name}</a>
+													</h4>
+												</div>
+											</c:forEach>
+										</div>	
+										<!-- Add Pagination -->
+										<div class="swiper-pagination"></div>
+										<!-- Add Arrows -->
+										<div class="swiper-button-next"></div>
+										<div class="swiper-button-prev"></div>
+									</div>
+								</div>
+							</c:otherwise>
+						</c:choose>
+ 					</div>
+					<span style="cursor: pointer; margin-left: 500px;" class="interestSearch">더보기</span>
+			     </div>			
+		    </div>									
 		<div class="slidebarbox">
 			<div class="slidetitle">동물병원 랭킹~</div>
 			<div class="slidebars">

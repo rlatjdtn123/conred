@@ -100,8 +100,8 @@ public class LoginController {
 //  }
   
 
-  //로그인성공시 콜백페이지
-  @RequestMapping(value = "callback.do", method = { RequestMethod.GET, RequestMethod.POST })
+  //로그인성공시 콜백페이지 작성중!!
+  @RequestMapping(value = "user_regist_naver.do", method = { RequestMethod.GET, RequestMethod.POST })
   public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session)
           throws IOException {
       System.out.println("여기는 callback");
@@ -123,11 +123,17 @@ public class LoginController {
 			JSONObject jsonObj = (JSONObject) obj;
 			System.out.println(jsonObj);
 			JSONObject jsonObj2=(JSONObject)jsonObj.get("response");
+			System.out.println(jsonObj2.get("id"));
+			System.out.println(jsonObj2.get("pass"));
 			System.out.println(jsonObj2.get("name"));
 			System.out.println(jsonObj2.get("email"));
-			String name=(String)jsonObj2.get("name");
 //			JSONObject jsonObjreal = new JSONObject();
+			String id=(String)jsonObj2.get("id");
+			String pass=(String)jsonObj2.get("pass");
+			String name=(String)jsonObj2.get("name");
 		    String email=(String)jsonObj2.get("email");
+		    model.addAttribute("id", id);
+		    model.addAttribute("pass", pass);
 		    model.addAttribute("name", name);
 		    model.addAttribute("email", email);
 			
@@ -157,7 +163,7 @@ public class LoginController {
 //    session.setAttribute("login",vo);
 //    return new ModelAndView("views/loginPost", "result", vo);
    
-      return "user_regist.do";
+      return "user/user_regist_naver";
   }
 	
 	
