@@ -14,13 +14,12 @@
 		SELECT *FROM DUAL
 	</insert>
 
-	<select id="reviewPhotoList" parameterType="Map" resultType="RPhotoDto">
+	<select id="reviewPhotoList" parameterType="Int" resultType="RPhotoDto">
 		SELECT REPLY_PHOTO_STORED ,REPLY_SEQ ,USER_ID, rn
 		FROM 
 			 (SELECT crp.REPLY_PHOTO_STORED ,crp.REPLY_SEQ ,cr.USER_ID,rownum AS rn
 		     FROM CON_REPLY_PHOTO crp,con_reply cr 
 			 WHERE crp.REPLY_SEQ =cr.REPLY_SEQ AND cr.STORE_SEQ =#{store_seq})
-		WHERE CEIL(rn/5)=#{pnum}
 	</select>
 	
 	<select id="userReplyPhoto" resultType="RPhotoDto">

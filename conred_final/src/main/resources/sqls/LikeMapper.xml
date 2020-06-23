@@ -21,11 +21,11 @@
 	<select id="likeStoreImg" resultType="LikeDto" parameterType="String">
 		SELECT rn,store_seq,STORE_PHOTO_STORED,like_list_seq
 		FROM (
-		SELECT ROW_NUMBER()over(PARTITION BY cl.STORE_SEQ ORDER BY STORE_PHOTO_STORED DESC) AS rn, cl.store_seq,csp.store_photo_stored,cl.like_list_seq
+		SELECT ROW_NUMBER()over(PARTITION BY cl.LIKE_LIST_SEQ ORDER BY LIKE_LIST_SEQ DESC) AS rn, cl.store_seq,csp.store_photo_stored,cl.like_list_seq
 				FROM CON_STORE_PHOTO csp,CON_LIKE cl
-				WHERE csp.store_seq=cl.store_seq AND user_id=#{user_id}
+				WHERE csp.store_seq=cl.store_seq AND user_id=#{user_id} 
 			)
-		WHERE rn =2 
+		WHERE rn =1
 	</select>
 	 
 </mapper>

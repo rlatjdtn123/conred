@@ -15,7 +15,7 @@ public class LikeServiceImp implements ILikeService{
 	private ILikeDao likeDaoImp;
 	
 	@Override
-	public List<LikeDto> likeList(String user_id,String pnum) {
+	public List<LikeDto> likeList(String user_id,int pnum) {
 		return likeDaoImp.likeList(user_id,pnum);
 	}
 

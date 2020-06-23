@@ -19,8 +19,8 @@ public class LikeDaoImp implements ILikeDao{
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public List<LikeDto> likeList(String user_id,String pnum) {
-		Map<String, String> map=new HashMap<>();
+	public List<LikeDto> likeList(String user_id,int pnum) {
+		Map<String, Object> map=new HashMap<>();
 		map.put("user_id", user_id);
 		map.put("pnum", pnum);
 		List<LikeDto> list=sqlSession.selectList(nameSpace+"likeList", map);

@@ -200,7 +200,7 @@ public class Sungsu {
 			return "";
 		}else{
 			session.setAttribute("uldto", uldto);
-			return "redirect:index.jsp"; 
+			return "redirect:index.do";
 		}	
 	}
 	
@@ -332,7 +332,9 @@ public class Sungsu {
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
 		List<QnaDto> list=(List<QnaDto>)qnaService.qnaList(uldto.getUser_id(),pnum);
+		List<QnaDto> photo_list=(List<QnaDto>)qnaService.userQnaPhoto(uldto.getUser_id());
 		Map<String, List<QnaDto>> map=new HashMap<>();
+		map.put("photo_list", photo_list);
 		map.put("list", list);
 		return map;  
 	}  
@@ -426,7 +428,7 @@ public class Sungsu {
 		logger.info("사용자 마이페이지_좋아요{}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
-		List<LikeDto> list=likeService.likeList(uldto.getUser_id(),"1"); 
+		List<LikeDto> list=likeService.likeList(uldto.getUser_id(),1); 
 		List<LikeDto> list_store_img=likeService.likeStoreImg(uldto.getUser_id());
 		model.addAttribute("list",list);
 		model.addAttribute("list_store_img", list_store_img);
@@ -435,15 +437,16 @@ public class Sungsu {
 	
 	@ResponseBody
 	@RequestMapping(value = "user_like_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public Map<String, List<LikeDto>> user_like_ajax(Locale locale, Model model,HttpServletRequest request,String pnum) {
+	public Map<String, List<LikeDto>> user_like_ajax(Locale locale, Model model,HttpServletRequest request,int pnum) {
 		logger.info("사용자 좋아요 스크롤{}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto"); 
-		List<LikeDto> list=likeService.likeList(uldto.getUser_id(),pnum);
+		List<LikeDto> list=likeService.likeList(uldto.getUser_id(),pnum); 
 		List<LikeDto> list_store_img=likeService.likeStoreImg(uldto.getUser_id());
-		System.out.println("@@@list_store_img::"+list_store_img); 
+		System.out.println("list@@::::"+list);
+		System.out.println("list_store_img@@@::"+list_store_img);
 		Map<String, List<LikeDto>> map=new HashMap<>(); 
-		map.put("list", list); 
+		map.put("list", list);  
 		map.put("list_store_img", list_store_img); 
 		return map;   
 	}
@@ -736,7 +739,7 @@ public class Sungsu {
 
 		List<ReplyDto> list=replyService.replyListStoreDetail(store_seq, 1);
 		ReplyDto list_avg=replyService.replyAvgStore(store_seq);
-		List<RPhotoDto> list_photo=rPhotoService.reviewPhotoList(store_seq,1);
+		List<RPhotoDto> list_photo=rPhotoService.reviewPhotoList(store_seq);
 		System.out.println("fileList:"+fileList.size());
 		//리뷰사진 안넣을때
 		if(fileList.get(0).getOriginalFilename()=="") {

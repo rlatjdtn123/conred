@@ -33,12 +33,9 @@ public class RPhotoImp implements IRPhotoDao{
 
 
 	@Override
-	public List<RPhotoDto> reviewPhotoList(int store_seq,int pnum) {
+	public List<RPhotoDto> reviewPhotoList(int store_seq) {
 		List<RPhotoDto> list=null;
-		Map<String, Integer> map=new HashMap<>();
-		map.put("store_seq", store_seq);
-		map.put("pnum", pnum);
-		list=sqlSession.selectList(nameSpace+"reviewPhotoList", map);
+		list=sqlSession.selectList(nameSpace+"reviewPhotoList", store_seq);
 		return list;
 	}
 

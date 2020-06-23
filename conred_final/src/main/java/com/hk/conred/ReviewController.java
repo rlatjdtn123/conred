@@ -54,7 +54,7 @@ public class ReviewController {
 		logger.info("리뷰폼으로 이동  {}.", locale);
 		List<ReplyDto> list=replyService.replyListStoreDetail(store_seq, 1);
 		ReplyDto list_avg=replyService.replyAvgStore(store_seq); 
-		List<RPhotoDto> list_photo=rPhotoService.reviewPhotoList(store_seq,1);
+		List<RPhotoDto> list_photo=rPhotoService.reviewPhotoList(store_seq);
 		ReplyDto store_name=replyService.modalStoreName(store_seq);
 		model.addAttribute("list", list); 
 		model.addAttribute("list_avg", list_avg); 	
@@ -68,12 +68,12 @@ public class ReviewController {
 	public Map<String, Object> review_ajax(Locale locale, Model model,@RequestParam("store_seq") int store_seq,@RequestParam("pnum") int pnum) {
 		logger.info("리뷰 ajax  {}.", locale);
 		List<ReplyDto> list=replyService.replyListStoreDetail(store_seq, pnum); 
-		List<RPhotoDto> list_photo=rPhotoService.reviewPhotoList(store_seq,pnum); 
+		List<RPhotoDto> list_photo=rPhotoService.reviewPhotoList(store_seq); 
 		System.out.println("@@@@list_photo::"+list_photo); 
 		Map<String, Object> map=new HashMap<>();
 		map.put("list", list);		
 		map.put("list_photo", list_photo); 
 		return map; 
-	}
+	} 
 
 }

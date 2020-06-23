@@ -21,9 +21,13 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!--  별점    -->
 <link href="css/star_service.css" rel="stylesheet"> 
 <link href="css/star_price.css" rel="stylesheet">
 <link href="css/star_clean.css" rel="stylesheet">
+<!--  사진확대  -->
+<!-- <link rel="stylesheet" href="css/magnific-popup.css"> -->
+<!-- <script src="js/jquery.magnific-popup.min.js"></script>  -->
 <style type="text/css">
 	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 /* 	#sticky{position: sticky; top:71px;} */
@@ -203,7 +207,7 @@
 							+							'<div class="user_avg">'+ (Math.round(((lists[i].reply_clean+lists[i].reply_price+lists[i].reply_service)/3)*10)/10) +'</div>'
 							+	'						</div>' 
 							+	'						<div class="user_review_img" >'
-							+   							''+ reviewImg(lists[i].reply_seq,lists_photo[i].reply_seq,lists_photo[i].reply_photo_stored) +''
+							+   							''+ reviewImg(lists[i].reply_seq) +''
 							+   '						</div>     ' 
 							+	'						<div class="contents">' 
 							+	'							<span style="font-weight: bold;">리뷰내용</span><br>'
@@ -242,20 +246,28 @@
 			}   
 		});      
    
-	});//$(function(){}) onload 끝  
+	});//$(function(){}) onload 끝   
 	
 	
-	//////////////모달창
 	$(document).ready(function(){
 	
+// 		$(".user_review_img").children().click(function(){
+// 			$(this).css("background-color","red"); 
+// // 			alert("asd");
+// 		});	
+		//////////사진확대 모달창
+
 		
 		
+		  
+		
+		////////////리뷰작성 모달창
 		//숨겨져있을때  -> 모달영역밖에누를때포함
 		$(".modal").on("hidden.bs.modal", function(){
 			  $("textarea").val("");
 			  $("input[type=radio]").prop("checked",false); 
 			  $("b").text("0"); 
-			  $("#preview").empty();
+			  $("#preview").empty(); 
 		}); 
 		
 	    $(".modal_Btn").click(function(){
@@ -585,23 +597,22 @@
 		
 	}
 	//사용자 리뷰 이미지
-	function reviewImg(reply_seq,preply_seq,reply_photo_stored){
-		var session_id=$("input[name=session_id]").val();
-		var v="";
-		var photo_length=parseInt($("input[name=photo_length]").val()); 
-		alert(photo_length);
+	function reviewImg(reply_seq){
+
 		
-		for(var i=0;i<photo_length;i++){   
-			if(reply_seq==preply_seq&&reply_photo_stored!=null){
-			v+='<div style="background: url(upload_rphoto/'+reply_photo_stored+');width: 80px;height: 80px;background-size: 80px 80px;background-repeat: no-repeat;float:left;margin-left:10px;"></div>';						
-			return v; 
-			}else{
-				v=""; 
-				return v; 
-			}  
-		}  
+		var v="";
+		var photo_length=parseInt($("input[name=photo_length]").val());
+		
+		for(var i=0;i<photo_length;i++){  
+			if(reply_seq==$("input[name=preply_seq"+i+"]").val()){
+			v+='<img src="upload_rphoto/'+$("input[name=reply_photo_stored"+i+"]").val()+'" style="width: 80px;height: 80px;float: left;margin-left: 10px;">';						
+			}    
+		}   
+		return v;
 		
 	}
+	
+	
 	
 	
 	
@@ -618,6 +629,16 @@
 <body>
 <input type="hidden" name="photo_length" value="<%=list_photo.size()%>">
 <input type="hidden" name="session_id" value="<%=session.getAttribute("uldto")==null?"":uldto.getUser_id()%>"/>
+<%
+	for(int i=0;i<list_photo.size();i++){
+		%>
+		<input type="hidden" name="preply_seq<%=i%>" value="<%=list_photo.get(i).getReply_seq()%>">
+		<input type="hidden" name="reply_photo_stored<%=i%>" value="<%=list_photo.get(i).getReply_photo_stored()%>">
+		<%
+	}
+%>
+
+
 <form action="user_store_review.do"  method="post" enctype="multipart/form-data">
 <input type="hidden" name="store_seq" value="<%=list.get(0).getStore_seq()%>"/>
 	<!-- 모탈창 부분 -->
@@ -716,7 +737,25 @@
 		</div> 
 	</div>
 </form>
-
+<!--   사진 확대 모달      -->
+<!--   <div class="modal fade" id="closeUp" role="dialog">  -->
+<!--     <div class="modal-dialog"> -->
+<!--       Modal content -->
+<!--       <div class="modal-content"> -->
+<!--         <div class="modal-header"> -->
+<!--           <button type="button" class="close" data-dismiss="modal">×</button> -->
+<!--           <h4 class="modal-title">모달 창 타이틀</h4>  -->
+<!--         </div> -->
+<!--         <div class="modal-body"> -->
+<!--           <p>여기에 필요한 텍스트 메시지 넣기</p> -->
+<!--         </div> -->
+<!--         <div class="modal-footer"> -->
+<!--           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+<!--         </div> -->
+<!--       </div> -->
+<!--     </div> -->
+<!--   </div> -->
+<!--  -->
 <%-- <input type="hidden" name="zz" value="<%=list_photo.get(0).getReply_photo_stored()%>"/> --%>
 <div id="container"> 
 <!-- 	<div class="asdasd"></div>  -->
@@ -919,13 +958,14 @@
 					<div class="user_avg"><%=Math.round(((dto.getReply_clean()+dto.getReply_price()+dto.getReply_service())/3)*10d)/10d%></div>
 				</div>  
 				<div class="user_review_img">
-					<%for(RPhotoDto rphoto_dto :list_photo){ 
-						if(dto.getReply_seq()==rphoto_dto.getReply_seq()){
+					<%for(int i=0;i<list_photo.size();i++){ 
+						if(dto.getReply_seq()==list_photo.get(i).getReply_seq()){
 						%> 
-						<div style="background: url('upload_rphoto/<%=rphoto_dto.getReply_photo_stored()%>');width: 80px;height: 80px;background-size: 80px 80px;background-repeat: no-repeat;float:left;margin-left:10px;"></div>
+<%-- 						<div style="background: url('upload_rphoto/<%=list_photo.get(i).getReply_photo_stored()%>');width: 80px;height: 80px;background-size: 80px 80px;background-repeat: no-repeat;float:left;margin-left:10px;"></div> --%>
+						<img src="upload_rphoto/<%=list_photo.get(i).getReply_photo_stored()%>" style="width: 80px;height: 80px;float: left;margin-left: 10px;">
 						<%							
-						}   
-					}
+						}    
+					} 
 					%>
 				</div>
 				<div class="contents">

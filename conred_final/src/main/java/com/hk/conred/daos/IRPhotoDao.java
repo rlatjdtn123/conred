@@ -10,7 +10,7 @@ public interface IRPhotoDao {
 	public boolean reviewPhotoInsert(List<RPhotoDto> list);
 	
 	//해당 매장 리뷰사진출력
-	public List<RPhotoDto> reviewPhotoList(int store_seq,int pnum);
+	public List<RPhotoDto> reviewPhotoList(int store_seq);
 	
 	//3.사용자 마이페이지 리뷰사진출력
 	public List<RPhotoDto> userReplyPhoto();

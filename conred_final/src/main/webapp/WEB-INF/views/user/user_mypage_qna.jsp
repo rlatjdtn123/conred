@@ -43,6 +43,8 @@
 	button {border-width: 0;}   
 	button:hover:{background-color: grey !important;}
 	.buttondle{background-color: #585858; color: white;border-radius: 5px;}
+	
+	.store_title{text-align: center;}
 	   
 </style> 
 <script type="text/javascript">
@@ -71,17 +73,17 @@
 					addContent += '	<div class="bigtle"> '
 								+	'	<div class="mybox">   '
 									+	' 	<div class="store_img">'
-									+	' 		<p>매장사진들어갈곳</p>'
-									+	' 		<p>+매장명</p> '
+									+      storeImg(lists[i].qna_seq)
+									+	' 		<p class="store_title"><b>매장명</b></p> ' 
 									+	' 	</div>      '
 									+	'	<img src="./img/profile_default.png" class="pf"/>'
 									+	'	<div class="info">  '
-									+	'		<button style="margin-left: 235px;" class="buttondle">수정</button> <button class="buttondle">삭제</button> <button  class="content_detail buttondle">자세히 보기</button><br>'
-										+	'	<span>닉네임 :'+ lists[i].user_id +' &nbsp;| 가격문의 </span><br><br>   '
+									+	'		<button style="margin-left: 235px;" class="buttondle" onclick="updateQnA('+lists[i].qna_seq+',\'lists[i].qna_title\',\'lists[i].qna_content\',\'lists[i].qna_hide\')">수정</button> <button class="buttondle" onclick="deleteQnA('+lists[i].qna_seq+')">삭제</button> <button  class="content_detail buttondle">자세히 보기</button><br>'
+										+	'	<span>닉네임 :'+ lists[i].user_id +' &nbsp;| 가격문의 </span><br><br>   '                         
 										+	'	<div class="contents">'+ lists[i].qna_content +'</div>    '
-									+	'	</div>   '
-									+	'	<div class="info2">     '
-										+	'	<span style="font-weight: bold;">가게답변</span><br>'
+									+	'	</div>   ' 
+									+	'	<div class="info2">     ' 
+										+	'	<span style="font-weight: bold;">가게답변</span><br>' 
 									+	'	<div class="contents contents2">'+ (lists[i].qna_answer==null?"아직 답변이 없습니다.":lists[i].qna_answer) +'</div>'
 									+	'	</div>  '
 								+	'	</div>'
@@ -89,7 +91,7 @@
 							+	'	<br><br>';
 							////////////////////////////////////
 							$("body").on("click",".content_detail",function(){     
-								if($(this).parent().parent().css("height")=="200px"){  
+						 		if($(this).parent().parent().css("height")=="200px"){  
 									$(this).parent().parent().find(".info2").css("height","auto");
 									$(this).parent().parent().css("height","auto"); 
 									$(this).parent().parent().find(".contents").css({"overflow":"visible","height":"auto","word-break":"break-all"});
@@ -140,6 +142,19 @@
 		});       
   
 	});  
+	
+	//가게이미지
+	function storeImg(qna_seq){
+		var v="";
+		var photo_length=$("input[name=photo_length]").val();
+		for(var i=0;i<photo_length;i++){
+			if(qna_seq==$("input[name=pqna_seq"+i+"]").val()){
+				var v='<img src="upload_sphoto/'+$("input[name=store_photo_stored"+i+"]").val()+'" style="width: 200px;height: 150px; float: left;">';					
+				return v;
+			}						 
+		} 
+	}	
+	
 	 
 </script>
 </head>
@@ -148,6 +163,15 @@
 	List<QnaDto> photo_list=(List<QnaDto>)request.getAttribute("photo_list");
 %>
 <body> 
+<input type="hidden" name="photo_length" value="<%=photo_list.size()%>">
+<%
+	for(int i=0;i<photo_list.size();i++){
+	%>
+	<input type="hidden" name="pqna_seq<%=i%>" value="<%=photo_list.get(i).getQna_seq()%>">
+	<input type="hidden" name="store_photo_stored<%=i%>" value="<%=photo_list.get(i).getStore_photo_stored()%>"> 
+	<%	
+	}
+%>
 <div id="container">
 	<div id="sticky">
 		<div id="navi2">
@@ -181,7 +205,7 @@
 			 		for(int i=0;i<photo_list.size();i++){
 			 			if(dto.getQna_seq()==photo_list.get(i).getQna_seq()){
 			 			%>
-			 			<div style="background: url('upload_sphoto/<%=photo_list.get(i).getStore_photo_stored()%>');width: 200px;height: 155px;background-size: 200px 150px;background-repeat: no-repeat;float:left;"></div>
+			 			<img src="upload_sphoto/<%=photo_list.get(i).getStore_photo_stored()%>" style="width: 200px;height: 150px; float: left;">
 			 			<%	
 			 			}
 			 		}  

@@ -1,3 +1,4 @@
+<%@page import="java.awt.event.FocusAdapter"%>
 <%@page import="com.hk.conred.dtos.UDto"%>
 <%@page import="com.hk.conred.dtos.RPhotoDto"%>
 <%@page import="com.hk.conred.dtos.ReplyDto"%>
@@ -45,12 +46,58 @@
 				var lists=obj.list;
 				var sphoto_lists=obj.sphoto_list;
 				var rphoto_lists=obj.rphoto_list;
-				if(rphoto_lists==""||rphoto_lists.reply_seq==null){
+				
+				if(rphoto_lists==""){
+					$.each(lists, function(i){  			 
+						addContent += 	'<div class="bigtle" > '
+										+'<div class="mybox">      '
+									+	' 	<div class="store_img">    '
+									+            sPhoto(lists[i].reply_seq)
+									+	 '		<div class="store_info">'+lists[i].store_name+'</div>'
+									+	 '	</div>      '
+									+		'<img src="./img/profile_default.png" class="pf"/>  '
+									+		'<div class="info">  '      
+									+			'<button class="content_delete buttondle" onclick="user_review_delete(reply_seq)">삭제</button> <button class="content_detail buttondle">자세히 보기</button><br>' 
+									+			'<span>닉네임:'+lists[i].user_id+'</span><span style="float:right;">'+lists[i].reply_regdate+'</span><br>'
+												+		'<div class="star_table">'
+												+			'<table>'
+												+				'<tr>'
+													+				'<td>서비스</td>'
+													+             '<td>'+ star_fill(lists[i].reply_service)+star_half(lists[i].reply_service)+star_empty(lists[i].reply_service)+ '</td>'
+										 			+			'</tr>'
+													+			'<tr>'
+													+			'	<td>가격</td>'
+													+             '<td>'+ star_fill(lists[i].reply_price)+star_half(lists[i].reply_price)+star_empty(lists[i].reply_price)+ '</td>'
+													+		'	</tr>' 
+													+		'	<tr>'
+													+		'		<td>청결도</td>'
+													+             '<td>'+ star_fill(lists[i].reply_clean)+star_half(lists[i].reply_clean)+star_empty(lists[i].reply_clean)+ '</td>'
+													+		'	</tr>'
+														+	'</table>'
+													+	'</div>'
+											+	'<div class="user_review_img" >'
+											+	'</div> '
+											+	'<div class="contents">'
+											+	'	<span style="font-weight: bold;">리뷰내용</span><br>'
+											+	'	<span>'+lists[i].reply_content+'</span>'
+											+'	</div>  '
+										+'	</div>   '
+										+	'<div class="info2">     '
+										+	'	<span style="font-weight: bold;">매장답변</span><br>'
+										+	'<span>	'+(lists[i].reply_answer==null?"아직 답변이 없습니다.":lists[i].reply_answer)+'<span>'
+									+	'	</div>'
+									+'	</div>  '
+								+'	</div>     ' 
+								+'	<br><br>';
+					}); 
+					  
+					 $('.bigbig').append(addContent);
+				}else{
 					$.each(lists, function(i){  
 						addContent += 	'<div class="bigtle" > '
 										+'<div class="mybox">      '
 									+	' 	<div class="store_img">    '
-									+            ''+sPhoto(lists[i].reply_seq,sphoto_lists[i].reply_seq,sphoto_lists[i].store_photo_stored)+''
+									+            sPhoto(lists[i].reply_seq)
 									+	 '		<div class="store_info">'+lists[i].store_name+'</div>'
 									+	 '	</div>      '
 									+		'<img src="./img/profile_default.png" class="pf"/>  '
@@ -73,7 +120,8 @@
 													+		'	</tr>'
 														+	'</table>'
 													+	'</div>'
-											+	'<div class="user_review_img" >'
+							 				+	'<div class="user_review_img" >'
+											+    ' '+rPhoto(lists[i].reply_seq)+'  '
 											+	'</div> '
 											+	'<div class="contents">'
 											+	'	<span style="font-weight: bold;">리뷰내용</span><br>'
@@ -89,51 +137,6 @@
 								+'	<br><br>';
 					}); 
 					
-					 $('.bigbig').append(addContent);
-				}else{
-					$.each(lists, function(i){  
-						addContent += 	'<div class="bigtle" > '
-										+'<div class="mybox">      '
-									+	' 	<div class="store_img">    '
-									+            ''+sPhoto(lists[i].reply_seq,sphoto_lists[i].reply_seq,sphoto_lists[i].store_photo_stored)+''
-									+	 '		<div class="store_info">'+lists[i].store_name+'</div>'
-									+	 '	</div>      '
-									+		'<img src="./img/profile_default.png" class="pf"/>  '
-									+		'<div class="info">  '      
-									+			'<button class="content_delete buttondle" onclick="user_review_delete(reply_seq)">삭제</button> <button class="content_detail buttondle">자세히 보기</button><br>' 
-									+			'<span>닉네임:'+lists[i].user_id+'</span><span style="float:right;">'+lists[i].reply_regdate+'</span><br>'
-												+		'<div class="star_table">'
-												+			'<table>'
-												+				'<tr>'
-													+				'<td>서비스</td>'
-													+             '<td>'+ star_fill(lists[i].reply_service)+star_half(lists[i].reply_service)+star_empty(lists[i].reply_service)+ '</td>'
-													+			'</tr>'
-													+			'<tr>'
-													+			'	<td>가격</td>'
-													+             '<td>'+ star_fill(lists[i].reply_price)+star_half(lists[i].reply_price)+star_empty(lists[i].reply_price)+ '</td>'
-													+		'	</tr>' 
-													+		'	<tr>'
-													+		'		<td>청결도</td>'
-													+             '<td>'+ star_fill(lists[i].reply_clean)+star_half(lists[i].reply_clean)+star_empty(lists[i].reply_clean)+ '</td>'
-													+		'	</tr>'
-														+	'</table>'
-													+	'</div>'
-											+	'<div class="user_review_img" >'
-											+    ' '+rPhoto(lists[i].reply_seq,rphoto_lists[i].reply_seq,rphoto_lists[i].reply_photo_stored)+'  '
-											+	'</div> '
-											+	'<div class="contents">'
-											+	'	<span style="font-weight: bold;">리뷰내용</span><br>'
-											+	'	<span>'+lists[i].reply_content+'</span>'
-											+'	</div>  '
-										+'	</div>   '
-										+	'<div class="info2">     '
-										+	'	<span style="font-weight: bold;">매장답변</span><br>'
-										+	'<span>	'+(lists[i].reply_answer==null?"아직 답변이 없습니다.":lists[i].reply_answer)+'<span>'
-									+	'	</div>'
-									+'	</div>  '
-								+'	</div>     ' 
-								+'	<br><br>';
-					}); 
 					
 					 $('.bigbig').append(addContent);
 				}
@@ -163,14 +166,14 @@
 			}   
 		});   
 		 
-// 		alert($(".user_review_img").children(".asd").length);
+
 		
 		//유저리뷰사진
-		$("div").each(function(){
-			if($(".user_review_img").children().hasClass("asd")){
-				$(this).find(".asd").parent().addClass("img_tle");
-			}		  
-		});
+// 		$("div").each(function(){
+// 			if($(".user_review_img").children().hasClass("asd")){
+// 				$(this).find(".asd").parent().addClass("img_tle");
+// 			}		  
+// 		});
 		  
    
 	});  
@@ -213,31 +216,35 @@
 		}
 		return v;
 	}
-	
 	//매장사진
-	function sPhoto(uReply_seq,sReply_seq,store_photo_stored){
+	function sPhoto(uReply_seq){
 		var slist_length=$("input[name=slist_length]").val();
-		var v="";
+// 		alert("asdasd");
+// 		alert(uReply_seq);
+		var v=""; 
  		for(var i=0;i<slist_length;i++){
- 			if(uReply_seq==sReply_seq){
-				v+='<div style="background: url(upload_sphoto/'+store_photo_stored+');width: 200px;height: 123px;background-size: 200px 123px;background-repeat: no-repeat;float:left;"></div>';
- 				return v;
+ 			if(uReply_seq==$("input[name=sReply_seq"+i+"]").val()){  
+// 				v='<div style="background: url("upload_sphoto/'+$("input[name=store_photo_stored"+i+"]").val()+'");width: 200px;height: 123px;background-size: 200px 123px;background-repeat: no-repeat;float:left;"></div>';
+// 				v='<div style="background: url("upload_sphoto/a_1.jpg");width: 200px;height: 123px;background-size: 200px 123px;background-repeat: no-repeat;float:left;"></div>';
+ 			  v='<img src="upload_sphoto/'+$("input[name=store_photo_stored"+i+"]").val()+'" style="width: 200px;height: 123px;"/>'
+ 			   
  			}
- 		} 		
+ 		}    
+		return v; 		
 	}
-	
+	 
 	
 	//사용자리뷰사진
-	function rPhoto(uReply_seq,reply_seq,reply_photo_stored){
+	function rPhoto(uReply_seq){
 		var v="";
-		var rlist_length=$("input[name=rlist_length]");
+// 		alert(v)
+		var rlist_length=$("input[name=rlist_length]").val();
 		for(var i=0;i<rlist_length;i++){
-			if(uReply_seq==reply_seq){
-			v='<div class="asd" style="background: url(upload_rphoto/'+reply_photo_stored+');width: 80px;height: 80px;background-size: 80px 80px;background-repeat: no-repeat;float:left;margin-left:45px;"></div>';	
-			}else{
-				
+			if(uReply_seq==$("input[name=rReply_seq"+i+"]").val()){ 
+			v+='<img class="asd" src="upload_rphoto/'+$("input[name=reply_photo_stored"+i+"]").val()+'" style="width: 80px;height: 80px;float:left;margin-left:40px;">';	
 			}
 		}
+		return v;  
 	}
 
 	
@@ -278,18 +285,20 @@
 	button:hover:{background-color: grey;}
 	 
 	 .buttondle{background-color: #fafafa;}
-	 .buttondle:hover {background-color: grey;}
-	 
+	 .buttondle:hover {background-color: grey;} 
+	  
 	 .star_table{width: 187px; height: 80px;background-color: #fafafa;border-radius: 5px; padding: 10px;float: left;}
 	 .starz{width:17px;height:auto;display: inline-block;margin:-2px;margin-bottom:4px;}
 	 .content_delete{ background-color:#fafafa; margin-left: 270px;}
 	 .content_delete:hover {background-color: grey;} 
-	 .store_info{text-align:center; width: 200px;height: 30px; margin-top: 128px;background-color: white;}
+	 .store_info{text-align:center; width: 200px;height: 30px; background-color: white;}
 	 .buttondle{background-color: #585858; color: white;border-radius: 5px;}
-	 .img_tle{width: 670px;height: 80px;margin-top: 120px;margin-bottom: 10px;} 
+/* 	 .img_tle{width: 670px;height: 80px;margin-top: 120px;margin-bottom: 10px;}  */
+	 .user_review_img{width: 676px;height: auto;float: left;}
+	 .gongback{width: 265px;height: 100px;margin-left: 405px;}
 	  
 	  
-</style> 
+</style>  
 
 </head>
 <% 
@@ -300,6 +309,22 @@
 <body>
 <input name="slist_length" type="hidden" value="<%=sphoto_list.size()%>"/>
 <input name="rlist_length" type="hidden" value="<%=rphoto_list.size()%>"/>
+<%
+	for(int i=0;i<sphoto_list.size();i++){
+	%>
+	<input type="hidden" name="sReply_seq<%=i%>" value="<%=sphoto_list.get(i).getReply_seq()%>">
+	<input type="hidden" name="store_photo_stored<%=i%>" value="<%=sphoto_list.get(i).getStore_photo_stored()%>">
+	<%
+	}
+	for(int i=0;i<rphoto_list.size();i++){
+	%>
+	<input type="hidden" name="rReply_seq<%=i%>" value="<%=rphoto_list.get(i).getReply_photo_seq()%>">
+	<input type="hidden" name="reply_photo_stored<%=i%>" value="<%=rphoto_list.get(i).getReply_photo_stored()%>">
+	<%	
+	}
+%>
+
+
 <div id="container">
 	<div id="sticky">
 		<div id="navi2">
@@ -335,7 +360,7 @@
 			 		for(int i=0;i<sphoto_list.size();i++){
 			 			if(dto.getReply_seq()==sphoto_list.get(i).getReply_seq()){
 		 				%>
-		 				<div style="background: url('upload_sphoto/<%=sphoto_list.get(i).getStore_photo_stored()%>');width: 200px;height: 123px;background-size: 200px 123px;background-repeat: no-repeat;float:left;"></div>
+		 				<img src="upload_sphoto/<%=sphoto_list.get(i).getStore_photo_stored()%>" style="width: 200px;height: 123px;"/>
 		 				<%
 			 			}
 			 		}
@@ -416,18 +441,19 @@
 							</tr>
 						</table>  
 					</div>
+					<div class="gongback"></div>
 					<div class="user_review_img" >
 					<%
 					for(int i=0;i<rphoto_list.size();i++){
 						if(dto.getReply_seq()==rphoto_list.get(i).getReply_seq()){
-						%>
-						<div class="asd" style="background: url('upload_rphoto/<%=rphoto_list.get(i).getReply_photo_stored()%>');width: 80px;height: 80px;background-size: 80px 80px;background-repeat: no-repeat;float:left;margin-left:45px;"></div>	
+						%>	
+						<img class="asd" src="upload_rphoto/<%=rphoto_list.get(i).getReply_photo_stored()%>"style="width: 80px;margin-left:40px; height: 80px;float:left;">
 						<%
-						}else{
+						}else{ 
 							
 						}
 					}
-					%>
+					%> 
 					</div> 
 					<div class="contents">
 						<span style="font-weight: bold;">리뷰내용</span><br>

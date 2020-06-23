@@ -66,7 +66,7 @@
 					addContent += 	'<div class="bigtle">' 
 									+'<div class="mybox">'
 									+	'<div class="store_img">'
-									+ 	'	'+ storeImg(lists.reserve_seq,photo_lists.reserve_seq,photo_lists.store_photo_stored) +' '
+									+ 	'	'+ storeImg(lists[i].reserve_seq) +' '
 									 +	'	<p class="store_title"><b>'+ lists[i].store_name +'</b></p> '
 									 +	'</div>'
 										+'<div class="reserve_info">'
@@ -182,12 +182,13 @@
 			});
 			
 		}
-	function storeImg(reserve_seq,preserve_seq,store_photo_stored){
+	//가게이미지
+	function storeImg(reserve_seq){
 		var v="";
 		var photo_length=$("input[name=photo_length]").val();
 		for(var i=0;i<photo_length;i++){
-			if(reserve_seq==preserve_seq){
-				var v='<div style="background: url(upload_sphoto/'+store_photo_stored+');width: 200px;height: 155px;background-size: 200px 150px;background-repeat: no-repeat;float:left;"></div>';					
+			if(reserve_seq==$("input[name=preserve_seq"+i+"]").val()){
+				var v='<img src="upload_sphoto/'+$("input[name=store_photo_stored"+i+"]").val()+'" style="width: 200px;height: 150px; float: left;">';					
 				return v;
 			}						 
 		} 
@@ -206,6 +207,14 @@
 %>
 <body>
 <input type="hidden" name="photo_length" value="<%=photo_list.size()%>">
+<%
+	for(int i=0;i<photo_list.size();i++){
+	%>
+	<input type="hidden" name="preserve_seq<%=i%>" value="<%=photo_list.get(i).getReserve_seq()%>">
+	<input type="hidden" name="store_photo_stored<%=i%>" value="<%=photo_list.get(i).getStore_photo_stored()%>">
+	<%	
+	}
+%>
 <div id="container">
 	<div id="sticky">
 		<div id="navi2">
@@ -238,8 +247,8 @@
 					<%
 					for(int i=0;i<photo_list.size();i++){
 						if(dto.getReserve_seq()==photo_list.get(i).getReserve_seq()){
-						%>
-							<div style="background: url('upload_sphoto/<%=photo_list.get(i).getStore_photo_stored()%>');width: 200px;height: 155px;background-size: 200px 150px;background-repeat: no-repeat;float:left;"></div>						
+						%>						
+							<img src="upload_sphoto/<%=photo_list.get(i).getStore_photo_stored()%>" style="width: 200px;height: 150px; float: left;">
 						<%
 						}						 
 					} 
