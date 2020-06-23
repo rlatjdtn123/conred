@@ -45,4 +45,10 @@ public class InterestsDaoImp implements IInterestsDao{
 		return sqlSession.selectList(nameSpace+"user_interests_recommended", map);
 			
 	}
+
+	@Override
+	public InterestsDto userInterests(String user_id) {
+		InterestsDto dto=sqlSession.selectOne(nameSpace+"userInterests", user_id);
+		return dto;
+	}
 } 

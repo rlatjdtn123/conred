@@ -70,6 +70,11 @@ public class UServiceImp implements IUService{
 		return UDaoImp.userIdCheck(user_id);
 	}
 
+	@Override
+	public List<UDto> userInterestsIcon(String user_id) {
+		return UDaoImp.userInterestsIcon(user_id);
+	}
+
 	
 
 	

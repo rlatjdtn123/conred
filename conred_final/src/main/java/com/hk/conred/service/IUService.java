@@ -23,6 +23,9 @@ public interface IUService {
 	public UDto getStats(String user_id);
 	//7.유저 아이디 중복체크
 	public String userIdCheck(String user_id); 
+	//8.유저 관심사아이콘
+	public List<UDto> userInterestsIcon(String user_id);
+	
 	//9.사용자 블랙처리 (신고3번받으면)
 	
 }

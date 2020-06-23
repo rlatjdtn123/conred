@@ -70,17 +70,17 @@
 									 +	'	<p class="store_title"><b>'+ lists[i].store_name +'</b></p> '
 									 +	'</div>'
 										+'<div class="reserve_info">'
-									 	+'	<a>메뉴명 : '+ lists[i].menu_name +' </a><br>'  
+									 	+'	<a>메뉴명 : '+ lists[i].menu_name +' </a><br>'   
 									 	+'	<span>가격 정보 : '+ lists[i].reserve_price +' </span><br>'
-									 	+'	<span>예약 날짜 :'+ lists[i].reserve_sdate +'</span><br>'
-									 	+'	<span>예약 시간 : '+ lists[i].reserve_time +' </span><br>'
+									 	+'	<span>예약 날짜 :'+ (lists[i].reserve_edate==null?lists[i].reserve_sdate:lists[i].reserve_sdate+'~'+lists[i].reserve_edate)+'</span><br>'
+									 	+'	<span>'+(lists[i].reserve_time==null?"":"예약시간:"+lists[i].reserve_time)+' </span><br>'
 									 	+'	<span>주소 : '+ lists[i].store_address +' </span><br>'
 									 	+'</div>'
 									 	+'	<div style="margin-left: 520px; margin-top: 40px;" >'
-										+ '		<button class="buttondle">예약취소</button>&nbsp;&nbsp;       '
-										+ '		<button class="buttondle">결제하기</button>       '
+										+ '		<button class="buttondle cancel" onclick="reserveCancel('+lists[i].reserve_seq+')">예약취소</button>&nbsp;&nbsp;       '
+										+ '		<button class="buttondle" onclick="requestPay('+lists[i].reserve_seq+',\''+lists[i].user_id+'\',\''+lists[i].user_email+'\',\''+lists[i].user_address+'\',\''+lists[i].menu_name+'\',\''+lists[i].reserve_price+'\')">결제하기</button>       '
 									 	+	'</div>'
-								 		+'</div> 	' 
+								 		+'</div> 	'  
 								+	'</div>' 
 								+	'<br><br>'; 		
 	
@@ -96,32 +96,30 @@
 		};
 		
 		
-		$(function(){		
-			//취소하기
-			$('#cancel').click(function(){
-					var result=confirm("예약을 취소하시겠습니까?");
-					if(result){
-						    var seq=$(this).parent().find("input[name=reserve_seq]").val();
-						    location.href="user_reserve_cancel.do?reserve_seq="+seq;	 			
-					}else{
-						 
-					}
-					
-				});
+// 		$(function(){		
+// 			//취소하기
+// 			$('.cancel').click(function(){
+// 					var result=confirm("예약을 취소하시겠습니까?");
+// 					if(result){
+// 						    var seq=$(this).parent().find("input[name=reserve_seq]").val();
+// 						    location.href="user_reserve_cancel.do?reserve_seq="+seq;	 			
+// 					}else{			 
+// 					}	
+// 				});
 			
-		});//$(function(){})
+// 		});//$(function(){})
 		
 		
 		function requestPay(reserve_seq,user_id,user_email,store_address,menu_name,reserve_price){
 			///결제하기 
 			var IMP=window.IMP;
 			IMP.init('imp83419041');  
-			alert(reserve_seq);
-			alert(user_id);  
-			alert(user_email);  // 이메일 null이라 잠시보류
-			alert(store_address);
-			alert(reserve_price);
-			alert(menu_name);
+// 			alert(reserve_seq);
+// 			alert(user_id);  
+// 			alert(user_email);  // 이메일 null이라 잠시보류
+// 			alert(store_address);
+// 			alert(reserve_price);
+// 			alert(menu_name);
 
 			 
 			IMP.request_pay({
@@ -192,7 +190,16 @@
 				return v;
 			}						 
 		} 
-	}		
+	}	
+	
+	function reserveCancel(reserve_seq){
+		var result=confirm("예약을 취소하시겠습니까?");
+		if(result){
+// 			    var seq=$(this).parent().find("input[name=reserve_seq]").val();
+			    location.href="user_reserve_cancel.do?reserve_seq="+reserve_seq;	 			
+		}else{			 
+		}
+	}
 			
 		
 		
@@ -283,8 +290,8 @@
 			 		<span>주소 : <%=dto.getStore_address()%> </span><br>
 			 		</div>
 			 		<div style="margin-left: 520px; margin-top: 40px;" >
-				 		<button class="buttondle" id="cancel">예약취소</button>&nbsp;&nbsp;       
-				 		<button class="buttondle" id="requestPay" onclick="requestPay(<%=dto.getReserve_seq()%>,'<%=dto.getUser_id()%>','<%=uldto.getUser_email()%>','<%=dto.getStore_address()%>','<%=dto.getMenu_name()%>','<%=dto.getReserve_price()%>')">결제하기</button>  
+				 		<button class="buttondle cancel" onclick="reserveCancel(<%=dto.getReserve_seq()%>)">예약취소</button>&nbsp;&nbsp;       
+				 		<button class="buttondle" onclick="requestPay(<%=dto.getReserve_seq()%>,'<%=dto.getUser_id()%>','<%=uldto.getUser_email()%>','<%=dto.getStore_address()%>','<%=dto.getMenu_name()%>','<%=dto.getReserve_price()%>')">결제하기</button>  
 				 		<input type="hidden" name="reserve_seq" value="<%=dto.getReserve_seq()%>"/>   
 				 		<input type="hidden" name="user_id" value="<%=dto.getUser_id()%>"/>  
 				 		<input type="hidden" name="user_email" value="<%=uldto.getUser_email()%>"/>

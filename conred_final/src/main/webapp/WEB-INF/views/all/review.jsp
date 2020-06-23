@@ -250,16 +250,11 @@
 	
 	
 	$(document).ready(function(){
-	
-// 		$(".user_review_img").children().click(function(){
-// 			$(this).css("background-color","red"); 
-// // 			alert("asd");
-// 		});	
-		//////////사진확대 모달창
-
-		
-		
-		  
+	  	
+		if(5<$("#preview").find(".preview-box").length){
+			  $("#preview").empty(); 
+			  alert("사진은 5개 까지 등록 가능합니다");
+		  }
 		
 		////////////리뷰작성 모달창
 		//숨겨져있을때  -> 모달영역밖에누를때포함
@@ -407,6 +402,9 @@
 			  var reply_service=$(".star-input01").find(":checked").val();
 			  var reply_price=$(".star-input02").find(":checked").val();
 		      var reply_clean=$(".star-input03").find(":checked").val();
+		      var img_length=$("#preview").find(".preview-box").length;
+		      
+// 		      alert($("#preview").children().size());  
 		      
 		      if($("textarea").val().length<=100){
 				  alert("100자 이상 작성해주세요"); 
@@ -416,7 +414,15 @@
 		      if(reply_service==0||reply_service==null||reply_price==0||reply_price==null||reply_clean==0||reply_clean==null){
 		    	  alert("평점을 입력해주세요");
 		    	  return false;
-		      }  	    	    
+		      }
+			  if(5<$("#preview").find(".preview-box").length){
+				  $("#preview").empty(); 
+				  alert("사진은 5개 까지 등록 가능합니다");
+				  return false;
+			  } 
+		      
+		      
+		      
 		  });
 	           
 			  
@@ -424,7 +430,8 @@
 	 
 		  /////////////////////////
 		  
-///////////////파일업로드
+		
+			///////////////파일업로드
 		    var fileTarget = $('.filebox .upload-hidden');
 			fileTarget.on('change', function(){
 				// 값이 변경되면
@@ -441,75 +448,6 @@
 				addPreview($(this)); //preview form 추가하기
 				$(".attach_count").text();
 			});
-		    
-	/////////-------------------파일업로드관련
-			
-		    //임의의 file object영역
-		    var files = {};
-		    var previewIndex = 0;
-
-		    // image preview 기능 구현
-		    // input = file object[]
-		    function addPreview(input) {
-		        if (input[0].files) {
-		            //파일 선택이 여러개였을 시의 대응
-		            for (var fileIndex = 0; fileIndex < input[0].files.length; fileIndex++) {
-		                var file = input[0].files[fileIndex];
-		                if(validation(file.name)) continue;
-		                setPreviewForm(file);
-		            }
-		        } else
-		            alert('invalid file input'); // 첨부클릭 후 취소시의 대응책은 세우지 않았다.
-		    }
-		    
-		    function setPreviewForm(file, img){
-		        var reader = new FileReader();
-		        
-		        //div id="preview" 내에 동적코드추가.
-		        //이 부분을 수정해서 이미지 링크 외 파일명, 사이즈 등의 부가설명을 할 수 있을 것이다.
-		        reader.onload = function(img) {
-		            var imgNum = previewIndex++;
-		            $("#preview").append(
-		                    "<div class=\"preview-box\" value=\"" + imgNum +"\">" +
-		                    "<img class=\"thumbnail\" src=\"" + img.target.result + "\"\/>" +
-		                    "<p class=\"f_name\">" + file.name + "</p>" +
-		                    "<a class=\"del_btn\" href=\"#a\"value=\""  + imgNum + "\" onclick=\"deletePreview(this)\">" +
-		                    "삭제" + "</a>"
-		                    + "</div>"
-		            );
-		            files[imgNum] = file;   
-		            $(".attach_count").text($(".preview-box").length+"/30");
-		        };
-		        
-		        reader.readAsDataURL(file);
-		    }
-
-		    //preview 영역에서 삭제 버튼 클릭시 해당 미리보기이미지 영역 삭제
-		    function deletePreview(obj) {
-		        var imgNum = obj.attributes['value'].value;
-		        delete files[imgNum];
-		        $("#preview .preview-box[value=" + imgNum + "]").remove();
-
-		    }
-
-		    //client-side validation
-		    //always server-side validation required
-		    function validation(fileName) {
-		        fileName = fileName + "";
-		        var fileNameExtensionIndex = fileName.lastIndexOf('.') + 1;
-		        var fileNameExtension = fileName.toLowerCase().substring(
-		                fileNameExtensionIndex, fileName.length);
-		        if (!((fileNameExtension === 'jpg')
-		                || (fileNameExtension === 'gif') || (fileNameExtension === 'png'))) {
-		            alert('jpg, gif, png 확장자만 업로드 가능합니다.');
-		            return true;
-		        } else {
-		            return false;
-		        }
-		    }
-		    
-		    /////////-------------------
-		  
 		  
 		  
 		  
@@ -615,9 +553,93 @@
 			}    
 		}   
 		return v;
-		
-	}
+	}	
+ 
+/////////-------------------파일업로드관련
 	
+    //임의의 file object영역
+    var files = {};
+    var previewIndex = 0;
+
+    // image preview 기능 구현
+    // input = file object[]
+    function addPreview(input) {
+    	
+    	var imgTle =document.getElementById('preview');
+    	var imgCount=imgTle.childElementCount;
+    	var imgs=document.getElementsByClassName('preview-box');
+    	
+    	if(5<imgCount){
+    		imgTle.removeChild(imgs);
+    		alert("사진은 5개 까지 등록 가능합니다");
+		   return false; 
+    	}
+    	
+        if (input[0].files) {
+            //파일 선택이 여러개였을 시의 대응
+            for (var fileIndex = 0; fileIndex < input[0].files.length; fileIndex++) {
+                var file = input[0].files[fileIndex];
+                if(validation(file.name)) continue;
+                setPreviewForm(file);
+            }
+        } else{ 
+        	 
+        }
+        
+    }
+    
+    function setPreviewForm(file, img){
+        var reader = new FileReader();
+        
+        //div id="preview" 내에 동적코드추가.
+        //이 부분을 수정해서 이미지 링크 외 파일명, 사이즈 등의 부가설명을 할 수 있을 것이다.
+        reader.onload = function(img) {
+            var imgNum = previewIndex++;
+            $("#preview").append(
+                    "<div class=\"preview-box\" value=\"" + imgNum +"\">" +
+                    "<img class=\"thumbnail\" src=\"" + img.target.result + "\"\/>" +
+                    "<p class=\"f_name\">" + file.name + "</p>" +
+                    "<a class=\"del_btn\" href=\"#a\"value=\""  + imgNum + "\" onclick=\"deletePreview(this)\">" +
+                    "삭제" + "</a>"
+                    + "</div>"
+            );
+            files[imgNum] = file;   
+            $(".attach_count").text($(".preview-box").length+"/30");
+        };
+        
+        reader.readAsDataURL(file);
+    }
+
+    
+
+    //client-side validation
+    //always server-side validation required
+    function validation(fileName) {
+        fileName = fileName + "";
+        var fileNameExtensionIndex = fileName.lastIndexOf('.') + 1;
+        var fileNameExtension = fileName.toLowerCase().substring(
+                fileNameExtensionIndex, fileName.length);
+        if (!((fileNameExtension === 'jpg')
+                || (fileNameExtension === 'gif') || (fileNameExtension === 'png'))) {
+            alert('jpg, gif, png 확장자만 업로드 가능합니다.');
+            return true;
+        } else {
+            return false; 
+        }
+    }
+     
+ 	//모달 이미지 삭제
+    function deletePreview(obj) {
+        var imgNum = obj.attributes['value'].value;
+        delete files[imgNum];
+        $("#preview .preview-box[value=" + imgNum + "]").remove();
+
+    }
+ 	
+ 	//이미지 5개까지만
+ 	
+    
+    /////////-------------------
 	
 	
 	
@@ -655,6 +677,7 @@
 	     		<div class="modal-header"> 
 	     			<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 	     			<button type="submit" class="reply_write" >리뷰 작성 완료</button>
+	     			<button class="asd">asdasd</button>
 	       			
 	       			<h4 class="modal-title"><b><%=store_name.getStore_name()%></b></h4>
 	     		</div>

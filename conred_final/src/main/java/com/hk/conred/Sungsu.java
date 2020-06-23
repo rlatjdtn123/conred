@@ -42,6 +42,7 @@ import com.hk.conred.dtos.RPhotoDto;
 import com.hk.conred.dtos.ReplyDto;
 import com.hk.conred.dtos.ReserveDto;
 import com.hk.conred.dtos.UDto;
+import com.hk.conred.service.IInterestsService;
 import com.hk.conred.service.ILikeService;
 import com.hk.conred.service.IMenuService;
 import com.hk.conred.service.IOService;
@@ -50,6 +51,7 @@ import com.hk.conred.service.IRPhotoService;
 import com.hk.conred.service.IReplyService;
 import com.hk.conred.service.IReserveService;
 import com.hk.conred.service.IUService;
+import com.hk.conred.service.InterestsServiceImp;
 import com.hk.conred.service.QnaServiceImp;
 import com.sun.glass.ui.Menu;
 
@@ -100,6 +102,8 @@ public class Sungsu {
 	
 	@Autowired
 	private IRPhotoService rPhotoService;
+	@Autowired
+	private IInterestsService interestsService;
 	
 	
 	@RequestMapping(value = "user_regist_finish.do", method = RequestMethod.GET)
@@ -256,11 +260,11 @@ public class Sungsu {
 	public String user_mypage(Locale locale, Model model,HttpServletRequest request) {
 		logger.info("사용자 마이페이지{}.", locale);
 		HttpSession session=request.getSession();
-		UDto uldto=(UDto)session.getAttribute("uldto");
+		UDto uldto=(UDto)session.getAttribute("uldto"); 
 		UDto dto=uService.getStats(uldto.getUser_id());
-//		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ ::: "+uldto);
-//		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@ ::: "+dto); 
+		List<UDto> list=uService.userInterestsIcon(uldto.getUser_id());
 		model.addAttribute("dto", dto);
+		model.addAttribute("list", list);
 		
 		return "user/user_mypage";  
 	}
@@ -434,7 +438,7 @@ public class Sungsu {
 		model.addAttribute("list_store_img", list_store_img);
 		return "user/user_mypage_like";  
 	}
-	
+	 
 	@ResponseBody
 	@RequestMapping(value = "user_like_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public Map<String, List<LikeDto>> user_like_ajax(Locale locale, Model model,HttpServletRequest request,int pnum) {

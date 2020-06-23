@@ -13,6 +13,9 @@ public interface IInterestsDao {
 	public boolean insertInterests(String[] category_code, String user_id);
 	//2. 사용자 관심사 메인페이지 추천 기능
 	public List<SDto> user_interests_recommended(String user_id, String paging);
+	
+	//3.사용자마이페이지 관심사
+	public InterestsDto userInterests(String user_id);
     
 }
 

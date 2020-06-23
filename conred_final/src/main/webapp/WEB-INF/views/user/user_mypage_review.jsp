@@ -57,8 +57,8 @@
 									+	 '	</div>      '
 									+		'<img src="./img/profile_default.png" class="pf"/>  '
 									+		'<div class="info">  '      
-									+			'<button class="content_delete buttondle" onclick="user_review_delete(reply_seq)">삭제</button> <button class="content_detail buttondle">자세히 보기</button><br>' 
-									+			'<span>닉네임:'+lists[i].user_id+'</span><span style="float:right;">'+lists[i].reply_regdate+'</span><br>'
+									+			'<button class="content_delete buttondle" onclick="user_review_delete('+lists[i].reply_seq+')">삭제</button> <button class="content_detail buttondle">자세히 보기</button><br>' 
+									+			'<span style="color:#919191;">닉네임:'+lists[i].user_id+'</span><span style="float:right;">'+lists[i].reply_regdate+'</span><br>'
 												+		'<div class="star_table">'
 												+			'<table>'
 												+				'<tr>'
@@ -102,8 +102,8 @@
 									+	 '	</div>      '
 									+		'<img src="./img/profile_default.png" class="pf"/>  '
 									+		'<div class="info">  '      
-									+			'<button class="content_delete buttondle" onclick="user_review_delete(reply_seq)">삭제</button> <button class="content_detail buttondle">자세히 보기</button><br>' 
-									+			'<span>닉네임:'+lists[i].user_id+'</span><span style="float:right;">'+lists[i].reply_regdate+'</span><br>'
+									+			'<button class="content_delete buttondle" onclick="user_review_delete('+lists[i].reply_seq+')">삭제</button> <button class="content_detail buttondle">자세히 보기</button><br>' 
+									+			'<span style="color:#919191;">닉네임:'+lists[i].user_id+'</span><span style="float:right;">'+lists[i].reply_regdate+'</span><br>'
 												+		'<div class="star_table">'
 												+			'<table>'
 												+				'<tr>'
@@ -370,7 +370,7 @@
 				<img src="./img/profile_default.png" class="pf"/>  
 				<div class="info">        
 					<button class="content_delete buttondle" onclick="user_review_delete(<%=dto.getReply_seq()%>)">삭제</button> <button class="content_detail buttondle">자세히 보기</button><br> 
-					<span>닉네임:<%=dto.getUser_id()%></span><span style="float:right;"><%=dto.getReply_regdate()%></span><br>
+					<span style="color:#919191;">닉네임:<%=dto.getUser_id()%></span><span style="float:right;"><%=dto.getReply_regdate()%></span><br>
 					<div class="star_table"> 
 						<table>
 							<tr> 

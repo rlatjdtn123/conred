@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page import="com.hk.conred.dtos.UDto"%>
 <jsp:include page="../all/header2.jsp" />
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
@@ -18,21 +19,25 @@
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:20px;display: inline-block;height: 40px;}
 	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:800px;height:200px; margin:0 auto; margin-top: 20px;}
 	.myboxmargin{margin-top:30px;}
-	.mybox_info{width: 130px;height: 100px; float: left; margin-left: 100px;text-align: center;font-size: 20px; margin-top: 20px;}
-	.mybox_info1{width: 130px;height: 100px;  float: left; margin-left: 170px;text-align: center;font-size: 20px; margin-top: 20px;}
+	.mybox_info{width: 130px;height: 100px; float: left; margin-left: 100px;text-align: center;font-size: 20px;}
+	.mybox_info1{width: 130px;height: 100px;  float: left; margin-left: 170px;text-align: center;font-size: 20px;}
     .stats_result{color: #A4A4A4; font-size: 30px;}
     a{color: gray; font-size: 50px;}
-	a:hover{text-decoration: none; color:rgb(0, 255, 0);cursor: pointer;}
+	a:hover{text-decoration: none; color:rgb(0, 255, 0);cursor: pointer;} 
 	.mybox_info_header{font-weight: bold; font-size: 20px;} 
 	#footprint1{width: 50px;height: 40px;border-radius: 15px;background-color: #EFFBFB;}
 	.point{color: gray; font-size: 50px;} 
 	.bottom_info{margin-bottom: 100px;}  
 	 
-</style>             
+	.user_icon{width: 100px;height: 100px;margin-top: -10px;} 
+	.icon_rink{font-size: 25px;}
+	 
+</style>              
 </head>                
 <% 
-	UDto uldto=(UDto)session.getAttribute("uldto"); 
 	UDto dto=(UDto)request.getAttribute("dto");  
+	List<UDto> list=(List<UDto>)request.getAttribute("list");
+	UDto uldto=(UDto)session.getAttribute("uldto");
 %>  
 <body> 
 <div id="container">
@@ -57,23 +62,23 @@
 	</div> 
 	<div id="pagename">  
 		<img src="img/icon/icon_foot.png" id="footprint1"> 
-		<b><%=uldto.getUser_name()%></b>님 환영합니다, 즐거운 하루!!<br>
+		<b><%=uldto.getUser_id()%></b>님 환영합니다, 즐거운 하루!!<br>
 		<span>이메일 : <%=uldto.getUser_email()%></span><br><br>
 	</div>    
 	<div class="mybox">   
 		<div class="mybox_info_header" >내 통계</div><br/>
-			<div class="mybox_info"> 
-			 	<span class="stats_result"><a onclick="location.href='user_mypage_reserve.do'"><%=dto.getReserve_count()%></a></span><br/>
-			 	<span><b>예약수</b></span> 
-			</div>  
-			<div class="mybox_info">  
-		        <span class="stats_result"><a onclick="location.href='user_mypage_like.do'"><%=dto.getLike_count()%></a></span><br/>
-		        <span><b>좋아요</b></span> 
-			</div>     
-			<div class="mybox_info">  
-			  	<span class="stats_result point"><%=dto.getUser_point()%></span><br/>
-			  	<span><b>포인트</b></span> 
-			</div>
+		<div class="mybox_info"> 
+		 	<span class="stats_result"><a onclick="location.href='user_mypage_reserve.do'"><%=dto.getReserve_count()%></a></span><br/>
+		 	<span><b>예약수</b></span> 
+		</div>  
+		<div class="mybox_info">  
+	        <span class="stats_result"><a onclick="location.href='user_mypage_like.do'"><%=dto.getLike_count()%></a></span><br/>
+	        <span><b>좋아요</b></span> 
+		</div>     
+		<div class="mybox_info">  
+		  	<span class="stats_result point"><%=dto.getUser_point()%></span><br/>
+		  	<span><b>포인트</b></span> 
+		</div>
 	</div>    
 	<div class="mybox">  
 		<div class="mybox_info_header">내가 쓴 글</div><br/>
@@ -86,17 +91,18 @@
 			  <span><b>리뷰수</b></span> 
 		</div>
 	</div> 
-	<div class="mybox">
+	<div class="mybox icon_tle">
 		<div class="mybox_info_header" >내 관심사</div><br/>
-		<div class="mybox_info">
-			  
-		</div>
-		<div class="mybox_info">
-			  
-		</div>
-		<div class="mybox_info">
-			  
-		</div>
+		<%
+ 			for(UDto dto_img:list){
+ 			%> 
+			<div class="mybox_info">
+				<img class="user_icon" src="img/icon/icon_<%=dto_img.getCategory_code()%>.png"> 
+				<a class="icon_rink"><%=dto_img.getCategory_name()%></a>
+			</div> 
+			<%
+ 			}
+			%> 
 	</div>
 	<div class="mybox bottom_info">
 		<div class="mybox_info_header" >최근본 매장</div><br/>

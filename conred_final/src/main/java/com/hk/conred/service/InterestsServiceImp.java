@@ -25,6 +25,10 @@ public class InterestsServiceImp implements IInterestsService{
 		// TODO Auto-generated method stub
 		return InterestsDaoImp.user_interests_recommended(user_id , paging);
 	}
+	@Override
+	public InterestsDto userInterests(String user_id) {
+		return InterestsDaoImp.userInterests(user_id);
+	}
 	
 }
  

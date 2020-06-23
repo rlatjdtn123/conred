@@ -57,5 +57,10 @@
 		</foreach> 
 		SELECT *FROM DUAL	
 	</insert>
+	
+	<select id="userInterests" parameterType="String" resultType="InterestsDto">
+		SELECT INTERESTS_SEQ ,USER_ID ,category_code 
+		FROM CON_INTERESTS WHERE USER_ID=#{user_id} 
+	</select>
 </mapper>
 	   

@@ -49,7 +49,7 @@
 		    CON_REPLY cr WHERE cu.user_id=cr.USER_ID AND cu.user_id=#{user_id}) cry,
 		    (SELECT count(cl.LIKE_LIST_SEQ) AS like_count FROM con_user cu, CON_LIKE cl  
 		     WHERE cu.user_id=cl.USER_ID AND cu.user_id=#{user_id}) cll
-		WHERE cu.USER_ID=#{user_id}
+		WHERE cu.USER_ID=#{user_id}	 
 	</select>
 	
 	
@@ -67,6 +67,15 @@
 	WHERE A.CATEGORY_CODE = B.CATEGORY_CODE;
      ]]>
 	</select>
+	
+	<select id="userInterestsIcon" parameterType="String" resultType="UDto">
+		SELECT ci.INTERESTS_SEQ,ci.CATEGORY_CODE,cc.CATEGORY_NAME
+		FROM CON_USER cu,
+						(SELECT INTERESTS_SEQ,USER_ID,CATEGORY_CODE FROM CON_INTERESTS ) ci,
+						(SELECT CATEGORY_CODE ,CATEGORY_NAME FROM CON_CATEGORY ) cc
+		WHERE cu.USER_ID =ci.USER_ID AND ci.CATEGORY_CODE=cc.CATEGORY_CODE AND cu.USER_ID=#{user_id}
+	</select>
+	
 
 </mapper>
 	 

@@ -1,6 +1,7 @@
 package com.hk.conred.daos;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -40,9 +41,9 @@ public class UDaoImp implements IUDao{
 
 	@Override
 	public UDto getStats(String user_id) {
-		UDto dto=null;
+		UDto dto =null;
 		dto=sqlSession.selectOne(nameSpace+"getStats", user_id);
-		return dto;
+		return dto;  
 	}
 
 	@Override
@@ -50,7 +51,7 @@ public class UDaoImp implements IUDao{
 		UDto dto=sqlSession.selectOne(nameSpace+"userMyInfo", user_id);
 		return dto;
 	}
-
+ 
 	@Override
 	public boolean userUpdate(UDto dto) {
 		int count=0;
@@ -70,6 +71,12 @@ public class UDaoImp implements IUDao{
 		String resultId=null;
 		resultId=sqlSession.selectOne(nameSpace+"userIdCheck", user_id);
 		return resultId;
+	}
+
+	@Override
+	public List<UDto> userInterestsIcon(String user_id) {
+		List<UDto> list=sqlSession.selectList(nameSpace+"userInterestsIcon", user_id);
+		return list;
 	}
 	
 	
