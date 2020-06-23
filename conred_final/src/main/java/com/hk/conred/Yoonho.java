@@ -394,6 +394,7 @@ public class Yoonho {
 		System.out.println(seq);
 		System.out.println("sdto seq:"+seq.getStore_seq());
 		model.addAttribute("sdto",seq);
+		session.setAttribute("sdto",seq);
 		
 		return "owner/owner_regist_store";
 	}
@@ -592,8 +593,13 @@ public class Yoonho {
 	
 	
 	@RequestMapping(value = "owner_regist_menu.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String owner_regist_menu(Locale locale, Model model,String[] category_code_2, SDto sdto, CMainDto cmaindto, CListDto clistdto, MenuDto menudto, HttpServletRequest request/*,String store_maxdate*/) {
+	public String owner_regist_menu(Locale locale, Model model,HttpServletRequest request) {
 		logger.info("점주: 매장등록3-1 (카테고리, 메뉴 입력 폼)으로 이동 {}.", locale);
+		//점포등록 진행도 표시용
+		HttpSession session= request.getSession();
+		ODto odto = (ODto)session.getAttribute("oldto");
+		SDto seq = sService.selectStoreSeq(odto);
+		session.setAttribute("sdto", seq);
 		return "owner/owner_regist_menu";
 	}
 	
@@ -660,7 +666,21 @@ public class Yoonho {
 	@RequestMapping(value = "owner_regist_finish.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String owner_regist_finish(Locale locale, Model model, HttpServletRequest request) {
 		logger.info("입점신청 완료 페이지로 이동  {}.", locale);
+		HttpSession session= request.getSession();
+		ODto odto=(ODto)session.getAttribute("oldto");
+		SDto seq=sService.selectStoreSeq(odto);
+		session.setAttribute("sdto", seq);
+		CMainDto cmain =null;
+		if(seq!=null) {//만약 seq있을때(store 만들긴 한 사람인 경우)-- 이 경우 뿌려줄때도 조건값을바꿔야한다. 
+			cmain =cMainService.selectCMain(seq.getStore_seq());
+			System.out.println("대표카테!"+cmain);
+		}
+		if(cmain!=null) {
+			session.setAttribute("cmaindto", cmain);
+		}
+		
 		return "owner/owner_regist_finish";
+		
 	}
 
 	@RequestMapping(value = "store.do", method = {RequestMethod.GET,RequestMethod.POST})

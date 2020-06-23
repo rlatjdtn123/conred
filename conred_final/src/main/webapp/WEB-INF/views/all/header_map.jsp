@@ -1,3 +1,4 @@
+<%@page import="com.hk.conred.dtos.CMainDto"%>
 <%@page import="com.hk.conred.dtos.SDto"%>
 <%@page import="com.hk.conred.dtos.ODto"%>
 <%@page import="com.hk.conred.dtos.UDto"%>
@@ -31,6 +32,8 @@
 	.navis:hover{cursor: pointer; background-color: lightgrey;transition:all .3s;}
 	#profilepic{width:30px;float:right;padding-right:10px;}
 	.display_none{display: none;}
+
+	
 </style>
 </head>
 <body>
@@ -41,6 +44,7 @@
 		UDto uldto=(UDto)session.getAttribute("uldto");
 		ODto oldto=(ODto)session.getAttribute("oldto");
 		SDto sdto=(SDto)session.getAttribute("sdto");
+		CMainDto cmaindto=(CMainDto)session.getAttribute("cmaindto");
 		
 		if(uldto==null&&oldto==null){/* 어떤 등급도 로그인이 되어있지 않으면 */
 	%>
@@ -80,18 +84,31 @@
 				<div id="logout" class="navis" onclick="location.href='user_logout.do'">로그아웃</div>
 				<div id="o_info" class="navis" onclick="location.href='owner_myinfo.do'">나의정보</div>
 				<%
-				if(uldto==null&&oldto!=null&&sdto!=null){/* 점주이면서, 유저가아니면서, store가 있는사람 에게만 표시 */ 
-				%>
-					<div id="o_tore" class="navis" onclick="location.href='store.do?store_seq=<%=sdto.getStore_seq()%>'">매장관리</div>
-					<div id="o_storeinfo" class="navis" onclick="location.href='owner_mystore_info.do'">매장정보</div>
-					<div id="o_reserve" class="navis" onclick="location.href='owner_mystore_reservation.do'">예약</div>
-				<%
+				if(uldto==null&&oldto!=null&&sdto!=null){/* 점주이면서, 유저가아니면서, store가 있는사람 에게만 표시 */
+					if(sdto.getStore_name()==null){//등록되어있으나 certify만 작성된상태면
+						%>
+						<div id="o_reserve" class="navis" onclick="location.href='owner_regist_store.do'">점포등록</div>
+<!-- 						<div class="balloon_01 blink">점포등록이 1/3 진행되었어요!</div> -->
+						<%
+					}else if(cmaindto==null){//등록되어있으나 certify,store만 작성된상태면
+						%>
+						<div id="o_reserve" class="navis" onclick="location.href='owner_regist_menu.do'">점포등록</div>
+<!-- 						<div class="balloon_01 blink">점포등록이 2/3 진행되었어요!</div> -->
+						<%
+					}else if(cmaindto!=null){//등록되어있으며 certify,store,menu 모두 작성된 상태라면
+					%>
+						<div id="o_tore" class="navis" onclick="location.href='store.do?store_seq=<%=sdto.getStore_seq()%>'">매장관리</div>
+						<div id="o_storeinfo" class="navis" onclick="location.href='owner_mystore_info.do'">매장정보</div>
+						<div id="o_reserve" class="navis" onclick="location.href='owner_mystore_reservation.do'">예약</div>
+					<%
+					}
 				}else{/*  점포가 아직 없는 점주에게만 "점포등록버튼" 표시 */ 
 				%>
 					<div id="o_reserve" class="navis" onclick="location.href='owner_regist_certify.do'">점포등록</div>
 				<%
 				}
 				%>
+				
 			</div>
 	<%
 		}else if(uldto!=null&&oldto==null&&uldto.getUser_role().equals("admin")){/*사용자는 로그인, 점주는 비로그인, 사용자등급==admin인 경우 */

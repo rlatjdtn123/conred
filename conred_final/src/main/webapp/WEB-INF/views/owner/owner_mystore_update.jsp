@@ -435,20 +435,200 @@
             return false;
         }
     }
-    
-    
+ 	
 	//카테고리, 메뉴관련
 	$(document).ready(function(){
+		   
+		//기존 카테고리 체크박스에 뿌려주기
+		//1.파라미터로 받은 clist 가져오기
+		//2.맞는곳에 넣어주기(for문으로)
+
+		var list1 = new Array();
+		<c:forEach items="${list_clist}" var="item_c">
+			list1.push("${item_c.category_code_small}");
+		</c:forEach>
+		
+		var list_menu = new Array();
+// 		var list_menu = new Object();
+		<c:forEach items="${list_menu}" var="item_m">
+			list_menu.push("${item_m.menu_name}");
+			list_menu.push("${item_m.menu_content}");
+			list_menu.push("${item_m.menu_price}");
+			list_menu.push("${item_m.menu_state}");
+			list_menu.push("${item_m.category_name}");
+		</c:forEach>
+		
+// 		for (var i = 0; i < list_menu.length; i++) {
+// 	 		alert(list_menu[i]);
+// 		}
+
+ 		
+// 	    for(i in object_menu){
+// 	    	for (var j = 0; j < 5; j++) {
+// 		    	console.log(object_menu[i][j]);
+// 			}
+// 	    }
+	 	
+// 		alert(list_menu[0]);
+// 	 	alert(list_menu[1]);
+// 	 	alert(list_menu[2]);
+// 	 	alert(list_menu[3]);
+		 
+		var chkbox_c=$("input:checkbox[name=category_code_small]");
+// 	 	alert(list1.length);
+// 	 	alert(chkbox_c.length);
+		
+		for (var i = 0; i < list1.length; i++) {
+// 		    alert(list1[i]);
+		    for (var j = 0; j < chkbox_c.length; j++) {
+		    	if(chkbox_c.eq(j).val()===list1[i]){
+		    		chkbox_c.eq(j).attr("checked",true);
+// 		    		cate_menu(chkbox_c.eq(j));
+		    		var smallcate =chkbox_c.eq(j).val();//체크한 박스의 소분류
+		    		var bigcate=["a","b","c","d","e","f","g","h","i"];
+		    		var bigcatetext;//체크한 박스와 일치하는 대분류의 이름
+		    		var cateval; 
+		    		for(var k in bigcate){
+		    			if(smallcate.indexOf(bigcate[k])!=-1){
+		    				cateval=bigcate[k];
+		    			}
+		    		}
+		    		switch(cateval){
+		    			case "a": bigcatetext = "동물병원";
+		    				break;
+		    			case "b": bigcatetext = "카페/식당";
+		    				break;
+		    			case "c": bigcatetext = "식품/용품";
+		    				break;
+		    			case "d": bigcatetext = "숙박";
+		    				break;
+		    			case "e": bigcatetext = "돌봄서비스";
+		    				break;
+		    			case "f": bigcatetext = "미용";
+		    				break;
+		    			case "g": bigcatetext = "체험";
+		    				break;
+		    			case "h": bigcatetext = "분양/교배";
+		    				break;
+		    			case "i": bigcatetext = "장례";
+		    				break;
+		    		}
+					
+		    		//제이쿼리로 기존값뿌려줄거면 이거
+// 		    		$("#menubigbox").append(
+// 							'<ul class="menuboxes">'+
+// 								'<li>'+
+// 								'<div class="big_cate">'+bigcatetext+' 메뉴</div>'+
+// 								'<input type="hidden" name="category_code_ex" value="'+cateval.toUpperCase()+'">'+
+// 								'<br>'+
+// 							'</li>'+
+// 							'<li>'+
+// 								'<span class="menu_name">메뉴명</span>'+
+// 								'<span class="menubox_long">설명</span>'+
+// 								'<span class="menu_price" style="width: 145px;">가격 / 예약</span>'+
+// 								'<span class="menu_name"></span>'+
+// 							'</li> '+
+// 							'<li>'+
+// 								'<input type="hidden" name="category_code_2" value="'+cateval.toUpperCase()+'">'+
+// 								'<input class="menu_name form-control" type="text" name="menu_name" value="'+"dd"+'" placeholder="메뉴명"/> '+
+// 								'<textarea rows="3" class="menubox_long form-control" type="text" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~"></textarea> '+
+// 								'<div class="menu_price">'+
+// 									'<div class="menu_price2">'+
+// 									'가격'+
+// 									' <input class="menu_price form-control" type="text" name="menu_price" placeholder="10000"/>'+
+// 									'</div>'+
+// 									'<div class="menu_reserve">'+
+// 									'예약'+
+// 									' <select class="settime form-control menu_price" name="menu_state">'+
+// 										'<option value="N">미사용</option>'+
+// 										'<option value="T">시간제</option>'+
+// 										'<option value="S">숙박제</option>'+
+// 									'</select>'+
+// 									'</div>'+
+// 								'</div>'+
+// 								'<span class="show_menu flright btn btn2 menu_price btn" >'+
+// 									'+'+
+// 								'</span>'+
+// 							'</li> '+
+// 						'</ul>');
+		    	}
+			}
+		    
+		}
+		 
+		var object_menu = new Object();
+	    var list_menu2 = new Array();
+	    <c:forEach items="${list_menu}" var="item" varStatus="i">
+		    list_menu2=[];
+		    list_menu2.push("${item.menu_name}");
+		    list_menu2.push("${item.menu_content}");
+		    list_menu2.push("${item.menu_price}");
+		    list_menu2.push("${item.menu_state}");
+		    list_menu2.push("${item.category_name}");
+		    list_menu2.push("${item.category_code}");
+		    object_menu["${i.index}"] = list_menu2;
+	    </c:forEach>
+
+// 	    for (var i = 0; i < $(".menuboxes").length; i++) {
+// 		    for(i in object_menu){
+// 		    	console.log(object_menu[i][0]);//명
+// 		    	console.log(object_menu[i][1]);//설명
+// 		    	console.log(object_menu[i][2]);//가격
+// 		    	console.log(object_menu[i][3]);//예약
+// 		    	console.log(object_menu[i][4]);//카테고리명
+// 		    	console.log(object_menu[i][5]);//카테고리코드
+				
+// 		    	//뿌려진 첫번째꺼 안에 기존것들 다 뿌려주기
+// 		    	$(".menuboxes").eq(j).append(
+// 					'<li>'+
+// 						'<div class="big_cate">'+object_menu[i][4]+' 메뉴</div>'+
+// 						'<input type="hidden" name="category_code_ex" value="'+object_menu[i][5]+'">'+
+// 						'<br>'+
+// 					'</li>'+
+// 					'<li>'+
+// 						'<span class="menu_name">메뉴명</span>'+
+// 						'<span class="menubox_long">설명</span>'+
+// 						'<span class="menu_price" style="width: 145px;">가격 / 예약</span>'+
+// 						'<span class="menu_name"></span>'+
+// 					'</li> '+
+// 					'<li>'+
+// 						'<input type="hidden" name="category_code_2" value="'+object_menu[i][5]+'">'+
+// 						'<input class="menu_name form-control" type="text" name="menu_name" value="'+"dd"+'" placeholder="메뉴명"/> '+
+// 						'<textarea rows="3" class="menubox_long form-control" type="text" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~"></textarea> '+
+// 						'<div class="menu_price">'+
+// 							'<div class="menu_price2">'+
+// 							'가격'+
+// 							' <input class="menu_price form-control" type="text" name="menu_price" placeholder="10000"/>'+
+// 							'</div>'+
+// 							'<div class="menu_reserve">'+
+// 							'예약'+
+// 							' <select class="settime form-control menu_price" name="menu_state">'+
+// 								'<option value="N">미사용</option>'+
+// 								'<option value="T">시간제</option>'+
+// 								'<option value="S">숙박제</option>'+
+// 							'</select>'+
+// 							'</div>'+
+// 						'</div>'+
+// 						'<span class="show_menu flright btn btn2 menu_price btn" >'+
+// 							'+'+
+// 						'</span>'+
+// 					'</li> ');
+// 		    }
+// 	    }
+		//기존에 있던 박스들에 값 넣어주기
 		
 		//체크했을 때 : 같은값 없으면 추가, 같은값 있으면 추가안함
 		//풀었을 때 : 같은값이 하나라도 없으면 그대로, 같은값이 하나라도 있어도 그대로
 		//		새 방안 : 체크박스의 갯수를 세어야한다. 
 		// 			추가하기:같은라인 div안에 체크된 박스가 하나라도 있다면 추가하고, 체크된 박스가 하나도 없으면 없애기
 		// 			없애기:같은라인 div안에 체크된 박스가 하나라도 있다면 안없애고, 체크된 박스가 하나도 없으면 없애기
-		$("body").on("change","input:checkbox[name=category_code_small]", function() {
+		$("body").on("click","input:checkbox[name=category_code_small]", function() {
 			//체크한 박스와 일치하는 대분류를 찾아서 대분류의 이름을 변수에 저장해주는 실행문들 ---------------------------------------------
-			
-			var smallcate =$(this).val();//체크한 박스의 소분류
+			cate_menu(this);
+		});
+		
+		function cate_menu(scate){
+			var smallcate =$(scate).val();//체크한 박스의 소분류
 			var bigcate=["a","b","c","d","e","f","g","h","i"];
 			var bigcatetext;//체크한 박스와 일치하는 대분류의 이름
 			var cateval; 
@@ -478,14 +658,17 @@
 					break;
 			}
 			//------------------------------------------------------------------------------------------
-			var scate=$(this).parent().find("input:checkbox[name=category_code_small]");
+			
+			//카테고리 체크여부에 따른 메뉴박스 표시/미표시
+			var scate_all=$(scate).parent().find("input:checkbox[name=category_code_small]");
 			var scateval=0;
-			for (var i = 0; i < scate.length; i++) {//체크된 박스와 같은라인의 체크박스들을 둘러봄
-				if(scate.eq(i).is(":checked")==true){
+// 			alert("같은줄 카테고리 갯수:"+scate_all.length);
+			for (var i = 0; i < scate_all.length; i++) {//체크된 박스와 같은라인의 체크박스들을 둘러봄
+				if(scate_all.eq(i).is(":checked")==true){
 					scateval+=1; //체크된게 하나도 없으면 0, 하나라도 있으면 0보다 큼
 				}
 			}
-// 			alert("체크된 갯수:"+scateval);
+// 			alert("체크된 갯수:"+scateval);//지금 체크된 갯수가 늘어나질 않는다.
 			if(scateval==0){//체크된 박스가 하나도 없으면 (없애기)
 // 				alert("체크된게 1개도 없어요");
 				for (var i = 0; i < $(".big_cate").length; i++) {//현재 대분류의 갯수만큼 돌면서 내가 체크한 카테박스와 같은 이름의 대분류를 지워주기
@@ -498,8 +681,10 @@
 			if(scateval==1){//체크된 박스가 하나 있으면 추가하기
 // 				alert("1개가 체크되었습니다.");
 				//지금 누른 체크박스가 체크되어있을 경우에만 해당: 체크를 풀때는 적용되지 않음
-				if($(this).is(":checked")==true){
-// 					alert("체크를 눌때 조건에 충족했으니 추가합니다.");
+// 				if($(scate).is(":checked")==true){
+// 				alert($(scate).prop("checked"));
+				if($(scate).prop("checked")==true){
+// 					alert("체크를 넣었습니다: 조건에 충족했으니 추가합니다.");
 					$("#menubigbox").append(
 							'<ul class="menuboxes">'+
 								'<li>'+
@@ -541,9 +726,7 @@
 			if(scateval>1){//체크된 박스가 2개 이상이면 아무기능도 안하기
 // 				alert("이미 1개이상 체크되어있어요.");
 			}
-			
-		});
-		
+		};
 		$("body").on("click",".show_menu", function() {
 			var cateval = $(this).parent().parent().find("input[name=category_code_ex]").val();
 // 			alert(cateval);
@@ -634,15 +817,6 @@
 		
 		
 		
-// 		$("#testform").submit(function(){
-// // 			$("input[name=store_maxman]").trigger('click') ;
-// 			$(".lastbox input").each(function(){
-// 				if($(this).val()=="0"){
-// 					$(this).val("0");
-// 				}
-// 			});
-			
-// 		});
 	});
     /////////-------------------
 </script>
@@ -952,8 +1126,8 @@
 							</ul>
 							<ul>
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[0].store_time_break eq 'Y'}">checked</c:if>/>
-									<input type="hidden" name="store_time_break" value="N"/>
+									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[0].store_time_break eq 'Y'}">checked value="Y"</c:if>/>
+									<input type="hidden" name="store_time_break" value="N" <c:if test="${list_stime[0].store_time_break eq 'Y'}">disabled="disabled"</c:if>/>
 									<span class="timebox weekbox mar_right1">월요일</span>
 									<input type="hidden" name="store_time_day" value="월요일">
 									<input id="t1" class="timebox2 ronly timepicker form-control" name="store_time_open"/> - <input id="t2" class="timebox2 ronly timepicker form-control" name="store_time_close"/>
@@ -963,50 +1137,50 @@
 									<span class="subinfo">*월요일기준</span>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[1].store_time_break eq 'Y'}">checked</c:if>/>
-									<input type="hidden" name="store_time_break" value="N"/>
+									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[1].store_time_break eq 'Y'}">checked value="Y"</c:if>/>
+									<input type="hidden" name="store_time_break" value="N" <c:if test="${list_stime[1].store_time_break eq 'Y'}">disabled="disabled"</c:if>/>
 									<span class="timebox">화요일</span>
 									<input type="hidden" name="store_time_day" value="화요일">
 									<input class="timebox2 t1 timepicker form-control" name="store_time_open" value="5"/> - <input class="timebox2 t2 timepicker form-control" name="store_time_close"/>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[2].store_time_break eq 'Y'}">checked</c:if>/>
-									<input type="hidden" name="store_time_break" value="N"/>
+									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[2].store_time_break eq 'Y'}">checked value="Y"</c:if>/>
+									<input type="hidden" name="store_time_break" value="N" <c:if test="${list_stime[2].store_time_break eq 'Y'}">disabled="disabled"</c:if>/>
 									<span class="timebox">수요일</span>
 									<input type="hidden" name="store_time_day" value="수요일">
 									<input class="timebox2 t1 timepicker form-control" name="store_time_open"/> - <input class="timebox2 t2 timepicker form-control" name="store_time_close"/>
 								</li> 
 								<li>
-									<input class="timebox " type="checkbox" name="store_time_break" <c:if test="${list_stime[3].store_time_break eq 'Y'}">checked</c:if>/>
-									<input type="hidden" name="store_time_break" value="N"/>
+									<input class="timebox " type="checkbox" name="store_time_break" <c:if test="${list_stime[3].store_time_break eq 'Y'}">checked value="Y"</c:if>/>
+									<input type="hidden" name="store_time_break" value="N" <c:if test="${list_stime[3].store_time_break eq 'Y'}">disabled="disabled"</c:if>/>
 									<span class="timebox">목요일</span>
 									<input type="hidden" name="store_time_day" value="목요일">
 									<input class="timebox2 t1 timepicker form-control" name="store_time_open"/> - <input class="timebox2 t2 timepicker form-control" name="store_time_close"/>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[4].store_time_break eq 'Y'}">checked</c:if>/>
-									<input type="hidden" name="store_time_break" value="N"/>
+									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[4].store_time_break eq 'Y'}">checked value="Y"</c:if>/>
+									<input type="hidden" name="store_time_break" value="N" <c:if test="${list_stime[4].store_time_break eq 'Y'}">disabled="disabled"</c:if>/>
 									<span class="timebox">금요일</span>
 									<input type="hidden" name="store_time_day" value="금요일">
 									<input class="timebox2 t1 timepicker form-control" name="store_time_open"/> - <input class="timebox2 t2 timepicker form-control" name="store_time_close"/>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[5].store_time_break eq 'Y'}">checked</c:if>/>
-									<input type="hidden" name="store_time_break" value="N"/>
+									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[5].store_time_break eq 'Y'}">checked value="Y"</c:if>/>
+									<input type="hidden" name="store_time_break" value="N" <c:if test="${list_stime[5].store_time_break eq 'Y'}">disabled="disabled"</c:if>/>
 									<span class="timebox">토요일</span>
 									<input type="hidden" name="store_time_day" value="토요일">
 									<input class="timebox2 timepicker form-control" name="store_time_open"/> - <input class="timebox2 timepicker form-control" name="store_time_close"/>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[6].store_time_break eq 'Y'}">checked</c:if>/>
-									<input type="hidden" name="store_time_break" value="N"/>
+									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[6].store_time_break eq 'Y'}">checked value="Y"</c:if>/>
+									<input type="hidden" name="store_time_break" value="N" <c:if test="${list_stime[6].store_time_break eq 'Y'}">disabled="disabled"</c:if>/>
 									<span class="timebox">일요일</span>
 									<input type="hidden" name="store_time_day" value="일요일">
 									<input class="timebox2 timepicker form-control" name="store_time_open"/> - <input class="timebox2 timepicker form-control" name="store_time_close"/>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[7].store_time_break eq 'Y'}">checked</c:if>/>
-									<input type="hidden" name="store_time_break" value="N"/>
+									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[7].store_time_break eq 'Y'}">checked value="Y"</c:if>/>
+									<input type="hidden" name="store_time_break" value="N" <c:if test="${list_stime[7].store_time_break eq 'Y'}">disabled="disabled"</c:if>/>
 									<span class="timebox">공휴일</span>
 									<input type="hidden" name="store_time_day" value="공휴일">
 									<input class="timebox2 timepicker form-control" name="store_time_open"/> - <input class="timebox2 timepicker form-control" name="store_time_close"/>
@@ -1142,8 +1316,266 @@
 				<div class="inputbox">
 					<div class="inputtitle">메뉴등록</div>
 					<div id="menubigbox" class="inputs">
+						<!-- 대표카테고리에 따라 큰틀 먼저 넣어주기 -->
+						<c:forEach var="i" begin="0" end="${list_menu.size()-1}" step="1">
+							<c:choose>
+								<c:when test="${i==0}">
+								<!-- 만약 맨처음이면 -->
+								<!-- ex0번째큰틀:동물병원 -->
+									<ul class="menuboxes">
+										<li>
+											<div class="big_cate">${list_menu[i].category_name}</div>
+											<input type="hidden" name="category_code_ex" value="'+cateval.toUpperCase()+'">
+											<br>
+										</li>
+										<li>
+											<span class="menu_name">메뉴명</span>
+											<span class="menubox_long">설명</span>
+											<span class="menu_price" style="width: 145px;">가격 / 예약</span>
+											<span class="menu_name"></span>
+										</li>
+										
+										<c:forEach  var="j" begin="0" end="${list_menu.size()-1}" step="1">
+										<!-- 여기부터 다른 for문으로 작은값 넣어주기 -->
+										<!-- ex초진,초진입니다,2000,T -->
+											<c:choose>
+												<c:when test="${j==0}">
+												<!-- 만약 맨처음이면 -->
+												<!-- ex0번째값만:초진 -->
+													<li>
+														<input type="hidden" name="category_code_2" value="'+cateval.toUpperCase()+'">
+														<input class="menu_name form-control" type="text" name="menu_name" value="${list_menu[j].menu_name}" placeholder="메뉴명"/> &nbsp;
+														<textarea rows="3" class="menubox_long form-control" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~">${list_menu[j].menu_content}</textarea>
+														<div class="menu_price">
+															<div class="menu_price2">
+															가격
+															<input class="menu_price form-control" type="text" name="menu_price" value="${list_menu[j].menu_price}" placeholder="10000"/>
+															</div>
+															<div class="menu_reserve">
+															예약
+															<select class="settime form-control menu_price" name="menu_state">
+																<option value="N" <c:if test="${list_menu[j].menu_state eq 'N'}">selected</c:if>>미사용</option>
+																<option value="T" <c:if test="${list_menu[j].menu_state eq 'T'}">selected</c:if>>시간제</option>
+																<option value="S" <c:if test="${list_menu[j].menu_state eq 'S'}">selected</c:if>>숙박제</option>
+															</select>
+															</div>
+														</div>
+														<span class="show_menu flright btn btn2 menu_price btn" >
+															+
+														</span>
+													</li>
+												</c:when>
+												<c:when test="${list_menu[j].category_code==list_menu[j-1].category_code}">
+												<!-- 만약 j번째의 카테고리코드가 i번째 카테고리 코드랑 같으면 -->
+												<!-- ex0번째 이후값들: 재진, s진s료s -->
+													<li>
+														<input type="hidden" name="category_code_2" value="'+cateval.toUpperCase()+'">
+														<input class="menu_name form-control" type="text" name="menu_name" value="${list_menu[j].menu_name}" placeholder="메뉴명"/> &nbsp;
+														<textarea rows="3" class="menubox_long form-control" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~">${list_menu[j].menu_content}</textarea>
+														<div class="menu_price">
+															<div class="menu_price2">
+															가격
+															<input class="menu_price form-control" type="text" name="menu_price" value="${list_menu[j].menu_price}" placeholder="10000"/>
+															</div>
+															<div class="menu_reserve">
+															예약
+															<select class="settime form-control menu_price" name="menu_state">
+																<option value="N" <c:if test="${list_menu[j].menu_state eq 'N'}">selected</c:if>>미사용</option>
+																<option value="T" <c:if test="${list_menu[j].menu_state eq 'T'}">selected</c:if>>시간제</option>
+																<option value="S" <c:if test="${list_menu[j].menu_state eq 'S'}">selected</c:if>>숙박제</option>
+															</select>
+															</div>
+														</div>
+														<span class="show_menu flright btn btn2 menu_price btn" >
+															+
+														</span>
+													</li>
+												</c:when>
+											</c:choose>
+										</c:forEach>
+										
+									</ul>
+								</c:when>
+								<c:when test="${list_menu[i].category_code!=list_menu[i-1].category_code}">
+								<!-- 새틀 -->
+									<ul class="menuboxes">
+										<li>
+											<div class="big_cate">${list_menu[i].category_name}</div>
+											<input type="hidden" name="category_code_ex" value="'+cateval.toUpperCase()+'">
+											<br>
+										</li>
+										<li>
+											<span class="menu_name">메뉴명</span>
+											<span class="menubox_long">설명</span>
+											<span class="menu_price" style="width: 145px;">가격 / 예약</span>
+											<span class="menu_name"></span>
+										</li>
+										<c:forEach  var="j" begin="0" end="${list_menu.size()-1}" step="1">
+											<!-- 여기부터 다른 for문으로 작은값 넣어주기 -->
+											<!-- ex초진,초진입니다,2000,T -->
+												<c:choose>
+													<c:when test="${i==j&&j==0}">
+													<!-- 만약 맨처음이면 -->
+													<!-- ex0번째값만:초진 -->
+														<li>
+															<input type="hidden" name="category_code_2" value="'+cateval.toUpperCase()+'">
+															<input class="menu_name form-control" type="text" name="menu_name" value="${list_menu[j].menu_name}" placeholder="메뉴명"/> &nbsp;
+															<textarea rows="3" class="menubox_long form-control" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~">${list_menu[j].menu_content}</textarea>
+															<div class="menu_price">
+																<div class="menu_price2">
+																가격
+																<input class="menu_price form-control" type="text" name="menu_price" value="${list_menu[j].menu_price}" placeholder="10000"/>
+																</div>
+																<div class="menu_reserve">
+																예약
+																<select class="settime form-control menu_price" name="menu_state">
+																	<option value="N" <c:if test="${list_menu[j].menu_state eq 'N'}">selected</c:if>>미사용</option>
+																	<option value="T" <c:if test="${list_menu[j].menu_state eq 'T'}">selected</c:if>>시간제</option>
+																	<option value="S" <c:if test="${list_menu[j].menu_state eq 'S'}">selected</c:if>>숙박제</option>
+																</select>
+																</div>
+															</div>
+															<span class="show_menu flright btn btn2 menu_price btn" >
+																+
+															</span>
+														</li>
+													</c:when>
+													<c:when test="${i==j&&list_menu[j].category_code==list_menu[j-1].category_code}">
+													<!-- 만약 j번째의 카테고리코드가 i번째 카테고리 코드랑 같으면 -->
+													<!-- ex0번째 이후값들: 재진, s진s료s -->
+														<li>
+															<input type="hidden" name="category_code_2" value="'+cateval.toUpperCase()+'">
+															<input class="menu_name form-control" type="text" name="menu_name" value="${list_menu[j].menu_name}" placeholder="메뉴명"/> &nbsp;
+															<textarea rows="3" class="menubox_long form-control" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~">${list_menu[j].menu_content}</textarea>
+															<div class="menu_price">
+																<div class="menu_price2">
+																가격
+																<input class="menu_price form-control" type="text" name="menu_price" value="${list_menu[j].menu_price}" placeholder="10000"/>
+																</div>
+																<div class="menu_reserve">
+																예약
+																<select class="settime form-control menu_price" name="menu_state">
+																	<option value="N" <c:if test="${list_menu[j].menu_state eq 'N'}">selected</c:if>>미사용</option>
+																	<option value="T" <c:if test="${list_menu[j].menu_state eq 'T'}">selected</c:if>>시간제</option>
+																	<option value="S" <c:if test="${list_menu[j].menu_state eq 'S'}">selected</c:if>>숙박제</option>
+																</select>
+																</div>
+															</div>
+															<span class="show_menu flright btn btn2 menu_price btn" >
+																+
+															</span>
+														</li>
+													</c:when>
+												</c:choose>
+											</c:forEach>
+										</ul>
+									
+									<!-- xxxxxxxxxxxxxxxxxxxxx -->
+									
+								</c:when>
+							</c:choose>
+						</c:forEach>
 					</div>
 				</div>
+				
+				<div class="inputbox">
+					<div class="inputtitle">메뉴등록</div>
+					
+					<!-- 새로짜보는중!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+					<div id="menubigbox" class="inputs">
+						
+						<!-- 메뉴 수만큼 돌아가는 for문 -->
+						<c:forEach var="i" begin="0" end="${list_menu.size()-1}" step="1">
+							
+							<c:choose>
+								<c:when test="${i==0}">
+								<!-- if 맨처음이면 -->
+									<ul class="menuboxes">
+										<li>
+											<div class="big_cate">${list_menu[i].category_name}</div>
+											<input type="hidden" name="category_code_ex" value="'+cateval.toUpperCase()+'">
+											<br>
+										</li>
+										<li>
+											<span class="menu_name">메뉴명</span>
+											<span class="menubox_long">설명</span>
+											<span class="menu_price" style="width: 145px;">가격 / 예약</span>
+											<span class="menu_name"></span>
+										</li>
+										<li>
+											<input type="hidden" name="category_code_2" value="'+cateval.toUpperCase()+'">
+											<input class="menu_name form-control" type="text" name="menu_name" value="${list_menu[i].menu_name}" placeholder="메뉴명"/> &nbsp;
+											<textarea rows="3" class="menubox_long form-control" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~">${list_menu[i].menu_content}</textarea>
+											<div class="menu_price">
+												<div class="menu_price2">
+												가격
+												<input class="menu_price form-control" type="text" name="menu_price" value="${list_menu[i].menu_price}" placeholder="10000"/>
+												</div>
+												<div class="menu_reserve">
+												예약
+												<select class="settime form-control menu_price" name="menu_state">
+													<option value="N" <c:if test="${list_menu[j].menu_state eq 'N'}">selected</c:if>>미사용</option>
+													<option value="T" <c:if test="${list_menu[j].menu_state eq 'T'}">selected</c:if>>시간제</option>
+													<option value="S" <c:if test="${list_menu[j].menu_state eq 'S'}">selected</c:if>>숙박제</option>
+												</select>
+												</div>
+											</div>
+											<span class="show_menu flright btn btn2 menu_price btn" >
+												+
+											</span>
+										</li>
+										
+									</ul>
+								</c:when>
+								<c:when test="${list_menu[i].category_code==list_menu[i-1].category_code}">
+									<div>${list_menu[i].menu_name}</div>
+								</c:when>
+								<c:when test="${list_menu[i].category_code!=list_menu[i-1].category_code}">
+								<!-- if 전카테고리!=현재카테고리 라면 새로 틀 만들기-->
+									<ul class="menuboxes">
+										<li>
+											<div class="big_cate">${list_menu[i].category_name}</div>
+											<input type="hidden" name="category_code_ex" value="'+cateval.toUpperCase()+'">
+											<br>
+										</li>
+										<li>
+											<span class="menu_name">메뉴명</span>
+											<span class="menubox_long">설명</span>
+											<span class="menu_price" style="width: 145px;">가격 / 예약</span>
+											<span class="menu_name"></span>
+										</li>
+										<li>
+											<input type="hidden" name="category_code_2" value="'+cateval.toUpperCase()+'">
+											<input class="menu_name form-control" type="text" name="menu_name" value="${list_menu[i].menu_name}" placeholder="메뉴명"/> &nbsp;
+											<textarea rows="3" class="menubox_long form-control" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~">${list_menu[i].menu_content}</textarea>
+											<div class="menu_price">
+												<div class="menu_price2">
+												가격
+												<input class="menu_price form-control" type="text" name="menu_price" value="${list_menu[i].menu_price}" placeholder="10000"/>
+												</div>
+												<div class="menu_reserve">
+												예약
+												<select class="settime form-control menu_price" name="menu_state">
+													<option value="N" <c:if test="${list_menu[i].menu_state eq 'N'}">selected</c:if>>미사용</option>
+													<option value="T" <c:if test="${list_menu[i].menu_state eq 'T'}">selected</c:if>>시간제</option>
+													<option value="S" <c:if test="${list_menu[i].menu_state eq 'S'}">selected</c:if>>숙박제</option>
+												</select>
+												</div>
+											</div>
+											<span class="show_menu flright btn btn2 menu_price btn" >
+												+
+											</span>
+										</li>
+									</ul>
+									
+									<!-- xxxxxxxxxxxxxxxxxxxxx -->
+									
+								</c:when>
+							</c:choose>
+						</c:forEach>
+					</div>
+				</div>
+				
 				<div class="inputbox lastbox">
 					<div class="inputtitle">예약관련 설정</div>
 					<div class="inputs">

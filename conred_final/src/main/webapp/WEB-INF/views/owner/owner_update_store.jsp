@@ -676,8 +676,8 @@
 							</ul>
 							<ul>
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[0].store_time_break eq 'Y'}">checked</c:if>/>
-									<input type="hidden" name="store_time_break" value="N"/>
+									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[0].store_time_break eq 'Y'}">checked value="Y"</c:if>/>
+									<input type="hidden" name="store_time_break" value="N" <c:if test="${list_stime[0].store_time_break eq 'Y'}">disabled="disabled"</c:if>/>
 									<span class="timebox weekbox mar_right1">월요일</span>
 									<input type="hidden" name="store_time_day" value="월요일">
 									<input id="t1" class="timebox2 ronly timepicker form-control" name="store_time_open"/> - <input id="t2" class="timebox2 ronly timepicker form-control" name="store_time_close"/>
@@ -687,50 +687,50 @@
 									<span class="subinfo">*월요일기준</span>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[1].store_time_break eq 'Y'}">checked</c:if>/>
-									<input type="hidden" name="store_time_break" value="N"/>
+									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[1].store_time_break eq 'Y'}">checked value="Y"</c:if>/>
+									<input type="hidden" name="store_time_break" value="N" <c:if test="${list_stime[1].store_time_break eq 'Y'}">disabled="disabled"</c:if>/>
 									<span class="timebox">화요일</span>
 									<input type="hidden" name="store_time_day" value="화요일">
 									<input class="timebox2 t1 timepicker form-control" name="store_time_open" value="5"/> - <input class="timebox2 t2 timepicker form-control" name="store_time_close"/>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[2].store_time_break eq 'Y'}">checked</c:if>/>
-									<input type="hidden" name="store_time_break" value="N"/>
+									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[2].store_time_break eq 'Y'}">checked value="Y"</c:if>/>
+									<input type="hidden" name="store_time_break" value="N" <c:if test="${list_stime[2].store_time_break eq 'Y'}">disabled="disabled"</c:if>/>
 									<span class="timebox">수요일</span>
 									<input type="hidden" name="store_time_day" value="수요일">
 									<input class="timebox2 t1 timepicker form-control" name="store_time_open"/> - <input class="timebox2 t2 timepicker form-control" name="store_time_close"/>
 								</li> 
 								<li>
-									<input class="timebox " type="checkbox" name="store_time_break" <c:if test="${list_stime[3].store_time_break eq 'Y'}">checked</c:if>/>
-									<input type="hidden" name="store_time_break" value="N"/>
+									<input class="timebox " type="checkbox" name="store_time_break" <c:if test="${list_stime[3].store_time_break eq 'Y'}">checked value="Y"</c:if>/>
+									<input type="hidden" name="store_time_break" value="N" <c:if test="${list_stime[3].store_time_break eq 'Y'}">disabled="disabled"</c:if>/>
 									<span class="timebox">목요일</span>
 									<input type="hidden" name="store_time_day" value="목요일">
 									<input class="timebox2 t1 timepicker form-control" name="store_time_open"/> - <input class="timebox2 t2 timepicker form-control" name="store_time_close"/>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[4].store_time_break eq 'Y'}">checked</c:if>/>
-									<input type="hidden" name="store_time_break" value="N"/>
+									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[4].store_time_break eq 'Y'}">checked value="Y"</c:if>/>
+									<input type="hidden" name="store_time_break" value="N" <c:if test="${list_stime[4].store_time_break eq 'Y'}">disabled="disabled"</c:if>/>
 									<span class="timebox">금요일</span>
 									<input type="hidden" name="store_time_day" value="금요일">
 									<input class="timebox2 t1 timepicker form-control" name="store_time_open"/> - <input class="timebox2 t2 timepicker form-control" name="store_time_close"/>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[5].store_time_break eq 'Y'}">checked</c:if>/>
-									<input type="hidden" name="store_time_break" value="N"/>
+									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[5].store_time_break eq 'Y'}">checked value="Y"</c:if>/>
+									<input type="hidden" name="store_time_break" value="N" <c:if test="${list_stime[5].store_time_break eq 'Y'}">disabled="disabled"</c:if>/>
 									<span class="timebox">토요일</span>
 									<input type="hidden" name="store_time_day" value="토요일">
 									<input class="timebox2 timepicker form-control" name="store_time_open"/> - <input class="timebox2 timepicker form-control" name="store_time_close"/>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[6].store_time_break eq 'Y'}">checked</c:if>/>
-									<input type="hidden" name="store_time_break" value="N"/>
+									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[6].store_time_break eq 'Y'}">checked value="Y"</c:if>/>
+									<input type="hidden" name="store_time_break" value="N" <c:if test="${list_stime[6].store_time_break eq 'Y'}">disabled="disabled"</c:if>/>
 									<span class="timebox">일요일</span>
 									<input type="hidden" name="store_time_day" value="일요일">
 									<input class="timebox2 timepicker form-control" name="store_time_open"/> - <input class="timebox2 timepicker form-control" name="store_time_close"/>
 								</li> 
 								<li>
-									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[7].store_time_break eq 'Y'}">checked</c:if>/>
-									<input type="hidden" name="store_time_break" value="N"/>
+									<input class="timebox" type="checkbox" name="store_time_break" <c:if test="${list_stime[7].store_time_break eq 'Y'}">checked value="Y"</c:if>/>
+									<input type="hidden" name="store_time_break" value="N" <c:if test="${list_stime[7].store_time_break eq 'Y'}">disabled="disabled"</c:if>/>
 									<span class="timebox">공휴일</span>
 									<input type="hidden" name="store_time_day" value="공휴일">
 									<input class="timebox2 timepicker form-control" name="store_time_open"/> - <input class="timebox2 timepicker form-control" name="store_time_close"/>
