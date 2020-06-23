@@ -69,7 +69,7 @@
 			dataType:"json", 
 			success:function(obj){				
 				var lists=obj.list; //[dto,dto,dto..]
-				$.each(lists, function(i){    		
+				$.each(lists, function(i){    					
 					addContent += '	<div class="bigtle"> '
 								+	'	<div class="mybox">   '
 									+	' 	<div class="store_img">'
@@ -78,8 +78,11 @@
 									+	' 	</div>      '
 									+	'	<img src="./img/profile_default.png" class="pf"/>'
 									+	'	<div class="info">  '
-									+	'		<button style="margin-left: 235px;" class="buttondle" onclick="updateQnA('+lists[i].qna_seq+',\'lists[i].qna_title\',\'lists[i].qna_content\',\'lists[i].qna_hide\')">수정</button> <button class="buttondle" onclick="deleteQnA('+lists[i].qna_seq+')">삭제</button> <button  class="content_detail buttondle">자세히 보기</button><br>'
-										+	'	<span>닉네임 :'+ lists[i].user_id +' &nbsp;| 가격문의 </span><br><br>   '                         
+// 									+	'		<button style="margin-left: 235px;" class="buttondle" onclick="updateQnA('+lists[i].qna_seq+',\'lists[i].qna_title\',\'lists[i].qna_content\',\'lists[i].qna_hide\')">수정</button> <button class="buttondle" onclick="deleteQnA('+lists[i].qna_seq+')">삭제</button> <button  class="content_detail buttondle">자세히 보기</button><br>'
+									+'<button style="margin-left: 235px;" class="buttondle"'
+									+'onclick="updateQnA('+lists[i].qna_seq+',\''+lists[i].qna_title+'\',\''+lists[i].qna_content+'\',\''+lists[i].qna_hide+'\')">수정</button>'
+									+'<button class="buttondle" onclick="deleteQnA('+lists[i].qna_seq+')">삭제</button> <button  class="content_detail buttondle">자세히 보기</button><br>'
+									+	'	<span>닉네임 :'+ lists[i].user_id +' &nbsp;| 가격문의 </span><br><br>   '                         
 										+	'	<div class="contents">'+ lists[i].qna_content +'</div>    '
 									+	'	</div>   ' 
 									+	'	<div class="info2">     ' 

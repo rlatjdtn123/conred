@@ -64,8 +64,8 @@
  	.star_bigtle{margin-left: 65px; float: left;}
 /*  	.upload_message{height: 40px; width: 400px;margin-left: 215px; text-align: center; line-height: 37px;} */
   	 .content_detail{background-color: #fafafa;border-width: 0;}
-	 .content_detail:hover {background-color: grey;} 
-     .star_table{width: 200px; height: 80px;background-color: #fafafa;border-radius: 5px; padding: 10px;float: left;}
+	 .content_detail:hover {background-color: grey;}  
+     .star_table{width: 200px; height: 80px;background-color: #F2F2F2;border-radius: 5px; padding: 10px;float: left;}
       .starz{width:17px;height:auto;display: inline-block;margin:-2px;margin-bottom:4px;}
       .small_star{width: 25px;height: auto;margin: -2px;margin-bottom:4px;}
       .big_star{width: 40px;height: auto;}
@@ -368,6 +368,8 @@
 	 		    	$(this).parents(".star-input03").find("b").text($checked.next().text());
 	 		    }
 	 		  });	
+	 		  
+	 		  
 		
 	    		 
 	    	}else{
@@ -566,6 +568,7 @@
 	
 	//모달 글자수제한
 	$(function(){
+		//모달 글자수제한
 		$('.reply_content').keyup(function (e){
 		    var reply_content = $(this).val();
 		    $('#counter').html("("+reply_content.length+" / 최대 200자)");  
@@ -574,7 +577,10 @@
 		        $(this).val(reply_content.substring(0, 100));
 		        $('#counter').html("(200 / 최대 200자)");  
 		    }
-		});		
+		});	
+		
+		
+		
 	})
 	
 	//삭제,자세히보기버튼
