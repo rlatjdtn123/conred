@@ -1514,9 +1514,9 @@
 												<div class="menu_reserve">
 												예약
 												<select class="settime form-control menu_price" name="menu_state">
-													<option value="N" <c:if test="${list_menu[j].menu_state eq 'N'}">selected</c:if>>미사용</option>
-													<option value="T" <c:if test="${list_menu[j].menu_state eq 'T'}">selected</c:if>>시간제</option>
-													<option value="S" <c:if test="${list_menu[j].menu_state eq 'S'}">selected</c:if>>숙박제</option>
+													<option value="N" <c:if test="${list_menu[i].menu_state eq 'N'}">selected</c:if>>미사용</option>
+													<option value="T" <c:if test="${list_menu[i].menu_state eq 'T'}">selected</c:if>>시간제</option>
+													<option value="S" <c:if test="${list_menu[i].menu_state eq 'S'}">selected</c:if>>숙박제</option>
 												</select>
 												</div>
 											</div>
@@ -1528,7 +1528,34 @@
 									</ul>
 								</c:when>
 								<c:when test="${list_menu[i].category_code==list_menu[i-1].category_code}">
-									<div>${list_menu[i].menu_name}</div>
+									<div>--</div>
+									<ul class="menuboxes">
+										<li>
+											<input type="hidden" name="category_code_2" value="'+cateval.toUpperCase()+'">
+											<input class="menu_name form-control" type="text" name="menu_name" value="${list_menu[i].menu_name}" placeholder="메뉴명"/> &nbsp;
+											<textarea rows="3" class="menubox_long form-control" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~">${list_menu[i].menu_content}</textarea>
+											<div class="menu_price">
+												<div class="menu_price2">
+												가격
+												<input class="menu_price form-control" type="text" name="menu_price" value="${list_menu[i].menu_price}" placeholder="10000"/>
+												</div>
+												<div class="menu_reserve">
+												예약
+												<select class="settime form-control menu_price" name="menu_state">
+													<option value="N" <c:if test="${list_menu[i].menu_state eq 'N'}">selected</c:if>>미사용</option>
+													<option value="T" <c:if test="${list_menu[i].menu_state eq 'T'}">selected</c:if>>시간제</option>
+													<option value="S" <c:if test="${list_menu[i].menu_state eq 'S'}">selected</c:if>>숙박제</option>
+												</select>
+												</div>
+											</div>
+											<span class="flright btn btn2 menu_price hide_menu">
+												-
+											</span>
+<!-- 											<span class="show_menu flright btn btn2 menu_price btn" > -->
+<!-- 												+ -->
+<!-- 											</span> -->
+										</li>
+									</ul>
 								</c:when>
 								<c:when test="${list_menu[i].category_code!=list_menu[i-1].category_code}">
 								<!-- if 전카테고리!=현재카테고리 라면 새로 틀 만들기-->
