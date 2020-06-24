@@ -175,8 +175,8 @@ public class SServiceImp implements ISService {
 		//매장사진 값넣기
 		SPhotoDaoImp.insertSPhoto(list);
 		//매장좌표 값변경
-//		SLocaDaoImp.insertSLoca(sdto, slocadto);
-		SLocaDaoImp.updateSLoca(sdto, slocadto);
+		SLocaDaoImp.insertSLoca(sdto, slocadto);
+//		SLocaDaoImp.updateSLoca(sdto, slocadto);
 		//매장정보 값넣기
 		SDaoImp.insertStoreInfo(sdto);
 		//위의 updateStoreInfo을 true false 리턴 안해주는 이유
@@ -303,7 +303,7 @@ public class SServiceImp implements ISService {
 	
 	//매장수정2(매장정보)
 	@Override
-	public boolean updateStoreInfo(SDto sdto, String[] time_day, String[] time_open, String[] time_close,
+	public boolean updateStoreInfo(SDto sdto, String[] time_open, String[] time_close,
 			String[] time_break, String[] store_photo_title, SLocaDto slocadto, HttpServletRequest request,
 			String[] dels,String[] store_photo_title_before,String[] before_seq,List<STimeDto> list_stime) {
 
@@ -397,16 +397,16 @@ public class SServiceImp implements ISService {
 		SDaoImp.insertStoreInfo(sdto);//얘는 얘 자체가 update문이다.
 		//return 매장시간 값넣기
 //		return STimeDaoImp.insertStime(sdto,time_day,time_open,time_close,time_break);
-		return STimeDaoImp.updateStime(sdto,time_day,time_open,time_close,time_break,list_stime);
+		return STimeDaoImp.updateStime(sdto,time_open,time_close,time_break,list_stime);
 	}
 	
 	//매장수정(완료후수정:reupdate)(매장정보 + 메뉴/서비스정보)
 		@Override
-		public boolean reupdateStore(SDto sdto, String[] time_day, String[] time_open, String[] time_close,
+		public boolean reupdateStore(SDto sdto, String[] time_open, String[] time_close,
 				String[] time_break, String[] store_photo_title, SLocaDto slocadto, HttpServletRequest request,
 				String[] dels,String[] store_photo_title_before,String[] before_seq,
 				CMainDto cmaindto,String[] clist,String[] category_code_2,String[] name,
-				String[] content,String[] price,String[] state) {
+				String[] content,String[] price,String[] state,List<STimeDto> list_stime) {
 
 			MultipartHttpServletRequest multi = (MultipartHttpServletRequest)request;
 			List<MultipartFile> fileList = multi.getFiles("photos");
@@ -485,8 +485,9 @@ public class SServiceImp implements ISService {
 			if(dels[0]!=" ") {
 				SPhotoDaoImp.deleteSPhoto(dels);
 			}
-			//매장좌표 값넣기
-			SLocaDaoImp.insertSLoca(sdto, slocadto);
+			//매장좌표 값변경
+//			SLocaDaoImp.insertSLoca(sdto, slocadto);
+			SLocaDaoImp.updateSLoca(sdto, slocadto);
 			//매장정보 값넣기
 			SDaoImp.insertStoreInfo(sdto);
 			//위의 updateStoreInfo을 true false 리턴 안해주는 이유
@@ -509,7 +510,8 @@ public class SServiceImp implements ISService {
 //			
 			
 			
-			return STimeDaoImp.insertStime(sdto,time_day,time_open,time_close,time_break);
+//			return STimeDaoImp.insertStime(sdto,time_day,time_open,time_close,time_break);
+			return STimeDaoImp.updateStime(sdto,time_open,time_close,time_break,list_stime);
 		}
 	
 	

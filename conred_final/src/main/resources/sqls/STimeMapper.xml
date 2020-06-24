@@ -26,17 +26,22 @@
 	<update id="updateSTime" parameterType="STimeDto">
 		UPDATE CON_STORE_TIME 
 		SET
-		<foreach collection="list" item="item" separator=",">
-			store_time_day = #{item.store_time_day},
-			store_time_open = #{item.store_time_open},
-			store_time_close = #{item.store_time_close},
-			store_time_break = #{item.store_time_break}
+		STORE_TIME_OPEN = case STORE_TIME_SEQ 
+		<foreach collection="list" item="item">
+			when #{item.store_time_seq} then #{item.store_time_open}
 		</foreach>
-		WHERE STORE_SEQ IN
-		<foreach collection="list" item="item" separator=",">
-			#{item.store_time_seq}
-		</foreach> 
-		
+		else STORE_TIME_OPEN end,
+		STORE_TIME_CLOSE = case STORE_TIME_SEQ 
+		<foreach collection="list" item="item">
+			when #{item.store_time_seq} then #{item.store_time_close}
+		</foreach>
+		else STORE_TIME_CLOSE end,
+		STORE_TIME_BREAK = case STORE_TIME_SEQ 
+		<foreach collection="list" item="item">
+			when #{item.store_time_seq} then #{item.store_time_break}
+		</foreach>
+		else STORE_TIME_BREAK end
+		WHERE STORE_SEQ =#{store_seq}
 	</update>
 	
 	<select id="selectSTime" parameterType="int" resultType="STimeDto">

@@ -45,22 +45,23 @@ public class STimeDaoImp implements ISTimeDao{
 	}
 
 	@Override
-	public boolean updateStime(SDto sdto,String[] time_day,String[] time_open,String[] time_close,String[] time_break,List<STimeDto> list_stime) {
+	public boolean updateStime(SDto sdto,String[] time_open,String[] time_close,String[] time_break,List<STimeDto> list_stime) {
 		int count =0;
 		List<STimeDto> list = new ArrayList<>();
 		for (int i = 0; i < time_break.length; i++) {
 			STimeDto dto=new STimeDto();
 			dto.setStore_time_seq(list_stime.get(i).getStore_time_seq());
-			dto.setStore_time_day(time_day[i]);
+//			dto.setStore_time_day(time_day[i]);
 			dto.setStore_time_open(time_open[i]);
 			dto.setStore_time_close(time_close[i]);
 			dto.setStore_time_break(time_break[i]);
 			list.add(dto);
 		}
-		//ㅇ@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@여기 sdto는 딱히 필요없으니 나중에 빼주자.
+		//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@여기 time_day는 딱히 필요없으니 나중에 빼주자.
 		System.out.println("타입업데이트 최종리스트:"+list);
 		Map<String, Object>map =new HashMap<>();
 		map.put("list", list);
+		map.put("store_seq", sdto.getStore_seq());
 		count = sqlSession.update(namespace+"updateSTime",map);
 		return count>0?true:false;
 	}

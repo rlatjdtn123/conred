@@ -556,7 +556,9 @@ public class Yoonho {
 		dels=del.split(",");
 		System.out.println(dels[0]);
 //		return ""; 
-		boolean isS=sService.updateStoreInfo(sdto,time_day,time_open,time_close,time_break,store_photo_title,slocadto,request,dels,store_photo_title_before,before_seq,list_stime);
+		boolean isS=sService.updateStoreInfo(sdto,time_open,time_close,time_break,
+				store_photo_title,slocadto,request,dels,store_photo_title_before,
+				before_seq,list_stime);
 		if(isS) {
 			System.out.println("매장정보 업데이트성공~");
 			return "redirect:owner_regist_menu.do";
@@ -763,8 +765,8 @@ public class Yoonho {
 	@RequestMapping(value = "owner_reupdate_store.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String owner_reupdate_store(Locale locale, Model model,SDto sdto, STimeDto stimedto,
 			String [] store_photo_title,String [] store_photo_title_before, String[] before_seq,
-			SLocaDto slocadto,String del, HttpServletRequest request,
-			String[] category_code_2,CMainDto cmaindto, CListDto clistdto, MenuDto menudto,RedirectAttributes redirect) {
+			SLocaDto slocadto,String del, HttpServletRequest request,String[] category_code_2,
+			CMainDto cmaindto, CListDto clistdto, MenuDto menudto,RedirectAttributes redirect) {
 		logger.info("점주: 매장수정페이지 (상세정보, 사진, 주소, 영업시간, 카테고리(대/소), 메뉴 수정) {}.", locale);
 		
 		//insert때랑 다른점:기존의 store는 그대로 수정이고,
@@ -814,7 +816,7 @@ public class Yoonho {
 		String [] time_close=stimedto.getStore_time_close().split(",");
 		String [] time_break=stimedto.getStore_time_break().split(",");
 		//얘는 기존stime각각의 seq가져올 목적
-//		List<STimeDto> list_stime =sTimeService.selectStime(sdto.getStore_seq());,STimeDto list_stime
+		List<STimeDto> list_stime =sTimeService.selectStime(sdto.getStore_seq());
 		for (int i = 0; i < time_day.length; i++) {
 			System.out.println(time_day[i]+" : "+time_open[i]+"~"+time_close[i]+"/폐점여부:"+time_break[i]); 
 		}
@@ -842,31 +844,31 @@ public class Yoonho {
 		System.out.println("sdto 허용인원:"+sdto.getStore_maxman());
 		
 		//체크한 대표카테고리
-				System.out.println("CMain 카테고리:"+cmaindto.getCategory_code());
-				//체크한 세부카테고리
-				System.out.println("CList 카테고리:"+clistdto.getCategory_code_small());
-				String [] clist=clistdto.getCategory_code_small().split(",");
-				//만든 메뉴
-				String [] name=menudto.getMenu_name().split(",");
-				String [] content=menudto.getMenu_content().split(",");
-				String [] price=menudto.getMenu_price().split(",");
-				String [] state=menudto.getMenu_state().split(",");
+			System.out.println("CMain 카테고리:"+cmaindto.getCategory_code());
+			//체크한 세부카테고리
+			System.out.println("CList 카테고리:"+clistdto.getCategory_code_small());
+			String [] clist=clistdto.getCategory_code_small().split(",");
+			//만든 메뉴
+			String [] name=menudto.getMenu_name().split(",");
+			String [] content=menudto.getMenu_content().split(",");
+			String [] price=menudto.getMenu_price().split(",");
+			String [] state=menudto.getMenu_state().split(",");
+		
+			for (int i = 0; i < category_code_2.length; i++) {
+				System.out.println
+				("메뉴 카테고리코드: "+category_code_2[i]+"/ 메뉴명:"+name[i]+"/ 내용:"+
+						content[i]+"/ 가격:"+price[i]+"/ 예약코드:"+state[i]);
+			}
 			
-				for (int i = 0; i < category_code_2.length; i++) {
-					System.out.println
-					("메뉴 카테고리코드: "+category_code_2[i]+"/ 메뉴명:"+name[i]+"/ 내용:"+
-							content[i]+"/ 가격:"+price[i]+"/ 예약코드:"+state[i]);
-				}
-				
-				System.out.println("메뉴명: "+menudto.getMenu_name());
-				System.out.println("내용: "+menudto.getMenu_content());
-				System.out.println("가격: "+menudto.getMenu_price());
-				System.out.println("예약: "+menudto.getMenu_state());
-				
+			System.out.println("메뉴명: "+menudto.getMenu_name());
+			System.out.println("내용: "+menudto.getMenu_content());
+			System.out.println("가격: "+menudto.getMenu_price());
+			System.out.println("예약: "+menudto.getMenu_state());
+			
 		//0.서비스 새로만들고 안에 같은 글 넣기
-		boolean isS=sService.reupdateStore(sdto,time_day,time_open,time_close,time_break,
+		boolean isS=sService.reupdateStore(sdto,time_open,time_close,time_break,
 				store_photo_title,slocadto,request,dels,store_photo_title_before,before_seq,
-				cmaindto,clist,category_code_2,name,content,price,state);
+				cmaindto,clist,category_code_2,name,content,price,state,list_stime);
 		//그안에 추가할것
 		//	1.대표카테고리 수정하는 dao, sdto최대인원날짜 수정하는 dao
 		//	2.기존 세부카테고리, 메뉴 지우는 기능

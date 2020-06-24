@@ -268,8 +268,10 @@
 							//3이상4이하 은
 							//3이하 동
 							var medal ="";
-							if(photo_lists[0].all_avg>=4){//금
+							if(photo_lists[0].all_avg==null){
 								medal="gold";
+							}else if(photo_lists[0].all_avg>=4){//금
+								medal="gold"; 
 							}else if(photo_lists[0].all_avg<4&&photo_lists[0].all_avg>=3){//은
 								medal="silver";
 							}else if(photo_lists[0].all_avg<3){//동
@@ -474,7 +476,9 @@
 							//3이상4이하 은
 							//3이하 동
 							var medal ="";
-							if(photo_lists[i].all_avg>=4){//금
+							if(photo_lists[i].all_avg==null||photo_lists[i].all_avg==undefined){
+								medal="gold";
+							}else if(photo_lists[i].all_avg>=4){//금
 								medal="gold";
 							}else if(photo_lists[i].all_avg<4&&photo_lists[i].all_avg>=3){//은
 								medal="silver";
