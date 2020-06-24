@@ -18,4 +18,10 @@ public interface ILikeDao {
 	
 	//매장 찜버튼
 	public LikeDto likeStore(String user_id,int store_seq);
+	
+	
+	//유저- 매장 좋아요
+	public boolean insertLike(String user_id,int store_seq);
+	//유저 -매장 좋아요 취소
+	public boolean deleteLike(String user_id,int store_seq);
 }

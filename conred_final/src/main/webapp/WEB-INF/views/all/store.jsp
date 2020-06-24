@@ -1,3 +1,6 @@
+<%@page import="com.hk.conred.dtos.UDto"%>
+<%@page import="com.hk.conred.dtos.LikeDto"%>
+<%@page import="java.util.List"%>
 <%@page import="com.hk.conred.dtos.SDto"%>
 <jsp:include page="../all/header2.jsp" />
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
@@ -148,7 +151,36 @@
     .swiper-button-next{color:grey;padding: 10px;width:auto;height:auto;border-radius: 5px;}
     .swiper-button-next:hover{background-color: #f2f2f2}
     .caption{margin-top: 350px; color:#2E2E2E;background-color:rgba(255,255,255,0.5);width: 250px;margin-left: 475px;border-radius: 5px;}
+
+	/*좋아요버튼 ================================*/
+	.store_like_button_tle{width: 200px;height: 100px; margin-top: 47px;float: right;padding-left:25px;padding-top:50px;} 
+	
+	.btn_like {position: relative;display: block;width: 44px; height: 44px;border: 1px solid #e8e8e8; border-radius: 44px;
+	font-family: notokr-bold,sans-serif;font-size: 14px;line-height: 16px;background-color: #fff;color: #DD5D54;box-shadow: 0 2px 2px 0 rgba(0,0,0,0.03);
+	transition: border .2s ease-out,box-shadow .1s ease-out,background-color .4s ease-out;cursor: pointer;}
+
+	.btn_like:hover {border: 1px solid rgba(228,89,89,0.3); background-color: rgba(228,89,89,0.02);box-shadow: 0 2px 4px 0 rgba(228,89,89,0.2);}
+	.btn_unlike .img_emoti {background-position: -30px -120px;}
+	.img_emoti {display: inline-block;overflow: hidden;font-size: 0;line-height: 0;background: url(https://mk.kakaocdn.net/dn/emoticon/static/images/webstore/img_emoti.png?v=20180410) no-repeat;
+	    text-indent: -9999px;vertical-align: top; width: 20px;height: 17px; margin-top: 1px; background-position: 0px -120px; text-indent: 0;border: 0;}
+	
+	.btn_like .ani_heart_m {margin: -63px 0 0 -63px;}
+	
+	.ani_heart_m {display: block;position: absolute; top: 50%; left: 50%; width: 125px;height: 125px;margin: -63px 0 0 -63px;pointer-events: none;}
+	
+	.ani_heart_m.hi {background-image: url(img/zzim_on_m.png);-webkit-background-size: 9000px 125px;background-size: 9000px 125px;animation: on_m 1.06s steps(72);}
+	
+	.ani_heart_m.bye {background-image: url(img/zzim_off_m.png);-webkit-background-size: 8250px 125px;background-size: 8250px 125px;animation: off_m 1.06s steps(66);} 
+	
+	.btn_like:focus { outline:none; }
+	
+	@keyframes on_m {from { background-position: 0 }to { background-position: -9000px }}
+	
+	@keyframes off_m {from { background-position: 0 }to { background-position: -8250px }}
+	/*========================================*/
+
 </style>
+<script src="js/jquery-3.4.1.js"></script>
 <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
 <script type="text/javascript">
 	$(function() {
@@ -174,9 +206,71 @@
 			}
 		}
 	});
+	
+	
+	
+	
+	////////////////////좋아요버튼
+	$(function(){
+		var session_id=$("input[name=session_id]").val();
+		var store_seq=$("input[name=store_seq]").val();
+		$('.btn_like').click(function(){ 
+			
+			if(session_id==""){
+				alert("로그인이 필요한 서비스입니다."); 
+			}else{
+				if($(this).hasClass('btn_unlike')){
+				    $(this).removeClass('btn_unlike'); //좋아요 취소
+				    $('.ani_heart_m').removeClass('hi');
+				    $('.ani_heart_m').addClass('bye'); 
+				    
+				    $.ajax({
+		 				url:"store_unlike_ajax.do",
+		 				method:"post",
+		 				data:{"user_id":session_id,"store_seq":store_seq},
+		 				dataType:"json",
+		 				success:function(obj){
+							
+		 				}
+		 			});
+				    
+				  }
+				  else{
+				    $(this).addClass('btn_unlike');	 //좋아요
+				    $('.ani_heart_m').addClass('hi'); 
+				    $('.ani_heart_m').removeClass('bye');
+				    
+				    $.ajax({
+		 				url:"store_like_ajax.do",
+		 				method:"post",
+		 				data:"",
+		 				dataType:"json",
+		 				success:function(obj){
+							
+		 				}
+		 			});
+				    
+				  }	
+			}
+		});
+	});
+	/////////////////////////////////////////////////
+	
+	
+	
+	
+	
+	
 </script>
 </head>
+<%
+	LikeDto like_dto=(LikeDto)request.getAttribute("like_dto");
+	UDto uldto=(UDto)session.getAttribute("uldto");
+	SDto store_detail=(SDto)request.getAttribute("store_detail");
+%>
 <body>
+<input type="hidden" name="session_id" value="<%=session.getAttribute("uldto")==null?"":uldto.getUser_id()%>"/>
+<input type="hidden" name="store_seq" value="<%=store_detail.getStore_seq()%>">
 <%
 	//내 (세션)sldto.getStore_seq()와 이 (파라미터)sdto.getStore_seq()가 맞는지
 	// 	SDto sdto =  >>>>>>스크립트릿에서하는법이뭐더라 jstl로 하자. 
@@ -185,7 +279,7 @@
 //			store_detail// 영업시간
 // 			list_stime// 영업시간
 // 			cmain// 대분류카테고리
-// 			list_clist// 소분류카테고리
+// 			list_clist// 소분류카테고리 
 // 			list_menu// 메뉴
 // 			list_reply// 리뷰
 //			reply_avg// 리뷰 관련 통계, 갯수
@@ -372,6 +466,30 @@
 			<div><span  class="s_phone">매장번호 :</span><span>${store_detail.store_phone}</span></div>
 			<div><span class="s_phone">담당자번호 :</span><span>${store_detail.store_phone_manager}</span></div>
 		</div>
+		
+		<%
+		if(like_dto!=null){
+		%>
+		<div class="store_like_button_tle">
+			<button type="button" class="btn_like btn_unlike">
+				<span class="img_emoti">좋아요</span>
+				<span class="ani_heart_m"></span>
+			</button>
+		</div>		
+		<%	
+		}else{
+		%>
+		<div class="store_like_button_tle">
+			<button type="button" class="btn_like">
+				<span class="img_emoti">좋아요</span>
+				<span class="ani_heart_m"></span>
+			</button>
+		</div>		
+		<%		
+		}
+		%>
+	
+	
 	</div>
 <!-- 	<hr> -->
 	<div id="infobox_timeaddr" class="section">

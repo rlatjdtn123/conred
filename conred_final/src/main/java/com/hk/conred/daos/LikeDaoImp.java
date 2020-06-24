@@ -51,4 +51,24 @@ public class LikeDaoImp implements ILikeDao{
 		return dto;
 	}
 
+	@Override
+	public boolean insertLike(String user_id, int store_seq) {
+		int count=0;
+		Map<String, Object> map=new HashMap<>();
+		map.put("user_id", user_id);
+		map.put("store_seq", store_seq);
+		count=sqlSession.insert(nameSpace+"insertLike", map);
+		return count>0?true:false;
+	}
+
+	@Override
+	public boolean deleteLike(String user_id, int store_seq) {
+		int count=0;
+		Map<String, Object> map=new HashMap<>();
+		map.put("user_id", user_id);
+		map.put("store_seq", store_seq);
+		count=sqlSession.insert(nameSpace+"deleteLike", map);
+		return count>0?true:false;
+	}
+
 }

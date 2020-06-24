@@ -748,6 +748,39 @@ public class Sungsu {
 	
 	
 	
+	@ResponseBody
+	@RequestMapping(value = "store_unlike_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String store_unlike_ajax(Locale locale, Model model,String user_id,int store_seq) {
+		logger.info("사용자 매장 좋아요 취소 {}.", locale);
+		
+		boolean isS=likeService.deleteLike(user_id, store_seq);
+		if(isS) {
+			return "Y";
+		}else {
+			return "N";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "store_like_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String store_like_ajax(Locale locale, Model model,String user_id,int store_seq) {
+		logger.info("사용자 매장 좋아요 {}.", locale);
+		boolean isS=likeService.insertLike(user_id, store_seq);
+		if(isS) {
+			return "Y";
+		}else {
+			return "N";
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

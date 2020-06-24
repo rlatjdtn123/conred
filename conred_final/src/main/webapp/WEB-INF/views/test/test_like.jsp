@@ -106,7 +106,7 @@
 			  }
 			  else{
 			    $(this).addClass('btn_unlike');
-			    $('.ani_heart_m').addClass('hi');
+			    $('.ani_heart_m').addClass('hi'); 
 			    $('.ani_heart_m').removeClass('bye');
 			  }
 			});

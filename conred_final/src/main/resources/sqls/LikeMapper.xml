@@ -33,6 +33,14 @@
 		FROM CON_LIKE 
 		WHERE USER_ID =#{user_id} AND STORE_SEQ = #{store_seq}
 	</select> 
+	
+	<insert id="insertLike" parameterType="Map">
+		INSERT INTO CON_LIKE VALUES(CON_LIKE_SEQ.NEXTVAL,#{user_id},#{store_seq})
+	</insert>
+	 
+	<delete id="deleteLike" parameterType="Map">
+		DELETE FROM CON_LIKE WHERE USER_ID =#{user_id} AND STORE_SEQ =#{store_seq}
+	</delete> 
 	 
 </mapper>
 	  
