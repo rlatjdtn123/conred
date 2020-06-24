@@ -469,7 +469,7 @@
 								store_state='<div class="storestate s_state_color2"><b>휴업중</b></div>';
 							}else if (store_lists[i].store_state==='C') {
 								store_state='<div class="storestate s_state_color3"><b>폐점</b></div>';
-							}
+							} 
 							
 							//메달색정해주기
 							//4이상 금
