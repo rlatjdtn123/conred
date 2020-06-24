@@ -15,7 +15,7 @@
 	<update id="updateSLoca" parameterType="SLocaDto">
 		UPDATE CON_STORE_LOCATION 
 		SET
-		STORE_LATITUDE = #{store_latitude}
+		STORE_LATITUDE = #{store_latitude},
 		STORE_LONGITUDE = #{store_longitude}
 		WHERE store_seq = #{store_seq}
 	</update>

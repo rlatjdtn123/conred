@@ -24,7 +24,19 @@
 	일단은 수정은 생각하지말고 하자
  -->
 	<update id="updateSTime" parameterType="STimeDto">
-	
+		UPDATE CON_STORE_TIME 
+		SET
+		<foreach collection="list" item="item" separator=",">
+			store_time_day = #{item.store_time_day},
+			store_time_open = #{item.store_time_open},
+			store_time_close = #{item.store_time_close},
+			store_time_break = #{item.store_time_break}
+		</foreach>
+		WHERE STORE_SEQ IN
+		<foreach collection="list" item="item" separator=",">
+			#{item.store_time_seq}
+		</foreach> 
+		
 	</update>
 	
 	<select id="selectSTime" parameterType="int" resultType="STimeDto">

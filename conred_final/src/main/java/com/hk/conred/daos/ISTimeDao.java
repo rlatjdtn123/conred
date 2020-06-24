@@ -11,7 +11,7 @@ public interface ISTimeDao {
 //	public boolean insertStime(STimeDto stimedto);
 	public boolean insertStime(SDto sdto,String[] time_day,String[] time_open,String[] time_close,String[] time_break);
 	//영업시간 수정s
-	public boolean updateStime(STimeDto stimedto);
+	public boolean updateStime(SDto sdto,String[] time_day,String[] time_open,String[] time_close,String[] time_break,List<STimeDto> list_stime);
 	//영업시간 조회
 	public List<STimeDto> selectStime(int store_seq);
 }

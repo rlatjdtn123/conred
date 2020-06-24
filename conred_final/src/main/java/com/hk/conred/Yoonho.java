@@ -538,7 +538,9 @@ public class Yoonho {
 		String [] time_open=stimedto.getStore_time_open().split(",");
 		String [] time_close=stimedto.getStore_time_close().split(",");
 		String [] time_break=stimedto.getStore_time_break().split(",");
-		
+		//얘는 기존stime각각의 seq가져올 목적
+		List<STimeDto> list_stime =sTimeService.selectStime(sdto.getStore_seq());
+
 		for (int i = 0; i < time_day.length; i++) {
 			System.out.println(time_day[i]+" : "+time_open[i]+"~"+time_close[i]+"/폐점여부:"+time_break[i]); 
 		}
@@ -554,7 +556,7 @@ public class Yoonho {
 		dels=del.split(",");
 		System.out.println(dels[0]);
 //		return ""; 
-		boolean isS=sService.updateStoreInfo(sdto,time_day,time_open,time_close,time_break,store_photo_title,slocadto,request,dels,store_photo_title_before,before_seq);
+		boolean isS=sService.updateStoreInfo(sdto,time_day,time_open,time_close,time_break,store_photo_title,slocadto,request,dels,store_photo_title_before,before_seq,list_stime);
 		if(isS) {
 			System.out.println("매장정보 업데이트성공~");
 			return "redirect:owner_regist_menu.do";
@@ -811,7 +813,8 @@ public class Yoonho {
 		String [] time_open=stimedto.getStore_time_open().split(",");
 		String [] time_close=stimedto.getStore_time_close().split(",");
 		String [] time_break=stimedto.getStore_time_break().split(",");
-		
+		//얘는 기존stime각각의 seq가져올 목적
+//		List<STimeDto> list_stime =sTimeService.selectStime(sdto.getStore_seq());,STimeDto list_stime
 		for (int i = 0; i < time_day.length; i++) {
 			System.out.println(time_day[i]+" : "+time_open[i]+"~"+time_close[i]+"/폐점여부:"+time_break[i]); 
 		}
@@ -848,11 +851,13 @@ public class Yoonho {
 				String [] content=menudto.getMenu_content().split(",");
 				String [] price=menudto.getMenu_price().split(",");
 				String [] state=menudto.getMenu_state().split(",");
+			
 				for (int i = 0; i < category_code_2.length; i++) {
 					System.out.println
 					("메뉴 카테고리코드: "+category_code_2[i]+"/ 메뉴명:"+name[i]+"/ 내용:"+
 							content[i]+"/ 가격:"+price[i]+"/ 예약코드:"+state[i]);
 				}
+				
 				System.out.println("메뉴명: "+menudto.getMenu_name());
 				System.out.println("내용: "+menudto.getMenu_content());
 				System.out.println("가격: "+menudto.getMenu_price());

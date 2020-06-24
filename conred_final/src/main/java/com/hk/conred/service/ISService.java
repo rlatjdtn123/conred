@@ -9,6 +9,7 @@ import com.hk.conred.dtos.CMainDto;
 import com.hk.conred.dtos.ODto;
 import com.hk.conred.dtos.SDto;
 import com.hk.conred.dtos.SLocaDto;
+import com.hk.conred.dtos.STimeDto;
 
 public interface ISService {
 //매장등록
@@ -30,7 +31,8 @@ public interface ISService {
 	//매장수정2(매장정보)
 	public boolean updateStoreInfo(SDto sdto,String[] time_day,	String[] time_open,
 			String[] time_close,String[] time_break, String[] store_photo_title,
-			SLocaDto slocadto,HttpServletRequest request,String[] dels,String[] store_photo_title_before,String[] before_seq);
+			SLocaDto slocadto,HttpServletRequest request,String[] dels,
+			String[] store_photo_title_before,String[] before_seq,List<STimeDto> list_stime);
 	
 //매장수정(등록완료 후 수정: reudpate)
 	//매장수정(매장정보+메뉴/서비스정보)

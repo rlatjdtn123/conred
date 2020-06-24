@@ -27,6 +27,7 @@ import com.hk.conred.dtos.ODto;
 import com.hk.conred.dtos.SDto;
 import com.hk.conred.dtos.SLocaDto;
 import com.hk.conred.dtos.SPhotoDto;
+import com.hk.conred.dtos.STimeDto;
 
 @Service
 public class SServiceImp implements ISService {
@@ -173,8 +174,9 @@ public class SServiceImp implements ISService {
 		
 		//매장사진 값넣기
 		SPhotoDaoImp.insertSPhoto(list);
-		//매장좌표 값넣기
-		SLocaDaoImp.insertSLoca(sdto, slocadto);
+		//매장좌표 값변경
+//		SLocaDaoImp.insertSLoca(sdto, slocadto);
+		SLocaDaoImp.updateSLoca(sdto, slocadto);
 		//매장정보 값넣기
 		SDaoImp.insertStoreInfo(sdto);
 		//위의 updateStoreInfo을 true false 리턴 안해주는 이유
@@ -303,7 +305,7 @@ public class SServiceImp implements ISService {
 	@Override
 	public boolean updateStoreInfo(SDto sdto, String[] time_day, String[] time_open, String[] time_close,
 			String[] time_break, String[] store_photo_title, SLocaDto slocadto, HttpServletRequest request,
-			String[] dels,String[] store_photo_title_before,String[] before_seq) {
+			String[] dels,String[] store_photo_title_before,String[] before_seq,List<STimeDto> list_stime) {
 
 		MultipartHttpServletRequest multi = (MultipartHttpServletRequest)request;
 		List<MultipartFile> fileList = multi.getFiles("photos");
@@ -388,13 +390,14 @@ public class SServiceImp implements ISService {
 		}
 		
 		//밑에도 다 update로 바꿔주기. --한개씩 확인하자 이번엔
-		//매장좌표 값넣기
+		//매장좌표 값변경하기
 //		SLocaDaoImp.insertSLoca(sdto, slocadto);
 		SLocaDaoImp.updateSLoca(sdto, slocadto);
 		//매장정보 값넣기
 		SDaoImp.insertStoreInfo(sdto);//얘는 얘 자체가 update문이다.
 		//return 매장시간 값넣기
-		return STimeDaoImp.insertStime(sdto,time_day,time_open,time_close,time_break);
+//		return STimeDaoImp.insertStime(sdto,time_day,time_open,time_close,time_break);
+		return STimeDaoImp.updateStime(sdto,time_day,time_open,time_close,time_break,list_stime);
 	}
 	
 	//매장수정(완료후수정:reupdate)(매장정보 + 메뉴/서비스정보)
