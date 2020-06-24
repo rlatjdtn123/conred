@@ -3,6 +3,7 @@ package com.hk.conred.service;
 import java.util.List;
 
 import com.hk.conred.dtos.LikeDto;
+import com.hk.conred.dtos.UDto;
 
 public interface ILikeService {
 
@@ -14,4 +15,7 @@ public interface ILikeService {
 	
 	//찜 목록 가게 사진 출력
 	public List<LikeDto> likeStoreImg(String user_id);
+	
+	//매장 찜버튼
+	public LikeDto likeStore(String user_id,int store_seq);
 }

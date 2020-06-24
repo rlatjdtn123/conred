@@ -28,5 +28,10 @@ public class LikeServiceImp implements ILikeService{
 	public List<LikeDto> likeStoreImg(String user_id) {
 		return likeDaoImp.likeStoreImg(user_id);
 	}
+
+	@Override
+	public LikeDto likeStore(String user_id, int store_seq) {
+		return likeDaoImp.likeStore(user_id, store_seq);
+	}
 	
 }

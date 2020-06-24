@@ -82,4 +82,30 @@ public class ReserveDaoImp implements IReserveDao{
 		return list;
 	}
 
+	@Override
+	public boolean reserveSuccess(int reserve_seq) {
+		int count=0;
+		count=sqlSession.update(nameSpace+"reserveSuccess", reserve_seq);
+		return count>0?true:false;
+	}
+
+	@Override
+	public List<ReserveDto> userOnceReview(int store_seq, String user_id) {
+		Map<String, Object> map=new HashMap<>();
+		map.put("store_seq", store_seq);
+		map.put("user_id", user_id);
+		List<ReserveDto> list=sqlSession.selectList(nameSpace+"userOnceReview", map);
+		return list;
+	}
+
+	@Override
+	public boolean userReviewSuccess(String user_id, int store_seq) {
+		int count=0;
+		Map<String, Object> map=new HashMap<>();
+		map.put("user_id", user_id);
+		map.put("store_seq", store_seq);
+		count=sqlSession.update(nameSpace+"userReviewSuccess", map);
+		return count>0?true:false;
+	}
+
 }

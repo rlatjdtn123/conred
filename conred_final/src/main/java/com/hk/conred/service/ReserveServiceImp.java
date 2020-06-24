@@ -52,4 +52,19 @@ public class ReserveServiceImp implements IReserveService{
 		return reserveDaoImp.userReservePhoto(user_id);
 	}
 
+	@Override
+	public boolean reserveSuccess(int reserve_seq) {
+		return reserveDaoImp.reserveSuccess(reserve_seq);
+	}
+
+	@Override
+	public List<ReserveDto> userOnceReview(int store_seq, String user_id) {
+		return reserveDaoImp.userOnceReview(store_seq, user_id);
+	}
+
+	@Override
+	public boolean userReviewSuccess(String user_id, int store_seq) {
+		return reserveDaoImp.userReviewSuccess(user_id, store_seq);
+	}
+
 }

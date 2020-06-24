@@ -49,7 +49,6 @@
     margin-top: 1px;
     background-position: 0px -120px;
     text-indent: 0;
-    border: 0;
 }
 
 .btn_like .ani_heart_m {
@@ -72,7 +71,6 @@
     -webkit-background-size: 9000px 125px;
     background-size: 9000px 125px;
     animation: on_m 1.06s steps(72);
-
 }
 
 .ani_heart_m.bye {
@@ -80,11 +78,7 @@
     -webkit-background-size: 8250px 125px;
     background-size: 8250px 125px;
     animation: off_m 1.06s steps(66);
-
-} 
-
-
-.btn_like:focus { outline:none; }
+}
 
 @keyframes on_m {
   from { background-position: 0 }

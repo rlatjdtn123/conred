@@ -22,10 +22,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hk.conred.dtos.RPhotoDto;
 import com.hk.conred.dtos.ReplyDto;
+import com.hk.conred.dtos.ReserveDto;
 import com.hk.conred.dtos.SDto;
 import com.hk.conred.dtos.UDto;
 import com.hk.conred.service.IRPhotoService;
 import com.hk.conred.service.IReplyService;
+import com.hk.conred.service.IReserveService;
 import com.hk.conred.service.ISService;
 
 
@@ -39,6 +41,8 @@ public class ReviewController {
 	@Autowired
 	private IRPhotoService rPhotoService;
 
+	@Autowired
+	private IReserveService reserveService;
 	
 	
 	@RequestMapping(value = "owner_mystore_review.do", method = {RequestMethod.GET,RequestMethod.POST})
@@ -50,16 +54,21 @@ public class ReviewController {
 	
 	
 	@RequestMapping(value = "review.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String review(Locale locale, Model model,@RequestParam("store_seq") int store_seq) {
+	public String review(Locale locale, Model model,@RequestParam("store_seq") int store_seq,HttpServletRequest request) {
 		logger.info("리뷰폼으로 이동  {}.", locale);
+		HttpSession session=request.getSession();
+		UDto uldto=(UDto)session.getAttribute("uldto");
 		List<ReplyDto> list=replyService.replyListStoreDetail(store_seq, 1);
 		ReplyDto list_avg=replyService.replyAvgStore(store_seq); 
 		List<RPhotoDto> list_photo=rPhotoService.reviewPhotoList(store_seq);
 		ReplyDto store_name=replyService.modalStoreName(store_seq);
+		List<ReserveDto> list_reserve=reserveService.userOnceReview(store_seq,uldto.getUser_id());
+		System.out.println("@@@@@@@@@list_reserve:::"+list_reserve);
 		model.addAttribute("list", list); 
 		model.addAttribute("list_avg", list_avg); 	
 		model.addAttribute("list_photo", list_photo); 
 		model.addAttribute("store_name", store_name);
+		model.addAttribute("list_reserve", list_reserve);
 		return "all/review";    
 	}
 	

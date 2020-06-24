@@ -152,7 +152,7 @@
 			success:function(obj){				
 				var lists=obj.list; 
 				var lists_photo=obj.list_store_img;
-				if(lists_photo==""&&lists_photo==undefined){
+					if(lists_photo==""&&lists_photo==undefined){
 					$.each(lists, function(i){    		
 						addContent += 		'<div class="bigtle">'
 											+	'<div class="mybox">'
@@ -164,7 +164,7 @@
 											 +		'<span>'+ lists[i].store_intro_simple +' </span><br><br>'
 											 	+'</div> '	   
 										 +		'<div style="margin-left: 630px; margin-top: 40px;">'
-											+ 		'<button type="button" class="btn_like btn_unlike">'
+											+ 		'<button type="button" class="btn_like btn_unlike ajaxlike">'
 													+	'<span class="img_emoti">좋아요</span>'
 													+	'<span class="ani_heart_m"></span>  '	
 											+        '</button>'
@@ -172,27 +172,9 @@
 										 	+	'</div> '
 										 	+  '</div>'
 											+'<br><br> ';
-					/////////////////////////////////////////////////////////////////
-						//AJAX쪽 찜버튼
-						$(function(){
-							$('button').click(function(){
-								var result=confirm("좋아요를 취소하시겠습니까?");
-								if(result){
-									  if($(this).hasClass('btn_unlike')){
-									    $(this).removeClass('btn_unlike');
-									    $(this).parent().find('.ani_heart_m').removeClass('hi');
-									    $(this).parent().find('.ani_heart_m').addClass('bye');
-									    var seq=$(this).parent().find("input[name=like_list_seq]").val();
-									    location.href="user_like_delete.do?like_list_seq="+seq;
-									  }			 			
-								}else{
-									
-								}
-							});
-						});
-					/////////////////////////////////////////////////////////////////////
 							}); 
 							 $('.bigbig').append(addContent);
+		 
 							}else{ 
 								$.each(lists, function(i){    		
 									addContent += '<div class="bigtle">'
@@ -206,7 +188,7 @@
 											 +		'<span>'+ lists[i].store_intro_simple +' </span><br><br>'
 											 	+'</div> '	   
 										 +		'<div style="margin-left: 630px; margin-top: 40px;">'
-											+ 		'<button type="button" class="btn_like btn_unlike">'
+											+ 		'<button type="button" class="btn_like btn_unlike ajaxlike">'
 													+	'<span class="img_emoti">좋아요</span>'
 													+	'<span class="ani_heart_m"></span>  '	
 											+        '</button>'
@@ -214,28 +196,28 @@
 										 	+	'</div> '
 										 	+  '</div>'
 											+'<br><br> ';
-							/////////////////////////////////////////////////////////////////
-								//AJAX쪽 찜버튼
-								$(function(){
-									$('button').click(function(){
-										var result=confirm("좋아요를 취소하시겠습니까?");
-										if(result){
-											  if($(this).hasClass('btn_unlike')){
-											    $(this).removeClass('btn_unlike');
-											    $(this).parent().find('.ani_heart_m').removeClass('hi');
-											    $(this).parent().find('.ani_heart_m').addClass('bye');
-											    var seq=$(this).parent().find("input[name=like_list_seq]").val();
-											    location.href="user_like_delete.do?like_list_seq="+seq;
-											  }			 			
-										}else{
-											
-										}
-									});
-								});
-							/////////////////////////////////////////////////////////////////////
 									}); 
 									 $('.bigbig').append(addContent);
+									 
+									 
+									 
 				}
+				
+				//AJAX쪽 찜버튼
+				$('.ajaxlike').click(function(){
+					var result=confirm("좋아요를 취소하시겠습니까?");
+					if(result){
+						  if($(this).hasClass('btn_unlike')){
+						    $(this).removeClass('btn_unlike');
+						    $(this).parent().find('.ani_heart_m').removeClass('hi');
+						    $(this).parent().find('.ani_heart_m').addClass('bye');
+						    var seq=$(this).parent().find("input[name=like_list_seq]").val();
+						    location.href="user_like_delete.do?like_list_seq="+seq;
+						  }			 			
+					}else{
+						
+					}
+				});
 				 
 				  
 			}
@@ -259,19 +241,19 @@
 // 		}
 		
 	//찜버튼
-	$(function(){		
-		$('button').click(function(){
+	$(function(){		 
+		$('.btn_unlike').click(function(){
 				var result=confirm("좋아요를 취소하시겠습니까?");
 				if(result){
 					  if($(this).hasClass('btn_unlike')){ 
-					    $(this).removeClass('btn_unlike');
+					    $(this).removeClass('btn_unlike');  
 					    $(this).parent().find('.ani_heart_m').removeClass('hi');
 					    $(this).parent().find('.ani_heart_m').addClass('bye');
 					    var seq=$(this).parent().find("input[name=like_list_seq]").val();
 					    location.href="user_like_delete.do?like_list_seq="+seq;
 					  }			 			
 				}else{
-					
+					 
 				}
 				
 			});

@@ -53,6 +53,20 @@
 			WHERE rn=1
 		 </select> 
 		 
+		 <update id="reserveSuccess" parameterType="Int">
+		 	UPDATE CON_RESERVE SET RESERVE_STATE ='S' WHERE RESERVE_SEQ =#{reserve_seq} 
+		 </update>
+		 
+		 <select id="userOnceReview" parameterType="Map" resultType="ReserveDto">
+		 	SELECT RESERVE_SEQ ,USER_ID ,STORE_SEQ ,RESERVE_STATE 
+			FROM CON_RESERVE 
+			WHERE STORE_SEQ =#{store_seq} AND USER_ID =#{user_id} AND RESERVE_STATE ='S'
+		 </select>
+		  
+		  
+		 <update id="userReviewSuccess" parameterType="Map">
+		 	UPDATE CON_RESERVE SET RESERVE_STATE ='N' WHERE USER_ID =#{user_id} AND STORE_SEQ =#{store_seq}
+		 </update> 
 		
 	</mapper>
 		  

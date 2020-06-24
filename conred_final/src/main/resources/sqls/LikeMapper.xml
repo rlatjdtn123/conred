@@ -28,5 +28,11 @@
 		WHERE rn =1
 	</select>
 	 
+	<select id="likeStore" parameterType="Map" resultType="LikeDto">
+		SELECT LIKE_LIST_SEQ ,USER_ID ,STORE_SEQ 
+		FROM CON_LIKE 
+		WHERE USER_ID =#{user_id} AND STORE_SEQ = #{store_seq}
+	</select> 
+	 
 </mapper>
 	  

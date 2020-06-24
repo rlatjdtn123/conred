@@ -168,12 +168,7 @@
 		 
 
 		
-		//유저리뷰사진
-// 		$("div").each(function(){
-// 			if($(".user_review_img").children().hasClass("asd")){
-// 				$(this).find(".asd").parent().addClass("img_tle");
-// 			}		  
-// 		});
+
 		  
    
 	});  
@@ -241,11 +236,27 @@
 		var rlist_length=$("input[name=rlist_length]").val();
 		for(var i=0;i<rlist_length;i++){
 			if(uReply_seq==$("input[name=rReply_seq"+i+"]").val()){ 
-			v+='<img class="asd" src="upload_rphoto/'+$("input[name=reply_photo_stored"+i+"]").val()+'" style="width: 80px;height: 80px;float:left;margin-left:40px;">';	
+			v+='<img onclick = "javascript:popupImage(this.src)" class="img_cursor" src="upload_rphoto/'+$("input[name=reply_photo_stored"+i+"]").val()+'" style="width: 80px;height: 80px;float:left;margin-left:40px;">';	
 			}
 		}
 		return v;  
 	}
+	
+	
+	//사진확대
+	function popupImage(url){
+    var img = new Image();
+    var scWidth = screen.availWidth; //현재 사용중인 스크린 크기를 구함
+    var scHeight = screen.availHeight;
+    var left = (parseInt(scWidth)-650)/1.5; //팝업창 위치 조절
+    var top = (parseInt(scHeight)-100)/3;
+    img.src = url;
+    var img_width = img.width+500 //팝업창 크기 조절
+    var win_width = img.width+500  
+    var height = img.height+500;  
+    var openImage = window.open('','_blank','width='+img_width+',height='+height+',top='+top+',left='+left+',menubars=no,scrollbars=auto');
+    openImage.document.write("<style>body{margin:0px;}</style><a href = # onclick = window.close() onfocus=this.blur()><img src = '"+url+"'width='"+win_width+"'></a>");
+  }
 
 	
 </script>     
@@ -296,6 +307,7 @@
 /* 	 .img_tle{width: 670px;height: 80px;margin-top: 120px;margin-bottom: 10px;}  */
 	 .user_review_img{width: 676px;height: auto;float: left;}
 	 .gongback{width: 265px;height: 100px;margin-left: 405px;}
+	 .img_cursor:hover {cursor: pointer;}
 	  
 	  
 </style>  
@@ -447,7 +459,7 @@
 					for(int i=0;i<rphoto_list.size();i++){
 						if(dto.getReply_seq()==rphoto_list.get(i).getReply_seq()){
 						%>	
-						<img class="asd" src="upload_rphoto/<%=rphoto_list.get(i).getReply_photo_stored()%>"style="width: 80px;margin-left:40px; height: 80px;float:left;">
+						<img onclick = "javascript:popupImage(this.src)" class="img_cursor" src="upload_rphoto/<%=rphoto_list.get(i).getReply_photo_stored()%>"style="width: 80px;margin-left:40px; height: 80px;float:left;">
 						<%
 						}else{ 
 							

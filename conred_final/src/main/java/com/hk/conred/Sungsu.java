@@ -121,10 +121,20 @@ public class Sungsu {
 	public String sungsu(Locale locale, Model model) {
 		logger.info("테스트용 푸터 접근 {}.", locale);
 		
+
 		
 		
 		return "test/sungsu"; 
 	}
+	
+	
+
+	@RequestMapping(value = "test_like.do", method = RequestMethod.GET)
+	public String test_like(Locale locale, Model model) {
+		logger.info("테스트용 찜버튼 {}.", locale);	
+		return "test/test_like"; 
+	}
+	
 	
 	
 	
@@ -418,8 +428,9 @@ public class Sungsu {
 	@RequestMapping(value = "user_reserve_success.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String user_reserve_success(String msg, Locale locale, Model model,HttpServletRequest request,String imp_uid,String merchant_uid) {
 		logger.info("유저 선택메뉴 결제{}.", locale);
-//		System.out.println(imp_uid);
-//		System.out.println(merchant_uid); 
+		System.out.println("@@@imp_uid::"+imp_uid);
+		System.out.println("@@@merchant_uid::"+merchant_uid); 
+		System.out.println("@@@msg::"+msg);
 		model.addAttribute("msg", msg);
 		return "user/user_reserve_success";  
 	}
@@ -523,100 +534,18 @@ public class Sungsu {
 	@RequestMapping(value = "test_reserve2.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public void test_reserve2(Locale locale, Model model,String imp_uid,String merchant_uid) {
 		logger.info("가맹점쪽 상황 << 여기서 해당주문건에 대한 정보 받기{}.", locale);
-		logger.info("imp_uid:"+imp_uid);
-		logger.info("주문번호:"+merchant_uid);
+		logger.info("@@imp_uid@@:"+imp_uid);
+		logger.info("@@주문번호==reserve_seq@@:"+merchant_uid);
+		int reserve_seq=Integer.parseInt(merchant_uid);
+		boolean isS=reserveService.reserveSuccess(reserve_seq);
+		System.out.println("결제성공  @@ reserve_seq:"+reserve_seq);
 		
 //		return "test/test_reserve2";  
 	}
 	
 	
-	
-	
-		
-	@RequestMapping(value = "test_menu.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String test_menu(Locale locale, Model model) {
-		logger.info("테스트 결제{}.", locale);
-		
-		return "test/test_menu";  
-	}
-	
-	@RequestMapping(value = "test_reserve_success.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String test_reserve_success(String msg, Locale locale, Model model,HttpServletRequest request,String imp_uid,String merchant_uid) {
-		logger.info("테스트 결제2{}.", locale);
-//		System.out.println(imp_uid);
-//		System.out.println(merchant_uid); 
-		model.addAttribute("msg", msg);
-		return "test/test_reserve_success";  
-	}
-	 
-	
-	@RequestMapping(value = "test_menu2.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String test_menu2(Locale locale, Model model,HttpServletRequest request) {
-		logger.info("사용자_메뉴 선택폼{}.", locale);
-//		HttpSession session=request.getSession();
-//		UDto uldto=(UDto)session.getAttribute("uldto");
-//		boolean isS=reserveService.insertReserve(uldto.getUser_id());
-//		
-//		if(isS) {
-//			
-//			return "redirect:sungsu.do";	
-//		}else {
-//			return ""; 
-//		}
-			return "";
-	} 
-	
-	
-	
-	@RequestMapping(value = "test_menu_success.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String test_menu_success(Locale locale, Model model,int reserve_seq) {
-		logger.info("사용자_예약{}.", locale);
-//		ReserveDto dto=reserveService.getReserve(reserve_seq);
-	
-		
-	
-		return "";
-	} 
-	
-	
-//	@RequestMapping(value = "test_reserve_list.do", method = {RequestMethod.GET,RequestMethod.POST})
-//	public String test_reserve_list(Locale locale, Model model,HttpServletRequest request) {
-//		logger.info("사용자_예약목록{}.", locale);
-//		HttpSession session=request.getSession();
-//		UDto uldto=(UDto)session.getAttribute("uldto");
-//		List<ReserveDto> list=reserveService.reserveList(uldto.getUser_id(),"1");
-//		model.addAttribute("list", list);
-//		
-//	 
-//		return "test/test_reserve_list"; 
-//	} 
-//	
-//	
-//	@RequestMapping(value = "test_reserve_detail.do", method = {RequestMethod.GET,RequestMethod.POST})
-//		public String test_reserve_detail(Locale locale, Model model,int reserve_seq) {
-//		logger.info("사용자_예약목록2{}.", locale);
-//		ReserveDto dto=reserveService.getReserve(reserve_seq);
-//		model.addAttribute("dto", dto);
-//		
-//		return "test/test_reserve_detail";
-//	} 
-	
-	
-	
-	@RequestMapping(value = "test_calendar.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String test_calendar(Locale locale, Model model) {
-		logger.info("캘린더 테스트{}.", locale);
-		
-
-		return "test/test_calendar";
-	} 
 
 	
-	@RequestMapping(value = "test_calendar02.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String test_calendar02(Locale locale, Model model) {
-		logger.info("캘린더 테스트2{}.", locale);
-		return "test/test_calendar02";
-	} 
 
 	
 	
@@ -705,6 +634,8 @@ public class Sungsu {
 //		System.out.println("@@@아이디::"+uldto.getUser_id()+"@@@메뉴일렬번호::"+menu_seq+"@@@가게일렬번호::"+store_seq+"@@@예약시작날짜::"+reserve_sdate+"::@@@@예약마지막날짜::"+reserve_edate+"@@@예약가격::"+reserve_price);
 //		System.out.println("@@@@@@@!!!!!!!!!!::"+reserve_price);
 		
+		
+		
 		return "redirect:index.do";
 	}
 	
@@ -748,6 +679,7 @@ public class Sungsu {
 		//리뷰사진 안넣을때
 		if(fileList.get(0).getOriginalFilename()=="") {
 			replyService.userInsertReview(uldto.getUser_id(), store_seq, reply_content, reply_service, reply_clean, reply_price); 
+			reserveService.userReviewSuccess(uldto.getUser_id(), store_seq);
 //			list=replyService.replyListStoreDetail(store_seq, 1);
 //			list_avg=replyService.replyAvgStore(store_seq); 
 //			list_photo=rPhotoService.reviewPhotoList(store_seq);
@@ -772,7 +704,7 @@ public class Sungsu {
 				//storedName
 				String createUUID=UUID.randomUUID().toString().replace("-", "");
 				String storedName=createUUID+originName.substring(originName.indexOf("."));
-				//fileSize
+			 	//fileSize
 				double fileSize=fileList.get(i).getSize();
 				
 				//path
@@ -799,6 +731,7 @@ public class Sungsu {
 			}
 			
 			rPhotoService.reviewPhotoInsert(rPhoto_list);
+			reserveService.userReviewSuccess(uldto.getUser_id(), store_seq);
 //			list=replyService.replyListStoreDetail(store_seq, 1);
 //			list_avg=replyService.replyAvgStore(store_seq);
 //			list_photo=rPhotoService.reviewPhotoList(store_seq);

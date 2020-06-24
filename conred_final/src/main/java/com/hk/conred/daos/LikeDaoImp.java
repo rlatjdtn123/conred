@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.hk.conred.dtos.LikeDto;
+import com.hk.conred.dtos.UDto;
 
 @Repository
 public class LikeDaoImp implements ILikeDao{
@@ -38,6 +39,16 @@ public class LikeDaoImp implements ILikeDao{
 	public List<LikeDto> likeStoreImg(String user_id) {
 		List<LikeDto> list=sqlSession.selectList(nameSpace+"likeStoreImg", user_id);
 		return list;
+	}
+
+	@Override
+	public LikeDto likeStore(String user_id, int store_seq) {
+		LikeDto dto=null;
+		Map<String, Object> map=new HashMap<>();
+		map.put("user_id", user_id);
+		map.put("store_seq", store_seq);
+		dto=sqlSession.selectOne(nameSpace+"likeStore", map);
+		return dto;
 	}
 
 }

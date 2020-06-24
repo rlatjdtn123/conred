@@ -1,3 +1,4 @@
+<%@page import="com.hk.conred.dtos.ReserveDto"%>
 <%@page import="com.hk.conred.dtos.UDto"%>
 <%@page import="com.hk.conred.dtos.RPhotoDto"%>
 <%@page import="com.hk.conred.dtos.SDto"%>
@@ -96,8 +97,8 @@
 	.nologin{border: 0;margin-left: 528px;}
 	.onlogin{margin-left: 475px;border: 0;}
 	.nologin:hover {background-color: grey;}
-	.onlogin:hover {background-color: grey;}
-	
+	.onlogin:hover {background-color: grey;  }
+	.img_cursor:hover {cursor: pointer;}
 	
 </style>   
 <script type="text/javascript">
@@ -367,8 +368,10 @@
 	 		  
 		
 	    		 
+	    	}else if($(".modal_Btn").val()==2){
+		    	alert("서비스 이용후 댓글을 남기실수 있습니다.");	    		
 	    	}else{
-		    	var yesNo=confirm("로그인 후에 작성 가능합니다. \n\n로그인 하시겠습니까?");
+	    		var yesNo=confirm("로그인 후에 작성 가능합니다. \n\n로그인 하시겠습니까?");
 	    		if(yesNo){
 	    			location.href="login.do";
 	    		}else{
@@ -549,7 +552,7 @@
 		
 		for(var i=0;i<photo_length;i++){  
 			if(reply_seq==$("input[name=preply_seq"+i+"]").val()){
-			v+='<img src="upload_rphoto/'+$("input[name=reply_photo_stored"+i+"]").val()+'" style="width: 80px;height: 80px;float: left;margin-left: 10px;">';						
+			v+='<img class="img_cursor" onclick = "javascript:popupImage(this.src)" src="upload_rphoto/'+$("input[name=reply_photo_stored"+i+"]").val()+'" style="width: 80px;height: 80px;float: left;margin-left: 10px;">';						
 			}    
 		}   
 		return v;
@@ -640,8 +643,20 @@
  	
     
     /////////-------------------
-	
-	
+	//사진확대
+	function popupImage(url){
+    var img = new Image();
+    var scWidth = screen.availWidth; //현재 사용중인 스크린 크기를 구함
+    var scHeight = screen.availHeight;
+    var left = (parseInt(scWidth)-650)/1.5; //팝업창 위치 조절
+    var top = (parseInt(scHeight)-100)/3;
+    img.src = url;
+    var img_width = img.width+500 //팝업창 크기 조절
+    var win_width = img.width+500  
+    var height = img.height+500;  
+    var openImage = window.open('','_blank','width='+img_width+',height='+height+',top='+top+',left='+left+',menubars=no,scrollbars=auto');
+    openImage.document.write("<style>body{margin:0px;}</style><a href = # onclick = window.close() onfocus=this.blur()><img src = '"+url+"'width='"+win_width+"'></a>");
+  }
 	
 	
 	
@@ -653,6 +668,7 @@
 	List<RPhotoDto> list_photo=(List<RPhotoDto>)request.getAttribute("list_photo");
 	UDto uldto=(UDto)session.getAttribute("uldto");
 	ReplyDto store_name=(ReplyDto)request.getAttribute("store_name");
+	List<ReserveDto> list_reserve=(List<ReserveDto>)request.getAttribute("list_reserve");
 %>
 <body>
 <input type="hidden" name="photo_length" value="<%=list_photo.size()%>">
@@ -766,28 +782,7 @@
 		</div> 
 	</div>
 </form>
-<!--   사진 확대 모달      -->
-<!--   <div class="modal fade" id="closeUp" role="dialog">  -->
-<!--     <div class="modal-dialog"> -->
-<!--       Modal content -->
-<!--       <div class="modal-content"> -->
-<!--         <div class="modal-header"> -->
-<!--           <button type="button" class="close" data-dismiss="modal">×</button> -->
-<!--           <h4 class="modal-title">모달 창 타이틀</h4>  -->
-<!--         </div> -->
-<!--         <div class="modal-body"> -->
-<!--           <p>여기에 필요한 텍스트 메시지 넣기</p> -->
-<!--         </div> -->
-<!--         <div class="modal-footer"> -->
-<!--           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-<!--         </div> -->
-<!--       </div> -->
-<!--     </div> -->
-<!--   </div> -->
-<!--  -->
-<%-- <input type="hidden" name="zz" value="<%=list_photo.get(0).getReply_photo_stored()%>"/> --%>
 <div id="container"> 
-<!-- 	<div class="asdasd"></div>  -->
 	<div id="main">
 		<span id="main2">리뷰&nbsp;<%for(int i=0;i<Math.floor(list_avg.getAll_avg());i++){
 				%>
@@ -813,10 +808,16 @@
 			<button class="modal_Btn">리뷰 작성</button>
 			<%
 		}else if(uldto!=null){ 
+			if(list_reserve==null||list_reserve.size()==0){
+			%>
+			<button class="modal_Btn" value="2">리뷰 작성</button>
+			<%  
+			}else{ 
 			%>
 			<button class="modal_Btn" value="1">리뷰 작성</button>
 			<%
-		}
+			} 
+		} 
 		%>
 		<br/><br/>
 		<table>
@@ -991,7 +992,7 @@
 						if(dto.getReply_seq()==list_photo.get(i).getReply_seq()){
 						%> 
 <%-- 						<div style="background: url('upload_rphoto/<%=list_photo.get(i).getReply_photo_stored()%>');width: 80px;height: 80px;background-size: 80px 80px;background-repeat: no-repeat;float:left;margin-left:10px;"></div> --%>
-						<img src="upload_rphoto/<%=list_photo.get(i).getReply_photo_stored()%>" style="width: 80px;height: 80px;float: left;margin-left: 10px;">
+						<img class="img_cursor" onclick = "javascript:popupImage(this.src)" src="upload_rphoto/<%=list_photo.get(i).getReply_photo_stored()%>" style="width: 80px;height: 80px;float: left;margin-left: 10px;">
 						<%							
 						}    
 					} 
@@ -1013,7 +1014,7 @@
 					<span><%=dto.getReply_answer()%></span>										
 				<%
 				}
-				%>
+				%> 
 			</div> 
 		</div>   
 	</div>      
