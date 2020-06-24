@@ -1126,6 +1126,7 @@
 									<input class="timebox2 t1 timepicker form-control" name="store_time_open"/> - <input class="timebox2 t2 timepicker form-control" name="store_time_close"/>
 								</li> 
 								<li>
+
 									<input class="timebox " type="checkbox" name="store_time_break" <c:if test="${list_stime[3].store_time_break eq 'Y'}">checked value="Y"</c:if>/>
 									<input type="hidden" name="store_time_break" value="N" <c:if test="${list_stime[3].store_time_break eq 'Y'}">disabled="disabled"</c:if>/>
 									<span class="timebox">목요일</span>

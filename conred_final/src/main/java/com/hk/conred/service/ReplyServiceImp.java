@@ -54,4 +54,9 @@ public class ReplyServiceImp implements IReplyService{
 		return replyDao.modalStoreName(store_seq);
 	}
 
+	@Override
+	public boolean adminInsertReview(int store_seq) {
+		return replyDao.adminInsertReview(store_seq);
+	}
+
 }

@@ -11,8 +11,6 @@
 		VALUES(CON_REPLY_SEQ.NEXTVAL,#{user_id},#{store_seq},#{reply_content},#{reply_clean},#{reply_price},#{reply_service},NULL,'N',sysdate,'N')
 	</insert> 
 	
-	
-	
 	<select id="replyList" parameterType="Map" resultType="ReplyDto">
 		SELECT cr.rn,cr.STORE_SEQ,REPLY_SEQ ,USER_ID  ,REPLY_CONTENT  ,REPLY_CLEAN ,REPLY_PRICE ,REPLY_SERVICE ,REPLY_ANSWER ,REPLY_READ ,REPLY_REGDATE ,REPLY_DELFLAG,cs.STORE_NAME 
 		FROM (SELECT ROW_NUMBER()OVER(ORDER BY REPLY_REGDATE DESC) AS rn,STORE_SEQ,USER_ID ,REPLY_CONTENT ,REPLY_SEQ ,REPLY_CLEAN ,REPLY_PRICE ,REPLY_SERVICE ,REPLY_ANSWER ,REPLY_READ ,REPLY_REGDATE ,REPLY_DELFLAG
@@ -67,6 +65,10 @@
 	<select id="modalStoreName" parameterType="Int" resultType="ReplyDto">
 		SELECT store_name FROM con_store WHERE store_seq=#{store_seq}
 	</select>
-	
+		
+	<insert id="adminInsertReview" parameterType="Map">
+		INSERT INTO CON_REPLY 
+		VALUES(CON_REPLY_SEQ.NEXTVAL,'admin',#{store_seq},'상당히 멋진 매장이네요!',5,5,5,NULL,'N',sysdate,'N')
+	</insert>
 </mapper>
 	 

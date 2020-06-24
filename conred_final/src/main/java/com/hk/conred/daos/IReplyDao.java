@@ -29,4 +29,7 @@ public interface IReplyDao {
 	
 	//8. 리뷰 모달창 매장명
 	public ReplyDto modalStoreName(int store_seq);
+	
+	//9.매장 등록시 리뷰 등록 - 관리자:매장에대한 첫 평점과 리뷰글 등록(최초 평점값 넣기-몇가지오류방지됨)
+	public boolean adminInsertReview(int store_seq);
 }

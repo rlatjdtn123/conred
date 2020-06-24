@@ -82,5 +82,12 @@ public class ReplyDaoImp implements IReplyDao{
 		ReplyDto store_name=sqlSession.selectOne(nameSpace+"modalStoreName", store_seq);
 		return store_name;
 	}
+
+	@Override
+	public boolean adminInsertReview(int store_seq) {
+		int count= 0;
+		count =sqlSession.insert(nameSpace+"adminInsertReview",store_seq);
+		return count>0?true:false;
+	}
 	
 }

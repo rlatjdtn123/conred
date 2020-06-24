@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.hk.conred.daos.ICListDao;
 import com.hk.conred.daos.ICMainDao;
 import com.hk.conred.daos.IMenuDao;
+import com.hk.conred.daos.IReplyDao;
 import com.hk.conred.daos.ISDao;
 import com.hk.conred.daos.ISLocaDao;
 import com.hk.conred.daos.ISPhotoDao;
@@ -46,6 +47,8 @@ public class SServiceImp implements ISService {
 	private ISPhotoDao SPhotoDaoImp;
 	@Autowired
 	private ISLocaDao SLocaDaoImp;
+	@Autowired
+	private IReplyDao ReplyDaoImp;
 	
 	//매장등록(사업자등록정보)
 	@Override
@@ -192,6 +195,7 @@ public class SServiceImp implements ISService {
 		SDaoImp.updateStoreMenu(sdto);
 		CMainDaoImp.insertCMain(cmaindto);
 		CListDaoImp.insertCList(sdto, clist);
+		ReplyDaoImp.adminInsertReview((int)sdto.getStore_seq());
 //		MenuDaoImp.insertMenu(sdto, category_code_2, name, content, price, state);
 		return MenuDaoImp.insertMenu(sdto, category_code_2, name, content, price, state);
 	}

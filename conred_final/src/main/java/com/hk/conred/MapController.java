@@ -276,18 +276,18 @@ public class MapController {
 				}else if(catelist.get(i).getStore_seq()!=catelist.get(i-1).getStore_seq()){//직전 seq와 틀리다면
 					box = box.substring(0, box.length()-3);
 					catenamelist.add(box);
-					System.out.println("중간끝");
-					System.out.println(i+box);
+//					System.out.println("중간끝");
+//					System.out.println(i+box);
 					box="";
 					box+=catelist.get(i).getCategory_name_small()+" | ";
 				}
 				if(i==catelist.size()-1) {//마지막이라면 이제까지것 저장(뒤에세글자제외하고)
 					box = box.substring(0, box.length()-3);
 					catenamelist.add(box);
-					System.out.println("완전끝");
-					System.out.println(i+box);
+//					System.out.println("완전끝");
+//					System.out.println(i+box);
 				}
-				System.out.println(i+box);
+//				System.out.println(i+box);
 			}
 			System.out.println("catenamelist:"+catenamelist);
 

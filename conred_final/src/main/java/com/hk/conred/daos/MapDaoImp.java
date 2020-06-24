@@ -73,7 +73,7 @@ public class MapDaoImp implements IMapDao{
 	@Override
 	public List<SPhotoDto> getPhotos_ajax(List<SDto> list) {
 		Map<String, Object> map = new HashMap<>();
-		System.out.println(list.get(0).getStore_seq());
+		System.out.println("photo뽑을때 첫번째 매장의 seq:"+list.get(0).getStore_seq());
 		
 		map.put("list", list);
 		return sqlSession.selectList(namespace+"getPhotos_ajax",map);
