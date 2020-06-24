@@ -708,8 +708,8 @@ public class Yoonho {
 		model.addAttribute("s_seq",store_seq);//내 매장인지/타인 매장인지 여부 확인용
 		model.addAttribute("sldto",sldto);//스토어정보 세션
 		
-		//LikeDto like_dto=likeService.likeStore(udto.getUser_id(), store_seq);
-		//model.addAttribute("like_dto", like_dto);
+		LikeDto like_dto=likeService.likeStore(udto.getUser_id(), store_seq);
+		model.addAttribute("like_dto", like_dto);
 		
 		return "all/store"; 
 	}
