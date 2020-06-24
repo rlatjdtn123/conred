@@ -9,4 +9,6 @@ public interface ICListDao {
 	public boolean insertCList(SDto sdto,String[] clist);
 	
 	public List<CListDto> selectCList(int store_seq);
+	
+	public boolean deleteCList(SDto sdto);
 }

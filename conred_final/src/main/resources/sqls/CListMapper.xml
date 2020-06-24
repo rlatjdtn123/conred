@@ -22,7 +22,10 @@
 			AND STORE_SEQ =#{store_seq}
 		]]>
 	</select>
-<!-- 			SELECT * -->
-<!-- 			FROM CON_CATEGORY_LIST -->
-<!-- 			WHERE store_seq=#{store_seq} -->
+	
+	<delete id="deleteCList" parameterType="SDto">
+		DELETE FROM CON_CATEGORY_LIST ccl  
+		WHERE STORE_SEQ =#{store_seq}
+	</delete>
+ 		
 </mapper>

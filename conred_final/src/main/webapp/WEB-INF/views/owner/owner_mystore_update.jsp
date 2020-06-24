@@ -188,6 +188,7 @@
 <script type="text/javascript">
 	//store_info관련
 	$(document).ready(function(){
+		
 		var fileTarget = $('.filebox .upload-hidden');
 		fileTarget.on('change', function(){
 			// 값이 변경되면
@@ -438,16 +439,36 @@
  	
 	//카테고리, 메뉴관련
 	$(document).ready(function(){
+		
 		//기존카테고리 체크박스에서 카테고리당 중복메뉴1개씩 없애버리기
 		//각 .menuboxes안의 li.length가 5개 이상(와 같거나 많으면)이면
 		//li.eq(4번째)를 remove
 // 		alert($(".menuboxes").length);
 		for (var i = 0; i < $(".menuboxes").length; i++) {
-			if($(".menuboxes").eq(i).find("li").length>4){
+			if($(".menuboxes").eq(i).find("li").length>3){
 // 				alert("4개넘음!!");
 				$(".menuboxes").eq(i).find("li").eq(3).remove();
 			}
 		}
+		//예외경우: 메뉴가 1개밖에 없는 매장의 경우 4개가 넘지 않고 딱 4개이다.
+		//메뉴2개있으면 총 5개라서 
+		//메뉴2개이상짜리
+		//li(1)
+		//li(2)
+		//li(3)메뉴1
+		//li(4)메뉴1
+		//li(5)메뉴2
+		//li(6)메뉴3
+		//이렇게되어있어서 li(4)번째를 지워주면되는데
+		//1개짜리일경우 
+		//li(1)
+		//li(2)
+		//li(3)메뉴1
+		//li(4)메뉴1
+		//이렇게 되어있어서 5개가 안넘어서 실행안됨
+		//만약 4개때부터 지워주면
+		//ㅇㅏ 되는구 ㄴ ㅏ
+		
 		
 		
 		
@@ -471,21 +492,6 @@
 			list_menu.push("${item_m.category_name}");
 		</c:forEach>
 		
-// 		for (var i = 0; i < list_menu.length; i++) {
-// 	 		alert(list_menu[i]);
-// 		}
-
- 		
-// 	    for(i in object_menu){
-// 	    	for (var j = 0; j < 5; j++) {
-// 		    	console.log(object_menu[i][j]);
-// 			}
-// 	    }
-	 	
-// 		alert(list_menu[0]);
-// 	 	alert(list_menu[1]);
-// 	 	alert(list_menu[2]);
-// 	 	alert(list_menu[3]);
 		 
 		var chkbox_c=$("input:checkbox[name=category_code_small]");
 // 	 	alert(list1.length);
@@ -496,7 +502,6 @@
 		    for (var j = 0; j < chkbox_c.length; j++) {
 		    	if(chkbox_c.eq(j).val()===list1[i]){
 		    		chkbox_c.eq(j).attr("checked",true);
-// 		    		cate_menu(chkbox_c.eq(j));
 		    		var smallcate =chkbox_c.eq(j).val();//체크한 박스의 소분류
 		    		var bigcate=["a","b","c","d","e","f","g","h","i"];
 		    		var bigcatetext;//체크한 박스와 일치하는 대분류의 이름
@@ -527,60 +532,12 @@
 		    				break;
 		    		}
 					
-		    		//제이쿼리로 기존값뿌려줄거면 이거
-// 		    		$("#menubigbox").append(
-// 							'<ul class="menuboxes">'+
-// 								'<li>'+
-// 								'<div class="big_cate">'+bigcatetext+' 메뉴</div>'+
-// 								'<input type="hidden" name="category_code_ex" value="'+cateval.toUpperCase()+'">'+
-// 								'<br>'+
-// 							'</li>'+
-// 							'<li>'+
-// 								'<span class="menu_name">메뉴명</span>'+
-// 								'<span class="menubox_long">설명</span>'+
-// 								'<span class="menu_price" style="width: 145px;">가격 / 예약</span>'+
-// 								'<span class="menu_name"></span>'+
-// 							'</li> '+
-// 							'<li>'+
-// 								'<input type="hidden" name="category_code_2" value="'+cateval.toUpperCase()+'">'+
-// 								'<input class="menu_name form-control" type="text" name="menu_name" value="'+"dd"+'" placeholder="메뉴명"/> '+
-// 								'<textarea rows="3" class="menubox_long form-control" type="text" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~"></textarea> '+
-// 								'<div class="menu_price">'+
-// 									'<div class="menu_price2">'+
-// 									'가격'+
-// 									' <input class="menu_price form-control" type="text" name="menu_price" placeholder="10000"/>'+
-// 									'</div>'+
-// 									'<div class="menu_reserve">'+
-// 									'예약'+
-// 									' <select class="settime form-control menu_price" name="menu_state">'+
-// 										'<option value="N">미사용</option>'+
-// 										'<option value="T">시간제</option>'+
-// 										'<option value="S">숙박제</option>'+
-// 									'</select>'+
-// 									'</div>'+
-// 								'</div>'+
-// 								'<span class="show_menu flright btn btn2 menu_price btn" >'+
-// 									'+'+
-// 								'</span>'+
-// 							'</li> '+
-// 						'</ul>');
+		    		
 		    	}
 			}
 		    
 		}
-		 
-		var object_menu = new Object();
-	    var list_menu2 = new Array();
-	    <c:forEach items="${list_menu}" var="item" varStatus="i">
-		    list_menu2=[];
-		    list_menu2.push("${item.menu_name}");
-		    list_menu2.push("${item.menu_content}");
-		    list_menu2.push("${item.menu_price}");
-		    list_menu2.push("${item.menu_state}");
-		    list_menu2.push("${item.category_name}");
-		    list_menu2.push("${item.category_code}");
-		    object_menu["${i.index}"] = list_menu2;
-	    </c:forEach>
+
 
 // 	    for (var i = 0; i < $(".menuboxes").length; i++) {
 // 		    for(i in object_menu){
@@ -790,6 +747,13 @@
 		//만약 메뉴등록에서 예약 셀렉트박스에 시간제, 숙박제가 있다가 없어질 경우
 		//readonly 다시 주기
 		$("body").on("change",".settime",function(){
+			settime();
+		});
+		//온로드시에도 실행
+		settime();
+		
+		function settime(){
+			
 			var n=0;
 			var t=0;
 			var s=0;
@@ -826,9 +790,7 @@
 				$("input[name=store_maxman]").attr("readonly","readonly");
 				$("input[name=store_maxman]").css("background-color","#f2f2f2");
 			}
-		});
-		
-		
+		}
 		
 	});
     /////////-------------------
@@ -846,7 +808,7 @@
 			<div class="navis2" onclick="location.href='store.do?store_seq=${sdto.store_seq}'">
 				매장 홈
 			</div>
-			<div class="navis2 home" onclick="location.href='owner_mystore_update.do'">
+			<div class="navis2 home" onclick="location.href=location.href='owner_toReupdate_store.do'">
 				매장정보 수정
 			</div>
 			<div class="navis2" onclick="location.href='owner_mystore_reservation.do'">
@@ -1001,7 +963,7 @@
   </div>
 </div>
 
-	<form id="udtform" action="owner_update_store.do" method="post" enctype="multipart/form-data">
+	<form id="udtform" action="owner_reupdate_store.do" method="post" enctype="multipart/form-data">
 		<div id="tle">
 			<div id="regist" class="testmod">
 				매장 정보 수정
@@ -1329,7 +1291,7 @@
 				
 				
 				<div class="inputbox">
-					<div class="inputtitle">메뉴등록3333333333</div><!-- 두번째새로짠거 333333333333333333333333333333333333333333333333333333333-->
+					<div class="inputtitle">메뉴등록</div>
 					
 					<!-- 새로짜보는중333!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 					<div id="menubigbox" class="inputs">
@@ -1344,7 +1306,7 @@
 									<ul class="menuboxes">
 										<li>
 											<div class="big_cate">${list_menu[i].category_name}</div>
-											<input type="hidden" name="category_code_ex" value="'+cateval.toUpperCase()+'">
+											<input type="hidden" name="category_code_ex" value="${list_menu[i].category_code}">
 											<br>
 										</li>
 										<li>
@@ -1354,7 +1316,7 @@
 											<span class="menu_name"></span>
 										</li>
 										<li>
-											<input type="hidden" name="category_code_2" value="'+cateval.toUpperCase()+'">
+											<input type="hidden" name="category_code_2" value="${list_menu[i].category_code}">
 											<input class="menu_name form-control" type="text" name="menu_name" value="${list_menu[i].menu_name}" placeholder="메뉴명"/>
 											<textarea rows="3" class="menubox_long form-control" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~">${list_menu[i].menu_content}</textarea>
 											<div class="menu_price">
@@ -1365,9 +1327,9 @@
 												<div class="menu_reserve">
 												예약
 												<select class="settime form-control menu_price" name="menu_state">
-													<option value="N" <c:if test="${list_menu[i].menu_state eq 'N'}">selected</c:if>>11미사용</option>
-													<option value="T" <c:if test="${list_menu[i].menu_state eq 'T'}">selected</c:if>>11시간제</option>
-													<option value="S" <c:if test="${list_menu[i].menu_state eq 'S'}">selected</c:if>>11숙박제</option>
+													<option value="N" <c:if test="${list_menu[i].menu_state eq 'N'}">selected</c:if>>미사용</option>
+													<option value="T" <c:if test="${list_menu[i].menu_state eq 'T'}">selected</c:if>>시간제</option>
+													<option value="S" <c:if test="${list_menu[i].menu_state eq 'S'}">selected</c:if>>숙박제</option>
 												</select>
 												</div>
 											</div>
@@ -1378,11 +1340,9 @@
 										<c:forEach var="j" begin="0" end="${list_menu.size()-1}" step="1">
 										<!-- 첫 카테고리의 2번째 메뉴부터 출력 -->
 											<c:choose>
-												<c:when test="${j==0}">
-												</c:when>
 												<c:when test="${list_menu[i].category_code==list_menu[j].category_code}">
 													<li>
-														<input type="hidden" name="category_code_2" value="'+cateval.toUpperCase()+'">
+														<input type="hidden" name="category_code_2" value="${list_menu[j].category_code}">
 														<input class="menu_name form-control" type="text" name="menu_name" value="${list_menu[j].menu_name}" placeholder="메뉴명"/>
 														<textarea rows="3" class="menubox_long form-control" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~">${list_menu[j].menu_content}</textarea>
 														<div class="menu_price">
@@ -1393,9 +1353,9 @@
 															<div class="menu_reserve">
 															예약
 															<select class="settime form-control menu_price" name="menu_state">
-																<option value="N" <c:if test="${list_menu[j].menu_state eq 'N'}">selected</c:if>>22미사용</option>
-																<option value="T" <c:if test="${list_menu[j].menu_state eq 'T'}">selected</c:if>>22시간제</option>
-																<option value="S" <c:if test="${list_menu[j].menu_state eq 'S'}">selected</c:if>>22숙박제</option>
+																<option value="N" <c:if test="${list_menu[j].menu_state eq 'N'}">selected</c:if>>미사용</option>
+																<option value="T" <c:if test="${list_menu[j].menu_state eq 'T'}">selected</c:if>>시간제</option>
+																<option value="S" <c:if test="${list_menu[j].menu_state eq 'S'}">selected</c:if>>숙박제</option>
 															</select>
 															</div>
 														</div>
@@ -1414,7 +1374,7 @@
 									<ul class="menuboxes">
 										<li>
 											<div class="big_cate">${list_menu[i].category_name}</div>
-											<input type="hidden" name="category_code_ex" value="'+cateval.toUpperCase()+'">
+											<input type="hidden" name="category_code_ex" value="${list_menu[i].category_code}">
 											<br>
 										</li>
 										<li>
@@ -1424,7 +1384,7 @@
 											<span class="menu_name"></span>
 										</li>
 										<li>
-											<input type="hidden" name="category_code_2" value="'+cateval.toUpperCase()+'">
+											<input type="hidden" name="category_code_2" value="${list_menu[i].category_code}">
 											<input class="menu_name form-control" type="text" name="menu_name" value="${list_menu[i].menu_name}" placeholder="메뉴명"/>
 											<textarea rows="3" class="menubox_long form-control" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~">${list_menu[i].menu_content}</textarea>
 											<div class="menu_price">
@@ -1435,9 +1395,9 @@
 												<div class="menu_reserve">
 												예약
 												<select class="settime form-control menu_price" name="menu_state">
-													<option value="N" <c:if test="${list_menu[i].menu_state eq 'N'}">selected</c:if>>33미사용</option>
-													<option value="T" <c:if test="${list_menu[i].menu_state eq 'T'}">selected</c:if>>33시간제</option>
-													<option value="S" <c:if test="${list_menu[i].menu_state eq 'S'}">selected</c:if>>33숙박제</option>
+													<option value="N" <c:if test="${list_menu[i].menu_state eq 'N'}">selected</c:if>>미사용</option>
+													<option value="T" <c:if test="${list_menu[i].menu_state eq 'T'}">selected</c:if>>시간제</option>
+													<option value="S" <c:if test="${list_menu[i].menu_state eq 'S'}">selected</c:if>>숙박제</option>
 												</select>
 												</div>
 											</div>
@@ -1450,7 +1410,7 @@
 											<c:choose>
 												<c:when test="${list_menu[i].category_code==list_menu[j].category_code}">
 													<li>
-														<input type="hidden" name="category_code_2" value="'+cateval.toUpperCase()+'">
+														<input type="hidden" name="category_code_2" value="${list_menu[j].category_code}">
 														<input class="menu_name form-control" type="text" name="menu_name" value="${list_menu[j].menu_name}" placeholder="메뉴명"/>
 														<textarea rows="3" class="menubox_long form-control" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~">${list_menu[j].menu_content}</textarea>
 														<div class="menu_price">
@@ -1461,9 +1421,9 @@
 															<div class="menu_reserve">
 															예약
 															<select class="settime form-control menu_price" name="menu_state">
-																<option value="N" <c:if test="${list_menu[j].menu_state eq 'N'}">selected</c:if>>22미사용</option>
-																<option value="T" <c:if test="${list_menu[j].menu_state eq 'T'}">selected</c:if>>22시간제</option>
-																<option value="S" <c:if test="${list_menu[j].menu_state eq 'S'}">selected</c:if>>22숙박제</option>
+																<option value="N" <c:if test="${list_menu[j].menu_state eq 'N'}">selected</c:if>>미사용</option>
+																<option value="T" <c:if test="${list_menu[j].menu_state eq 'T'}">selected</c:if>>시간제</option>
+																<option value="S" <c:if test="${list_menu[j].menu_state eq 'S'}">selected</c:if>>숙박제</option>
 															</select>
 															</div>
 														</div>
@@ -1489,13 +1449,13 @@
 				<div class="inputbox lastbox">
 					<div class="inputtitle">예약관련 설정</div>
 					<div class="inputs">
-						<div>※최대 예약일 : <input type="number" min="0" max="180" name="store_maxdate" placeholder="0" value="0" readonly/>일</div>
+						<div>※최대 예약일 : <input type="number" min="0" max="180" name="store_maxdate" value="${sdto.store_maxdate}" placeholder="0" value="0" readonly/>일</div>
 						<div class="subinfo">*최대 몇 일까지 예약 가능한가요? 1박2일의 경우 : 2일</div>
 						<div class="subinfo">*숙박제 예약메뉴가 있는경우에 한해 작성가능합니다.</div>
 						<div class="subinfo">*모든 숙박제에 공통으로 적용됩니다.</div>
 						<div class="subinfo">*최대 1개월(30일)까지 작성할 수 있습니다.</div>
 						<br>
-						<div>※시간당 최대 허용인원 : <input type="number" min="0" max="200" name="store_maxman" placeholder="0" value="0" readonly/>명</div>
+						<div>※시간당 최대 허용인원 : <input type="number" min="0" max="200" name="store_maxman" value="${sdto.store_maxman}" placeholder="0" value="0" readonly/>명</div>
 						<div class="subinfo">*한시간에 몇 명의 예약을 받을 수 있나요?</div>
 						<div class="subinfo">*시간제 예약메뉴가 있는경우에 한해 작성가능합니다.</div>
 						<div class="subinfo">*모든 숙박제에 공통으로 적용됩니다.</div>
@@ -1505,7 +1465,6 @@
 			
 				<br>
 					<div id="bot" class="flright" >
-						<input class="btn greenbtn" value="이전 단계로" onclick="location.href='owner_toUpdate_store.do'" type="button"/>
 						<input class="btn redbtn" value="취소" onclick="location.href='index.jsp'" type="button"/>
 						<input class="btn greenbtn" value="입점신청" type="submit"/>
 					</div>

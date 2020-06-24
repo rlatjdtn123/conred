@@ -8,4 +8,6 @@ public interface ICMainDao {
 	public boolean insertCMain(CMainDto cmaindto);
 	//대표카테고리 조회
 	public CMainDto selectCMain(int store_seq);
+	//대표카테고리 수정
+	public boolean updateCMain(CMainDto cmaindto);
 }

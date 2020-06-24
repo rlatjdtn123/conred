@@ -26,4 +26,11 @@ public class CMainDaoImp implements ICMainDao {
 		return sqlSession.selectOne(namespace+"selectCMain",store_seq);
 	}
 
+	@Override
+	public boolean updateCMain(CMainDto cmaindto) {
+		int count =0;
+		count=sqlSession.update(namespace+"updateCMain",cmaindto);
+		return count>0?true:false;
+	}
+
 }

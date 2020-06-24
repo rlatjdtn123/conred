@@ -21,13 +21,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hk.conred.daos.IQnaDao;
 import com.hk.conred.dtos.CListDto;
 import com.hk.conred.dtos.CMainDto;
+import com.hk.conred.dtos.LikeDto;
 import com.hk.conred.dtos.MenuDto;
 import com.hk.conred.dtos.ODto;
 import com.hk.conred.dtos.QnaDto;
@@ -39,6 +42,7 @@ import com.hk.conred.dtos.STimeDto;
 import com.hk.conred.dtos.UDto;
 import com.hk.conred.service.ICListService;
 import com.hk.conred.service.ICMainService;
+import com.hk.conred.service.ILikeService;
 import com.hk.conred.service.IMapService;
 import com.hk.conred.service.IMenuService;
 import com.hk.conred.service.IOService;
@@ -74,6 +78,8 @@ public class Yoonho {
 	private ISPhotoService sPhotoService;
 	@Autowired
 	private IMapService mapService;
+	@Autowired
+	private ILikeService likeService;
 	
 	@RequestMapping(value = "yoonho.do", method = RequestMethod.GET)
 	public String yoonho(Locale locale, Model model) {
@@ -479,46 +485,11 @@ public class Yoonho {
 		model.addAttribute("list_sloca",list_sloca);// 매장좌표
 		return "owner/owner_update_store";
 	}
-	
-	@RequestMapping(value = "owner_toReupdate_store.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String owner_toReupdate_store(Locale locale, Model model, SDto sdto, HttpServletRequest request) {
-		logger.info("점주: 매장수정2-1(상세정보, 사진, 주소, 영업시간 수정 폼으로 이동(일단 도중수정ver)) {}.", locale);
-		HttpSession session=request.getSession();
-		ODto odto= (ODto)session.getAttribute("oldto");
-		SDto seq =sService.selectStoreSeq(odto);
-		System.out.println(seq);
-		System.out.println("sdto seq:"+seq.getStore_seq());
-		List<STimeDto> list_stime =sTimeService.selectStime(seq.getStore_seq());
-		System.out.println("list_stime : "+list_stime);
-		List<SPhotoDto> list_sphoto = sPhotoService.selectSPhoto(seq.getStore_seq());
-		System.out.println("list_sphoto : "+list_sphoto);
-		List<SDto> list = new ArrayList<SDto>();
-		list.add(seq);
-		List<SLocaDto> list_sloca= mapService.getSloca_ajax(list);
-		System.out.println("list_sloca:"+list_sloca);
-		
-		//cmain, clist, menu
-		CMainDto cmain =cMainService.selectCMain(seq.getStore_seq());
-		System.out.println("cmain:"+cmain);
-		List<CListDto> list_clist =cListService.selectCList(seq.getStore_seq());
-		System.out.println("list_clist:"+list_clist);
-		List<MenuDto> list_menu =menuService.selectMenu(seq.getStore_seq());
-		System.out.println("list_menu:"+list_menu);
-		
-		model.addAttribute("sdto",seq);//store_info정보
-		model.addAttribute("list_stime",list_stime);// 영업시간
-		model.addAttribute("list_sphoto",list_sphoto);// 매장사진
-		model.addAttribute("list_sloca",list_sloca);// 매장좌표
-		model.addAttribute("cmain",cmain);// 대분류카테고리
-		model.addAttribute("list_clist",list_clist);// 소분류카테고리
-		model.addAttribute("list_menu",list_menu);// 메뉴
-		return "owner/owner_mystore_update";
-		
-		
-	}
-	
+
 	@RequestMapping(value = "owner_update_store.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String owner_update_store(Locale locale, Model model,SDto sdto, STimeDto stimedto,String [] store_photo_title,String [] store_photo_title_before, String[] before_seq,SLocaDto slocadto,String del, HttpServletRequest request) {
+	public String owner_update_store(Locale locale, Model model,SDto sdto,
+			STimeDto stimedto,String [] store_photo_title,String [] store_photo_title_before,
+			String[] before_seq,SLocaDto slocadto,String del, HttpServletRequest request) {
 		logger.info("점주: 매장수정2-2 (상세정보, 사진, 주소, 영업시간 수정) {}.", locale);
 		
 		//insert때랑 다른점:기존의 store는 그대로 수정이고,
@@ -593,6 +564,8 @@ public class Yoonho {
 		}	
 	}
 	
+
+	
 	
 	@RequestMapping(value = "owner_regist_menu.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String owner_regist_menu(Locale locale, Model model,HttpServletRequest request) {
@@ -606,7 +579,8 @@ public class Yoonho {
 	}
 	
 	@RequestMapping(value = "owner_insert_menu.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String owner_insert_menu(Locale locale, Model model,String[] category_code_2, SDto sdto, CMainDto cmaindto, CListDto clistdto, MenuDto menudto, HttpServletRequest request/*,String store_maxdate*/) {
+	public String owner_insert_menu(Locale locale, Model model,String[] category_code_2, SDto sdto,
+			CMainDto cmaindto, CListDto clistdto, MenuDto menudto, HttpServletRequest request) {
 		logger.info("점주: 매장등록3-2 (카테고리, 메뉴 입력)+(입점신청) {}.", locale);
 		
 		//세션에서 id정보 가져오기(store_seq구하기용)
@@ -620,13 +594,7 @@ public class Yoonho {
 		clistdto.setStore_seq(seq.getStore_seq());//각 dto안에 store_seq값 넣어주기
 		menudto.setStore_seq(seq.getStore_seq());//각 dto안에 store_seq값 넣어주기
 		
-		sdto.setStore_seq(seq.getStore_seq());
-//		if(sdto.getStore_maxdate()==0) {
-//			sdto.setStore_maxdate(0);
-//		}
-//		if(sdto.getStore_maxman()==0) {
-//			sdto.setStore_maxdate(0);
-//		}
+//		sdto.setStore_seq(seq.getStore_seq());
 		System.out.println("sdto에 넣은 store_seq값: "+sdto.getStore_seq());
 		System.out.println("sdto 최대일수:"+sdto.getStore_maxdate());
 		System.out.println("sdto 허용인원:"+sdto.getStore_maxman());
@@ -652,7 +620,7 @@ public class Yoonho {
 		System.out.println("예약: "+menudto.getMenu_state());
 		
 //		return "";
-		boolean isS=sService.updateStoreMenu(sdto,cmaindto,clist,category_code_2,name,content,price,state);
+		boolean isS=sService.insertStoreMenu(sdto,cmaindto,clist,category_code_2,name,content,price,state);
 		if(isS) {
 			System.out.println("메뉴정보 업데이트성공~");
 //			seq =sService.selectStoreSeq(odto);
@@ -686,11 +654,13 @@ public class Yoonho {
 	}
 
 	@RequestMapping(value = "store.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String store(Locale locale, Model model,int store_seq, HttpServletRequest request) {
+	public String store(Locale locale, Model model,@RequestParam("store_seq") int store_seq, HttpServletRequest request) {
 		logger.info("(일렬번호 : "+store_seq+")번 매장(사용자별 매장)으로 이동  {}.", locale);
 		
 		HttpSession session = request.getSession();
 		ODto odto =(ODto)session.getAttribute("oldto");
+		UDto udto =(UDto)session.getAttribute("uldto");
+
 		SDto sldto =null;//초기값널
 		if (odto!=null) {
 			System.out.println("점주 로그인정보가 있습니다. 점주의 store_seq를 빼오겠습니다.");
@@ -738,6 +708,9 @@ public class Yoonho {
 		model.addAttribute("s_seq",store_seq);//내 매장인지/타인 매장인지 여부 확인용
 		model.addAttribute("sldto",sldto);//스토어정보 세션
 		
+		//LikeDto like_dto=likeService.likeStore(udto.getUser_id(), store_seq);
+		//model.addAttribute("like_dto", like_dto);
+		
 		return "all/store"; 
 	}
 	
@@ -746,6 +719,176 @@ public class Yoonho {
 		logger.info("매장 업데이트 폼으로 이동  {}.", locale);
 		
 		return "owner/owner_mystore_update"; 
+	}
+	
+	@RequestMapping(value = "owner_toReupdate_store.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String owner_toReupdate_store(Locale locale, Model model, SDto sdto, HttpServletRequest request) {
+		logger.info("점주: 매장수정2-1(상세정보, 사진, 주소, 영업시간 수정 폼으로 이동(일단 도중수정ver)) {}.", locale);
+		HttpSession session=request.getSession();
+		ODto odto= (ODto)session.getAttribute("oldto");
+		SDto seq =sService.selectStoreSeq(odto);
+		System.out.println(seq);
+		System.out.println("sdto seq:"+seq.getStore_seq());
+		List<STimeDto> list_stime =sTimeService.selectStime(seq.getStore_seq());
+		System.out.println("list_stime : "+list_stime);
+		List<SPhotoDto> list_sphoto = sPhotoService.selectSPhoto(seq.getStore_seq());
+		System.out.println("list_sphoto : "+list_sphoto);
+		List<SDto> list = new ArrayList<SDto>();
+		list.add(seq);
+		List<SLocaDto> list_sloca= mapService.getSloca_ajax(list);
+		System.out.println("list_sloca:"+list_sloca);
+		
+		//cmain, clist, menu
+		CMainDto cmain =cMainService.selectCMain(seq.getStore_seq());
+		System.out.println("cmain:"+cmain);
+		List<CListDto> list_clist =cListService.selectCList(seq.getStore_seq());
+		System.out.println("list_clist:"+list_clist);
+		List<MenuDto> list_menu =menuService.selectMenu(seq.getStore_seq());
+		System.out.println("list_menu:"+list_menu);
+		
+		model.addAttribute("sdto",seq);//store_info정보
+		model.addAttribute("list_stime",list_stime);// 영업시간
+		model.addAttribute("list_sphoto",list_sphoto);// 매장사진
+		model.addAttribute("list_sloca",list_sloca);// 매장좌표
+		model.addAttribute("cmain",cmain);// 대분류카테고리
+		model.addAttribute("list_clist",list_clist);// 소분류카테고리
+		model.addAttribute("list_menu",list_menu);// 메뉴
+		return "owner/owner_mystore_update";
+		
+		
+	}
+
+	@RequestMapping(value = "owner_reupdate_store.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String owner_reupdate_store(Locale locale, Model model,SDto sdto, STimeDto stimedto,
+			String [] store_photo_title,String [] store_photo_title_before, String[] before_seq,
+			SLocaDto slocadto,String del, HttpServletRequest request,
+			String[] category_code_2,CMainDto cmaindto, CListDto clistdto, MenuDto menudto,RedirectAttributes redirect) {
+		logger.info("점주: 매장수정페이지 (상세정보, 사진, 주소, 영업시간, 카테고리(대/소), 메뉴 수정) {}.", locale);
+		
+		//insert때랑 다른점:기존의 store는 그대로 수정이고,
+		//stime, sloca, sphoto만 insert아닌 update개념으로 바뀐다.
+		
+		//세션에서 id정보 가져오기(store_seq구하기용)
+		HttpSession session=request.getSession();
+		ODto odto= (ODto)session.getAttribute("oldto");
+		SDto seq =sService.selectStoreSeq(odto);
+		if(store_photo_title!=null) {
+			for (int i = 0; i < store_photo_title.length; i++) {
+				System.out.println(i+"번째 사진이름: "+store_photo_title[i]);
+			}
+		}
+		if(store_photo_title_before!=null) {
+			for (int i = 0; i < store_photo_title_before.length; i++) {
+				System.out.println(i+"번째 기존사진seq: "+before_seq[i]);
+				System.out.println(i+"번째 기존사진이름: "+store_photo_title_before[i]);
+			}
+		}
+		System.out.println("세션에서가져온sdto2의 store_seq값: "+seq.getStore_seq());
+		sdto.setStore_seq(seq.getStore_seq());
+		System.out.println("sdto에 넣은 store_seq값: "+sdto.getStore_seq());
+
+		System.out.println("sdto 매장명:"+sdto.getStore_name());
+		System.out.println("sdto 매장홈피링크:"+sdto.getStore_path());
+		System.out.println("sdto 간단소개:"+sdto.getStore_intro_simple());
+		System.out.println("sdto 상세소개:"+sdto.getStore_intro());
+		System.out.println("sdto 영업상태:"+sdto.getStore_state());
+		System.out.println("sdto 매장번호:"+sdto.getStore_phone());
+		System.out.println("sdto 담당자번호:"+sdto.getStore_phone_manager());
+		System.out.println("sdto 주소:"+sdto.getStore_address());
+		System.out.println("sdto 상세주소:"+sdto.getStore_address_detail());
+		System.out.println("sdto 영업시간 기타사항:"+sdto.getStore_time_other());
+		System.out.println("sdto 은행명:"+sdto.getStore_bank());
+		System.out.println("sdto 계좌번호:"+sdto.getStore_account());
+//		System.out.println("배열로받아온 요일:"+store_time_day.toString());
+		
+		stimedto.setStore_seq(seq.getStore_seq());
+		System.out.println("매장번호:"+stimedto.getStore_seq());
+		System.out.println("요일:"+stimedto.getStore_time_day());
+		System.out.println("개점시간:"+stimedto.getStore_time_open());
+		System.out.println("폐점시간:"+stimedto.getStore_time_close());
+		System.out.println("휴무여부:"+stimedto.getStore_time_break());
+		String [] time_day=stimedto.getStore_time_day().split(",");
+		String [] time_open=stimedto.getStore_time_open().split(",");
+		String [] time_close=stimedto.getStore_time_close().split(",");
+		String [] time_break=stimedto.getStore_time_break().split(",");
+		
+		for (int i = 0; i < time_day.length; i++) {
+			System.out.println(time_day[i]+" : "+time_open[i]+"~"+time_close[i]+"/폐점여부:"+time_break[i]); 
+		}
+		
+		System.out.println("위도 lat:"+slocadto.getStore_latitude());
+		System.out.println("경도 lng:"+slocadto.getStore_longitude());
+		
+		System.out.println(del);
+		String [] dels=null;
+		if(del==null||del=="") {
+			del=" ";
+		}
+		dels=del.split(",");
+		System.out.println("삭제되는사진수:"+dels[0]);
+//		return ""; 
+		
+		//여기에 추가할것
+		//0_1.일단 화면에서 값가져오기
+		cmaindto.setStore_seq(seq.getStore_seq());//각 dto안에 store_seq값 넣어주기
+		clistdto.setStore_seq(seq.getStore_seq());//각 dto안에 store_seq값 넣어주기
+		menudto.setStore_seq(seq.getStore_seq());//각 dto안에 store_seq값 넣어주기
+		
+		System.out.println("sdto에 넣은 store_seq값: "+sdto.getStore_seq());
+		System.out.println("sdto 최대일수:"+sdto.getStore_maxdate());
+		System.out.println("sdto 허용인원:"+sdto.getStore_maxman());
+		
+		//체크한 대표카테고리
+				System.out.println("CMain 카테고리:"+cmaindto.getCategory_code());
+				//체크한 세부카테고리
+				System.out.println("CList 카테고리:"+clistdto.getCategory_code_small());
+				String [] clist=clistdto.getCategory_code_small().split(",");
+				//만든 메뉴
+				String [] name=menudto.getMenu_name().split(",");
+				String [] content=menudto.getMenu_content().split(",");
+				String [] price=menudto.getMenu_price().split(",");
+				String [] state=menudto.getMenu_state().split(",");
+				for (int i = 0; i < category_code_2.length; i++) {
+					System.out.println
+					("메뉴 카테고리코드: "+category_code_2[i]+"/ 메뉴명:"+name[i]+"/ 내용:"+
+							content[i]+"/ 가격:"+price[i]+"/ 예약코드:"+state[i]);
+				}
+				System.out.println("메뉴명: "+menudto.getMenu_name());
+				System.out.println("내용: "+menudto.getMenu_content());
+				System.out.println("가격: "+menudto.getMenu_price());
+				System.out.println("예약: "+menudto.getMenu_state());
+				
+		//0.서비스 새로만들고 안에 같은 글 넣기
+		boolean isS=sService.reupdateStore(sdto,time_day,time_open,time_close,time_break,
+				store_photo_title,slocadto,request,dels,store_photo_title_before,before_seq,
+				cmaindto,clist,category_code_2,name,content,price,state);
+		//그안에 추가할것
+		//	1.대표카테고리 수정하는 dao, sdto최대인원날짜 수정하는 dao
+		//	2.기존 세부카테고리, 메뉴 지우는 기능
+		//  3.세부카테고리, 메뉴 insert하는 기능 복붙
+				
+//		return "";
+		
+		if(isS) {
+			System.out.println("매장정보 re업데이트성공~");
+			redirect.addAttribute("store_seq",sdto.getStore_seq());  
+			return "redirect:owner_reupdate_finish.do";
+		}else{
+			System.out.println("매장정보 re업데이트실패~");
+			return ""; 
+		}	
+	}
+	
+	
+	
+	@RequestMapping(value = "owner_reupdate_finish.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String owner_reupdate_finish(Locale locale, Model model,@RequestParam("store_seq") int store_seq,RedirectAttributes redirect) {
+		logger.info("매장정보 re업데이트완료  {}.", locale);
+//		redirect.addAttribute("store_seq",store_seq);  
+//		return "redirect:store.do"; 
+		
+		model.addAttribute("store_seq",store_seq);
+		return "owner/owner_reupdate_finish"; 
 	}
 	
 	@RequestMapping(value = "owner_mystore_reservation.do", method = {RequestMethod.GET,RequestMethod.POST})

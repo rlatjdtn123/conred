@@ -22,6 +22,15 @@ public class SLocaDaoImp implements ISLocaDao{
 		count=sqlSession.insert(namespace+"insertSLoca",slocadto);
 		return count>0?true:false;
 	}
+
+	@Override
+	public boolean updateSLoca(SDto sdto, SLocaDto slocadto) {
+		int count=0;
+		slocadto.setStore_seq(sdto.getStore_seq());
+		count=sqlSession.update(namespace+"updateSLoca",slocadto);
+		return count>0?true:false;
+	}
+	
 	
 	
 	

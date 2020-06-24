@@ -44,6 +44,11 @@
 		WHERE cm.STORE_SEQ =cs.STORE_SEQ AND cm.STORE_SEQ=cst.STORE_SEQ AND cm.MENU_SEQ =#{menu_seq} AND cm.STORE_SEQ =#{store_seq} AND cst.STORE_TIME_DAY =#{store_time_day}		
 	</select>
 	
+	<delete id="deleteMenu" parameterType="SDto">
+		DELETE FROM CON_MENU cm  
+		WHERE STORE_SEQ =#{store_seq}
+	</delete>
+ 		
 </mapper>
 	 
 	 

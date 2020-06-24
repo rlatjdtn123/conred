@@ -184,7 +184,7 @@ public class SServiceImp implements ISService {
 	//매장등록3(메뉴/서비스정보)
 	@Transactional
 	@Override
-	public boolean updateStoreMenu(SDto sdto,CMainDto cmaindto,
+	public boolean insertStoreMenu(SDto sdto,CMainDto cmaindto,
 			String[] clist,String[] category_code_2,String[] name,
 			String[] content,String[] price,String[] state) {//아직미구현
 		SDaoImp.updateStoreMenu(sdto);
@@ -386,17 +386,128 @@ public class SServiceImp implements ISService {
 		if(dels[0]!=" ") {
 			SPhotoDaoImp.deleteSPhoto(dels);
 		}
+		
+		//밑에도 다 update로 바꿔주기. --한개씩 확인하자 이번엔
 		//매장좌표 값넣기
-		SLocaDaoImp.insertSLoca(sdto, slocadto);
+//		SLocaDaoImp.insertSLoca(sdto, slocadto);
+		SLocaDaoImp.updateSLoca(sdto, slocadto);
 		//매장정보 값넣기
-		SDaoImp.insertStoreInfo(sdto);
-		//위의 updateStoreInfo을 true false 리턴 안해주는 이유
-		//	>>어차피 여기서 오류나면 밑에 return은 실행되지않으니, 실행되면 true라는걸 알 수 있다.s
+		SDaoImp.insertStoreInfo(sdto);//얘는 얘 자체가 update문이다.
+		//return 매장시간 값넣기
 		return STimeDaoImp.insertStime(sdto,time_day,time_open,time_close,time_break);
 	}
 	
-	//매장수정3(메뉴/서비스정보)
-	
+	//매장수정(완료후수정:reupdate)(매장정보 + 메뉴/서비스정보)
+		@Override
+		public boolean reupdateStore(SDto sdto, String[] time_day, String[] time_open, String[] time_close,
+				String[] time_break, String[] store_photo_title, SLocaDto slocadto, HttpServletRequest request,
+				String[] dels,String[] store_photo_title_before,String[] before_seq,
+				CMainDto cmaindto,String[] clist,String[] category_code_2,String[] name,
+				String[] content,String[] price,String[] state) {
+
+			MultipartHttpServletRequest multi = (MultipartHttpServletRequest)request;
+			List<MultipartFile> fileList = multi.getFiles("photos");
+			
+			//1.매장정보 수정111111111111111111111111111111111111111111111111111111111111111111111111111111111
+			
+			//삽입●●●●●●●●●●●●●●●●●●●●ㅇㅋ
+			List<SPhotoDto> list = new ArrayList<>();
+			System.out.println(fileList.size());
+			if(store_photo_title!=null) {
+		//		for (MultipartFile mf : fileList) {
+				for (int i = 0; i < fileList.size(); i++) {
+					SPhotoDto sphotodto = new SPhotoDto();
+					//originName
+		//			String originName=mf.getOriginalFilename(); //상향된 for문 이용시
+					String originName=fileList.get(i).getOriginalFilename();
+					System.out.println("원본파일명:"+originName);
+					
+					//storedName
+					String createUUid=UUID.randomUUID().toString().replaceAll("-", "");
+					String storedName = createUUid+originName.substring(originName.indexOf("."));
+					System.out.println("저장파일명:"+storedName);
+					
+					//fileSize
+		//			double fileSize=mf.getSize(); //상향된 for문 이용시
+					double fileSize=fileList.get(i).getSize();
+					System.out.println("파일사이즈:"+fileSize);
+		//			String fileSize=Long.toString(mf.getSize()); //String으로 형변환하려면
+					
+					System.out.println(store_photo_title[i]);
+					
+					String path = request.getSession().getServletContext().getRealPath("upload_sphoto/");
+					System.out.println("가져온 경로:"+path);
+		//			String path="C:/Users/hkedu/git/conred/conred_final/src/main/webapp/upload_sphoto/";
+					File file = new File(path+storedName);
+					
+					System.out.println("sdto에 넣으러간다");
+					sphotodto.setStore_seq(sdto.getStore_seq());
+					sphotodto.setStore_photo_origin(originName);
+					sphotodto.setStore_photo_stored(storedName);
+					sphotodto.setStore_photo_size(fileSize);
+					sphotodto.setStore_photo_title(store_photo_title[i]);
+					
+					System.out.println("sdto에 넣는거 완료");
+					list.add(sphotodto);
+					try {
+						System.out.println("파일업로드시도");
+						fileList.get(i).transferTo(file);
+						System.out.println("파일업로드완료");
+					} catch (IllegalStateException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				//매장사진 값넣기
+				SPhotoDaoImp.insertSPhoto(list);
+			}
+			
+			//수정●●●●●●●●●●●●●●●●●●●●ㅇㅋ
+//			store_photo_title_before
+			List<SPhotoDto> list_before = new ArrayList<>();
+			if(before_seq!=null) {
+				for (int i = 0; i < before_seq.length; i++) {
+					SPhotoDto sphotodto_before = new SPhotoDto();
+					//기존사진의 seq, title을 dto에 담고 list에추가
+					sphotodto_before.setStore_photo_seq(Integer.parseInt(before_seq[i]));
+					sphotodto_before.setStore_photo_title(store_photo_title_before[i]);
+					list_before.add(sphotodto_before);
+				}
+				//매장사진 제목수정
+				SPhotoDaoImp.updateSPhoto(list_before);
+			}
+			
+			//삭제●●●●●●●●●●●●●●●●●●●●ㅇㅋ
+			if(dels[0]!=" ") {
+				SPhotoDaoImp.deleteSPhoto(dels);
+			}
+			//매장좌표 값넣기
+			SLocaDaoImp.insertSLoca(sdto, slocadto);
+			//매장정보 값넣기
+			SDaoImp.insertStoreInfo(sdto);
+			//위의 updateStoreInfo을 true false 리턴 안해주는 이유
+			//	>>어차피 여기서 오류나면 밑에 return은 실행되지않으니, 실행되면 true라는걸 알 수 있다.s
+			
+			//2. 카테고리, menu 수정222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222
+			
+			SDaoImp.updateStoreMenu(sdto);//얘는 그대로(최대인원/날짜 업데이트)
+			System.out.println("매장됐습니다.");
+			CMainDaoImp.updateCMain(cmaindto);//업데이트(대표카테고리 업데이트)
+			System.out.println("메인카테고리 됐습니다.");
+			//clist,menu 모두삭제 추가
+			CListDaoImp.deleteCList(sdto);//기존 카테고리리스트 삭제
+			System.out.println("카테고리리스트 삭제 됐습니다..");
+			MenuDaoImp.deleteMenu(sdto);//기존 메뉴리스트 삭제
+			System.out.println("기존 메뉴리스트 삭제 됐습니다..");
+//			//clist,menu 모두추가
+			CListDaoImp.insertCList(sdto, clist);//기존과같은방식으로 카테고리리스트 추가
+			MenuDaoImp.insertMenu(sdto, category_code_2, name, content, price, state);//얘도그대로
+//			
+			
+			
+			return STimeDaoImp.insertStime(sdto,time_day,time_open,time_close,time_break);
+		}
 	
 	
 	

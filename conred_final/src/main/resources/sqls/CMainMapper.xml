@@ -17,4 +17,11 @@
 		WHERE store_seq=#{store_seq}
 		]]>
 	</select>
+	
+	<insert id="updateCMain" parameterType="CMainDto">
+		UPDATE CON_CATEGORY_MAIN 
+		SET CATEGORY_CODE =#{category_code}
+		WHERE store_seq = #{store_seq}
+	</insert>
+	
 </mapper>

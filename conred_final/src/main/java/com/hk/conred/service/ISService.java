@@ -19,11 +19,11 @@ public interface ISService {
 			String[] time_close,String[] time_break, String[] store_photo_title,
 			SLocaDto slocadto,HttpServletRequest request);
 	//매장등록3(메뉴/서비스정보)
-	public boolean updateStoreMenu(SDto sdto,CMainDto cmaindto,
+	public boolean insertStoreMenu(SDto sdto,CMainDto cmaindto,
 			String[] clist,String[] category_code_2,String[] name,
 			String[] content,String[] price,String[] state);
 	
-//매장수정
+//매장수정(임시저장)
 	//매장수정1(사업자등록정보)
 //	public boolean updateStoreCertify(SDto sdto, HttpServletRequest request, String sales_change, String biz_change);
 	public boolean updateStoreCertify(SDto sdto, HttpServletRequest request, SDto seq);
@@ -31,8 +31,14 @@ public interface ISService {
 	public boolean updateStoreInfo(SDto sdto,String[] time_day,	String[] time_open,
 			String[] time_close,String[] time_break, String[] store_photo_title,
 			SLocaDto slocadto,HttpServletRequest request,String[] dels,String[] store_photo_title_before,String[] before_seq);
-	//매장수정3(메뉴/서비스정보)
-//	public boolean updateStoreCertify(SDto sdto, HttpServletRequest request, SDto seq);
+	
+//매장수정(등록완료 후 수정: reudpate)
+	//매장수정(매장정보+메뉴/서비스정보)
+	public boolean reupdateStore(SDto sdto,String[] time_day,	String[] time_open,
+			String[] time_close,String[] time_break, String[] store_photo_title,
+			SLocaDto slocadto,HttpServletRequest request,String[] dels,String[] store_photo_title_before,String[] before_seq,
+			CMainDto cmaindto,String[] clist,String[] category_code_2,String[] name,
+			String[] content,String[] price,String[] state);
 	
 //매장정보가져오기
 	//Store Seq 가져오기

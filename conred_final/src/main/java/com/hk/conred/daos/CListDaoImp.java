@@ -44,4 +44,11 @@ public class CListDaoImp implements ICListDao{
 		return list;
 	}
 
+	@Override
+	public boolean deleteCList(SDto sdto) {
+		int count =0;
+		count = sqlSession.delete(namespace+"deleteCList",sdto);
+		return count>0?true:false;
+	}
+
 }

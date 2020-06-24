@@ -68,5 +68,12 @@ public class MenuDaoImp implements IMenuDao{
 		return list;
 	}
 
+	@Override
+	public boolean deleteMenu(SDto sdto) {
+		int count=0;
+		count=sqlSession.delete(namespace+"deleteMenu",sdto);
+		return count>0?true:false;
+	}
+
 
 }
