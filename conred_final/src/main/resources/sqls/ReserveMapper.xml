@@ -7,16 +7,22 @@
 	<mapper namespace="com.hk.conred.Reserve">
 		
 		
-																	<!-- menu일렬번호 #{}으로 바꿔야함 -->
-		<insert id="insertReserve" parameterType="Map">
-			INSERT INTO CON_RESERVE VALUES(CON_RESERVE_SEQ.NEXTVAL,#{user_id},#{menu_seq},#{store_seq},#{reserve_time},'Y',#{reserve_price},#{reserve_sdate},#{reserve_edate},SYSDATE);
+																	
+		<insert id="insertReserveS" parameterType="Map">
+			INSERT INTO CON_RESERVE VALUES(CON_RESERVE_SEQ.NEXTVAL,#{user_id},#{menu_seq},#{store_seq},null,'Y',#{reserve_price},#{reserve_sdate},#{reserve_edate},SYSDATE)
 		</insert>
+		
+		<insert id="insertReserveT" parameterType="Map">
+			INSERT INTO CON_RESERVE VALUES(CON_RESERVE_SEQ.NEXTVAL,#{user_id},#{menu_seq},#{store_seq},#{reserve_time},'Y',#{reserve_price},#{reserve_sdate},null,SYSDATE)
+		</insert>
+		
+		
 		
 		<select id="reserveList" parameterType="Map" resultType="ReserveDto">
 			SELECT  rn, RESERVE_SEQ ,USER_ID ,cr.MENU_SEQ ,cr.STORE_SEQ ,RESERVE_TIME ,RESERVE_STATE ,RESERVE_PRICE ,
 			RESERVE_SDATE ,RESERVE_EDATE ,RESERVE_REGDATE ,cm.MENU_NAME ,cs.STORE_NAME ,cs.STORE_ADDRESS  
 			FROM
-			    (SELECT  rownum AS rn,RESERVE_SEQ ,USER_ID ,MENU_SEQ ,STORE_SEQ ,RESERVE_TIME ,RESERVE_STATE ,RESERVE_PRICE ,RESERVE_SDATE ,RESERVE_EDATE ,RESERVE_REGDATE
+			    (SELECT ROW_NUMBER()over(ORDER BY RESERVE_REGDATE DESC) AS rn,RESERVE_SEQ ,USER_ID ,MENU_SEQ ,STORE_SEQ ,RESERVE_TIME ,RESERVE_STATE ,RESERVE_PRICE ,RESERVE_SDATE ,RESERVE_EDATE ,RESERVE_REGDATE
 			     FROM CON_RESERVE WHERE RESERVE_STATE='Y') cr ,CON_MENU cm ,CON_STORE cs 
 			WHERE cr.menu_seq=cm.MENU_SEQ AND cr.store_seq=cs.STORE_SEQ AND CEIL(rn/5)=#{pnum} AND USER_ID =#{user_id}
 		</select>

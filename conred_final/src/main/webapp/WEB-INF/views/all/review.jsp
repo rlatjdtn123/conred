@@ -264,6 +264,7 @@
 			  $("input[type=radio]").prop("checked",false); 
 			  $("b").text("0"); 
 			  $("#preview").empty(); 
+			  $(".modal-title").find("b").text($("input[name=store_name]").val());
 		}); 
 		
 	    $(".modal_Btn").click(function(){
@@ -449,7 +450,7 @@
 		    
 			$('#attach input[type=file]').change(function() {
 				addPreview($(this)); //preview form 추가하기
-				$(".attach_count").text();
+// 				$(".attach_count").text();
 			});
 		  
 		  
@@ -574,7 +575,7 @@
     	
     	if(5<imgCount){
     		imgTle.removeChild(imgs);
-    		alert("사진은 5개 까지 등록 가능합니다");
+    		alert("사진은 5개 까지 등록 가능합니다"); 
 		   return false; 
     	}
     	
@@ -607,7 +608,14 @@
                     + "</div>"
             );
             files[imgNum] = file;   
-            $(".attach_count").text($(".preview-box").length+"/30");
+//             $(".attach_count").text($(".preview-box").length+"/30");
+			//5개 넘으면 삭제
+			if(5<$("#preview").find(".preview-box").length){
+				  $("#preview").empty();  
+				  alert("사진은 5개 까지 등록 가능합니다");
+			  }
+		
+
         };
         
         reader.readAsDataURL(file);
@@ -671,6 +679,7 @@
 	List<ReserveDto> list_reserve=(List<ReserveDto>)request.getAttribute("list_reserve");
 %>
 <body>
+<input type="hidden" name="store_name" value="<%=store_name.getStore_name()%>">
 <input type="hidden" name="photo_length" value="<%=list_photo.size()%>">
 <input type="hidden" name="session_id" value="<%=session.getAttribute("uldto")==null?"":uldto.getUser_id()%>"/>
 <%
@@ -693,7 +702,6 @@
 	     		<div class="modal-header"> 
 	     			<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 	     			<button type="submit" class="reply_write" >리뷰 작성 완료</button>
-	     			<button class="asd">asdasd</button>
 	       			
 	       			<h4 class="modal-title"><b><%=store_name.getStore_name()%></b></h4>
 	     		</div>

@@ -607,8 +607,12 @@ public class Sungsu {
 		logger.info("날짜,시간선택후 예약 {}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
-//		System.out.println("@@@아이디::"+uldto.getUser_id()+"@@@메뉴일렬번호::"+menu_seq+"@@@가게일렬번호::"+store_seq+"@@@예약시간::"+reserve_time+"@@@예약가격::"+reserve_price+"::@@@@예약일::"+reserve_sdate);
-		return "redirect:index.do";
+		boolean isS=reserveService.insertReserveT(uldto.getUser_id(), menu_seq, store_seq, reserve_time, reserve_price, reserve_sdate);
+		if(isS) {
+			return "redirect:index.do";		
+		}else {
+			return "";
+		}
 	}  
 	
 	  
@@ -624,19 +628,21 @@ public class Sungsu {
 			System.out.println(listMax.get(i));	
 		}  
 		return map; 
-	}
+	} 
 	
 	@RequestMapping(value = "reserve_successS.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String reserve_successS(Locale locale, Model model,int menu_seq,int store_seq,String reserve_price,HttpServletRequest request,String reserve_sdate, String reserve_edate) {
 		logger.info("날짜,시간 선택후 예약 {}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
-//		System.out.println("@@@아이디::"+uldto.getUser_id()+"@@@메뉴일렬번호::"+menu_seq+"@@@가게일렬번호::"+store_seq+"@@@예약시작날짜::"+reserve_sdate+"::@@@@예약마지막날짜::"+reserve_edate+"@@@예약가격::"+reserve_price);
-//		System.out.println("@@@@@@@!!!!!!!!!!::"+reserve_price);
-		
-		
-		
-		return "redirect:index.do";
+		System.out.println("@@@아이디::"+uldto.getUser_id()+"@@@메뉴일렬번호::"+menu_seq+"@@@가게일렬번호::"+store_seq+"@@@예약시작날짜::"+reserve_sdate+"::@@@@예약마지막날짜::"+reserve_edate+"@@@예약가격::"+reserve_price);
+		System.out.println("@@@@@@@!!!!!!!!!!::"+reserve_price);
+		boolean isS=reserveService.insertReserveS(uldto.getUser_id(), menu_seq, store_seq, reserve_price, reserve_sdate, reserve_edate);
+		if(isS) { 
+			return "redirect:index.do";
+		}else {
+			return "";
+		}
 	}
 	
 	

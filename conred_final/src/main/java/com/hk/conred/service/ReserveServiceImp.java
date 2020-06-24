@@ -16,11 +16,18 @@ public class ReserveServiceImp implements IReserveService{
 	@Autowired
 	private IReserveDao reserveDaoImp;
 	
+	
 	@Override
-	public boolean insertReserve(String user_id,int menu_seq,int store_seq,String reserve_time,String reserve_price,String reserve_sdate,String reserve_edate) {
-		System.out.println("ㅋㅋㅋㅋㅋ:  "+user_id);
-		return reserveDaoImp.insertReserve(user_id,menu_seq,store_seq,reserve_time,reserve_price,reserve_sdate,reserve_edate);
+	public boolean insertReserveS(String user_id, int menu_seq, int store_seq, String reserve_price,String reserve_sdate, String reserve_edate) {
+		return reserveDaoImp.insertReserveS(user_id, menu_seq, store_seq, reserve_price, reserve_sdate, reserve_edate);
 	}
+
+	@Override
+	public boolean insertReserveT(String user_id, int menu_seq, int store_seq, String reserve_time,String reserve_price, String reserve_sdate) {
+		return reserveDaoImp.insertReserveT(user_id, menu_seq, store_seq, reserve_time, reserve_price, reserve_sdate);
+	}
+	
+	
 
 	@Override
 	public List<ReserveDto> reserveList(String user_id,String pnum) {	
@@ -66,5 +73,7 @@ public class ReserveServiceImp implements IReserveService{
 	public boolean userReviewSuccess(String user_id, int store_seq) {
 		return reserveDaoImp.userReviewSuccess(user_id, store_seq);
 	}
+
+
 
 }

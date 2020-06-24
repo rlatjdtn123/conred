@@ -241,9 +241,9 @@
 				    $('.ani_heart_m').removeClass('bye');
 				    
 				    $.ajax({
-		 				url:"store_like_ajax.do",
+		 				url:"store_like_ajax.do", 
 		 				method:"post",
-		 				data:"",
+		 				data:{"user_id":session_id,"store_seq":store_seq},
 		 				dataType:"json",
 		 				success:function(obj){
 							

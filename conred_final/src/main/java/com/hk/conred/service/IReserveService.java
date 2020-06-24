@@ -7,10 +7,12 @@ import com.hk.conred.dtos.ReserveDto;
 public interface IReserveService {
 
 	
-	//예약
-	public boolean insertReserve(String user_id,int menu_seq,int store_seq,String reserve_time,String reserve_price,String reserve_sdate,String reserve_edate);	
+	//숙박 예약
+	public boolean insertReserveS(String user_id,int menu_seq,int store_seq,String reserve_price,String reserve_sdate,String reserve_edate);
 	
-	
+	//당일 예약
+	public boolean insertReserveT(String user_id,int menu_seq,int store_seq,String reserve_time,String reserve_price,String reserve_sdate);	
+
 	//예약조회
 	public List<ReserveDto> reserveList(String user_id,String pnum);
 	

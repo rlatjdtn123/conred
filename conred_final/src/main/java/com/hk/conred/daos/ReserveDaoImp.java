@@ -18,20 +18,35 @@ public class ReserveDaoImp implements IReserveDao{
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
+	
 	@Override
-	public boolean insertReserve(String user_id,int menu_seq,int store_seq,String reserve_time,String reserve_price,String reserve_sdate,String reserve_edate) {
+	public boolean insertReserveS(String user_id, int menu_seq, int store_seq, String reserve_price,String reserve_sdate, String reserve_edate) {
 		int count=0;
-		Map<String, Object> map =new HashMap<>();
+		Map<String, Object> map=new HashMap<>();
+		map.put("user_id", user_id);
+		map.put("menu_seq", menu_seq);
+		map.put("store_seq", store_seq);
+		map.put("reserve_price", reserve_price);
+		map.put("reserve_sdate", reserve_sdate);
+		map.put("reserve_edate", reserve_edate);
+		count=sqlSession.insert(nameSpace+"insertReserveS", map);
+		return count>0?true:false;
+	}
+
+	@Override
+	public boolean insertReserveT(String user_id, int menu_seq, int store_seq, String reserve_time,String reserve_price, String reserve_sdate) {
+		int count=0;
+		Map<String, Object> map=new HashMap<>();
 		map.put("user_id", user_id);
 		map.put("menu_seq", menu_seq);
 		map.put("store_seq", store_seq);
 		map.put("reserve_time", reserve_time);
 		map.put("reserve_price", reserve_price);
 		map.put("reserve_sdate", reserve_sdate);
-		map.put("reserve_edate", reserve_edate);
-		count=sqlSession.insert(nameSpace+"insertReserve", map);
+		count=sqlSession.insert(nameSpace+"insertReserveT", map);
 		return count>0?true:false;
 	}
+	
 
 	@Override
 	public List<ReserveDto> reserveList(String user_id,String pnum) {
@@ -107,5 +122,6 @@ public class ReserveDaoImp implements IReserveDao{
 		count=sqlSession.update(nameSpace+"userReviewSuccess", map);
 		return count>0?true:false;
 	}
+
 
 }

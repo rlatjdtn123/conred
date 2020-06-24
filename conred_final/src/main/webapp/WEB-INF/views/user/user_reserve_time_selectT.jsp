@@ -71,11 +71,6 @@
 	var datestr; 
 	function aaa(ele){   	
 		
-		var a="09:00am";
-		var c="11:00am";
-		var b=a.split(":");
-		var d=c.split(":");
-// 		alert(parseInt(d[0]-b[0]));
 		var num=new Date(ele.value);
 		datestr=$(".selector").val(); 
 		$("#reserve_sdate").val(datestr);
@@ -136,7 +131,8 @@
 							alert("날짜먼저 선택해주세요"); 
 						}else{
 							$(".times_result").children("span").eq(1).text(timeval);
-							$(".times").css("background-color", "#edfbdc");
+							$(".times").css("background-color", "#edfbdc"); 
+							$(".max_time").css("background-color", "lightgrey");
 							$(this).css("background-color", "#00FF00");
 							$(".reserve_success").css("display","inline");
 							$("#reserve_time").val(timeval);
@@ -166,7 +162,7 @@
 					    for (var j = 0; j < ing+1; j++) {
 					    
 					    	if(((parseInt(times_split[0])+j)+":00")==lists[i].reserve_time&&lists[i].ct==store_maxman){
-					  			$("input[value='"+(parseInt(times_split[0])+j)+':00'+"']").css({"pointer-events":"none","background-color":"lightgrey"});
+					  			$("input[value='"+(parseInt(times_split[0])+j)+':00'+"']").css({"pointer-events":"none","background-color":"lightgrey"}).addClass("max_time");
 					    		 
 				  			} 
 						}  
