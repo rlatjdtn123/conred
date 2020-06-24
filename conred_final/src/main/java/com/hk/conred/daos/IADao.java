@@ -20,11 +20,13 @@ public interface IADao {
 	public boolean adminMuldelOwner(String[] owner_ids);
 	//6.전체 매장 조회 기능
 	public List<SDto> admin_site_storelist(String keywordstore);
-	//7.전체 승인매장 조회 기능
+	//7.전체 승인 매장 조회 기능 및 승인 매장중 키워드 검색 기능
 	public List<SDto> admin_store_state_search(String adminstate);
-	//8.매장 선택/다중선택 후 매장 승인 및 취소 기능
+	//8.전체 미승인 매장 조회 기능 및 미승인 매장중 키워드 검색 기능
+	public List<SDto> admin_store_state_search_n(String adminstate_n);
+	//9.매장 선택/다중선택 후 매장 승인 및 취소 기능
 	public boolean adminMulchk(String[] store_seqs);
-	//9.매장 선택/다중선택 후 매장 정보 삭제 기능(업데이트로 정보만 ***로)
+	//10.매장 선택/다중선택 후 매장 정보 삭제 기능(업데이트로 정보만 ***로)
 	public boolean adminMuldel(String[] store_seqs);
 	
 }

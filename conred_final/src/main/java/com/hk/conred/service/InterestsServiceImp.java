@@ -30,5 +30,15 @@ public class InterestsServiceImp implements IInterestsService{
 		return InterestsDaoImp.userInterests(user_id);
 	}
 	
+	@Override
+	public int user_interests_count(String user_id){
+		return InterestsDaoImp.user_interests_count(user_id);
+	}
+	
+	
+	
+	
+	
+	
 }
  

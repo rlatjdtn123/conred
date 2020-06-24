@@ -34,9 +34,9 @@
 					return bool;
 				}else{
 					bool = false;
-			}
-			return bool;
-			});
+				}
+				return bool;
+				});
 
 		// 체크박스 처리: 체크가 하나라도 안되면 전체선택체크박스 해제, 모두 선택되면 체크
 		var chks = document.getElementsByName("store_seqs");
@@ -77,7 +77,8 @@ List<SDto>list=(List<SDto>)request.getAttribute("list");
 					<td align="left">
 						<select	name="storeSearch" id="sel">
 							<option value="keywordStore" ${storeSearch eq "keywordStore"?"selected":""}>키워드 검색</option>
-							<option value="adminState" ${storeSearch eq "adminState"?"selected":""}>관리자 승인 점포</option> 
+							<option value="adminState_n" ${storeSearch eq "adminState_n"?"selected":""}>관리자 미승인 검색</option>
+							<option value="adminState" ${storeSearch eq "adminState"?"selected":""}>관리자 승인 검색</option> 
 						</select>
 						<input value="${requestScope.searchWordStore}" name="searchWordStore" type="text" id="searchbar1" class="form-control pull-left" placeholder="안녕하세요 관리자님! 매장 관련 키워드로 검색 하세요">
 						<button type="submit" id="searchbtn" class="btn"><img id="magnifyglass1" src="./img/magnifyglass.png"></button>

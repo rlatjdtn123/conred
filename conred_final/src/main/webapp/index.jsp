@@ -210,7 +210,7 @@ $(function(){
 	 			
 	 		},
 	 		error:function(){
-	 				alert("서버통신실패!!");
+	 				alert("로그인을 하라냥~");
 	 		}
   		});
  	});
@@ -227,7 +227,7 @@ function swiperObj(){
 	      loop: true,
 	      loopFillGroupWithBlank: true,
 	      autoplay: {
-	          delay: 2500,
+	          delay: 3500,
 	          disableOnInteraction: false,
 	        },
 	      
@@ -305,7 +305,7 @@ function swiperObj(){
 					<div class="slider multiple-items autoplay">
 						<c:choose>
 							<c:when test="${empty sessionScope.list}">
-											---AI고양이: 추천 상점을 로딩중이다냥---
+											 AI고양이 : 로그인을 하라냥~
 							</c:when>
 							<c:otherwise>
 								<div class="slider multiple-items autoplay"

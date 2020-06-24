@@ -80,11 +80,17 @@ public class AdminController {
 		if(storeSearch.equals("keywordStore")) {
 			List<SDto> list = aService.admin_site_storelist(searchWordStore);
 			model.addAttribute("list",list);
+		
+		}else if(storeSearch.equals("adminState_n")) {
+			List<SDto> list = aService.admin_store_state_search_n(searchWordStore);
+			model.addAttribute("list",list);
 			
 		}else if(storeSearch.equals("adminState")) {
 			List<SDto> list = aService.admin_store_state_search(searchWordStore);
 			model.addAttribute("list",list);
+		
 		}
+		
 	
 		model.addAttribute("searchWordStore",searchWordStore);
 		model.addAttribute("storeSearch",storeSearch);

@@ -27,7 +27,7 @@
 	<resultMap type="com.hk.conred.dtos.SPhotoDto"  id="SPhotoDtoMap">
 		<result property="store_photo_stored" column="STORE_PHOTO_STORED" />
 	</resultMap>
-<!-- 	관심사 추천 기능 쿼리 -->
+<!-- 	 관심사 추천 기능  -->
 	<select id="user_interests_recommended"  parameterType="Map" resultMap="sDtoMap">
 		SELECT STORE_SEQ , STORE_PHOTO_STORED, STORE_NAME
 		FROM (
@@ -45,22 +45,47 @@
 				) 
 			WHERE RN = 1
 			)
-		WHERE CEIL(RNUM/20) =#{paging}
+		WHERE CEIL(RNUM/10) =#{paging}
 	 </select>
+<!-- 	 관심사 추천 기능 페이징 처리 -->
+	<select id="user_interests_count" parameterType="String"
+		resultType="int">
+		<![CDATA[
+		SELECT CEIL(COUNT(*)/20) AS count
+		FROM (
+		SELECT ROW_NUMBER() over(PARTITION BY B.STORE_SEQ ORDER BY
+		B.STORE_PHOTO_STORED) AS RN, A.USER_ID ,A.CATEGORY_CODE ,
+		A.CATEGORY_NAME, B.STORE_SEQ, B.STORE_PHOTO_STORED
+		,B.OWNER_ID ,B.STORE_NAME
+		FROM ( SELECT U.USER_ID ,C.CATEGORY_CODE , C.CATEGORY_NAME
+		FROM CON_USER U, CON_INTERESTS I, CON_CATEGORY C
+		WHERE U.USER_ID = I.USER_ID AND I.CATEGORY_CODE = C.CATEGORY_CODE AND
+		U.USER_ID = #{user_id}) A,
+		( SELECT S.STORE_SEQ, S.OWNER_ID, S.STORE_NAME, M.CATEGORY_CODE,
+		P.STORE_PHOTO_STORED
+		FROM CON_STORE S, CON_CATEGORY_MAIN M, CON_STORE_PHOTO P
+		WHERE S.STORE_SEQ = M.STORE_SEQ AND S.STORE_SEQ = P.STORE_SEQ) B
+		WHERE
+		A.CATEGORY_CODE = B.CATEGORY_CODE
+		)
+		WHERE RN = 1
+	    ]]>
+	</select>
+	 
 	
 	<!-- 임시로 아이디 test로 넣어줌 #{user_id}로 바꿔야됨 -->
-	<insert id="insertInterests" parameterType="InterestsDto">
+	 <insert id="insertInterests" parameterType="InterestsDto">
 		INSERT ALL  
-		<foreach collection="category_codes" item="codename">
+		 <foreach collection="category_codes" item="codename">
 			INTO CON_INTERESTS
 			VALUES(get_interests_seq,#{user_id},#{codename})
-		</foreach> 
+		 </foreach> 
 		SELECT *FROM DUAL	
-	</insert>
+	 </insert>
 	
-	<select id="userInterests" parameterType="String" resultType="InterestsDto">
+	 <select id="userInterests" parameterType="String" resultType="InterestsDto">
 		SELECT INTERESTS_SEQ ,USER_ID ,category_code 
 		FROM CON_INTERESTS WHERE USER_ID=#{user_id} 
-	</select>
+	 </select>
 </mapper>
 	   

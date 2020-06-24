@@ -119,7 +119,7 @@ List<UDto>list=(List<UDto>)request.getAttribute("list");
 <%
 		if(list==null||list.size()==0){
 			out.print("<tr><td colspan='19'>"
-			         +"---관리자님 우리 사이트에 등록된 회원이 없어요 검색해보세요!---</td></tr>");
+			         +"---관리자님 회원을 검색해보세요!---</td></tr>");
 		}else{
 			for(UDto dto:list){
 				%>

@@ -45,6 +45,11 @@ public class AServiceImp implements IAService{
 		// TODO Auto-generated method stub
 		return ADaoImp.admin_store_state_search(adminstate);
 	}
+	@Override
+	public List<SDto> admin_store_state_search_n(String adminstate_n) {
+		
+		return ADaoImp.admin_store_state_search_n(adminstate_n);
+	}
 	
 	@Override
 	public boolean adminMulchk(String[] store_seqs) {

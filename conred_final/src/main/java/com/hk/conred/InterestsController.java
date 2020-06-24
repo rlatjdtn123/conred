@@ -36,28 +36,39 @@ public class InterestsController {
 	HttpSession session;
 	
 	@RequestMapping(value = "index.do", method = RequestMethod.GET)
-	public String test_index(HttpServletRequest request,String paging,Locale locale, Model model) {
-		logger.info("테스트 인덱스 접근 {}.", locale);
+	public String test_index(HttpServletRequest request,String paging,Locale locale, Model model, String user_id) {
+		logger.info("인덱스 접근하면서 바로 관심사 추천 뿌려주기 {}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto = (UDto)session.getAttribute("uldto"); //Object(uldto객체)
-		//test_index페이지로 이동하면서 관심점포list 전달해서 바로 뿌려주기
+		//index 페이지로 접속하면서 관심점포list 전달해서 바로 뿌려주기
 		if(paging==null) {
 			paging="1"; 
 		}
 		
 		List<SDto> list = null;
+		int count=1;
 		if(uldto!=null) {
 			
 			list = interService.user_interests_recommended(uldto.getUser_id(), paging);
 			request.getSession().setAttribute("list", list);
 			System.out.println(list);   
+			//해강씨가 mapper.xml,dao,service구현
+			count = interService.user_interests_count(uldto.getUser_id());
+			//		int count=1;
+			System.out.println(count);
 		}
-	
-//		int count=interService.user_interests_count(uldto.getUser_id());//해강씨가 mapper.xml,dao,service구현
-		int count=1;
-		
-
 		request.getSession().setAttribute("count", count);
+		//유저의 추천상점의 개수에 따라서 페이징 처리 3개 1페이지
+		
+		
+//		if(count>0) {
+//	
+//			request.getSession().setAttribute("count", count);
+//			System.out.println(count);
+//		}else {
+//	        count = 1;
+//		}
+		
 		return "redirect:index.jsp"; 
 	}
 	

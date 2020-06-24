@@ -51,4 +51,13 @@ public class InterestsDaoImp implements IInterestsDao{
 		InterestsDto dto=sqlSession.selectOne(nameSpace+"userInterests", user_id);
 		return dto;
 	}
+	
+	@Override
+	public int user_interests_count(String user_id) { 
+		return sqlSession.selectOne(nameSpace+"user_interests_count", user_id);
+		
+	}
+	
+	
+	
 } 

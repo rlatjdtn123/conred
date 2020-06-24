@@ -5,7 +5,7 @@
 
 
 <mapper namespace="com.hk.conred.A">
-
+              <!--    모든 유저를 보거나 DB에 있는 모든 키워드로 조회하는 기능 -->
 	<select id="admin_site_userlist" resultType="UDto"
 		parameterType="String">
      	<![CDATA[ 
@@ -17,7 +17,7 @@
 		USER_BLACK LIKE '%'||#{keyword}||'%' OR USER_ROLE LIKE '%'||#{keyword}||'%' OR USER_POINT LIKE '%'||#{keyword}||'%'
      	]]>
 	</select>
-
+		<!-- 모든 블랙 유저 목록을 조회하거나 유저 아이디 유저 이름으로 블랜유저중에서 검색할 수 있는 기능 -->
 	<select id="admin_blackuser_search" resultType="UDto"
 		parameterType="String">
      	<![CDATA[ 
@@ -27,7 +27,7 @@
      	]]>
 	</select>
 
-
+		<!--       모든 점주 DB에 있는모든 키워드로 조회하기 기능 -->
 	<select id="admin_site_ownerlist" resultType="ODto"
 		parameterType="String">
      	<![CDATA[ 
@@ -39,7 +39,7 @@
 	    OR OWNER_AGREEMENT LIKE '%'||#{keywordowner}||'%' OR OWNER_OUT LIKE '%'||#{keywordowner}||'%'
 		]]>
 	</select>
-
+		<!-- 체크 또는 다중 체크해서 점주 탈퇴처리 기능 -->
 	<update id="adminMuldelOwner" parameterType="map">
 		<![CDATA[ 
 		UPDATE CON_OWNER SET OWNER_OUT = 'Y'
@@ -50,7 +50,7 @@
 		</foreach>
 	</update>
 
-
+		<!-- 모든 상점 DB에 있는 모든 키워드로 조회하기 기능 -->
 	<select id="admin_site_storelist" resultType="SDto"
 		parameterType="String">
      	<![CDATA[ 
@@ -72,17 +72,30 @@
 		OR STORE_MAXMAN LIKE '%'||#{keywordstore}||'%'
      	]]>
 	</select>
-
+		<!-- 관리자 승인된 모든 점포 조회 및 상점 이름과 상점 주인 이름으로 검색하기 -->
 	<select id="admin_store_state_search" resultType="SDto"
 		parameterType="String">
      	<![CDATA[ 
      	SELECT *
      	FROM CON_STORE
      	WHERE STORE_ADMIN_STATE = 'Y' AND (OWNER_ID LIKE '%'||#{keywordstore}||'%' OR STORE_NAME LIKE '%'||#{keywordstore}||'%'
-     	OR STORE_OWNER_NAME LIKE '%'||#{keywordstore}||'%')
+     	OR STORE_OWNER_NAME LIKE '%'||#{keywordstore}||'%') ORDER BY STORE_SEQ DESC
      	]]>
 	</select>
-
+		
+		<!-- 관리자 미승인된 모든 점포 조회 및 상점 이름과 상점 주인 이름으로 검색하기 -->
+	<select id="admin_store_state_search_n" resultType="SDto"
+		parameterType="String">
+     	<![CDATA[ 
+     	SELECT *
+     	FROM CON_STORE
+     	WHERE STORE_ADMIN_STATE = 'N' AND (OWNER_ID LIKE '%'||#{keywordstore}||'%' OR STORE_NAME LIKE '%'||#{keywordstore}||'%'
+     	OR STORE_OWNER_NAME LIKE '%'||#{keywordstore}||'%') ORDER BY STORE_SEQ DESC
+     	]]>
+	</select>
+	
+	
+		<!--     체크 또는 다중체크해서 매장 승인/취소 승인된 매장은 취소 취소된 매장은 승인하는 기능 -->
 	<update id="adminMulchk" parameterType="map">
 		<![CDATA[ 
 		UPDATE CON_STORE SET STORE_ADMIN_STATE =
@@ -96,7 +109,7 @@
 			#{store_seq}
 		</foreach>
 	</update>
-
+		<!-- 		매장 정보 삭제 기능 -->
 	<update id="adminMuldel" parameterType="map">
 		<![CDATA[ 
 		UPDATE CON_STORE SET STORE_NAME = '***' , STORE_PHONE_MANAGER = '***' , STORE_OWNER_NAME = '***' , 
@@ -107,7 +120,7 @@
 			#{store_seq}
 		</foreach>
 	</update>
-	
+		<!-- 	  유저 정보 삭제 기능 -->
 	<update id="adminMuldelUser" parameterType="map">
 		<![CDATA[  
 		UPDATE CON_USER SET USER_NAME = '***' , USER_EMAIL = '***' , USER_BIRTH = '0000-00-00' , USER_SEX = '***' ,

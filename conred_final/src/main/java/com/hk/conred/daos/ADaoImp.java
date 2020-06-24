@@ -54,6 +54,11 @@ public class ADaoImp implements IADao {
 		return sqlSession.selectList(nameSpace+"admin_store_state_search",adminstate);
 	}
 	
+	@Override	
+	public List<SDto> admin_store_state_search_n(String adminstate_n) {
+		
+		return sqlSession.selectList(nameSpace+"admin_store_state_search_n",adminstate_n);
+	}
 	
 	@Override
 	public boolean adminMulchk(String[] store_seqs) {
