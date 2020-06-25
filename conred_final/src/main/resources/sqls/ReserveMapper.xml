@@ -36,10 +36,10 @@
 		<select id="reserveMax" resultType="ReserveDto" parameterType="Map">
 			SELECT COUNT(cr.RESERVE_TIME) AS ct ,cr.RESERVE_TIME 
 			FROM CON_RESERVE cr, CON_STORE cs 
-			WHERE cr.STORE_SEQ =cs.STORE_SEQ  AND cr.STORE_SEQ =#{store_seq} AND cr.MENU_SEQ =#{menu_seq} AND cr.RESERVE_SDATE =#{reserve_sdate}
+			WHERE cr.STORE_SEQ =cs.STORE_SEQ  AND cr.STORE_SEQ =#{store_seq} AND cr.MENU_SEQ =#{menu_seq} AND cr.RESERVE_SDATE =#{reserve_sdate} AND cr.RESERVE_STATE='Y'
 			GROUP BY RESERVE_TIME 
 		</select> 
-		 
+		  
 		 <select id="stayReserve" resultType="ReserveDto" parameterType="Map">
 		 	SELECT RESERVE_SEQ,user_id,MENU_SEQ ,cr.STORE_SEQ ,RESERVE_TIME ,RESERVE_STATE ,RESERVE_PRICE ,RESERVE_SDATE ,RESERVE_EDATE ,RESERVE_REGDATE ,cs.STORE_MAXDATE
 			FROM CON_RESERVE cr,CON_STORE cs  

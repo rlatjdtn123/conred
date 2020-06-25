@@ -618,12 +618,14 @@ public class Sungsu {
 	  
 	@ResponseBody
 	@RequestMapping(value = "user_reservemax_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public Map<String, List<ReserveDto>> user_reservemax_ajax(Locale locale, Model model,int menu_seq,int store_seq,String reserve_sdate) {
+	public Map<String, Object> user_reservemax_ajax(Locale locale, Model model,int menu_seq,int store_seq,String reserve_sdate,String store_time_day) {
 		logger.info("선택요일에따라 시간출력 {}.", locale);
 		List<ReserveDto> listMax=reserveService.reserveMax(store_seq, menu_seq, reserve_sdate);
-		Map<String, List<ReserveDto>> map=new HashMap<>();
+		List<MenuDto> listWeek=menuService.selectWeek(menu_seq, store_seq, store_time_day);	
+		Map<String, Object> map=new HashMap<>();
 //		System.out.println(menu_seq+"::@@@@::"+store_seq+"::@@@@::"+reserve_sdate);
-		map.put("listMax", listMax);
+		map.put("listMax", listMax); 
+		map.put("listWeek", listWeek);
 		for (int i = 0; i < listMax.size(); i++) {
 			System.out.println(listMax.get(i));	
 		}  

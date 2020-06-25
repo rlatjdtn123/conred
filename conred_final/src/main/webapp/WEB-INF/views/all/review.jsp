@@ -8,6 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8");%>
 <%response.setContentType("text/html; charset=utf-8");%>
+<%-- <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> jstl 시간포맷  --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +37,7 @@
 	.home{border-bottom:1px solid white;background-color: white;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
 	
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
-	.mybox{padding:20px;border-top:1px solid grey; width:700px;height:370px; font-size: 15px; margin-left: 150px;min-height: 370px;}
+	.mybox{padding:20px;border-top:1px solid #BDBDBD; width:700px;height:370px; font-size: 15px; margin-left: 150px;min-height: 370px;}
 	.myboxmargin{margin-top:30px;}
 	#main{width: 702px;height: 250px;margin-left:147px; padding-top: 25px;} 
 	#main2{font-size: 20px;}  
@@ -73,7 +74,7 @@
       .buttondle{background-color: #585858; color: white;border-radius: 5px;}
       .user_avg{float: right; font-size: 20px;padding-top: 17px;}
       .star_score{float: left;}
-      .tle_final{width: 700px;border-top: 1px solid grey;margin-left: 150px;margin-bottom: 200px;}
+      .tle_final{width: 700px;border-top: 1px solid #BDBDBD;margin-left: 150px;margin-bottom: 200px;}
       .bigNumber{font-size: 25px;font-weight: bold;} 
       
 /*       파일업로드 */
@@ -82,7 +83,7 @@
 	  #preview p {text-overflow: ellipsis;overflow: hidden;}
 	  .preview-box {border: 0px solid grey;padding: 5px;border-radius: 2px;margin-bottom: 5px;margin-right:25px;display: inline-block;
     			border-radius: 5px;max-width:146px;
-    			border-right-width: 1px;
+    			border-right-width: 1px; 
     			border-bottom-width: 1px; float: left;}
 	 .thumbnail{margin-bottom:0px; width: 135px;height: 80px;}
      input[type=file] {display: none;}
@@ -136,7 +137,7 @@
 											+	'	<img src="./img/profile_default.png" class="pf"/>  '
 											+	'	<div class="info">        '
 											+	''		+ buttonChk(lists[i].user_id,lists[i].reply_seq) + ''
-											+	'		<span style="color:#919191;">닉네임: '+ lists[i].user_id +' </span><span style="float:right;color:#919191;">'+ lists[i].reply_regdate +' </span><br>'
+											+	'		<span style="color:#919191;">닉네임: '+ lists[i].user_id +' </span><span style="float:right;color:#919191;">'+ lists[i].reply_realdate +' </span><br>'
 											+	'		<div class="star_table">'
 											+	'			<table class="star_score">'
 											+	'				<tr> '
@@ -183,7 +184,7 @@
 											+	'	<img src="./img/profile_default.png" class="pf"/>  '
 											+	'	<div class="info">        '
 											+	''		+ buttonChk(lists[i].user_id,lists[i].reply_seq) + ''
-											+	'		<span style="color:#919191;">닉네임: '+ lists[i].user_id +' </span><span style="float:right;color:#919191;">'+ lists[i].reply_regdate +' </span><br>'
+											+	'		<span style="color:#919191;">닉네임: '+ lists[i].user_id +' </span><span style="float:right;color:#919191;">'+ lists[i].reply_realdate +' </span><br>'
 											+	'		<div class="star_table">'
 											+	'			<table class="star_score">'
 											+	'				<tr> '
@@ -923,7 +924,7 @@
 		    		<%	
 			    	}
 			    %>	
-				<span style="color:#919191;">닉네임:<%=dto.getUser_id()%> </span><span style="float:right; color:#919191;"><%=dto.getReply_regdate()%></span><br>
+				<span style="color:#919191;">닉네임:<%=dto.getUser_id()%> </span><span style="float:right; color:#919191;"><%=dto.getReply_realdate()%></span><br>
 				<div class="star_table">
 					<table class="star_score">
 						<tr> 

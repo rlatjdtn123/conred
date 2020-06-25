@@ -62,13 +62,16 @@ public class ReviewController {
 		ReplyDto list_avg=replyService.replyAvgStore(store_seq); 
 		List<RPhotoDto> list_photo=rPhotoService.reviewPhotoList(store_seq);
 		ReplyDto store_name=replyService.modalStoreName(store_seq);
-		List<ReserveDto> list_reserve=reserveService.userOnceReview(store_seq,uldto.getUser_id());
-		System.out.println("@@@@@@@@@list_reserve:::"+list_reserve);
+		if(uldto!=null) {
+			List<ReserveDto> list_reserve=reserveService.userOnceReview(store_seq,uldto.getUser_id());
+			model.addAttribute("list_reserve", list_reserve);
+			System.out.println("@@@@@@@@@list_reserve:::"+list_reserve);
+		}
 		model.addAttribute("list", list); 
 		model.addAttribute("list_avg", list_avg); 	
 		model.addAttribute("list_photo", list_photo); 
 		model.addAttribute("store_name", store_name);
-		model.addAttribute("list_reserve", list_reserve);
+//		model.addAttribute("list_reserve", list_reserve);
 		return "all/review";    
 	}
 	

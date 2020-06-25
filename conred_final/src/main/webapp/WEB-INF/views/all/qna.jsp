@@ -26,7 +26,7 @@
 	.home{border-bottom:1px solid white;background-color: white;text-decoration: underline;border-right:1px solid grey;border-left:1px solid grey;}
 	
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
-	.mybox{padding:15px;border-top:1px solid grey;width:700px;height:250px; margin:0 auto; font-size: 15px;min-height: 250px;}
+	.mybox{padding:15px;border-top:1px solid #BDBDBD;width:700px;height:250px; margin:0 auto; font-size: 15px;min-height: 250px;}
 	.myboxmargin{margin-top:30px;}
 	#main{width: 702px;height: 100px;margin: 0 auto; padding-top: 25px;} 
 	#main2{font-size: 20px;}  
@@ -81,7 +81,7 @@
 										+	'<img src="./img/profile_default.png" class="pf"/>'
 										+	'<div class="info">'
 										+   ''+ buttonChk(lists[i].user_id) +''
-										+	'	<span style="color:#919191;"><b>닉네임</b>:'+lists[i].user_id+'|'+ lists[i].qna_title +'</span><span style="color:#919191; float: right;">'+ lists[i].qna_regdate +'</span><br>'
+										+	'	<span style="color:#919191;"><b>닉네임</b>:'+lists[i].user_id+'|'+ lists[i].qna_title +'</span><span style="color:#919191; float: right;">'+ lists[i].qna_realdate +'</span><br>'
 										+	'	<div class="contents">'
 										+	'		<span class="zxczxc"><b>문의내용</b></span>    '
 										+    ''+ hideContent(lists[i].user_id,lists[i].qna_content,lists[i].qna_hide) +''
@@ -303,7 +303,7 @@
 						<% 
 					}
 				%>			
-					<span style="color:#919191;">닉네임:<%=dto.getUser_id()%>|<%=dto.getQna_title()%></span><span style="color:#919191; float: right;"><%=dto.getQna_regdate()%></span><br>
+					<span style="color:#919191;">닉네임:<%=dto.getUser_id()%>|<%=dto.getQna_title()%></span><span style="color:#919191; float: right;"><%=dto.getQna_realdate()%></span><br>
 					<div class="contents">
 						<span class="zxczxc"><b>문의내용</b></span><br>  
 						<%
@@ -311,7 +311,7 @@
 							if(uldto.getUser_id().equals(dto.getUser_id())){
 							%>
 								<span><%=dto.getQna_content()%></span>    						
-							<%	
+							<%	 
 							}else{
 							%> 
 								<span style="color:#aaa;">비공개글 입니다.</span>

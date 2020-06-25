@@ -98,10 +98,10 @@
  			%> 
 			<div class="mybox_info">
 				<img class="user_icon" src="img/icon/icon_<%=dto_img.getCategory_code()%>.png"> 
-				<a class="icon_rink"><%=dto_img.getCategory_name()%></a>
+				<a class="icon_rink" href="map_category.do?category_code=<%=dto_img.getCategory_code()%>"><%=dto_img.getCategory_name()%></a>
 			</div> 
 			<%
- 			}
+ 			} 
 			%> 
 	</div>
 	<div class="mybox bottom_info">

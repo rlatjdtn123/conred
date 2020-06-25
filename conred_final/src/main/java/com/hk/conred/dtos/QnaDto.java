@@ -18,12 +18,14 @@ public class QnaDto {
 	private String store_name;
 	private String store_photo_stored;
 	
+	private String qna_realdate;
+	
 	public QnaDto() {
 	}
 
 	public QnaDto(int qna_seq, int store_seq, String user_id, String qna_title, String qna_content, String qna_answer,
 			String qna_hide, String qna_read, Date qna_regdate, String qna_delflag, int rn, String store_name,
-			String store_photo_stored) {
+			String store_photo_stored, String qna_realdate) {
 		super();
 		this.qna_seq = qna_seq;
 		this.store_seq = store_seq;
@@ -38,6 +40,7 @@ public class QnaDto {
 		this.rn = rn;
 		this.store_name = store_name;
 		this.store_photo_stored = store_photo_stored;
+		this.qna_realdate = qna_realdate;
 	}
 
 	public int getQna_seq() {
@@ -144,13 +147,24 @@ public class QnaDto {
 		this.store_photo_stored = store_photo_stored;
 	}
 
+	public String getQna_realdate() {
+		return qna_realdate;
+	}
+
+	public void setQna_realdate(String qna_realdate) {
+		this.qna_realdate = qna_realdate;
+	}
+
 	@Override
 	public String toString() {
 		return "QnaDto [qna_seq=" + qna_seq + ", store_seq=" + store_seq + ", user_id=" + user_id + ", qna_title="
 				+ qna_title + ", qna_content=" + qna_content + ", qna_answer=" + qna_answer + ", qna_hide=" + qna_hide
 				+ ", qna_read=" + qna_read + ", qna_regdate=" + qna_regdate + ", qna_delflag=" + qna_delflag + ", rn="
-				+ rn + ", store_name=" + store_name + ", store_photo_stored=" + store_photo_stored + "]";
+				+ rn + ", store_name=" + store_name + ", store_photo_stored=" + store_photo_stored + ", qna_realdate="
+				+ qna_realdate + "]";
 	}
+
+	
 
 	
 

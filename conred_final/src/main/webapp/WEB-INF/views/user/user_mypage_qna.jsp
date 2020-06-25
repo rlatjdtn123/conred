@@ -20,7 +20,7 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style type="text/css">
-	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	#sticky{position: sticky; top:71px;}
 	#navi2{width:998px;background-color: lightblue;clear:both;position:relative;text-align: center;line-height: 40px;}
 	.navis2{border-bottom:1px solid grey; font-size:15px; float:left;width:199.6px;height:40px;background-color: #D8D8D8;}
@@ -45,6 +45,7 @@
 	.buttondle{background-color: #585858; color: white;border-radius: 5px;}
 	
 	.store_title{text-align: center;}
+	.tle_final{width: 700px;border-top: 1px solid #BDBDBD;margin-left: 150px;margin-bottom: 200px;}
 	   
 </style> 
 <script type="text/javascript">
@@ -82,7 +83,7 @@
 									+'<button style="margin-left: 235px;" class="buttondle"'
 									+'onclick="updateQnA('+lists[i].qna_seq+',\''+lists[i].qna_title+'\',\''+lists[i].qna_content+'\',\''+lists[i].qna_hide+'\')">수정</button>'
 									+'<button class="buttondle" onclick="deleteQnA('+lists[i].qna_seq+')">삭제</button> <button  class="content_detail buttondle">자세히 보기</button><br>'
-									+	'	<span>닉네임 :'+ lists[i].user_id +' &nbsp;| 가격문의 </span><br><br>   '                         
+									+	'	<span style="color: #919191">닉네임 :'+ lists[i].user_id +' &nbsp;| '+lists[i].qna_title+' </span><span style="float: right;color: #919191">'+ lists[i].qna_realdate +'</span><br><br>   '                         
 										+	'	<div class="contents">'+ lists[i].qna_content +'</div>    '
 									+	'	</div>   ' 
 									+	'	<div class="info2">     ' 
@@ -218,14 +219,14 @@
 				<img src="./img/profile_default.png" class="pf"/>
 				<div class="info">  
 					<button style="margin-left: 235px; " class="buttondle" onclick="updateQnA(<%=dto.getQna_seq()%>,'<%=dto.getQna_title()%>','<%=dto.getQna_content()%>','<%=dto.getQna_hide()%>')">수정</button> <button class="buttondle" onclick="deleteQnA(<%=dto.getQna_seq()%>)">삭제</button> <button  class="content_detail buttondle">자세히 보기</button><br>
-					<span style="color: #919191">닉네임 :<%=dto.getUser_id()%> &nbsp;| <%=dto.getQna_title()%> </span><br><br>   
+					<span style="color: #919191">닉네임 :<%=dto.getUser_id()%> &nbsp;| <%=dto.getQna_title()%> </span><span style="float: right;color: #919191"><%=dto.getQna_realdate()%></span><br><br>   
 					<div class="contents"><%=dto.getQna_content()%></div>    
 				</div>   
 				<div class="info2">     
 					<span style="font-weight: bold;">가게답변</span><br>
 					<%
 					if(dto.getQna_answer()==null||dto.getQna_answer().equals("")){
-					%>
+					%> 
 						<div class="contents contents2">아직 답변이 없습니다.</div>
 					<%	
 					}else{
@@ -244,6 +245,7 @@
 	<div class="bigbig">
 		
 	</div>
+	<div class="tle_final"></div>
 </div>
 </body>
 </html>

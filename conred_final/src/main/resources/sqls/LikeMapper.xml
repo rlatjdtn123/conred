@@ -10,8 +10,8 @@
 		SELECT  rn, cl.LIKE_LIST_SEQ ,cl.USER_ID ,cs.STORE_SEQ  ,cs.STORE_NAME,cs.STORE_INTRO_SIMPLE,cs.STORE_ADDRESS,cl.LIKE_REGDATE
 		FROM
 		    (SELECT  ROW_NUMBER()OVER(ORDER BY like_regdate DESC) AS rn,LIKE_LIST_SEQ ,USER_ID ,STORE_SEQ,LIKE_REGDATE
-		     FROM CON_LIKE )cl,CON_STORE cs
-		WHERE cl.store_seq=cs.STORE_SEQ AND CEIL(rn/5)=#{pnum} AND USER_ID =#{user_id}
+		     FROM CON_LIKE WHERE user_id=#{user_id})cl,CON_STORE cs
+		WHERE cl.store_seq=cs.STORE_SEQ AND CEIL(rn/5)=#{pnum} AND USER_ID =#{user_id} 
 	</select>
 	
 	<delete id="userLikeDelete" parameterType="Int">

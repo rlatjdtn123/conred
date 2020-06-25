@@ -23,11 +23,11 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <style type="text/css">
 	#container{box-sizing:border-box; border:1px solid grey;  border-bottom-width:0.1px; width:1000px;margin: 0 auto;background-color:#f5f5f5;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
-	.flatpickr-calendar{margin: 0 auto; width: 500px !important; height: 400px !important;}
+	.flatpickr-calendar{margin: 0 auto; width: 500px !important; height: 400px !important; padding-top: 45px;}
 	.flatpickr-rContainer{margin: 0 auto !important;}
 	
 	.times{width: 80px;height:34px; border: 1px solid green;float: left; margin: 10px; text-align: center;line-height: 34px; background-color: #edfbdc; border: 0;}
-	.times_result{width: 315px;margin: 0 auto;border:solid #D8D8D8;border-width:1px 0 1px 0; clear: both; height: 30px;line-height: 30px;margin-bottom: 40px;margin-top: 40px;}
+	.times_result{width: 375px;margin: 0 auto;border:solid #D8D8D8;border-width:1px 0 1px 0; clear: both; height: 30px;line-height: 30px;margin-bottom: 40px;margin-top: 40px;}
 	.selector{display: none;}
 	.times:hover{background-color: #00FF00;cursor: pointer;}
 	.reserve_time_select{border: 1px solid #A4A4A4; width: 500px; height: auto; margin: 0 auto; border-radius: 10px;margin-bottom: 400px; margin-top: 60px;background-color: white;}
@@ -35,6 +35,9 @@
 	.reserve_success{width: 100px;height: 25px; margin-left: 20px;font-size: 13px;line-height: 26px;border-width:0; display: none;border-radius: 10px;font-weight: bold;} 
 	.reserve_success:hover {background-color: lightgrey;}
 	.sungsoobox{margin-top: 100px;}
+	
+	.flatpickr-prev-month{margin-top: 45px;}
+	.flatpickr-next-month{margin-top: 45px;}
 	
 </style>  
 <script>   
@@ -77,6 +80,8 @@
 		var day_result=$(".times_result").children();
 		day_result.eq(1).empty();
 		day_result.eq(0).text(datestr+" , ");
+		day_result.eq(2).empty();
+		$(".reserve_success").css("display","none");
 		
 		//공백
 		var emptyDay=$(".prevMonthDay").length;
@@ -85,7 +90,7 @@
 		var	store_time_day=isWeek((emptyDay+num.getDate())%7);
 		var store_seq=$("input[name=store_seq]").val();
 		var menu_seq=$("input[name=menu_seq]").val();
-		var addContent="";
+		var addContent=""; 
 		var open;
 		var close; 
 		var store_maxman=$("input[name=store_maxman]").val();
@@ -126,11 +131,13 @@
 					
 					$(".times").click(function(){
 						var timeval=$(this).val(); 
+						var reserve_price=$("input[name=reserve_price]").val();
 						if(datestr==null){
 							timeval=null; 
 							alert("날짜먼저 선택해주세요"); 
 						}else{
 							$(".times_result").children("span").eq(1).text(timeval);
+							$(".times_result").children("span").eq(2).text(","+reserve_price+"원");
 							$(".times").css("background-color", "#edfbdc"); 
 							$(".max_time").css("background-color", "lightgrey");
 							$(this).css("background-color", "#00FF00");
@@ -145,27 +152,49 @@
 			}
 		});
 		
-		
+	
 		$.ajax({
 			url:"user_reservemax_ajax.do",
 			method:"post",
-			data:{"menu_seq":menu_seq,"store_seq":store_seq,"reserve_sdate":datestr},
+			data:{"menu_seq":menu_seq,"store_seq":store_seq,"reserve_sdate":datestr,"store_time_day":store_time_day},
 			async: false, 
 			dataType:"json",
 			success:function(obj){
 				  var lists=obj.listMax;
-				  var count=0;
+				  var lists_chk=obj.listWeek;
+				  var count=0; 
 				  $.each(lists,function(i){
+					    open=lists_chk[i].store_time_open.split(":");
+						close=lists_chk[i].store_time_close.split(":");
+// 					  	alert(typeof open[0]);
+// 					  	alert("close:"+close[0]);				
+					  	
 					    var ing=parseInt(close[0])-parseInt(open[0]);	
-					    var times_split= $(".times").val().split(":");
-//  					    alert(lists[i].reserve_time); 
-					    for (var j = 0; j < ing+1; j++) {
+					    var times_split=$(".times").val().split(":");
 					    
-					    	if(((parseInt(times_split[0])+j)+":00")==lists[i].reserve_time&&lists[i].ct==store_maxman){
-					  			$("input[value='"+(parseInt(times_split[0])+j)+':00'+"']").css({"pointer-events":"none","background-color":"lightgrey"}).addClass("max_time");
-					    		 
-				  			} 
-						}  
+// 							alert((parseInt(times_split[0])+0)+":00"); // 매장조건에맞게 화면에 뿌려지는 시간
+// 							alert(lists[i].reserve_time);              // 예약시간
+// 							alert(lists[0].ct);                        // 매장 그시간대 예약인원수
+// 							alert(store_maxman);                       // 매장최대인원수
+							
+						//24시인 매장도있을경우
+					    if(open[0]=="00"&&close[0]=="00"){ 
+							for (var j = 0; j < 24; j++) {
+								if(((parseInt(times_split[0])+j)+":00")==lists[i].reserve_time&&lists[i].ct==store_maxman){
+						  			$("input[value='"+(parseInt(times_split[0])+j)+':00'+"']").css({"pointer-events":"none","background-color":"lightgrey"}).addClass("max_time");    		 
+					  			} 
+							} 
+						}else{
+							for (var j = 0; j < ing+1; j++) {  
+						    	if(((parseInt(times_split[0])+j)+":00")==lists[i].reserve_time&&lists[i].ct==store_maxman){
+						  			$("input[value='"+(parseInt(times_split[0])+j)+':00'+"']").css({"pointer-events":"none","background-color":"lightgrey"}).addClass("max_time");    		 
+					  			} 
+							}
+						}
+						
+					  
+					    
+					    
 				  }) 
 			} 
 		});
@@ -395,7 +424,7 @@
 				<div class="time_box">	 
 					
 				</div>
-					<div class="times_result">예약 시간 : <span></span>&nbsp;<span></span><input class="reserve_success" value="예약하기" type="submit"/></div> 
+					<div class="times_result">예약 시간 : <span></span>&nbsp;<span></span>&nbsp;<span></span><input class="reserve_success" value="예약하기" type="submit"/></div> 
 			</div>
 		</div>
 	</div>
