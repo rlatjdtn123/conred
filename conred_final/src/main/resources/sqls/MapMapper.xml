@@ -37,12 +37,12 @@
 		cs.STORE_ADDRESS ,cs.STORE_ADDRESS_DETAIL ,ccm.CATEGORY_CODE, cc.CATEGORY_NAME 
 		FROM CON_STORE_LOCATION csl ,CON_STORE cs, CON_CATEGORY_MAIN ccm, CON_CATEGORY cc 
 		WHERE cs.STORE_SEQ =csl.STORE_SEQ
-		AND cs.STORE_SEQ =ccm.STORE_SEQ
+		AND cs.STORE_SEQ =ccm.STORE_SEQ 
 		AND cc.CATEGORY_CODE =ccm.CATEGORY_CODE 
 		AND STORE_LATITUDE BETWEEN #{swlat} AND #{nelat}
 		AND STORE_LONGITUDE BETWEEN #{swlng} AND #{nelng}
 		AND STORE_ADMIN_STATE ='Y'
-
+		ORDER BY cs.STORE_SEQ
 <!-- 		SELECT cs.store_seq, cs.store_address, ccm.CATEGORY_CODE  -->
 <!-- 		FROM CON_STORE cs, CON_CATEGORY_MAIN ccm -->
 <!-- 		WHERE cs.STORE_SEQ = ccm.STORE_SEQ -->
@@ -50,6 +50,7 @@
 	</select>
 	
 <!-- 	ajax 화면상의 매장 검색 : 카테고리별-->
+
 <!-- 	<select id="searchCate_ajax" parameterType="Map" resultType="SDto"> -->
 <!-- 		SELECT cs.STORE_SEQ ,cs.STORE_NAME ,cs.STORE_INTRO_SIMPLE,cs.STORE_STATE,cs.STORE_PHONE, -->
 <!-- 				cs.STORE_ADDRESS ,cs.STORE_ADDRESS_DETAIL ,ccm.CATEGORY_CODE, cc.CATEGORY_NAME  -->
@@ -60,36 +61,35 @@
 <!-- 		AND STORE_LATITUDE BETWEEN #{swlat} AND #{nelat} -->
 <!-- 		AND STORE_LONGITUDE BETWEEN #{swlng} AND #{nelng} -->
 <!-- 		AND STORE_ADMIN_STATE ='Y' -->
-<!-- 		AND ccm.CATEGORY_CODE IN(#{category_code}) -->
+<!-- 		AND ccm.CATEGORY_CODE IN -->
+<!-- 		<foreach collection="list" item="category_code" index="index" open="(" close=")" separator=","> -->
+<!-- 			#{category_code} -->
+<!-- 		</foreach> -->
 <!-- 		ORDER BY cs.STORE_SEQ -->
+<!-- 	</select> -->
 
 	<select id="searchCate_ajax" parameterType="Map" resultType="SDto">
-		SELECT cs.STORE_SEQ ,cs.STORE_NAME ,cs.STORE_INTRO_SIMPLE,cs.STORE_STATE,cs.STORE_PHONE,
-				cs.STORE_ADDRESS ,cs.STORE_ADDRESS_DETAIL ,ccm.CATEGORY_CODE, cc.CATEGORY_NAME 
-		FROM CON_STORE_LOCATION csl ,CON_STORE cs, CON_CATEGORY_MAIN ccm, CON_CATEGORY cc 
-		WHERE cs.STORE_SEQ =csl.STORE_SEQ
-		AND cs.STORE_SEQ =ccm.STORE_SEQ
-		AND cc.CATEGORY_CODE =ccm.CATEGORY_CODE 
-		AND STORE_LATITUDE BETWEEN #{swlat} AND #{nelat}
-		AND STORE_LONGITUDE BETWEEN #{swlng} AND #{nelng}
-		AND STORE_ADMIN_STATE ='Y'
-		AND ccm.CATEGORY_CODE IN
+		SELECT STORE_SEQ, STORE_NAME, STORE_INTRO_SIMPLE, STORE_STATE,STORE_PHONE, 
+			STORE_ADDRESS, STORE_ADDRESS_DETAIL, CATEGORY_CODE, CATEGORY_NAME
+		FROM (SELECT ROW_NUMBER() OVER (ORDER BY cs.STORE_SEQ) AS rn,cs.STORE_SEQ ,
+					cs.STORE_NAME ,cs.STORE_INTRO_SIMPLE,cs.STORE_STATE,cs.STORE_PHONE, 
+					cs.STORE_ADDRESS ,cs.STORE_ADDRESS_DETAIL ,ccm.CATEGORY_CODE, cc.CATEGORY_NAME
+			FROM CON_STORE_LOCATION csl ,CON_STORE cs, CON_CATEGORY_MAIN ccm, CON_CATEGORY cc 
+			WHERE cs.STORE_SEQ =csl.STORE_SEQ
+			AND cs.STORE_SEQ =ccm.STORE_SEQ
+			AND cc.CATEGORY_CODE =ccm.CATEGORY_CODE
+			AND STORE_LATITUDE BETWEEN #{swlat} AND #{nelat}
+			AND STORE_LONGITUDE BETWEEN #{swlng} AND #{nelng}
+			AND STORE_ADMIN_STATE ='Y'
+			AND ccm.CATEGORY_CODE IN
 			<foreach collection="list" item="category_code" index="index" open="(" close=")" separator=",">
 				#{category_code}
 			</foreach>
-		ORDER BY cs.STORE_SEQ
+		)
+		WHERE CEIL(rn/5)=#{pnum}
 	</select>
-<!-- 			<foreach collection="list" item="item" open="(" close=")" separator=","> -->
 	
-<!-- 	<resultMap type="SDto" id="SDtoMap"> -->
-<!-- 		<collection property="slocadto" resultMap="SLocaMap"/> -->
-<!-- 	</resultMap> -->
-<!-- 	<resultMap type="SLocaDto" id="SLocaMap"> -->
-<!-- 		<result property="store_latitude" column="STORE_LATITUDE"/> -->
-<!-- 		<result property="store_longitude" column="STORE_LATITUDE"/> -->
-<!-- 	</resultMap> -->
 <!-- 	ajax 특정 매장1개 검색 및 기본정보+좌표정보가져오기:키워드검색-->
-<!-- 	<select id="searchKey_ajax" parameterType="String" resultMap="SDtoMap"> -->
 	<select id="searchKey_ajax" parameterType="String" resultType="SDto">
 		SELECT cs.STORE_SEQ ,cs.STORE_NAME ,cs.STORE_INTRO_SIMPLE,cs.STORE_STATE,cs.STORE_PHONE,
 				cs.STORE_ADDRESS ,cs.STORE_ADDRESS_DETAIL ,ccm.CATEGORY_CODE, cc.CATEGORY_NAME ,

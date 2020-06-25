@@ -474,7 +474,7 @@
 				method:"post",
 				dataType: "json",
 				async: false,
-				data:{"pnum":pnum,"category_code":category_code,"nelat":nelat,"nelng":nelng,"swlat":swlat,"swlng":swlng},
+				data:{"category_code":category_code,"nelat":nelat,"nelng":nelng,"swlat":swlat,"swlng":swlng},
 				success:function(obj) {
 // 					if('' || null || undefined || 0 || NaN){
 

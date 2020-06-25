@@ -17,7 +17,7 @@ public interface IMapService {
 	//아작스로 맵에뿌려주기1 : 카테고리 all
 	public List<SDto> searchCateAll_ajax(String nelat, String nelng, String swlat, String swlng);
 	//아작스로 맵에뿌려주기2 : 카테고리별 검색
-	public List<SDto> searchCate_ajax(String category_code,String nelat, String nelng, String swlat, String swlng);
+	public List<SDto> searchCate_ajax(int pnum,String category_code,String nelat, String nelng, String swlat, String swlng);
 	//아작스로 맵에뿌려주기3 : 키워드로 지하철검색 : 얘는 지하철service 쪽에서
 	
 	//아작스로 맵에뿌려주기4 : 키워드로 매장1개검색

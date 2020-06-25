@@ -44,7 +44,7 @@ public class MapDaoImp implements IMapDao{
 	}
 	
 	@Override
-	public List<SDto> searchCate_ajax(String category_code, String nelat, String nelng, String swlat, String swlng) {
+	public List<SDto> searchCate_ajax(int pnum,String category_code, String nelat, String nelng, String swlat, String swlng) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("nelat", nelat);
 		map.put("nelng", nelng);
@@ -60,8 +60,10 @@ public class MapDaoImp implements IMapDao{
 			list.add(array[i]);
 		}
 		System.out.println(list);
+		System.out.println(pnum);
 //		}
 		map.put("list", list);
+		map.put("pnum", pnum+"");
 		return sqlSession.selectList(namespace+"searchCate_ajax",map);
 	}
 

@@ -34,8 +34,8 @@ public class MapServiceImp implements IMapService{
 	}
 	
 	@Override
-	public List<SDto> searchCate_ajax(String category_code, String nelat, String nelng, String swlat, String swlng) {
-		return mapDao.searchCate_ajax(category_code,nelat,nelng,swlat,swlng);
+	public List<SDto> searchCate_ajax(int pnum,String category_code, String nelat, String nelng, String swlat, String swlng) {
+		return mapDao.searchCate_ajax(pnum,category_code,nelat,nelng,swlat,swlng);
 	}
 
 	@Override
