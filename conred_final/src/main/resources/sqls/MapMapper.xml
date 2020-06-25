@@ -86,7 +86,7 @@
 				#{category_code}
 			</foreach>
 		)
-		WHERE CEIL(rn/5)=#{pnum}
+		WHERE CEIL(rn/30)=#{pnum}
 	</select>
 	
 <!-- 	ajax 특정 매장1개 검색 및 기본정보+좌표정보가져오기:키워드검색-->

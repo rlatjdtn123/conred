@@ -252,10 +252,12 @@
 // 						alert("검색결과가 존재하지 않습니다.");
 						swal("조금 더 정확히 입력해보개!", "지역, 주소, 지하철, 매장명중 하나로 검색해주세요\n ex)당산역 / 영등포구 양평동1가 211-1", "error");
 						
-						$(".storelist").remove();
-						$("#rightbox").append("<div class='storelist' style='height:170px;text-align:center;padding-top:70px;'>----------현재 지역에서 검색되는 결과가 없습니다----------</div>");
-						var position = $(".storelist").eq(0).position();
-						$("#show").stop().animate({scrollTop : position.top}, 400);
+						if(pnum==1){
+							$(".storelist").remove();
+							$("#rightbox").append("<div class='storelist' style='height:170px;text-align:center;padding-top:70px;'>----------현재 지역에서 검색되는 결과가 없습니다----------</div>");
+							var position = $(".storelist").eq(0).position();
+							$("#show").stop().animate({scrollTop : position.top}, 400);
+						}
 					}
 				},
 				error:function(request,error){
@@ -283,13 +285,15 @@
 						var today = obj.today;
 						var store_detail;
 						var rb =$("#rightbox");
-						
-					    markers.forEach(function (marker) { marker.setMap(null); });
-					    markers.length = 0 // 마커 배열 초기화
-					    overlays.forEach(function (overlay) { overlay.setMap(null); });
-					    overlays.length = 0 // 오버레이 배열 초기화
-
-						$(".storelist").remove();
+						if(pnum==1){
+						    markers.forEach(function (marker) { marker.setMap(null); });
+						    markers.length = 0 // 마커 배열 초기화
+						    overlays.forEach(function (overlay) { overlay.setMap(null); });
+						    overlays.length = 0 // 오버레이 배열 초기화
+						}
+					    if(pnum==1){
+							$(".storelist").remove();
+						}
 							var store_state="";
 							if (store_lists.store_state==='O') {
 								store_state='<div class="storestate s_state_color1"><b>영업중</b></div>';
@@ -350,8 +354,8 @@
 								}
 							});
 							console.log("매장시간"+stimeArray);
-							$(".storelist").eq(0).find($(".storetime_today")).append(stimeArray[today===0?7:today-1]);
-							$(".storelist").eq(0).find($(".storetime_other")).append(stimeArray);
+// 							$(".storelist").eq(0).find($(".storetime_today")).append(stimeArray[today===0?7:today-1]);
+// 							$(".storelist").eq(0).find($(".storetime_other")).append(stimeArray);
 							$(".storetime_today").eq(0).mouseover(function() {
 								$(".storetime_other").eq(0).removeAttr("style");
 								$(".storetime_other").eq(0).css("visibility","visible"); 
@@ -426,16 +430,20 @@
 						    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(customOverlay));
 
 						}else if (obj.catelist==null){
-							$(".storelist").remove();
-							$("#rightbox").append("<div class='storelist' style='height:170px;text-align:center;padding-top:70px;'>----------현재 지역에서 검색되는 결과가 없습니다----------</div>");
-							var position = $(".storelist").eq(0).position();
-							$("#show").stop().animate({scrollTop : position.top}, 400);
+							if(pnum==1){
+								$(".storelist").remove();
+								$("#rightbox").append("<div class='storelist' style='height:170px;text-align:center;padding-top:70px;'>----------현재 지역에서 검색되는 결과가 없습니다----------</div>");
+								var position = $(".storelist").eq(0).position();
+								$("#show").stop().animate({scrollTop : position.top}, 400);
+							}
 						}
 								
 				},
 				error:function(request,error){
-					$(".storelist").remove();
-					$("#rightbox").append("<div class='storelist' style='height:100%'>----------현재 지역에서 검색되는 결과가없습니다----------</div>");
+					if(pnum==1){
+						$(".storelist").remove();
+						$("#rightbox").append("<div class='storelist' style='height:100%'>----------현재 지역에서 검색되는 결과가없습니다----------</div>");
+					}
 					alert("서버통신실패!!"+request.status+","+error);
 				}
 					
@@ -444,7 +452,7 @@
 		
 		//카테고리 검색(+전체검색) 로직(1):화면의 크기를 구한 후, 전달받은 카테고리 값에따라(전체or개별카테고리) 화면안에 포함되는 매장들의 세부적인 데이터들을 가져온다.
 		function ajax_cate(selected_cates) {//만약 파라미터값이 있다면 사용.
-		alert("검색실행:"+pnum);
+// 		alert("검색실행:"+pnum);
 // 		(2번방법)	영역정보를 ajax로 전달해서 모든세부값 가져오기	
 	    var bounds = map.getBounds();// 지도 영역정보를 얻어옵니다 
 	    var sw = bounds.getSouthWest();// 영역정보의 남서쪽 정보를 얻어옵니다 
@@ -479,12 +487,12 @@
 // 					if('' || null || undefined || 0 || NaN){
 
 					if(obj.list!=null){
-						
-					    markers.forEach(function (marker) { marker.setMap(null); });
-					    markers.length = 0 // 마커 배열 초기화
-					    overlays.forEach(function (overlay) { overlay.setMap(null); });
-					    overlays.length = 0 // 오버레이 배열 초기화
-						
+						if(pnum==1){
+						    markers.forEach(function (marker) { marker.setMap(null); });
+						    markers.length = 0 // 마커 배열 초기화
+						    overlays.forEach(function (overlay) { overlay.setMap(null); });
+						    overlays.length = 0 // 오버레이 배열 초기화
+						}
 						console.log(obj);
 						var store_lists = obj.list;
 						var photo_lists = obj.photolist;
@@ -494,8 +502,9 @@
 						var today = obj.today;
 						var store_detail;
 						var rb =$("#rightbox");
-						
-						$(".storelist").remove();
+						if(pnum==1){
+							$(".storelist").remove();
+						}
 						$.each(store_lists, function(i){
 							var store_state="";
 							if (store_lists[i].store_state==='O') {
@@ -559,17 +568,17 @@
 								}
 							});
 							console.log(i+"번째 매장"+stimeArray);
-							$(".storelist").eq(i).find($(".storetime_today")).append(stimeArray[today===0?7:today-1]);
-							$(".storelist").eq(i).find($(".storetime_other")).append(stimeArray);
+							$(".storelist").eq(i).find($(".storetime_today")).append(stimeArray[today===0?7:today-1].indexOf("00:00  ~ 00:00")!=-1?"24시간 영업":stimeArray[today===0?7:today-1]);
+// 							$(".storelist").eq(i).find($(".storetime_other")).append(stimeArray);
 							
 							$(".storetime_today").eq(i).mouseover(function() {
-								$(".storetime_other").eq(i).removeAttr("style");
-								$(".storetime_other").eq(i).css("visibility","visible"); 
-								$(".storetime_today").eq(i).css("z-index","100");
+// 								$(".storetime_other").eq(i).removeAttr("style");
+// 								$(".storetime_other").eq(i).css("visibility","visible"); 
+// 								$(".storetime_today").eq(i).css("z-index","100");
 							});
 							$(".storetime_today").eq(i).mouseout(function() {
-								$(".storetime_today").eq(i).css("z-index","100");
-								$(".storetime_other").eq(i).css({"visibility":"hidden","z-index":"100"});
+// 								$(".storetime_today").eq(i).css("z-index","100");
+// 								$(".storetime_other").eq(i).css({"visibility":"hidden","z-index":"100"});
 							});
 						});
 						
@@ -634,21 +643,27 @@
 					}else if (obj.list==null){
 // 						if(selected_cates==="none"){
 //8 						     alert("selected!!!!2:"+selected_cates);
+						if(pnum==1){
 					    	markers.forEach(function (marker) { marker.setMap(null); });
 						    markers.length = 0 // 마커 배열 초기화
 						    overlays.forEach(function (overlay) { overlay.setMap(null); });
 						    overlays.length = 0 // 오버레이 배열 초기화
+						}
 // 						}
-						$(".storelist").remove();
-						$("#rightbox").append("<div class='storelist' style='height:170px;text-align:center;padding-top:70px;'>----------현재 지역에서 검색되는 결과가 없습니다----------</div>");
-						var position = $(".storelist").eq(0).position();
-						$("#show").stop().animate({scrollTop : position.top}, 400);
+					    if(pnum==1){
+							$(".storelist").remove();
+							$("#rightbox").append("<div class='storelist' style='height:170px;text-align:center;padding-top:70px;'>----------현재 지역에서 검색되는 결과가 없습니다----------</div>");
+							var position = $(".storelist").eq(0).position();
+							$("#show").stop().animate({scrollTop : position.top}, 400);
+						}
 					}
 	
 				},
 				error: function(request,error) {
-					$(".storelist").remove();
-					$("#rightbox").append("<div class='storelist' style='height:170px;text-align:center;padding-top:70px;'>----------현재 지역에서 검색되는 결과가 없습니다----------</div>");
+					if(pnum==1){
+						$(".storelist").remove();
+						$("#rightbox").append("<div class='storelist' style='height:170px;text-align:center;padding-top:70px;'>----------현재 지역에서 검색되는 결과가 없습니다----------</div>");
+					}
 					var position = $(".storelist").eq(0).position();
 					$("#show").stop().animate({scrollTop : position.top}, 400);
 					alert("서버통신실패!!"+request.status+","+error);
@@ -823,6 +838,7 @@
 		kakao.maps.event.addListener(map, 'idle',  function() {
 			map.relayout();
  		});
+		
 		
 		kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
 		    

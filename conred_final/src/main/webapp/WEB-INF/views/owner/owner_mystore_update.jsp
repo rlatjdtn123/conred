@@ -304,6 +304,9 @@
 		var c1=0;
 		for (var i = 0; i < 8; i++) {//1,2,3,4,5,6,7,8
 			var list_stime1= "<c:out value='${list_stime[0].store_time_open}'/>";
+			
+			alert("d"+list_stime_open);
+			alert(lt_open[i]);
 	 		$('.timepicker').eq(c1).timepicker({
 			    timeFormat: 'HH:mm ',
 			    interval: 30,
