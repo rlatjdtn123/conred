@@ -1,3 +1,4 @@
+<%@page import="com.hk.conred.dtos.ODto"%>
 <%@page import="com.hk.conred.dtos.UDto"%>
 <%@page import="com.hk.conred.dtos.QnaDto"%>
 <%@page import="java.util.List"%>
@@ -227,6 +228,7 @@
 	List<QnaDto> list=(List<QnaDto>)request.getAttribute("list");
 	QnaDto qnaAvg=(QnaDto)request.getAttribute("qnaAvg");
 	UDto uldto=(UDto)session.getAttribute("uldto");
+	ODto oldto=(ODto)session.getAttribute("oldto");
 %>  
 <body>  
 <%-- <input type="hidden" name="session_id"  data-value="<%=session.getAttribute("uldto")==null?"":uldto.getUser_id()%>"/> --%>
@@ -314,18 +316,22 @@
 							<%	 
 							}else{
 							%> 
-								<span style="color:#aaa;">비공개글 입니다.</span>
+								<span style="color:#aaa;">비공개글 입니다.</span> 
 							<%	
 							}
 						}else{
-							if(dto.getQna_hide().equals("Y")){
+							if(oldto!=null){
 							%> 
-								<span style="color:#aaa;">비공개글 입니다.</span>
+								<span><%=dto.getQna_content()%></span>
 							<%
+							}else if(dto.getQna_hide().equals("Y")){
+							%>
+								<span style="color:#aaa;">비공개글 입니다.</span>
+							<%	 
 							}else{
 							%>
 								<span><%=dto.getQna_content()%></span>
-							<%	 
+							<%		
 							}
 						}
 						%>   
