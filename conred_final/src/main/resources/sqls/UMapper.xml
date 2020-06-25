@@ -53,20 +53,27 @@
 	</select>
 	
 	
-	
-	<select id="">
-	<![CDATA[
-	SELECT *
-	FROM (SELECT U.USER_ID ,C.CATEGORY_CODE , C.CATEGORY_NAME 
-		FROM CON_USER U, CON_INTERESTS I, CON_CATEGORY C
-		WHERE U.USER_ID = I.USER_ID AND I.CATEGORY_CODE = C.CATEGORY_CODE 
-		AND U.USER_ID = #{USER_ID} ) A,
-		(SELECT S.STORE_SEQ ,S.OWNER_ID ,S.STORE_NAME, M.CATEGORY_CODE 
-		FROM CON_STORE S,CON_CATEGORY_MAIN M
-		WHERE S.STORE_SEQ =M.STORE_SEQ) B
-	WHERE A.CATEGORY_CODE = B.CATEGORY_CODE;
-     ]]>
-	</select>
+<!-- 	관심사 조회 -->
+<!-- 	<select id=""> -->
+<!-- 		<![CDATA[ 	 -->
+<!-- 		SELECT *  -->
+<!--  		FROM(SELECT U.USER_ID ,C.CATEGORY_CODE , C.CATEGORY_NAME   -->
+<!-- 			FROM CON_USER U, CON_INTERESTS I, CON_CATEGORY C  -->
+<!--  			WHERE U.USER_ID = I.USER_ID AND I.CATEGORY_CODE = C.CATEGORY_CODE   -->
+<!--  			AND U.USER_ID = #{USER_ID} ) A,  -->
+<!--  			(SELECT S.STORE_SEQ ,S.OWNER_ID ,S.STORE_NAME, M.CATEGORY_CODE   -->
+<!-- 			FROM CON_STORE S,CON_CATEGORY_MAIN M  -->
+<!-- 			 WHERE S.STORE_SEQ =M.STORE_SEQ) B  -->
+<!--  		WHERE A.CATEGORY_CODE = B.CATEGORY_CODE -->
+<!--      	]]>  -->
+<!--  	</select>  -->
+        
+        <!--네아로를 위한 중복 아이디 조회 -->
+     <select id = "naver_confirm_id" parameterType="String" resultType="String">
+    	SELECT USER_ID
+		FROM CON_USER
+		WHERE USER_ID=#{user_id}
+     </select>
 	
 	<select id="userInterestsIcon" parameterType="String" resultType="UDto">
 		SELECT ci.INTERESTS_SEQ,ci.CATEGORY_CODE,cc.CATEGORY_NAME

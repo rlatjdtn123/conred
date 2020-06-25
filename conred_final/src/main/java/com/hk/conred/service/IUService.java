@@ -28,4 +28,6 @@ public interface IUService {
 	
 	//9.사용자 블랙처리 (신고3번받으면)
 	
+	//10.네이버 아이디 로그인을 위한 유저 아이디 중복 조회
+	public String naver_confirm_id(String user_id);
 }

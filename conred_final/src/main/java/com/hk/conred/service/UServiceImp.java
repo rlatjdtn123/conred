@@ -75,6 +75,10 @@ public class UServiceImp implements IUService{
 		return UDaoImp.userInterestsIcon(user_id);
 	}
 
+	@Override
+	public String naver_confirm_id(String user_id) {
+		return UDaoImp.naver_confirm_id(user_id);
+	}
 	
 
 	

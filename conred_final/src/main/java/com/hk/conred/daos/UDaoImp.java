@@ -79,6 +79,12 @@ public class UDaoImp implements IUDao{
 		return list;
 	}
 	
+	@Override
+	public String naver_confirm_id(String user_id) {
+		user_id=sqlSession.selectOne(nameSpace+"naver_confirm_id", user_id);
+		return user_id;
+	}
+	
 	
 	 
 }
