@@ -270,7 +270,7 @@
 		function ajax_store_detail(store_info){
 			$.ajax({
 				url:"map_storedetail_ajax.do",
-				method:"post",
+				method:"post", 
 				dataType:"json",
 				async:false,
 				data:{"store_seq":store_info.store_seq},
