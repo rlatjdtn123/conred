@@ -9,6 +9,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script src="js/jquery-3.4.1.js"></script>
+<!-- 스윗알러트! -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
@@ -57,30 +59,39 @@
 				}
 			}
 			if(count>3){
-				alert("최대 3개 까지만 선택해 주세요");
+				swal("최대 3개 까지만 선택해 주세요", "", "error");
 				return false;
 			}else if(count==0){
-				alert("최소 한개이상 선택해 주세요");
+				swal("최소 한개이상 선택해 주세요", "", "error");
 				return false;
 			}
 		}
 	}
-	
+	 
 	$(function(){
 		var cate=$(".dd");
-		cate.click(function(){ 
+		cate.click(function(){ 	
 			if($(this).prev().prop("checked")==true){
-				$(this).css("opacity", "1");
 				$(this).prev().attr("checked", false);
+				$(this).removeClass("to_color"); 
+				$(this).addClass("to_grey");	
+				if($(".to_grey").length==9){
+					$(".dd").removeClass("to_grey");
+					$(".dd").removeClass("to_color");
+				}
 			}else{
 				$(this).prev().attr("checked", "checked");
-				$(this).css("opacity", "0.5");
-			}
+				if(!$(".dd").hasClass("to_color")){
+					$(".dd").addClass("to_grey");	
+				}
+				$(this).removeClass("to_grey"); 
+				$(this).addClass("to_color"); 
+			}		 
 		});
 	});
-			
+			 
 	
-	
+	 
 </script>
 </head>
 <%

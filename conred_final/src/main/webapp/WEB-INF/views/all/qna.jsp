@@ -20,6 +20,8 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- 스윗알러트! -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style type="text/css">
 	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 /* 	#sticky{position: sticky; top:71px;} */
@@ -128,7 +130,7 @@
 			    var qna_content = $(this).val();
 			    $('#counter').html("("+qna_content.length+" / 최대 200자)");  
 			    if (qna_content.length > 200){
-			        alert("최대 200자까지 입력 가능합니다.");
+			    	swal("최대 200자까지 입력 가능합니다", "error");
 			        $(this).val(qna_content.substring(0, 100));
 			        $('#counter').html("(200 / 최대 200자)");  
 			    }
@@ -143,11 +145,11 @@
 				  var qna_hide=$(".qna_hide").val();
 				   
 				  if(qna_title=='문의 선택'){
-					  alert("문의를 선택해주세요");
+					  swal("문의를 선택해주세요", "error");
 					  return false;
 				  }
 				  if(qna_hide=='비공개 여부'){
-					  alert("비공개 여부를 선택해주세요");
+					  swal("비공개 여부를 선택해주세요", "error");
 					  return false;
 				  }
 				  

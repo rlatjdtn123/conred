@@ -252,7 +252,85 @@
 				return false;
 			}
 		}
-
+	    var form=$("form")[0];
+	    form.onsubmit=function(){ 
+			
+			if($(".inputbox").eq(0).find($(".form-control")).val()==""||$(".inputbox").eq(0).find($(".form-control")).val()==" "||$(".inputbox").eq(0).find($(".form-control")).val()==null){
+				alert("매장이름을 입력해주세요"); 
+				document.getElementsByClassName("inputbox")[0].scrollIntoView({behavior: "smooth"});
+				setTimeout(function() {
+					$(".inputbox").eq(0).find($(".form-control")).focus();
+				},1000);
+				return false;
+			}
+	    	if($(".preview-box").length<5){
+				alert("사진은 최소 5장을 넣어주세요"); 
+				document.getElementsByClassName("inputbox")[3].scrollIntoView({behavior: "smooth"});
+				return false;
+			}
+			if($(".inputbox").eq(4).find($(".form-control")).val()==""||$(".inputbox").eq(4).find($(".form-control")).val()==" "||$(".inputbox").eq(4).find($(".form-control")).val()==null){
+				alert("매장의 간단소개를 입력해주세요"); 
+				document.getElementsByClassName("inputbox")[4].scrollIntoView({behavior: "smooth"});
+				setTimeout(function() {
+					$(".inputbox").eq(4).find($(".form-control")).focus();
+				},900);
+				return false;
+			}
+			if($(".inputbox").eq(5).find($(".form-control")).val()==""||$(".inputbox").eq(5).find($(".form-control")).val()==" "||$(".inputbox").eq(5).find($(".form-control")).val()==null){
+				alert("매장의 소갯글를 입력해주세요"); 
+				document.getElementsByClassName("inputbox")[5].scrollIntoView({behavior: "smooth"});
+				setTimeout(function() {
+					$(".inputbox").eq(5).find($(".form-control")).focus();
+				},850);
+				return false;
+			}
+			
+			if($(".inputbox").eq(7).find($(".form-control")).val()==""||$(".inputbox").eq(7).find($(".form-control")).val()==" "||$(".inputbox").eq(7).find($(".form-control")).val()==null){
+				alert("매장의 전화번호를 입력해주세요"); 
+				document.getElementsByClassName("inputbox")[7].scrollIntoView({behavior: "smooth"});
+				setTimeout(function() {
+					$(".inputbox").eq(7).find($(".form-control")).focus();
+				},750);
+				return false;
+			}
+			if($(".inputbox").eq(8).find($(".form-control")).val()==""||$(".inputbox").eq(8).find($(".form-control")).val()==" "||$(".inputbox").eq(8).find($(".form-control")).val()==null){
+				alert("담당자의 전화번호를 입력해주세요"); 
+				document.getElementsByClassName("inputbox")[8].scrollIntoView({behavior: "smooth"});
+				setTimeout(function() {
+					$(".inputbox").eq(8).find($(".form-control")).focus();
+				},750);
+				return false;
+			}
+			if($("input[name=store_latitude]").val()==""||$("input[name=store_latitude]").val()==" "||$("input[name=store_latitude]").val()==null){
+				alert("지도에서 주소를 찾아 선택해주세요."); 
+				document.getElementsByClassName("inputbox")[9].scrollIntoView({behavior: "smooth"});
+				return false;
+			}
+			if($("input[name=store_address_detail]").val()==""||$("input[name=store_address_detail]").val()==" "||$("input[name=store_address_detail]").val()==null){
+				alert("상세주소를 적어주세요"); 
+				document.getElementsByClassName("inputbox")[9].scrollIntoView({behavior: "smooth"});
+				setTimeout(function() {
+					$(".inputbox").eq(9).find($(".form-control")).eq(1).focus();
+				},750);
+				return false;
+			}
+			if($(".lastbox").find($(".form-control")).eq(0).val()=="none"){
+				alert("은행정보를 입력해주세요.");
+				document.getElementsByClassName("inputbox")[11].scrollIntoView({behavior: "smooth"});
+				setTimeout(function() {
+					$(".inputbox").eq(11).find($(".form-control")).eq(0).focus();
+				},750);
+				return false;
+			}
+			if($("input[name=store_account]").val()==""||$("input[name=store_account]").val()==" "||$("input[name=store_account]").val()==null){
+				alert("계좌번호를 입력해주세요."); 
+				document.getElementsByClassName("inputbox")[11].scrollIntoView({behavior: "smooth"});
+				setTimeout(function() {
+					$(".inputbox").eq(11).find($(".form-control")).eq(1).focus();
+				},750);
+				return false;
+			}
+		}
 	});
 	
 	/////////-------------------파일업로드관련
@@ -481,7 +559,9 @@
 			<div>
 				<div class="inputbox">
 					<div class="inputtitle">매장명</div> 
-					<div class="inputs"><input class="form-control" type="text" name="store_name" placeholder="예)양평 동물병원"/></div>
+					<div class="inputs">
+						<input class="form-control" type="text" name="store_name" placeholder="예)양평 동물병원" />
+					</div>
 				</div>
 				<div class="inputbox">
 					<div class="inputtitle">대표명</div>
@@ -504,7 +584,7 @@
 					            <!-- 첨부 버튼 -->
 					            <div id="attach">
 					                <label class="btn f_insert" for="uploadInputBox" >사진 첨부하기</label>
-					                <input id="uploadInputBox" style="display: none" type="file" name="photos" multiple="multiple" required="required"/>
+					                <input id="uploadInputBox" style="display: none" type="file" name="photos" multiple="multiple"/>
 					            </div>
 					            <div class="attach_count">
 					            	0/30
@@ -676,8 +756,8 @@
 					<div class="inputtitle">계좌</div>
 					<div class="inputs">
 						은행
-						<select class="form-control" name="store_bank" required="required">
-							<option value="">--은행선택--</option>
+						<select class="form-control" name="store_bank">
+							<option value="none">--은행선택--</option>
 							<option value="신한">신한</option>
 							<option value="기업">기업</option>
 							<option value="하나">하나</option>

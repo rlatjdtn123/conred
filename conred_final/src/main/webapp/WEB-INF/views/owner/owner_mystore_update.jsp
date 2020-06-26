@@ -305,8 +305,8 @@
 		for (var i = 0; i < 8; i++) {//1,2,3,4,5,6,7,8
 			var list_stime1= "<c:out value='${list_stime[0].store_time_open}'/>";
 			
-			alert("d"+list_stime_open);
-			alert(lt_open[i]);
+// 			alert("d"+list_stime_open);
+// 			alert(lt_open[i]);
 	 		$('.timepicker').eq(c1).timepicker({
 			    timeFormat: 'HH:mm ',
 			    interval: 30,
@@ -794,7 +794,85 @@
 				$("input[name=store_maxman]").css("background-color","#f2f2f2");
 			}
 		}
-		
+// 		var form=$("form")[0];
+// 	    form.onsubmit=function(){ 
+// 	    	if($(".inputbox").eq(0).find($(".form-control")).val()==""||$(".inputbox").eq(0).find($(".form-control")).val()==" "||$(".inputbox").eq(0).find($(".form-control")).val()==null){
+// 				alert("매장이름을 입력해주세요"); 
+// 				document.getElementsByClassName("inputbox")[0].scrollIntoView({behavior: "smooth"});
+// 				setTimeout(function() {
+// 					$(".inputbox").eq(0).find($(".form-control")).focus();
+// 				},1000);
+// 				return false;
+// 			}
+// 	    	if($(".preview-box").length<5){
+// 				alert("사진은 최소 5장을 넣어주세요"); 
+// 				document.getElementsByClassName("inputbox")[3].scrollIntoView({behavior: "smooth"});
+// 				return false;
+// 			}
+// 			if($(".inputbox").eq(4).find($(".form-control")).val()==""||$(".inputbox").eq(4).find($(".form-control")).val()==" "||$(".inputbox").eq(4).find($(".form-control")).val()==null){
+// 				alert("매장의 간단소개를 입력해주세요"); 
+// 				document.getElementsByClassName("inputbox")[4].scrollIntoView({behavior: "smooth"});
+// 				setTimeout(function() {
+// 					$(".inputbox").eq(4).find($(".form-control")).focus();
+// 				},900);
+// 				return false;
+// 			}
+// 			if($(".inputbox").eq(5).find($(".form-control")).val()==""||$(".inputbox").eq(5).find($(".form-control")).val()==" "||$(".inputbox").eq(5).find($(".form-control")).val()==null){
+// 				alert("매장의 소갯글를 입력해주세요"); 
+// 				document.getElementsByClassName("inputbox")[5].scrollIntoView({behavior: "smooth"});
+// 				setTimeout(function() {
+// 					$(".inputbox").eq(5).find($(".form-control")).focus();
+// 				},850);
+// 				return false;
+// 			}
+			
+// 			if($(".inputbox").eq(7).find($(".form-control")).val()==""||$(".inputbox").eq(7).find($(".form-control")).val()==" "||$(".inputbox").eq(7).find($(".form-control")).val()==null){
+// 				alert("매장의 전화번호를 입력해주세요"); 
+// 				document.getElementsByClassName("inputbox")[7].scrollIntoView({behavior: "smooth"});
+// 				setTimeout(function() {
+// 					$(".inputbox").eq(7).find($(".form-control")).focus();
+// 				},750);
+// 				return false;
+// 			}
+// 			if($(".inputbox").eq(8).find($(".form-control")).val()==""||$(".inputbox").eq(8).find($(".form-control")).val()==" "||$(".inputbox").eq(8).find($(".form-control")).val()==null){
+// 				alert("담당자의 전화번호를 입력해주세요"); 
+// 				document.getElementsByClassName("inputbox")[8].scrollIntoView({behavior: "smooth"});
+// 				setTimeout(function() {
+// 					$(".inputbox").eq(8).find($(".form-control")).focus();
+// 				},750);
+// 				return false;
+// 			}
+// 			if($("input[name=store_latitude]").val()==""||$("input[name=store_latitude]").val()==" "||$("input[name=store_latitude]").val()==null){
+// 				alert("지도에서 주소를 찾아 선택해주세요."); 
+// 				document.getElementsByClassName("inputbox")[9].scrollIntoView({behavior: "smooth"});
+// 				return false;
+// 			}
+// 			if($("input[name=store_address_detail]").val()==""||$("input[name=store_address_detail]").val()==" "||$("input[name=store_address_detail]").val()==null){
+// 				alert("상세주소를 적어주세요"); 
+// 				document.getElementsByClassName("inputbox")[9].scrollIntoView({behavior: "smooth"});
+// 				setTimeout(function() {
+// 					$(".inputbox").eq(9).find($(".form-control")).eq(1).focus();
+// 				},750);
+// 				return false;
+// 			}
+// 			if($(".lastbox").find($(".form-control")).eq(0).val()=="none"){
+// 				alert("은행정보를 입력해주세요.");
+// 				document.getElementsByClassName("inputbox")[11].scrollIntoView({behavior: "smooth"});
+// 				setTimeout(function() {
+// 					$(".inputbox").eq(11).find($(".form-control")).eq(0).focus();
+// 				},750);
+// 				return false;
+// 			}
+// 			if($("input[name=store_account]").val()==""||$("input[name=store_account]").val()==" "||$("input[name=store_account]").val()==null){
+// 				alert("계좌번호를 입력해주세요."); 
+// 				document.getElementsByClassName("inputbox")[11].scrollIntoView({behavior: "smooth"});
+// 				setTimeout(function() {
+// 					$(".inputbox").eq(11).find($(".form-control")).eq(1).focus();
+// 				},750);
+// 				return false;
+// 			}
+			
+// 		}
 	});
     /////////-------------------
 </script>

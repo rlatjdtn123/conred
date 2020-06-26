@@ -18,7 +18,7 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<!-- swal -->
+<!-- 스윗알러트! -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -376,10 +376,7 @@
 			var re;
 			
 	 		if(dates.length==1){
-// 	 			swal("이틀이상!", "1박 이상 가능한 상품입니다", "error");
-	 			swal("Are you sure you want to do this?", {
-	 				  buttons: ["Oh noez!", "Aww yiss!"],
-				});
+	 			swal("1박 이상 가능한 상품입니다", "", "error");
 	 			
 	 		}else{
 				var rs=dates[0].split("-");
@@ -411,7 +408,7 @@
 							gong.css("display", "none");
 							box.find("span").text("");
 							$(".flatpickr-day").removeClass("selected startRange endRange inRange");
-							alert("해당날짜는 매장 쉬는날입니다 다른날을 선택해주세요"); 
+							swal("해당날짜는 매장 쉬는날입니다 다른날을 선택해주세요", "", "error"); 
 						} 
 					} 
 					if(getTue=="Y"){
@@ -420,7 +417,7 @@
 							gong.css("display", "none");
 							box.find("span").text(""); 
 							$(".flatpickr-day").removeClass("selected startRange endRange inRange");
-							alert("해당날짜는 매장 쉬는날입니다 다른날을 선택해주세요");
+							swal("해당날짜는 매장 쉬는날입니다 다른날을 선택해주세요", "", "error");
 						}
 					}
 					if(getWed=="Y"){
@@ -429,7 +426,7 @@
 							gong.css("display", "none");
 							box.find("span").text("");
 							$(".flatpickr-day").removeClass("selected startRange endRange inRange");
-							alert("해당날짜는 매장 쉬는날입니다 다른날을 선택해주세요");
+							swal("해당날짜는 매장 쉬는날입니다 다른날을 선택해주세요", "", "error");
 						}
 					}
 					if(getThu=="Y"){
@@ -438,7 +435,7 @@
 							gong.css("display", "none");
 							box.find("span").text(""); 
 							$(".flatpickr-day").removeClass("selected startRange endRange inRange");
-							alert("해당날짜는 매장 쉬는날입니다 다른날을 선택해주세요");
+							swal("해당날짜는 매장 쉬는날입니다 다른날을 선택해주세요", "", "error");
 						}
 					}
 					if(getFri=="Y"){
@@ -447,7 +444,7 @@
 							gong.css("display", "none");
 							box.find("span").text("");
 							$(".flatpickr-day").removeClass("selected startRange endRange inRange");
-							alert("해당날짜는 매장 쉬는날입니다 다른날을 선택해주세요");
+							swal("해당날짜는 매장 쉬는날입니다 다른날을 선택해주세요", "", "error");
 						}
 					}
 					if(getSat=="Y"){
@@ -456,7 +453,7 @@
 							gong.css("display", "none");
 							box.find("span").text("");
 							$(".flatpickr-day").removeClass("selected startRange endRange inRange");
-							alert("해당날짜는 매장 쉬는날입니다 다른날을 선택해주세요");
+							swal("해당날짜는 매장 쉬는날입니다 다른날을 선택해주세요", "", "error");
 						}
 					}
 					if(getSun=="Y"){
@@ -465,7 +462,7 @@
 							gong.css("display", "none");
 							box.find("span").text("");
 							$(".flatpickr-day").removeClass("selected startRange endRange inRange");
-							alert("해당날짜는 매장 쉬는날입니다 다른날을 선택해주세요");
+							swal("해당날짜는 매장 쉬는날입니다 다른날을 선택해주세요", "", "error");
 						}
 					}
 					
