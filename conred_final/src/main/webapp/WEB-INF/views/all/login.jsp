@@ -42,7 +42,18 @@
 	
 	.tx{text-align: center;}   
 	
-</style>  
+</style> 
+<script type="text/javascript">
+	function asd(url){
+		var result=confirm("네이버로 회원 가입을 하시면 사이트의 이용약관에 동의를 하신것으로 간주 됩니다.");
+		if(result){
+			location.href=""+url+"";
+			
+		}else{
+			return false;
+		}
+	}
+</script> 
 </head>      
 <body>
 <div id="container">
@@ -55,9 +66,9 @@
 					<input type="password" name="user_password" required="required" placeholder="비밀번호를 입력해주세요" class="tx"/><br/>
 					<input type="submit" value="로그인" class="bt"/><br/>
 					<input type="button" value="회원가입" onclick="location.href='user_regist.do'" class="bt"/><br/>
-					<input type="button" class="nv" id="naver_id_login" onclick="location.href='${url}'"/>
+					<input type="button" class="nv" id="naver_id_login" onclick="return asd('${url}')"/>
 				</div>  
-			</div>
+			</div>   
 		</form>
 		<form action="owner_login.do" method="post">
 			<div class="fo fo2">

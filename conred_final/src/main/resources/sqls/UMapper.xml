@@ -68,12 +68,6 @@
 <!--      	]]>  -->
 <!--  	</select>  -->
         
-        <!--네아로를 위한 중복 아이디 조회 -->
-     <select id = "naver_confirm_id" parameterType="String" resultType="String">
-    	SELECT USER_ID
-		FROM CON_USER
-		WHERE USER_ID=#{user_id}
-     </select>
 	
 	<select id="userInterestsIcon" parameterType="String" resultType="UDto">
 		SELECT ci.INTERESTS_SEQ,ci.CATEGORY_CODE,cc.CATEGORY_NAME
@@ -82,6 +76,19 @@
 						(SELECT CATEGORY_CODE ,CATEGORY_NAME FROM CON_CATEGORY ) cc
 		WHERE cu.USER_ID =ci.USER_ID AND ci.CATEGORY_CODE=cc.CATEGORY_CODE AND cu.USER_ID=#{user_id}
 	</select>
+
+        <!--네아로를 위한 중복 아이디 조회 -->
+     <select id = "naver_confirm_id" parameterType="String" resultType="String">
+    	SELECT USER_ID
+		FROM CON_USER
+		WHERE USER_ID=#{user_id}
+     </select>
+	
+<!-- 	<insert id="insertUserNaver" parameterType="UDto"> -->
+<!-- 		INSERT INTO CON_USER values( -->
+<!-- 		#{user_id},#{user_password},#{user_name},#{user_email},#{user_birth},#{user_sex}, -->
+<!-- 		SYSDATE,'Y','N','N','user',0) -->
+<!-- 	</insert> -->
 	
 
 </mapper>

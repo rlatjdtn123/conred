@@ -6,6 +6,8 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
+
 import javax.inject.Inject;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,8 +42,8 @@ public class LoginController {
     private NaverLoginBO naverLoginBO;
     private String apiResult = null;
     
-    @Autowired 
-	IUService IUservice ;
+    @Autowired
+	private IUService uService;
     
     @Autowired
     private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
@@ -107,8 +109,8 @@ public class LoginController {
   
 
   //로그인성공시 콜백페이지 작성중!!
-  @RequestMapping(value = "user_regist_naver.do", method = { RequestMethod.GET, RequestMethod.POST })
-  public String callback(Locale locale, Model model, @RequestParam String code, @RequestParam String state, HttpSession session, HttpServletRequest request 
+   @RequestMapping(value = "user_regist_naver.do", method = { RequestMethod.GET, RequestMethod.POST })
+   public String callback(Locale locale, Model model, @RequestParam String code, @RequestParam String state, HttpSession session, HttpServletRequest request 
 		  )
           throws IOException {
 	  logger.info("유저 - 네아로 기능 마지막단계 {}.", locale); 
@@ -148,43 +150,43 @@ public class LoginController {
 //		    model.addAttribute("name", name);
 //		    model.addAttribute("email", email);
 			
-		    String confirmed_id = IUservice.naver_confirm_id(user_id);
+		    String confirmed_id = uService.naver_confirm_id(user_id);
 		    System.out.println(confirmed_id);
+		    //이 패스워드는 실제 사용되지 않음 보안상 및 DB널값 방지용
+		    String user_password=UUID.randomUUID().toString().replace("-", "");
 		    
 		    UDto dto = new UDto(); 
 		    dto.setUser_id(user_id);
+		    dto.setUser_password(user_password);
 		    dto.setUser_name(user_name);
 		    dto.setUser_email(user_email);
 		    dto.setUser_sex(user_sex);
 		    dto.setUser_birth(user_birth);
+		    dto.setUser_agreement("Y");
+		    System.out.println("확인"+dto);
 		    
 		    if(confirmed_id==null) {
-//		    HttpSession session=request.getSession();
-		    	
+
 		    	session=request.getSession();
-		    	//dto를 세션에 담았고
+		    	//dto를 세션에 담고 관심사 선택과 트랜잭션
 		    	session.setAttribute("udto", dto);
+		    	//네이버 정보로 회원가입 실행
+		    	//네이버 로그인 버튼 클릭하자마자 약관페이지 뜨고 인서트는 안하고 
+				//체크하면 관심사 체크 만들고 그다음 관심사 선택 페이지로 했어요
 		    	
-		    	return "redirect:user_insert_naver.do";
+		    	return "redirect:user_insert.do";
 		    
 		    }else{
 		    	
+//			    HttpSession session=request.getSession();
+		    	
+			    	session=request.getSession();
+			    	//dto를 세션에 담았고
+			    	session.setAttribute("udto", dto);
+		    	
 		    	return "redirect:user_login.do";
 		    	
-		    }	 
-//		    	logger.info("테스트용 유저 회원가입 폼 {}.", locale);
-//				dto.setUser_email(user_email1+"@"+user_email3);
-//				//성별 null일경우 String타입으로 값 받을수 있게 수정(*왜 null값이 입력이 안되는지 모르겠음)
-//				if(dto.getUser_sex()==null) {
-//					dto.setUser_sex("");
-//				}
-//				HttpSession session=request.getSession();
-//				session.setAttribute("udto", dto);
-//				return "user/user_regist_category";
-				
-		    
-		    
-		    
+		    }			    
 		    
 		    
 			    
@@ -193,8 +195,9 @@ public class LoginController {
 			e.printStackTrace();
 		}
       
-		return "user/user_regist_category";
+		return "index";
       
+  }
 //    JSONObject jsonobj = jsonparse.stringToJson(apiResult, "response");
 //    String snsId = jsonparse.JsonToString(jsonobj, "id");
 //    String name = jsonparse.JsonToString(jsonobj, "name");
@@ -210,30 +213,31 @@ public class LoginController {
 //        // TODO Auto-generated catch block
 //        e.printStackTrace();
 //    }
-
-
 //    session.setAttribute("login",vo);
 //    return new ModelAndView("views/loginPost", "result", vo);
-   
+//	@RequestMapping(value = "user_regist_category_naver.do", method = {RequestMethod.GET,RequestMethod.POST})
+//		public String user_regist_category_naver(Locale locale, Model model,String []category_code,String user_id,HttpServletRequest request) {
+//			logger.info("관심사 선택완료후 가입완료 메시지 출력페이지로 이동 네이버용{}.", locale);
+//				
+//				HttpSession session=request.getSession();
+//				UDto dto=(UDto)session.getAttribute("udto");
+////				for (int i = 0; i < category_code.length; i++) {
+////					System.out.println("@@@@@@@@@@@@@@@@@::"+category_code[i]);
+////					System.out.println("!!!!!!!!!!!!!!!!!::"+user_id[i]);
+////				}
+//			
+//				boolean isS=uService.insertUserNaver(dto, category_code,dto.getUser_id());
+//				if(isS){ 
+//					return "user/user_regist_finish";						
+//				}else {
+//					return "";
+//				}
+//		}
+		
       
-  }
-	
-	
-	
-	//
-//	  @RequestMapping(value = "user_insert_naver.do", method = {RequestMethod.GET,RequestMethod.POST})
-//	  public String user_insert_naver(Locale locale, Model model,UDto dto,String user_email1,String user_email3,HttpServletRequest request) {
-//		  logger.info("테스트용 유저 회원가입 폼 {}.", locale);
-//		  dto.setUser_email(user_email1);
-//		  //성별 null일경우 String타입으로 값 받을수 있게 수정(*왜 null값이 입력이 안되는지 모르겠음)
-//		  if(dto.getUser_sex()==null) {
-//			  dto.setUser_sex("");
-//		  }
-//		  HttpSession session=request.getSession();
-//		  session.setAttribute("udto", dto);
-//		  return "user/user_regist_category";
-//	  }	 
   
+	
+   	//네이버로 오게되면 
 	@RequestMapping(value = "user_insert.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String user_insert(Locale locale, Model model,UDto dto,String user_email1,String user_email3,HttpServletRequest request) {
 		logger.info("테스트용 유저 회원가입 폼 {}.", locale);
@@ -242,27 +246,12 @@ public class LoginController {
 		if(dto.getUser_sex()==null) {
 			dto.setUser_sex("");
 		}
+		if(user_email1!=null) {
 		HttpSession session=request.getSession();
 		session.setAttribute("udto", dto);
+		}
 		return "user/user_regist_category";
 	}	 
-	
-	
-	
-	@RequestMapping(value = "user_insert_naver.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_insert_naver(Locale locale, Model model,UDto dto,String user_email1,HttpServletRequest request) {
-		logger.info("테스트용 유저 회원가입 폼 {}.", locale);
-		dto.setUser_email(user_email1);
-		//성별 null일경우 String타입으로 값 받을수 있게 수정(*왜 null값이 입력이 안되는지 모르겠음)
-		if(dto.getUser_sex()==null) {
-			dto.setUser_sex("");
-		}
-		HttpSession session=request.getSession();
-		session.setAttribute("udto", dto);
-		return "user/user_regist_category";
-	}	
-	
-	
-	
+		
 	
 }

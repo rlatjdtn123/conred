@@ -85,6 +85,14 @@ public class UDaoImp implements IUDao{
 		return user_id;
 	}
 	
+	@Override
+	public boolean insertUserNaver(UDto dto) {
+		int count =0;
+		
+		count=sqlSession.insert(nameSpace+"insertUserNaver", dto);
+		return count>0?true:false; 
+	}
+	
 	
 	 
 }
