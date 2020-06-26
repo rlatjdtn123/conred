@@ -44,12 +44,12 @@
 	.inputbox{margin-top:0px;margin-bottom:-5px; padding:26px 10px 26px;height:auto;width:800px; display: inline-block;border: 0px solid lightgrey;border-bottom-width: 1px;}
 	.inputbox:hover{background-color: #f3f3f3;}
 	.lastbox{border: 0px solid lightgrey;}
-	.inputtitle{float:left;height:auto;line-height: 200%;padding-right:20px;width:140px;}
+	.inputtitle{float:left;height:35px;line-height: 30px;padding-right:20px;width:500px;font-size:22px;}
 	input{margin-top:2px;}
 	textarea{margin-top:2px;resize: none;}
 	select {position:relative;top:1px;height:26px;}
 	.form-control{width:180px;}
-	.inputs{width:600px;float: left;height:auto;}
+	.inputs{width:780px;float: left;height:auto;}
 	.width_500{width:500px;}
 	
 	
@@ -90,6 +90,7 @@
 	input[name=store_maxdate],input[name=store_maxman]{width:30px;background-color: #f0f0f0;border:1px solid grey}
 	input[name=store_address_detail]{width:407.5px;float: left;}
 	.subinfo{font-size:12px;color: grey;}
+	.firstsub{margin-top:5px;}
 	#bot{margin:30px 10px 30px;}
 	
 	/*--파일업로드관련--*/
@@ -98,8 +99,6 @@
 	.preview-box {border: 0px solid grey;padding: 5px;border-radius: 2px;margin-bottom: 5px;margin-right:5px;
 				display: inline-block;
     			border-radius: 5px;
-    			border-right-width: 1px;
-    			border-bottom-width: 1px;
 					}
 	.thumbnail{margin-bottom:0px;}
 /* 	.del_btn{float: right;display: inline-block;} */
@@ -287,8 +286,17 @@
 	        	map.relayout();
 	        }, 300 );
 	    });
-		
-	    //기존에있던거 넣어주기(값만, 어차피파일은 못넣음)
+	    
+	    var form=$("form")[0];
+	    form.onsubmit=function(){ 
+			if($(".preview-box").length<5){
+				alert("사진은 최소 5장을 넣어주세요"); 
+				var photo_offset = $(".inputbox").eq(3).offset();
+				alert("");
+				$(window).stop().animate({scrollTop : photo_offset.top}, 400);
+				return false;
+			}
+		}
 	    	 	
 	    
 	});
@@ -344,7 +352,6 @@
     var del_list = new Array();
     function deletePreview(obj) {
     	if(obj.attributes['value_seq']){
-    		alert("d?");
     		
 //     		alert(obj.attributes['value_seq'].value);
 //     		alert("지우는 사진 seq : "+obj.attributes['value_seq'].value);
@@ -541,8 +548,7 @@
 					<div class="inputtitle">홈페이지 링크</div>
 					<div class="inputs">
 						<input class="width_500 form-control" type="text" name="store_path" value="${sdto.store_path}" placeholder="http://www.naver.com"/>
-						<br>
-						<div class="subinfo">*자사 홈페이지 링크를 입력할 수 있어요.(선택사항)</div>
+						<div class="subinfo firstsub">*자사 홈페이지 링크를 입력할 수 있어요.(선택사항)</div>
 						<div class="subinfo">*http://까지 정확히 입력해주세요</div>
 					</div>
 				</div>
@@ -619,13 +625,13 @@
 					</div>
 				</div>
 				<div class="inputbox">
-					<div class="inputtitle">간단소개<br>(30자이내)</div>
+					<div class="inputtitle">간단소개 (30자이내)</div>
 					<div class="inputs">
 						<textarea class="form-control" name="store_intro_simple" placeholder="매장이름과 함께 지도에 노출될 간단 소개글을 입력해주세요. (40자 이내)">${sdto.store_intro_simple}</textarea>
 					</div>
 				</div>
 				<div class="inputbox">
-					<div class="inputtitle">매장소개<br>(500자이내)</div>
+					<div class="inputtitle">매장소개 (500자이내)</div>
 					<div class="inputs">
 						<textarea class="form-control" name="store_intro" placeholder="매장의 상세소개글을 입력해주세요. (500자 이내)">${sdto.store_intro}</textarea>
 					</div>
@@ -641,11 +647,11 @@
 					</div>
 				</div>
 				<div class="inputbox">
-					<div class="inputtitle">매장<br>전화번호</div>
+					<div class="inputtitle">매장 전화번호</div>
 					<div class="inputs"><input class="form-control" type="text" name="store_phone" value="${sdto.store_phone}" placeholder="'-' 없이 입력"/></div>
 				</div>
 				<div class="inputbox">
-					<div class="inputtitle">담당자<br>전화번호</div>
+					<div class="inputtitle">담당자 전화번호</div>
 					<div class="inputs"><input class="form-control" type="text" name="store_phone_manager" value="${sdto.store_phone_manager}" placeholder="'-' 없이 입력"/></div>
 				</div>
 				<div class="inputbox">
@@ -661,7 +667,7 @@
 					</div>
 				</div>
 				<div class="inputbox">
-					<div class="inputtitle">영업시간등록</div>
+					<div class="inputtitle">영업시간</div>
 					<div class="inputs">
 					<div class="subinfo">*<span class="greenfont">24시간</span>영업의 경우에는 <span class="greenfont">24시간</span>영업하는 요일의 영업시간을 00:00시~ 00:00시 로 맞춰주세요!</div>
 					<div class="subinfo">*평일맞추기를 누르시면 월요일부터 금요일까지 시간이 통일됩니다!</div>
@@ -743,21 +749,29 @@
 					</div>
 				</div>
 				<div class="inputbox lastbox">
-					<div class="inputtitle">계좌등록</div>
+					<div class="inputtitle">계좌</div>
 					<div class="inputs">
 						은행
-						<select class="form-control" name="store_bank">
-							<option>--은행선택--</option>
+						<select class="form-control" name="store_bank" required="required">
+							<option value="">--은행선택--</option>
 							<option value="신한" <c:if test="${sdto.store_bank eq '신한'}">selected</c:if>>신한</option>
 							<option value="기업" <c:if test="${sdto.store_bank eq '기업'}">selected</c:if>>기업</option>
 							<option value="하나" <c:if test="${sdto.store_bank eq '하나'}">selected</c:if>>하나</option>
 							<option value="우리" <c:if test="${sdto.store_bank eq '우리'}">selected</c:if>>우리</option>
 							<option value="농협" <c:if test="${sdto.store_bank eq '농협'}">selected</c:if>>농협</option>
 							<option value="국민" <c:if test="${sdto.store_bank eq '국민'}">selected</c:if>>국민</option>
+							
+							<option value="수협" <c:if test="${sdto.store_bank eq '수협'}">selected</c:if>>수협</option>
+							<option value="신협" <c:if test="${sdto.store_bank eq '신협'}">selected</c:if>>신협</option>
+							<option value="씨티" <c:if test="${sdto.store_bank eq '씨티'}">selected</c:if>>씨티</option>
+							<option value="SC" <c:if test="${sdto.store_bank eq 'SC'}">selected</c:if>>SC</option>
+							<option value="새마을금고" <c:if test="${sdto.store_bank eq '새마을금고'}">selected</c:if>>새마을금고</option>
+							<option value="카카오뱅크" <c:if test="${sdto.store_bank eq '카카오뱅크'}">selected</c:if>>카카오뱅크</option>
+							<option value="우체국" <c:if test="${sdto.store_bank eq '우체국'}">selected</c:if>>우체국</option>
 						</select>
 						<br>
 						계좌번호
-						<input class="form-control" name="store_account" value="${sdto.store_account}" placeholder="'-' 없이 입력"/>
+						<input class="form-control" name="store_account" value="${sdto.store_account}" placeholder="'-' 없이 입력"  required="required"/>
 					</div>
 					
 				</div>

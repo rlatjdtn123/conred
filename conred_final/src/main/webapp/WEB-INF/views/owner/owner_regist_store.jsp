@@ -42,12 +42,12 @@
 	.inputbox{margin-top:0px;margin-bottom:-5px; padding:26px 10px 26px;height:auto;width:800px; display: inline-block;border: 0px solid lightgrey;border-bottom-width: 1px;}
 	.inputbox:hover{background-color: #f3f3f3;}
 	.lastbox{border: 0px solid lightgrey;}
-	.inputtitle{float:left;height:auto;line-height: 200%;padding-right:20px;width:140px;}
+	.inputtitle{float:left;height:35px;line-height: 30px;padding-right:20px;width:500px;font-size:22px;}
 	input{margin-top:2px;}
 	textarea{margin-top:2px;resize: none;}
 	select {position:relative;top:1px;height:26px;}
 	.form-control{width:180px;}
-	.inputs{width:600px;float: left;height:auto;}
+	.inputs{width:780px;float: left;height:auto;}
 	.width_500{width:500px;}
 	
 	
@@ -88,6 +88,8 @@
 	input[name=store_maxdate],input[name=store_maxman]{width:30px;background-color: #f0f0f0;border:1px solid grey}
 	input[name=store_address_detail]{width:407.5px;float: left;}
 	.subinfo{font-size:12px;color: grey;}
+	.firstsub{margin-top:5px;}
+	
 	#bot{margin:30px 10px 30px;}
 	
 	/*--파일업로드관련--*/
@@ -96,8 +98,6 @@
 	.preview-box {border: 0px solid grey;padding: 5px;border-radius: 2px;margin-bottom: 5px;margin-right:5px;
 				display: inline-block;
     			border-radius: 5px;
-    			border-right-width: 1px;
-    			border-bottom-width: 1px;
 					}
 	.thumbnail{margin-bottom:0px;}
 /* 	.del_btn{float: right;display: inline-block;} */
@@ -123,6 +123,7 @@
 <script type="text/javascript">
 	
 	$(document).ready(function(){
+		
 		var fileTarget = $('.filebox .upload-hidden');
 		fileTarget.on('change', function(){
 			// 값이 변경되면
@@ -242,6 +243,15 @@
 	        	map.relayout();
 	        }, 300 );
 	    });
+	    
+	    var form=$("form")[0];
+	    form.onsubmit=function(){ 
+			var pwInputs=$("input[type=password]");
+			if($(".preview-box").length>5){
+				alert("사진은 최소 5장을 넣어주세요"); 
+				return false;
+			}
+		}
 
 	});
 	
@@ -479,9 +489,11 @@
 				</div>
 				<div class="inputbox">
 					<div class="inputtitle">홈페이지 링크</div>
-					<div class="inputs"><input class="width_500 form-control" type="text" name="store_path" placeholder="http://www.naver.com"/></div>
-					<div class="subinfo">*자사 홈페이지 링크를 입력할 수 있어요.(선택사항)</div>
-					<div class="subinfo">*http://까지 정확히 입력해주세요</div>
+					<div class="inputs">
+						<input class="width_500 form-control" type="text" name="store_path" placeholder="http://www.naver.com"/>
+						<div class="subinfo firstsub" style="clear: both;">*자사 홈페이지 링크를 입력할 수 있어요.(선택사항)</div>
+						<div class="subinfo">*http://까지 정확히 입력해주세요</div>
+					</div>
 				</div>
 				<div class="inputbox">
 					<div class="inputtitle">사진업로드</div>
@@ -491,8 +503,8 @@
 					        <div class="body">
 					            <!-- 첨부 버튼 -->
 					            <div id="attach">
-					                <label class="btn f_insert" for="uploadInputBox">사진 첨부하기</label>
-					                <input id="uploadInputBox" style="display: none" type="file" name="photos" multiple="multiple" />
+					                <label class="btn f_insert" for="uploadInputBox" >사진 첨부하기</label>
+					                <input id="uploadInputBox" style="display: none" type="file" name="photos" multiple="multiple" required="required"/>
 					            </div>
 					            <div class="attach_count">
 					            	0/30
@@ -537,13 +549,13 @@
 					</div>
 				</div>
 				<div class="inputbox">
-					<div class="inputtitle">간단소개<br>(30자이내)</div>
+					<div class="inputtitle">간단소개 (30자이내)</div>
 					<div class="inputs">
-						<textarea class="form-control" name="store_intro_simple" placeholder="매장이름과 함께 지도에 노출될 간단 소개글을 입력해주세요. (40자 이내)"></textarea>
+						<textarea class="form-control" rows="1" name="store_intro_simple" placeholder="매장이름과 함께 지도에 노출될 간단 소개글을 입력해주세요. (40자 이내)"></textarea>
 					</div>
 				</div>
 				<div class="inputbox">
-					<div class="inputtitle">매장소개<br>(500자이내)</div>
+					<div class="inputtitle">매장소개 (500자이내)</div>
 					<div class="inputs">
 						<textarea class="form-control" name="store_intro" placeholder="매장의 상세소개글을 입력해주세요. (500자 이내)"></textarea>
 					</div>
@@ -559,17 +571,17 @@
 					</div>
 				</div>
 				<div class="inputbox">
-					<div class="inputtitle">매장<br>전화번호</div>
+					<div class="inputtitle">매장 전화번호</div>
 					<div class="inputs"><input class="form-control" type="text" name="store_phone" placeholder="'-' 없이 입력"/></div>
 				</div>
 				<div class="inputbox">
-					<div class="inputtitle">담당자<br>전화번호</div>
+					<div class="inputtitle">담당자 전화번호</div>
 					<div class="inputs"><input class="form-control" type="text" name="store_phone_manager" placeholder="'-' 없이 입력"/></div>
 				</div>
 				<div class="inputbox">
 					<div class="inputtitle">주소</div>
 					<div class="inputs">
-						<textarea name="store_address" class="flleft form-control" rows="1" placeholder="주소" readonly></textarea>
+						<textarea name="store_address" class="flleft form-control" rows="1" placeholder="주소" readonly required="required"></textarea>
 						<div class="inputs">
 							<input class="form-control" name="store_address_detail" placeholder="상세주소"/>
 							<input type="hidden" name="store_latitude" title="위도"/>
@@ -579,7 +591,7 @@
 					</div>
 				</div>
 				<div class="inputbox">
-					<div class="inputtitle">영업시간등록</div>
+					<div class="inputtitle">영업시간</div>
 					<div class="inputs">
 					<div class="subinfo">*<span class="greenfont">24시간</span>영업의 경우에는 <span class="greenfont">24시간</span>영업하는 요일의 영업시간을 00:00시~ 00:00시 로 맞춰주세요!</div>
 					<div class="subinfo">*평일맞추기를 누르시면 월요일부터 금요일까지 시간이 통일됩니다!</div>
@@ -661,17 +673,25 @@
 					</div>
 				</div>
 				<div class="inputbox lastbox">
-					<div class="inputtitle">계좌등록</div>
+					<div class="inputtitle">계좌</div>
 					<div class="inputs">
 						은행
-						<select class="form-control" name="store_bank">
-							<option>--은행선택--</option>
+						<select class="form-control" name="store_bank" required="required">
+							<option value="">--은행선택--</option>
 							<option value="신한">신한</option>
 							<option value="기업">기업</option>
 							<option value="하나">하나</option>
 							<option value="우리">우리</option>
 							<option value="농협">농협</option>
 							<option value="국민">국민</option>
+							
+							<option value="수협">수협</option>
+							<option value="신협">신협</option>
+							<option value="씨티">씨티</option>
+							<option value="SC">SC</option>
+							<option value="새마을금고">새마을금고</option>
+							<option value="카카오뱅크">카카오뱅크</option>
+							<option value="우체국">우체국</option>
 						</select>
 						<br>
 						계좌번호

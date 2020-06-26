@@ -283,8 +283,9 @@ public class Yoonho {
 		System.out.println("odto 아이디 sdto에 넣기 완료");
 		
 		System.out.println(sdto.getStore_license_number());
-		System.out.println(sdto.getStore_license_number().replace(",",""));
-		sdto.setStore_license_number(sdto.getStore_license_number().replace(",",""));
+		//만약 3칸에서 받아와줄거라면 이거 쓰기
+//		System.out.println(sdto.getStore_license_number().replace(",",""));
+//		sdto.setStore_license_number(sdto.getStore_license_number().replace(",",""));
 		System.out.println("사업자번호 sdto에 넣기 완료");
 		sdto.setStore_owner_phone(sdto.getStore_owner_phone().replace(",",""));
 		System.out.println("점주전화번호 sdto에 넣기 완료");
@@ -335,11 +336,12 @@ public class Yoonho {
 		System.out.println("odto 아이디 sdto에 넣기 완료");
 		
 		System.out.println(sdto.getStore_license_number());
-		System.out.println(sdto.getStore_license_number().replace(",",""));
+//		System.out.println(sdto.getStore_license_number().replace(",",""));
 		
 		sdto.setStore_seq(seq.getStore_seq());
 		System.out.println("매장seq sdto에 넣기 완료");
-		sdto.setStore_license_number(sdto.getStore_license_number().replace(",",""));
+//		sdto.setStore_license_number(sdto.getStore_license_number().replace(",",""));
+		sdto.setStore_license_number(sdto.getStore_license_number());
 		System.out.println("사업자번호 sdto에 넣기 완료");
 		sdto.setStore_owner_phone(sdto.getStore_owner_phone().replace(",",""));
 		System.out.println("점주전화번호 sdto에 넣기 완료");

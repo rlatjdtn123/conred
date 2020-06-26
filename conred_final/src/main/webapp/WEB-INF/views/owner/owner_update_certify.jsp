@@ -33,6 +33,7 @@
 	input[type=radio],input[type=checkbox]{margin-bottom:6px;}
 	input[name=store_owner_name],input[name=store_owner_phone_certify]{width:170px;display: inline-block;}
 	.numbers{width:50px;display: inline-block;}
+	.number_l{width:170px;display: inline-block;}
 	.bt {border:1px solid grey;background-color: grey;color: white;border-radius: 5px;height: 30px;margin-left: 10px;} 
 	.btn {margin-left: 10px;} 
 	.btn:hover {background-color: lightgrey;} 
@@ -40,6 +41,8 @@
 	.redbtn:hover{background-color: #FE2E2E;color:white} 
 	.req{color: red;font-weight: bold;font-size:20px;}
 	#sel{border:1px solid grey;height:24px;vertical-align: middle;}
+	.subinfo{font-size:12px;color: grey;}
+	.firstsub{margin-top:5px;}
 	
 	.s_o_phone{width:50px;}
 	.filebox input[type="file"] { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }
@@ -90,15 +93,18 @@
 				<tr>
 					<td>사업자등록번호${oldto.owner_name}</td>
 					<td>
-						<input class="numbers form-control" type="text" name="store_license_number" value="${sdto.store_license_number}"/> -
-						<input class="numbers form-control" type="text" name="store_license_number"/> -
-						<input class="numbers form-control" type="text" name="store_license_number"/>
+					<input class="number_l form-control" type="text" name="store_license_number" placeholder='0000000000' value="${sdto.store_license_number}" required="required" />
+<%-- 						<input class="numbers form-control" type="text" name="store_license_number" value="${sdto.store_license_number}"/> - --%>
+<!-- 						<input class="numbers form-control" type="text" name="store_license_number"/> - -->
+<!-- 						<input class="numbers form-control" type="text" name="store_license_number"/> -->
 
 						<button class="btn"  type="button" title="유효한 사업자등록번호인지 조회하기">
 <!-- 						<button class="btn"  type="button" name="certify" title="유효한 사업자등록번호인지 조회하기" required="required"> -->
 							조회
 						</button>
-							
+						
+						<div class="subinfo firstsub">*사업자등록번호는 10자리입니다.</div>
+						<div class="subinfo">*숫자사이  " - " 부호 생략</div>
 					</td>
 				</tr>
 				<tr>
@@ -107,9 +113,9 @@
 						<div class="filebox">
 							<input class="upload-name"  value="${sdto.store_license_biz_origin}" readonly="readonly" >
 							<label class="btn" for="biz">업로드</label>
-<!-- 							<input type="hidden" class="biz_change" name="biz_change" value="N"> -->
 							<input type="file" id="biz" name="biz" class="upload-hidden">
 <!-- 							<input type="file" id="biz" class="upload-hidden" required="required"> -->
+							<div class="subinfo firstsub">*글자가 잘 보이지 않을경우 매장승인이 되지 않을 수 있습니다.</div>
 						</div>
 					</td>
 					
@@ -118,42 +124,38 @@
 					<td>영업등록증 사본등록</td>
 					<td>
 						<div class="filebox">
-<!-- 							<input type="hidden" name="store_license_sales_origin" value="영업증원본명테스트a"/>테스트용 -->
-<!-- 							<input type="hidden" name="store_license_sales_stored" value="영업증저장명테스트a"/>테스트용 -->
-<!-- 							<input type="hidden" name="store_license_sales_size" value="2345"/>			테스트용 -->
 							<input class="upload-name" value="${sdto.store_license_sales_origin}" disabled="disabled">
 							<label class="btn" for="sales">업로드</label>
-<!-- 							<input type="hidden" class="sales_change" name="sales_change" value="N"> -->
 							<input type="file" id="sales" name="sales" class="upload-hidden">
 <!-- 							<input type="file" id="filename02" class="upload-hidden" required="required"> -->
+							<div class="subinfo firstsub">*글자가 잘 보이지 않을경우 매장승인이 되지 않을 수 있습니다.</div>
+					
 						</div>
 					</td>
 				</tr>
 				<tr>
 					<td>사업자명</td>
 					<td>
-						<input class="form-control" type="text" name="store_owner_name" value="${sdto.store_owner_name}"/>
-						<input type="hidden" name="store_owner_name"/><!-- 테스트용 -->
+						<input class="form-control" type="text" name="store_owner_name" value="${sdto.store_owner_name}" required="required"/>
+						<div class="subinfo firstsub">*사업자등록증, 영업등록증의 이름과 같아야합니다.</div>
 					</td>
 <!-- 					<td><input type="text" name="store_owner_name" required="required"/></td> -->
 				</tr>
 				<tr>
 					<td>사업자 휴대폰번호</td>
 					<td>
-						<input class="numbers form-control" type="text" name="store_owner_phone" value="${sdto.store_owner_phone}"/>- 
-						<input class="numbers form-control" type="text" name="store_owner_phone"/>- 
-						<input class="numbers form-control" type="text" name="store_owner_phone"/>
-<!-- 						<input class="numbers" type="text" name="store_owner_phone1" required="required"/>-  -->
-<!-- 						<input class="numbers" type="text" name="store_owner_phone2" required="required"/>-  -->
-<!-- 						<input class="numbers" type="text" name="store_owner_phone3" required="required"/> -->
+					<input class="number_l form-control" type="text" name="store_owner_phone" placeholder='01012341234' value="${sdto.store_owner_phone}" required="required"/>
+<%-- 						<input class="numbers form-control" type="text" name="store_owner_phone" value="${sdto.store_owner_phone}"/>-  --%>
+<!-- 						<input class="numbers form-control" type="text" name="store_owner_phone"/>-  -->
+<!-- 						<input class="numbers form-control" type="text" name="store_owner_phone"/> -->
 						<input class="btn" value="인증번호 발송" type="button" onclick=""/><!-- 온클릭안에 펑션명 + 스크립트로 펑션 만들기 -->
+						<div class="subinfo firstsub">* 숫자사이 " - " 부호 생략</div>
 					</td>
 				</tr>
 				<tr>
 					<td>인증번호 입력</td>
 					<td>
-						<input class="form-control" type="text" name="store_owner_phone_certify"/>
-<!-- 						<input type="text" name="store_owner_phone_certify" required="required"/> -->
+						<input class="form-control" type="text" name="store_owner_phone_certify" required="required"/>
 						<input class="btn" value="인증완료" type="button" onclick=""/><!-- 온클릭안에 펑션명 + 스크립트로 펑션 만들기 -->
 					</td>
 				</tr>

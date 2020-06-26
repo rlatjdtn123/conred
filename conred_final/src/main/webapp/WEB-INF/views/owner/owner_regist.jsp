@@ -38,6 +38,8 @@
 	.req{color: red;font-weight: bold;font-size:20px;}
 	#sel{border:1px solid grey;height:24px;vertical-align: middle;}
 	.idCheck{width: 180px;color:red;height: 24px;margin-left: 45px;display: none;}
+	.idOk{font-weight:bold;width: 180px;color:#3ADF00;height: 24px;margin-left: 45px;display: none;}
+	.passwordOk{font-weight:bold;width: 180px;color:#3ADF00;height: 24px;margin-left: 45px;display: none;}
 	
 </style>
 <script type="text/javascript">
@@ -86,9 +88,11 @@
 					var result=obj.owner_result;
 					if(result!=null){
 						$(".idCheck").css("display","inline-block");
+						$(".idOk").css("display","none");
 						owner_id.val("") 
 					}else{
 						$(".idCheck").css("display","none"); 
+						$(".idOk").css("display","inline-block");
 					}
 				} 	
 			});  
@@ -101,7 +105,8 @@
 				pwInputs[0].value="";
 				pwInputs[1].value="";
 				pwInputs[0].focus(); 
-				
+			}else{
+				$(".passwordOk").css("display","inline-block");
 			}
 		}
 		 
@@ -130,15 +135,24 @@
 			<table class="table table-hover" >
 				<tr>
 					<td><span class="req">* </span>아이디</td>
-					<td><input type="text" name="owner_id" required="required"/><div class="idCheck">중복된 아이디 입니다.</div></td>
+					<td><input type="text" name="owner_id" required="required"/>
+						<div class="idCheck">중복된 아이디 입니다.</div>
+						<div class="idOk">사용 가능한 아이디 입니다.</div>
+					</td>
 				</tr>
 				<tr>
 					<td><span class="req">* </span>비밀번호</td>
-					<td><input type="password" name="owner_password" required="required"/></td>
+					<td>
+						<input type="password" name="owner_password" required="required"/>
+						<div class="passwordOk">비밀번호 확인 완료</div>
+					</td>
 				</tr>
 				<tr>
 					<td><span class="req">* </span>비밀번호 확인</td>
-					<td><input type="password" name="owner_password2" required="required"/></td>
+					<td>
+						<input type="password" name="owner_password2" required="required"/>
+						<div class="passwordOk">비밀번호 확인 완료</div>
+					</td>
 				</tr>
 				<tr>
 					<td><span class="req">* </span>이름</td>
@@ -203,12 +217,12 @@ $(function(){
   		<!-- Modal content-->
    		<div class="modal-content" >
      		<div class="modal-header"> 
-     			<span style="font-size:30px;">회원가입 이용약관</span>| 시행일자 : 2018년 04월 02일
+     			<span style="font-size:30px;">(주)어디가개 회원가입 이용약관</span>| 시행일자 : 2018년 04월 02일
      			<button type="button" class="btn btn-default" data-dismiss="modal" style="float:right;margin-top:5px;">확인</button>
      		</div>
      		<div class="modal-body">  
 				제1조 (목적)<br>
-				본 약관은 엔에이치엔고도 주식회사(이하 '회사')가 고도 사이트(이하 ‘사이트’)를 통하여 인터넷상에서 제공하는 서비스(이하 ‘서비스’)를 이용하는 고객 (이하 '고객')간의 권리와 의무 및 책임 등 기타 제반사항을 규정함을 목적으로 합니다.<br>
+				본 약관은 어디가개 주식회사(이하 '회사')가 어디가개 사이트(이하 ‘사이트’)를 통하여 인터넷상에서 제공하는 서비스(이하 ‘서비스’)를 이용하는 고객 (이하 '고객')간의 권리와 의무 및 책임 등 기타 제반사항을 규정함을 목적으로 합니다.<br>
 				<br>
 				제2조 (용어의 정의)<br>
 				이 약관에서 사용하는 용어의 정의는 다음과 같습니다.
@@ -244,12 +258,12 @@ $(function(){
 				<br>
 				제7조 (회원에 대한 통지 및 정보제공)<br>
 				1. 회사가 회원에 대하여 통지하는 경우 회원이 회사에 등록한 전자우편 주소나 휴대전화번호, 유선전화번호로 할 수 있습니다.<br>
-				2. 회사는 불특정다수 회원에게 통지를 해야 할 경우 고도 공지게시판을 통해 7일 이상 게시함으로써 개별 통지에 갈음할 수 있습니다.<br>
+				2. 회사는 불특정다수 회원에게 통지를 해야 할 경우 어디가개 공지게시판을 통해 7일 이상 게시함으로써 개별 통지에 갈음할 수 있습니다.<br>
 				3. 회사는 회원에게 서비스 이용에 필요가 있다고 인정되는 각종 정보에 대해서 전자우편이나 서신, 우편, SMS, 전화 등의 방법으로 회원에게 제공할 수 있습니다.<br>
 				4. 회사는 서비스 개선 및 회원 대상의 서비스 소개 등의 목적으로 회원의 동의 하에 관련 법령에 따라 추가적인 개인 정보를 수집할 수 있습니다.<br>
 				<br>
 				제8조(서비스의 이용 시간 및 중단)<br>
-				1. 서비스 이용은 회사의 업무상 또는 기술상 특별한 지장이 없는 한 연중무휴, 1일 24시간 운영을 원칙으로 합니다. 단, 회사는 시스템 정기점검, 증설 및 교체를 위해 회사가 정한 날이나 시간에 서비스를 일시 중단할 수 있으며, 예정되어 있는 작업으로 인한 서비스 일시 중단은 고도를 통해 사전에 사이트를 통하여 공지합니다.<br>
+				1. 서비스 이용은 회사의 업무상 또는 기술상 특별한 지장이 없는 한 연중무휴, 1일 24시간 운영을 원칙으로 합니다. 단, 회사는 시스템 정기점검, 증설 및 교체를 위해 회사가 정한 날이나 시간에 서비스를 일시 중단할 수 있으며, 예정되어 있는 작업으로 인한 서비스 일시 중단은 어디가개를 통해 사전에 사이트를 통하여 공지합니다.<br>
 				2. 회사는 긴급한 시스템 점검, 증설 및 교체, 설비의 장애, 서비스 이용의 폭주, 국가비상사태, 정전 등 부득이한 사유가 발생한 경우 사전 예고 없이 일시적으로 서비스의 전부 또는 일부를 중단할 수 있습니다.<br>
 				3. 회사는 서비스 개편 등 서비스 운영 상 필요한 경우 전부 또는 일부 서비스의 제공을 중단할 수 있으며 회원에게 사전 예고 또는 사후 통보 합니다.<br>
 				<br>
@@ -268,7 +282,7 @@ $(function(){
 				6. 회사는 회원의 상기 제1항, 제 2항, 제 3항, 제 4항, 제 5항을 위반하여 회원에게 발생한 손해에 대하여 어떠한 책임도 부담하지 않습니다.<br>
 				<br>
 				제11조 (회원 탈퇴 및 자격 상실)<br>
-				1. 회원은 회사에 언제든지 회원 탈퇴를 요청할 수 있으며 회사는 요청을 받은 즉시 해당 회원의 회원 탈퇴를 위한 절차를 밟아 고도 개인정보처리방침에 따라 회원 등록을 말소합니다.<br>
+				1. 회원은 회사에 언제든지 회원 탈퇴를 요청할 수 있으며 회사는 요청을 받은 즉시 해당 회원의 회원 탈퇴를 위한 절차를 밟아 어디가개 개인정보처리방침에 따라 회원 등록을 말소합니다.<br>
 				2. 회사의 모든 서비스에서 이용중인 서비스의 기간이 남아있는 회원이 탈퇴 요청하였을 경우 회원탈퇴로 인한 서비스의 중지 또는 피해는 회원탈퇴 이용자에게 있습니다.<br>
 				3. 회원이 서비스 이용에 있어서 본 약관 제 10조 내용을 위반하거나, 다음 각 호의 사유에 해당하는 경우 회사는 직권으로 회원자격 상실 및 회원탈퇴의 조치를 할 수 있습니다.<br>
 				가. 다른 사람의 명의를 사용하여 가입 신청한 경우<br>
