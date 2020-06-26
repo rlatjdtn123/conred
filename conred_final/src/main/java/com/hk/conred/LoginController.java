@@ -237,7 +237,7 @@ public class LoginController {
       
   
 	
-   	//네이버로 오게되면 
+   	//네이버로 오게되면  
 	@RequestMapping(value = "user_insert.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String user_insert(Locale locale, Model model,UDto dto,String user_email1,String user_email3,HttpServletRequest request) {
 		logger.info("테스트용 유저 회원가입 폼 {}.", locale);
