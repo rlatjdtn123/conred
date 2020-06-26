@@ -210,7 +210,7 @@ public class Yoonho {
 			if(cmain!=null) {
 				session.setAttribute("cmaindto", cmain);
 			}
-			session.setMaxInactiveInterval(60*10*6);
+			session.setMaxInactiveInterval(60*10*6); 
 			return "redirect:index.jsp"; 
 		}	
 	}
