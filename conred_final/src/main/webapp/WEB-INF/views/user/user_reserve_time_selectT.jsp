@@ -18,6 +18,8 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- 스윗알러트! -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -134,7 +136,7 @@
 						var reserve_price=$("input[name=reserve_price]").val();
 						if(datestr==null){
 							timeval=null; 
-							alert("날짜먼저 선택해주세요"); 
+							swal("날짜먼저 선택해주세요", "", "error");
 						}else{
 							$(".times_result").children("span").eq(1).text(timeval);
 							$(".times_result").children("span").eq(2).text(","+reserve_price+"원");

@@ -17,6 +17,8 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- 스윗알러트! -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style type="text/css">
 	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px;height:800px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	#sticky{position: sticky; top:71px;}
@@ -50,7 +52,7 @@
 		    $('#counter').html("("+qna_content.length+" / 최대 100자)");    //글자수 실시간 카운팅
 	
 		    if ((qna_content.length+content.length) > 100){ 
-		        alert("최대 100자까지 입력 가능합니다.");
+		    	swal("최대 100자까지 입력 가능합니다", "error");
 		        $(this).val((content+qna_content).substring(0, 100));
 		        $('#counter').html("(100 / 최대 100자)");
 		    }

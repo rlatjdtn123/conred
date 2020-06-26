@@ -136,6 +136,13 @@ public class Sungsu {
 		return "user/user_reserve_success"; 
 	}
 	
+	@RequestMapping(value = "test_error.do", method = RequestMethod.GET)
+	public String test_error(Locale locale, Model model) {
+		logger.info("테스트 에러페이지 {}.", locale);
+	
+		return "test/test_error"; 
+	}
+	
 	
 	
 	
@@ -165,7 +172,7 @@ public class Sungsu {
 //		logger.info("테스트용 유저 회원가입 폼 {}.", locale);
 //		dto.setUser_email(user_email1+"@"+user_email3);
 //		//성별 null일경우 String타입으로 값 받을수 있게 수정(*왜 null값이 입력이 안되는지 모르겠음)
-//		if(dto.getUser_sex()==null) {
+//		if(dto.getUser_sex()==null) { 
 //			dto.setUser_sex("");
 //		}
 //		HttpSession session=request.getSession();
@@ -183,10 +190,7 @@ public class Sungsu {
 			
 			HttpSession session=request.getSession();
 			UDto dto=(UDto)session.getAttribute("udto");
-//			for (int i = 0; i < category_code.length; i++) {
-//				System.out.println("@@@@@@@@@@@@@@@@@::"+category_code[i]);
-//				System.out.println("!!!!!!!!!!!!!!!!!::"+user_id[i]);
-//			}
+
 		
 			boolean isS=uService.insertUser(dto, category_code,dto.getUser_id());
 			if(isS){ 
