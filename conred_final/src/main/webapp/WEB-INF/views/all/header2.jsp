@@ -181,7 +181,7 @@
 		<div id="u_info" class="navis" onclick="location.href='user_myinfo.do'">나의정보</div>
 		<div id="u_mypage" class="navis" onclick="location.href='user_mypage.do'">마이페이지</div>
 		<div id="u_like" class="navis" onclick="location.href='user_mypage_like.do'">좋아요</div>
-		<div id="u_reserve" class="navis" onclick="location.href='user_mypage_reservation.do'">내 예약</div>
+		<div id="u_reserve" class="navis" onclick="location.href='user_mypage_reserve.do'">내 예약</div>
 	<%
 		}else if(uldto==null&&oldto!=null){/*사용자는 비로그인, 점주는 로그인인 경우 */
 	%>

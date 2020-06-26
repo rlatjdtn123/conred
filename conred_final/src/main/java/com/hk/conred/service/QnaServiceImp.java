@@ -54,6 +54,11 @@ public class QnaServiceImp implements IQnaService{
 	@Override
 	public List<QnaDto> userQnaPhoto(String user_id){ 
 		return QnaDaoImp.userQnaPhoto(user_id);
+	}
+
+	@Override
+	public QnaDto ownerQnaIdChk(int store_seq) {
+		return QnaDaoImp.ownerQnaIdChk(store_seq);
 	} 
 
 }

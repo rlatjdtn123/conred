@@ -76,7 +76,8 @@
 	    		data:{"pnum":count,"store_seq":store_seq},
 	    		dataType:"json",
 	    		success:function(obj){
-	    			var lists=obj.list
+	    			var lists=obj.list;
+	    			var idChk=obj.owner_chk;
 	    			$.each(lists, function(i){ 
 				       addContent +=  '<div class="mybox">'         
 										+	'<img src="./img/profile_default.png" class="pf"/>'
@@ -85,7 +86,7 @@
 										+	'	<span style="color:#919191;"><b>닉네임</b>:'+lists[i].user_id+'|'+ lists[i].qna_title +'</span><span style="color:#919191; float: right;">'+ lists[i].qna_realdate +'</span><br>'
 										+	'	<div class="contents">'
 										+	'		<span class="zxczxc"><b>문의내용</b></span>    '
-										+    ''+ hideContent(lists[i].user_id,lists[i].qna_content,lists[i].qna_hide) +''
+										+    ''+ hideContent(lists[i].user_id,lists[i].qna_content,lists[i].qna_hide,idChk.owner_id) +''
 						 				+	'	</div>'
 										+	'</div>'
 										+	'<div class="info2">    '
@@ -104,8 +105,8 @@
 	$(document).ready(function(){
 		
 // 		var sss=$("input[name=session_id]").data('value') ;
-		var session_id=$("input[name=session_id]").val();
-		if(session_id!=""){
+		var uSession_id=$("input[name=uSession_id]").val();
+		if(uSession_id!=""){
 // 			alert(session_id);   
 		}
 		
@@ -151,11 +152,11 @@
 				  }
 				  
 			      
-			      if($("textarea").val().length<=100){
-					  alert("100자 이상 작성해주세요"); 
-					  $("textarea").focus();
-			    	  return false;
-				  }
+// 			      if($("textarea").val().length<=100){
+// 					  alert("100자 이상 작성해주세요"); 
+// 					  $("textarea").focus();
+// 			    	  return false;
+// 				  }
 			      	    	    
 			  });
 	    	
@@ -180,10 +181,10 @@
 	
 	//수정,삭제 버튼
 	function buttonChk(user_id){
-		var session_id=$("input[name=session_id]").val();
+		var uSession_id=$("input[name=uSession_id]").val();
 		var v="";
-		if(session_id!=""){
-			if(session_id==user_id){
+		if(uSession_id!=""){
+			if(uSession_id==user_id){
 				v='<button class="buttondle" style="margin-left:436px;">수정</button><button class="buttondle" >삭제</button><button  class="content_detail buttondle">자세히 보기</button><br>';							
 				return v;
 			}else{
@@ -198,11 +199,12 @@
 	
 	
 	//비공개글
-	function hideContent(user_id,qna_content,qna_hide){
-		var session_id=$("input[name=session_id]").val();
+	function hideContent(user_id,qna_content,qna_hide,owner_id){
+		var uSession_id=$("input[name=uSession_id]").val();
+		var oSession_id=$("input[name=oSession_id]").val();
 		var v="";
-		if(session_id!=""){
-			if(session_id==user_id){
+		if(uSession_id!=""){
+			if(uSession_id==user_id){
 				v='<span>'+qna_content+'</span>';    						
 				return v;
 			}else{
@@ -210,11 +212,19 @@
 				return v;
 			}
 		}else{
-			if(qna_hide=="Y"){
+			if(oSession_id!=""){
+				if(oSession_id==owner_id){
+					v='<span>'+qna_content+'</span>'; 
+					return v;					
+				}else{
+					v='<span style="color:#aaa;">비공개글 입니다.</span>';
+					return v;
+				}
+			}else if(qna_hide=="Y"){
 				v='<span style="color:#aaa;">비공개글 입니다.</span>';
 				return v;
 			}else{
-				v='<span>'+qna_content+'</span>'; 
+				v='<span>'+qna_content+'</span>';  
 				return v;
 			}
 		}
@@ -229,10 +239,12 @@
 	QnaDto qnaAvg=(QnaDto)request.getAttribute("qnaAvg");
 	UDto uldto=(UDto)session.getAttribute("uldto");
 	ODto oldto=(ODto)session.getAttribute("oldto");
+	QnaDto owner_chk=(QnaDto)request.getAttribute("owner_chk");
 %>  
 <body>  
 <%-- <input type="hidden" name="session_id"  data-value="<%=session.getAttribute("uldto")==null?"":uldto.getUser_id()%>"/> --%>
-<input type="hidden" name="session_id" value="<%=session.getAttribute("uldto")==null?"":uldto.getUser_id()%>">
+<input type="hidden" name="uSession_id" value="<%=session.getAttribute("uldto")==null?"":uldto.getUser_id()%>">
+<input type="hidden" name="oSession_id" value="<%=session.getAttribute("oldto")==null?"":oldto.getOwner_id()%>">
 <!-- Modal -->
 <form action="insert_qna.do" method="post">
 <input type="hidden" name="store_seq" value="<%=list.get(0).getStore_seq()%>">
@@ -321,9 +333,15 @@
 							}
 						}else{
 							if(oldto!=null){
-							%> 
-								<span><%=dto.getQna_content()%></span>
-							<%
+								if(oldto.getOwner_id().equals(owner_chk.getOwner_id())){
+								%> 
+									<span><%=dto.getQna_content()%></span>
+								<%
+								}else{
+								%>
+									<span style="color:#aaa;">비공개글 입니다.</span>
+								<%	
+								}
 							}else if(dto.getQna_hide().equals("Y")){
 							%>
 								<span style="color:#aaa;">비공개글 입니다.</span>

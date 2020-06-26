@@ -58,6 +58,11 @@
 			WHERE cq.STORE_SEQ =csp.STORE_SEQ AND user_id=#{user_id})
 		WHERE rn=1
 	</select>
+	
+	<select id="ownerQnaIdChk" parameterType="Int" resultType="QnaDto">
+		SELECT 	OWNER_ID 
+		FROM (SELECT OWNER_ID FROM CON_STORE WHERE store_seq=#{store_seq})
+	</select>
 	 
 </mapper>
 	 

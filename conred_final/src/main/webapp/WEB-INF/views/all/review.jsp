@@ -1,3 +1,4 @@
+<%@page import="com.hk.conred.dtos.ODto"%>
 <%@page import="com.hk.conred.dtos.ReserveDto"%>
 <%@page import="com.hk.conred.dtos.UDto"%>
 <%@page import="com.hk.conred.dtos.RPhotoDto"%>
@@ -372,6 +373,8 @@
 	    		 
 	    	}else if($(".modal_Btn").val()==2){
 		    	alert("서비스 이용후 댓글을 남기실수 있습니다.");	    		
+	    	}else if($(".modal_Btn").val()==3){
+	    		alert("이용자만 가능한 기능입니다."); 
 	    	}else{
 	    		var yesNo=confirm("로그인 후에 작성 가능합니다. \n\n로그인 하시겠습니까?");
 	    		if(yesNo){
@@ -379,8 +382,8 @@
 	    		}else{
 	    			
 	    		}
+	    	
 	    	}
-	 	
 	 			 
 	 			
 	
@@ -678,11 +681,13 @@
 	UDto uldto=(UDto)session.getAttribute("uldto");
 	ReplyDto store_name=(ReplyDto)request.getAttribute("store_name");
 	List<ReserveDto> list_reserve=(List<ReserveDto>)request.getAttribute("list_reserve");
+	ODto oldto=(ODto)session.getAttribute("oldto");
 %>
 <body>
 <input type="hidden" name="store_name" value="<%=store_name.getStore_name()%>">
 <input type="hidden" name="photo_length" value="<%=list_photo.size()%>">
 <input type="hidden" name="session_id" value="<%=session.getAttribute("uldto")==null?"":uldto.getUser_id()%>"/>
+
 <%
 	for(int i=0;i<list_photo.size();i++){
 		%>
@@ -813,19 +818,25 @@
 		<span>최근6개월 누적평점</span>
 		<%
 		if(uldto==null){
+			if(oldto!=null){
+			%>
+			<button class="modal_Btn" value="3">리뷰 작성</button>
+			<%	 
+			}else{
 			%>
 			<button class="modal_Btn">리뷰 작성</button>
-			<%
+			<%	
+			}
 		}else if(uldto!=null){ 
 			if(list_reserve==null||list_reserve.size()==0){
 			%>
 			<button class="modal_Btn" value="2">리뷰 작성</button>
 			<%  
-			}else{ 
+			}else{
 			%>
 			<button class="modal_Btn" value="1">리뷰 작성</button>
-			<%
-			} 
+			<%	
+			}
 		} 
 		%>
 		<br/><br/>

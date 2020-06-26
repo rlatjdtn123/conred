@@ -85,4 +85,10 @@ public class QnaDaoImp implements IQnaDao{
 		List<QnaDto> list=sqlSession.selectList(nameSpace+"userQnaPhoto", user_id);
 		return list;
 	}
+
+	@Override
+	public QnaDto ownerQnaIdChk(int store_seq) {
+		QnaDto dto=sqlSession.selectOne(nameSpace+"ownerQnaIdChk", store_seq);
+		return dto;
+	}
 }

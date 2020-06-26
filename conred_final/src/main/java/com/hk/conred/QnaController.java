@@ -39,19 +39,23 @@ public class QnaController {
 		System.out.println("@@매장번호:"+store_seq); 
 		List<QnaDto> list=qnaService.qnaListStore(store_seq, 1);
 		QnaDto qnaAvg=qnaService.qnaAvg(store_seq);
+		QnaDto owner_chk=qnaService.ownerQnaIdChk(store_seq);
 		model.addAttribute("list", list);
 		model.addAttribute("qnaAvg", qnaAvg);
+		model.addAttribute("owner_chk", owner_chk);
 		System.out.println(qnaAvg+"@@@@@@@@@@@@@@@@@@@@");
 		return "all/qna"; 
 	}
 	
 	@ResponseBody 
 	@RequestMapping(value = "qna_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public Map<String, List<QnaDto>> qna_ajax(Locale locale, Model model,int store_seq,int pnum) {
+	public Map<String, Object> qna_ajax(Locale locale, Model model,int store_seq,int pnum) {
 		logger.info("매장 문의 ajax {}.", locale);
 		List<QnaDto> list=qnaService.qnaListStore(store_seq, pnum); 
-		Map<String, List<QnaDto>> map=new HashMap<>();
+		QnaDto owner_chk=qnaService.ownerQnaIdChk(store_seq);
+		Map<String, Object> map=new HashMap<>();
 		map.put("list", list);
+		map.put("owner_chk", owner_chk);
 		return map;  
 	} 
 	

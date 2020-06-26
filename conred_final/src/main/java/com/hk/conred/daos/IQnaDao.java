@@ -29,4 +29,7 @@ public interface IQnaDao {
 	
 	//8.사용자 문의 매장사진
 	public List<QnaDto> userQnaPhoto(String user_id);
+	
+	//9.매장문의 비공개글 해당점주만확인하게
+	public QnaDto ownerQnaIdChk(int store_seq);
 }
