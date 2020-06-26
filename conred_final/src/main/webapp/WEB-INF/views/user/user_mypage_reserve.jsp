@@ -21,7 +21,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <style type="text/css">
-	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{min-height:800px;box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	#sticky{position: sticky; top:71px;}
 	#navi2{width:998px;background-color: lightblue;clear:both;position:relative;text-align: center;line-height: 40px;}
 	.navis2{border-bottom:1px solid grey; font-size:15px; float:left;width:199.6px;height:40px;background-color: #D8D8D8;}
@@ -163,11 +163,7 @@
 //		 	    		}
 			            
 			    	});
-			    	var msg = '결제가 완료되었습니다.';
-					msg += '\n고유ID asd: ' + rsp.imp_uid;
-					msg += '\n상점 거래ID asd: ' + rsp.merchant_uid;
-					msg += '\결제 금액asd : ' + rsp.paid_amount;
-					msg += '카드 승인번호asd : ' + rsp.apply_num;
+			    	var msg = rsp.merchant_uid;
 			    	//성공시 이동할 페이지
 					location.href='user_reserve_success.do?msg='+msg;
 			    } else {

@@ -39,4 +39,7 @@ public interface IReserveDao {
 	//해당매장 리뷰남기면 상태N
 	public boolean userReviewSuccess(String user_id,int store_seq);
 	
+	//결제완료후 정보뿌리기
+	public ReserveDto reserveSuccessInfo(int reserve_seq);
+	
 }

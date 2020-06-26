@@ -20,6 +20,7 @@ public class ReserveDto {
 	private int ct;
 	private int store_maxdate;
 	private String store_photo_stored;
+	private String store_phone;
 	
 	public ReserveDto() {
 	}
@@ -27,7 +28,7 @@ public class ReserveDto {
 	public ReserveDto(int reserve_seq, String user_id, int menu_seq, int store_seq, String reserve_time,
 			String reserve_state, String reserve_price, String reserve_sdate, String reserve_edate,
 			Date reserve_regdate, String store_name, String store_address, String menu_name, int ct, int store_maxdate,
-			String store_photo_stored) {
+			String store_photo_stored, String store_phone) {
 		super();
 		this.reserve_seq = reserve_seq;
 		this.user_id = user_id;
@@ -45,6 +46,7 @@ public class ReserveDto {
 		this.ct = ct;
 		this.store_maxdate = store_maxdate;
 		this.store_photo_stored = store_photo_stored;
+		this.store_phone = store_phone;
 	}
 
 	public int getReserve_seq() {
@@ -175,6 +177,14 @@ public class ReserveDto {
 		this.store_photo_stored = store_photo_stored;
 	}
 
+	public String getStore_phone() {
+		return store_phone;
+	}
+
+	public void setStore_phone(String store_phone) {
+		this.store_phone = store_phone;
+	}
+
 	@Override
 	public String toString() {
 		return "ReserveDto [reserve_seq=" + reserve_seq + ", user_id=" + user_id + ", menu_seq=" + menu_seq
@@ -182,8 +192,10 @@ public class ReserveDto {
 				+ ", reserve_price=" + reserve_price + ", reserve_sdate=" + reserve_sdate + ", reserve_edate="
 				+ reserve_edate + ", reserve_regdate=" + reserve_regdate + ", store_name=" + store_name
 				+ ", store_address=" + store_address + ", menu_name=" + menu_name + ", ct=" + ct + ", store_maxdate="
-				+ store_maxdate + ", store_photo_stored=" + store_photo_stored + "]";
+				+ store_maxdate + ", store_photo_stored=" + store_photo_stored + ", store_phone=" + store_phone + "]";
 	}
+
+	
 
 	
 

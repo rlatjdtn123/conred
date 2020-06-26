@@ -386,13 +386,20 @@
 			
 
 		});
+			
 		
-
-		
-		
-		
-		
-	})  
+	}) 
+	
+	
+	function reserveChk(){
+		var result=confirm("예약 하시겠습니까?");
+		if(result){
+			
+		}else{
+			return false;
+		}
+	}
+	
 </script> 
 </head>
 <%
@@ -424,7 +431,7 @@
 				<div class="time_box">	 
 					
 				</div>
-					<div class="times_result">예약 시간 : <span></span>&nbsp;<span></span>&nbsp;<span></span><input class="reserve_success" value="예약하기" type="submit"/></div> 
+					<div class="times_result">예약 시간 : <span></span>&nbsp;<span></span>&nbsp;<span></span><input class="reserve_success" value="예약하기" type="submit" onclick="return reserveChk()"/></div> 
 			</div>
 		</div>
 	</div>

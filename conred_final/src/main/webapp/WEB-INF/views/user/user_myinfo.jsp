@@ -40,6 +40,11 @@
 	.redbtn:hover{background-color: #FE2E2E;color:white} 
 	#sel{border:1px solid grey;height:24px;vertical-align: middle;}
 	.user_infos{background-color: #D8D8D8;border-width: 0;}
+	.radio_button{display: none;}
+	.text{display: none;}
+	.user_update{background-color: white;border:1px solid black;}
+	
+	
 </style>
 <script type="text/javascript">
 	function changeType(){
@@ -52,7 +57,15 @@
 		}else{
 			
 		}
+	} 
+	function changeSex(){
+		$(".radio_button").css("display", "inline-block");
+		$(".text").css("display", "inline-block"); 
+		$("input[name=user_sex]").css("display", "none");
+		var asd=$("#user_sex").val("");
+		
 	}
+	
 </script>
 </head>
 <%
@@ -74,7 +87,7 @@
 					</tr>
 					<tr>
 						<td><span class="req"> </span>이름</td>
-						<td><input type="text" name="user_name" readonly="readonly" value="<%=dto.getUser_name()%>" class="user_infos"/></td>
+						<td><input type="text" name="user_name"  value="<%=dto.getUser_name()%>" class="user_update"/></td>
 					</tr> 
 					<tr> 
 						<td><span class="req"> </span>이메일</td>
@@ -84,17 +97,45 @@
 <!-- 						<input type="hidden" name="emailConfirm" required="required" value="N"/> -->
 					</td>
 					</tr> 
-					<tr>  
+					<tr>   
 						<td>생년월일</td>
+						<%
+						if(dto.getUser_birth()==null){
+						%>
 						<td>
-							<input value="<%=dto.getUser_birth()%>" style="height:26px;" type="text" onclick="changeType()" name="user_birth" style="background-color: white;border:1px solid black;"/>
+							<input placeholder="정보가 없습니다." style="height:26px;" type="text" onclick="changeType()" name="user_birth" class="user_update" />
 						</td>
+						<%	
+						}else{
+						%>
+						<td>
+							<input value="<%=dto.getUser_birth()%>" style="height:26px;" type="text" onclick="changeType()" name="user_birth" class="user_update" />
+						</td>
+						<%	
+						}
+						%>
 					</tr>
 					<tr>
 						<td>성별</td>
-					<td>
-						<input type="text" readonly="readonly"  name="user_sex" value="<%=dto.getUser_sex()%>" class="user_infos"/>
-					</td>
+						<%
+						if(dto.getUser_sex()==null){
+						%>
+						<td>
+							<input type="text" id="user_sex" class="user_update" onclick="changeSex()" placeholder="정보가 없습니다."  name="user_sex" class="user_infos"/>
+							<input type="radio" name="user_update_sex" value="남자" class="radio_button"/><span class="text">남</span>
+							<input type="radio" name="user_update_sex" value="여자" class="radio_button"/><span class="text">여</span>
+						</td> 
+						<%	
+						}else{
+						%>
+						<td>
+							<input type="text" id="user_sex" class="user_update" onclick="changeSex()"  name="user_sex" value="<%=dto.getUser_sex()%>" class="user_infos"/>
+							<input type="radio" name="user_update_sex" value="남자" class="radio_button"/><span class="text">남</span>
+							<input type="radio" name="user_update_sex" value="여자" class="radio_button"/><span class="text">여</span>
+						</td> 
+						<%	
+						}
+						%>
 					</tr>
 				</table> 
 		</div> 

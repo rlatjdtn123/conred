@@ -247,6 +247,8 @@ public class LoginController {
 		return "user/user_regist_category";
 	}	 
 	
+	
+	
 	@RequestMapping(value = "user_insert_naver.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String user_insert_naver(Locale locale, Model model,UDto dto,String user_email1,HttpServletRequest request) {
 		logger.info("테스트용 유저 회원가입 폼 {}.", locale);

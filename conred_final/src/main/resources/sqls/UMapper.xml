@@ -30,10 +30,10 @@
 	</select>     
 	
 	<update id="userUpdate" parameterType="UDto"> 
-		UPDATE CON_USER SET USER_BIRTH =#{user_birth} WHERE USER_ID =#{user_id}
+		UPDATE CON_USER SET USER_BIRTH =#{user_birth} , USER_SEX=#{user_sex}, USER_NAME=#{user_name} WHERE USER_ID =#{user_id}
 	</update>
 	 
-	<update id="userDelete" parameterType="String"> 
+	<update id="userDelete" parameterType="String">  
 		UPDATE CON_USER SET USER_OUT='Y' WHERE USER_ID =#{user_id}
 	</update>     
 	    

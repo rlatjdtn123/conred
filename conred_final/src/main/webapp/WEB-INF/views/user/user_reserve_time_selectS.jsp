@@ -529,6 +529,16 @@
 		
 	}
 	
+	function reserveChk(){
+		var result=confirm("예약 하시겠습니까?");
+		if(result){
+			
+		}else{
+			return false;
+		}
+	}
+	
+	
 </script>
 </head>
 <%
@@ -574,7 +584,7 @@
 			<input type="text" class="selector" placeholder="날짜를 선택하세요." onchange="aaa(this)"/>
 			<a class="input-button" title="toggle" data-toggle><i class="icon-calendar"></i></a>
 		</div>
-		<div class="day_result_box">예약 날짜 : <span></span><p class="gongback"> ~ </p><span></span><input class="reserve_success" type="submit" value="예약하기"/> </div>
+		<div class="day_result_box">예약 날짜 : <span></span><p class="gongback"> ~ </p><span></span><input onclick="return reserveChk()" class="reserve_success" type="submit" value="예약하기"/> </div>
 	</div>
 </form>
 <script type="text/javascript">

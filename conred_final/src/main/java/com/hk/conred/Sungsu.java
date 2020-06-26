@@ -129,10 +129,11 @@ public class Sungsu {
 	
 	
 
-	@RequestMapping(value = "test_like.do", method = RequestMethod.GET)
-	public String test_like(Locale locale, Model model) {
-		logger.info("테스트용 찜버튼 {}.", locale);	
-		return "test/test_like"; 
+	@RequestMapping(value = "test_reserve_success.do", method = RequestMethod.GET)
+	public String test_reserve_success(Locale locale, Model model) {
+		logger.info("테스트 결제완료창 {}.", locale);
+	
+		return "user/user_reserve_success"; 
 	}
 	
 	
@@ -238,11 +239,16 @@ public class Sungsu {
 	}
 	
 	@RequestMapping(value = "user_myinfo_update.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_myinfo_update(Locale locale, Model model,UDto dto,String user_email1,String user_email3) {
+	public String user_myinfo_update(Locale locale, Model model,UDto dto,String user_email1,String user_email3,String user_update_sex) {
 		logger.info("사용자 마이페이지{}.", locale);
-		System.out.println("유저생일@::"+dto.getUser_birth());
+		if(user_update_sex==null) {
+			
+		}else {
+			dto.setUser_sex(user_update_sex);
+		}
+		
 		dto.setUser_email(user_email1+"@"+user_email3);
-		boolean isS=uService.userUpdate(dto);
+		boolean isS=uService.userUpdate(dto); 
 		if(isS) {
 			return "redirect:user_myinfo.do"; 
 		}else { 
@@ -423,15 +429,18 @@ public class Sungsu {
 		}else {
 			return "";
 		}
-	}
+	} 
 	
 	@RequestMapping(value = "user_reserve_success.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String user_reserve_success(String msg, Locale locale, Model model,HttpServletRequest request,String imp_uid,String merchant_uid) {
 		logger.info("유저 선택메뉴 결제{}.", locale);
 		System.out.println("@@@imp_uid::"+imp_uid);
 		System.out.println("@@@merchant_uid::"+merchant_uid); 
-		System.out.println("@@@msg::"+msg);
-		model.addAttribute("msg", msg);
+		System.out.println("@@@msg::"+msg); // msg담아서말고 merchant_uid받은걸로 셀렉트결과뿌려주기
+		int reserve_seq=Integer.parseInt(msg);
+		ReserveDto dto=reserveService.reserveSuccessInfo(reserve_seq);
+		model.addAttribute("dto", dto);
+		System.out.println("결제정보들@:"+dto); 
 		return "user/user_reserve_success";  
 	}
 	

@@ -38,7 +38,11 @@
 	#bt input{width: 100px; height:60px; margin-left: 450px; font-size: 20px; font-weight: bold;border-radius: 10xp; margin-bottom: 100px;border-radius: 10px;border: 0px;}
 	#bt input:hover{box-shadow: 0px 0.5px 3px grey;}
 	input[type="checkbox"] {display: none;} 
+	.dd{margin-left: 8px;}
 	.dd:hover{cursor: pointer;} 
+	
+	.to_grey{-webkit-filter: grayscale(100%);filter: gray;}
+	.to_color{-webkit-filter: grayscale(0%);filter: none;}
 	 
 </style>
 <script type="text/javascript">   

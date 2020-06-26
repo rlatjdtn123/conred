@@ -56,6 +56,9 @@
 	<a href="test_like.do">찜버튼 테스트</a>
 	<a href="test_star.do">별점 라이브러리 테스트</a> 
 	<a href="user_regist_finish.do">asd</a>
+	<a href="test_reserve_success.do">결제완료 페이지</a>
+	<a href="user_insert.do">유저관심사 아이콘들</a>
+	
 </body>
 <footer> 
 	<div id="main1"> 

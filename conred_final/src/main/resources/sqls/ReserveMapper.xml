@@ -73,6 +73,12 @@
 		 <update id="userReviewSuccess" parameterType="Map">
 		 	UPDATE CON_RESERVE SET RESERVE_STATE ='N' WHERE USER_ID =#{user_id} AND STORE_SEQ =#{store_seq}
 		 </update> 
+		 
+		 <select id="reserveSuccessInfo" parameterType="Int" resultType="ReserveDto">
+		 	SELECT USER_ID ,RESERVE_TIME ,RESERVE_PRICE ,RESERVE_SDATE ,RESERVE_EDATE ,store_name,menu_name,store_phone
+			FROM CON_RESERVE cr,CON_STORE cs,CON_MENU cm 
+			WHERE RESERVE_SEQ =#{reserve_seq} AND cr.STORE_SEQ =cs.store_seq AND cr.MENU_SEQ =cm.MENU_SEQ
+		 </select>
 		
 	</mapper>
 		  

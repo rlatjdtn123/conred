@@ -123,5 +123,11 @@ public class ReserveDaoImp implements IReserveDao{
 		return count>0?true:false;
 	}
 
+	@Override
+	public ReserveDto reserveSuccessInfo(int reserve_seq) {
+		ReserveDto dto=sqlSession.selectOne(nameSpace+"reserveSuccessInfo", reserve_seq);
+		return dto;
+	}
+
 
 }

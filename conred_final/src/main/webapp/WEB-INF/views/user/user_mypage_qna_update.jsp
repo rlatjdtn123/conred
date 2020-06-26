@@ -38,15 +38,20 @@
 </style>
 <script type="text/javascript">
 	
+	
 	$(function(){
+// 		 var content=$("input[name=content]").val();
+// 		    alert(content.length);
+		var content=$("input[name=content]").val(); 
+		$('#counter').html("("+content.length+" / 최대 100자)");
+		
 		$('.qna_content').keyup(function (e){
 		    var qna_content = $(this).val();
-// 		    var content=$("input[name=content]").val();
 		    $('#counter').html("("+qna_content.length+" / 최대 100자)");    //글자수 실시간 카운팅
 	
-		    if (qna_content.length > 100){
+		    if ((qna_content.length+content.length) > 100){ 
 		        alert("최대 100자까지 입력 가능합니다.");
-		        $(this).val(qna_content.substring(0, 100));
+		        $(this).val((content+qna_content).substring(0, 100));
 		        $('#counter').html("(100 / 최대 100자)");
 		    }
 		});		
@@ -102,7 +107,7 @@
 					    	<option value="N">공개</option>
 					    </select>
 				    </span><br><br><br>   
-				    <textarea class="qna_content" name="qna_content" rows="12" cols="83"></textarea>  
+				    <textarea class="qna_content" name="qna_content" rows="12" cols="83"><%=dto.getQna_content()%></textarea>  
 				    <span style="color:#aaa;" id="counter">(0 / 최대 100자)</span>
 				</div>    
 			</div>
