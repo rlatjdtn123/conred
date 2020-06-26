@@ -114,12 +114,6 @@
 			///결제하기 
 			var IMP=window.IMP;
 			IMP.init('imp83419041');  
-// 			alert(reserve_seq);
-// 			alert(user_id);  
-// 			alert(user_email);  // 이메일 null이라 잠시보류
-// 			alert(store_address);
-// 			alert(reserve_price);
-// 			alert(menu_name);
 
 			 
 			IMP.request_pay({
