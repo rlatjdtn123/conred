@@ -88,6 +88,10 @@ public class OwnerController {
 	@RequestMapping(value = "owner_mystore_info.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String owner_mystore_info(Locale locale, Model model,HttpServletRequest request) {
 		logger.info("점주 매장정보{}.", locale);
+		HttpSession session=request.getSession();
+		ODto oldto=(ODto)session.getAttribute("oldto");
+		ODto dto=oService.getState(oldto.getOwner_id());
+		model.addAttribute("dto", dto);
 		return "owner/owner_mystore_info";
 	}
 	

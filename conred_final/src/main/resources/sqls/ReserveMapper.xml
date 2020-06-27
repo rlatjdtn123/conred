@@ -9,11 +9,11 @@
 		
 																	
 		<insert id="insertReserveS" parameterType="Map">
-			INSERT INTO CON_RESERVE VALUES(CON_RESERVE_SEQ.NEXTVAL,#{user_id},#{menu_seq},#{store_seq},null,'Y',#{reserve_price},#{reserve_sdate},#{reserve_edate},SYSDATE)
+			INSERT INTO CON_RESERVE VALUES(CON_RESERVE_SEQ.NEXTVAL,#{user_id},#{menu_seq},#{store_seq},null,'Y',#{reserve_price},#{reserve_sdate},#{reserve_edate},SYSDATE,'N')
 		</insert>
 		
 		<insert id="insertReserveT" parameterType="Map">
-			INSERT INTO CON_RESERVE VALUES(CON_RESERVE_SEQ.NEXTVAL,#{user_id},#{menu_seq},#{store_seq},#{reserve_time},'Y',#{reserve_price},#{reserve_sdate},null,SYSDATE)
+			INSERT INTO CON_RESERVE VALUES(CON_RESERVE_SEQ.NEXTVAL,#{user_id},#{menu_seq},#{store_seq},#{reserve_time},'Y',#{reserve_price},#{reserve_sdate},null,SYSDATE,'N')
 		</insert>
 		
 		
@@ -25,6 +25,7 @@
 			    (SELECT ROW_NUMBER()over(ORDER BY RESERVE_REGDATE DESC) AS rn,RESERVE_SEQ ,USER_ID ,MENU_SEQ ,STORE_SEQ ,RESERVE_TIME ,RESERVE_STATE ,RESERVE_PRICE ,RESERVE_SDATE ,RESERVE_EDATE ,RESERVE_REGDATE,RESERVE_SUCCES
 			     FROM CON_RESERVE WHERE USER_ID=#{user_id}) cr ,CON_MENU cm ,CON_STORE cs 
 			WHERE cr.menu_seq=cm.MENU_SEQ AND cr.store_seq=cs.STORE_SEQ AND CEIL(rn/5)=#{pnum} AND USER_ID =#{user_id}
+			ORDER BY rn   
 		</select>
 		
 		<select id="getReserve" parameterType="Int" resultType="ReserveDto">

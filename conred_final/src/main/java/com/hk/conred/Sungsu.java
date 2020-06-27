@@ -133,14 +133,14 @@ public class Sungsu {
 	public String test_reserve_success(Locale locale, Model model) {
 		logger.info("테스트 결제완료창 {}.", locale);
 	
-		return "user/user_reserve_success"; 
+		return "user/user_regist_finish"; 
 	}
 	
-	@RequestMapping(value = "test_error.do", method = RequestMethod.GET)
+	@RequestMapping(value = "error.do", method = RequestMethod.GET)
 	public String test_error(Locale locale, Model model) {
 		logger.info("테스트 에러페이지 {}.", locale);
 	
-		return "test/test_error"; 
+		return "error/error"; 
 	}
 	
 	
@@ -194,7 +194,7 @@ public class Sungsu {
 		
 			boolean isS=uService.insertUser(dto, category_code,dto.getUser_id());
 			if(isS){ 
-				return "user/user_regist_finish";						
+				return "redirect:user_regist_finish.do";						
 			}else {
 				return "";
 			}

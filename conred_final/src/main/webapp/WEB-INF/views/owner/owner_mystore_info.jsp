@@ -1,3 +1,4 @@
+<%@page import="com.hk.conred.dtos.ODto"%>
 <jsp:include page="../all/header2.jsp" />
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8"); %>
@@ -10,13 +11,13 @@
 <style type="text/css">
 	#container{ border:1px solid grey; border-top-width:0px; width:1000px;margin: 0 auto;height: 1000px;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	#sticky{z-index:200;position: sticky; top:71px;display: inline-block;}
-	#navi2{width:999px;clear:both;position:relative;top:0px;text-align: center;line-height: 40px;border-top: 1px solid grey;display: inline-block;}
-	.navis2{border-bottom:1px solid grey; font-size:15px; float:left;width:199.7px;height:40px;background-color: #f2f2f2;color: #000;}
-	.navis2:hover{color:#000;transition:all .3s;border-bottom:1px solid white;background-color: white;cursor:pointer;border-right:1px solid grey;border-left:1px solid grey;}
-	.home{border-bottom:1px solid white;background-color: white;border-right:1px solid grey;border-left:1px solid grey;color:black;}
-	#regist{font-weight: bold; font-size: 20px;margin-bottom: 40px;}
-	
-	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:20px;display: inline-block;height: 40px;}
+	#navi2{box-shadow: 0px 0.5px 2px #5882FA;width:1000px;clear:both;position:relative;top:0px;text-align: center;line-height: 50px;display: inline-block;border-bottom: 1px solid #5882FA;}
+	.navis2{ font-size:18px; float:left;width:200px;height:50px;color: #000;background-color: #fff;}
+	.navis2:hover{color:#2F3376;transition:all .3s;cursor:pointer;border-bottom:5px solid #5882FA ;}
+	.home{background-color: white;color:black;border-bottom:5px solid #5882FA ;text-decoration: none;border-left-width: 0;border-right-width: 0;}
+	#regist{font-weight: bold; font-size: 20px;margin-bottom: 40px;margin-left: 40px;margin-top: 20px;}
+	 
+	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-bottom:20px;display: inline-block;height: 40px;}
 	.mybox{padding:15px;border:1px solid grey;border-radius:6px;width:800px;height:200px; margin:0 auto; margin-top: 20px;}
 	.myboxmargin{margin-top:30px;}
 	.mybox_info{width: 130px;height: 100px; float: left; margin-left: 100px;text-align: center;font-size: 20px;}
@@ -31,6 +32,10 @@
 	
 </style>
 </head>
+<%
+	ODto dto=(ODto)request.getAttribute("dto");
+	ODto oldto=(ODto)session.getAttribute("oldto");
+%>
 <body>
 <div id="container">
 	<div id="sticky">
@@ -41,13 +46,13 @@
 			<div class="navis2" onclick="location.href='owner_toReupdate_store.do'">
 				매장정보 수정
 			</div>
-			<div class="navis2" onclick="location.href='owner_mystore_reservation.do'">
+			<div class="navis2" onclick="location.href='owner_mystore_reserve.do'">
 				예약관리
 			</div>
-			<div class="navis2" onclick="location.href='owner_mystore_review.do'">
+			<div class="navis2" onclick="location.href='review.do?store_seq=<%=dto.getStore_seq()%>'">
 				리뷰관리
 			</div>
-			<div class="navis2" onclick="location.href='owner_mystore_qna.do'">
+			<div class="navis2" onclick="location.href='qna.do?store_seq=<%=dto.getStore_seq()%>'">
 				문의관리
 			</div>
 		</div>
@@ -57,32 +62,32 @@
 	</div>
 	<div id="pagename">  
 		<img src="img/icon/icon_foot.png" id="footprint1"> 
-		<b></b>님 환영합니다, 즐거운 하루!!<br>
-		<span>이메일 : </span><br><br>
+		<b></b><%=oldto.getOwner_id()%>님 환영합니다, 즐거운 하루!!<br>
+		<span>이메일 : <%=oldto.getOwner_email()%></span><br><br>
 	</div>    
 	<div class="mybox">   
 		<div class="mybox_info_header" >매장 통계</div><br/>
 		<div class="mybox_info"> 
-		 	<span class="stats_result"><a onclick="location.href='user_mypage_reserve.do'"></a></span><br/>
+		 	<span class="stats_result"><a onclick="location.href='owner_mystore_reserve.do'"><%=dto.getReserve_count()%></a></span><br/>
 		 	<span><b>예약수</b></span> 
 		</div>  
 		<div class="mybox_info">  
-	        <span class="stats_result"><a onclick="location.href='user_mypage_like.do'"></a></span><br/>
+	        <span class="stats_result"><a onclick="location.href='#'"><%=dto.getLike_count()%></a></span><br/>
 	        <span><b>좋아요</b></span> 
 		</div>     
 		<div class="mybox_info">  
-		  	<span class="stats_result point"></span><br/>
-		  	<span><b>결제</b></span> 
+		  	<span class="stats_result"><a onclick="location.href='user_mypage_like.do'"><%=dto.getPay_count()%></a></span><br/>
+		  	<span><b>결제수</b></span> 
 		</div>
 	</div>    
 	<div class="mybox">  
 		<div class="mybox_info_header">매장 글 관리</div><br/>
 		<div class="mybox_info1">
-			  <span class="stats_result"><a onclick="location.href='user_mypage_qna.do'"></a></span><br/>
+			  <span class="stats_result"><a onclick="location.href='review.do?store_seq=<%=dto.getStore_seq()%>'"><%=dto.getReply_count()%></a></span><br/>
 			  <span><b>리뷰수</b></span> 
 		</div>
 		<div class="mybox_info1">
-			  <span class="stats_result"><a onclick="location.href='user_mypage_review.do'"></a></span><br/>
+			  <span class="stats_result"><a onclick="location.href='qna.do?store_seq=<%=dto.getStore_seq()%>'"><%=dto.getQna_count()%></a></span><br/>
 			  <span><b>문의수</b></span> 
 		</div>
 	</div> 

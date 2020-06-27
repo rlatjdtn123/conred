@@ -35,5 +35,25 @@
 	<update id="ownerDelete" parameterType="String">
 		UPDATE CON_OWNER SET OWNER_OUT='Y' WHERE OWNER_ID=#{owner_id}
 	</update>
+	
+	<select id="getState" parameterType="String" resultType="ODto">
+		SELECT RESERVE_COUNT,LIKE_COUNT ,PAY_COUNT,REPLY_COUNT ,QNA_COUNT,cs.STORE_SEQ
+		FROM 	CON_STORE cs,(SELECT COUNT(cr.reserve_seq) AS reserve_count
+				FROM con_store cs,CON_RESERVE cr 
+				WHERE cs.STORE_SEQ =cr.STORE_SEQ AND cs.OWNER_ID =#{owner_id} AND cr.reserve_succes!='Y' AND cr.reserve_state!='C') ,
+				(SELECT COUNT(cl.LIKE_LIST_SEQ) AS like_count 
+				FROM CON_STORE cs ,CON_LIKE cl
+				WHERE cs.store_seq=cl.STORE_SEQ AND cs.OWNER_ID =#{owner_id}) ,
+				(SELECT count(cr.RESERVE_SEQ) AS pay_count
+				FROM CON_STORE cs ,CON_RESERVE cr 
+				WHERE cs.STORE_SEQ =cr.STORE_SEQ AND cs.OWNER_ID =#{owner_id} AND cr.RESERVE_SUCCES ='Y') ,
+				(SELECT COUNT(cr.REPLY_SEQ) AS reply_count 
+				FROM CON_STORE cs ,CON_REPLY cr 
+				WHERE cs.STORE_SEQ =cr.STORE_SEQ AND OWNER_ID =#{owner_id} AND cr.REPLY_DELFLAG ='N'),
+				(SELECT COUNT(cq.QNA_SEQ) AS qna_count
+				FROM CON_STORE cs ,CON_QNA cq 
+				WHERE cs.STORE_SEQ =cq.STORE_SEQ AND OWNER_ID =#{owner_id} AND cq.qna_delflag='N')
+		WHERE OWNER_ID=#{owner_id}
+	</select>
 </mapper> 
 	 

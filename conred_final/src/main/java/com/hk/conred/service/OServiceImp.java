@@ -43,4 +43,9 @@ public class OServiceImp implements IOService{
 		return ODaoImp.ownerIdCheck(owner_id);
 	}
 
+	@Override
+	public ODto getState(String owner_id) {
+		return ODaoImp.getState(owner_id);
+	}
+
 }

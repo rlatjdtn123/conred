@@ -47,6 +47,12 @@
 
 .home {border-bottom: 1px solid white;background-color: white;text-decoration: underline;border-right: 1px solid grey;border-left: 1px solid grey;}
 
+	#sticky{z-index:200;position: sticky; top:71px;display: inline-block;}
+	#navi2{box-shadow: 0px 0.5px 2px #5882FA;width:1000px;clear:both;position:relative;top:0px;text-align: center;line-height: 50px;display: inline-block;border-bottom: 1px solid #5882FA;}
+	.navis2{ font-size:18px; float:left;width:200px;height:50px;color: #000;background-color: #fff;}
+	.navis2:hover{color:#2F3376;transition:all .3s;cursor:pointer;border-bottom:5px solid #5882FA ;}
+	.home{background-color: white;color:black;border-bottom:5px solid #5882FA ;text-decoration: none;border-left-width: 0;border-right-width: 0;}
+
 #pagename {z-index: -1;font-size: 20px;position: relative;left: 100px;margin-top: 20px;margin-bottom: 30px;display: inline-block;}
 
 .mybox {padding: 20px;border-top: 1px solid #BDBDBD;width: 700px;height: 370px;font-size: 15px;margin-left: 150px;min-height: 370px;}
@@ -85,7 +91,7 @@ textarea:focus::-webkit-input-placeholder {color: transparent;}
 .my_button {display: inline-block;width: 200px;text-align: center;padding: 10px;background-color: #006BCC;color: #fff;text-decoration: none;
 	border-radius: 5px;float: left;}
 
-.modal_Btn {border: 0;margin-left: 630px;height: 50px;border-radius: 5px;background-color: #94B8FD;}
+.modal_Btn {border: 0;margin-left: 630px;height: 50px;border-radius: 5px;background-color: #94B8FD; color: white;width: 100px;}
 
 .modal_Btn:hover {background-color: #4a83ed;}
 
@@ -772,10 +778,11 @@ input[type=file] {display: none;}
 					<div class="modal-body">
 						<div class="star_bigtle">
 							<span class="star-input01">서비스 <span class="input">
-									<input type="radio" name="star-input01" id="s1" value="0.5"><label
-									for="s1" class="star_service">0.5</label> <input type="radio"
-									name="star-input01" id="s2" value="1"><label for="s2"
-									class="star_service">1</label> <input type="radio"
+									<input type="radio" name="star-input01" id="s1" value="0.5">
+									<label for="s1" class="star_service">0.5</label> 
+									<input type="radio"name="star-input01" id="s2" value="1">
+									<label for="s2"class="star_service">1</label> 
+									<input type="radio"
 									name="star-input01" id="s3" value="1.5"><label for="s3"
 									class="star_service">1.5</label> <input type="radio"
 									name="star-input01" id="s4" value="2"><label for="s4"
@@ -883,6 +890,25 @@ input[type=file] {display: none;}
 		</div>
 	</form>
 	<div id="container">
+		<div id="sticky">
+			<div id="navi2">
+				<div class="navis2" onclick="location.href='store.do?store_seq=<%=list.get(0).getStore_seq()%>'">
+					매장 홈
+				</div>
+				<div class="navis2" onclick="location.href='owner_toReupdate_store.do'">
+					매장정보 수정
+				</div>
+				<div class="navis2" onclick="location.href='owner_mystore_reservation.do'">
+					예약관리
+				</div>
+				<div class="navis2 home" onclick="location.href='review.do?store_seq=<%=list.get(0).getStore_seq()%>'">
+					리뷰관리
+				</div>
+				<div class="navis2" onclick="location.href='qna.do?store_seq=<%=list.get(0).getStore_seq()%>'">
+					문의관리
+				</div>
+			</div>
+		</div>
 		<div id="main">
 			<span id="main2">리뷰&nbsp;<%
 				for (int i = 0; i < Math.floor(list_avg.getAll_avg()); i++) {

@@ -10,10 +10,10 @@
 <style type="text/css">
 	#container{border:1px solid grey; border-top-width:1px; border-bottom-width:0px;height:700px; width:1000px;margin: 0 auto;}
 	.bigtle{width: 600px; height:300px; border-bottom: 3px solid grey;margin: 0 auto; margin-bottom: 35px;margin-top: 15px;text-align: center;}
-	.main_home{transition: all ease 0.5s;width: 250px;height: 100px; border: 2px solid grey;float: left;margin-left: 30px;text-align: center;font-size: 50px;font-size: 50px;padding-top: 10px;}	
-	.user_login{transition: all ease 0.5s;width: 250px;height: 100px;background-color:#01DF01;color:white; float: left;margin-left: 30px;text-align: center;font-size: 50px;font-size: 50px;padding-top: 10px;}
+	.main_home{transition: all ease 0.5s;width: 200px;height: 80px; border: 2px solid grey;float: left;margin-left: 80px;text-align: center;font-size: 40px;padding-top: 10px;}	
+	.user_login{transition: all ease 0.5s;width: 200px;height: 80px;background-color:#01DF01;color:white; float: left;margin-left: 30px;text-align: center;font-size: 40px;padding-top: 10px;}
 	.bigtle02{width: 600px; height: 200px; margin: 0 auto;}
-	.check{background: url("img/check.png");width: 200px;height: 160px;background-size: 200px 160px;margin-left: 200px;margin-top: 100px;}
+	.check{background: url("img/check.png");width: 200px;height: 200px;background-size: 200px 200px;margin-left: 200px;margin-top: 50px;}
 	
 	.user_login:hover{cursor: pointer;transform: scale( 1.1, 1.1 );}
 	.main_home:hover{cursor: pointer;transform: scale( 1.1, 1.1 );}
@@ -26,7 +26,7 @@
 <div id="container">
 	<div class="bigtle">
 		<div class="check"></div>
-		<h1>회원가입이 <b>완료</b> 되었습니다</h1>
+		<h2>회원가입이 <b>완료</b> 되었습니다</h2>
 	</div>
 	<div class="bigtle02">
 		<div onclick="location.href='index.jsp'" class="main_home">

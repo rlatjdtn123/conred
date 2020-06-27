@@ -58,7 +58,7 @@
 	<a href="user_regist_finish.do">asd</a>
 	<a href="test_reserve_success.do">결제완료 페이지</a>
 	<a href="user_insert.do">유저관심사 아이콘들</a>
-	<a href="test_error.do">에러페이지</a>
+	<a href="error.do">에러페이지</a>
 	
 </body>
 <footer> 

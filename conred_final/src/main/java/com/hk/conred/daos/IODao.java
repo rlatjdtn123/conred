@@ -16,5 +16,7 @@ public interface IODao {
 	public boolean ownerDelete(String owner_id);
 	//6. 점주 아이디중복체크
 	public String ownerIdCheck(String owner_id);
+	//7.점주 매장통계출력
+	public ODto getState(String owner_id);
 	
 }

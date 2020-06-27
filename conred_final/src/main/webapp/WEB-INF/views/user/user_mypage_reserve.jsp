@@ -39,8 +39,9 @@
 	button:hover{background-color: grey;}
 	 .buttondle{background-color: #585858; color: white;border-radius: 5px;} 
 	.store_title{text-align: center;}
-	 
-	  
+	.reserve_success{opacity:0.5; background: url("img/reserveS.png");background-size: contain;background-repeat: no-repeat;background-position: 315px;} 
+	
+	   
 </style> 
 <script type="text/javascript"> 
 //무한스크롤	
@@ -61,28 +62,48 @@
 			dataType:"json", 
 			success:function(obj){				
 				var lists=obj.list; 
-				var photo_lists=obj.photo_list
-				$.each(lists, function(i){    		
-					addContent += 	'<div class="bigtle">' 
-									+'<div class="mybox">'
-									+	'<div class="store_img">'
-									+ 	'	'+ storeImg(lists[i].reserve_seq) +' '
-									 +	'	<p class="store_title"><b>'+ lists[i].store_name +'</b></p> '
-									 +	'</div>'
-										+'<div class="reserve_info">'
-									 	+'	<a>메뉴명 : '+ lists[i].menu_name +' </a><br>'   
-									 	+'	<span>가격 정보 : '+ lists[i].reserve_price +' </span><br>'
-									 	+'	<span>예약 날짜 :'+ (lists[i].reserve_edate==null?lists[i].reserve_sdate:lists[i].reserve_sdate+'~'+lists[i].reserve_edate)+'</span><br>'
-									 	+'	<span>'+(lists[i].reserve_time==null?"":"예약시간:"+lists[i].reserve_time)+' </span><br>'
-									 	+'	<span>주소 : '+ lists[i].store_address +' </span><br>'
-									 	+'</div>'
-									 	+'	<div style="margin-left: 520px; margin-top: 40px;" >'
-										+ '		<button class="buttondle cancel" onclick="reserveCancel('+lists[i].reserve_seq+')">예약취소</button>&nbsp;&nbsp;       '
-										+ '		<button class="buttondle" onclick="requestPay('+lists[i].reserve_seq+',\''+lists[i].user_id+'\',\''+lists[i].user_email+'\',\''+lists[i].user_address+'\',\''+lists[i].menu_name+'\',\''+lists[i].reserve_price+'\')">결제하기</button>       '
-									 	+	'</div>'
-								 		+'</div> 	'  
-								+	'</div>' 
-								+	'<br><br>'; 		
+				var photo_lists=obj.photo_list 
+				$.each(lists, function(i){  
+					if(lists[i].reserve_succes=="Y"){
+						addContent += 	'<div class="bigtle reserve_success">' 
+							+'<div class="mybox">'
+							+	'<div class="store_img">'
+							+ 	'	'+ storeImg(lists[i].reserve_seq) +' '
+							 +	'	<p class="store_title"><b>'+ lists[i].store_name +'</b></p> '
+							 +	'</div>'
+								+'<div class="reserve_info">'
+							 	+'	<a>메뉴명 : '+ lists[i].menu_name +' </a><br>'   
+							 	+'	<span>가격 정보 : '+ lists[i].reserve_price +' </span><br>'
+							 	+'	<span>예약 날짜 :'+ (lists[i].reserve_edate==null?lists[i].reserve_sdate:lists[i].reserve_sdate+'~'+lists[i].reserve_edate)+'</span><br>'
+							 	+'	<span>'+(lists[i].reserve_time==null?"":"예약시간:"+lists[i].reserve_time)+' </span><br>'
+							 	+'	<span>주소 : '+ lists[i].store_address +' </span><br>'
+							 	+'</div>'
+						 		+'</div> 	'  
+						+	'</div>' 
+						+	'<br><br>'; 	
+					}else if(lists[i].reserve_state=="Y"&&lists[i].reserve_state!="C"){
+						addContent += 	'<div class="bigtle">' 
+							+'<div class="mybox">'
+							+	'<div class="store_img">'
+							+ 	'	'+ storeImg(lists[i].reserve_seq) +' '
+							 +	'	<p class="store_title"><b>'+ lists[i].store_name +'</b></p> '
+							 +	'</div>'
+								+'<div class="reserve_info">'
+							 	+'	<a>메뉴명 : '+ lists[i].menu_name +' </a><br>'   
+							 	+'	<span>가격 정보 : '+ lists[i].reserve_price +' </span><br>'
+							 	+'	<span>예약 날짜 :'+ (lists[i].reserve_edate==null?lists[i].reserve_sdate:lists[i].reserve_sdate+'~'+lists[i].reserve_edate)+'</span><br>'
+							 	+'	<span>'+(lists[i].reserve_time==null?"":"예약시간:"+lists[i].reserve_time)+' </span><br>'
+							 	+'	<span>주소 : '+ lists[i].store_address +' </span><br>'
+							 	+'</div>'
+							 	+'	<div style="margin-left: 520px; margin-top: 40px;" >'
+								+ '		<button class="buttondle cancel" onclick="reserveCancel('+lists[i].reserve_seq+')">예약취소</button>&nbsp;&nbsp;       '
+								+ '		<button class="buttondle" onclick="requestPay('+lists[i].reserve_seq+',\''+lists[i].user_id+'\',\''+lists[i].user_email+'\',\''+lists[i].user_address+'\',\''+lists[i].menu_name+'\',\''+lists[i].reserve_price+'\')">결제하기</button>       '
+							 	+	'</div>'
+						 		+'</div> 	'  
+						+	'</div>' 
+						+	'<br><br>'; 	
+					}
+							
 	
 			 
 						}); 
@@ -190,9 +211,11 @@
 		}else{			 
 		}
 	}
-			
-		
-		
+	 
+
+
+
+		 
 		
 </script>
 
@@ -237,8 +260,9 @@
 	</div>
 	<%
 		for(ReserveDto dto:list){
+			if(dto.getReserve_succes().equals("Y")){
 			%>
-			<div class="bigtle" >
+			<div class="bigtle reserve_success" >
 			 	<div class="mybox">
 					<div class="store_img">
 					<%
@@ -279,7 +303,55 @@
 			 		%>
 			 		<span>주소 : <%=dto.getStore_address()%> </span><br>
 			 		</div>
-			 		<div style="margin-left: 520px; margin-top: 40px;" >
+			 	</div> 	  
+			</div>
+			<br><br> 
+			<%
+			}else if(dto.getReserve_state().equals("Y")&&!dto.getReserve_state().equals("C")){
+			%>
+			<div class="bigtle" >
+			<input type="hidden" class="zxc" name="reserve_succes" value="<%=dto.getReserve_succes()%>"/>
+			 	<div class="mybox">
+					<div class="store_img">
+					<%
+					for(int i=0;i<photo_list.size();i++){
+						if(dto.getReserve_seq()==photo_list.get(i).getReserve_seq()){
+						%>						
+							<img src="upload_sphoto/<%=photo_list.get(i).getStore_photo_stored()%>" style="width: 200px;height: 150px; float: left;">
+						<%
+						}						 
+					} 
+					%>	 
+				 		<p class="store_title"><b><%=dto.getStore_name()%></b></p> 
+				 	</div>
+				 	<div class="reserve_info">
+			 		<a>메뉴명 : <%=dto.getMenu_name()%> </a><br>  
+			 		<span>가격 정보 : <%=dto.getReserve_price()%></span><br>
+			 		<%
+			 			if(dto.getReserve_edate()==null||dto.getReserve_edate().equals("")){
+			 				%>
+			 				<span>예약 날짜 : <%=dto.getReserve_sdate()%> </span><br>
+			 				<%
+			 			}else{
+			 				%>
+			 				<span>예약 날짜 : <%=dto.getReserve_sdate()%> ~ <%=dto.getReserve_edate()%> </span><br>
+			 				<%
+			 			}
+			 		%>
+			 		<%
+			 			if(dto.getReserve_time()==null||dto.getReserve_time().equals("")){
+			 				%>
+					 					 				
+			 				<%
+			 			}else{
+			 				%>
+					 		<span>예약 시간 : <%=dto.getReserve_time()%></span><br>				 				
+			 				<%
+			 			} 
+			 		%>
+			 		<span>주소 : <%=dto.getStore_address()%> </span><br>
+			 		</div>
+			 		<div class="success_btn" style="margin-left: 520px; margin-top: 40px;" >
 				 		<button class="buttondle cancel" onclick="reserveCancel(<%=dto.getReserve_seq()%>)">예약취소</button>&nbsp;&nbsp;       
 				 		<button class="buttondle" onclick="requestPay(<%=dto.getReserve_seq()%>,'<%=dto.getUser_id()%>','<%=uldto.getUser_email()%>','<%=dto.getStore_address()%>','<%=dto.getMenu_name()%>','<%=dto.getReserve_price()%>')">결제하기</button>  
 				 		<input type="hidden" name="reserve_seq" value="<%=dto.getReserve_seq()%>"/>   
@@ -292,7 +364,8 @@
 			 	</div> 	  
 			</div>
 			<br><br> 
-			<%	
+			<%		
+			}
 		}
 	%>
 	<div class="bigbig">

@@ -61,6 +61,12 @@ public class ODaoImp implements IODao {
 		resultId=sqlSession.selectOne(nameSpace+"ownerIdCheck", owner_id);
 		return resultId;
 	}
+
+	@Override
+	public ODto getState(String owner_id) {
+		ODto dto=sqlSession.selectOne(nameSpace+"getState", owner_id);
+		return dto;
+	}
 	
 	
 	
