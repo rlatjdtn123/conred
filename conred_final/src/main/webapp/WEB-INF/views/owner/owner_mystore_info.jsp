@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	#container{ border:1px solid grey; border-top-width:0px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{ border:1px solid grey; border-top-width:0px; width:1000px;margin: 0 auto;height: 1000px;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	#sticky{z-index:200;position: sticky; top:71px;display: inline-block;}
 	#navi2{width:999px;clear:both;position:relative;top:0px;text-align: center;line-height: 40px;border-top: 1px solid grey;display: inline-block;}
 	.navis2{border-bottom:1px solid grey; font-size:15px; float:left;width:199.7px;height:40px;background-color: #f2f2f2;color: #000;}
@@ -79,31 +79,19 @@
 		<div class="mybox_info_header">매장 글 관리</div><br/>
 		<div class="mybox_info1">
 			  <span class="stats_result"><a onclick="location.href='user_mypage_qna.do'"></a></span><br/>
-			  <span><b>문의수</b></span> 
+			  <span><b>리뷰수</b></span> 
 		</div>
 		<div class="mybox_info1">
 			  <span class="stats_result"><a onclick="location.href='user_mypage_review.do'"></a></span><br/>
-			  <span><b>리뷰수</b></span> 
+			  <span><b>문의수</b></span> 
 		</div>
 	</div> 
 	<div class="mybox icon_tle">
-		<div class="mybox_info_header" >매장 글 답변</div><br/>
+		<div class="mybox_info_header" >보류</div><br/>
 		<div class="mybox_info">
 
 		</div>  
 	</div>
-	<div class="mybox bottom_info">
-		<div class="mybox_info_header" >결제 통계</div><br/>
-		<div class="mybox_info">
-			  
-		</div>
-		<div class="mybox_info">
-			  
-		</div>
-		<div class="mybox_info">
-			  
-		</div>
-	</div> 
 </div>
 </body>
 </html>

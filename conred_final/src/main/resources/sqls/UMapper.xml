@@ -42,11 +42,11 @@
 		FROM CON_USER cu ,
 			(SELECT COUNT(cr.reserve_seq) AS reserve_count
 			FROM con_user cu,CON_RESERVE cr
-			WHERE cu.USER_ID =cr.USER_ID AND cu.USER_ID =#{user_id}) crr ,
+			WHERE cu.USER_ID =cr.USER_ID AND cu.USER_ID =#{user_id} AND cr.reserve_succes!='Y' AND cr.reserve_state!='C') crr ,
 			(SELECT count(cq.QNA_SEQ) AS qna_count FROM con_user cu, CON_QNA cq 
-		    WHERE cu.user_id=cq.USER_ID AND cu.user_id=#{user_id}) cqq ,
+		    WHERE cu.user_id=cq.USER_ID AND cu.user_id=#{user_id} AND cq.QNA_DELFLAG='N') cqq ,
 		    (SELECT count(cr.REPLY_SEQ) AS reply_count FROM con_user cu, 
-		    CON_REPLY cr WHERE cu.user_id=cr.USER_ID AND cu.user_id=#{user_id}) cry,
+		    CON_REPLY cr WHERE cu.user_id=cr.USER_ID AND cu.user_id=#{user_id} AND cr.REPLY_DELFLAG='N') cry,
 		    (SELECT count(cl.LIKE_LIST_SEQ) AS like_count FROM con_user cu, CON_LIKE cl  
 		     WHERE cu.user_id=cl.USER_ID AND cu.user_id=#{user_id}) cll
 		WHERE cu.USER_ID=#{user_id}	 

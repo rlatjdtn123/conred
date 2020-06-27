@@ -629,7 +629,6 @@ input[type=file] {display: none;}
     	if(5<imgCount){
     		imgTle.removeChild(imgs);
     		swal("Good job!", "You clicked the button!", "success");
-//     		alert("사진은 5개 까지 등록 가능합니다"); 
 		   return false; 
     	}
     	
@@ -667,6 +666,7 @@ input[type=file] {display: none;}
 			if(5<$("#preview").find(".preview-box").length){
 				  $("#preview").empty();  
 				  swal("사진은 5개 까지 등록 가능합니다","", "error");
+// 				  alert("asd");
 			  }
 		
 
