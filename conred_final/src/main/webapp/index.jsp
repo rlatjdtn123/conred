@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
 <script type="text/javascript" src="js/jquery-3.4.1.js"></script>
 <style type="text/css">
-	#container{border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{box-shadow: 0px 0px 3px #5882FA inset; border-top-width:0px; border-bottom-width:0px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	
 	#message1{width:500px;text-align: center; margin:0 auto;padding-top:70px;font-size:22px; font-weight: bold}
 	#message2{width:500px;text-align: center; margin:0 auto;padding-top:50px;font-size:22px; font-weight: bold}
@@ -69,7 +69,7 @@
       height: 100%;
     }
     body {
-      background: #eee;
+/*       background: #eee; */
       font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
       font-size: 14px;
       color:#000;

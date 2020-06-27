@@ -21,17 +21,20 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style type="text/css">
-	body{margin:0;}
-	header{border:1px solid grey;border-top-width:0px;border-bottom-color:lightgrey; height:70px;width:100%;}
+	html, body{margin:0px;padding:0px;width:100%;}
+	header{border-top-width:0px;border-bottom-color:lightgrey; height:70px;width:100%;}
 	#logo{width:400px; display: block; margin: 0 auto;position:relative; top:13px;}
 	#logo:hover{cursor: pointer;}
-	#secondheader{background-color:#fff; z-index:1;border:1px solid grey;border-top-width:0px; height:71px;width:100%;box-shadow: 0px 0.5px 2px grey;position:sticky;top:0px;text-align:center;}
-	#categorybox{width:655px;display: inline-block;padding:5px;}
+	#secondheader{background-color:#fff; z-index:300;border-top-width:0px; height:71px;width:100%;box-shadow: 0px 0.5px 2px #5882FA ;position:sticky;top:0px;text-align:center;} 
+/* 	#secondheader{background-color:#fff; z-index:300;border-top-width:0px; height:71px;width:100%; border-left:0px;border-right:0px; background-color:#fff;position:sticky;top:0px;text-align:center;} */
+	#categorybox{width:560px;display: inline-block;padding:5px;position: relative; left: 100px;top: 6px;}
 	.categories{background-color:#fff;border:1px solid grey; border-radius: 10px; width:60px; height:60px;position:relative;float: left;margin-left:5px;border:0.5px solid #E6E6E6;}
-	.categories_first{border:1px solid grey; border-radius: 10px; width:60px; height:60px;position:relative;float: left;border:0.5px solid #E6E6E6;}
+	.categories_first{border:1px solid grey; border-radius: 10px; width:50px; height:50px;position:relative;float: left;border:0.5px solid #E6E6E6;}
+	.allbtn{background-color: #ADEEF2;}
+	.alltext{padding-top:10px;padding-left: 0px;font-size:20px;color: #fff;}
 	.categories:hover{cursor:pointer;box-shadow: 0px 1px 2px #000;}
 	.categories_first:hover{cursor:pointer;box-shadow: 0px 1px 2px #000;}
-	#profilebox{width:200px;height:30px;float:right;position: absolute; top: 25px; right: 12px;}
+	#profilebox{width:200px;height:30px;float:right;position: relative;z-index: 10;top: -25px;right: 12px;}
 	.profile{float:right; height:100%;line-height: 23px;padding-right:10px;}
 	#navibox{float:right;width:380px;height:30px; padding-right:15px;clear:both;position: absolute; bottom: 20px; right: 0px;}
 	.navis{float:right; padding-right: 5px;padding-left: 5px;height:100%;line-height: 30px;border-radius: 3px;}
@@ -39,20 +42,20 @@
 	#profilepic{width:30px;float:right;padding-right:10px;}
 	
 	#search{padding-top:18px;width:25%;position:absolute;left:20px;min-width: 322px;}
-	#searchbar{width:280px;}
+	#searchbar{width:250px;}
 	#searchbtn{padding:3px;width:40px;height:35px;float: left;}
 	#magnifyglass{width:20px;}
 	.display_none{display: none;}
 	
-	#category_icon_a{background: url("./img/icon/icon_A.png");width: 60px; height: 60px; border-radius: 10px; background-size: 50px;background-position: center;background-repeat: no-repeat;} 
- 	#category_icon_b{background: url("./img/icon/icon_B.png");width: 60px; height: 60px; border-radius: 10px; background-size: 50px;background-position: center;background-repeat: no-repeat;} 
- 	#category_icon_c{background: url("./img/icon/icon_C.png");width: 60px; height: 60px; border-radius: 10px; background-size: 50px;background-position: center;background-repeat: no-repeat;} 
- 	#category_icon_d{background: url("./img/icon/icon_D.png");width: 60px; height: 60px; border-radius: 10px; background-size: 50px;background-position: center;background-repeat: no-repeat;} 
- 	#category_icon_e{background: url("./img/icon/icon_E.png");width: 60px; height: 60px; border-radius: 10px; background-size: 50px;background-position: center;background-repeat: no-repeat;} 
- 	#category_icon_f{background: url("./img/icon/icon_F.png");width: 60px; height: 60px; border-radius: 10px; background-size: 50px;background-position: center;background-repeat: no-repeat;} 
- 	#category_icon_g{background: url("./img/icon/icon_G.png");width: 60px; height: 60px; border-radius: 10px; background-size: 50px;background-position: center;background-repeat: no-repeat;} 
- 	#category_icon_h{background: url("./img/icon/icon_H.png");width: 60px; height: 60px; border-radius: 10px; background-size: 50px;background-position: center;background-repeat: no-repeat;} 
- 	#category_icon_i{background: url("./img/icon/icon_I.png");width: 60px; height: 60px; border-radius: 10px; background-size: 50px;background-position: center;background-repeat: no-repeat;} 
+	#category_icon_a{background: url("./img/icon/icon_A.png");width: 50px; height: 50px; border-radius: 10px; background-size: 40px;background-position: center;background-repeat: no-repeat;} 
+ 	#category_icon_b{background: url("./img/icon/icon_B.png");width: 50px; height: 50px; border-radius: 10px; background-size: 40px;background-position: center;background-repeat: no-repeat;} 
+ 	#category_icon_c{background: url("./img/icon/icon_C.png");width: 50px; height: 50px; border-radius: 10px; background-size: 40px;background-position: center;background-repeat: no-repeat;} 
+ 	#category_icon_d{background: url("./img/icon/icon_D.png");width: 50px; height: 50px; border-radius: 10px; background-size: 40px;background-position: center;background-repeat: no-repeat;} 
+ 	#category_icon_e{background: url("./img/icon/icon_E.png");width: 50px; height: 50px; border-radius: 10px; background-size: 40px;background-position: center;background-repeat: no-repeat;} 
+ 	#category_icon_f{background: url("./img/icon/icon_F.png");width: 50px; height: 50px; border-radius: 10px; background-size: 40px;background-position: center;background-repeat: no-repeat;} 
+ 	#category_icon_g{background: url("./img/icon/icon_G.png");width: 50px; height: 50px; border-radius: 10px; background-size: 40px;background-position: center;background-repeat: no-repeat;} 
+ 	#category_icon_h{background: url("./img/icon/icon_H.png");width: 50px; height: 50px; border-radius: 10px; background-size: 40px;background-position: center;background-repeat: no-repeat;} 
+ 	#category_icon_i{background: url("./img/icon/icon_I.png");width: 50px; height: 50px; border-radius: 10px; background-size: 40px;background-position: center;background-repeat: no-repeat;} 
  
  	.balloon_01 {
 	 position:relative;
@@ -153,7 +156,7 @@
 	</form>
 
 	<div id="categorybox">
-		<div class="categories_first" onclick="location.href='map_category.do?category_code=all'" title="전체카테고리 검색"></div>
+		<div class="categories_first allbtn " onclick="location.href='map_category.do?category_code=all'" title="전체카테고리 검색"><div class="alltext">all</div></div>
 		<div id="category_icon_a" class="categories" onclick="location.href='map_category.do?category_code=A'" title="동물병원"></div>
 		<div id="category_icon_b" class="categories" onclick="location.href='map_category.do?category_code=B'" title="카페/식당"></div>
 		<div id="category_icon_c" class="categories" onclick="location.href='map_category.do?category_code=C'" title="식품/용품"></div>

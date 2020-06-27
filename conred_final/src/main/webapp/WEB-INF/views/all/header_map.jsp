@@ -22,7 +22,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style type="text/css">
 	body{margin:0;}
-	header{border:1px solid grey;border-top-width:0px; height:90px;width:100%;box-shadow: 0px 0.5px 3px grey;}
+	header{border:1px solid grey;border-top-width:0px; height:90px;width:100%;box-shadow: 0px 0.5px 2px #5882FA }
 	#logo{width:400px; display: block; margin: 0 auto;position:relative; top:20px;}
 	#logo:hover{cursor: pointer;}
 	#profilebox{width:200px;height:30px;float:right;position: relative; bottom:12px;left:-10px;}

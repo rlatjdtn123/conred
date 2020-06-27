@@ -19,12 +19,18 @@
 <link rel="stylesheet" href="css/star_clean.css">
 <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
 <style type="text/css">
-	#container{text-align:center; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:auto;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	body{min-width: 1250px;}
+	#container{text-align:center;box-shadow: 0px 1px 3px #5882FA inset;border-top-width:0px; border-bottom-width:0px; width:1000px;height:auto;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	#sticky{z-index:200;position: sticky; top:71px;display: inline-block;}
-	#navi2{width:999px;clear:both;position:relative;top:0px;text-align: center;line-height: 40px;border-top: 1px solid grey;display: inline-block;}
-	.navis2{border-bottom:1px solid grey; font-size:15px; float:left;width:199.7px;height:40px;background-color: #f2f2f2;color: #000;}
-	.navis2:hover{color:#000;transition:all .3s;border-bottom:1px solid white;background-color: white;cursor:pointer;border-right:1px solid grey;border-left:1px solid grey;}
-	.home{border-bottom:1px solid white;background-color: white;border-right:1px solid grey;border-left:1px solid grey;color:black;}
+	#navi2{box-shadow: 0px 0.5px 2px #5882FA;width:1000px;clear:both;position:relative;top:0px;text-align: center;line-height: 50px;display: inline-block;border-bottom: 1px solid #5882FA;}
+	.navis2{ font-size:18px; float:left;width:200px;height:50px;color: #000;background-color: #fff;}
+	.navis2:hover{color:#2F3376;transition:all .3s;cursor:pointer;border-bottom:5px solid #5882FA ;}
+	.home{background-color: white;color:black;border-bottom:5px solid #5882FA ;}
+/* 	.navis2{ font-size:15px; float:left;width:199.7px;height:40px;background-color: #f2f2f2;color: #000;} */
+/* 	.navis2:hover{color:#000;transition:all .3s;background-color: white;cursor:pointer;} */
+/* 	진한색 #5882FA */
+/*  중간색 #94B8FD */
+/*  약한색 #D9E6FE */
 	
 	#photozone{width:100.1%; height:430px;margin-top: -5px;}
 	
@@ -43,7 +49,8 @@
 /* 	#infobox_menu{text-align: left; height:auto;border:0px solid grey;border-bottom-width: 0.5px;padding:30px 15px;} */
 	
 	.infobox{text-align: left; height:auto;border:0px solid grey;border-bottom-width: 0.5px;padding:30px 15px;}
-	.infobox:last-child{text-align: left; border-bottom-width: 0px;height:auto;padding:30px 15px 80px;}
+/* 	.infobox:last-child{text-align: left; border-bottom-width: 0px;height:auto;padding:30px 15px 80px;} */
+	.lastinfo{text-align: left; border-bottom-width: 0px;height:auto;padding:30px 15px 80px;}
 	
 	.info1{width:449.5px;height:100%; text-align: left;float: left;margin-bottom: 0px;padding:30px 15px;}
 	.info2{width:449.5px;height:100%; text-align: left;float: left;margin-bottom: 0px; padding:30px 15px;}
@@ -87,9 +94,9 @@
 	
 	hr{width:900px;border:0.5px solid grey;}
 	
-	#reserve_btn{position: sticky; bottom:0px;width:1000px;height:60px;background-color: #f2f2f2;color: #000;margin:0 auto;border:1px solid grey;border-radius: 10px 10px 0px 0px;border-bottom: 0px;line-height: 60px;}
-	#reserve_btn:hover{background-color: white;color:black;cursor: pointer;height:80px; transition:all .1s;}
-	#reserve_btn:hover #reserve_text{ transition:all .3s;line-height: 60px;}
+	#reserve_btn{box-shadow: 0px 0px 2px #5882FA;position: sticky; bottom:20px;width:300px;height:60px;background-color: #fff;color: #000;border:2px solid #5882FA;margin:0 auto;border-radius: 10px;line-height: 60px;border-left: 0px;border-right:0px}
+	#reserve_btn:hover{box-shadow: 0px 2px 5px #5882FA;width:900px;background-color: #fff;cursor: pointer; transition:all .1s;border:2px solid #5882FA;border-left: 0px;border-right:0px}
+	#reserve_btn:hover #reserve_text{ transition:all .3s;color: #000;}
 	#reserve_text{width:300px;margin:0 auto;text-align: center;line-height: 60px;font-size:20px;}
 
 	.mname{border-top-width: 0px !important;font-size:18px;height:30px;text-align: left;}
@@ -838,7 +845,7 @@
 			</c:choose>
 		</div>
 	</div>
-	<div class="infobox section">
+	<div class="infobox section lastinfo">
 		<div class="s_bold flleft">문의</div>
 		<div class="s_btn flright" onclick="location.href='qna.do?store_seq=${store_detail.store_seq}'">전체보기</div>
 		<div class="info1 replyqna flleft clrboth">
@@ -907,8 +914,8 @@
 			</c:choose>
 		</div>
 	</div>
-</div>
 	<div id="reserve_btn" onclick="location.href='user_store_reserve.do?store_seq=${s_seq}&store_name=${store_detail.store_name}'"><div id="reserve_text">예약하러가기</div></div>
+</div>
 </body>
 </html>
 <jsp:include page="../all/footer.jsp" />
