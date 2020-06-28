@@ -23,7 +23,8 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 <!-- services와 clusterer, drawing 라이브러리 불러오기 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bc283bd41dff040b5403d29f3172b43a&libraries=services,clusterer,drawing"></script>
-
+<!-- 스윗알러트! -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style type="text/css">
 	.t1,.t2{transition:all .5s;}
 	.greenbtn:hover{background-color: #04B404;color:white} 
@@ -119,6 +120,24 @@
 	.modal-content{width:531px}
 
 	.greenfont{color:#3ADF00;}
+	
+/* 	진행창 */
+	.progressBox{width:700px; height:220px; margin: 0 auto;}
+	.progress_each{
+		width:150px; height:150px; background-color: #f2f2f2; border-radius: 50%; float:left;border:1px solid #fff;margin-left:20px;margin-top:40px;
+		text-align: center;line-height: 150px;
+		position:relative;
+	}
+	.progress_this{
+		width:150px; height:150px; background-color: #f2f2f2; border-radius: 50%;float:left;border:1px solid #333;margin-left:20px;margin-top:40px;
+		text-align: center;line-height: 150px;
+		box-shadow: 4px 4px 4px #aaa;
+		animation: animate-shadow 1s ease-in infinite;
+	}
+	.progress_ok{opacity:0.5;background-image: url("./img/check.png");background-size: 70px 70px;background-repeat: no-repeat;background-position: center;}
+	@keyframes animate-shadow {
+	     50% {box-shadow: 8px 8px 8px #aaa;}
+	}
 </style>
 <script type="text/javascript">
 	
@@ -256,7 +275,7 @@
 	    form.onsubmit=function(){ 
 			
 			if($(".inputbox").eq(0).find($(".form-control")).val()==""||$(".inputbox").eq(0).find($(".form-control")).val()==" "||$(".inputbox").eq(0).find($(".form-control")).val()==null){
-				alert("매장이름을 입력해주세요"); 
+				swal("매장이름을 입력해주세요.","", "info"); 
 				document.getElementsByClassName("inputbox")[0].scrollIntoView({behavior: "smooth"});
 				setTimeout(function() {
 					$(".inputbox").eq(0).find($(".form-control")).focus();
@@ -264,12 +283,14 @@
 				return false;
 			}
 	    	if($(".preview-box").length<5){
-				alert("사진은 최소 5장을 넣어주세요"); 
-				document.getElementsByClassName("inputbox")[3].scrollIntoView({behavior: "smooth"});
+				swal("사진은 최소 5장을 넣어주세요.","", "info"); 
+	    		setTimeout(function() {
+					document.getElementsByClassName("inputbox")[3].scrollIntoView({behavior: "smooth"});
+				},30);
 				return false;
 			}
 			if($(".inputbox").eq(4).find($(".form-control")).val()==""||$(".inputbox").eq(4).find($(".form-control")).val()==" "||$(".inputbox").eq(4).find($(".form-control")).val()==null){
-				alert("매장의 간단소개를 입력해주세요"); 
+				swal("매장의 간단소개를 입력해주세요.","", "info"); 
 				document.getElementsByClassName("inputbox")[4].scrollIntoView({behavior: "smooth"});
 				setTimeout(function() {
 					$(".inputbox").eq(4).find($(".form-control")).focus();
@@ -277,24 +298,29 @@
 				return false;
 			}
 			if($(".inputbox").eq(5).find($(".form-control")).val()==""||$(".inputbox").eq(5).find($(".form-control")).val()==" "||$(".inputbox").eq(5).find($(".form-control")).val()==null){
-				alert("매장의 소갯글를 입력해주세요"); 
-				document.getElementsByClassName("inputbox")[5].scrollIntoView({behavior: "smooth"});
+				swal("매장의 소갯글를 입력해주세요.","", "info"); 
+				setTimeout(function() {
+					document.getElementsByClassName("inputbox")[5].scrollIntoView({behavior: "smooth"});
+				},30);
 				setTimeout(function() {
 					$(".inputbox").eq(5).find($(".form-control")).focus();
 				},850);
+// 				swal("매장의 소갯글를 입력해주세요."); 
 				return false;
 			}
 			
 			if($(".inputbox").eq(7).find($(".form-control")).val()==""||$(".inputbox").eq(7).find($(".form-control")).val()==" "||$(".inputbox").eq(7).find($(".form-control")).val()==null){
-				alert("매장의 전화번호를 입력해주세요"); 
-				document.getElementsByClassName("inputbox")[7].scrollIntoView({behavior: "smooth"});
+				swal("매장의 전화번호를 입력해주세요.","", "info"); 
+				setTimeout(function() {
+					document.getElementsByClassName("inputbox")[7].scrollIntoView({behavior: "smooth"});
+				},30);
 				setTimeout(function() {
 					$(".inputbox").eq(7).find($(".form-control")).focus();
 				},750);
 				return false;
 			}
 			if($(".inputbox").eq(8).find($(".form-control")).val()==""||$(".inputbox").eq(8).find($(".form-control")).val()==" "||$(".inputbox").eq(8).find($(".form-control")).val()==null){
-				alert("담당자의 전화번호를 입력해주세요"); 
+				swal("담당자의 전화번호를 입력해주세요.","", "info"); 
 				document.getElementsByClassName("inputbox")[8].scrollIntoView({behavior: "smooth"});
 				setTimeout(function() {
 					$(".inputbox").eq(8).find($(".form-control")).focus();
@@ -302,12 +328,15 @@
 				return false;
 			}
 			if($("input[name=store_latitude]").val()==""||$("input[name=store_latitude]").val()==" "||$("input[name=store_latitude]").val()==null){
-				alert("지도에서 주소를 찾아 선택해주세요."); 
+				swal("지도에서 주소를 찾아 선택해주세요.","", "info");  
 				document.getElementsByClassName("inputbox")[9].scrollIntoView({behavior: "smooth"});
+				setTimeout(function() {
+					$(".inputbox").eq(9).find($(".form-control")).eq(0).focus();
+				},750);
 				return false;
 			}
 			if($("input[name=store_address_detail]").val()==""||$("input[name=store_address_detail]").val()==" "||$("input[name=store_address_detail]").val()==null){
-				alert("상세주소를 적어주세요"); 
+				swal("상세주소를 적어주세요.","", "info");
 				document.getElementsByClassName("inputbox")[9].scrollIntoView({behavior: "smooth"});
 				setTimeout(function() {
 					$(".inputbox").eq(9).find($(".form-control")).eq(1).focus();
@@ -315,7 +344,7 @@
 				return false;
 			}
 			if($(".lastbox").find($(".form-control")).eq(0).val()=="none"){
-				alert("은행정보를 입력해주세요.");
+				swal("은행정보를 입력해주세요.","", "info"); 
 				document.getElementsByClassName("inputbox")[11].scrollIntoView({behavior: "smooth"});
 				setTimeout(function() {
 					$(".inputbox").eq(11).find($(".form-control")).eq(0).focus();
@@ -323,7 +352,7 @@
 				return false;
 			}
 			if($("input[name=store_account]").val()==""||$("input[name=store_account]").val()==" "||$("input[name=store_account]").val()==null){
-				alert("계좌번호를 입력해주세요."); 
+				swal("계좌번호를 입력해주세요.","", "info"); 
 				document.getElementsByClassName("inputbox")[11].scrollIntoView({behavior: "smooth"});
 				setTimeout(function() {
 					$(".inputbox").eq(11).find($(".form-control")).eq(1).focus();
@@ -364,7 +393,7 @@
                     "<div class=\"preview-box\" value=\"" + imgNum +"\">" +
                     "<img class=\"thumbnail\" src=\"" + img.target.result + "\"\/>" +
                     "<p class=\"f_name\">" + file.name + "</p>" +
-                    "<div class=\"f_name\"><input class=\"form-control\" type=\"text\" name=\"store_photo_title\" placeholder=\"사진제목/이름(선택사항)\"></div>" +
+                    "<div class=\"f_name\"><input class=\"form-control\" type=\"text\" name=\"store_photo_title\" placeholder=\"사진제목/이름\"></div>" +
                     "<a class=\"del_btn\" href=\"#a\" value=\"" + imgNum + "\" onclick=\"deletePreview(this)\">" +
                     "삭제" + "</a>"
                     + "</div>"
@@ -411,6 +440,12 @@
 %>
 <body>
 <div id="container">
+	<div class="progressBox">
+		<div class="progress_each progress_ok">사업자등록번호 인증</div>
+		<div class="progress_each progress_this">매장정보 입력</div>
+		<div class="progress_each">메뉴정보 입력</div>
+		<div class="progress_each">신청완료</div>
+	</div>
 <!-- <div class="modal fade" id="layerpop" > -->
 <!--   <div class="modal-dialog"> -->
 <!--     <div class="modal-content"> -->

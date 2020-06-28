@@ -41,6 +41,7 @@
 	.idOk{font-weight:bold;width: 180px;color:#3ADF00;height: 24px;margin-left: 45px;display: none;}
 	.passwordOk{font-weight:bold;width: 180px;color:#3ADF00;height: 24px;margin-left: 45px;display: none;}
 	
+	
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -127,6 +128,7 @@
 </head>
 <body>
 <div id="container">
+
 	<form action="owner_insert.do" method="post">
 		<div id="tle">
 			<div id="regist">

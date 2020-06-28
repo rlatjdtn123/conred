@@ -632,15 +632,15 @@ public class Yoonho {
 //			seq =sService.selectStoreSeq(odto);
 //			session.setAttribute("sdto", seq);
 //			return "owner/owner_regist_finish"; 
-			return "redirect:owner_regist_finish.do"; 
+			return "redirect:owner_regist_store_finish.do"; 
 		}else{
 			System.out.println("메뉴정보 업데이트실패~");
 			return ""; 
 		}	
 	}
 	
-	@RequestMapping(value = "owner_regist_finish.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String owner_regist_finish(Locale locale, Model model, HttpServletRequest request) {
+	@RequestMapping(value = "owner_regist_store_finish.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String owner_regist_store_finish(Locale locale, Model model, HttpServletRequest request) {
 		logger.info("입점신청 완료 페이지로 이동  {}.", locale);
 		HttpSession session= request.getSession();
 		ODto odto=(ODto)session.getAttribute("oldto");
@@ -655,7 +655,7 @@ public class Yoonho {
 			session.setAttribute("cmaindto", cmain);
 		}
 		
-		return "owner/owner_regist_finish";
+		return "owner/owner_regist_store_finish";
 		
 	}
 

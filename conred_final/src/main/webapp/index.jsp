@@ -12,6 +12,9 @@
 <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
 <script type="text/javascript" src="js/jquery-3.4.1.js"></script>
 <style type="text/css">
+	@font-face { font-family: 'BMHANNAAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff') format('woff'); font-weight: normal; font-style: normal; }
+	@font-face { font-family: 'NEXON Lv1 Gothic OTF Light'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff') format('woff'); font-weight: normal; font-style: normal; }
+	@font-face { font-family: 'NEXON Lv1 Gothic OTF'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff'); font-weight: normal; font-style: normal; }
 	#container{background-color:#fff;border-top-width:0px; border-bottom-width:1px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	
 	#message1{width:500px;text-align: center; margin:0 auto;padding-top:70px;font-size:22px;}
@@ -25,11 +28,12 @@
 	#category{padding-top:50px; height:auto;width:100%;position:relative;}
 	.categorybox{overflow:auto; margin:0 auto; width:665px;padding-bottom: 50px;overflow-y: hidden;}
 	.categorybox:last-child{overflow:auto; margin:0 auto; width:665px;padding-bottom: 40px;padding-top: 40px;overflow-y: hidden;}
-	.categories{border-radius: 10px; width:60px; height:60px;position:relative;top:4px;float: left;margin-left:60px;border:0.5px solid #E6E6E6;}
-	.categories:hover{cursor:pointer;box-shadow: 0px 1px 2px #000; } 
+	.categories{border-radius: 10px; width:60px; height:60px;position:relative;top:4px;float: left;margin-left:60px;/* border:0.5px solid #E6E6E6; */}
+	.categories:hover{cursor:pointer;box-shadow: 0px 2px 3px grey;transition:all .1s;} 
+/* 	.categories:hover{cursor:pointer;box-shadow: 0px 1px 3px grey;transition:all .1s;}  */
 	.categories_invisible{border-radius: 10px; width:60px; height:60px;position:relative;top:4px;float: left;margin-left:60px;}
 	.categories_last{width:60px; height:60px;position:relative;top:4px;float: left;margin-left:60px;}
-	.categories_last:hover{cursor:pointer;box-shadow: 0px 1px 2px #000;border-radius: 10px; }
+	.categories_last:hover{cursor:pointer;box-shadow: 0px 2px 3px grey;border-radius: 10px; transition:all .1s;}
 	.allbtn{background-color: #ADEEF2;}
 	.alltext{padding-top:13px;padding-left: 16px;font-size:23px;color: #fff;}
 	#mylocation{width:60px;padding :2px;}

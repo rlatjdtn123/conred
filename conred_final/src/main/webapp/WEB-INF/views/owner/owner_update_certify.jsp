@@ -18,7 +18,7 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style type="text/css">
-	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:900px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:1020px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	
 	#regist{font-weight: bold; font-size: 20px;margin-bottom: 40px;}
 	 
@@ -56,6 +56,24 @@
 						border-bottom-color: #e2e2e2; border-radius: .25em; -webkit-appearance: none;
 						/* 네이티브 외형 감추기 */
 						-moz-appearance: none; appearance: none; }
+						
+/* 	진행창 */
+	.progressBox{width:700px; height:220px; margin: 0 auto;}
+	.progress_each{
+		width:150px; height:150px; background-color: #f2f2f2; border-radius: 50%; float:left;border:1px solid #fff;margin-left:20px;margin-top:40px;
+		text-align: center;line-height: 150px;
+		position:relative;
+	}
+	.progress_this{
+		width:150px; height:150px; background-color: #f2f2f2; border-radius: 50%;float:left;border:1px solid #333;margin-left:20px;margin-top:40px;
+		text-align: center;line-height: 150px;
+		box-shadow: 4px 4px 4px #aaa;
+		animation: animate-shadow 1s ease-in infinite;
+	}
+	.progress_ok{opacity:0.5;background-image: url("./img/check.png");background-size: 70px 70px;background-repeat: no-repeat;background-position: center;}
+	@keyframes animate-shadow {
+	     50% {box-shadow: 8px 8px 8px #aaa;}
+	}
 </style>
 <script type="text/javascript">
 
@@ -84,6 +102,13 @@
 </head>
 <body>
 <div id="container">
+	<div class="progressBox">
+		<div class="progress_this">사업자등록번호 인증</div>
+		<div class="progress_each">매장정보 입력</div>
+		<div class="progress_each">메뉴정보 입력</div>
+		<div class="progress_each">신청완료</div>
+	</div>
+	
 	<form action="owner_update_certify.do" method="post" enctype="multipart/form-data">
 		<div id="tle">
 			<div id="regist">

@@ -31,13 +31,13 @@
 	#secondheader{background-color:#fff; z-index:300;height:71px;width:100%;border-bottom:1px solid rgba(225,225,225,1.00);border-top: 1px solid rgba(225,225,225,1.00); position:sticky;top:0px;text-align:center;} 
 /* 	#secondheader{background-color:#fff; z-index:300;border-top-width:0px; height:71px;width:100%; border-left:0px;border-right:0px; background-color:#fff;position:sticky;top:0px;text-align:center;} */
 	#categorybox{width:560px;display: inline-block;padding:5px;position: relative; left: 100px;top: 6px;}
-	.categories{background-color:#fff;border:1px solid grey; border-radius: 10px; width:60px; height:60px;position:relative;float: left;margin-left:5px;border:0.5px solid #E6E6E6;}
-	.categories_first{border:1px solid grey; border-radius: 10px; width:50px; height:50px;position:relative;float: left;border:0.5px solid #E6E6E6;}
+	.categories{background-color:#fff;border-radius: 10px; width:60px; height:60px;position:relative;float: left;margin-left:5px;/* border:0.5px solid #E6E6E6; */}
+	.categories_first{border-radius: 10px; width:50px; height:50px;position:relative;float: left;/* border:0.5px solid #E6E6E6; */}
 	.allbtn{background-color: #ADEEF2;}
 	.alltext{padding-top:10px;padding-left: 0px;font-size:20px;color: #fff;}
-	.categories:hover{cursor:pointer;box-shadow: 0px 1px 2px #000;}
-	.categories_first:hover{cursor:pointer;box-shadow: 0px 1px 2px #000;}
-	#profilebox{width:200px;height:30px;float:right;position: relative;z-index: 10;top: -25px;right: 12px;}
+	.categories:hover{cursor:pointer;box-shadow: 0px 1px 3px grey;transition:all .1s;}
+	.categories_first:hover{cursor:pointer;box-shadow: 0px 1px 3px grey;transition:all .1s;}
+	#profilebox{width:200px;height:30px;float:right;position: relative;z-index: 10;top: -45px;right: 12px;}
 	.profile{float:right; height:100%;line-height: 23px;padding-right:10px;}
 	#navibox{float:right;width:380px;height:30px; padding-right:15px;clear:both;position: absolute; bottom: 20px; right: 0px;}
 	.navis{float:right; padding-right: 5px;padding-left: 5px;height:100%;line-height: 30px;border-radius: 3px;}

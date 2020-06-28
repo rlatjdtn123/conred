@@ -119,8 +119,8 @@
 	
 	/*주소찾기*/
 	.addrsearch{margin-top:3px;}
-	#search{width:500px;padding-bottom: 10px;}
-	#searchbar{width: 444px;margin-top: 0.5px;}
+	#search_2{width:500px;padding-bottom: 10px;}
+	#searchbar_2{width: 444px;margin-top: 0.5px;}
 	#magnifyglass{width:20px;}
 	#mapbox{border:1px solid grey; width:500px;height:500px;}
 	.pickedaddr{float:left;text-align: left;}
@@ -188,6 +188,8 @@
 <script type="text/javascript">
 	//store_info관련
 	$(document).ready(function(){
+		
+		
 		
 		var fileTarget = $('.filebox .upload-hidden');
 		fileTarget.on('change', function(){
@@ -394,7 +396,7 @@
                     "<div class=\"preview-box\" value=\"" + imgNum +"\">" +
                     "<img class=\"thumbnail\" src=\"" + img.target.result + "\"\/>" +
                     "<p class=\"f_name\">" + file.name + "</p>" +
-                    "<div class=\"f_name\"><input class=\"form-control\" type=\"text\" name=\"store_photo_title\" placeholder=\"사진제목/이름(선택사항)\"></div>" +
+                    "<div class=\"f_name\"><input class=\"form-control\" type=\"text\" name=\"store_photo_title\" placeholder=\"사진제목/이름\" required></div>" +
                     "<a class=\"del_btn\" href=\"#a\" value=\"" + imgNum + "\" onclick=\"deletePreview(this)\">" +
                     "삭제" + "</a>"
                     + "</div>"
@@ -794,10 +796,13 @@
 				$("input[name=store_maxman]").css("background-color","#f2f2f2");
 			}
 		}
+// 		alert("d");
+// 		alert(form);
 // 		var form=$("form")[0];
 // 	    form.onsubmit=function(){ 
+// 	    	alert("dfffff");
 // 	    	if($(".inputbox").eq(0).find($(".form-control")).val()==""||$(".inputbox").eq(0).find($(".form-control")).val()==" "||$(".inputbox").eq(0).find($(".form-control")).val()==null){
-// 				alert("매장이름을 입력해주세요"); 
+// 				swal("매장이름을 입력해주세요.","", "info"); 
 // 				document.getElementsByClassName("inputbox")[0].scrollIntoView({behavior: "smooth"});
 // 				setTimeout(function() {
 // 					$(".inputbox").eq(0).find($(".form-control")).focus();
@@ -805,12 +810,14 @@
 // 				return false;
 // 			}
 // 	    	if($(".preview-box").length<5){
-// 				alert("사진은 최소 5장을 넣어주세요"); 
-// 				document.getElementsByClassName("inputbox")[3].scrollIntoView({behavior: "smooth"});
+// 				swal("사진은 최소 5장을 넣어주세요.","", "info"); 
+// 	    		setTimeout(function() {
+// 					document.getElementsByClassName("inputbox")[3].scrollIntoView({behavior: "smooth"});
+// 				},30);
 // 				return false;
 // 			}
 // 			if($(".inputbox").eq(4).find($(".form-control")).val()==""||$(".inputbox").eq(4).find($(".form-control")).val()==" "||$(".inputbox").eq(4).find($(".form-control")).val()==null){
-// 				alert("매장의 간단소개를 입력해주세요"); 
+// 				swal("매장의 간단소개를 입력해주세요.","", "info"); 
 // 				document.getElementsByClassName("inputbox")[4].scrollIntoView({behavior: "smooth"});
 // 				setTimeout(function() {
 // 					$(".inputbox").eq(4).find($(".form-control")).focus();
@@ -818,24 +825,29 @@
 // 				return false;
 // 			}
 // 			if($(".inputbox").eq(5).find($(".form-control")).val()==""||$(".inputbox").eq(5).find($(".form-control")).val()==" "||$(".inputbox").eq(5).find($(".form-control")).val()==null){
-// 				alert("매장의 소갯글를 입력해주세요"); 
-// 				document.getElementsByClassName("inputbox")[5].scrollIntoView({behavior: "smooth"});
+// 				swal("매장의 소갯글를 입력해주세요.","", "info"); 
+// 				setTimeout(function() {
+// 					document.getElementsByClassName("inputbox")[5].scrollIntoView({behavior: "smooth"});
+// 				},30);
 // 				setTimeout(function() {
 // 					$(".inputbox").eq(5).find($(".form-control")).focus();
 // 				},850);
+// // 				swal("매장의 소갯글를 입력해주세요."); 
 // 				return false;
 // 			}
 			
 // 			if($(".inputbox").eq(7).find($(".form-control")).val()==""||$(".inputbox").eq(7).find($(".form-control")).val()==" "||$(".inputbox").eq(7).find($(".form-control")).val()==null){
-// 				alert("매장의 전화번호를 입력해주세요"); 
-// 				document.getElementsByClassName("inputbox")[7].scrollIntoView({behavior: "smooth"});
+// 				swal("매장의 전화번호를 입력해주세요.","", "info"); 
+// 				setTimeout(function() {
+// 					document.getElementsByClassName("inputbox")[7].scrollIntoView({behavior: "smooth"});
+// 				},30);
 // 				setTimeout(function() {
 // 					$(".inputbox").eq(7).find($(".form-control")).focus();
 // 				},750);
 // 				return false;
 // 			}
 // 			if($(".inputbox").eq(8).find($(".form-control")).val()==""||$(".inputbox").eq(8).find($(".form-control")).val()==" "||$(".inputbox").eq(8).find($(".form-control")).val()==null){
-// 				alert("담당자의 전화번호를 입력해주세요"); 
+// 				swal("담당자의 전화번호를 입력해주세요.","", "info"); 
 // 				document.getElementsByClassName("inputbox")[8].scrollIntoView({behavior: "smooth"});
 // 				setTimeout(function() {
 // 					$(".inputbox").eq(8).find($(".form-control")).focus();
@@ -843,12 +855,15 @@
 // 				return false;
 // 			}
 // 			if($("input[name=store_latitude]").val()==""||$("input[name=store_latitude]").val()==" "||$("input[name=store_latitude]").val()==null){
-// 				alert("지도에서 주소를 찾아 선택해주세요."); 
+// 				swal("지도에서 주소를 찾아 선택해주세요.","", "info");  
 // 				document.getElementsByClassName("inputbox")[9].scrollIntoView({behavior: "smooth"});
+// 				setTimeout(function() {
+// 					$(".inputbox").eq(9).find($(".form-control")).eq(0).focus();
+// 				},750);
 // 				return false;
 // 			}
 // 			if($("input[name=store_address_detail]").val()==""||$("input[name=store_address_detail]").val()==" "||$("input[name=store_address_detail]").val()==null){
-// 				alert("상세주소를 적어주세요"); 
+// 				swal("상세주소를 적어주세요.","", "info");
 // 				document.getElementsByClassName("inputbox")[9].scrollIntoView({behavior: "smooth"});
 // 				setTimeout(function() {
 // 					$(".inputbox").eq(9).find($(".form-control")).eq(1).focus();
@@ -856,7 +871,7 @@
 // 				return false;
 // 			}
 // 			if($(".lastbox").find($(".form-control")).eq(0).val()=="none"){
-// 				alert("은행정보를 입력해주세요.");
+// 				swal("은행정보를 입력해주세요.","", "info"); 
 // 				document.getElementsByClassName("inputbox")[11].scrollIntoView({behavior: "smooth"});
 // 				setTimeout(function() {
 // 					$(".inputbox").eq(11).find($(".form-control")).eq(0).focus();
@@ -864,14 +879,14 @@
 // 				return false;
 // 			}
 // 			if($("input[name=store_account]").val()==""||$("input[name=store_account]").val()==" "||$("input[name=store_account]").val()==null){
-// 				alert("계좌번호를 입력해주세요."); 
+// 				swal("계좌번호를 입력해주세요.","", "info"); 
 // 				document.getElementsByClassName("inputbox")[11].scrollIntoView({behavior: "smooth"});
 // 				setTimeout(function() {
 // 					$(".inputbox").eq(11).find($(".form-control")).eq(1).focus();
 // 				},750);
 // 				return false;
 // 			}
-			
+// 			return false;
 // 		}
 	});
     /////////-------------------
@@ -930,8 +945,8 @@
     <div class="modal-content">
 <!--       body -->
       <div class="modal-body">
-       	<div id="search" action="">
-		  <input onkeypress="if( event.keyCode==13 ){goSearch();}" type="text" id="searchbar" class="form-control pull-left" placeholder="ex) 영등포구 양산로 53, 양평동 3가 15-1">
+       	<div id="search_2">
+		  <input onkeypress="if( event.keyCode==13 ){goSearch();}" type="text" id="searchbar_2" class="form-control pull-left" placeholder="ex) 영등포구 양산로 53, 양평동 3가 15-1">
 		  <button type="submit" id="searchbtn" class="btn"><img id="magnifyglass" src="./img/magnifyglass.png"></button>
 		</div>
 		<div class="subinfo">*도로명주소 혹은 번지수로 검색</div> 
@@ -956,7 +971,7 @@
 				
 				$("#searchbtn").click(function() {
 					
-					search_val=$("#searchbar").val();
+					search_val=$("#searchbar_2").val();
 					
 					// 주소-좌표 변환 객체를 생성합니다
 					var geocoder = new kakao.maps.services.Geocoder();
@@ -1254,13 +1269,21 @@
 					<div class="inputs">
 						은행
 						<select class="form-control" name="store_bank">
-							<option>--은행선택--</option>
+							<option value="none">--은행선택--</option>
 							<option value="신한" <c:if test="${sdto.store_bank eq '신한'}">selected</c:if>>신한</option>
 							<option value="기업" <c:if test="${sdto.store_bank eq '기업'}">selected</c:if>>기업</option>
 							<option value="하나" <c:if test="${sdto.store_bank eq '하나'}">selected</c:if>>하나</option>
 							<option value="우리" <c:if test="${sdto.store_bank eq '우리'}">selected</c:if>>우리</option>
 							<option value="농협" <c:if test="${sdto.store_bank eq '농협'}">selected</c:if>>농협</option>
 							<option value="국민" <c:if test="${sdto.store_bank eq '국민'}">selected</c:if>>국민</option>
+							
+							<option value="수협" <c:if test="${sdto.store_bank eq '수협'}">selected</c:if>>수협</option>
+							<option value="신협" <c:if test="${sdto.store_bank eq '신협'}">selected</c:if>>신협</option>
+							<option value="씨티" <c:if test="${sdto.store_bank eq '씨티'}">selected</c:if>>씨티</option>
+							<option value="SC" <c:if test="${sdto.store_bank eq 'SC'}">selected</c:if>>SC</option>
+							<option value="새마을금고" <c:if test="${sdto.store_bank eq '새마을금고'}">selected</c:if>>새마을금고</option>
+							<option value="카카오뱅크" <c:if test="${sdto.store_bank eq '카카오뱅크'}">selected</c:if>>카카오뱅크</option>
+							<option value="우체국" <c:if test="${sdto.store_bank eq '우체국'}">selected</c:if>>우체국</option>
 						</select>
 						<br>
 						계좌번호
@@ -1547,8 +1570,8 @@
 			
 				<br>
 					<div id="bot" class="flright" >
-						<input class="btn redbtn" value="취소" onclick="location.href='index.jsp'" type="button"/>
-						<input class="btn greenbtn" value="입점신청" type="submit"/>
+<!-- 						<input class="btn redbtn" value="취소" onclick="location.href='index.jsp'" type="button"/> -->
+<!-- 						<input class="btn greenbtn" value="입점신청" type="submit"/> -->
 					</div>
 					<br>
 					<br>
@@ -1568,17 +1591,122 @@
 	</div>
 	<script type="text/javascript">
 		function update() {
-			var boool=swal("정말 수정하시겠습니까?", {
-// 				buttons: ["아니오, 아직이예요.", "예, 수정합니다."],
-				buttons: ["아니오, 아직이예요.", true],
-			});
-			alert(boool);
+// 			var boool=swal("정말 수정하시겠습니까?", {
+// // 				buttons: ["아니오, 아직이예요.", "예, 수정합니다."],
+// 				buttons: ["아니오, 아직이예요.", true],
+// 			});
+// 			alert(boool);
+			
+			
 // 			if(boool){
 // 				$("#udtform").submit();
 // 			}
 // 			}else{
 // 				return false;
 // 			}
+			if($(".inputbox").eq(0).find($(".form-control")).val()==""||$(".inputbox").eq(0).find($(".form-control")).val()==" "||$(".inputbox").eq(0).find($(".form-control")).val()==null){
+				swal("매장이름을 입력해주세요.","", "info"); 
+				var scroll = $(".inputbox").eq(0).offset();
+				$('html').animate({scrollTop : scroll.top-71}, 400);
+				setTimeout(function() {
+					$(".inputbox").eq(0).find($(".form-control")).focus();
+				},1000);
+				return false;
+			}
+			if($(".preview-box").length<5){
+				swal("사진은 최소 5장을 넣어주세요.","", "info"); 
+				var scroll = $(".inputbox").eq(3).offset();
+				setTimeout(function() {
+					$('html').animate({scrollTop : scroll.top-71}, 400);
+				},30);
+				return false;
+			}
+			if($(".inputbox").eq(4).find($(".form-control")).val()==""||$(".inputbox").eq(4).find($(".form-control")).val()==" "||$(".inputbox").eq(4).find($(".form-control")).val()==null){
+				swal("매장의 간단소개를 입력해주세요.","", "info"); 
+				var scroll = $(".inputbox").eq(4).offset();
+				$('html').animate({scrollTop : scroll.top-71}, 400);
+				setTimeout(function() {
+					$(".inputbox").eq(4).find($(".form-control")).focus();
+				},900);
+				return false;
+			}
+			if($(".inputbox").eq(5).find($(".form-control")).val()==""||$(".inputbox").eq(5).find($(".form-control")).val()==" "||$(".inputbox").eq(5).find($(".form-control")).val()==null){
+				swal("매장의 소갯글를 입력해주세요.","", "info"); 
+				var scroll = $(".inputbox").eq(5).offset();
+				$('html').animate({scrollTop : scroll.top-71}, 400);
+				setTimeout(function() {
+					$(".inputbox").eq(5).find($(".form-control")).focus();
+				},850);
+				return false;
+			}
+			
+			if($(".inputbox").eq(7).find($(".form-control")).val()==""||$(".inputbox").eq(7).find($(".form-control")).val()==" "||$(".inputbox").eq(7).find($(".form-control")).val()==null){
+				swal("매장의 전화번호를 입력해주세요.","", "info"); 
+				var scroll = $(".inputbox").eq(7).offset();
+				$('html').animate({scrollTop : scroll.top-71}, 400);
+				setTimeout(function() {
+					$(".inputbox").eq(7).find($(".form-control")).focus();
+				},750);
+				return false;
+			}
+			if($(".inputbox").eq(8).find($(".form-control")).val()==""||$(".inputbox").eq(8).find($(".form-control")).val()==" "||$(".inputbox").eq(8).find($(".form-control")).val()==null){
+				swal("담당자의 전화번호를 입력해주세요.","", "info"); 
+				var scroll = $(".inputbox").eq(8).offset();
+				$('html').animate({scrollTop : scroll.top-71}, 400);
+				setTimeout(function() {
+					$(".inputbox").eq(8).find($(".form-control")).focus();
+				},750);
+				return false;
+			}
+			if($("input[name=store_latitude]").val()==""||$("input[name=store_latitude]").val()==" "||$("input[name=store_latitude]").val()==null){
+				swal("지도에서 주소를 찾아 선택해주세요.","", "info");
+				var scroll = $(".inputbox").eq(9).offset();
+				$('html').animate({scrollTop : scroll.top-71}, 400);
+				setTimeout(function() {
+					$(".inputbox").eq(9).find($(".form-control")).eq(0).focus();
+				},750);
+				return false;
+			}
+			if($("input[name=store_address_detail]").val()==""||$("input[name=store_address_detail]").val()==" "||$("input[name=store_address_detail]").val()==null){
+				swal("상세주소를 적어주세요.","", "info");
+				var scroll = $(".inputbox").eq(9).offset();
+				$('html').animate({scrollTop : scroll.top-71}, 400);
+				setTimeout(function() {
+					$(".inputbox").eq(9).find($(".form-control")).eq(1).focus();
+				},750);
+				return false;
+			}
+			if($(".lastbox").find($(".form-control")).eq(0).val()=="none"){
+				swal("은행정보를 입력해주세요.","", "info"); 
+				var scroll = $(".inputbox").eq(11).offset();
+				$('html').animate({scrollTop : scroll.top-71}, 400);
+				setTimeout(function() {
+					$(".inputbox").eq(11).find($(".form-control")).eq(0).focus();
+				},750);
+				return false;
+			}
+			if($("input[name=store_account]").val()==""||$("input[name=store_account]").val()==" "||$("input[name=store_account]").val()==null){
+				swal("계좌번호를 입력해주세요.","", "info"); 
+				var scroll = $(".inputbox").eq(11).offset();
+				$('html').animate({scrollTop : scroll.top-71}, 400);
+				setTimeout(function() {
+					$(".inputbox").eq(11).find($(".form-control")).eq(1).focus();
+				},750);
+				return false;
+			}
+			
+			swal({
+			     title: "수정을 완료하시겠습니까?",
+			     text: "",
+			     icon: "info", //"info,success,warning,error" 중 택1
+			     buttons: ["아니오, 아직이예요.", "예, 수정할게요."],
+			}).then((YES) => {
+			     if (YES) {
+			     	$("#udtform").submit();
+			     }else{
+			     	
+			     }
+			});
 		}
 	</script>
 </div>

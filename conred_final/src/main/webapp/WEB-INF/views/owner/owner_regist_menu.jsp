@@ -16,6 +16,8 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- 스윗알러트! -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style type="text/css">
 	.greenbtn:hover{background-color: #04B404;color:white} 
 	.redbtn:hover{background-color: #FE2E2E;color:white} 
@@ -60,10 +62,101 @@
 	
 	.big_cate{text-align:center;font-size:20px;font-weight:bold; height:30px;line-height: 30px;background-color: #f2f2f2;border-radius: 30px;}
 	.subinfo{font-size:12px;color: grey;}
+	
+/* 	진행창 */
+	.progressBox{width:700px; height:220px; margin: 0 auto;}
+	.progress_each{
+		width:150px; height:150px; background-color: #f2f2f2; border-radius: 50%; float:left;border:1px solid #fff;margin-left:20px;margin-top:40px;
+		text-align: center;line-height: 150px;
+		position:relative;
+	}
+	.progress_this{
+		width:150px; height:150px; background-color: #f2f2f2; border-radius: 50%;float:left;border:1px solid #333;margin-left:20px;margin-top:40px;
+		text-align: center;line-height: 150px;
+		box-shadow: 4px 4px 4px #aaa;
+		animation: animate-shadow 1s ease-in infinite;
+	}
+	.progress_ok{opacity:0.5;background-image: url("./img/check.png");background-size: 70px 70px;background-repeat: no-repeat;background-position: center;}
+	@keyframes animate-shadow {
+	     50% {box-shadow: 8px 8px 8px #aaa;}
+	}
 </style>
 <script type="text/javascript">
 	
 	$(document).ready(function(){
+		$("body").on("click","input:checkbox[name=category_code]", function() {
+			
+			if($(this).prop("checked")){
+				$("input:checkbox[name=category_code]").prop("checked",false);
+				$(this).prop("checked",true);
+			}
+			
+			
+		});
+		
+		var form=$("form")[0];
+	    form.onsubmit=function(){ 
+			var selectedCate="";
+	    	var cateBoxes = $("input:checkbox[name=category_code]");
+			for (var i = 0; i < cateBoxes.length; i++) {
+				if(cateBoxes.eq(i).prop("checked")==true){
+					selectedCate=cateBoxes.eq(i).val();
+				}
+			}
+// 			alert(selectedCate.toLowerCase());
+	    	var cateCount=0;
+	    	var cateMainCount=0;
+	    	var cateBoxesSmall = $("input:checkbox[name=category_code_small]");
+			for (var i = 0; i < cateBoxesSmall.length; i++) {
+				//모든 세부카테들을 돌면서 체크되어있는 체크박스가 있으면
+				if(cateBoxesSmall.eq(i).prop("checked")==true){
+					//일단카운트업하고
+					cateCount++;
+					//체크된 박스 중 각 세부카테들의 value안에 위에 구한 큰카테가 포함되어있다면
+					if(cateBoxesSmall.eq(i).val().indexOf(selectedCate.toLowerCase())!=-1){
+						cateMainCount++;
+					}
+				}
+			}
+// 			alert(selectedCate);
+
+			//만약 cateCount가 0이면 return false
+// 			alert("체크된 카테 수 : "+cateCount);
+			
+			//만약 cateCount가 1보다 큰데  return false
+// 			alert("체크된 카테 중 대표카테고리에 포함된 카테 수 :"+cateMainCount);
+			
+			//만약 체크된 카테가 없거나 대표카테고리에 해당하는 카테가 없으면, 둘중 어떤거든 누락이라면 return false
+	    	if(cateCount==0||cateMainCount==0){
+	    		swal("카테고리 항목을 확인해주세요.","대표종류에 해당하는 한가지 이상의 항목에 체크해주세요!", "info");
+	    		document.getElementsByClassName("inputbox")[0].scrollIntoView({behavior: "smooth"});
+				return false;
+	    	}
+			
+			if($("input[name=store_maxman]").prop("readonly")==false){
+// 				alert("최대인원수 readonly 풀린상태입니다.")
+				if($("input[name=store_maxman]").val()==0){
+// 					alert("최대인원수 readonly 풀린상태인데 값이 0입니다.")
+					swal("시간당 최대인원수를 입력해주세요.","*설명을 잘 읽고 적어주세요", "info"); 
+					setTimeout(function() {
+						$("input[name=store_maxman]").focus();
+					},1000);
+					return false;
+				}
+			}
+			if($("input[name=store_maxdate]").prop("readonly")==false){
+// 				alert("최대예약일 readonly 풀린상태입니다.")
+				if($("input[name=store_maxdate]").val()==0){
+// 					alert("최대예약일 readonly 풀린상태인데 값이 0입니다.")
+					swal("최대 예약일을 입력해주세요.","*설명을 잘 읽고 적어주세요", "info"); 
+					setTimeout(function() {
+						$("input[name=store_maxdate]").focus();
+					},1000);
+					return false;
+				}
+			}
+	    };
+		
 		
 		//체크했을 때 : 같은값 없으면 추가, 같은값 있으면 추가안함
 		//풀었을 때 : 같은값이 하나라도 없으면 그대로, 같은값이 하나라도 있어도 그대로
@@ -140,12 +233,12 @@
 							'</li> '+
 							'<li>'+
 								'<input type="hidden" name="category_code_2" value="'+cateval.toUpperCase()+'">'+
-								'<input class="menu_name form-control" type="text" name="menu_name" placeholder="메뉴명"/> '+
-								'<textarea rows="3" class="menubox_long form-control" type="text" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~"></textarea> '+
+								'<input class="menu_name form-control" type="text" name="menu_name" placeholder="메뉴명" required="required"/> '+
+								'<textarea rows="3" class="menubox_long form-control" type="text" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~"  required="required"></textarea> '+
 								'<div class="menu_price">'+
 									'<div class="menu_price2">'+
 									'가격'+
-									' <input class="menu_price form-control" type="text" name="menu_price" placeholder="10000"/>'+
+									' <input class="menu_price form-control" type="text" name="menu_price" placeholder="10000" required="required"/>'+
 									'</div>'+
 									'<div class="menu_reserve">'+
 									'예약'+
@@ -196,12 +289,12 @@
 			$(this).parent().parent($(".menuboxes")).append(
 			'<li>'+
 				'<input type="hidden" name="category_code_2" value="'+cateval.toUpperCase()+'"/>'+
-				'<input class="menu_name form-control" type="text" name="menu_name" placeholder="멍멍개껌"/> '+
-				'<textarea rows="3" class="menubox_long form-control" type="text" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~"></textarea> '+
+				'<input class="menu_name form-control" type="text" name="menu_name" placeholder="멍멍개껌" required="required"/> '+
+				'<textarea rows="3" class="menubox_long form-control" type="text" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~" required="required"></textarea> '+
 				'<div class="menu_price">'+
 					'<div class="menu_price2">'+
 					'가격 '+
-					'<input class="menu_price form-control" type="text" name="menu_price" placeholder="10000"/>'+
+					'<input class="menu_price form-control" type="text" name="menu_price" placeholder="10000" required="required"/>'+
 					'</div>'+
 					'<div class="menu_reserve">'+
 					'예약 '+
@@ -278,8 +371,6 @@
 			}
 		});
 		
-		
-		
 // 		$("#testform").submit(function(){
 // // 			$("input[name=store_maxman]").trigger('click') ;
 // 			$(".lastbox input").each(function(){
@@ -298,6 +389,12 @@
 </head>
 <body>
 <div id="container">
+	<div class="progressBox">
+		<div class="progress_each progress_ok">사업자등록번호 인증</div>
+		<div class="progress_each progress_ok">매장정보 입력</div>
+		<div class="progress_each progress_this">메뉴정보 입력</div>
+		<div class="progress_each">신청완료</div>
+	</div>
 <!-- <div class="modal fade" id="layerpop" > -->
 <!--   <div class="modal-dialog"> -->
 <!--     <div class="modal-content"> -->

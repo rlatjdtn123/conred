@@ -27,9 +27,9 @@
 	
 /* 	#logo{width:400px; display: block; margin: 0 auto;position:relative; top:20px;} */
 	#logo:hover{cursor: pointer;}
-	#profilebox{width:200px;height:30px;float:right;position: relative; bottom:12px;left:-10px;}
+	#profilebox{width:200px;height:30px;float:right;position: relative; bottom:45px;left:-10px;}
 	.profile{float:right; height:100%;line-height: 23px;padding-right:10px;}
-	#navibox{width:380px;height:30px;float:right;position: relative; padding-right:5px;left:190px;bottom:-10px}
+	#navibox{width:380px;height:30px;float:right;position: relative; padding-right:5px;left:190px;bottom:20px}
 	.navis{float:right; padding-right: 5px;padding-left: 5px;height:100%;line-height: 30px;border-radius: 3px;}
 	.navis:hover{cursor: pointer; background-color: lightgrey;transition:all .3s;}
 	#profilepic{width:30px;float:right;padding-right:10px;}
