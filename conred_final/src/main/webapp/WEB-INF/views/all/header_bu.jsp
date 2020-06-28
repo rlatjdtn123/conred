@@ -22,18 +22,12 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style type="text/css">
 	body{margin:0;}
-	header{background-color:#fff;border-top-width:0px; height:200px;width:100%;border-bottom:1px solid grey;}
-	.logo{width:280px; display: block; margin: 0 auto;position:relative; top:18px;}
-
-  	/*	
-  	header{background-color:#fff;border-top-width:0px; height:200px;width:100%;border-bottom:70px solid #eee; border-left: 50px solid transparent; border-right: 50px solid transparent;}  
- 	.logotop{width:300px; display: block; margin: 0 auto;position:relative; top:-20px;padding:20px 50px;border-bottom:10px solid #e2e2e2;border-left: 10px solid transparent; border-right: 10px solid transparent;}  
-  	.logo{width:300px; display: block; margin: 0 auto;position:relative; top:-20px;padding:5px 25px;background-color: #fff}  
-  	*/
-	.logo:hover{cursor: pointer;}
-	#profilebox{width:200px;height:30px;float:right;position: relative; bottom:25px;left:-10px;}
+	header{border:1px solid grey;border-top-width:0px; height:200px;width:100%;}
+	#logo{width:200px; display: block; margin: 0 auto;position:relative; top:40px;}
+	#logo:hover{cursor: pointer;}
+	#profilebox{width:200px;height:30px;float:right;position: relative; bottom:-25px;left:-10px;}
 	.profile{float:right; height:100%;line-height: 23px;padding-right:10px;}
-	#navibox{width:380px;height:30px;float:right;position: relative; bottom:30px;right:10px; padding-right:5px;clear:both;}
+	#navibox{width:380px;height:30px;float:right;position: relative; bottom:-20px;right:10px; padding-right:5px;clear:both;}
 	.navis{float:right; padding-right: 5px;padding-left: 5px;height:100%;line-height: 32px;border-radius: 3px;}/* 아직 헤더2,맵은 여기설정을 안해줌 이게 최신임 */
 	.navis:hover{cursor: pointer; background-color: lightgrey;transition:all .3s;}
 	#profilepic{width:30px;float:right;padding-right:10px;}
@@ -80,13 +74,6 @@
 	  -moz-animation: blink 1.5s linear infinite;
 	  animation: blink 1.5s linear infinite;
 	} 
-	.testt{-moz-transform: scaleX(-1);
-        -o-transform: scaleX(-1);
-        -webkit-transform: scaleX(-1);
-        transform: scaleX(-1);
-        filter: FlipH;
-        -ms-filter: "FlipH";
-    }
 </style>
 
 <script type="text/javascript">
@@ -112,9 +99,7 @@
 </head>
 <body>
 <header>
-	<div class="logotop"></div>
-	<img class="logo" alt="logo1" src="./img/h1.gif" onclick="location.href='index.jsp'">
-<!-- 	<img id="logo" alt="logo1" src="./img/cats.png" onclick="location.href='index.jsp'">나중에 세션에따라 이동되는페이지 달라지게 바꾸기 -->
+	<img id="logo" alt="logo1" src="./img/logo1.png" onclick="location.href='index.jsp'"><!-- 나중에 세션에따라 이동되는페이지 달라지게 바꾸기 -->
 	
 	<%
 		UDto uldto=(UDto)session.getAttribute("uldto");

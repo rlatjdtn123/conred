@@ -23,9 +23,12 @@
 <style type="text/css">
 	html, body{margin:0px;padding:0px;width:100%;}
 	header{border-top-width:0px;border-bottom-color:lightgrey; height:70px;width:100%;}
-	#logo{width:400px; display: block; margin: 0 auto;position:relative; top:13px;}
+/* 	#logo{width:320px; display: block; margin: 0 auto;position:relative; top:0px;} */
+	#logo{background: url("./img/h2.gif");height:70px;background-size: contain;width:320px; display: block; margin: 0 auto;position:relative; top:0px;}
 	#logo:hover{cursor: pointer;}
-	#secondheader{background-color:#fff; z-index:300;border-top-width:0px; height:71px;width:100%;box-shadow: 0px 0.5px 2px #5882FA ;position:sticky;top:0px;text-align:center;} 
+/* 	#logo{width:400px; display: block; margin: 0 auto;position:relative; top:13px;}
+ 	#logo:hover{cursor: pointer;} */
+	#secondheader{background-color:#fff; z-index:300;height:71px;width:100%;border-bottom:1px solid rgba(225,225,225,1.00);border-top: 1px solid rgba(225,225,225,1.00); position:sticky;top:0px;text-align:center;} 
 /* 	#secondheader{background-color:#fff; z-index:300;border-top-width:0px; height:71px;width:100%; border-left:0px;border-right:0px; background-color:#fff;position:sticky;top:0px;text-align:center;} */
 	#categorybox{width:560px;display: inline-block;padding:5px;position: relative; left: 100px;top: 6px;}
 	.categories{background-color:#fff;border:1px solid grey; border-radius: 10px; width:60px; height:60px;position:relative;float: left;margin-left:5px;border:0.5px solid #E6E6E6;}
@@ -110,7 +113,9 @@
 		CMainDto cmaindto=(CMainDto)session.getAttribute("cmaindto");
 	%>
 	
-	<img id="logo" alt="logo2" src="./img/logo2.png" onclick="location.href='index.jsp'"><!-- 나중에 세션에따라 이동되는페이지 달라지게 바꾸기 -->
+<!-- 	<img id="logo" alt="logo2" src="./img/logo2.png" onclick="location.href='index.jsp'">나중에 세션에따라 이동되는페이지 달라지게 바꾸기 -->
+<!-- 	<img id="logo" alt="logo2" src="./img/h2.gif" onclick="location.href='index.jsp'">나중에 세션에따라 이동되는페이지 달라지게 바꾸기 -->
+	<div id="logo" alt="logo2" onclick="location.href='index.jsp'"></div><!-- 나중에 세션에따라 이동되는페이지 달라지게 바꾸기 -->
 	
 	
 	<%
