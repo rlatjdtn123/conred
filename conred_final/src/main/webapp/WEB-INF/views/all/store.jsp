@@ -308,13 +308,13 @@
 					<div class="navis2" onclick="location.href='owner_toReupdate_store.do'">
 						매장정보 수정
 					</div>
-					<div class="navis2" onclick="location.href='owner_mystore_reservation.do'">
+					<div class="navis2" onclick="location.href='owner_mystore_reserve.do?store_seq=${store_detail.store_seq}'">
 						예약관리
 					</div>
-					<div class="navis2" onclick="location.href='owner_mystore_review.do?store_seq=${store_detail.store_seq}'">
+					<div class="navis2" onclick="location.href='review.do?store_seq=${store_detail.store_seq}'">
 						리뷰관리
 					</div>
-					<div class="navis2" onclick="location.href='owner_mystore_qna.do'">
+					<div class="navis2" onclick="location.href='qna.do?store_seq=${store_detail.store_seq}'">
 						문의관리
 					</div>
 				</div>
