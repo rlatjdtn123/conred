@@ -42,4 +42,7 @@ public interface IReserveDao {
 	//결제완료후 정보뿌리기
 	public ReserveDto reserveSuccessInfo(int reserve_seq);
 	
+	//점주 자기매장 예약목록
+	public List<ReserveDto> ownerStoreReserve(int store_seq,int pnum);
+	
 }

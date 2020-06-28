@@ -898,7 +898,7 @@ input[type=file] {display: none;}
 				<div class="navis2" onclick="location.href='owner_toReupdate_store.do'">
 					매장정보 수정
 				</div>
-				<div class="navis2" onclick="location.href='owner_mystore_reservation.do'">
+				<div class="navis2" onclick="location.href='owner_mystore_reserve.do?store_seq=<%=list.get(0).getStore_seq()%>'">
 					예약관리
 				</div>
 				<div class="navis2 home" onclick="location.href='review.do?store_seq=<%=list.get(0).getStore_seq()%>'">

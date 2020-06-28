@@ -23,16 +23,25 @@ public class ReserveDto {
 	private String store_phone;
 	
 	private String reserve_succes;
+	private String user_email;
+	
+	
+	
+	
 	
 	
 	public ReserveDto() {
 	}
 
 
+
+
+
+
 	public ReserveDto(int reserve_seq, String user_id, int menu_seq, int store_seq, String reserve_time,
 			String reserve_state, String reserve_price, String reserve_sdate, String reserve_edate,
 			Date reserve_regdate, String store_name, String store_address, String menu_name, int ct, int store_maxdate,
-			String store_photo_stored, String store_phone, String reserve_succes) {
+			String store_photo_stored, String store_phone, String reserve_succes, String user_email) {
 		super();
 		this.reserve_seq = reserve_seq;
 		this.user_id = user_id;
@@ -52,7 +61,12 @@ public class ReserveDto {
 		this.store_photo_stored = store_photo_stored;
 		this.store_phone = store_phone;
 		this.reserve_succes = reserve_succes;
+		this.user_email = user_email;
 	}
+
+
+
+
 
 
 	public int getReserve_seq() {
@@ -60,9 +74,17 @@ public class ReserveDto {
 	}
 
 
+
+
+
+
 	public void setReserve_seq(int reserve_seq) {
 		this.reserve_seq = reserve_seq;
 	}
+
+
+
+
 
 
 	public String getUser_id() {
@@ -70,9 +92,17 @@ public class ReserveDto {
 	}
 
 
+
+
+
+
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
+
+
+
+
 
 
 	public int getMenu_seq() {
@@ -80,9 +110,17 @@ public class ReserveDto {
 	}
 
 
+
+
+
+
 	public void setMenu_seq(int menu_seq) {
 		this.menu_seq = menu_seq;
 	}
+
+
+
+
 
 
 	public int getStore_seq() {
@@ -90,9 +128,17 @@ public class ReserveDto {
 	}
 
 
+
+
+
+
 	public void setStore_seq(int store_seq) {
 		this.store_seq = store_seq;
 	}
+
+
+
+
 
 
 	public String getReserve_time() {
@@ -100,9 +146,17 @@ public class ReserveDto {
 	}
 
 
+
+
+
+
 	public void setReserve_time(String reserve_time) {
 		this.reserve_time = reserve_time;
 	}
+
+
+
+
 
 
 	public String getReserve_state() {
@@ -110,9 +164,17 @@ public class ReserveDto {
 	}
 
 
+
+
+
+
 	public void setReserve_state(String reserve_state) {
 		this.reserve_state = reserve_state;
 	}
+
+
+
+
 
 
 	public String getReserve_price() {
@@ -120,9 +182,17 @@ public class ReserveDto {
 	}
 
 
+
+
+
+
 	public void setReserve_price(String reserve_price) {
 		this.reserve_price = reserve_price;
 	}
+
+
+
+
 
 
 	public String getReserve_sdate() {
@@ -130,9 +200,17 @@ public class ReserveDto {
 	}
 
 
+
+
+
+
 	public void setReserve_sdate(String reserve_sdate) {
 		this.reserve_sdate = reserve_sdate;
 	}
+
+
+
+
 
 
 	public String getReserve_edate() {
@@ -140,9 +218,17 @@ public class ReserveDto {
 	}
 
 
+
+
+
+
 	public void setReserve_edate(String reserve_edate) {
 		this.reserve_edate = reserve_edate;
 	}
+
+
+
+
 
 
 	public Date getReserve_regdate() {
@@ -150,9 +236,17 @@ public class ReserveDto {
 	}
 
 
+
+
+
+
 	public void setReserve_regdate(Date reserve_regdate) {
 		this.reserve_regdate = reserve_regdate;
 	}
+
+
+
+
 
 
 	public String getStore_name() {
@@ -160,9 +254,17 @@ public class ReserveDto {
 	}
 
 
+
+
+
+
 	public void setStore_name(String store_name) {
 		this.store_name = store_name;
 	}
+
+
+
+
 
 
 	public String getStore_address() {
@@ -170,9 +272,17 @@ public class ReserveDto {
 	}
 
 
+
+
+
+
 	public void setStore_address(String store_address) {
 		this.store_address = store_address;
 	}
+
+
+
+
 
 
 	public String getMenu_name() {
@@ -180,9 +290,17 @@ public class ReserveDto {
 	}
 
 
+
+
+
+
 	public void setMenu_name(String menu_name) {
 		this.menu_name = menu_name;
 	}
+
+
+
+
 
 
 	public int getCt() {
@@ -190,9 +308,17 @@ public class ReserveDto {
 	}
 
 
+
+
+
+
 	public void setCt(int ct) {
 		this.ct = ct;
 	}
+
+
+
+
 
 
 	public int getStore_maxdate() {
@@ -200,9 +326,17 @@ public class ReserveDto {
 	}
 
 
+
+
+
+
 	public void setStore_maxdate(int store_maxdate) {
 		this.store_maxdate = store_maxdate;
 	}
+
+
+
+
 
 
 	public String getStore_photo_stored() {
@@ -210,9 +344,17 @@ public class ReserveDto {
 	}
 
 
+
+
+
+
 	public void setStore_photo_stored(String store_photo_stored) {
 		this.store_photo_stored = store_photo_stored;
 	}
+
+
+
+
 
 
 	public String getStore_phone() {
@@ -220,9 +362,17 @@ public class ReserveDto {
 	}
 
 
+
+
+
+
 	public void setStore_phone(String store_phone) {
 		this.store_phone = store_phone;
 	}
+
+
+
+
 
 
 	public String getReserve_succes() {
@@ -230,9 +380,35 @@ public class ReserveDto {
 	}
 
 
+
+
+
+
 	public void setReserve_succes(String reserve_succes) {
 		this.reserve_succes = reserve_succes;
 	}
+
+
+
+
+
+
+	public String getUser_email() {
+		return user_email;
+	}
+
+
+
+
+
+
+	public void setUser_email(String user_email) {
+		this.user_email = user_email;
+	}
+
+
+
+
 
 
 	@Override
@@ -243,8 +419,11 @@ public class ReserveDto {
 				+ reserve_edate + ", reserve_regdate=" + reserve_regdate + ", store_name=" + store_name
 				+ ", store_address=" + store_address + ", menu_name=" + menu_name + ", ct=" + ct + ", store_maxdate="
 				+ store_maxdate + ", store_photo_stored=" + store_photo_stored + ", store_phone=" + store_phone
-				+ ", reserve_succes=" + reserve_succes + "]";
+				+ ", reserve_succes=" + reserve_succes + ", user_email=" + user_email + "]";
 	}
+
+
+	
 
 
 	

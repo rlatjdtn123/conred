@@ -46,7 +46,7 @@
 			<div class="navis2" onclick="location.href='owner_toReupdate_store.do'">
 				매장정보 수정
 			</div>
-			<div class="navis2" onclick="location.href='owner_mystore_reserve.do'">
+			<div class="navis2" onclick="location.href='owner_mystore_reserve.do?store_seq=<%=dto.getStore_seq()%>'">
 				예약관리
 			</div>
 			<div class="navis2" onclick="location.href='review.do?store_seq=<%=dto.getStore_seq()%>'">
@@ -68,7 +68,7 @@
 	<div class="mybox">   
 		<div class="mybox_info_header" >매장 통계</div><br/>
 		<div class="mybox_info"> 
-		 	<span class="stats_result"><a onclick="location.href='owner_mystore_reserve.do'"><%=dto.getReserve_count()%></a></span><br/>
+		 	<span class="stats_result"><a onclick="location.href='owner_mystore_reserve.do?store_seq=<%=dto.getStore_seq()%>'"><%=dto.getReserve_count()%></a></span><br/>
 		 	<span><b>예약수</b></span> 
 		</div>  
 		<div class="mybox_info">  

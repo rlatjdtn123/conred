@@ -21,8 +21,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hk.conred.dtos.ODto;
 import com.hk.conred.dtos.QnaDto;
+import com.hk.conred.dtos.ReserveDto;
 import com.hk.conred.service.IOService;
 import com.hk.conred.service.IQnaService;
+import com.hk.conred.service.IReserveService;
 
 
 @Controller
@@ -32,6 +34,9 @@ public class OwnerController {
 	
 	@Autowired
 	private IOService oService;
+	
+	@Autowired
+	private IReserveService reserveService;
 	 
 	@RequestMapping(value = "owner_myinfo.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String owner_myinfo(Locale locale, Model model,HttpServletRequest request) {
@@ -94,5 +99,18 @@ public class OwnerController {
 		model.addAttribute("dto", dto);
 		return "owner/owner_mystore_info";
 	}
+	
+	
+	
+	@RequestMapping(value = "owner_mystore_reserve.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String owner_mystore_reserve(Locale locale, Model model,int store_seq) {
+		logger.info("점주 예약목록{}.", locale);
+		List<ReserveDto> list=reserveService.ownerStoreReserve(store_seq, 1);
+		model.addAttribute("list", list);
+		return "owner/owner_mystore_reserve";
+	}
+	
+	
+	
 	
 }

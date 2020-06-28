@@ -129,5 +129,14 @@ public class ReserveDaoImp implements IReserveDao{
 		return dto;
 	}
 
+	@Override
+	public List<ReserveDto> ownerStoreReserve(int store_seq, int pnum) {
+		Map<String, Integer> map=new HashMap<>();
+		map.put("store_seq", store_seq);
+		map.put("pnum", pnum);
+		List<ReserveDto> list=sqlSession.selectList(nameSpace+"ownerStoreReserve", map);
+		return list;
+	}
+
 
 }

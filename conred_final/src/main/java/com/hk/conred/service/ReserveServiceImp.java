@@ -79,6 +79,11 @@ public class ReserveServiceImp implements IReserveService{
 		return reserveDaoImp.reserveSuccessInfo(reserve_seq);
 	}
 
+	@Override
+	public List<ReserveDto> ownerStoreReserve(int store_seq, int pnum) {
+		return reserveDaoImp.ownerStoreReserve(store_seq, pnum);
+	}
+
 
 
 }
