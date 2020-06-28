@@ -47,7 +47,21 @@
 // 			alert("카테고리검색실행!");
 // 			ajax_cate();//카테고리 뿌려주는 매서드
 			
-			ajax_cate("A,B,C,D,E,F,G,H,I");
+			//내주변 검색의 경우
+			if(category_code==="loca"){
+				myLoca();
+				ajax_cate("A,B,C,D,E,F,G,H,I");
+				kakao.maps.event.addListener(map, 'idle', function () {       //드래그끝나면실행
+					ajax_cate("A,B,C,D,E,F,G,H,I");
+// 					ajax_checkbox();
+				});
+			//전체 검색의 경우(지하철,지역 검색은 각 해당위치에서 따로 실행 > 여기서 신경안써도 된다.)
+			}else if(category_code=="all"){
+				ajax_cate("A,B,C,D,E,F,G,H,I");
+			//개별 검색의 경우
+			}else if(category_code!="all"){
+				ajax_cate();
+			}
 // 			jQuery(document).ready(function() {
 // 				var bodyOffset = jQuery('body').offset();
 // 				jQuery(window).scroll(function() {
@@ -344,26 +358,29 @@
 							var stime="";
 							var stimeArray= new Array();
 							$.each(stime_lists, function(j) {//전체 요일 개수
-								if (stime_lists[j].store_seq==store_lists.store_seq) {
-									var stime=""
-									stime=
+								if (stime_lists[j].store_seq==store_lists.store_seq&&stime_lists[j].store_time_break==="N") {
+									var stime=
 									stime_lists[j].store_time_day+' '+
 									stime_lists[j].store_time_open+' ~ '+
 									stime_lists[j].store_time_close
 									stimeArray.push(stime);
+								}else if (stime_lists[j].store_seq==store_lists.store_seq&&stime_lists[j].store_time_break==="Y") {
+									var stime=
+									stime_lists[j].store_time_day+' '+" <span style=\"color:red;\">휴점일</span>";
+									stimeArray.push(stime);
 								}
 							});
 							console.log("매장시간"+stimeArray);
-// 							$(".storelist").eq(0).find($(".storetime_today")).append(stimeArray[today===0?7:today-1]);
+							$(".storelist").eq(0).find($(".storetime_today")).append(stimeArray[today===0?7:today-1]);
 // 							$(".storelist").eq(0).find($(".storetime_other")).append(stimeArray);
 							$(".storetime_today").eq(0).mouseover(function() {
-								$(".storetime_other").eq(0).removeAttr("style");
-								$(".storetime_other").eq(0).css("visibility","visible"); 
-								$(".storetime_today").eq(0).css("z-index","100");
+// 								$(".storetime_other").eq(0).removeAttr("style");
+// 								$(".storetime_other").eq(0).css("visibility","visible"); 
+// 								$(".storetime_today").eq(0).css("z-index","100");
 							});
 							$(".storetime_today").eq(0).mouseout(function() {
-								$(".storetime_today").eq(0).css("z-index","100");
-								$(".storetime_other").eq(0).css({"visibility":"hidden","z-index":"100"});
+// 								$(".storetime_today").eq(0).css("z-index","100");
+// 								$(".storetime_other").eq(0).css({"visibility":"hidden","z-index":"100"});
 							});
 						     
 							var medal ="";
@@ -558,12 +575,15 @@
 							var stime="";
 							var stimeArray= new Array();
 							$.each(stime_lists, function(j) {//전체 요일 개수
-								if (stime_lists[j].store_seq==store_lists[i].store_seq) {
-									var stime=""
-									stime=
+								if (stime_lists[j].store_seq==store_lists[i].store_seq&&stime_lists[j].store_time_break==="N") {
+									var stime=
 									stime_lists[j].store_time_day+' '+
 									stime_lists[j].store_time_open+' ~ '+
 									stime_lists[j].store_time_close
+									stimeArray.push(stime);
+								}else if (stime_lists[j].store_seq==store_lists[i].store_seq&&stime_lists[j].store_time_break==="Y") {
+									var stime=
+									stime_lists[j].store_time_day+' '+" <span style=\"color:red;\">휴점일</span>";
 									stimeArray.push(stime);
 								}
 							});
@@ -773,10 +793,62 @@
 				$(".categories input[type='checkbox'] + label").removeClass("to_grey");
 			}
 		});
-
-
+		
 		
 	});
+	
+	//현재위치 권한받아오기 function
+	// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
+	function myLoca(){
+		if (navigator.geolocation) {
+		    
+		    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+		    navigator.geolocation.getCurrentPosition(function(position) {
+		        
+		        var lat = position.coords.latitude, // 위도
+		            lon = position.coords.longitude; // 경도
+		        
+		        var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+		            message = '<div style="padding:5px;">여기에 계신가요?!</div>'; // 인포윈도우에 표시될 내용입니다
+		        
+		        // 마커와 인포윈도우를 표시합니다
+		        myLocaMarker(locPosition, message);
+		            
+		      });
+		    
+		} else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+		    
+		    var locPosition = new kakao.maps.LatLng(33.450701, 126.570667),    
+		        message = 'geolocation을 사용할수 없어요..'
+		        
+		    myLocaMarker(locPosition, message);
+		}
+
+		// 지도에 마커와 인포윈도우를 표시하는 함수입니다
+		function myLocaMarker(locPosition, message) {
+
+		    // 마커를 생성합니다
+		    var marker = new kakao.maps.Marker({  
+		        map: map, 
+		        position: locPosition
+		    }); 
+		    
+		    var iwContent = message, // 인포윈도우에 표시할 내용
+		        iwRemoveable = true;
+
+		    // 인포윈도우를 생성합니다
+		    var infowindow = new kakao.maps.InfoWindow({
+		        content : iwContent,
+		        removable : iwRemoveable
+		    });
+		    
+		    // 인포윈도우를 마커위에 표시합니다 
+		    infowindow.open(map, marker);
+		    
+		    // 지도 중심좌표를 접속위치로 변경합니다
+		    map.setCenter(locPosition);      
+		} 
+	}
 </script>
 </head>
 <body>
@@ -784,6 +856,8 @@
 
 <!-- 	<div id="mapbox" style="width:1500px;height:830px;"> 아직미정 -->
 	<div id="mapbox">
+		<img type="button" class="toMyLoca" src="./img/icon/mylocation2.png" title="내 현재위치로 이동" onclick="myLoca()"/>
+<!-- 		<div class="toMyLoca"><img class="toMyLoca" src="./img/icon/mylocation2.png"/></div> -->
 		<div id="mapbarbox">
 		
 <!-- 			<form id="search" action="map_keyword.do" onsubmit="return search_inMap()"> -->
@@ -791,11 +865,6 @@
 				<input type="text" id="searchbar" class="form-control pull-left" name="keyword" placeholder="지역명, 지하철역, 매장명 검색">
 				<button id="searchbtn" class="btn"><img id="magnifyglass" src="./img/magnifyglass.png"></button>
 			</form>
-			<script type="text/javascript">
-			function search_inMap() {
-			}
-
-			</script>
 			<div id="mapcategory">
 				<div class="selectedbox">
 					<div class="subinfo">(1) 지역, 주소, 지하철역 혹은 원하는 매장으로 검색해서 이동해요!</div>
@@ -822,6 +891,7 @@
 			</div>
 		</div>
 	</div>
+
 <!-- 	<div id="mapbox"> -->
 <!-- 	지도용 스크립트 -->
 <!-- 	<div id="map" style="width:2000px;height:800px;"></div> -->
@@ -830,27 +900,31 @@
 		var options = { //지도를 생성할 때 필요한 기본 옵션
 // 			center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
 			center: new kakao.maps.LatLng(37.525026023695375, 126.8888353907293), //지도의 중심좌표.
+		    minLevel: 1,
+		    maxLevel: 5,
 			level: 4 //지도의 레벨(확대, 축소 정도)
 		};
 		
 		var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
-
+		
+		
 		kakao.maps.event.addListener(map, 'idle',  function() {
 			map.relayout();
  		});
 		
 		
-		kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
+		//좌표뜨기 테스트용
+// 		kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
 		    
-		    // 클릭한 위도, 경도 정보를 가져옵니다 
-		    var latlng = mouseEvent.latLng;
+// 		    // 클릭한 위도, 경도 정보를 가져옵니다 
+// 		    var latlng = mouseEvent.latLng;
 		    
-		    var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-		    message += '경도는 ' + latlng.getLng() + ' 입니다';
+// 		    var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+// 		    message += '경도는 ' + latlng.getLng() + ' 입니다';
 		    
-		    var resultDiv = document.getElementById('result'); 
-		    alert(message);
-		});
+// 		    var resultDiv = document.getElementById('result'); 
+// 		    alert(message);
+// 		});
 		
 	</script>
 

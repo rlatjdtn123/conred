@@ -290,7 +290,7 @@ function swiperObj(){
 			<div class="categories_invisible"></div>
 			<div class="categories_invisible"></div>
 			<div class="categories_last">
-				<img id="mylocation" src="./img/icon/mylocation2.png" />
+				<img id="mylocation" src="./img/icon/mylocation2.png" onclick="location.href='map_category.do?category_code=loca'"/>
 				<span class="mylocationtext">내 주변</span>
 			</div>
 			<div class="categories_invisible"></div>
