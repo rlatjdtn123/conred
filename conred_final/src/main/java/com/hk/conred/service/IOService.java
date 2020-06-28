@@ -1,5 +1,7 @@
 package com.hk.conred.service;
 
+import java.util.List;
+
 import com.hk.conred.dtos.ODto;
 
 public interface IOService {
@@ -18,6 +20,7 @@ public interface IOService {
 	public String ownerIdCheck(String owner_id);
 	//7.점주 매장통계출력
 	public ODto getState(String owner_id);
-	
+	//8.점주 리뷰,문의 읽음여부
+	public List<ODto> contentNew(int store_seq);
 	
 }

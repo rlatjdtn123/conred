@@ -1,6 +1,7 @@
 package com.hk.conred.daos;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -66,6 +67,12 @@ public class ODaoImp implements IODao {
 	public ODto getState(String owner_id) {
 		ODto dto=sqlSession.selectOne(nameSpace+"getState", owner_id);
 		return dto;
+	}
+
+	@Override
+	public List<ODto> contentNew(int store_seq) {
+		List<ODto> list=sqlSession.selectList(nameSpace+"contentNew", store_seq);
+		return list;
 	}
 	
 	

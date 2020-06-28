@@ -1,5 +1,7 @@
 package com.hk.conred.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +48,11 @@ public class OServiceImp implements IOService{
 	@Override
 	public ODto getState(String owner_id) {
 		return ODaoImp.getState(owner_id);
+	}
+
+	@Override
+	public List<ODto> contentNew(int store_seq) {
+		return ODaoImp.contentNew(store_seq);
 	}
 
 }

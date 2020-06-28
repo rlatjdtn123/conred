@@ -22,7 +22,7 @@
 	
 	
 	
-	.mybox{padding:15px;border-bottom:1px solid #BDBDBD;border-top:1px solid #BDBDBD; width:720px;height:200px; font-size: 15px; margin-left: 100px;}
+	.mybox{padding:25px;border-bottom:1px solid #BDBDBD;border-top:1px solid #BDBDBD; width:720px;height:180px; font-size: 15px; margin-left: 100px;margin-bottom: 40px;}
 	
 </style>
 </head>
@@ -57,8 +57,9 @@
 	for(ReserveDto dto:list){
 	%>
 	<div class="mybox">
-	 	<div class="reserve_info">
+	 	<div class="reserve_info"> 
 	 		<span>ID : <%=dto.getUser_id()%> </span><br>  
+	 		<span>EMAIL : <%=dto.getUser_email()%> </span><br> 
 	 		<span>메뉴명: <%=dto.getMenu_name()%></span><br>
 	 		<%
 	 		if(dto.getReserve_edate()==null){

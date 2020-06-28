@@ -55,5 +55,13 @@
 				WHERE cs.STORE_SEQ =cq.STORE_SEQ AND OWNER_ID =#{owner_id} AND cq.qna_delflag='N')
 		WHERE OWNER_ID=#{owner_id}
 	</select>
+	
+	<select id="contentNew" parameterType="Int" resultType="ODto">
+		SELECT REPLY_READ ,QNA_READ
+		FROM (SELECT cr.REPLY_READ ,cq.QNA_READ 
+				FROM CON_REPLY cr ,CON_QNA cq 
+				WHERE cr.STORE_SEQ =#{store_seq} AND cr.STORE_SEQ =cq.STORE_SEQ)
+	</select>
+	
 </mapper> 
 	 

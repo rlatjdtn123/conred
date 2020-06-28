@@ -29,6 +29,7 @@
 	#footprint1{width: 50px;height: 40px;border-radius: 15px;background-color: #EFFBFB;}
 	.point{color: gray; font-size: 50px;} 
 	.bottom_info{margin-bottom: 100px;}  
+	.content_new{background-color: red; width: 40px;height: 40px;position: absolute;margin-left: 96px;margin-top: -92px;border-radius:20px 20px 20px 0;}
 	
 </style>
 </head>
@@ -83,11 +84,19 @@
 	<div class="mybox">  
 		<div class="mybox_info_header">매장 글 관리</div><br/>
 		<div class="mybox_info1">
-			  <span class="stats_result"><a onclick="location.href='review.do?store_seq=<%=dto.getStore_seq()%>'"><%=dto.getReply_count()%></a></span><br/>
+			  <span class="stats_result">
+			  	<a onclick="location.href='review.do?store_seq=<%=dto.getStore_seq()%>'"><%=dto.getReply_count()%></a>
+			  </span>
+			  <div class="content_new"></div>
+			  <br/>
 			  <span><b>리뷰수</b></span> 
 		</div>
 		<div class="mybox_info1">
-			  <span class="stats_result"><a onclick="location.href='qna.do?store_seq=<%=dto.getStore_seq()%>'"><%=dto.getQna_count()%></a></span><br/>
+			  <span class="stats_result">
+			  	<a onclick="location.href='qna.do?store_seq=<%=dto.getStore_seq()%>'"><%=dto.getQna_count()%></a>
+			  </span>
+			  <div class="content_new"></div>
+			  <br/>
 			  <span><b>문의수</b></span> 
 		</div>
 	</div> 

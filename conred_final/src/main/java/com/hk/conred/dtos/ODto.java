@@ -20,13 +20,17 @@ public class ODto {
 	private int qna_count;
 	private int store_seq;
 	
+	private String reply_read;
+	private String qna_read;
+	
 	public ODto() {
 		super();
 	}
 
 	public ODto(String owner_id, String owner_password, String owner_name, String owner_email, String owner_birth,
 			String owner_sex, Date owner_regdate, String owner_agreement, String owner_out, int reserve_count,
-			int like_count, int pay_count, int reply_count, int qna_count, int store_seq) {
+			int like_count, int pay_count, int reply_count, int qna_count, int store_seq, String reply_read,
+			String qna_read) {
 		super();
 		this.owner_id = owner_id;
 		this.owner_password = owner_password;
@@ -43,6 +47,8 @@ public class ODto {
 		this.reply_count = reply_count;
 		this.qna_count = qna_count;
 		this.store_seq = store_seq;
+		this.reply_read = reply_read;
+		this.qna_read = qna_read;
 	}
 
 	public String getOwner_id() {
@@ -165,6 +171,22 @@ public class ODto {
 		this.store_seq = store_seq;
 	}
 
+	public String getReply_read() {
+		return reply_read;
+	}
+
+	public void setReply_read(String reply_read) {
+		this.reply_read = reply_read;
+	}
+
+	public String getQna_read() {
+		return qna_read;
+	}
+
+	public void setQna_read(String qna_read) {
+		this.qna_read = qna_read;
+	}
+
 	@Override
 	public String toString() {
 		return "ODto [owner_id=" + owner_id + ", owner_password=" + owner_password + ", owner_name=" + owner_name
@@ -172,8 +194,10 @@ public class ODto {
 				+ ", owner_regdate=" + owner_regdate + ", owner_agreement=" + owner_agreement + ", owner_out="
 				+ owner_out + ", reserve_count=" + reserve_count + ", like_count=" + like_count + ", pay_count="
 				+ pay_count + ", reply_count=" + reply_count + ", qna_count=" + qna_count + ", store_seq=" + store_seq
-				+ "]";
+				+ ", reply_read=" + reply_read + ", qna_read=" + qna_read + "]";
 	}
+
+	
 
 	
 	
