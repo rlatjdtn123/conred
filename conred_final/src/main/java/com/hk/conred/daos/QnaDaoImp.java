@@ -91,4 +91,14 @@ public class QnaDaoImp implements IQnaDao{
 		QnaDto dto=sqlSession.selectOne(nameSpace+"ownerQnaIdChk", store_seq);
 		return dto;
 	}
+
+	@Override
+	public boolean ownerQnaAnswer(int qna_seq, String qna_answer) {
+		int count=0;
+		Map<String, Object> map=new HashMap<>();
+		map.put("qna_seq", qna_seq);
+		map.put("qna_answer", qna_answer);
+		count=sqlSession.update(nameSpace+"ownerQnaAnswer", map);
+		return count>0?true:false; 
+	}
 }

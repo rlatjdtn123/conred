@@ -64,6 +64,16 @@
 	 .qna_hide{float: left;margin-left: 10px;}
 	 .qna_write{height: 34px;float: right;border-color:#ccc;border-radius:5px;}
 	 
+	 
+	 .ownerAnswer_btn{float: right;background-color: #94B8FD;color: white;width: 60px;height: 32px;border: 0;border-radius: 5px;}
+	.ownerAnswer_btn:hover {background-color: #4a83ed;}
+	.ownerAnswer{display: none; width: 665px;height: 98px;resize: none;}
+	.ownerAnswer_success{display: none;}
+	.ownerAnswer_cancel{display: none;}
+	
+	.ownerAnswer_update{float: right;background-color: #94B8FD;color: white;width: 72px;height: 32px;border: 0;border-radius: 5px;}
+	.ownerAnswer_update:hover {background-color: #4a83ed;}
+	 
 </style> 
 <script type="text/javascript">	      
 	//Javascript
@@ -98,8 +108,12 @@
 										+	'</div>'
 										+	'<div class="info2">    '
 										+	'	<span><b>가게답변</b></span><br>'
-										+	'	<span>'+ (lists[i].qna_answer==null?"아직 답변이 없습니다.":lists[i].qna_answer) +'</span>'
+										+   ''+		ownerAnswer(lists[i].qna_answer,idChk.owner_id)  +''
 										+	'</div>'
+										+  ''+ownerAnswer02(lists[i].qna_answer)+''
+										+	'<button class="ownerAnswer_success">답변완료</button>'
+										+	'<button class="ownerAnswer_cancel">취소</button>'
+										+	'<input type="hidden" name="qna_seq" value="'+lists[i].qna_seq+'"/>'
 									+	'</div>     ' 
 										+'<br><br>';	    				
 	    			}); 
@@ -117,10 +131,53 @@
 // 			alert(session_id);   
 		}
 		
+		//답변버튼
+		$("body").on("click",".ownerAnswer_btn",function(){
+			$(this).parent($(".info2")).next(".ownerAnswer").css("display","inline-block");
+			$(this).parent($(".info2")).next().next().css("display","inline-block");
+			$(this).parent($(".info2")).next().next().next().css("display","inline-block");
+			$(this).parent($(".info2")).css("display","none");
+		});
+		
+		//답변취소버튼
+		$("body").on("click",".ownerAnswer_cancel",function(){
+			$(this).parent($(".mybox")).find(".ownerAnswer").css("display","none");
+			$(this).parent($(".mybox")).find(".ownerAnswer_success").css("display","none");
+			$(this).parent($(".mybox")).find(".ownerAnswer_cancel").css("display","none");
+			$(this).parent($(".mybox")).find(".info2").css("display","inline-block");
+			
+			var qna_seq=$(this).parent($(".mybox")).find("input[name=qna_seq]").val()
+			var qna_answer=$(this).parent($(".mybox")).find(".ownerAnswer").val();
+			alert(qna_seq);
+			alert(qna_answer);
+		});
+		
+		//답변완료버튼	
+		$("body").on("click",".ownerAnswer_success",function(){
+			var qna_seq=$(this).parent($(".mybox")).find("input[name=qna_seq]").val()
+			var qna_answer=$(this).parent($(".mybox")).find(".ownerAnswer").val();
+			var store_seq=parseInt($("input[name=store_seq]").val());
+			location.href="owner_qna_answer.do?qna_seq="+qna_seq+"&qna_answer="+qna_answer+"&store_seq="+store_seq;
+		});
+		
+		//답변수정버튼
+		$("body").on("click",".ownerAnswer_update",function(){
+			$(this).parent($(".info2")).next(".ownerAnswer").css("display","inline-block");
+			$(this).parent($(".info2")).next().next().css("display","inline-block");
+			$(this).parent($(".info2")).next().next().next().css("display","inline-block");
+			$(this).parent($(".info2")).css("display","none");
+		});
+		
+		
+		
+		
+		
 		
 	    $(".modal_Btn").click(function(){
 	    	if($(".modal_Btn").val()==1){
 		        $("div.modal").modal(); 
+ 			}else if($(".modal_Btn").val()==2){
+ 				swal("이용자만 가능한 기능입니다","", "error");
  			}else{
  				var yesNo=confirm("로그인 후에 작성 가능합니다. \n\n로그인 하시겠습니까?");
  				if(yesNo){
@@ -129,7 +186,7 @@
  					
  				}
  			}
-	    	
+	    	 
 	    	
 	    	$('.qna_content').keyup(function (e){
 			    var qna_content = $(this).val();
@@ -237,6 +294,44 @@
 		}
 	}
 	
+	////자기매장 답변 info2쪽
+	function ownerAnswer(qna_answer,owner_id){
+		var session_id=$("input[name=oSession_id]").val();
+		var v="";
+		
+		if(qna_answer==null||qna_answer==""){
+			v='<span>아직 답변이 없습니다.</span>';
+			if(session_id!=""){
+				if(session_id==owner_id){
+					v='<span>아직 답변이 없습니다.</span><button class="ownerAnswer_btn">답변</button>';
+				return v;
+				}
+			}
+			return v;
+		}else{
+			v='<span>'+qna_answer+'</span>';
+			if(session_id!=""){
+				if(session_id==owner_id){
+					v='<span>'+qna_answer+'</span><button class="ownerAnswer_update">답변수정</button>';
+				} 
+				return v;
+			}
+			return v;
+		}
+	}
+	
+	////자기매장 답변 info2바깥쪽
+	function ownerAnswer02(qna_answer){
+		var v="";
+		if(qna_answer==null||qna_answer==""){
+			v='<textarea class="ownerAnswer" rows="10" cols="60"></textarea>';
+			return v;
+			}else{
+			v='<textarea class="ownerAnswer" rows="10" cols="60">'+qna_answer+'</textarea>';
+			return v;
+			}
+	}
+	
 	
  
 </script> 
@@ -308,9 +403,15 @@
 			<span id="main2"><b>문의</b> &nbsp; &nbsp; &nbsp; &nbsp;전체<%=qnaAvg.getQna_content()%>개|답변<%=qnaAvg.getQna_answer()%>개</span>
 			<%
 			if(uldto==null){
+				if(oldto!=null){
+				%>
+				<button class="modal_Btn" value="2">문의 작성</button>
+				<%	
+				}else{
 				%>
 				<button class="modal_Btn">문의 작성</button>
-				<%
+				<%	
+				} 
 			}else if(uldto!=null){ 
 				%>
 				<button class="modal_Btn" value="1">문의 작성</button>
@@ -388,13 +489,41 @@
 							%>
 							<span>아직 답변이 없습니다.</span>
 							<%
+							if(oldto!=null){
+								if(oldto.getOwner_id().equals(owner_chk.getOwner_id())){
+								%>
+								<button class="ownerAnswer_btn">답변</button>
+								<%
+								}
+							}
 						}else{
 							%>
 							<span><%=dto.getQna_answer()%></span>
 							<%
+							if(oldto!=null){
+								if(oldto.getOwner_id().equals(owner_chk.getOwner_id())){
+								%>
+								<button class="ownerAnswer_update">답변수정</button>
+								<%
+								}
+							}
 						}
 					%>
 				</div>
+				<%
+				if(dto.getQna_answer()==null||dto.getQna_answer().equals("")){
+				%>
+				<textarea class="ownerAnswer" rows="10" cols="60"></textarea>
+				<%	
+				}else{
+				%> 
+				<textarea class="ownerAnswer" rows="10" cols="60"><%=dto.getQna_answer()%></textarea>
+				<%	
+				}
+				%>
+				<button class="ownerAnswer_success">답변완료</button>
+				<button class="ownerAnswer_cancel">취소</button>
+				<input type="hidden" name="qna_seq" value="<%=dto.getQna_seq()%>"/>
 			</div>      
 			<br><br>		 	
 			<%

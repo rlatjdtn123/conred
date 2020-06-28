@@ -185,7 +185,7 @@ public class Sungsu {
 	
 	
 	@RequestMapping(value = "user_regist_category.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_regist_category(Locale locale, Model model,String []category_code,String user_id,HttpServletRequest request) {
+	public String user_regist_category(Locale locale, Model model,String []category_code,String user_id,HttpServletRequest request,RedirectAttributes redirect) {
 		logger.info("관심사 선택완료후 가입완료 메시지 출력페이지로 이동{}.", locale);
 			
 			HttpSession session=request.getSession();
@@ -196,27 +196,28 @@ public class Sungsu {
 			if(isS){ 
 				return "redirect:user_regist_finish.do";						
 			}else {
-				return "";
+				redirect.addAttribute("msg", "회원가입이 실패됐습니다");
+				return "redirect:error.do";
 			}
 	}
 	 
 		
 		 
 	@RequestMapping(value = "user_login.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_login(Locale locale, Model model,HttpServletRequest request,UDto dto) {
+	public String user_login(Locale locale, Model model,HttpServletRequest request,UDto dto,RedirectAttributes redirect) {
 		logger.info("유저 로그인접근 {}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=uService.getLogin(dto.getUser_id(),dto.getUser_password());
 		
 		if(uldto.getUser_out().equals("Y")){
-			System.out.println("탈퇴한 회원 입니다");
-			return "";
+			redirect.addAttribute("msg", "탈퇴한 회원 입니다");
+			return "redirect:error.do";
 		}else if(uldto.getUser_black().equals("Y")) {
-			System.out.println("블랙된 회원입니다");
-			return "";
+			redirect.addAttribute("msg", "블랙된 회원입니다");
+			return "redirect:error.do";
 		}else if(uldto.getUser_id()==null||uldto.getUser_id().equals("")) {
-			System.out.println("아이디 다시한번 확인해주세요");
-			return "";
+			redirect.addAttribute("msg", "아이디를 다시한번 확인해주세요");
+			return "redirect:error.do";
 		}else{
 			session.setAttribute("uldto", uldto);
 			return "redirect:index.do";
@@ -243,7 +244,7 @@ public class Sungsu {
 	}
 	
 	@RequestMapping(value = "user_myinfo_update.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_myinfo_update(Locale locale, Model model,UDto dto,String user_email1,String user_email3,String user_update_sex) {
+	public String user_myinfo_update(Locale locale, Model model,UDto dto,String user_email1,String user_email3,String user_update_sex,RedirectAttributes redirect) {
 		logger.info("사용자 마이페이지{}.", locale);
 		if(user_update_sex==null) {
 			
@@ -256,13 +257,14 @@ public class Sungsu {
 		if(isS) {
 			return "redirect:user_myinfo.do"; 
 		}else { 
-			return "";  			
+			redirect.addAttribute("msg", "정보수정에 실패하였습니다.");
+			return "redirect:error.do";  			
 		}
 	}
 	
 	@RequestMapping(value = "user_myinfo_delete.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_myinfo_delete(Locale locale, Model model,HttpServletRequest request) {
-		logger.info("사용자 마이페이지{}.", locale);
+	public String user_myinfo_delete(Locale locale, Model model,HttpServletRequest request,RedirectAttributes redirect) {
+		logger.info("사용자 탈퇴{}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
 		boolean isS=uService.userDelete(uldto.getUser_id());
@@ -270,7 +272,8 @@ public class Sungsu {
 			request.getSession().invalidate();
 			return "redirect:index.do";
 		}else { 
-			return "";  			
+			redirect.addAttribute("msg", "회원탈퇴에 실패하였습니다.");
+			return "redirect:error.do";  			
 		}
 	}
 	
@@ -321,7 +324,7 @@ public class Sungsu {
 	}
 	
 	@RequestMapping(value = "user_review_delete.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_review_delete(Locale locale, Model model,HttpServletRequest request,int reply_seq) {
+	public String user_review_delete(Locale locale, Model model,HttpServletRequest request,int reply_seq,RedirectAttributes redirect) {
 		logger.info("사용자 리뷰삭제 {}.", locale);
 		System.out.println("@@@@reply_seq:::"+reply_seq);
 		HttpSession session=request.getSession(); 
@@ -330,7 +333,8 @@ public class Sungsu {
 		if(isS) {
 			return "redirect:user_mypage_review.do";
 		}else {
-			return "";
+			redirect.addAttribute("msg", "리뷰삭제에 실패하였습니다.");
+			return "redirect:error.do";
 		}
 	}
 	
@@ -372,28 +376,27 @@ public class Sungsu {
 	}
 	
 	@RequestMapping(value = "user_qna_update.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_qna_update(Locale locale, Model model,int qna_seq,String qna_title,String qna_content,String qna_hide) {
+	public String user_qna_update(Locale locale, Model model,int qna_seq,String qna_title,String qna_content,String qna_hide,RedirectAttributes redirect) {
 		logger.info("사용자_문의 수정완료 {}.", locale);
-		System.out.println("@@@@@::"+qna_seq);
-		System.out.println("@@@@@::"+qna_title);
-		System.out.println("@@@@@::"+qna_content);
-		System.out.println("@@@@@::"+qna_hide);
+		
 		boolean isS=qnaService.userQnaUpdate(qna_seq, qna_title, qna_content, qna_hide);
 		if(isS) {
 			return "redirect:user_mypage_qna.do"; 
 		}else {
-			return ""; 
+			redirect.addAttribute("msg", "문의수정에 실패하였습니다.");
+			return "redirect:error.do"; 
 		} 
 	}
 	
 	@RequestMapping(value = "user_qna_delete.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_qna_delete(Locale locale, Model model,int qna_seq) {
+	public String user_qna_delete(Locale locale, Model model,int qna_seq,RedirectAttributes redirect) {
 		logger.info("사용자_문의 삭제 {}.", locale);
 		boolean isS=qnaService.userQnaDelete(qna_seq); 
 		if(isS) {
 			return "redirect:user_mypage_qna.do";  			
 		}else {
-			return "";
+			redirect.addAttribute("msg", "문의삭제에 실패하였습니다");
+			return "redirect:error.do";
 		}
 	}
 	
@@ -425,13 +428,14 @@ public class Sungsu {
 	}
 	
 	@RequestMapping(value = "user_reserve_cancel.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_reserve_cancel(Locale locale, Model model,int reserve_seq) {
+	public String user_reserve_cancel(Locale locale, Model model,int reserve_seq,RedirectAttributes redirect) {
 		logger.info("사용자 예약 취소{}.", locale);
 		boolean isS=reserveService.userReserveCancel(reserve_seq);
 		if(isS) { 
 			return "redirect:user_mypage_reserve.do"; 
 		}else {
-			return "";
+			redirect.addAttribute("msg", "예약취소에 실패하였습니다.");
+			return "redirect:error.do";
 		}
 	} 
 	
@@ -480,13 +484,14 @@ public class Sungsu {
 	}
 	
 	@RequestMapping(value = "user_like_delete.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_like_delete(Locale locale, Model model,int like_list_seq) {
+	public String user_like_delete(Locale locale, Model model,int like_list_seq,RedirectAttributes redirect) {
 		logger.info("사용자 좋아요 취소{}.", locale);
 		boolean isS=likeService.userLikeDelete(like_list_seq);
 		if(isS) { 
 			return "redirect:user_mypage_like.do";  	 		
 		}else {
-			return "";
+			redirect.addAttribute("msg", "좋아요 취소에 실패하였습니다.");
+			return "redirect:error.do";
 		}
 	}
 	
@@ -586,8 +591,8 @@ public class Sungsu {
 			model.addAttribute("stay_reserve_list", stay_reserve_list);
 			return "user/user_reserve_time_selectS";
 		}else {
-			System.out.println("식품/용품 메뉴 선택부분");
-			return "";			
+			model.addAttribute("msg", "미구현 페이지 입니다");
+			return "error/error";			
 		}
 	} 
 	
@@ -616,7 +621,7 @@ public class Sungsu {
 	}
 	
 	@RequestMapping(value = "reserve_successT.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String reserve_successT(Locale locale, Model model,int menu_seq,int store_seq,String reserve_time,String reserve_sdate,String reserve_price,HttpServletRequest request) {
+	public String reserve_successT(Locale locale, Model model,int menu_seq,int store_seq,String reserve_time,String reserve_sdate,String reserve_price,HttpServletRequest request,RedirectAttributes redirect) {
 		logger.info("날짜,시간선택후 예약 {}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
@@ -624,7 +629,8 @@ public class Sungsu {
 		if(isS) {
 			return "redirect:index.do";		
 		}else {
-			return "";
+			redirect.addAttribute("msg", "당일예약에 실패하셨습니다");
+			return "redirect:error.do";
 		}
 	}  
 	
@@ -646,7 +652,7 @@ public class Sungsu {
 	} 
 	
 	@RequestMapping(value = "reserve_successS.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String reserve_successS(Locale locale, Model model,int menu_seq,int store_seq,String reserve_price,HttpServletRequest request,String reserve_sdate, String reserve_edate) {
+	public String reserve_successS(Locale locale, Model model,int menu_seq,int store_seq,String reserve_price,HttpServletRequest request,String reserve_sdate, String reserve_edate,RedirectAttributes redirect) {
 		logger.info("날짜,시간 선택후 예약 {}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
@@ -656,7 +662,8 @@ public class Sungsu {
 		if(isS) { 
 			return "redirect:index.do";
 		}else {
-			return "";
+			redirect.addAttribute("msg", "숙박예약에 실패하였습니다.");
+			return "redirect:error.do";
 		}
 	}
 	

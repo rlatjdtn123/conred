@@ -28,6 +28,7 @@ public class ReplyDto {
 	private String store_photo_stored;
 	
 	private String reply_realdate;
+	private String owner_id;
 	
 	
 	public ReplyDto() {
@@ -39,7 +40,7 @@ public class ReplyDto {
 			double reply_price, double reply_service, String reply_answer, String reply_read, Date reply_regdate,
 			String reply_delflag, double clean_avg, double service_avg, double price_avg, double all_avg,
 			int reply_count, int answer_count, int rn, String store_name, String store_photo_stored,
-			String reply_realdate) {
+			String reply_realdate, String owner_id) {
 		super();
 		this.reply_seq = reply_seq;
 		this.user_id = user_id;
@@ -62,6 +63,7 @@ public class ReplyDto {
 		this.store_name = store_name;
 		this.store_photo_stored = store_photo_stored;
 		this.reply_realdate = reply_realdate;
+		this.owner_id = owner_id;
 	}
 
 
@@ -275,6 +277,16 @@ public class ReplyDto {
 	}
 
 
+	public String getOwner_id() {
+		return owner_id;
+	}
+
+
+	public void setOwner_id(String owner_id) {
+		this.owner_id = owner_id;
+	}
+
+
 	@Override
 	public String toString() {
 		return "ReplyDto [reply_seq=" + reply_seq + ", user_id=" + user_id + ", store_seq=" + store_seq
@@ -284,9 +296,11 @@ public class ReplyDto {
 				+ ", service_avg=" + service_avg + ", price_avg=" + price_avg + ", all_avg=" + all_avg
 				+ ", reply_count=" + reply_count + ", answer_count=" + answer_count + ", rn=" + rn + ", store_name="
 				+ store_name + ", store_photo_stored=" + store_photo_stored + ", reply_realdate=" + reply_realdate
-				+ "]";
+				+ ", owner_id=" + owner_id + "]";
 	}
 
+
+	
 	
 
 	

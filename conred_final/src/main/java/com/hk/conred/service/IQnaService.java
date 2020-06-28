@@ -32,4 +32,7 @@ public interface IQnaService {
 	
 	//9.매장문의 비공개글 해당점주만확인하게
 	public QnaDto ownerQnaIdChk(int store_seq);
+	
+	//10.매장문의 답변
+	public boolean ownerQnaAnswer(int qna_seq,String qna_answer);
 }

@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hk.conred.dtos.ODto;
 import com.hk.conred.dtos.QnaDto;
@@ -51,14 +52,15 @@ public class OwnerController {
 	
 	
 	@RequestMapping(value = "owner_myinfo_update.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String owner_myinfo_update(Locale locale, Model model,ODto dto,String owner_email1,String owner_email3) {
+	public String owner_myinfo_update(Locale locale, Model model,ODto dto,String owner_email1,String owner_email3,RedirectAttributes redirect) {
 		logger.info("점주 나의정보수정{}.", locale);  
 		dto.setOwner_email(owner_email1+"@"+owner_email3);
 		boolean isS=oService.ownerUpdate(dto);
 		if(isS) {			
 			return "redirect:owner_myinfo.do"; 
 		}else {
-			return "";
+			redirect.addAttribute("msg", "나의정보수정 페이지 불러오기를 실패했습니다.");
+			return "redirect:error/error.jsp";
 		}
 		
 	}
@@ -66,7 +68,7 @@ public class OwnerController {
 	
 	
 	@RequestMapping(value = "owner_myinfo_delete.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String owner_myinfo_delete(Locale locale, Model model,HttpServletRequest request) {
+	public String owner_myinfo_delete(Locale locale, Model model,HttpServletRequest request,RedirectAttributes redirect) {
 		logger.info("점주 탈퇴{}.", locale);  
 		HttpSession session=request.getSession(); 
 		ODto oldto=(ODto)session.getAttribute("oldto");
@@ -75,7 +77,8 @@ public class OwnerController {
 			session.invalidate();
 			return "redirect:index.jsp"; 
 		}else {
-			return "";  
+			redirect.addAttribute("msg", "회원탈퇴에 실패하였습니다.");
+			return "redirect:error.do";  
 		}
 	}
 	

@@ -59,6 +59,12 @@ public class QnaServiceImp implements IQnaService{
 	@Override
 	public QnaDto ownerQnaIdChk(int store_seq) {
 		return QnaDaoImp.ownerQnaIdChk(store_seq);
+	}
+
+	@Override
+	public boolean ownerQnaAnswer(int qna_seq, String qna_answer) {
+		return QnaDaoImp.ownerQnaAnswer(qna_seq, qna_answer);
 	} 
+	
 
 }

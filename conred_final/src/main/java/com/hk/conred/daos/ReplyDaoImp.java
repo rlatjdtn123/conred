@@ -89,5 +89,15 @@ public class ReplyDaoImp implements IReplyDao{
 		count =sqlSession.insert(nameSpace+"adminInsertReview",store_seq);
 		return count>0?true:false;
 	}
+
+	@Override
+	public boolean ownerAnswer(int reply_seq, String reply_answer) {
+		int count=0;
+		Map<String, Object> map=new HashMap<>();
+		map.put("reply_seq", reply_seq);
+		map.put("reply_answer", reply_answer);
+		count=sqlSession.update(nameSpace+"ownerAnswer", map);
+		return count>0?true:false;
+	}
 	
 }

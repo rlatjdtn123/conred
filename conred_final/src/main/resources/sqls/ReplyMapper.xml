@@ -63,12 +63,18 @@
 	</select>
 	 
 	<select id="modalStoreName" parameterType="Int" resultType="ReplyDto">
-		SELECT store_name FROM con_store WHERE store_seq=#{store_seq}
+		SELECT store_name,owner_id FROM con_store WHERE store_seq=#{store_seq}
 	</select>
 		
 	<insert id="adminInsertReview" parameterType="Map">
 		INSERT INTO CON_REPLY 
 		VALUES(CON_REPLY_SEQ.NEXTVAL,'admin',#{store_seq},'상당히 멋진 매장이네요!',5,5,5,NULL,'N',sysdate,'N')
 	</insert>
+	
+	<update id="ownerAnswer" parameterType="Map">
+		UPDATE CON_REPLY SET REPLY_ANSWER =#{reply_answer} WHERE REPLY_SEQ =#{reply_seq}
+	</update>
+	
+	
 </mapper>
 	 

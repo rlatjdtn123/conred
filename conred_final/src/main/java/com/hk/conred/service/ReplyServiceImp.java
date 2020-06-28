@@ -59,4 +59,9 @@ public class ReplyServiceImp implements IReplyService{
 		return replyDao.adminInsertReview(store_seq);
 	}
 
+	@Override
+	public boolean ownerAnswer(int reply_seq, String reply_answer) {
+		return replyDao.ownerAnswer(reply_seq, reply_answer);
+	}
+
 }

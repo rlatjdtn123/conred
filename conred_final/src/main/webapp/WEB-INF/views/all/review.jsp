@@ -53,109 +53,119 @@
 	.navis2:hover{color:#2F3376;transition:all .3s;cursor:pointer;border-bottom:5px solid #5882FA ;}
 	.home{background-color: white;color:black;border-bottom:5px solid #5882FA ;text-decoration: none;border-left-width: 0;border-right-width: 0;}
 
-#pagename {z-index: -1;font-size: 20px;position: relative;left: 100px;margin-top: 20px;margin-bottom: 30px;display: inline-block;}
-
-.mybox {padding: 20px;border-top: 1px solid #BDBDBD;width: 700px;height: 370px;font-size: 15px;margin-left: 150px;min-height: 370px;}
-
-.myboxmargin {margin-top: 30px;}
-
-#main {width: 702px;height: 250px;margin-left: 147px;padding-top: 25px;}
-
-#main2 {font-size: 20px;}
-
-#main2 {}
-
-.pf {float: left;width: 40px;height: 40px;}
-
-.dt {margin-left: 600px;}
-
-.info {min-height: 250px;}
-
-.contents {display: inline-block;padding: 10px;width: 669px;height: 80px;text-overflow: ellipsis;overflow: hidden;word-break: keep-all;min-height: 80px;clear: both;margin-bottom: 15px;}
-
-.info2 {background-color: #F2F2F2;height: 80px;padding: 10px;text-overflow: ellipsis;overflow: hidden;display: inline-block;width: 600px;
-	min-height: 80px;border-radius: 5px;word-break: keep-all;margin-left: 33px;}
-
-.bot {margin: 0 auto;text-align: center;}
-
-.modal-title {text-align: center;font-size: 25px;}
-
-.modal-body span {margin: 5px;}
-
-textarea:focus::-webkit-input-placeholder {color: transparent;}
-
-.modal-footer {width: 897px;height: auto;border-width: 0px;}
-
-.inputs {width: 600px;float: left;height: auto;}
-
-.my_button {display: inline-block;width: 200px;text-align: center;padding: 10px;background-color: #006BCC;color: #fff;text-decoration: none;
-	border-radius: 5px;float: left;}
-
-.modal_Btn {border: 0;margin-left: 630px;height: 50px;border-radius: 5px;background-color: #94B8FD; color: white;width: 100px;}
-
-.modal_Btn:hover {background-color: #4a83ed;}
-
-.overfive {float: left;}
-
-.star_bigtle {margin-left: 65px;float: left;}
-/*  	.upload_message{height: 40px; width: 400px;margin-left: 215px; text-align: center; line-height: 37px;} */
-.content_detail {background-color: #fafafa;border-width: 0;}
-
-.content_detail:hover {background-color: grey;}
-
-.star_table {width: 200px;height: 80px;background-color: #F2F2F2;border-radius: 5px;padding: 10px;float: left;}
-
-.starz {width: 17px;height: auto;display: inline-block;margin: -2px;margin-bottom: 4px;}
-
-.small_star {width: 25px;height: auto;margin: -2px;margin-bottom: 4px;}
-
-.big_star {width: 40px;height: auto;}
-
-.buttondle {background-color: #585858;color: white;border-radius: 5px;}
-
-.user_avg {float: right;font-size: 20px;padding-top: 17px;}
-
-.star_score {float: left;}
-
-.tle_final {width: 700px;border-top: 1px solid #BDBDBD;margin-left: 150px;margin-bottom: 200px;}
-
-.bigNumber {font-size: 25px;font-weight: bold;}
-
-/*       파일업로드 */
-#preview {float: left;width: 870px;padding-left: 13px;min-height: 5px;}
-
-#preview img {width: 135px;height: 80px;overflow: hidden;}
-
-#preview p {text-overflow: ellipsis;overflow: hidden;}
-
-.preview-box {border: 0px solid grey;padding: 5px;border-radius: 2px;margin-bottom: 5px;margin-right: 25px;display: inline-block;border-radius: 5px;
-	max-width: 146px;border-right-width: 1px;border-bottom-width: 1px;float: left;}
-
-.thumbnail {margin-bottom: 0px;width: 135px;height: 80px;}
-
-input[type=file] {display: none;}
-
-.f_insert {background-color: #2E2EFE;font-weight: bold;color: white;}
-
-.f_insert:hover {color: #BDBDBD;font-size: 15px;}
-
-#attach {width: 140px;margin-bottom: 10px;}
-
-.user_review_img {width: 455px;height: 80px;margin-left: 205px;}
-
-.reply_write {height: 34px;float: right;border-color: #ccc;border-radius: 5px;}
-
-.reply_write:hover {background-color: #D8D8D8;}
-
-.nologin {border: 0;margin-left: 528px;}
-
-.onlogin {margin-left: 475px;border: 0;}
-
-.nologin:hover {background-color: grey;}
-
-.onlogin:hover {background-color: grey;}
-
-.img_cursor:hover {cursor: pointer;}
+	#pagename {z-index: -1;font-size: 20px;position: relative;left: 100px;margin-top: 20px;margin-bottom: 30px;display: inline-block;}
+	
+	.mybox {padding: 20px;border-top: 1px solid #BDBDBD;width: 700px;height: 370px;font-size: 15px;margin-left: 150px;min-height: 370px;}
+	
+	.myboxmargin {margin-top: 30px;}
+	
+	#main {width: 702px;height: 250px;margin-left: 147px;padding-top: 25px;}
+	
+	#main2 {font-size: 20px;}
+	
+	#main2 {}
+	
+	.pf {float: left;width: 40px;height: 40px;}
+	
+	.dt {margin-left: 600px;}
+	
+	.info {min-height: 250px;}
+	
+	.contents {display: inline-block;padding: 10px;width: 669px;height: 80px;text-overflow: ellipsis;overflow: hidden;word-break: keep-all;min-height: 80px;clear: both;margin-bottom: 15px;}
+	
+	.info2 {background-color: #F2F2F2;height: 80px;padding: 10px;text-overflow: ellipsis;overflow: hidden;display: inline-block;width: 600px;
+		min-height: 80px;border-radius: 5px;word-break: keep-all;margin-left: 33px;}
+	
+	.bot {margin: 0 auto;text-align: center;}
+	
+	.modal-title {text-align: center;font-size: 25px;}
+	
+	.modal-body span {margin: 5px;}
+	
+	textarea:focus::-webkit-input-placeholder {color: transparent;}
+	
+	.modal-footer {width: 897px;height: auto;border-width: 0px;}
+	
+	.inputs {width: 600px;float: left;height: auto;}
+	
+	.my_button {display: inline-block;width: 200px;text-align: center;padding: 10px;background-color: #006BCC;color: #fff;text-decoration: none;
+		border-radius: 5px;float: left;}
+	
+	.modal_Btn {border: 0;margin-left: 630px;height: 50px;border-radius: 5px;background-color: #94B8FD; color: white;width: 100px;}
+	
+	.modal_Btn:hover {background-color: #4a83ed;}
+	
+	.overfive {float: left;}
+	
+	.star_bigtle {margin-left: 65px;float: left;}
+	/*  	.upload_message{height: 40px; width: 400px;margin-left: 215px; text-align: center; line-height: 37px;} */
+	.content_detail {background-color: #fafafa;border-width: 0;}
+	
+	.content_detail:hover {background-color: grey;}
+	
+	.star_table {width: 200px;height: 80px;background-color: #F2F2F2;border-radius: 5px;padding: 10px;float: left;}
+	
+	.starz {width: 17px;height: auto;display: inline-block;margin: -2px;margin-bottom: 4px;}
+	
+	.small_star {width: 25px;height: auto;margin: -2px;margin-bottom: 4px;}
+	
+	.big_star {width: 40px;height: auto;}
+	
+	.buttondle {background-color: #585858;color: white;border-radius: 5px;}
+	
+	.user_avg {float: right;font-size: 20px;padding-top: 17px;}
+	
+	.star_score {float: left;}
+	
+	.tle_final {width: 700px;border-top: 1px solid #BDBDBD;margin-left: 150px;margin-bottom: 200px;}
+	
+	.bigNumber {font-size: 25px;font-weight: bold;}
+	
+	/*       파일업로드 */
+	#preview {float: left;width: 870px;padding-left: 13px;min-height: 5px;}
+	
+	#preview img {width: 135px;height: 80px;overflow: hidden;}
+	
+	#preview p {text-overflow: ellipsis;overflow: hidden;}
+	
+	.preview-box {border: 0px solid grey;padding: 5px;border-radius: 2px;margin-bottom: 5px;margin-right: 25px;display: inline-block;border-radius: 5px;
+		max-width: 146px;border-right-width: 1px;border-bottom-width: 1px;float: left;}
+	
+	.thumbnail {margin-bottom: 0px;width: 135px;height: 80px;}
+	
+	input[type=file] {display: none;}
+	
+	.f_insert {background-color: #2E2EFE;font-weight: bold;color: white;}
+	
+	.f_insert:hover {color: #BDBDBD;font-size: 15px;}
+	
+	#attach {width: 140px;margin-bottom: 10px;}
+	
+	.user_review_img {width: 455px;height: 80px;margin-left: 205px;}
+	
+	.reply_write {height: 34px;float: right;border-color: #ccc;border-radius: 5px;}
+	
+	.reply_write:hover {background-color: #D8D8D8;}
+	
+	.nologin {border: 0;margin-left: 528px;}
+	
+	.onlogin {margin-left: 475px;border: 0;}
+	
+	.nologin:hover {background-color: grey;}
+	
+	.onlogin:hover {background-color: grey;}
+	
+	.img_cursor:hover {cursor: pointer;}
+	
+	.ownerAnswer_btn{float: right;background-color: #94B8FD;color: white;width: 60px;height: 32px;border: 0;border-radius: 5px;}
+	.ownerAnswer_btn:hover {background-color: #4a83ed;}
+	.ownerAnswer{display: none; width: 665px;height: 98px;resize: none;}
+	.ownerAnswer_success{display: none;}
+	.ownerAnswer_cancel{display: none;}
+	
+	.ownerAnswer_update{float: right;background-color: #94B8FD;color: white;width: 72px;height: 32px;border: 0;border-radius: 5px;}
+	.ownerAnswer_update:hover {background-color: #4a83ed;}
+	
 </style>
 <script type="text/javascript">
 
@@ -185,6 +195,7 @@ input[type=file] {display: none;}
 					success:function(obj){  
 						var lists=obj.list;  
 						var lists_photo=obj.list_photo;
+						var owner_id=obj.store_name.owner_id;
 						if(lists_photo==""){
 							$.each(lists,function(i){
 								addContent+= ' <div class="bigtle" > '
@@ -225,8 +236,12 @@ input[type=file] {display: none;}
 							+	'					</div>   '
 							+	'					<div class="info2">     '
 							+	'						<span style="font-weight: bold;">매장답변</span><br> '
-							+'								<span>'+ (lists[i].reply_answer==null?"아직 답변이 없습니다.":lists[i].reply_answer) +'</span>			'							
+							+''	+							ownerAnswer(lists[i].reply_answer,owner_id)		+''							
 							+'						</div> '
+							+			''+	ownerAnswer02(lists[i].reply_answer)  +''
+							+'			<button class="ownerAnswer_success">답변완료</button>'
+							+'			<button class="ownerAnswer_cancel">취소</button>'
+							+'			<input type="hidden" name="reply_seq" value="'+lists[i].reply_seq+'"/>'
 							+'					</div>   '
 							+'				</div>      '
 							+'				<br><br>';
@@ -273,8 +288,12 @@ input[type=file] {display: none;}
 							+	'					</div>   '
 							+	'					<div class="info2">     '
 							+	'						<span style="font-weight: bold;">매장답변</span><br> '
-							+'								<span>'+ (lists[i].reply_answer==null?"아직 답변이 없습니다.":lists[i].reply_answer) +'</span>			'							
+							+					''+			ownerAnswer(lists[i].reply_answer,owner_id)			+''			
 							+'						</div> '
+							+			''+	ownerAnswer02(lists[i].reply_answer)  +''
+							+'			<button class="ownerAnswer_success">답변완료</button>'
+							+'			<button class="ownerAnswer_cancel">취소</button>'
+							+'			<input type="hidden" name="reply_seq" value="'+lists[i].reply_seq+'"/>'
 							+'					</div>   '
 							+'				</div>      '
 							+'				<br><br>';
@@ -307,6 +326,42 @@ input[type=file] {display: none;}
 	
 	
 	$(document).ready(function(){
+		
+		//답변버튼
+		$("body").on("click",".ownerAnswer_btn",function(){
+			$(this).parent($(".info2")).next(".ownerAnswer").css("display","inline-block");
+			$(this).parent($(".info2")).next().next().css("display","inline-block");
+			$(this).parent($(".info2")).next().next().next().css("display","inline-block");
+			$(this).parent($(".info2")).css("display","none");
+		});
+		
+		//답변취소버튼
+		$("body").on("click",".ownerAnswer_cancel",function(){
+			$(this).parent($(".mybox")).find(".ownerAnswer").css("display","none");
+			$(this).parent($(".mybox")).find(".ownerAnswer_success").css("display","none");
+			$(this).parent($(".mybox")).find(".ownerAnswer_cancel").css("display","none");
+			$(this).parent($(".mybox")).find(".info2").css("display","inline-block");
+		});
+		
+		//답변완료버튼	
+		$("body").on("click",".ownerAnswer_success",function(){
+			var reply_seq=$(this).parent($(".mybox")).find("input[name=reply_seq]").val()
+			var reply_answer=$(this).parent($(".mybox")).find(".ownerAnswer").val();
+			var store_seq=parseInt($("input[name=store_seq]").val());
+			location.href="owner_answer.do?reply_seq="+reply_seq+"&reply_answer="+reply_answer+"&store_seq="+store_seq;
+		});
+		
+		//답변수정버튼
+		$("body").on("click",".ownerAnswer_update",function(){
+			$(this).parent($(".info2")).next(".ownerAnswer").css("display","inline-block");
+			$(this).parent($(".info2")).next().next().css("display","inline-block");
+			$(this).parent($(".info2")).next().next().next().css("display","inline-block");
+			$(this).parent($(".info2")).css("display","none");
+		});
+		
+	
+		
+	  	///////////
 	  	
 		if(5<$("#preview").find(".preview-box").length){
 			  $("#preview").empty(); 
@@ -726,7 +781,48 @@ input[type=file] {display: none;}
     openImage.document.write("<style>body{margin:0px;}</style><a href = # onclick = window.close() onfocus=this.blur()><img src = '"+url+"'width='"+win_width+"'></a>");
   }
 	
-	
+ 	
+ 	
+ 	///////////점주 자기매장 답변여부에따른버튼 info2쪽
+ 	function ownerAnswer(reply_answer,owner_id){
+ 		var session_id=$("input[name=oSession_id]").val();
+ 		var v="";
+ 		if (reply_answer==null||reply_answer=="") {
+			v='<span>아직 답변이 없습니다.</span>';
+				if(session_id!=""){
+					if(session_id==owner_id){
+		 				v='<span>아직 답변이 없습니다.</span><button class="ownerAnswer_btn">답변</button>';
+						return v;
+					}	
+				}
+				return v;
+			} else {
+			v='<span>'+reply_answer+'</span>';
+				if(session_id!=""){
+					if(session_id==owner_id){
+						v='<span>'+reply_answer+'</span><button class="ownerAnswer_update">답변수정</button>';
+						return v;
+					}
+				}
+				return v;
+			}
+	}
+ 	
+	///////////점주 자기매장 답변여부에따른버튼 info2바깥(앞)쪽
+ 	function ownerAnswer02(reply_answer){	
+		var v="";
+		
+ 		if(reply_answer==null||reply_answer==""){
+			v='<textarea class="ownerAnswer" rows="10" cols="60"></textarea>';
+			return v;
+			}else{
+			v='<textarea class="ownerAnswer" rows="10" cols="60">'+reply_answer+'</textarea>';
+			return v;
+			}
+	}
+ 	
+ 	
+ 	
 	
 </script>
 </head>
@@ -740,6 +836,9 @@ input[type=file] {display: none;}
 	ODto oldto = (ODto) session.getAttribute("oldto");
 %>
 <body>
+	<input type="hidden" name="oSession_id" value="<%=session.getAttribute("oldto")==null?"":oldto.getOwner_id()%>"/>
+	<input type="hidden" name="owner_id" value="<%=store_name.getOwner_id()%>">
+	<input type="hidden" name="store_seq" value="<%=list.get(0).getStore_seq()%>"/>
 	<input type="hidden" name="store_name"
 		value="<%=store_name.getStore_name()%>">
 	<input type="hidden" name="photo_length" value="<%=list_photo.size()%>">
@@ -1109,17 +1208,47 @@ input[type=file] {display: none;}
 				<div class="info2">
 					<span style="font-weight: bold;">매장답변</span><br>
 					<%
-						if (dto.getReply_answer() == null || dto.getReply_answer().equals("")) {
+					if (dto.getReply_answer() == null || dto.getReply_answer().equals("")) {
 					%>
 					<span>아직 답변이 없습니다.</span>
+						<%
+						if(oldto!=null){
+							if(oldto.getOwner_id().equals(store_name.getOwner_id())){
+							%>
+							<button class="ownerAnswer_btn">답변</button> 
+							<%	
+							}	
+						}
+						%>
 					<%
-						} else {
+					} else {
 					%>
 					<span><%=dto.getReply_answer()%></span>
 					<%
+						if(oldto!=null){
+							if(oldto.getOwner_id().equals(store_name.getOwner_id())){
+							%>
+							<button class="ownerAnswer_update">답변수정</button> 
+							<%	
+							}
 						}
+					}
 					%>
 				</div>
+				<%
+				if(dto.getReply_answer() == null || dto.getReply_answer().equals("")){
+				%>
+				<textarea class="ownerAnswer" rows="10" cols="60"></textarea>
+				<%	
+				}else{
+				%> 
+				<textarea class="ownerAnswer" rows="10" cols="60"><%=dto.getReply_answer()%></textarea>
+				<%	
+				}
+				%>
+				<button class="ownerAnswer_success">답변완료</button>
+				<button class="ownerAnswer_cancel">취소</button>
+				<input type="hidden" name="reply_seq" value="<%=dto.getReply_seq()%>"/>
 			</div>
 		</div>
 		<br>

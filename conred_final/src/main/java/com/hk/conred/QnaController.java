@@ -17,7 +17,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hk.conred.dtos.QnaDto;
 import com.hk.conred.dtos.UDto;
@@ -33,7 +35,7 @@ public class QnaController {
 	private IQnaService qnaService;
 	 
 	@RequestMapping(value = "qna.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String qna_store(Locale locale, Model model,int store_seq) {
+	public String qna_store(Locale locale, Model model,@RequestParam("store_seq") int store_seq) {
 		logger.info("매장 문의{}.", locale);  
 		
 		System.out.println("@@매장번호:"+store_seq); 
@@ -60,20 +62,35 @@ public class QnaController {
 	} 
 	
 	@RequestMapping(value = "insert_qna.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String insert_qna(Locale locale, Model model,HttpServletRequest request,int store_seq,String qna_content,String qna_title, String qna_hide) {
+	public String insert_qna(Locale locale, Model model,HttpServletRequest request,int store_seq,String qna_content,String qna_title, String qna_hide,RedirectAttributes redirect) {
 		logger.info("매장 문의{}.", locale); 
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
 		boolean isS=qnaService.insertQna(store_seq, uldto.getUser_id(), qna_title, qna_content, qna_hide);
 		if(isS) {
-			List<QnaDto> list=qnaService.qnaListStore(store_seq, 1);
-			QnaDto qnaAvg=qnaService.qnaAvg(store_seq);
-			model.addAttribute("list", list);
-			model.addAttribute("qnaAvg", qnaAvg);  
-			return "all/qna";   
+			redirect.addAttribute("store_seq", store_seq);
+			return "redirect:qna.do";   
 		}else {
-			return ""; 
+			redirect.addAttribute("msg", "매장 문의등록에 실패하였습니다.");
+			return "redirect:error.do"; 
 		}
 	}
+	
+	
+	@RequestMapping(value = "owner_qna_answer.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String owner_qna_answer(Locale locale, Model model,int store_seq,int qna_seq,String qna_answer,RedirectAttributes redirect) {
+		logger.info("매장 답변{}.", locale);  
+		System.out.println("@@@qna_seq:::"+qna_seq);
+		System.out.println("@@@@qna_answer:::"+qna_answer);
+		boolean isS=qnaService.ownerQnaAnswer(qna_seq, qna_answer);
+		if(isS) {
+			redirect.addAttribute("store_seq", store_seq);
+			return "redirect:qna.do"; 
+		}else {		
+			redirect.addAttribute("msg", "답변등록에 실패했습니다.");
+			return "redirect:error.do"; 
+		}
+	}
+	
 	
 }

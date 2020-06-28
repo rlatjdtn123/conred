@@ -63,6 +63,10 @@
 		SELECT 	OWNER_ID 
 		FROM (SELECT OWNER_ID FROM CON_STORE WHERE store_seq=#{store_seq})
 	</select>
+	
+	<update id="ownerQnaAnswer" parameterType="Map">
+		UPDATE CON_QNA SET QNA_ANSWER=#{qna_answer} WHERE QNA_SEQ =#{qna_seq}
+	</update>
 	 
 </mapper>
 	 
