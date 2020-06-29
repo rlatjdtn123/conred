@@ -112,8 +112,8 @@ public class ReviewController {
 			redirect.addAttribute("store_seq", store_seq);
 			return "redirect:review.do";
 		}else {
-			redirect.addAttribute("msg", "리뷰 답변에 실패하였습니다");
-			return "redirect:error.do";
+			model.addAttribute("msg", "리뷰 답변에 실패하였습니다");
+			return "error/error";
 		}
 		 
 	}

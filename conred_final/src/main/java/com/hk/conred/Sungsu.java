@@ -224,7 +224,7 @@ public class Sungsu {
 					return "redirect:index.do";
 				}
 			} 
-			
+			  
 		
 			 
 	} 
@@ -268,7 +268,7 @@ public class Sungsu {
 	}
 	
 	@RequestMapping(value = "user_myinfo_delete.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_myinfo_delete(Locale locale, Model model,HttpServletRequest request,RedirectAttributes redirect) {
+	public String user_myinfo_delete(Locale locale, Model model,HttpServletRequest request) {
 		logger.info("사용자 탈퇴{}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
@@ -277,8 +277,8 @@ public class Sungsu {
 			request.getSession().invalidate();
 			return "redirect:index.do";
 		}else { 
-			redirect.addAttribute("msg", "회원탈퇴에 실패하였습니다.");
-			return "redirect:error.do";  			
+			model.addAttribute("msg", "회원탈퇴에 실패하였습니다.");
+			return "error/error";  			
 		}
 	}
 	
@@ -329,7 +329,7 @@ public class Sungsu {
 	}
 	
 	@RequestMapping(value = "user_review_delete.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_review_delete(Locale locale, Model model,HttpServletRequest request,int reply_seq,RedirectAttributes redirect) {
+	public String user_review_delete(Locale locale, Model model,HttpServletRequest request,int reply_seq) {
 		logger.info("사용자 리뷰삭제 {}.", locale);
 		System.out.println("@@@@reply_seq:::"+reply_seq);
 		HttpSession session=request.getSession(); 
@@ -338,8 +338,8 @@ public class Sungsu {
 		if(isS) {
 			return "redirect:user_mypage_review.do";
 		}else {
-			redirect.addAttribute("msg", "리뷰삭제에 실패하였습니다.");
-			return "redirect:error.do";
+			model.addAttribute("msg", "리뷰삭제에 실패하였습니다.");
+			return "error/error";
 		}
 	}
 	
@@ -381,27 +381,27 @@ public class Sungsu {
 	}
 	
 	@RequestMapping(value = "user_qna_update.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_qna_update(Locale locale, Model model,int qna_seq,String qna_title,String qna_content,String qna_hide,RedirectAttributes redirect) {
+	public String user_qna_update(Locale locale, Model model,int qna_seq,String qna_title,String qna_content,String qna_hide) {
 		logger.info("사용자_문의 수정완료 {}.", locale);
 		
 		boolean isS=qnaService.userQnaUpdate(qna_seq, qna_title, qna_content, qna_hide);
 		if(isS) {
 			return "redirect:user_mypage_qna.do"; 
 		}else {
-			redirect.addAttribute("msg", "문의수정에 실패하였습니다.");
-			return "redirect:error.do"; 
+			model.addAttribute("msg", "문의수정에 실패하였습니다.");
+			return "error/error"; 
 		} 
 	}
 	
 	@RequestMapping(value = "user_qna_delete.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_qna_delete(Locale locale, Model model,int qna_seq,RedirectAttributes redirect) {
+	public String user_qna_delete(Locale locale, Model model,int qna_seq) {
 		logger.info("사용자_문의 삭제 {}.", locale);
 		boolean isS=qnaService.userQnaDelete(qna_seq); 
 		if(isS) {
 			return "redirect:user_mypage_qna.do";  			
 		}else {
-			redirect.addAttribute("msg", "문의삭제에 실패하였습니다");
-			return "redirect:error.do";
+			model.addAttribute("msg", "문의삭제에 실패하였습니다");
+			return "error/error";
 		}
 	}
 	
@@ -433,14 +433,14 @@ public class Sungsu {
 	}
 	
 	@RequestMapping(value = "user_reserve_cancel.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_reserve_cancel(Locale locale, Model model,int reserve_seq,RedirectAttributes redirect) {
+	public String user_reserve_cancel(Locale locale, Model model,int reserve_seq) {
 		logger.info("사용자 예약 취소{}.", locale);
 		boolean isS=reserveService.userReserveCancel(reserve_seq);
 		if(isS) { 
 			return "redirect:user_mypage_reserve.do"; 
 		}else {
-			redirect.addAttribute("msg", "예약취소에 실패하였습니다.");
-			return "redirect:error.do";
+			model.addAttribute("msg", "예약취소에 실패하였습니다.");
+			return "error/error";
 		}
 	} 
 	
@@ -489,14 +489,14 @@ public class Sungsu {
 	}
 	
 	@RequestMapping(value = "user_like_delete.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_like_delete(Locale locale, Model model,int like_list_seq,RedirectAttributes redirect) {
+	public String user_like_delete(Locale locale, Model model,int like_list_seq) {
 		logger.info("사용자 좋아요 취소{}.", locale);
 		boolean isS=likeService.userLikeDelete(like_list_seq);
 		if(isS) { 
 			return "redirect:user_mypage_like.do";  	 		
 		}else {
-			redirect.addAttribute("msg", "좋아요 취소에 실패하였습니다.");
-			return "redirect:error.do";
+			model.addAttribute("msg", "좋아요 취소에 실패하였습니다.");
+			return "error/error";
 		}
 	}
 	
@@ -626,7 +626,7 @@ public class Sungsu {
 	}
 	
 	@RequestMapping(value = "reserve_successT.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String reserve_successT(Locale locale, Model model,int menu_seq,int store_seq,String reserve_time,String reserve_sdate,String reserve_price,HttpServletRequest request,RedirectAttributes redirect) {
+	public String reserve_successT(Locale locale, Model model,int menu_seq,int store_seq,String reserve_time,String reserve_sdate,String reserve_price,HttpServletRequest request) {
 		logger.info("날짜,시간선택후 예약 {}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
@@ -634,8 +634,8 @@ public class Sungsu {
 		if(isS) {
 			return "redirect:index.do";		
 		}else {
-			redirect.addAttribute("msg", "당일예약에 실패하셨습니다");
-			return "redirect:error.do";
+			model.addAttribute("msg", "당일예약에 실패하셨습니다");
+			return "error/error";
 		}
 	}  
 	
@@ -657,7 +657,7 @@ public class Sungsu {
 	} 
 	
 	@RequestMapping(value = "reserve_successS.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String reserve_successS(Locale locale, Model model,int menu_seq,int store_seq,String reserve_price,HttpServletRequest request,String reserve_sdate, String reserve_edate,RedirectAttributes redirect) {
+	public String reserve_successS(Locale locale, Model model,int menu_seq,int store_seq,String reserve_price,HttpServletRequest request,String reserve_sdate, String reserve_edate) {
 		logger.info("날짜,시간 선택후 예약 {}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
@@ -667,8 +667,8 @@ public class Sungsu {
 		if(isS) { 
 			return "redirect:index.do";
 		}else {
-			redirect.addAttribute("msg", "숙박예약에 실패하였습니다.");
-			return "redirect:error.do";
+			model.addAttribute("msg", "숙박예약에 실패하였습니다.");
+			return "error/error";
 		}
 	}
 	

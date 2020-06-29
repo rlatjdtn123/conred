@@ -53,6 +53,7 @@ public class EmailOkController {
     
     // mailSending 코드
     
+    	
         @RequestMapping( value = "email_ok_start.do" , method=RequestMethod.POST )
         public ModelAndView mailSending(HttpServletRequest request, String email, HttpServletResponse response_email) throws IOException {
     		request.setCharacterEncoding("utf-8");

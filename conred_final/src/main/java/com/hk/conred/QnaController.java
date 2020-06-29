@@ -80,8 +80,8 @@ public class QnaController {
 			redirect.addAttribute("store_seq", store_seq);
 			return "redirect:qna.do";   
 		}else {
-			redirect.addAttribute("msg", "매장 문의등록에 실패하였습니다.");
-			return "redirect:error.do"; 
+			model.addAttribute("msg", "매장 문의등록에 실패하였습니다.");
+			return "error/error"; 
 		}
 	}
 	
@@ -96,8 +96,8 @@ public class QnaController {
 			redirect.addAttribute("store_seq", store_seq);
 			return "redirect:qna.do"; 
 		}else {		
-			redirect.addAttribute("msg", "답변등록에 실패했습니다.");
-			return "redirect:error.do"; 
+			model.addAttribute("msg", "답변등록에 실패했습니다.");
+			return "error/error"; 
 		}
 	}
 	
