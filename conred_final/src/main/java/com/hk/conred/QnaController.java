@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.hk.conred.dtos.ODto;
 import com.hk.conred.dtos.QnaDto;
 import com.hk.conred.dtos.UDto;
 import com.hk.conred.service.IQnaService;
@@ -35,10 +37,17 @@ public class QnaController {
 	private IQnaService qnaService;
 	 
 	@RequestMapping(value = "qna.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String qna_store(Locale locale, Model model,@RequestParam("store_seq") int store_seq) {
+	public String qna_store(Locale locale, Model model,@RequestParam("store_seq") int store_seq,String owner_id,HttpServletRequest request) {
 		logger.info("매장 문의{}.", locale);  
+		HttpSession session=request.getSession();
+		ODto oldto=(ODto)session.getAttribute("oldto");
 		
-		System.out.println("@@매장번호:"+store_seq); 
+		if(oldto!=null) {
+			if(oldto.getOwner_id().equals(owner_id)) {
+				qnaService.ownerQnaRead(store_seq);
+			}
+		}
+		
 		List<QnaDto> list=qnaService.qnaListStore(store_seq, 1);
 		QnaDto qnaAvg=qnaService.qnaAvg(store_seq);
 		QnaDto owner_chk=qnaService.ownerQnaIdChk(store_seq);

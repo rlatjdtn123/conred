@@ -101,7 +101,7 @@
 			  	<a onclick="location.href='review.do?store_seq=<%=dto.getStore_seq()%>'"><%=dto.getReply_count()%></a>
 			  </span>
 			  <%
-			  if(list_reply==null){
+			  if(list_reply==null||list_reply.size()==0){
 				  
 			  }else{
 			  	for(int i=0;i<list_reply.size()+1;i++){
@@ -119,10 +119,10 @@
 			  	<a onclick="location.href='qna.do?store_seq=<%=dto.getStore_seq()%>'"><%=dto.getQna_count()%></a>
 			  </span>
 			  <%
-			  if(list_qna==null){
+			  if(list_qna==null||list_qna.size()==0){
 			  
 			  }else{	  
-			  	for(int i=0;i<list_qna.size()+1;i++){
+			  	for(int i=0;i<list_qna.size()+1;i++){ 
 				%>
 				<div class="content_new">+<%=i%></div>
 				<%	  

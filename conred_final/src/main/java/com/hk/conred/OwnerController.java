@@ -103,10 +103,10 @@ public class OwnerController {
 		ODto dto=oService.getState(oldto.getOwner_id());
 		List<ODto> list_qna=oService.contentNewQna(store_seq);
 		List<ODto> list_reply=oService.contentNewReply(store_seq);
-		System.out.println("@@@@list_qna::"+list_qna.get(0).getQna_read());
+//		System.out.println("@@@@list_qna::"+list_qna.get(0).getQna_read());
 		model.addAttribute("dto", dto);
 		model.addAttribute("list_qna", list_qna);
-		model.addAttribute("list_reply", list_reply);
+		model.addAttribute("list_reply", list_reply); 
 		return "owner/owner_mystore_info";
 	}
 	

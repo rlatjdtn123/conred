@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.hk.conred.dtos.ODto;
 import com.hk.conred.dtos.RPhotoDto;
 import com.hk.conred.dtos.ReplyDto;
 import com.hk.conred.dtos.ReserveDto;
@@ -55,14 +56,23 @@ public class ReviewController {
 	
 	
 	@RequestMapping(value = "review.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String review(Locale locale, Model model,@RequestParam("store_seq") int store_seq,HttpServletRequest request) {
+	public String review(Locale locale, Model model,@RequestParam("store_seq") int store_seq,HttpServletRequest request,String owner_id) {
 		logger.info("리뷰폼으로 이동  {}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
+		ODto oldto=(ODto)session.getAttribute("oldto");
 		List<ReplyDto> list=replyService.replyListStoreDetail(store_seq, 1);
 		ReplyDto list_avg=replyService.replyAvgStore(store_seq); 
 		List<RPhotoDto> list_photo=rPhotoService.reviewPhotoList(store_seq);
 		ReplyDto store_name=replyService.modalStoreName(store_seq);
+		
+		//점주자기매장 리뷰읽음처리
+		if(oldto!=null) {
+			if(oldto.getOwner_id().equals(owner_id)) {
+				replyService.ownerReplyRead(store_seq);
+			}
+		}
+		
 		if(uldto!=null) {
 			List<ReserveDto> list_reserve=reserveService.userOnceReview(store_seq,uldto.getUser_id());
 			model.addAttribute("list_reserve", list_reserve);
