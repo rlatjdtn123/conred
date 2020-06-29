@@ -517,7 +517,9 @@ public class SServiceImp implements ISService {
 //			MenuDaoImp.insertMenu(sdto, category_code_2, name, content, price, state);//얘도그대로
 //			System.out.println("기존 메뉴리스트 추가 됐습니다..");
 			
-//			
+			//위에꺼 fk오류 뜨니 delflag바꿔주기로 하자
+			//전달할 것 sdto, category_code, name, content, price, state
+			MenuDaoImp.updatemenu(sdto, category_code_2, name, content, price, state/*, del_menu*/);//기존 메뉴리스트 삭제표시(delflag)
 			
 			
 //			return STimeDaoImp.insertStime(sdto,time_day,time_open,time_close,time_break);

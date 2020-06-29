@@ -17,6 +17,11 @@ public interface IMenuDao {
 	//ajax용 요일
 	public List<MenuDto> selectWeek(int menu_seq, int store_seq,String store_time_day);
 	
-	//delete메뉴
+	//delete메뉴 --안씀 udpate로 대체
 	public boolean deleteMenu(SDto sdto);
+	
+	//update메뉴
+	public boolean updatemenu(SDto sdto, String[] category_code_2,String[] name,
+			String[] content,String[] price,String[] state);
+	
 }

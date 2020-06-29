@@ -10,7 +10,7 @@
 		<foreach collection="list" item="item">
 			INTO CON_MENU 
 			VALUES(get_menu_seq,#{item.store_seq},#{item.category_code},
-			#{item.menu_name},#{item.menu_content},#{item.menu_price},#{item.menu_state})
+			#{item.menu_name},#{item.menu_content},#{item.menu_price},#{item.menu_state},'N')
 		</foreach>
 		SELECT *FROM DUAL
 	</insert>
@@ -46,6 +46,41 @@
 	
 	<delete id="deleteMenu" parameterType="SDto">
 		DELETE FROM CON_MENU cm  
+		WHERE STORE_SEQ =#{store_seq}
+	</delete>
+	
+	<delete id="updateMenu" parameterType="Map">
+		UPDATE CON_MENU SET
+		CATEGORY_CODE = CASE MENU_SEQ 
+		<foreach collection="list" item="item">
+			WHEN #{item.menu_seq} THEN #{item.category_code}
+		</foreach>
+		ELSE CATEGORY_CODE END,
+		MENU_NAME = CASE MENU_SEQ 
+		<foreach collection="list" item="item">
+			WHEN #{item.menu_seq} THEN #{item.menu_name}
+		</foreach>
+		ELSE MENU_NAME END,
+		MENU_CONTENT = CASE MENU_SEQ 
+		<foreach collection="list" item="item">
+			WHEN #{item.menu_seq} THEN #{item.menu_content}
+		</foreach>
+		ELSE MENU_CONTENT END,
+		MENU_PRICE = CASE MENU_SEQ 
+		<foreach collection="list" item="item">
+			WHEN #{item.menu_seq} THEN #{item.menu_price}
+		</foreach>		
+		ELSE MENU_PRICE END,
+		MENU_STATE = CASE MENU_SEQ 
+		<foreach collection="list" item="item">
+			WHEN #{item.menu_seq} THEN #{item.menu_state}
+		</foreach>	
+		ELSE MENU_STATE END,
+		MENU_DELFLAG = CASE MENU_SEQ 
+		<foreach collection="list" item="item">
+			WHEN #{item.menu_seq} THEN #{item.menu_delflag}
+		</foreach>	
+		ELSE MENU_DELFLAG END
 		WHERE STORE_SEQ =#{store_seq}
 	</delete>
  		

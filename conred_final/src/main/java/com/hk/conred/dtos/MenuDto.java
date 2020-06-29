@@ -8,8 +8,9 @@ public class MenuDto {
 	private String menu_content;
 	private String menu_price;
 	private String menu_state;
-	private String category_name;
+	private String menu_delflag;
 	
+	private String category_name;
 	private int store_maxman;
 	private int store_time_seq;
 	private String store_time_day;
@@ -23,6 +24,22 @@ public class MenuDto {
 	
 	public MenuDto() {
 		super();
+	}
+
+
+	
+
+	public MenuDto(int menu_seq, int store_seq, String category_code, String menu_name, String menu_content,
+			String menu_price, String menu_state, String menu_delflag) {
+		super();
+		this.menu_seq = menu_seq;
+		this.store_seq = store_seq;
+		this.category_code = category_code;
+		this.menu_name = menu_name;
+		this.menu_content = menu_content;
+		this.menu_price = menu_price;
+		this.menu_state = menu_state;
+		this.menu_delflag = menu_delflag;
 	}
 
 
@@ -52,7 +69,14 @@ public class MenuDto {
 
 
 
+	public String getMenu_delflag() {
+		return menu_delflag;
+	}
 
+	public void setMenu_delflag(String menu_delflag) {
+		this.menu_delflag = menu_delflag;
+	}
+	
 	public int getMenu_seq() {
 		return menu_seq;
 	}
@@ -267,11 +291,14 @@ public class MenuDto {
 	public String toString() {
 		return "MenuDto [menu_seq=" + menu_seq + ", store_seq=" + store_seq + ", category_code=" + category_code
 				+ ", menu_name=" + menu_name + ", menu_content=" + menu_content + ", menu_price=" + menu_price
-				+ ", menu_state=" + menu_state + ", category_name=" + category_name + ", store_maxman=" + store_maxman
-				+ ", store_time_seq=" + store_time_seq + ", store_time_day=" + store_time_day + ", store_time_open="
-				+ store_time_open + ", store_time_close=" + store_time_close + ", store_time_break=" + store_time_break
-				+ ", rownum=" + rownum + "]";
+				+ ", menu_state=" + menu_state + ", menu_delflag=" + menu_delflag + ", category_name=" + category_name
+				+ ", store_maxman=" + store_maxman + ", store_time_seq=" + store_time_seq + ", store_time_day="
+				+ store_time_day + ", store_time_open=" + store_time_open + ", store_time_close=" + store_time_close
+				+ ", store_time_break=" + store_time_break + ", rownum=" + rownum + "]";
 	}
+
+
+	
 
 
 	

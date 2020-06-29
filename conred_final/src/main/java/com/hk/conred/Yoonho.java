@@ -768,7 +768,7 @@ public class Yoonho {
 	public String owner_reupdate_store(Locale locale, Model model,SDto sdto, STimeDto stimedto,
 			String [] store_photo_title,String [] store_photo_title_before, String[] before_seq,
 			SLocaDto slocadto,String del, HttpServletRequest request,String[] category_code_2,
-			CMainDto cmaindto, CListDto clistdto, MenuDto menudto,RedirectAttributes redirect) {
+			CMainDto cmaindto, CListDto clistdto, MenuDto menudto, RedirectAttributes redirect) {
 		logger.info("점주: 매장수정페이지 (상세정보, 사진, 주소, 영업시간, 카테고리(대/소), 메뉴 수정) {}.", locale);
 		
 		//insert때랑 다른점:기존의 store는 그대로 수정이고,

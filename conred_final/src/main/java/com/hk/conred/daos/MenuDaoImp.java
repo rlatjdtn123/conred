@@ -75,5 +75,13 @@ public class MenuDaoImp implements IMenuDao{
 		return count>0?true:false;
 	}
 
+	@Override
+	public boolean updatemenu(SDto sdto, String[] category_code_2,String[] name,
+			String[] content,String[] price,String[] state){
+		int count=0;
+		count=sqlSession.delete(namespace+"udpatemenu",sdto);
+		return count>0?true:false;
+	}
+
 
 }
