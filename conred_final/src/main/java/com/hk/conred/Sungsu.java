@@ -185,7 +185,7 @@ public class Sungsu {
 	
 	
 	@RequestMapping(value = "user_regist_category.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_regist_category(Locale locale, Model model,String []category_code,String user_id,HttpServletRequest request,RedirectAttributes redirect) {
+	public String user_regist_category(Locale locale, Model model,String []category_code,String user_id,HttpServletRequest request) {
 		logger.info("관심사 선택완료후 가입완료 메시지 출력페이지로 이동{}.", locale);
 			
 			HttpSession session=request.getSession();
@@ -196,32 +196,37 @@ public class Sungsu {
 			if(isS){ 
 				return "redirect:user_regist_finish.do";						
 			}else {
-				redirect.addAttribute("msg", "회원가입이 실패됐습니다");
-				return "redirect:error.do";
+				model.addAttribute("msg", "회원가입이 실패됐습니다");
+				return "error/error";
 			}
 	}
 	 
 		
 		 
 	@RequestMapping(value = "user_login.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_login(Locale locale, Model model,HttpServletRequest request,UDto dto,RedirectAttributes redirect) {
+	public String user_login(Locale locale, Model model,HttpServletRequest request,UDto dto) {
 		logger.info("유저 로그인접근 {}.", locale);
 		HttpSession session=request.getSession();
 		UDto uldto=uService.getLogin(dto.getUser_id(),dto.getUser_password());
+
+			if(uldto==null) {
+				model.addAttribute("msg", "존재하지 않는 아이디입니다 다시한번 확인해주세요");
+				return "error/error";
+			}else{
+				if(uldto.getUser_out().equals("Y")){
+					model.addAttribute("msg", "탈퇴한 회원 입니다");
+					return "error/error";
+				}else if(uldto.getUser_black().equals("Y")) {
+					model.addAttribute("msg", "블랙된 회원입니다");
+					return "error/error";
+				}else {   
+					session.setAttribute("uldto", uldto);
+					return "redirect:index.do";
+				}
+			} 
+			
 		
-		if(uldto.getUser_out().equals("Y")){
-			redirect.addAttribute("msg", "탈퇴한 회원 입니다");
-			return "redirect:error.do";
-		}else if(uldto.getUser_black().equals("Y")) {
-			redirect.addAttribute("msg", "블랙된 회원입니다");
-			return "redirect:error.do";
-		}else if(uldto.getUser_id()==null||uldto.getUser_id().equals("")) {
-			redirect.addAttribute("msg", "아이디를 다시한번 확인해주세요");
-			return "redirect:error.do";
-		}else{
-			session.setAttribute("uldto", uldto);
-			return "redirect:index.do";
-		}	
+			 
 	} 
 	
 	
@@ -244,7 +249,7 @@ public class Sungsu {
 	}
 	
 	@RequestMapping(value = "user_myinfo_update.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_myinfo_update(Locale locale, Model model,UDto dto,String user_email1,String user_email3,String user_update_sex,RedirectAttributes redirect) {
+	public String user_myinfo_update(Locale locale, Model model,UDto dto,String user_email1,String user_email3,String user_update_sex) {
 		logger.info("사용자 마이페이지{}.", locale);
 		if(user_update_sex==null) {
 			
@@ -257,8 +262,8 @@ public class Sungsu {
 		if(isS) {
 			return "redirect:user_myinfo.do"; 
 		}else { 
-			redirect.addAttribute("msg", "정보수정에 실패하였습니다.");
-			return "redirect:error.do";  			
+			model.addAttribute("msg", "정보수정에 실패하였습니다.");
+			return "error/error";  			
 		}
 	}
 	

@@ -20,7 +20,7 @@
 <style type="text/css">
 	#container{border:1px solid lightgrey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:600px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	
-	#tle{margin:0 auto;overflow:auto;width:750px;padding-top:50px;}
+	#tle{margin-left:125px;overflow:auto;width:750px;padding-top:50px;}
 	 
 	.fo{float: left; width: 350px; height: 500px;text-align:center;}
 	.fo2{margin-left:50px;}

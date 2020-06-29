@@ -31,11 +31,12 @@ public class UDaoImp implements IUDao{
 	public UDto getLogin(String user_id, String user_password) {
 		
 		UDto dto=null;
+		System.out.println("@@:"+user_id);
+		System.out.println("@@:"+user_password);
 		Map<String, String> map=new HashMap<>();
 		map.put("user_id", user_id);
 		map.put("user_password", user_password);
 		dto=sqlSession.selectOne(nameSpace+"getLogin", map);
-		System.out.println(dto);
 		return dto;
 	}
 

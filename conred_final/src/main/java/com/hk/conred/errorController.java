@@ -20,11 +20,11 @@ public class errorController {
 	
 
 	@RequestMapping(value = "error.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String home(Locale locale, Model model,@RequestParam("msg") String msg) {
+	public String error(Locale locale, Model model, String msg) {
 		logger.info("error컨트롤러 {}.", locale);
-
+		System.out.println("msg@@::"+msg);
 		model.addAttribute("msg", msg);
-		return "error/error"; 
+		return "error/error";  
 	}
 	
-}
+} 

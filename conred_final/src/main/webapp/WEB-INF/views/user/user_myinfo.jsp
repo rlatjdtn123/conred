@@ -43,6 +43,8 @@
 	.radio_button{display: none;}
 	.text{display: none;}
 	.user_update{background-color: white;border:1px solid black;}
+	.email3{width: 120px;}
+
 	
 	
 </style>
@@ -66,6 +68,21 @@
 		
 	}
 	
+	$(function(){
+		
+		
+// 		$(".email3").mouseup(function(){
+// 			var emailChk=$("input[name=emailChk01]").val();
+// 			var email=$("input[name=user_email1]").val();
+// 			if(emailChk!=email){
+// 				alert("aa");
+// 			}
+// 		});
+		
+
+	})
+	
+	
 </script>
 </head>
 <%
@@ -73,6 +90,8 @@
 	String[] email=dto.getUser_email().split("@");
 %>
 <body>
+<input type="hidden" name="emailChk01" value="<%=email[0]%>"/>
+<input type="hidden" name="emailChk02" value="<%=email[1]%>"/>
 <div id="container">
 <%-- <input type="hidden"  name="user_email" value="<%=dto.getUser_email()%>"/> --%>
 	<form action="user_myinfo_update.do" method="post">
@@ -83,18 +102,19 @@
 				<table class="table table-hover" >
 					<tr>
 						<td><span class="req"> </span>아이디</td>
-						<td><input type="text" name="user_id" required="required" class="user_infos" value="<%=dto.getUser_id()%>"/></td>
+						<td><input type="text" name="user_id" readonly="readonly" class="user_infos" value="<%=dto.getUser_id()%>"/></td>
 					</tr>
 					<tr>
 						<td><span class="req"> </span>이름</td>
-						<td><input type="text" name="user_name"  value="<%=dto.getUser_name()%>" class="user_update"/></td>
+						<td><input type="text" name="user_name" required="required" value="<%=dto.getUser_name()%>" class="user_update"/></td>
 					</tr> 
 					<tr> 
 						<td><span class="req"> </span>이메일</td>
 					<td> 
-						<input type="text" name="user_email1" readonly="readonly" class="user_infos" value="<%=email[0]%>"/>@
-						<input value="<%=email[1]%>" id="email" type="text" name="user_email3" style="width:120px;" readonly="readonly" class="user_infos"/>
+						<input type="text" name="user_email1" required="required" class="user_update email1" value="<%=email[0]%>"/>@
+						<input value="<%=email[1]%>" id="email" type="text" name="user_email3" required="required" class="user_update email3"/>
 <!-- 						<input type="hidden" name="emailConfirm" required="required" value="N"/> -->
+						<button class="emailChk">이메일 인증</button>
 					</td>
 					</tr> 
 					<tr>   

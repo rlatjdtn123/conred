@@ -10,7 +10,7 @@
 <style type="text/css">
 	#container{border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:900px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	
-	#regcircles{width:600px;overflow:auto;margin:0 auto;position:relative;top:100px;}
+	#regcircles{width:600px;overflow:auto;margin-left:200px;position:relative;top:100px;}
 	.regcircle_left{float:left;}
 	.regcircle_right{float:right;}
 	.regcircle{width:250px;height:250px;border:1px solid grey; border-radius:50%;text-align:center;line-height:250px;}
@@ -18,7 +18,7 @@
 	.regtext{font-size: 20px;}
 	
 </style>
-</head>
+</head> 
 <body>
 <div id="container">
 	<div id="regcircles">
