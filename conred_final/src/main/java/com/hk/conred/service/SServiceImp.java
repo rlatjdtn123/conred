@@ -503,14 +503,20 @@ public class SServiceImp implements ISService {
 			System.out.println("매장됐습니다.");
 			CMainDaoImp.updateCMain(cmaindto);//업데이트(대표카테고리 업데이트)
 			System.out.println("메인카테고리 됐습니다.");
-			//clist,menu 모두삭제 추가
+			
+			//clist 모두삭제 
 			CListDaoImp.deleteCList(sdto);//기존 카테고리리스트 삭제
 			System.out.println("카테고리리스트 삭제 됐습니다..");
-			MenuDaoImp.deleteMenu(sdto);//기존 메뉴리스트 삭제
-			System.out.println("기존 메뉴리스트 삭제 됐습니다..");
-//			//clist,menu 모두추가
+//			//clist 모두추가
 			CListDaoImp.insertCList(sdto, clist);//기존과같은방식으로 카테고리리스트 추가
-			MenuDaoImp.insertMenu(sdto, category_code_2, name, content, price, state);//얘도그대로
+			System.out.println("카테고리리스트 추가 됐습니다..");
+			
+			//menu 모두삭제 추가
+//			MenuDaoImp.deleteMenu(sdto);//기존 메뉴리스트 삭제
+//			System.out.println("기존 메뉴리스트 삭제 됐습니다..");
+//			MenuDaoImp.insertMenu(sdto, category_code_2, name, content, price, state);//얘도그대로
+//			System.out.println("기존 메뉴리스트 추가 됐습니다..");
+			
 //			
 			
 			

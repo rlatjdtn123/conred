@@ -45,7 +45,7 @@
 	.navis2:hover{color:#000;transition:all .3s;border-bottom:1px solid white;background-color: white;cursor:pointer;border-right:1px solid grey;border-left:1px solid grey;}
 	.home{border-bottom:1px solid white;background-color: white;border-right:1px solid grey;border-left:1px solid grey;color:black;}
 	 */
-	#container{ border:1px solid rgba(225,225,225,1.00);text-align:center;border-top-width:0px; border-bottom:1px solid #fff; width:1000px;height:auto;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{ border:1px solid rgba(225,225,225,1.00);border-top-width:0px; border-bottom:1px solid #fff; width:1000px;height:auto;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
    	#sticky{z-index:200;position: sticky; top:71px;display: inline-block;}
    	#navi2{width:998px;clear:both;position:relative;top:0px;text-align: center;line-height: 50px;display: inline-block;border-bottom: 1px solid #585858;}
    	.navis2{ font-size:18px; float:left;width:200px;height:50px;color: #000;background-color: #fff;}
@@ -137,16 +137,6 @@
 
 	.greenfont{color:#3ADF00;}
 	
-	.toSubmit{text-align: center;z-index:100;position: sticky; bottom:0px;width:998px;height:60px;background-color: #f2f2f2;color: #000;border:1px solid grey;border-radius: 10px 10px 0px 0px;border-bottom: 0px;line-height: 60px;}
-	.toSubmit:hover{background-color: white;color:black;cursor: pointer;height:80px; transition:all .1s;}
-	.toSubmit_text:hover #reserve_text{ transition:all .3s;line-height: 60px;}
-	.toSubmit_text_first{float:left ;width:498px;text-align: center;line-height: 60px;font-size:20px;}
-	.toSubmit_text{float:left ;width:498px;text-align: center;line-height: 60px;font-size:20px;}
-	.toSubmit_text_box{margin:0 auto;display: inline-block;width:1000px;}
-	.toSubmit_text_first:hover{border-top-left-radius:10px;box-sizing:border-box;border:1px solid black;height:80px;}
-	.toSubmit_text:hover{border-top-right-radius:10px;box-sizing:border-box;border:1px solid black;height:80px;}
-	
-	
 /* 	여기부턴menu,category관련 */
 	.greenbtn:hover{background-color: #04B404;color:white} 
 	.redbtn:hover{background-color: #FE2E2E;color:white} 
@@ -156,7 +146,6 @@
 	.btn{background-color: grey;margin-left:10px;color:white;}
 	.btn2{margin-left:0px;}
 
-	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:auto;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	
 	#regist{font-weight: bold; font-size: 20px;margin-bottom: 40px;}
 	 
@@ -191,6 +180,31 @@
 	
 	.big_cate{text-align:center;font-size:20px;font-weight:bold; height:30px;line-height: 30px;background-color: #f2f2f2;border-radius: 30px;}
 	.subinfo{font-size:12px;color: grey;}
+	
+	/* 
+	.toSubmit_text:hover #reserve_text{ transition:all .3s;line-height: 60px;}
+	.toSubmit_text:hover{border-top-right-radius:10px;box-sizing:border-box;border:1px solid black;height:80px;}
+	.toSubmit:hover{background-color: white;color:black;cursor: pointer;height:80px; transition:all .1s;}
+	.toSubmit_text_first:hover{border-top-left-radius:10px;box-sizing:border-box;border:1px solid black;height:80px;}
+ */	
+	.toSubmit{text-align: center;z-index:100;position: sticky; bottom:0px;width:998px;height:60px;background-color: #f2f2f2;color: #000;border-radius: 10px 10px 0px 0px;border-bottom: 0px;line-height: 60px;}
+	.toSubmit_text_box{margin:0 auto;display: inline-block;width:1000px;}
+	
+	.toSubmit_text{float:left ;width:450px;text-align: center;line-height: 60px;font-size:20px;}
+	.toSubmit_text_first{float:left ;width:450px;text-align: center;line-height: 60px;font-size:20px;}
+	.toSubmit_text:hover{height:60px;border-bottom:4px solid #585858;animation-play-state:paused;background-color:#f2f2f2;box-shadow: 0px 1px 4px grey;background-color: #fff;cursor: pointer; transition:all .1s;border-radius: 10px;}
+	.toSubmit_text_first:hover{height:60px;border-bottom:4px solid #585858;animation-play-state:paused;background-color:#f2f2f2;box-shadow: 0px 1px 4px grey;background-color: #fff;cursor: pointer; transition:all .1s;border-radius: 10px;}
+ 	.toSubmit{animation: animate-updown 1s ease-out infinite;box-shadow: 0px 2px 4px grey;position: sticky; bottom:20px;width:900px;height:60px;background-color: #fff;color: #000;margin:0 auto;border-radius: 10px;line-height: 60px;margin-bottom: 70px;}
+   	.toSubmit:hover{animation-play-state:paused;background-color:#f2f2f2;box-shadow: 0px 1px 4px grey;width:900px;background-color: #fff;cursor: pointer; transition:all .1s;}
+  	#reserve_btn:hover #reserve_text{ transition:all .3s;color: #585858;}
+  	#reserve_text{width:300px;margin:0 auto;text-align: center;line-height: 60px;font-size:20px;}
+	@keyframes animate-shadow {
+		50% {box-shadow: 0px 5px 5px grey;}
+	}
+	@keyframes animate-updown {
+		50% {bottom:25px;}
+		100% {bottom:20px;}
+ 	}
 </style>
 <script type="text/javascript">
 	//store_info관련

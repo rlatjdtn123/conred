@@ -10,12 +10,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	#container{ border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:900px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/	
-	#sticky{z-index:200;position: sticky; top:71px;display: inline-block;}
-	#navi2{box-shadow: 0px 0.5px 2px #5882FA;width:1000px;clear:both;position:relative;top:0px;text-align: center;line-height: 50px;display: inline-block;border-bottom: 1px solid #5882FA;}
-	.navis2{ font-size:18px; float:left;width:200px;height:50px;color: #000;background-color: #fff;}
-	.navis2:hover{color:#2F3376;transition:all .3s;cursor:pointer;border-bottom:5px solid #5882FA ;}
-	.home{background-color: white;color:black;border-bottom:5px solid #5882FA ;text-decoration: none;border-left-width: 0;border-right-width: 0;}
+	#container{ border:1px solid rgba(225,225,225,1.00);border-top-width:0px; border-bottom:1px solid #fff; width:1000px;height:auto;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+   	#sticky{z-index:200;position: sticky; top:71px;display: inline-block;}
+   	#navi2{width:998px;clear:both;position:relative;top:0px;text-align: center;line-height: 50px;display: inline-block;border-bottom: 1px solid #585858;}
+   	.navis2{ font-size:18px; float:left;width:200px;height:50px;color: #000;background-color: #fff;}
+   	.navis2:last-child{ font-size:18px; float:left;width:198px;height:50px;color: #000;background-color: #fff;}
+   	.navis2:hover{color:#000;transition:all .3s;cursor:pointer;border-bottom: 5px solid #585858;}
+	.home{background-color: white;color:black;border-bottom:5px solid #585858 ;}
 	
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:25px;margin-bottom:30px;display: inline-block;}
 	#photozone{width:100%; height:400px;border:1px solid grey;}
@@ -51,7 +52,7 @@
 		</div>
 	</div>
 	<div id="pagename">
-		<b>내 예약</b>
+		<b>예약자 현황</b>
 	</div>
 	<%
 	for(ReserveDto dto:list){
