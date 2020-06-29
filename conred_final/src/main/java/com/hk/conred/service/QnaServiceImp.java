@@ -64,6 +64,11 @@ public class QnaServiceImp implements IQnaService{
 	@Override
 	public boolean ownerQnaAnswer(int qna_seq, String qna_answer) {
 		return QnaDaoImp.ownerQnaAnswer(qna_seq, qna_answer);
+	}
+
+	@Override
+	public boolean ownerQnaRead(int store_seq) {
+		return QnaDaoImp.ownerQnaRead(store_seq);
 	} 
 	
 

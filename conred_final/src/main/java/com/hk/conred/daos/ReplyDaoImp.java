@@ -99,5 +99,12 @@ public class ReplyDaoImp implements IReplyDao{
 		count=sqlSession.update(nameSpace+"ownerAnswer", map);
 		return count>0?true:false;
 	}
+
+	@Override
+	public boolean ownerReplyRead(int store_seq) {
+		int count=0;
+		count=sqlSession.update(nameSpace+"ownerReplyRead", store_seq);
+		return count>0?true:false;
+	}
 	
 }

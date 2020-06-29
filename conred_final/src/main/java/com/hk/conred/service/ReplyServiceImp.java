@@ -64,4 +64,9 @@ public class ReplyServiceImp implements IReplyService{
 		return replyDao.ownerAnswer(reply_seq, reply_answer);
 	}
 
+	@Override
+	public boolean ownerReplyRead(int store_seq) {
+		return replyDao.ownerReplyRead(store_seq);
+	}
+
 }

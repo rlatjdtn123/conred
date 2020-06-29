@@ -76,5 +76,10 @@
 	</update>
 	
 	
+	<update id="ownerReplyRead" parameterType="Int"> 
+		UPDATE CON_REPLY SET reply_read='Y' WHERE store_seq=#{store_seq}
+	</update>
+	
+	
 </mapper>
 	 

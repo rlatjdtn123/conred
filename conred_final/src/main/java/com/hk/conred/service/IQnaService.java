@@ -35,4 +35,7 @@ public interface IQnaService {
 	
 	//10.매장문의 답변
 	public boolean ownerQnaAnswer(int qna_seq,String qna_answer);
+	
+	//11.점주문의읽음처리
+	public boolean ownerQnaRead(int store_seq);
 }

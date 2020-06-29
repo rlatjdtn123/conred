@@ -67,6 +67,10 @@
 	<update id="ownerQnaAnswer" parameterType="Map">
 		UPDATE CON_QNA SET QNA_ANSWER=#{qna_answer} WHERE QNA_SEQ =#{qna_seq}
 	</update>
+	
+	<update id="ownerQnaRead" parameterType="Int">
+		UPDATE CON_QNA SET QNA_READ='Y' WHERE STORE_SEQ=#{store_seq}
+	</update>
 	 
 </mapper>
 	 

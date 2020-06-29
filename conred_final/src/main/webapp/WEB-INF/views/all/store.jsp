@@ -479,7 +479,7 @@
                </c:forEach>
                <span class="allstartext">${all_s}/5</span>
             </div>
-            <div class="s_btn" onclick="location.href='review.do?store_seq=${store_detail.store_seq}'">리뷰 | 999+</div>
+            <div class="s_btn" onclick="location.href='review.do?store_seq=${store_detail.store_seq}&owner_id=${store_detail.owner_id}'">리뷰 | 999+</div>
          </div>
       </div>
       <div class="info2 width2" >
@@ -609,7 +609,7 @@
    </div>
    <div class="infobox section">
       <div class="s_bold flleft">리뷰</div>
-      <div class="s_btn flright" onclick="location.href='review.do?store_seq=${store_detail.store_seq}'">전체보기</div>
+      <div class="s_btn flright" onclick="location.href='review.do?store_seq=${store_detail.store_seq}&owner_id=${store_detail.owner_id}'">전체보기</div>
          <div id="s_reviews" class="clrboth">
             <div class="s_star">
                <c:set var="all_s" value="${reply_avg.all_avg}"/>
@@ -863,7 +863,7 @@
    </div>
    <div class="infobox section lastinfo">
       <div class="s_bold flleft">문의</div>
-      <div class="s_btn flright" onclick="location.href='qna.do?store_seq=${store_detail.store_seq}'">전체보기</div>
+      <div class="s_btn flright" onclick="location.href='qna.do?store_seq=${store_detail.store_seq}&owner_id=${store_detail.owner_id}'">전체보기</div>
       <div class="info1 replyqna flleft clrboth">
          <c:choose>
             <c:when test="${list_qna[0].qna_seq!=null}">

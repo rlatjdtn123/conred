@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page import="com.hk.conred.dtos.ODto"%>
 <jsp:include page="../all/header2.jsp" />
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
@@ -39,13 +40,15 @@
 	#footprint1{width: 50px;height: 40px;border-radius: 15px;background-color: #EFFBFB;}
 	.point{color: gray; font-size: 50px;} 
 	.bottom_info{margin-bottom: 100px;}  
-	.content_new{background-color: red; width: 40px;height: 40px;position: absolute;margin-left: 96px;margin-top: -92px;border-radius:20px 20px 20px 0;}
+	.content_new{line-height:2;color:white; background-color: red; width: 40px;height: 40px;position: absolute;margin-left: 96px;margin-top: -92px;border-radius:20px 20px 20px 0;}
 	
 </style>
 </head>
 <%
 	ODto dto=(ODto)request.getAttribute("dto");
 	ODto oldto=(ODto)session.getAttribute("oldto");
+	List<ODto> list_qna=(List<ODto>)request.getAttribute("list_qna");
+	List<ODto> list_reply=(List<ODto>)request.getAttribute("list_reply");
 %>
 <body>
 <div id="container">
@@ -97,7 +100,17 @@
 			  <span class="stats_result">
 			  	<a onclick="location.href='review.do?store_seq=<%=dto.getStore_seq()%>'"><%=dto.getReply_count()%></a>
 			  </span>
-			  <div class="content_new"></div>
+			  <%
+			  if(list_reply==null){
+				  
+			  }else{
+			  	for(int i=0;i<list_reply.size()+1;i++){
+			  	%>
+			  	<div class="content_new">+<%=i%></div>
+			  	<%	
+			  	}
+			  }
+			  %>
 			  <br/>
 			  <span><b>리뷰수</b></span> 
 		</div>
@@ -105,7 +118,17 @@
 			  <span class="stats_result">
 			  	<a onclick="location.href='qna.do?store_seq=<%=dto.getStore_seq()%>'"><%=dto.getQna_count()%></a>
 			  </span>
-			  <div class="content_new"></div>
+			  <%
+			  if(list_qna==null){
+			  
+			  }else{	  
+			  	for(int i=0;i<list_qna.size()+1;i++){
+				%>
+				<div class="content_new">+<%=i%></div>
+				<%	  
+				}				  
+			  }
+			  %>
 			  <br/>
 			  <span><b>문의수</b></span> 
 		</div>

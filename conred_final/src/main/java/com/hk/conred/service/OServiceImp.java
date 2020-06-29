@@ -51,8 +51,15 @@ public class OServiceImp implements IOService{
 	}
 
 	@Override
-	public List<ODto> contentNew(int store_seq) {
-		return ODaoImp.contentNew(store_seq);
+	public List<ODto> contentNewQna(int store_seq) {
+		return ODaoImp.contentNewQna(store_seq);
 	}
+
+	@Override
+	public List<ODto> contentNewReply(int store_seq) {
+		return ODaoImp.contentNewReply(store_seq);
+	}
+
+	
 
 }

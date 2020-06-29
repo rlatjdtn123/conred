@@ -70,10 +70,18 @@ public class ODaoImp implements IODao {
 	}
 
 	@Override
-	public List<ODto> contentNew(int store_seq) {
-		List<ODto> list=sqlSession.selectList(nameSpace+"contentNew", store_seq);
+	public List<ODto> contentNewQna(int store_seq) {
+		List<ODto> list=sqlSession.selectList(nameSpace+"contentNewQna", store_seq);
 		return list;
 	}
+
+	@Override
+	public List<ODto> contentNewReply(int store_seq) {
+		List<ODto> list=sqlSession.selectList(nameSpace+"contentNewReply", store_seq);
+		return list;
+	}
+
+	
 	
 	
 	

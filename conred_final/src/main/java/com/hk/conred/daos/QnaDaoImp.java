@@ -101,4 +101,11 @@ public class QnaDaoImp implements IQnaDao{
 		count=sqlSession.update(nameSpace+"ownerQnaAnswer", map);
 		return count>0?true:false; 
 	}
+
+	@Override
+	public boolean ownerQnaRead(int store_seq) {
+		int count=0;
+		count=sqlSession.update(nameSpace+"ownerQnaRead", store_seq);
+		return count>0?true:false;
+	}
 }

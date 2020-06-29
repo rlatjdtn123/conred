@@ -33,6 +33,9 @@ public interface IReplyDao {
 	//9.매장 등록시 리뷰 등록 - 관리자:매장에대한 첫 평점과 리뷰글 등록(최초 평점값 넣기-몇가지오류방지됨)
 	public boolean adminInsertReview(int store_seq);
 	
-	//점주 리뷰 답변
+	//10.점주 리뷰 답변
 	public boolean ownerAnswer(int reply_seq,String reply_answer);
+	
+	//11.점주리뷰읽음처리
+	public boolean ownerReplyRead(int store_seq);
 }

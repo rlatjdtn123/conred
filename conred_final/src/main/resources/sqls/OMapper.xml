@@ -56,12 +56,21 @@
 		WHERE OWNER_ID=#{owner_id}
 	</select>
 	
-	<select id="contentNew" parameterType="Int" resultType="ODto">
-		SELECT REPLY_READ ,QNA_READ
-		FROM (SELECT cr.REPLY_READ ,cq.QNA_READ 
-				FROM CON_REPLY cr ,CON_QNA cq 
-				WHERE cr.STORE_SEQ =#{store_seq} AND cr.STORE_SEQ =cq.STORE_SEQ)
+	<select id="contentNewQna" parameterType="Int" resultType="ODto">
+		SELECT qna_read
+		FROM 	(SELECT qna_read 
+				FROM CON_QNA 
+				WHERE store_seq=#{store_seq} AND QNA_READ ='N' )
 	</select>
+	
+	
+	<select id="contentNewReply" parameterType="Int" resultType="ODto">
+		SELECT reply_read
+		FROM 	(SELECT reply_read 
+				FROM con_reply 
+				WHERE store_seq=#{store_seq} AND reply_read='N')
+	</select>
+	
 	
 </mapper> 
 	 
