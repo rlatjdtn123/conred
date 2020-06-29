@@ -166,6 +166,8 @@
 	.ownerAnswer_update{float: right;background-color: #94B8FD;color: white;width: 72px;height: 32px;border: 0;border-radius: 5px;}
 	.ownerAnswer_update:hover {background-color: #4a83ed;}
 	
+	.main_star_table{width: 230px;}
+	
 </style>
 <script type="text/javascript">
 
@@ -1057,7 +1059,7 @@
 			%>
 			<br />
 			<br />
-			<table>
+			<table class="main_star_table">
 				<col width="50px;">
 				<tr>
 					<td><span>서비스</span></td>
