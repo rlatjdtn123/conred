@@ -9,12 +9,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	#container{ border:1px solid grey; border-top-width:0px; width:1000px;margin: 0 auto;height: 1000px;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	body{min-width: 1250px;}
+ 	#container{ border:1px solid rgba(225,225,225,1.00); border-top-width:0px;border-bottom-width:0px; width:1000px;margin: 0 auto;height: 1000px;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/ 
+/* 	#container{text-align:center;border:0px solid grey;border-top-width:0px; border-bottom-width:0px; width:1000px;height:auto;margin: 0 auto;} */
 	#sticky{z-index:200;position: sticky; top:71px;display: inline-block;}
-	#navi2{box-shadow: 0px 0.5px 2px #5882FA;width:1000px;clear:both;position:relative;top:0px;text-align: center;line-height: 50px;display: inline-block;border-bottom: 1px solid #5882FA;}
-	.navis2{ font-size:18px; float:left;width:200px;height:50px;color: #000;background-color: #fff;}
-	.navis2:hover{color:#2F3376;transition:all .3s;cursor:pointer;border-bottom:5px solid #5882FA ;}
-	.home{background-color: white;color:black;border-bottom:5px solid #5882FA ;text-decoration: none;border-left-width: 0;border-right-width: 0;}
+/* 	
+	#navi2{box-shadow: 0px 0.5px 2px #5882FA;width:1000px;clear:both;position:relative;top:0px;text-align: center;line-height: 50px;display: inline-block;border-bottom: 1px solid #5882FA;} 
+ 	.navis2{ font-size:18px; float:left;width:200px;height:50px;color: #000;background-color: #fff;} 
+ 	.navis2:hover{color:#2F3376;transition:all .3s;cursor:pointer;border-bottom:5px solid #5882FA ;} 
+ 	.home{background-color: white;color:black;border-bottom:5px solid #5882FA ;text-decoration: none;border-left-width: 0;border-right-width: 0;}
+ 	 */
+	#navi2{width:998px;clear:both;position:relative;top:0px;text-align: center;line-height: 50px;display: inline-block;border-bottom: 1px solid #5882FA;}
+   .navis2{ font-size:18px; float:left;width:200px;height:50px;color: #000;background-color: #fff;}
+   .navis2:hover{color:#000;transition:all .3s;cursor:pointer;border-bottom:5px solid #5882FA ;}
+   .navis2:last-child{ font-size:18px; float:left;width:198px;height:50px;color: #000;background-color: #fff;}
+   .home{background-color: white;color:black;border-bottom:5px solid #5882FA ;}
+	
 	#regist{font-weight: bold; font-size: 20px;margin-bottom: 40px;margin-left: 40px;margin-top: 20px;}
 	 
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-bottom:20px;display: inline-block;height: 40px;}
