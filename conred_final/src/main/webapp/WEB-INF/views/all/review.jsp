@@ -988,7 +988,12 @@
 			</div>
 		</div>
 	</form>
+	
 	<div id="container">
+	<%
+	if(oldto!=null){
+		if(oldto.getOwner_id().equals(store_name.getOwner_id())){
+		%>
 		<div id="sticky">
 			<div id="navi2">
 				<div class="navis2" onclick="location.href='store.do?store_seq=<%=list.get(0).getStore_seq()%>'">
@@ -1008,6 +1013,11 @@
 				</div>
 			</div>
 		</div>
+		<%	
+		}
+	}
+	%>
+		
 		<div id="main">
 			<span id="main2">리뷰&nbsp;<%
 				for (int i = 0; i < Math.floor(list_avg.getAll_avg()); i++) {

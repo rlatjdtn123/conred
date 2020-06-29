@@ -379,7 +379,11 @@
 	</div>
 </form>
 <div id="container"> 
-	<div id="sticky">
+	<%
+	if(oldto!=null){
+		if(oldto.getOwner_id().equals(owner_chk.getOwner_id())){
+		%>
+		<div id="sticky">
 			<div id="navi2">
 				<div class="navis2" onclick="location.href='store.do?store_seq=<%=list.get(0).getStore_seq()%>'">
 					매장 홈
@@ -398,6 +402,11 @@
 				</div>
 			</div>
 		</div>
+		<%
+		}
+	}
+	%>
+		
 	<div class="bigtle">
 		<div id="main">
 			<span id="main2"><b>문의</b> &nbsp; &nbsp; &nbsp; &nbsp;전체<%=qnaAvg.getQna_content()%>개|답변<%=qnaAvg.getQna_answer()%>개</span>

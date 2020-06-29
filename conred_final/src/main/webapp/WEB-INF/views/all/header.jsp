@@ -174,7 +174,7 @@
 					}else if(cmaindto!=null){//등록되어있으며 certify,store,menu 모두 작성된 상태라면
 					%>
 						<div id="o_tore" class="navis" onclick="location.href='store.do?store_seq=<%=sdto.getStore_seq()%>'">매장관리</div>
-						<div id="o_storeinfo" class="navis" onclick="location.href='owner_mystore_info.do'">매장정보</div>
+						<div id="o_storeinfo" class="navis" onclick="location.href='owner_mystore_info.do?store_seq=<%=sdto.getStore_seq()%>'">매장정보</div>
 						<div id="o_reserve" class="navis" onclick="location.href='owner_mystore_reservation.do'">예약</div>
 <!-- 						<div class="balloon_01 blink">점포등록신청이 완료되었어요!</div> -->
 					<%
