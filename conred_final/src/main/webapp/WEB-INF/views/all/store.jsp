@@ -23,10 +23,10 @@
    #container{ border:1px solid rgba(225,225,225,1.00);text-align:center;border-top-width:0px; border-bottom:1px solid #fff; width:1000px;height:auto;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
    #sticky{z-index:200;position: sticky; top:71px;display: inline-block;}
    #navi2{width:998px;clear:both;position:relative;top:0px;text-align: center;line-height: 50px;display: inline-block;border-bottom: 1px solid #585858;}
-/*    #navi2{width:998px;clear:both;position:relative;top:0px;text-align: center;line-height: 50px;display: inline-block;border-bottom: 1px solid #5882FA;} */
    .navis2{ font-size:18px; float:left;width:200px;height:50px;color: #000;background-color: #fff;}
    .navis2:last-child{ font-size:18px; float:left;width:198px;height:50px;color: #000;background-color: #fff;}
    .navis2:hover{color:#000;transition:all .3s;cursor:pointer;border-bottom: 5px solid #585858;}
+/*    #navi2{width:998px;clear:both;position:relative;top:0px;text-align: center;line-height: 50px;display: inline-block;border-bottom: 1px solid #5882FA;} */
 /*    .navis2:hover{color:#000;transition:all .3s;cursor:pointer;border-bottom:5px solid #5882FA ;} */
    .home{background-color: white;color:black;border-bottom:5px solid #585858 ;}
 /*    .navis2{ font-size:15px; float:left;width:199.7px;height:40px;background-color: #f2f2f2;color: #000;} */

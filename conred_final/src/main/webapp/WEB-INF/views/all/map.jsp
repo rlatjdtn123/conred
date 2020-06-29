@@ -708,7 +708,7 @@
 						if(right_name===icon_name){
 // 							$(".storelist").eq(i).css({"background-color":"#D9E6FE","border":"1px solid #5882FA"});
 // 							$(".storelist").eq(i).css({"background-color":"#BDBDBD","border":"1px solid black"});
-							$(".storelist").eq(i).css({"background-color":"#EEE","border":"1px solid black"});
+							$(".storelist").eq(i).css({"background-color":"#eee","border":"1px solid black"});
 // 							$(".storelist").eq(i).css({"color":"#fff"});
 // 							$(".storelist").eq(i).find($(".s_state_color1 b")).css({"background-color":"#fff"});
 // 							$(".storelist").eq(i).find($(".storetime_today")).css({"background-color":"#fff","color":"#000"});

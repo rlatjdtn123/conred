@@ -8,7 +8,8 @@
 	#rightbox{z-index:10;background-color: rgba( 255, 255, 255, 1 ); border:0px solid #f2f2f2;border-top-width: 1px;border-left-width:1px; width:394px;height:auto;min-height:100%;position:absolute;top:35px;border-radius: 10px 10px 0px 0px;}
 	.storelist{z-index:9;background-color:rgba( 255, 255, 255, 1);width:auto;height:170px;border:1px solid #fff;margin:10px;position: relative;padding:10px;}
 /* 	.storelist:hover{cursor: pointer;background-color: #f2f2f2;border:1px solid black;} */
-	.storelist:hover{cursor: pointer;background-color: #eee;border:1px solid #fff;}
+/* 	.storelist:hover{cursor: pointer;background-color: #eee;border:1px solid #fff;} */
+	.storelist:hover{cursor: pointer;background-color: #EEE;border:0px solid #fff;}
 /* 	.righthider{position:fixed;	width: 390px; display: inline-block; height: 36px; right: 19px; border:1px solid lightgrey; */
 	.righthider{position:fixed;	width: 390px; display: inline-block; height: 36px; right: 19px; border:1px solid lightgrey;
     border-top:1px solid #fff; background-color: rgba( 255, 255, 255, 1 ); top:89px; cursor: pointer; border-radius: 0px 0px 10px 10px; z-index:50;}
