@@ -698,7 +698,7 @@
 		    		var icon_name_temp=customOverlay.a.innerText;
 		    		var icon_name=customOverlay.a.innerText.substring(0,icon_name_temp.indexOf(" |"));
 		    		for (var i = 0; i < $(".storelist").length; i++) {
-			    		if($(".storelist").eq(i).css("background-color") == "rgb(217, 230, 254)"){
+			    		if($(".storelist").eq(i).css("background-color") == "rgb(238, 238, 238)"){
 			    			$(".storelist").removeAttr("style");//여기서 말고 따로 펑션 만들어서 조건엔 이미 속성값이 (배경값) 있으면 없애고하기
 			    		}
 					}
@@ -706,7 +706,12 @@
 		    		for (var i = 0; i < $(".storelist").length; i++) {
 						var right_name =$(".storelist").eq(i).find(".storename").find(".tooltiptext").text();		    			
 						if(right_name===icon_name){
-							$(".storelist").eq(i).css({"background-color":"#D9E6FE","border":"1px solid #5882FA"});
+// 							$(".storelist").eq(i).css({"background-color":"#D9E6FE","border":"1px solid #5882FA"});
+// 							$(".storelist").eq(i).css({"background-color":"#BDBDBD","border":"1px solid black"});
+							$(".storelist").eq(i).css({"background-color":"#EEE","border":"1px solid black"});
+// 							$(".storelist").eq(i).css({"color":"#fff"});
+// 							$(".storelist").eq(i).find($(".s_state_color1 b")).css({"background-color":"#fff"});
+// 							$(".storelist").eq(i).find($(".storetime_today")).css({"background-color":"#fff","color":"#000"});
 					        var position = $(".storelist").eq(i).position();
 					        $("#show").stop().animate({scrollTop : position.top}, 400);
 						}

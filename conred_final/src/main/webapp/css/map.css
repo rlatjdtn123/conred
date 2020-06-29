@@ -7,7 +7,8 @@
 /* 	#rightbox{z-index:10;background-color: rgba( 255, 255, 255, 1 ); border:0px solid #f2f2f2;border-top-width: 1px;border-left-width:1px; width:390px;height:auto;min-height:100%;position:absolute;top:35px;border-radius: 10px 10px 0px 0px;} */
 	#rightbox{z-index:10;background-color: rgba( 255, 255, 255, 1 ); border:0px solid #f2f2f2;border-top-width: 1px;border-left-width:1px; width:394px;height:auto;min-height:100%;position:absolute;top:35px;border-radius: 10px 10px 0px 0px;}
 	.storelist{z-index:9;background-color:rgba( 255, 255, 255, 1);width:auto;height:170px;border:1px solid #fff;margin:10px;position: relative;padding:10px;}
-	.storelist:hover{cursor: pointer;background-color: #f2f2f2;border:1px solid black;}
+/* 	.storelist:hover{cursor: pointer;background-color: #f2f2f2;border:1px solid black;} */
+	.storelist:hover{cursor: pointer;background-color: #eee;border:1px solid #fff;}
 /* 	.righthider{position:fixed;	width: 390px; display: inline-block; height: 36px; right: 19px; border:1px solid lightgrey; */
 	.righthider{position:fixed;	width: 390px; display: inline-block; height: 36px; right: 19px; border:1px solid lightgrey;
     border-top:1px solid #fff; background-color: rgba( 255, 255, 255, 1 ); top:89px; cursor: pointer; border-radius: 0px 0px 10px 10px; z-index:50;}
@@ -132,10 +133,12 @@
 	.storephone{display: inline-block;width: 80px;height: 15px; float: right;font-size: 12px;margin-top:5px;text-align: right;}
 	.address{display: inline-block;width: 250px;height: 15px; float: left;font-size: 13px;margin-top:5px;}
 	.storetime{display: inline-block;width: 200px;height: 20px; float: left;font-size: 14px;margin-top:3px;padding:1px 0px;}
-	.reservebtn{z-index:100;display: inline-block;width: 60px;height: 20px; float: right;font-size: 14px;margin-top:3px;text-align: center;background-color: #94B8FD;border:1px solid #5882FA;border-radius: 10px;color:white;transition: all 0.3s;line-height: 18px;}
+/* 	.reservebtn{z-index:100;display: inline-block;width: 60px;height: 20px; float: right;font-size: 14px;margin-top:3px;text-align: center;background-color: #94B8FD;border:1px solid #5882FA;border-radius: 10px;color:white;transition: all 0.3s;line-height: 18px;} */
+	.reservebtn{z-index:100;display: inline-block;width: 60px;height: 20px; float: right;font-size: 14px;margin-top:3px;text-align: center;background-color: #848484;border:1px solid #424242;border-radius: 10px;color:white;transition: all 0.3s;line-height: 18px;}
 	.reservebtn:hover{width: 120px;}
 /* 	.storetime_today{border: 1px solid #5882FA;transition: all 0.3s;text-align:center;z-index:100;display: inline-block;position: absolute;left: 74px;border-radius:10px;padding:0px 10px;height:19.8px;line-height:18px;bottom:10.5px} */
-	.storetime_today{border: 1px solid #5882FA;transition: all 0.3s;text-align:center;z-index:100;display: inline-block;position: absolute;left: 74px;border-radius:10px;padding:0px 10px;height:19.8px;line-height:20px;bottom:10.5px}
+/* 	.storetime_today{border: 1px solid #5882FA;transition: all 0.3s;text-align:center;z-index:100;display: inline-block;position: absolute;left: 74px;border-radius:10px;padding:0px 10px;height:19.8px;line-height:20px;bottom:10.5px} */
+	.storetime_today{transition: all 0.3s;text-align:center;z-index:100;display: inline-block;position: absolute;left: 74px;padding:0px 10px;height:19.8px;border-radius:10px;line-height:20px;bottom:9px}
 /* 	.storetime_today:hover{width:200px;} */
 	.storetime_other{visibility:hidden;color:#fff;background-color: #94B8FD;;display: inline-block;position: absolute; right: -1px; bottom: -1px;width: 145px;border: 1px solid #5882FA;border-radius: 0px;padding: 5px;height:170px;}
 /* 	visibility:hidden; */
@@ -160,7 +163,8 @@
 	.icon_text{font-size:20px;} 
 	.medal_in{display: inline-block;width: 25px;height: 23px; margin-top:-4px}
 	.bigcate_in{font-size:15px;padding-right:1px;}
- 	.smallcate_in{font-size:15px;background-color: #94B8FD;color:#fff;padding:3px 6px;border-radius: 5px;margin-top:3px;border:1px solid #5882FA} 
+ 	.smallcate_in{font-size:15px;background-color: #848484;color:#fff;padding:3px 6px;border-radius: 5px;margin-top:3px;border:1px solid #424242} 
+/*  	.smallcate_in{font-size:15px;background-color: #94B8FD;color:#fff;padding:3px 6px;border-radius: 5px;margin-top:3px;border:1px solid #5882FA}  */
  	
 /*  	.toMyLoca{width:40px; height:40px; background-color: #fff;border-radius: 5px;z-index: 10;} */
  	.toMyLoca{width: 100px; height: 100px; background-color: #fff; border-radius: 5px; z-index: 10; position: absolute; left: 450px; top: 20px;border: 1px solid #f2f2f2;box-shadow: 0px 0.5px 1.5px grey;padding:10px;cursor:pointer;}

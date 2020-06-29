@@ -20,12 +20,15 @@
 <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
 <style type="text/css">
    body{min-width: 1250px;}
-   #container{text-align:center;border:0px solid grey;border-top-width:0px; border-bottom-width:0px; width:1000px;height:auto;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+   #container{ border:1px solid rgba(225,225,225,1.00);text-align:center;border-top-width:0px; border-bottom:1px solid #fff; width:1000px;height:auto;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
    #sticky{z-index:200;position: sticky; top:71px;display: inline-block;}
-   #navi2{width:1000px;clear:both;position:relative;top:0px;text-align: center;line-height: 50px;display: inline-block;border-bottom: 1px solid #5882FA;}
+   #navi2{width:998px;clear:both;position:relative;top:0px;text-align: center;line-height: 50px;display: inline-block;border-bottom: 1px solid #585858;}
+/*    #navi2{width:998px;clear:both;position:relative;top:0px;text-align: center;line-height: 50px;display: inline-block;border-bottom: 1px solid #5882FA;} */
    .navis2{ font-size:18px; float:left;width:200px;height:50px;color: #000;background-color: #fff;}
-   .navis2:hover{color:#000;transition:all .3s;cursor:pointer;border-bottom:5px solid #5882FA ;}
-   .home{background-color: white;color:black;border-bottom:5px solid #5882FA ;}
+   .navis2:last-child{ font-size:18px; float:left;width:198px;height:50px;color: #000;background-color: #fff;}
+   .navis2:hover{color:#000;transition:all .3s;cursor:pointer;border-bottom: 5px solid #585858;}
+/*    .navis2:hover{color:#000;transition:all .3s;cursor:pointer;border-bottom:5px solid #5882FA ;} */
+   .home{background-color: white;color:black;border-bottom:5px solid #585858 ;}
 /*    .navis2{ font-size:15px; float:left;width:199.7px;height:40px;background-color: #f2f2f2;color: #000;} */
 /*    .navis2:hover{color:#000;transition:all .3s;background-color: white;cursor:pointer;} */
 /*    진한색 #5882FA */
@@ -100,8 +103,8 @@
    #reserve_text{width:300px;margin:0 auto;text-align: center;line-height: 60px;font-size:20px;}
    */
    #reserve_btn{animation: animate-updown 1s ease-out infinite;box-shadow: 0px 2px 4px grey;position: sticky; bottom:20px;width:900px;height:60px;background-color: #fff;color: #000;margin:0 auto;border-radius: 10px;line-height: 60px;margin-bottom: 70px;}
-   #reserve_btn:hover{border-bottom:4px solid #5882FA;animation-play-state:paused;background-color:#f2f2f2;box-shadow: 0px 1px 4px grey;width:900px;background-color: #fff;cursor: pointer; transition:all .1s;}
-   #reserve_btn:hover #reserve_text{ transition:all .3s;color: #5882FA;}
+   #reserve_btn:hover{border-bottom:4px solid #585858;animation-play-state:paused;background-color:#f2f2f2;box-shadow: 0px 1px 4px grey;width:900px;background-color: #fff;cursor: pointer; transition:all .1s;}
+   #reserve_btn:hover #reserve_text{ transition:all .3s;color: #585858;}
    #reserve_text{width:300px;margin:0 auto;text-align: center;line-height: 60px;font-size:20px;}
 	@keyframes animate-shadow {
 		50% {box-shadow: 0px 5px 5px grey;}
