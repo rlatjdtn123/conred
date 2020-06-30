@@ -28,6 +28,7 @@
 			WHERE cm.CATEGORY_CODE =cc.CATEGORY_CODE
 			AND STORE_SEQ=#{store_seq}
 			AND cm.MENU_DELFLAG='N'
+			ORDER BY cm.CATEGORY_CODE,cm.MENU_SEQ
 		]]>
 	</select>
 	

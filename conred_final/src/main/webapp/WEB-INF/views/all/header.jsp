@@ -125,7 +125,7 @@
 <body>
 <header>
 	<div class="logotop"></div>
-	<img class="logo" alt="logo1" src="./img/h1.gif" onclick="location.href='index.jsp'">
+	<img class="logo" alt="logo1" src="./img/h1.gif" onclick="location.href='index.do'">
 <!-- 	<img id="logo" alt="logo1" src="./img/cats.png" onclick="location.href='index.jsp'">나중에 세션에따라 이동되는페이지 달라지게 바꾸기 -->
 	
 	<%

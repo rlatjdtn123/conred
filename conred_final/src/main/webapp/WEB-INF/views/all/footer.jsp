@@ -20,7 +20,7 @@
 	#main1{
 		position:relative;
 		top:20px; 
-		width: 800px;
+		width: 900px;
 		margin: 0 auto;
 		height: 260px;
 /* 		border:1px solid black; */

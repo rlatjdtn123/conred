@@ -127,7 +127,7 @@
 	
 <!-- 	<img id="logo" alt="logo2" src="./img/logo2.png" onclick="location.href='index.jsp'">나중에 세션에따라 이동되는페이지 달라지게 바꾸기 -->
 <!-- 	<img id="logo" alt="logo2" src="./img/h2.gif" onclick="location.href='index.jsp'">나중에 세션에따라 이동되는페이지 달라지게 바꾸기 -->
-	<div id="logo" alt="logo2" onclick="location.href='index.jsp'"></div><!-- 나중에 세션에따라 이동되는페이지 달라지게 바꾸기 -->
+	<div id="logo" alt="logo2" onclick="location.href='index.do'"></div><!-- 나중에 세션에따라 이동되는페이지 달라지게 바꾸기 -->
 	
 	
 	<%

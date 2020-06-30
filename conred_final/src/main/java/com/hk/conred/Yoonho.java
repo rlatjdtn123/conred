@@ -190,29 +190,33 @@ public class Yoonho {
 		
 		HttpSession session=request.getSession();
 		ODto oldto=oService.getLogin(dto.getOwner_id(),dto.getOwner_password());
-		System.out.println(oldto.getOwner_id());
-		SDto seq =sService.selectStoreSeq(oldto);
-		System.out.println(seq);
-		
-		//문제는 seq값이 아직 없을경우에 밑에 cmain구할때 오류가난다.
-		//그렇다고 if문으로 seq!=null을 넣어주면 
-		CMainDto cmain =null;
-		if(seq!=null) {//만약 seq있을때(store 만들긴 한 사람인 경우)-- 이 경우 뿌려줄때도 조건값을바꿔야한다. 
-			cmain =cMainService.selectCMain(seq.getStore_seq());
-			System.out.println("대표카테!"+cmain);
-		}
+
 		/*탈퇴컬럼 만들기 owner_out*/
-		if(oldto.getOwner_id()==null||oldto.getOwner_id().equals("")) {
+//		if(oldto.getOwner_id()==null||oldto.getOwner_id().equals("")) {
+		if(oldto==null) {
 			System.out.println("아이디 다시한번 확인해주세요");
-			return "";
+			model.addAttribute("msg","아이디와 비밀번호를 다시한번 확인해주세요");
+			return "error/error";
 		}else{
+			SDto seq =sService.selectStoreSeq(oldto);
+			System.out.println(seq);
+			
+			System.out.println(oldto.getOwner_id());
+			
+			//문제는 seq값이 아직 없을경우에 밑에 cmain구할때 오류가난다.
+			//그렇다고 if문으로 seq!=null을 넣어주면 
+			CMainDto cmain =null;
+			if(seq!=null) {//만약 seq있을때(store 만들긴 한 사람인 경우)-- 이 경우 뿌려줄때도 조건값을바꿔야한다. 
+				cmain =cMainService.selectCMain(seq.getStore_seq());
+				System.out.println("대표카테!"+cmain);
+			}
 			session.setAttribute("oldto", oldto);
 			session.setAttribute("sdto", seq);
 			if(cmain!=null) {
 				session.setAttribute("cmaindto", cmain);
 			}
 			session.setMaxInactiveInterval(60*10*6); 
-			return "redirect:index.jsp"; 
+			return "redirect:index.do"; 
 		}	
 	}
 

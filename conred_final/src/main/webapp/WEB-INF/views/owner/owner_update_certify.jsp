@@ -196,7 +196,7 @@
 			</table>
 		</div>
 		<div id="bot">
-			<input class="btn redbtn" value="취소" onclick="location.href='index.jsp'" type="button"/>
+			<input class="btn redbtn" value="취소" onclick="location.href='index.do'" type="button"/>
 			<input class="btn greenbtn" value="다음 단계로" type="submit" />
 		</div>
 	</form>

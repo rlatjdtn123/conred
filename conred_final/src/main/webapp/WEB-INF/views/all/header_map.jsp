@@ -40,8 +40,7 @@
 </head>
 <body>
 <header>
-		<img id="logo" alt="logo2" src="./img/h2.gif" onclick="location.href='index.jsp'"><!-- 나중에 세션에따라 이동되는페이지 달라지게 바꾸기 -->
-<!-- 		<img id="logo" alt="logo2" src="./img/logo2.png" onclick="location.href='index.jsp'">나중에 세션에따라 이동되는페이지 달라지게 바꾸기 -->
+		<img id="logo" alt="logo2" src="./img/h2.gif" onclick="location.href='index.do'"><!-- 나중에 세션에따라 이동되는페이지 달라지게 바꾸기 -->
 		
 	<%
 		UDto uldto=(UDto)session.getAttribute("uldto");

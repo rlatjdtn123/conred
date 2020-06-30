@@ -1506,7 +1506,7 @@
 											</li>
 											<c:forEach var="j" begin="0" end="${list_menu.size()-1}" step="1">
 											<!-- 첫 카테고리의 2번째 메뉴부터 출력 -->
-												<c:if test="${list_menu[j].menu_delflag=='N'}">
+<%-- 												<c:if test="${list_menu[j].menu_delflag=='N'}"> --%>
 													<c:choose>
 														<c:when test="${list_menu[i].category_code==list_menu[j].category_code}">
 															<li>
@@ -1534,7 +1534,7 @@
 															</li>
 														</c:when>
 													</c:choose>
-												</c:if>
+<%-- 												</c:if> --%>
 											</c:forEach>
 										</ul>
 									</c:when>
@@ -1578,7 +1578,7 @@
 											</li>
 											<c:forEach var="j" begin="0" end="${list_menu.size()-1}" step="1">
 												<!-- 각 카테고리의 2번째메뉴부터 출력 -->
-												<c:if test="${list_menu[j].menu_delflag=='N'}">
+<%-- 												<c:if test="${list_menu[j].menu_delflag=='N'}"> --%>
 													<c:choose>
 														<c:when test="${list_menu[i].category_code==list_menu[j].category_code}">
 															<li>
@@ -1606,7 +1606,7 @@
 															</li>
 														</c:when>
 													</c:choose>
-												</c:if>
+<%-- 												</c:if> --%>
 											</c:forEach>
 										</ul>
 										
@@ -1655,7 +1655,7 @@
 	</form>
 	<div class="toSubmit">
 		<div class="toSubmit_text_box">
-			<div class="toSubmit_text_first" onclick="location.href='index.jsp'">취소</div>
+			<div class="toSubmit_text_first" onclick="location.href='index.do'">취소</div>
 			<div class="toSubmit_text" onclick="update()">수정완료</div>
 		</div>
 	</div>

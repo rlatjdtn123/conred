@@ -30,7 +30,7 @@
 		<div class="asd">오류내용 : ${msg}</div>
 	</div> 
 	<div class="bigtle02">
-		<div onclick="location.href='index.jsp'" class="main_home">
+		<div onclick="location.href='index.do'" class="main_home">
 			홈으로  
 		</div>
 	</div>
