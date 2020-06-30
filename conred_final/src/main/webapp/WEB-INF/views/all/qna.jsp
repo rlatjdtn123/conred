@@ -23,8 +23,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <!-- 스윗알러트! -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<style type="text/css">
-	#container{ border:1px solid rgba(225,225,225,1.00);border-top-width:0px; border-bottom:1px solid #fff; width:1000px;height:auto;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+<style type="text/css"> 
+	#container{ border:1px solid rgba(225,225,225,1.00);border-top-width:0px;min-height:700px; border-bottom:1px solid #fff; width:1000px;height:auto;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
    	#sticky{z-index:200;position: sticky; top:71px;display: inline-block;}
    	#navi2{width:998px;clear:both;position:relative;top:0px;text-align: center;line-height: 50px;display: inline-block;border-bottom: 1px solid #585858;}
    	.navis2{ font-size:18px; float:left;width:200px;height:50px;color: #000;background-color: #fff;}
@@ -97,11 +97,11 @@
 	    		success:function(obj){
 	    			var lists=obj.list;
 	    			var idChk=obj.owner_chk;
-	    			$.each(lists, function(i){ 
+	    			$.each(lists, function(i){   user_id,qna_seq,qna_title,qna_content,qna_hide
 				       addContent +=  '<div class="mybox">'         
 										+	'<img src="./img/profile_default.png" class="pf"/>'
 										+	'<div class="info">'
-										+   ''+ buttonChk(lists[i].user_id) +''
+										+   ''+ buttonChk(lists[i].user_id,lists[i].qna_seq,lists[i].qna_title,lists[i].qna_content,lists[i].qna_hide) +''
 										+	'	<span class="user_review_name"><b>닉네임</b>:'+lists[i].user_id+'|'+ lists[i].qna_title +'</span><span style="color:#919191; float: right;">'+ lists[i].qna_realdate +'</span><br>'
 										+	'	<div class="contents">'
 										+	'		<span class="zxczxc"><b>문의내용</b></span>    '
@@ -261,12 +261,12 @@
 	});
 	
 	//수정,삭제 버튼
-	function buttonChk(user_id){
+	function buttonChk(user_id,qna_seq,qna_title,qna_content,qna_hide){
 		var uSession_id=$("input[name=uSession_id]").val();
 		var v="";
 		if(uSession_id!=""){
 			if(uSession_id==user_id){
-				v='<button class="buttondle" style="margin-left:436px;">수정</button><button class="buttondle" >삭제</button><button  class="content_detail buttondle">자세히 보기</button><br>';							
+				v='<button onclick="updateQnA('+lists[i].qna_seq+',\''+lists[i].qna_title+'\',\''+lists[i].qna_content+'\',\''+lists[i].qna_hide+'\')" class="buttondle" style="margin-left:436px;">수정</button><button onclick="deleteQnA('+lists[i].qna_seq+')" class="buttondle" >삭제</button><button  class="content_detail buttondle">자세히 보기</button><br>';							
 				return v;
 			}else{
 				v='<button  class="content_detail buttondle nologin">자세히 보기</button><br>';						
@@ -349,6 +349,26 @@
 			}
 	}
 	
+	//본인문의 수정
+	function updateQnA(qna_seq,qna_title,qna_content,qna_hide){
+		location.href="user_qna_update_form.do?qna_seq="+qna_seq+"&qna_title="+qna_title+"&qna_content="+qna_content+"&qna_hide="+qna_hide;
+	}
+	//본인문의 삭제
+	//문의삭제
+	function deleteQnA(qna_seq){
+		swal({
+		     title: "정말 삭제 하시겠습니까?",
+		     text: "",
+		     icon: "warning", //"info,success,warning,error" 중 택1
+		     buttons: ["아니오", "예"],
+		}).then((YES) => {
+		     if (YES) {
+		    	 location.href="user_qna_delete.do?qna_seq="+qna_seq;
+		     }else{ 	
+		     }
+		});			
+	}
+	
 	
  
 </script> 
@@ -424,7 +444,7 @@
 	}
 	%>
 	<%
-	
+	if(list.size()!=0){
 	%>
 	<div class="bigtle">
 		<div id="main">
@@ -458,7 +478,7 @@
 					if(uldto!=null){
 						if(uldto.getUser_id().equals(dto.getUser_id())){
 							%>
-							<button class="buttondle" style="margin-left:436px;">수정</button><button class="buttondle" >삭제</button> 
+							<button class="buttondle" onclick="updateQnA(<%=dto.getQna_seq()%>,'<%=dto.getQna_title()%>','<%=dto.getQna_content()%>','<%=dto.getQna_hide()%>')" style="margin-left:436px;">수정</button><button onclick="deleteQnA(<%=dto.getQna_seq()%>)" class="buttondle" >삭제</button> 
 							<button  class="content_detail buttondle">자세히 보기</button><br>							
 							<%
 						}else{
@@ -562,6 +582,9 @@
 		 
 	</div>
 	<div class="tle_final"></div>
+	<%	
+	}
+	%>
 </div> 
 </body>
 </html>

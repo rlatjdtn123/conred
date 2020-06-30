@@ -13,6 +13,7 @@
 <%
 	response.setContentType("text/html; charset=utf-8");
 %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%-- <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> jstl 시간포맷  --%>
 <!DOCTYPE html>
 <html>
@@ -40,8 +41,8 @@
 <!-- <script src="js/jquery.magnific-popup.min.js"></script>  -->
 <!-- 스윗알러트! -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<style type="text/css">
-	#container{ border:1px solid rgba(225,225,225,1.00);border-top-width:0px; border-bottom:1px solid #fff; width:1000px;height:auto;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+<style type="text/css"> 
+	#container{ border:1px solid rgba(225,225,225,1.00);border-top-width:0px;min-height:700px; border-bottom:1px solid #fff; width:1000px;height:auto;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
    	#sticky{z-index:200;position: sticky; top:71px;display: inline-block;}
    	#navi2{width:998px;clear:both;position:relative;top:0px;text-align: center;line-height: 50px;display: inline-block;border-bottom: 1px solid #585858;}
    	.navis2{ font-size:18px; float:left;width:200px;height:50px;color: #000;background-color: #fff;}
@@ -164,6 +165,7 @@
 	
 	.main_star_table{width: 230px;}
 	.user_review_name{position: relative; top: -13px; padding-left: 10px;color:#919191;} 
+	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:25px;margin-bottom:30px;display: inline-block;}
 	
 </style>
 <script type="text/javascript">
@@ -850,10 +852,10 @@
 %>
 <body>
 	<input type="hidden" name="oSession_id" value="<%=session.getAttribute("oldto")==null?"":oldto.getOwner_id()%>"/>
-	<input type="hidden" name="owner_id" value="<%=store_name.getOwner_id()%>">
-	<input type="hidden" name="store_seq" value="<%=list.get(0).getStore_seq()%>"/>
+	<input type="hidden" name="owner_id" value="<%=store_name==null?"":store_name.getOwner_id()%>">
+	<input type="hidden" name="store_seq" value="<%=list.size()==0?"":list.get(0).getStore_seq()%>"/>
 	<input type="hidden" name="store_name"
-		value="<%=store_name.getStore_name()%>">
+		value="<%=store_name==null?"":store_name.getStore_name()%>">
 	<input type="hidden" name="photo_length" value="<%=list_photo.size()%>">
 	<input type="hidden" name="session_id"
 		value="<%=session.getAttribute("uldto") == null ? "" : uldto.getUser_id()%>" />
@@ -873,7 +875,7 @@
 	<form action="user_store_review.do" method="post"
 		enctype="multipart/form-data">
 		<input type="hidden" name="store_seq"
-			value="<%=list.get(0).getStore_seq()%>" />
+			value="<%=list.size()==0?"":list.get(0).getStore_seq()%>" />
 		<!-- 모탈창 부분 -->
 		<div class="modal fade" id="myModal" role="dialog" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
@@ -1009,19 +1011,19 @@
 		%>
 		<div id="sticky">
 			<div id="navi2">
-				<div class="navis2" onclick="location.href='store.do?store_seq=<%=list.get(0).getStore_seq()%>'">
+				<div class="navis2" onclick="location.href='store.do?store_seq=${sdto.store_seq}'">
 					매장 홈
 				</div>
 				<div class="navis2" onclick="location.href='owner_toReupdate_store.do'">
 					매장정보 수정
 				</div>
-				<div class="navis2" onclick="location.href='owner_mystore_reserve.do?store_seq=<%=list.get(0).getStore_seq()%>'">
+				<div class="navis2" onclick="location.href='owner_mystore_reserve.do?store_seq=${sdto.store_seq}'">
 					예약관리
 				</div>
-				<div class="navis2 home" onclick="location.href='review.do?store_seq=<%=list.get(0).getStore_seq()%>'">
+				<div class="navis2 home" onclick="location.href='review.do?store_seq=${sdto.store_seq}'">
 					리뷰관리
 				</div>
-				<div class="navis2" onclick="location.href='qna.do?store_seq=<%=list.get(0).getStore_seq()%>'">
+				<div class="navis2" onclick="location.href='qna.do?store_seq=${sdto.store_seq}'">
 					문의관리
 				</div>
 			</div>
@@ -1030,7 +1032,12 @@
 		}
 	}
 	%>
-		
+	<div id="pagename">
+		<b>리뷰 현황</b>
+	</div> 
+		<%
+		if(list.size()!=0){
+		%>
 		<div id="main">
 			<span id="main2">리뷰&nbsp;<%
 				for (int i = 0; i < Math.floor(list_avg.getAll_avg()); i++) {
@@ -1281,7 +1288,10 @@
 		%>
 		<div class="bigbig"></div>
 		<div class="tle_final"></div>
-	</div>
+		<%	
+		}
+		%>
+	</div> 
 </body>
 </html>
 <jsp:include page="../all/footer.jsp" />
