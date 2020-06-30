@@ -59,9 +59,12 @@ public class EmailOkController {
     		request.setCharacterEncoding("utf-8");
     		response_email.setContentType("text/html;charset=utf-8");
     		
+    		System.out.println("@@@response_email::"+response_email);
+    		System.out.println("@@@email::"+email);
+    		
             Random r = new Random();
             int dice = r.nextInt(4589362) + 49311; //이메일로 받는 인증코드 부분 (난수)
-            request.getSession().setAttribute("dice", dice);
+            request.getSession().setAttribute("dice", dice); 
             String setfrom = "conred7777@gamil.com"; //보내는 사람 이메일
             String tomail = email; // 받는 사람 이메일
             String title = "회원가입 인증 이메일 입니다."; // 제목
@@ -85,7 +88,7 @@ public class EmailOkController {
             
             "받으신 인증번호를 사이트에 입력해 주시면 다음으로 넘어갑니다"; // 내용
             
-            
+            System.out.println("!!!!");
             try {
                 MimeMessage message = mailSender.createMimeMessage();
                 MimeMessageHelper messageHelper = new MimeMessageHelper(message,
@@ -99,15 +102,17 @@ public class EmailOkController {
                 mailSender.send(message);//메일전송
             } catch (Exception e) {
                 System.out.println(e);
+                System.out.println("@@@@@@@@@@@@@@@@@@@@@실패");
             }
             
             ModelAndView mv = new ModelAndView();    //ModelAndView로 보낼 페이지를 지정하고, 보낼 값을 지정한다.
             mv.setViewName("admin/email_ok_end");     //뷰의이름
+//            mv.addObject("email", tomail); 
             
             //세션에 담았기에 주석처리
 //            mv.addObject("dice", dice);
             
-            System.out.println("mv : "+mv);
+            System.out.println("mv@@email_ok_start::: "+mv);
  
             response_email.setContentType("text/html; charset=UTF-8");
             PrintWriter out_email = response_email.getWriter();
@@ -119,7 +124,7 @@ public class EmailOkController {
             
         }
     
-    //이메일 인증 페이지 맵핑 메소드
+    //이메일 인증 페이지 맵핑 메소드 
     @RequestMapping("email_ok_start.do")
     public String email() {
         return "email";
