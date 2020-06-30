@@ -60,6 +60,11 @@ public class OServiceImp implements IOService{
 		return ODaoImp.contentNewReply(store_seq);
 	}
 
+	@Override
+	public ODto ownerMyStoreInfoId(int store_seq) {
+		return ODaoImp.ownerMyStoreInfoId(store_seq);
+	}
+
 	
 
 }

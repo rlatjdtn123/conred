@@ -22,12 +22,13 @@
 <!-- 스윗알러트! -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style type="text/css">
-	#container{box-sizing:border-box; border:1px solid grey;min-height:800px; border-top-width:0px; border-bottom-width:0px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
-	#sticky{position: sticky; top:71px;z-index: 1;}
-	#navi2{width:998px;background-color: lightblue;clear:both;position:relative;text-align: center;line-height: 40px;}
-	.navis2{border-bottom:1px solid grey; font-size:15px; float:left;width:199.6px;height:40px;background-color: #D8D8D8;}
-	.navis2:hover{border-bottom:1px solid white;background-color: white;cursor:pointer;border-right:1px solid grey;border-left:1px solid grey;}
-	.home{border-bottom:1px solid white;background-color: white;border-right:1px solid grey;border-left:1px solid grey;}
+	#container{box-sizing:border-box; min-height:800px; border-top-width:0px; border:1px solid rgba(225,225,225,1.00); border-bottom:1px solid #fff; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#sticky{z-index:200;position: sticky; top:71px;display: inline-block;}
+   	#navi2{width:998px;clear:both;position:relative;top:0px;text-align: center;line-height: 50px;display: inline-block;border-bottom: 1px solid #585858;}
+   	.navis2{ font-size:18px; float:left;width:200px;height:50px;color: #000;background-color: #fff;}
+   	.navis2:last-child{ font-size:18px; float:left;width:198px;height:50px;color: #000;background-color: #fff;}
+   	.navis2:hover{color:#000;transition:all .3s;cursor:pointer;border-bottom: 5px solid #585858;}
+	.home{background-color: white;color:black;border-bottom:5px solid #585858 ;}
 	
 	.store_img{width: 200px;height:170px; float: left; } 
 	#pagename{z-index:-1;font-size: 20px;position: relative;left:100px;margin-top:20px;margin-bottom:30px;display: inline-block;}
@@ -233,47 +234,89 @@
 	$(function(){		 
 		//찜버튼  원래꺼
 		$('.btn_first').click(function(){ 
-				var result=confirm("좋아요를 취소하시겠습니까?");
-				if(result){ 
-					  if($(this).hasClass('btn_first')){ 
-					    $(this).removeClass('btn_unlike');  
-					    $(this).parent().find('.ani_heart_m').removeClass('hi');
-					    $(this).parent().find('.ani_heart_m').addClass('bye');
-					    var seq=$(this).parent().find("input[name=like_list_seq]").val();
-					    location.href="user_like_delete.do?like_list_seq="+seq;
-// 					     e.stopPropagation();   
-					  }			 			
-				}else{
-					 
-				}
+			
 
-// 				swal("Are you sure you want to do this?", { 
-// 	 				  buttons: ["아니오", "예"],    
-//  				});
-	
+// 				var result=confirm("좋아요를 취소하시겠습니까?");
+// 				if(result){ 
+// 					  if($(this).hasClass('btn_first')){ 
+// 					    $(this).removeClass('btn_unlike');  
+// 					    $(this).parent().find('.ani_heart_m').removeClass('hi');
+// 					    $(this).parent().find('.ani_heart_m').addClass('bye');
+// 					    var seq=$(this).parent().find("input[name=like_list_seq]").val();
+// 					    location.href="user_like_delete.do?like_list_seq="+seq;
+// 					  }			 			
+// 				}else{
+					 
+// 				}
+			
+			swal({
+			     title: "좋아요를 취소하시겠습니까?",
+			     text: "",
+			     icon: "warning", //"info,success,warning,error" 중 택1
+			     buttons: ["아니오", "예"],
+			}).then((YES) => {
+			     if (YES) {
+			    	 if($(this).hasClass('btn_first')){ 
+ 					    $(this).removeClass('btn_unlike');  
+ 					    $(this).parent().find('.ani_heart_m').removeClass('hi');
+ 					    $(this).parent().find('.ani_heart_m').addClass('bye');
+ 					    var seq=$(this).parent().find("input[name=like_list_seq]").val();
+ 					    location.href="user_like_delete.do?like_list_seq="+seq;
+ 					  }
+			     }else{
+			     	
+			     }
 			});
+			
+
+		});//찜버튼
 		
 		//AJAX쪽 찜버튼
 		$("body").on('click','.ajaxlike',function(){
 			 var seq=$(this).parent().find("input[name=like_list_seq]").val();
-			    alert(seq);
-			var result=confirm("좋아요를 취소하시겠습니까?");
-			if(result){ 
-				  if($(this).hasClass('ajaxlike')){ 
-				    $(this).removeClass('btn_unlike');
-				    $(this).parent().find('.ani_heart_m').removeClass('hi');
-				    $(this).parent().find('.ani_heart_m').addClass('bye');
-				    var seq=$(this).parent().find("input[name=like_list_seq]").val();
-				    location.href="user_like_delete.do?like_list_seq="+seq;
-// 				    e.stopPropagation();
-				  }			 			
-			}else{  
+			 
+// 			var result=confirm("좋아요를 취소하시겠습니까?");
+// 			if(result){ 
+// 				  if($(this).hasClass('ajaxlike')){ 
+// 				    $(this).removeClass('btn_unlike');
+// 				    $(this).parent().find('.ani_heart_m').removeClass('hi');
+// 				    $(this).parent().find('.ani_heart_m').addClass('bye');
+// 				    var seq=$(this).parent().find("input[name=like_list_seq]").val();
+// 				    location.href="user_like_delete.do?like_list_seq="+seq;
+// 				  }			 			
+// 			}else{  
 				
-			}
-		});
+// 			}
+		
+			 swal({
+			     title: "좋아요를 취소하시겠습니까?",
+			     text: "",
+			     icon: "warning", //"info,success,warning,error" 중 택1
+			     buttons: ["아니오", "예"],
+			}).then((YES) => {
+			     if (YES) {
+			    	 if($(this).hasClass('ajaxlike')){ 
+	 				    $(this).removeClass('btn_unlike');
+	 				    $(this).parent().find('.ani_heart_m').removeClass('hi');
+	 				    $(this).parent().find('.ani_heart_m').addClass('bye');
+	 				    var seq=$(this).parent().find("input[name=like_list_seq]").val();
+	 				    location.href="user_like_delete.do?like_list_seq="+seq;
+	 				  }	
+			     }else{
+			     	
+			     }
+			});
+
+
+
+			
+		});//좋아요버튼
 		
 		
-	});
+		
+		
+		
+	});//onload
 	
 	
 	

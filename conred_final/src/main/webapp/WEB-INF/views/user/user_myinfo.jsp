@@ -19,8 +19,10 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- 스윗알러트! -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style type="text/css">
-	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:900px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{box-sizing:border-box;  border-top-width:0px;border:1px solid rgba(225,225,225,1.00); border-bottom:1px solid #fff; width:1000px;height:900px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	
 	#regist{font-weight: bold; font-size: 20px;margin-bottom: 40px;}
 	 
@@ -28,7 +30,7 @@
 	
 	table tr{height: 80px;}
 	     
-	td{vertical-align: middle !important;}
+	td{vertical-align: middle !important;} 
 	
  	#bot{padding-left:680px;} 
 	input{border:1px solid grey;vertical-align: middle;}
@@ -53,13 +55,23 @@
 		$("input[name=user_birth]").prop("type","date");
 	}
 	function deleteCheck(){
-		var result=confirm("정말 탈퇴 하시겠습니까?");
-		if(result){
-			location.href="user_myinfo_delete.do";
-		}else{
-			
-		}
-	} 
+		
+		swal({
+		     title: "정말 탈퇴 하시겠습니까?",
+		     text: "",
+		     icon: "warning", //"info,success,warning,error" 중 택1
+		     buttons: ["아니오", "예"],
+		}).then((YES) => {
+		     if (YES) {
+		    	 location.href="user_myinfo_delete.do";
+		     }else{
+		     	
+		     }
+		});
+
+	}
+	
+	
 	function changeSex(){
 		$(".radio_button").css("display", "inline-block");
 		$(".text").css("display", "inline-block"); 

@@ -81,6 +81,12 @@ public class ODaoImp implements IODao {
 		return list;
 	}
 
+	@Override
+	public ODto ownerMyStoreInfoId(int store_seq) {
+		ODto dto=sqlSession.selectOne(nameSpace+"ownerMyStoreInfoId", store_seq);
+		return dto;
+	}
+
 	
 	
 	

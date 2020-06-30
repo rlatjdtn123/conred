@@ -24,5 +24,6 @@ public interface IOService {
 	public List<ODto> contentNewQna(int store_seq);
 	//9.점주 리뷰 읽음여부
 	public List<ODto> contentNewReply(int store_seq);
-	
+	//10.마이스토어인포에 점주아이디
+	public ODto ownerMyStoreInfoId(int store_seq);
 }

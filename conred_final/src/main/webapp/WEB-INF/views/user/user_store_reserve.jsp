@@ -1,3 +1,4 @@
+<%@page import="com.hk.conred.dtos.ODto"%>
 <%@page import="com.hk.conred.dtos.UDto"%>
 <%@page import="com.hk.conred.dtos.MenuDto"%>
 <%@page import="java.util.List"%>
@@ -18,8 +19,10 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- 스윗알러트! -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style type="text/css">
-	#container{box-sizing:border-box; border:1px solid grey;border-bottom-width:0.1px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{box-sizing:border-box; border:1px solid rgba(225,225,225,1.00); border-bottom:1px solid #fff; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	.mname{border-top-width: 0px !important;font-size:18px;height:30px;text-align: left;}
 	.mnametext{background-color: #f5f5f5;border-radius: 5px 5px 0px 0px;padding: 11px 31px 11px;border: 1px solid #ddd;border-bottom-width: 0px;}
 	.s_bold{font-size:20px;font-weight: bold;display:block; margin-top: 50px;margin-bottom: 50px;}
@@ -42,12 +45,24 @@
 // 	}
 	
 	function loginChk(){
-		var result=confirm("로그인 후에 예약 가능합니다. \n\n로그인 하시겠습니까?")
-		if(result){
-			location.href="login.do";
-		}else{ 
-			 
-		}
+		
+		swal({
+		     title: "로그인 후에 예약 가능합니다. \n\n로그인 하시겠습니까?",
+		     text: "",
+		     icon: "info", //"info,success,warning,error" 중 택1
+		     buttons: ["아니오", "예"],
+		}).then((YES) => {
+		     if (YES) {
+		    	 location.href="login.do";
+		     }else{
+		     	
+		     }
+		});	
+
+	}
+	
+	function ownerChk(){
+		swal("이용자만 가능한 기능입니다","", "error");
 	}
 	
 </script>
@@ -55,6 +70,7 @@
 <%
 	List<MenuDto> list_menu=(List<MenuDto>)request.getAttribute("list_menu");
 	UDto uldto=(UDto)session.getAttribute("uldto");
+	ODto oldto=(ODto)session.getAttribute("oldto");
 %>
 <body> 
 <div id="container">
@@ -109,9 +125,15 @@
 								<td><input type="button" onclick="location.href='user_reserve_time_select.do?menu_seq=${list_menu[i].menu_seq}&menu_state=${list_menu[i].menu_state}&store_seq=${list_menu[i].store_seq}'" value="예약하러가기" class="reserve_btn"/></td>																									
 								<%	
 								}else{
-								%>
-								<td><input type="button" onclick="loginChk()" value="예약하러가기" class="reserve_btn"></td>
-								<%
+									if(oldto!=null){
+									%>
+									<td><input type="button" onclick="ownerChk()" value="예약하러가기" class="reserve_btn"></td>
+									<%	
+									}else{
+									%>
+									<td><input type="button" onclick="loginChk()" value="예약하러가기" class="reserve_btn"></td>
+									<%	
+									}
 								}
 								%>
 <%-- 								<td><input type="button" onclick="userReserve('${lists_menu[i].menu_seq}','${lists_menu[i].menu_state}','${lists_menu[i].store_seq}')" value="예약하러가기" class="reserve_btn"/></td>		 --%>

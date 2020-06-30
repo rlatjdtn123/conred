@@ -19,13 +19,16 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- 스윗알러트! -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style type="text/css">
-	#container{min-height:800px;box-sizing:border-box; border:1px solid grey; border-top-width:0px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
-	#sticky{position: sticky; top:71px;}
-	#navi2{width:998px;background-color: lightblue;clear:both;position:relative;text-align: center;line-height: 40px;}
-	.navis2{border-bottom:1px solid grey; font-size:15px; float:left;width:199.6px;height:40px;background-color: #D8D8D8;}
-	.navis2:hover{border-bottom:1px solid white;background-color: white;cursor:pointer;border-right:1px solid grey;border-left:1px solid grey;}
-	.home{border-bottom:1px solid white;background-color: white;border-right:1px solid grey;border-left:1px solid grey;}
+	#container{min-height:800px;box-sizing:border-box; border:1px solid rgba(225,225,225,1.00); border-bottom:1px solid #fff; border-top-width:0px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#sticky{z-index:200;position: sticky; top:71px;display: inline-block;}
+   	#navi2{width:998px;clear:both;position:relative;top:0px;text-align: center;line-height: 50px;display: inline-block;border-bottom: 1px solid #585858;}
+   	.navis2{ font-size:18px; float:left;width:200px;height:50px;color: #000;background-color: #fff;}
+   	.navis2:last-child{ font-size:18px; float:left;width:198px;height:50px;color: #000;background-color: #fff;}
+   	.navis2:hover{color:#000;transition:all .3s;cursor:pointer;border-bottom: 5px solid #585858;}
+	.home{background-color: white;color:black;border-bottom:5px solid #585858 ;}
 	
 	
 	
@@ -119,12 +122,28 @@
 	
 	//문의삭제
 	function deleteQnA(qna_seq){
-		var result=confirm("정말 삭제 하시겠습니까?");
-		if(result){
-			location.href="user_qna_delete.do?qna_seq="+qna_seq;
-		}else{
+		
+		swal({
+		     title: "정말 삭제 하시겠습니까?",
+		     text: "",
+		     icon: "warning", //"info,success,warning,error" 중 택1
+		     buttons: ["아니오", "예"],
+		}).then((YES) => {
+		     if (YES) {
+		    	 location.href="user_qna_delete.do?qna_seq="+qna_seq;
+		     }else{
+		     	
+		     }
+		});	
 			
-		} 
+		
+// 		var result=confirm("정말 삭제 하시겠습니까?");
+// 		if(result){
+// 			location.href="user_qna_delete.do?qna_seq="+qna_seq;
+// 		}else{
+			
+// 		} 
+		
 	}
 	//문의수정
 	function updateQnA(qna_seq,qna_title,qna_content,qna_hide){

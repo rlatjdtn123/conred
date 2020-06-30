@@ -11,20 +11,20 @@
 <title>Insert title here</title>
 <style type="text/css">
 	body{min-width: 1250px;}
- 	#container{ border:1px solid rgba(225,225,225,1.00); border-top-width:0px;border-bottom-width:0px; width:1000px;margin: 0 auto;height: 1000px;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/ 
+ 	#container{ border:1px solid rgba(225,225,225,1.00); border-bottom:1px solid #fff; border-top-width:0px; width:1000px;margin: 0 auto;height: 1000px;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/ 
 /* 	#container{text-align:center;border:0px solid grey;border-top-width:0px; border-bottom-width:0px; width:1000px;height:auto;margin: 0 auto;} */
-	#sticky{z-index:200;position: sticky; top:71px;display: inline-block;}
 /* 	
 	#navi2{box-shadow: 0px 0.5px 2px #5882FA;width:1000px;clear:both;position:relative;top:0px;text-align: center;line-height: 50px;display: inline-block;border-bottom: 1px solid #5882FA;} 
  	.navis2{ font-size:18px; float:left;width:200px;height:50px;color: #000;background-color: #fff;} 
  	.navis2:hover{color:#2F3376;transition:all .3s;cursor:pointer;border-bottom:5px solid #5882FA ;} 
  	.home{background-color: white;color:black;border-bottom:5px solid #5882FA ;text-decoration: none;border-left-width: 0;border-right-width: 0;}
  	 */
-	#navi2{width:998px;clear:both;position:relative;top:0px;text-align: center;line-height: 50px;display: inline-block;border-bottom: 1px solid #5882FA;}
-   .navis2{ font-size:18px; float:left;width:200px;height:50px;color: #000;background-color: #fff;}
-   .navis2:hover{color:#000;transition:all .3s;cursor:pointer;border-bottom:5px solid #5882FA ;}
-   .navis2:last-child{ font-size:18px; float:left;width:198px;height:50px;color: #000;background-color: #fff;}
-   .home{background-color: white;color:black;border-bottom:5px solid #5882FA ;}
+	#sticky{z-index:200;position: sticky; top:71px;display: inline-block;}
+   	#navi2{width:998px;clear:both;position:relative;top:0px;text-align: center;line-height: 50px;display: inline-block;border-bottom: 1px solid #585858;}
+   	.navis2{ font-size:18px; float:left;width:200px;height:50px;color: #000;background-color: #fff;}
+   	.navis2:last-child{ font-size:18px; float:left;width:198px;height:50px;color: #000;background-color: #fff;}
+   	.navis2:hover{color:#000;transition:all .3s;cursor:pointer;border-bottom: 5px solid #585858;}
+	.home{background-color: white;color:black;border-bottom:5px solid #585858 ;}
 	
 	#regist{font-weight: bold; font-size: 20px;margin-bottom: 40px;margin-left: 40px;margin-top: 20px;}
 	 
@@ -49,6 +49,7 @@
 	ODto oldto=(ODto)session.getAttribute("oldto");
 	List<ODto> list_qna=(List<ODto>)request.getAttribute("list_qna");
 	List<ODto> list_reply=(List<ODto>)request.getAttribute("list_reply");
+	ODto owner_id=(ODto)request.getAttribute("owner_id");
 %>
 <body>
 <div id="container">
@@ -63,10 +64,10 @@
 			<div class="navis2" onclick="location.href='owner_mystore_reserve.do?store_seq=<%=dto.getStore_seq()%>'">
 				예약관리
 			</div>
-			<div class="navis2" onclick="location.href='review.do?store_seq=<%=dto.getStore_seq()%>'">
+			<div class="navis2" onclick="location.href='review.do?store_seq=<%=dto.getStore_seq()%>&owner_id=<%=owner_id.getOwner_id()%>'">
 				리뷰관리
 			</div>
-			<div class="navis2" onclick="location.href='qna.do?store_seq=<%=dto.getStore_seq()%>'">
+			<div class="navis2" onclick="location.href='qna.do?store_seq=<%=dto.getStore_seq()%>&owner_id=<%=owner_id.getOwner_id()%>'">
 				문의관리
 			</div>
 		</div>
@@ -98,7 +99,7 @@
 		<div class="mybox_info_header">매장 글 관리</div><br/>
 		<div class="mybox_info1">
 			  <span class="stats_result">
-			  	<a onclick="location.href='review.do?store_seq=<%=dto.getStore_seq()%>'"><%=dto.getReply_count()%></a>
+			  	<a onclick="location.href='review.do?store_seq=<%=dto.getStore_seq()%>&owner_id=<%=owner_id.getOwner_id()%>'"><%=dto.getReply_count()%></a>
 			  </span>
 			  <%
 			  if(list_reply==null||list_reply.size()==0){
@@ -116,7 +117,7 @@
 		</div>
 		<div class="mybox_info1">
 			  <span class="stats_result">
-			  	<a onclick="location.href='qna.do?store_seq=<%=dto.getStore_seq()%>'"><%=dto.getQna_count()%></a>
+			  	<a onclick="location.href='qna.do?store_seq=<%=dto.getStore_seq()%>&owner_id=<%=owner_id.getOwner_id()%>'"><%=dto.getQna_count()%></a>
 			  </span>
 			  <%
 			  if(list_qna==null||list_qna.size()==0){

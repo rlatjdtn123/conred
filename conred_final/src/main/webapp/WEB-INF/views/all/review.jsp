@@ -484,14 +484,28 @@
 	    	}else if($(".modal_Btn").val()==3){
 	    		swal("이용자만 가능한 기능입니다","", "error");
 	    	}else{
-	    		var yesNo=confirm("로그인 후에 작성 가능합니다. \n\n로그인 하시겠습니까?");
-	    		if(yesNo){
-	    			location.href="login.do";
-	    		}else{
+	    		
+	    		swal({
+				     title: "로그인 후에 작성 가능합니다. \n\n로그인 하시겠습니까?",
+				     text: "",
+				     icon: "info", //"info,success,warning,error" 중 택1
+				     buttons: ["아니오", "예"],
+				}).then((YES) => {
+				     if (YES) {
+				    	location.href="login.do";
+				     }else{
+				    	 
+				     }
+				});	
+	    		
+// 	    		var yesNo=confirm("로그인 후에 작성 가능합니다. \n\n로그인 하시겠습니까?");
+// 	    		if(yesNo){
+// 	    			location.href="login.do";
+// 	    		}else{
 	    			
-	    		}
+// 	    		}
 	    	
-	    	}
+	    	}//else끝
 	 			 
 	 			
 	

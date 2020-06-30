@@ -71,6 +71,9 @@
 				WHERE store_seq=#{store_seq} AND reply_read='N')
 	</select>
 	
+	<select id="ownerMyStoreInfoId" resultType="ODto" parameterType="Int">
+		SELECT OWNER_ID FROM CON_STORE WHERE STORE_SEQ =#{store_seq}
+	</select>
 	
 </mapper> 
 	 

@@ -24,7 +24,7 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <style type="text/css">
 /* 	.selector{display: none;} */
-	#container{box-sizing:border-box; border:1px solid grey; border-bottom-width:0.1px; width:1000px;margin: 0 auto;background-color: #f5f5f5;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{box-sizing:border-box; border:1px solid rgba(225,225,225,1.00); border-bottom:1px solid #fff; width:1000px;margin: 0 auto;background-color: #f5f5f5;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	.flatpickr-calendar{margin: 0 auto; width: 600px !important; height: 400px !important;}
 	.flatpickr-rContainer{margin: 0 auto !important;}
 	.day_result_box{width: 355px;margin: 0 auto;border:solid #D8D8D8;border-width:1px 0 1px 0;  height: 40px;line-height: 40px; margin-top: 60px;margin-bottom: 400px;}
@@ -527,12 +527,27 @@
 	}
 	
 	function reserveChk(){
-		var result=confirm("예약 하시겠습니까?");
-		if(result){
+		
+		swal({
+		     title: "예약 하시겠습니까?",
+		     text: "",
+		     icon: "info", //"info,success,warning,error" 중 택1
+		     buttons: ["아니오", "예"],
+		}).then((YES) => {
+		     if (YES) {
+		    	
+		     }else{
+		    	 return false;
+		     }
+		});	
+		
+		
+// 		var result=confirm("예약 하시겠습니까?");
+// 		if(result){
 			
-		}else{
-			return false;
-		}
+// 		}else{
+// 			return false;
+// 		}
 	}
 	
 	

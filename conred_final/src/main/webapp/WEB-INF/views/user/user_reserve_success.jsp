@@ -9,7 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	#container{border:1px solid grey; border-top-width:1px; border-bottom-width:0px;height:1200px; width:1000px;margin: 0 auto;}
+	#container{border:1px solid rgba(225,225,225,1.00); border-bottom:1px solid #fff; border-top-width:1px; height:1200px; width:1000px;margin: 0 auto;}
 	.bigtle{width: 600px; height:300px; border-bottom: 3px solid grey;margin: 0 auto; margin-bottom: 35px;margin-top: 15px;text-align: center;}
 	.main_home{transition: all ease 0.5s;width: 200px;height: 80px; border: 2px solid grey;float: left;margin-left: 210px;text-align: center;font-size: 40px;padding-top: 10px;margin-top: 35px;}	
 	.bigtle02{width: 600px; height: 200px; margin: 0 auto;}

@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	#container{border:1px solid grey; border-top-width:1px; border-bottom-width:0px;height:700px; width:1000px;margin: 0 auto;}
+	#container{ border:1px solid rgba(225,225,225,1.00); border-bottom:1px solid #fff;border-top-width:1px; height:700px; width:1000px;margin: 0 auto;}
 	.bigtle{width: 600px; height:300px; border-bottom: 3px solid grey;margin: 0 auto; margin-bottom: 35px;margin-top: 15px;text-align: center;}
 	.main_home{transition: all ease 0.5s;width: 200px;height: 80px; border: 2px solid grey;float: left;margin-left: 80px;text-align: center;font-size: 40px;padding-top: 10px;}	
 	.user_login{transition: all ease 0.5s;width: 200px;height: 80px;background-color:#01DF01;color:white; float: left;margin-left: 30px;text-align: center;font-size: 40px;padding-top: 10px;}
