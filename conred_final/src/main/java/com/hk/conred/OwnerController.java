@@ -130,6 +130,20 @@ public class OwnerController {
 		return "owner/owner_mystore_reserve";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "owner_reserve_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public Map<String, List<ReserveDto>> owner_reserve_ajax(Locale locale, Model model,int store_seq,int pnum) {
+		logger.info("점주 결제목록ajax{}.", locale);
+		System.out.println("@@@seq::"+store_seq);
+		System.out.println("@@@pnum::"+pnum);
+		Map<String, List<ReserveDto>> map=new HashMap<>(); 
+		List<ReserveDto> list=reserveService.ownerStoreReserve(store_seq, pnum);
+		map.put("list", list);
+		return map;
+	}
+	
+	
+	
 	@RequestMapping(value = "owner_mystore_reserve_success.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String owner_mystore_reserve_success(Locale locale, Model model,int store_seq) {
 		logger.info("점주 결제목록{}.", locale);
@@ -140,12 +154,16 @@ public class OwnerController {
 	
 	
 	@ResponseBody
-	@RequestMapping(value = "owner_reserve_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public Map<String, List<ReserveDto>> owner_reserve_ajax(Locale locale, Model model,int store_seq,int pnum) {
+	@RequestMapping(value = "owner_reserve_success_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public Map<String, List<ReserveDto>> owner_reserve_success_ajax(Locale locale, Model model,int store_seq,int pnum) {
 		logger.info("점주 결제목록ajax{}.", locale);
-		Map<String, List<ReserveDto>> map=new HashMap<>();
+		System.out.println("@@@seq::"+store_seq);
+		System.out.println("@@@pnum::"+pnum);
+		Map<String, List<ReserveDto>> map=new HashMap<>(); 
 		List<ReserveDto> list=reserveService.ownerStoreReserveSuccess(store_seq, pnum);
 		map.put("list", list);
 		return map;
 	}
+	
+	
 }

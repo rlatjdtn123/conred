@@ -34,12 +34,12 @@
 	.times:hover{background-color: #00FF00;cursor: pointer;}
 	.reserve_time_select{border: 1px solid #A4A4A4; width: 500px; height: auto; margin: 0 auto; border-radius: 10px;margin-bottom: 400px; margin-top: 60px;background-color: white;}
 	.time_box{margin: 0 auto; width: 400px; height: auto;}
-	.reserve_success{width: 100px;height: 25px; margin-left: 20px;font-size: 13px;line-height: 26px;border-width:0; display: none;border-radius: 10px;font-weight: bold;} 
-	.reserve_success:hover {background-color: lightgrey;}
+	.reserve_success{width: 100px;height: 25px; margin-left: 20px;font-size: 15px;line-height: 26px;border-width:0; display: none;border-radius: 10px;font-weight: bold;} 
+	.reserve_success:hover {background-color: lightgrey;font-size: 18px;cursor: pointer;}
 	.sungsoobox{margin-top: 100px;}
 	
 	.flatpickr-prev-month{margin-top: 45px;}
-	.flatpickr-next-month{margin-top: 45px;}
+	.flatpickr-next-month{margin-top: 45px;} 
 	
 </style>  
 <script>   
@@ -393,6 +393,7 @@
 	}) 
 	
 	
+	
 	function reserveChk(){
 		
 		swal({
@@ -402,7 +403,7 @@
 		     buttons: ["아니오", "예"],
 		}).then((YES) => {
 		     if (YES) {
-		    	
+		    	$(".form01").submit();
 		     }else{
 		    	 return false;
 		     }
@@ -431,7 +432,7 @@
 <input type="hidden" name="sat" value="<%=list.get(5).getStore_time_break()%>"/><input type="hidden" name="satNum" value="<%=list.get(5).getRownum()%>"/>
 <input type="hidden" name="sun" value="<%=list.get(6).getStore_time_break()%>"/><input type="hidden" name="sunNum" value="<%=list.get(6).getRownum()%>"/>
 <input type="hidden" name="store_maxman" value="<%=list.get(0).getStore_maxman()%>"/>
-<form action="reserve_successT.do" method="post">
+<form action="reserve_successT.do" class="form01" method="post">
 <input type="hidden" name="store_seq" value="<%=list.get(0).getStore_seq()%>"/>
 <input type="hidden" name="menu_seq" value="<%=list.get(0).getMenu_seq()%>"/>
 <input type="hidden" name="reserve_price" value="<%=list.get(0).getMenu_price()%>"/>
@@ -448,7 +449,7 @@
 				<div class="time_box">	 
 					
 				</div>
-					<div class="times_result">예약 시간 : <span></span>&nbsp;<span></span>&nbsp;<span></span><input class="reserve_success" value="예약하기" type="submit" onclick="return reserveChk()"/></div> 
+					<div class="times_result">예약 시간 : <span></span>&nbsp;<span></span>&nbsp;<span></span><div class="reserve_success"  onclick="reserveChk()"/>예약하기</div></div> 
 			</div>
 		</div>
 	</div>

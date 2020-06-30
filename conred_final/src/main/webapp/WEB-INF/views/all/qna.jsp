@@ -6,6 +6,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%request.setCharacterEncoding("utf-8");%>
 <%response.setContentType("text/html; charset=utf-8");%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -365,7 +366,7 @@
 <input type="hidden" name="oSession_id" value="<%=session.getAttribute("oldto")==null?"":oldto.getOwner_id()%>">
 <!-- Modal -->
 <form action="insert_qna.do" method="post">
-<input type="hidden" name="store_seq" value="<%=list.get(0).getStore_seq()%>">
+<input type="hidden" name="store_seq" value="<%=list.size()==0? list.get(0).getStore_seq()%>">
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog modal-lg">
 	  		<!-- Modal content--> 
@@ -401,19 +402,19 @@
 		%>
 		<div id="sticky">
 			<div id="navi2">
-				<div class="navis2" onclick="location.href='store.do?store_seq=<%=list.get(0).getStore_seq()%>'">
+				<div class="navis2" onclick="location.href='store.do?store_seq=${sdto.store_seq}'">
 					매장 홈
 				</div>
 				<div class="navis2" onclick="location.href='owner_toReupdate_store.do'">
 					매장정보 수정
 				</div>
-				<div class="navis2" onclick="location.href='owner_mystore_reserve.do?store_seq=<%=list.get(0).getStore_seq()%>'">
+				<div class="navis2" onclick="location.href='owner_mystore_reserve.do?store_seq=${sdto.store_seq}'">
 					예약관리
 				</div>
-				<div class="navis2" onclick="location.href='review.do?store_seq=<%=list.get(0).getStore_seq()%>'">
+				<div class="navis2" onclick="location.href='review.do?store_seq=${sdto.store_seq}'">
 					리뷰관리
 				</div>
-				<div class="navis2 home" onclick="location.href='qna.do?store_seq=<%=list.get(0).getStore_seq()%>'">
+				<div class="navis2 home" onclick="location.href='qna.do?store_seq=${sdto.store_seq}'">
 					문의관리
 				</div>
 			</div>

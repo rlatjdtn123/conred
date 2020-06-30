@@ -29,8 +29,8 @@
 	.flatpickr-rContainer{margin: 0 auto !important;}
 	.day_result_box{width: 355px;margin: 0 auto;border:solid #D8D8D8;border-width:1px 0 1px 0;  height: 40px;line-height: 40px; margin-top: 60px;margin-bottom: 400px;}
 	.selector{display: none;}
-	.reserve_success{width: 100px;height: 25px; margin-left: 20px;font-size: 13px;line-height: 26px;border-width:0; display: none;border-radius: 10px;font-weight: bold;} 
-	.reserve_success:hover {background-color: lightgrey;}
+	.reserve_success{width: 100px;height: 25px; margin-left: 20px;font-size: 15px;line-height: 26px;border-width:0; display: none;border-radius: 10px;font-weight: bold;} 
+	.reserve_success:hover {background-color: lightgrey;font-size: 18px;cursor: pointer;}
  	.gongback{display: none;} 
 	
 	
@@ -535,7 +535,7 @@
 		     buttons: ["아니오", "예"],
 		}).then((YES) => {
 		     if (YES) {
-		    	
+		    	$(".form01").submit();
 		     }else{
 		    	 return false;
 		     }
@@ -583,7 +583,7 @@
 	}
 %>
 
-<form action="reserve_successS.do" method="post">
+<form action="reserve_successS.do" method="post" class="form01">
 <input type="hidden" name="store_seq" value="<%=list.get(0).getStore_seq()%>"/>
 <input type="hidden" name="menu_seq" value="<%=list.get(0).getMenu_seq()%>"/>
 <input type="hidden" name="reserve_price" id="reserve_pirce" value="<%=list.get(0).getMenu_price()%>"/>
@@ -596,7 +596,7 @@
 			<input type="text" class="selector" placeholder="날짜를 선택하세요." onchange="aaa(this)"/>
 			<a class="input-button" title="toggle" data-toggle><i class="icon-calendar"></i></a>
 		</div>
-		<div class="day_result_box">예약 날짜 : <span></span><p class="gongback"> ~ </p><span></span><input onclick="return reserveChk()" class="reserve_success" type="submit" value="예약하기"/> </div>
+		<div class="day_result_box">예약 날짜 : <span></span><p class="gongback"> ~ </p><span></span><div onclick="reserveChk()" class="reserve_success" />예약하기</div></div>
 	</div>
 </form>
 <script type="text/javascript">

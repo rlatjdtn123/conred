@@ -40,13 +40,13 @@
 		parseInt(menu_seq);
 		parseInt(store_seq);	
 // 		alert(typeof ); 
-		alert(menu_state);
-		alert(menu_seq);
-		alert(store_seq);
+// 		alert(menu_state);
+// 		alert(menu_seq);
+// 		alert(store_seq);
 		 
 		swal({
 		     title: "예약하러 가시겠습니까?",
-		     text: "",
+		     text: "", 
 		     icon: "info", //"info,success,warning,error" 중 택1
 		     buttons: ["아니오", "예"],
 		}).then((YES) => {
@@ -145,7 +145,7 @@
 								<%
 								if(uldto!=null){
 								%>
-								<td><input type="button" onclick="userReserve(${lists_menu[i].menu_seq},${lists_menu[i].menu_state},${lists_menu[i].store_seq})" value="예약하러가기" class="reserve_btn"/></td>																								
+								<td><input type="button" onclick="userReserve(${list_menu[i].menu_seq},'${list_menu[i].menu_state}',${list_menu[i].store_seq})" value="예약하러가기" class="reserve_btn"/></td>																								
 								<%	
 								}else{
 									if(oldto!=null){ 

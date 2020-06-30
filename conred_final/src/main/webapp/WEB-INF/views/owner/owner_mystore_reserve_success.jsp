@@ -9,8 +9,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script src="js/jquery-3.4.1.js"></script>
 <style type="text/css">
-	#container{ border:1px solid rgba(225,225,225,1.00);border-top-width:0px; border-bottom:1px solid #fff; width:1000px;height:auto;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{ border:1px solid rgba(225,225,225,1.00);border-top-width:0px; min-height:700px; border-bottom:1px solid #fff; width:1000px;height:auto;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
    	#sticky{z-index:200;position: sticky; top:71px;display: inline-block;}
    	#navi2{width:998px;clear:both;position:relative;top:0px;text-align: center;line-height: 50px;display: inline-block;border-bottom: 1px solid #585858;}
    	.navis2{ font-size:18px; float:left;width:200px;height:50px;color: #000;background-color: #fff;}
@@ -26,11 +27,60 @@
 	.mybox{padding:25px;border-bottom:1px solid #BDBDBD;border-top:1px solid #BDBDBD; width:720px;height:180px; font-size: 15px; margin-left: 100px;margin-bottom: 40px;}
 	
 </style>
+<script type="text/javascript">
+
+	var count=1;
+	
+	window.onscroll = function(e) {
+		
+		if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+			count++;
+			var addContent="";
+	    	var store_seq=$("input[name=store_seq]").val(); 
+	    	$.ajax({
+	    		url:"owner_reserve_success_ajax.do",
+	    		method:"post",
+	    		data:{"store_seq":store_seq,"pnum":count},
+	    		dataType:"json",
+	    		success:function(obj){
+	    			var lists=obj.list;
+	    			$.each(lists,function(i){
+	    				addContent +='<div class="mybox">'
+				    				+ 	'<div class="reserve_info"> '
+						    		+ 	'	<span>ID : '+lists[i].user_id+' </span><br>  '
+						    		 +	'	<span>EMAIL : '+lists[i].user_email+' </span><br> '
+						    		+ 	'	<span>메뉴명: '+lists[i].menu_name+'</span><br>'
+						    		+  ''+reserveTime(lists[i].reserve_sdate,lists[i].reserve_edate,lists[i].reserve_time)+''
+						    	 	+	'	<span>등록일 : '+lists[i].reserve_realdate+'</span><br>	 	'			
+							    	+ 	'	</div>'
+							    	+ 	'</div>';
+	    			});
+	    			$('.bigtle').append(addContent);
+	    		}
+	    	}); 
+	    	
+		}
+	}
+	
+	function reserveTime(reserve_sdate,reserve_edate,reserve_time){
+		var v="";
+		if(reserve_edate==null){
+	 		v='<span>예약 날짜 : '+reserve_sdate+'</span><br><span>예약 시간 : '+reserve_time+'</span><br>';
+			return v;
+ 		}else{
+			v='<span>예약 날짜 : '+reserve_sdate+' ~ '+reserve_edate+' </span><br>';
+			return v;
+ 		}
+		
+	}
+
+</script>
 </head>
 <%
 	List<ReserveDto> list=(List<ReserveDto>)request.getAttribute("list");
 %>
 <body>
+<input type="hidden" name="store_seq" value="<%=list.get(0).getStore_seq()%>"/>
 <div id="container">
 	<div id="sticky">
 		<div id="navi2">
@@ -52,7 +102,7 @@
 		</div>
 	</div>
 	<div id="pagename">
-		<b>예약자 현황</b>
+		<b>결제 현황</b>
 	</div>
 	<%
 	for(ReserveDto dto:list){
@@ -81,6 +131,9 @@
 	<%	
 	}
 	%>
+	<div class="bigtle">
+		
+	</div>
 </div>
 </body>
 </html>

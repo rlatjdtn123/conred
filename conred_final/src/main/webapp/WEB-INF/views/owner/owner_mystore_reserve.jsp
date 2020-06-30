@@ -37,7 +37,6 @@
 			count++;
 			var addContent="";
 	    	var store_seq=$("input[name=store_seq]").val(); 
-			
 	    	$.ajax({
 	    		url:"owner_reserve_ajax.do",
 	    		method:"post",
@@ -58,14 +57,14 @@
 	    			});
 	    			$('.bigtle').append(addContent);
 	    		}
-	    	});
+	    	}); 
 	    	
 		}
 	}
 	
 	function reserveTime(reserve_sdate,reserve_edate,reserve_time){
 		var v="";
-		if(dto.getReserve_edate()==null){
+		if(reserve_edate==null){
 	 		v='<span>예약 날짜 : '+reserve_sdate+'</span><br><span>예약 시간 : '+reserve_time+'</span><br>';
 	 		return v;
  		}else{
@@ -79,9 +78,9 @@
 </head>
 <%
 	List<ReserveDto> list=(List<ReserveDto>)request.getAttribute("list");
-%>
+%> 
 <body>
-<input type="hidden" name="store_seq" value="<%=list.get(0).getStore_seq()%>"/>
+<input type="hidden" name="store_seq" value="<%=list.size()==0?"":list.get(0).getStore_seq()%>"/>
 <div id="container">
 	<div id="sticky">
 		<div id="navi2">
@@ -91,44 +90,46 @@
 			<div class="navis2" onclick="location.href='owner_toReupdate_store.do'">
 				매장정보 수정
 			</div>
-			<div class="navis2 home" onclick="location.href='owner_mystore_reserve.do?store_seq=<%=list.get(0).getStore_seq()%>'">
+			<div class="navis2 home" onclick="location.href='owner_mystore_reserve.do?store_seq=${sdto.store_seq}'">
 				예약관리
 			</div>
-			<div class="navis2" onclick="location.href='review.do?store_seq=<%=list.get(0).getStore_seq()%>'">
+			<div class="navis2" onclick="location.href='review.do?store_seq=${sdto.store_seq}'">
 				리뷰관리
 			</div>
-			<div class="navis2" onclick="location.href='qna.do?store_seq=<%=list.get(0).getStore_seq()%>'">
+			<div class="navis2" onclick="location.href='qna.do?store_seq=${sdto.store_seq}'">
 				문의관리
 			</div>
 		</div>
 	</div>
 	<div id="pagename">
 		<b>예약자 현황</b>
-	</div>
+	</div> 
 	<%
-	for(ReserveDto dto:list){
-	%>
-	<div class="mybox">
-	 	<div class="reserve_info"> 
-	 		<span>ID : <%=dto.getUser_id()%> </span><br>  
-	 		<span>EMAIL : <%=dto.getUser_email()%> </span><br> 
-	 		<span>메뉴명: <%=dto.getMenu_name()%></span><br>
-	 		<%
-	 		if(dto.getReserve_edate()==null){
-	 		%>	
-	 		<span>예약 날짜 : <%=dto.getReserve_sdate()%></span><br>
-	 		<span>예약 시간 : <%=dto.getReserve_time()%></span><br>
-	 		<%
-	 		}else{
- 			%>	
- 			<span>예약 날짜 : <%=dto.getReserve_sdate()%> ~ <%=dto.getReserve_edate()%> </span><br>
-	 		<%	
-	 		}
-	 		%>
- 			<span>등록일 : <%=dto.getReserve_realdate()%></span><br>	 				
- 		</div>
- 	</div> 
-	<%	
+	if(list.size()!=0){ 
+		for(ReserveDto dto:list){
+			%>
+			<div class="mybox">
+			 	<div class="reserve_info"> 
+			 		<span>ID : <%=dto.getUser_id()%> </span><br>  
+			 		<span>EMAIL : <%=dto.getUser_email()%> </span><br> 
+			 		<span>메뉴명: <%=dto.getMenu_name()%></span><br>
+			 		<%
+			 		if(dto.getReserve_edate()==null){
+			 		%>	
+			 		<span>예약 날짜 : <%=dto.getReserve_sdate()%></span><br>
+			 		<span>예약 시간 : <%=dto.getReserve_time()%></span><br>
+			 		<%
+			 		}else{
+		 			%>	
+		 			<span>예약 날짜 : <%=dto.getReserve_sdate()%> ~ <%=dto.getReserve_edate()%> </span><br>
+			 		<%	
+			 		}
+			 		%>
+		 			<span>등록일 : <%=dto.getReserve_realdate()%></span><br>	 				
+		 		</div>
+		 	</div> 
+			<%	
+			}
 	}
 	%>
 	<div class="bigtle">
