@@ -366,7 +366,7 @@
 <input type="hidden" name="oSession_id" value="<%=session.getAttribute("oldto")==null?"":oldto.getOwner_id()%>">
 <!-- Modal -->
 <form action="insert_qna.do" method="post">
-<input type="hidden" name="store_seq" value="<%=list.size()==0? list.get(0).getStore_seq()%>">
+<input type="hidden" name="store_seq" value="<%=list.size()==0?"":list.get(0).getStore_seq()%>">
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog modal-lg">
 	  		<!-- Modal content--> 
@@ -423,7 +423,9 @@
 		}
 	}
 	%>
-		
+	<%
+	
+	%>
 	<div class="bigtle">
 		<div id="main">
 			<span id="main2"><b>문의</b> &nbsp; &nbsp; &nbsp; &nbsp;전체<%=qnaAvg.getQna_content()%>개|답변<%=qnaAvg.getQna_answer()%>개</span>
