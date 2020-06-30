@@ -66,12 +66,12 @@
 	 width:220px;
 	 height:50px;
 	 background:#fff ;
-	 border:3px solid #5882FA;
+	 border:3px solid grey;
 	 box-shadow:0px 1px 2px black;
 	 border-radius: 10px;
 	 text-align: center;
 	 line-height: 45px;
-	 color: #fff;
+	 color: #000;
 	 padding-right:3px;
 	 top:-10px;
 	 left:-15px;
@@ -81,12 +81,23 @@
 	 border-top:0px solid transparent;
 	 border-left: 10px solid transparent;
 	 border-right: 10px solid transparent;
-	 border-bottom: 10px solid #5882FA;
+	 border-bottom: 10px solid grey;
 	 content:"";
 	 position:absolute;
 	 top:-10px;
 	 left:150px;
 	}
+	@keyframes blink {  
+	  0% { margin-top:50px;}
+	  50% { margin-top: 40px; }
+	  100% { margin-top: 50px;}
+	}
+	@-webkit-keyframes blink {
+	  0% { margin-top:50px;}
+	  50% { margin-top: 40px; }
+	  100% { margin-top: 50px;}
+	}
+	/* 	
 	@keyframes blink {  
 	  0% { color: #fff; }
 	  50% { color: black; }
@@ -96,7 +107,8 @@
 	  0% { color: #fff; }
 	  50% { color: black; }
 	  100% { color: #fff; }
-	}
+	} 
+	*/
 	.blink {
 	  -webkit-animation: blink 1.5s linear infinite;
 	  -moz-animation: blink 1.5s linear infinite;

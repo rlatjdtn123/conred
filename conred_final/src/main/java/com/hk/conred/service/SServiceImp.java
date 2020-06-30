@@ -410,7 +410,7 @@ public class SServiceImp implements ISService {
 				String[] time_break, String[] store_photo_title, SLocaDto slocadto, HttpServletRequest request,
 				String[] dels,String[] store_photo_title_before,String[] before_seq,
 				CMainDto cmaindto,String[] clist,String[] category_code_2,String[] name,
-				String[] content,String[] price,String[] state,List<STimeDto> list_stime) {
+				String[] content,String[] price,String[] state,List<STimeDto> list_stime,String[] del_menus) {
 
 			MultipartHttpServletRequest multi = (MultipartHttpServletRequest)request;
 			List<MultipartFile> fileList = multi.getFiles("photos");
@@ -519,8 +519,8 @@ public class SServiceImp implements ISService {
 			
 			//위에꺼 fk오류 뜨니 delflag바꿔주기로 하자
 			//전달할 것 sdto, category_code, name, content, price, state
-			MenuDaoImp.updatemenu(sdto, category_code_2, name, content, price, state/*, del_menu*/);//기존 메뉴리스트 삭제표시(delflag)
-			
+			MenuDaoImp.updatemenu(sdto, category_code_2, name, content, price, state);//기존 메뉴리스트 삭제표시(delflag)
+			MenuDaoImp.deletemenu(del_menus);//기존 메뉴리스트 삭제표시(delflag)
 			
 //			return STimeDaoImp.insertStime(sdto,time_day,time_open,time_close,time_break);
 			return STimeDaoImp.updateStime(sdto,time_open,time_close,time_break,list_stime);

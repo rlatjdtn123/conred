@@ -768,7 +768,7 @@ public class Yoonho {
 	public String owner_reupdate_store(Locale locale, Model model,SDto sdto, STimeDto stimedto,
 			String [] store_photo_title,String [] store_photo_title_before, String[] before_seq,
 			SLocaDto slocadto,String del, HttpServletRequest request,String[] category_code_2,
-			CMainDto cmaindto, CListDto clistdto, MenuDto menudto, RedirectAttributes redirect) {
+			CMainDto cmaindto, CListDto clistdto, MenuDto menudto, RedirectAttributes redirect, String del_menu) {
 		logger.info("점주: 매장수정페이지 (상세정보, 사진, 주소, 영업시간, 카테고리(대/소), 메뉴 수정) {}.", locale);
 		
 		//insert때랑 다른점:기존의 store는 그대로 수정이고,
@@ -826,6 +826,7 @@ public class Yoonho {
 		System.out.println("위도 lat:"+slocadto.getStore_latitude());
 		System.out.println("경도 lng:"+slocadto.getStore_longitude());
 		
+		//지우는 사진의 seq들
 		System.out.println(del);
 		String [] dels=null;
 		if(del==null||del=="") {
@@ -833,8 +834,15 @@ public class Yoonho {
 		}
 		dels=del.split(",");
 		System.out.println("삭제되는사진수:"+dels[0]);
-//		return ""; 
+//		return "";
 		
+		//지우는 메뉴의 seq들
+		System.out.println(del_menu);
+		String [] del_menus=null;
+		if(del_menu==null||del_menu=="") {
+			del_menu=" ";
+		}
+		del_menus=del_menu.split(",");
 		//여기에 추가할것
 		//0_1.일단 화면에서 값가져오기
 		cmaindto.setStore_seq(seq.getStore_seq());//각 dto안에 store_seq값 넣어주기
@@ -870,7 +878,7 @@ public class Yoonho {
 		//0.서비스 새로만들고 안에 같은 글 넣기
 		boolean isS=sService.reupdateStore(sdto,time_open,time_close,time_break,
 				store_photo_title,slocadto,request,dels,store_photo_title_before,before_seq,
-				cmaindto,clist,category_code_2,name,content,price,state,list_stime);
+				cmaindto,clist,category_code_2,name,content,price,state,list_stime,del_menus);
 		//그안에 추가할것
 		//	1.대표카테고리 수정하는 dao, sdto최대인원날짜 수정하는 dao
 		//	2.기존 세부카테고리, 메뉴 지우는 기능

@@ -36,6 +36,7 @@
 	$(document).ready(function(){//온로드실행
 		//여기서 if문으로 무슨검색을 할건지 나눠주자
 		//
+		var markerv = [];
 		var markers = [];
 		var overlays = [];
 		var totalcount=0;
@@ -828,30 +829,48 @@
 		        
 		    myLocaMarker(locPosition, message);
 		}
-
+// 		markerv==null;
 		// 지도에 마커와 인포윈도우를 표시하는 함수입니다
 		function myLocaMarker(locPosition, message) {
+// 			if(pnum==1){
+// 			    markerv.forEach(function (marker) { marker.setMap(null); });
+// 			    markerv.length = 0 // 마커 배열 초기화
+// 			}
+			// 마커 이미지의 이미지 주소입니다
+			var imageSrc = './img/icon/pin.png'; 
+					
+			// 마커 이미지의 이미지 크기 입니다
+			var imageSize = new kakao.maps.Size(70, 70); 
+				    
+			// 마커 이미지를 생성합니다    
+		    var markerImagev = new kakao.maps.MarkerImage(imageSrc, imageSize); 
 
 		    // 마커를 생성합니다
-		    var marker = new kakao.maps.Marker({  
+		    var markerv = new kakao.maps.Marker({  
 		        map: map, 
-		        position: locPosition
+		        position: locPosition,
+		        image : markerImagev,
 		    }); 
 		    
-		    var iwContent = message, // 인포윈도우에 표시할 내용
-		        iwRemoveable = true;
+// 		    var iwContent = message, // 인포윈도우에 표시할 내용
+// 		        iwRemoveable = true;
 
-		    // 인포윈도우를 생성합니다
-		    var infowindow = new kakao.maps.InfoWindow({
-		        content : iwContent,
-		        removable : iwRemoveable
-		    });
+// 		    // 인포윈도우를 생성합니다
+// 		    var infowindow = new kakao.maps.InfoWindow({
+// 		        content : iwContent,
+// 		        removable : iwRemoveable
+// 		    });
 		    
-		    // 인포윈도우를 마커위에 표시합니다 
-		    infowindow.open(map, marker);
+// 		    // 인포윈도우를 마커위에 표시합니다 
+// 		    infowindow.open(map, marker);
 		    
 		    // 지도 중심좌표를 접속위치로 변경합니다
-		    map.setCenter(locPosition);      
+		    map.panTo(locPosition);      
+		 
+// 		    markers.forEach(function (marker) { marker.setMap(null); });
+// 		    markers.length = 0 // 마커 배열 초기화
+// 		    overlays.forEach(function (overlay) { overlay.setMap(null); });
+// 		    overlays.length = 0 // 오버레이 배열 초기화
 		} 
 	}
 </script>

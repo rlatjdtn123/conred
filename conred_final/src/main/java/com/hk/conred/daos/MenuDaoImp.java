@@ -83,5 +83,14 @@ public class MenuDaoImp implements IMenuDao{
 		return count>0?true:false;
 	}
 
+	@Override
+	public boolean deletemenu(String[] del_menus) {
+		int count=0;
+		Map<String, Object> map=new HashMap<>();
+		map.put("del_menus", del_menus);
+		count=sqlSession.update(namespace+"deletemenu",map);
+		return count>0?true:false;
+	}
+
 
 }

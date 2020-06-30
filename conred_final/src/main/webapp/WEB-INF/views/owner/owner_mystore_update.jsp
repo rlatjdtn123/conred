@@ -264,8 +264,8 @@
 		});
 		
 		$("body").on("click",".deladd",function(){
-			var d_seq= $(this).parent("li").find($("input[name=delflag_seqs]")).val();
-			$("#del_menus").append('<input type=\"hidden\" name=\"d_seqs\" value='+d_seq+'>');
+			var del_menu= $(this).parent("li").find($("input[name=delflag_seqs]")).val();
+			$("#del_menus").append('<input type=\"hidden\" name=\"del_menu\" value='+del_menu+'>');
 		});
 		
 		$("body").on("click",".hide_menu",function(){
@@ -1493,7 +1493,7 @@
 																</select>
 																</div>
 															</div>
-															<span class="flright btn btn2 menu_price hide_menu">
+															<span class="flright btn btn2 menu_price hide_menu deladd">
 																-
 															</span>
 														</li>
@@ -1563,7 +1563,7 @@
 																</select>
 																</div>
 															</div>
-															<span class="flright btn btn2 menu_price hide_menu">
+															<span class="flright btn btn2 menu_price hide_menu deladd">
 																-
 															</span>
 														</li>

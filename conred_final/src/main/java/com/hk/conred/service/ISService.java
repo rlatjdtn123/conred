@@ -40,7 +40,7 @@ public interface ISService {
 			String[] time_close,String[] time_break, String[] store_photo_title,
 			SLocaDto slocadto,HttpServletRequest request,String[] dels,String[] store_photo_title_before,String[] before_seq,
 			CMainDto cmaindto,String[] clist,String[] category_code_2,String[] name,
-			String[] content,String[] price,String[] state,List<STimeDto> list_stime);
+			String[] content,String[] price,String[] state,List<STimeDto> list_stime,String[] del_menus);
 	
 //매장정보가져오기
 	//Store Seq 가져오기
