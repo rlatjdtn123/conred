@@ -45,4 +45,7 @@ public interface IReserveDao {
 	//점주 자기매장 예약목록
 	public List<ReserveDto> ownerStoreReserve(int store_seq,int pnum);
 	
+	//점주 자기매장 결제목록
+	public List<ReserveDto> ownerStoreReserveSuccess(int store_seq,int pnum);
+	
 }

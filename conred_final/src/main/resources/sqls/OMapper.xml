@@ -29,7 +29,7 @@
 	</select>
 	 
 	<update id="ownerUpdate" parameterType="ODto">
-		UPDATE CON_OWNER SET OWNER_BIRTH=#{owner_birth} WHERE OWNER_ID=#{owner_id}
+		UPDATE CON_OWNER SET OWNER_BIRTH=#{owner_birth},OWNER_NAME=#{owner_name},OWNER_SEX=#{owner_sex} WHERE OWNER_ID=#{owner_id}
 	</update>
 	
 	<update id="ownerDelete" parameterType="String">

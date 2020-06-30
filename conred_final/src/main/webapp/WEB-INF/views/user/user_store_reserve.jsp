@@ -36,13 +36,28 @@
 	 
 </style> 
 <script type="text/javascript">
-// 	function userReserve(menu_seq,menu_state,store_seq){	
-// 		parseInt(menu_seq);
-// 		parseInt(store_seq);	
-// 		alert(typeof parseInt(menu_seq));
-// 		alert(typeof menu_state);
-// 		alert(typeof parseInt(store_seq));	
-// 	}
+	function userReserve(menu_seq,menu_state,store_seq){	
+		parseInt(menu_seq);
+		parseInt(store_seq);	
+// 		alert(typeof ); 
+		alert(menu_state);
+		alert(menu_seq);
+		alert(store_seq);
+		 
+		swal({
+		     title: "예약하러 가시겠습니까?",
+		     text: "",
+		     icon: "info", //"info,success,warning,error" 중 택1
+		     buttons: ["아니오", "예"],
+		}).then((YES) => {
+		     if (YES) {
+
+		    	 location.href="user_reserve_time_select.do?menu_seq="+menu_seq+"&menu_state="+menu_state+"&store_seq="+store_seq;
+		     }else{
+		     	
+		     }
+		});
+	}
 	
 	function loginChk(){
 		
@@ -71,8 +86,16 @@
 	List<MenuDto> list_menu=(List<MenuDto>)request.getAttribute("list_menu");
 	UDto uldto=(UDto)session.getAttribute("uldto");
 	ODto oldto=(ODto)session.getAttribute("oldto");
+	
 %>
 <body> 
+<%
+	for(MenuDto dto:list_menu){
+		%>
+		<input  type="hidden" value="<%=dto.getMenu_state()%>"/>
+		<%
+	} 
+%>
 <div id="container">
 	<div class="bigtle">
 		<div class="infobox section">
@@ -122,10 +145,10 @@
 								<%
 								if(uldto!=null){
 								%>
-								<td><input type="button" onclick="location.href='user_reserve_time_select.do?menu_seq=${list_menu[i].menu_seq}&menu_state=${list_menu[i].menu_state}&store_seq=${list_menu[i].store_seq}'" value="예약하러가기" class="reserve_btn"/></td>																									
+								<td><input type="button" onclick="userReserve(${lists_menu[i].menu_seq},${lists_menu[i].menu_state},${lists_menu[i].store_seq})" value="예약하러가기" class="reserve_btn"/></td>																								
 								<%	
 								}else{
-									if(oldto!=null){
+									if(oldto!=null){ 
 									%>
 									<td><input type="button" onclick="ownerChk()" value="예약하러가기" class="reserve_btn"></td>
 									<%	
@@ -136,7 +159,6 @@
 									}
 								}
 								%>
-<%-- 								<td><input type="button" onclick="userReserve('${lists_menu[i].menu_seq}','${lists_menu[i].menu_state}','${lists_menu[i].store_seq}')" value="예약하러가기" class="reserve_btn"/></td>		 --%>
 							</tr>
 						</c:if>
 					</c:forEach>				 	

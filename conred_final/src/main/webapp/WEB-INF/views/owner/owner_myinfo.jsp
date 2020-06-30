@@ -17,6 +17,8 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- 스윗알러트! -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style type="text/css">
 	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:900px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	
@@ -39,6 +41,10 @@
 	#sel{border:1px solid grey;height:24px;vertical-align: middle;}
 	.owner_infos{background-color: #D8D8D8;border-width: 0;}
  	.email01{width: 120px;} 
+ 	.birth{height: 26px;}
+	.owner_update{background-color: white;border:1px solid black;} 
+	.text{display: none;} 
+	.radio_button{display: none;}
 	  
 </style> 
 <script type="text/javascript">
@@ -46,13 +52,32 @@
 		$("input[name=owner_birth]").prop("type","date");
 	}
 	function deleteCheck(){
-		var result=confirm("정말 탈퇴 하시겠습니까?");
-		if(result){
-			location.href="owner_myinfo_delete.do";
-		}else{
-			 
-		}
+		
+		swal({
+		     title: "정말 탈퇴 하시겠습니까?",
+		     text: "",
+		     icon: "warning", //"info,success,warning,error" 중 택1
+		     buttons: ["아니오", "예"],
+		}).then((YES) => {
+		     if (YES) {
+		    	 location.href="owner_myinfo_delete.do";
+		     }else{
+		     	
+		     }
+		});
+		
+	
 	}
+	
+	function changeSex(){
+		$(".radio_button").css("display", "inline-block");
+		$(".text").css("display", "inline-block"); 
+		$("input[name=owner_sex]").css("display", "none");
+// 		var asd=$("#owner_sex").val(""); 
+		
+	}
+	
+	
 </script> 
 </head>
 <%
@@ -73,7 +98,7 @@
 					</tr>
 					<tr>
 						<td><span class="req"> </span>이름</td>
-						<td><input class="owner_infos" type="text" name="owner_name" readonly="readonly" value="<%=dto.getOwner_name()%>"/></td>
+						<td><input class="owner_update" type="text" name="owner_name" required="required" value="<%=dto.getOwner_name()%>"/></td>
 					</tr> 
 	 				<tr> 
 						<td><span class="req"> </span>이메일</td>
@@ -83,22 +108,50 @@
  						<input type="hidden" name="emailConfirm" required="required" value="N"/>
 					</td> 
 					</tr> 
-					<tr>  
+					<tr>
 						<td>생년월일</td>
-						<td>
-							<input value="<%=dto.getOwner_birth()%>" style="height:26px;" type="text" onclick="changeType()" name="owner_birth" style="background-color: white;border:1px solid black;"/>
-						</td> 
+					<%
+					if(dto.getOwner_birth()==null){
+					%>
+					<td>
+						<input placeholder="정보가 없습니다." required="required" class="owner_update birth"  type="text" onclick="changeType()" name="owner_birth" />
+					</td>
+					<%	
+					}else{
+					%>
+					<td>
+						<input value="<%=dto.getOwner_birth()%>" required="required" class="owner_update birth"  type="text" onclick="changeType()" name="owner_birth" />
+					</td>
+					<%		
+					}
+					%>  
 					</tr>
 					<tr>
 						<td>성별</td>
+					<%
+					if(dto.getOwner_sex()==null){
+					%>
 					<td>
-						<input type="text" readonly="readonly"  name="owner_sex" value="<%=dto.getOwner_sex()%>" class="owner_infos"/>
-					</td> 
+						<input type="text" id="owner_sex" required="required" onclick="changeSex()" name="owner_sex" placeholder="정보가 없습니다." class="owner_update"/>
+						<input type="radio" name="owner_update_sex" value="남자" class="radio_button"/><span class="text">남</span>
+						<input type="radio" name="owner_update_sex" value="여자" class="radio_button"/><span class="text">여</span>
+					</td>
+					<%	
+					}else{
+					%>
+					<td>
+						<input type="text" id="owner_sex" required="required" onclick="changeSex()"  name="owner_sex" value="<%=dto.getOwner_sex()%>" class="owner_update"/>
+						<input type="radio" name="owner_update_sex" value="남자" class="radio_button"/><span class="text">남</span>
+						<input type="radio" name="owner_update_sex" value="여자" class="radio_button"/><span class="text">여</span>
+					</td>
+					<%	
+					}
+					%> 
 					</tr>
 				</table> 
 		</div> 
 		<div id="bot">
-			<input class="btn redbtn" value="돌아가기" onclick="location.href='index.jsp'" type="button"/>
+			<input class="btn redbtn" value="돌아가기" onclick="location.href='index.do'" type="button"/>
 			<input class="btn greenbtn" value="수정완료" type="submit"/>
  			<input type="button" value="탈퇴" class="btn redbtn" onclick="deleteCheck()"/> 
 		</div>

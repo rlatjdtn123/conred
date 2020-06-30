@@ -267,7 +267,8 @@
 	    form.onsubmit=function(){ 
 			var pwInputs=$("input[type=password]");
 			if($(".preview-box").length>5){
-				alert("사진은 최소 5장을 넣어주세요"); 
+				swal("사진은 최소 5장을 넣어주세요", "", "info");//info,success,error,warning
+// 				alert("사진은 최소 5장을 넣어주세요"); 
 				return false;
 			}
 		}
@@ -423,7 +424,8 @@
                 fileNameExtensionIndex, fileName.length);
         if (!((fileNameExtension === 'jpg')
                 || (fileNameExtension === 'gif') || (fileNameExtension === 'png'))) {
-            alert('jpg, gif, png 확장자만 업로드 가능합니다.');
+        	swal("jpg, gif, png 확장자만 업로드 가능합니다.", "", "info");//info,success,error,warningvv
+//             alert('jpg, gif, png 확장자만 업로드 가능합니다.');
             return true;
         } else {
             return false;

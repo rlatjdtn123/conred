@@ -73,6 +73,8 @@
 	.ownerAnswer_update{float: right;background-color: #94B8FD;color: white;width: 72px;height: 32px;border: 0;border-radius: 5px;}
 	.ownerAnswer_update:hover {background-color: #4a83ed;}
 	 
+	.user_review_name{position: relative; top: -13px; padding-left: 10px;color:#919191;} 
+	 
 </style> 
 <script type="text/javascript">	      
 	//Javascript
@@ -99,7 +101,7 @@
 										+	'<img src="./img/profile_default.png" class="pf"/>'
 										+	'<div class="info">'
 										+   ''+ buttonChk(lists[i].user_id) +''
-										+	'	<span style="color:#919191;"><b>닉네임</b>:'+lists[i].user_id+'|'+ lists[i].qna_title +'</span><span style="color:#919191; float: right;">'+ lists[i].qna_realdate +'</span><br>'
+										+	'	<span class="user_review_name"><b>닉네임</b>:'+lists[i].user_id+'|'+ lists[i].qna_title +'</span><span style="color:#919191; float: right;">'+ lists[i].qna_realdate +'</span><br>'
 										+	'	<div class="contents">'
 										+	'		<span class="zxczxc"><b>문의내용</b></span>    '
 										+    ''+ hideContent(lists[i].user_id,lists[i].qna_content,lists[i].qna_hide,idChk.owner_id) +''
@@ -147,8 +149,8 @@
 			
 			var qna_seq=$(this).parent($(".mybox")).find("input[name=qna_seq]").val()
 			var qna_answer=$(this).parent($(".mybox")).find(".ownerAnswer").val();
-			alert(qna_seq);
-			alert(qna_answer);
+// 			alert(qna_seq);
+// 			alert(qna_answer);
 		});
 		
 		//답변완료버튼	
@@ -467,7 +469,7 @@
 						<% 
 					}
 				%>			
-					<span style="color:#919191;">닉네임:<%=dto.getUser_id()%>|<%=dto.getQna_title()%></span><span style="color:#919191; float: right;"><%=dto.getQna_realdate()%></span><br>
+					<span class="user_review_name">닉네임:<%=dto.getUser_id()%>|<%=dto.getQna_title()%></span><span style="color:#919191; float: right;"><%=dto.getQna_realdate()%></span><br>
 					<div class="contents">
 						<span class="zxczxc"><b>문의내용</b></span><br>  
 						<%

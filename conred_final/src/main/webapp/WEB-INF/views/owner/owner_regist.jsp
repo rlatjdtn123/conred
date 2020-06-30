@@ -16,6 +16,8 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- 스윗알러트! -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style type="text/css">
 	#container{box-sizing:border-box; border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:900px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	
@@ -64,7 +66,7 @@
 // 			if($("input[name=emailConfirm]").val()=='Y'){
 // 				return true;
 // 			}else{
-// 				alert("이메일 인증은 필수입니다");
+// 				swal("이메일 인증은 필수입니다", "", "warning");//info,success,error,warning
 // 				$("input[name=owner_email1]").focus();
 // 				return false;
 // 			}	
@@ -102,7 +104,8 @@
 		var pwInputs=$("input[type=password]");
 		pwInputs[1].onblur=function(){
 			if(pwInputs.eq(0).val()!=pwInputs.eq(1).val()){
-				alert("패스워드를 확인하세요");
+				swal("패스워드를 확인하세요", "", "warning");//info,success,error,warning
+// 				alert("패스워드를 확인하세요");
 				pwInputs[0].value="";
 				pwInputs[1].value="";
 				pwInputs[0].focus(); 
@@ -115,7 +118,8 @@
 		form.onsubmit=function(){ 
 			var pwInputs=$("input[type=password]");
 			if(pwInputs.eq(0).val()!=pwInputs.eq(1).val()){
-				alert("패스워드를 확인하세요"); 
+				swal("패스워드를 확인하세요", "", "warning");//info,success,error,warning
+// 				alert("패스워드를 확인하세요"); 
 				pwInputs[0].value="";
 				pwInputs[1].value="";
 				pwInputs[0].focus(); 

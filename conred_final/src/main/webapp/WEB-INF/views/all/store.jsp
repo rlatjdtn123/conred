@@ -14,6 +14,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<!-- 스윗알러트! -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link rel="stylesheet" href="css/star_service.css">
 <link rel="stylesheet" href="css/star_price.css">
 <link rel="stylesheet" href="css/star_clean.css">
@@ -240,7 +242,8 @@
       $('.btn_like').click(function(){ 
          
          if(session_id==""){
-            alert("로그인이 필요한 서비스입니다."); 
+        	swal("로그인이 필요한 서비스입니다.", "", "info");//info,success,error,warning
+//             alert("로그인이 필요한 서비스입니다."); 
          }else{
             if($(this).hasClass('btn_unlike')){
                 $(this).removeClass('btn_unlike'); //좋아요 취소

@@ -60,7 +60,7 @@
 									+		'<img src="./img/profile_default.png" class="pf"/>  '
 									+		'<div class="info">  '      
 									+			'<button class="content_delete buttondle" onclick="user_review_delete('+lists[i].reply_seq+')">삭제</button> <button class="content_detail buttondle">자세히 보기</button><br>' 
-									+			'<span style="color:#919191;">닉네임:'+lists[i].user_id+'</span><span style="float:right;color:#919191;">'+lists[i].reply_realdate+'</span><br>'
+									+			'<span class="user_review_name">닉네임:'+lists[i].user_id+'</span><span style="float:right;color:#919191;">'+lists[i].reply_realdate+'</span><br>'
 												+		'<div class="star_table">'
 												+			'<table>'
 												+				'<tr>'
@@ -105,7 +105,7 @@
 									+		'<img src="./img/profile_default.png" class="pf"/>  '
 									+		'<div class="info">  '      
 									+			'<button class="content_delete buttondle" onclick="user_review_delete('+lists[i].reply_seq+')">삭제</button> <button class="content_detail buttondle">자세히 보기</button><br>' 
-									+			'<span style="color:#919191;">닉네임:'+lists[i].user_id+'</span><span style="color:#919191;float:right;">'+lists[i].reply_regdate+'</span><br>'
+									+			'<span class="user_review_name">닉네임:'+lists[i].user_id+'</span><span style="color:#919191;float:right;">'+lists[i].reply_regdate+'</span><br>'
 												+		'<div class="star_table">'
 												+			'<table>'
 												+				'<tr>'
@@ -327,7 +327,8 @@
 	 .img_cursor:hover {cursor: pointer;}
 	 .tle_final{width: 700px;border-top: 1px solid #BDBDBD;margin-left: 150px;margin-bottom: 200px;}
 	  
-	  
+	 .user_review_name{position: relative; top: -13px; padding-left: 10px;color:#919191;} 
+	   
 </style>  
 
 </head>
@@ -400,7 +401,7 @@
 				<img src="./img/profile_default.png" class="pf"/>  
 				<div class="info">        
 					<button class="content_delete buttondle" onclick="user_review_delete(<%=dto.getReply_seq()%>)">삭제</button> <button class="content_detail buttondle">자세히 보기</button><br> 
-					<span style="color:#919191;">닉네임:<%=dto.getUser_id()%></span><span style="float:right;color:#919191;"><%=dto.getReply_realdate()%></span><br>
+					<span class="user_review_name">닉네임:<%=dto.getUser_id()%></span><span style="float:right;color:#919191;"><%=dto.getReply_realdate()%></span><br>
 					<div class="star_table"> 
 						<table>
 							<tr>  

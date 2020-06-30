@@ -17,6 +17,8 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- 스윗알러트! -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style type="text/css">
 	#container{border:1px solid lightgrey; border-top-width:0px; border-bottom-width:0px; width:1000px;height:600px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	
@@ -45,13 +47,28 @@
 </style> 
 <script type="text/javascript">
 	function asd(url){
-		var result=confirm("네이버로 회원 가입을 하시면 사이트의 이용약관에 동의를 하신것으로 간주 됩니다.");
-		if(result){
-			location.href=""+url+"";
+		
+		swal({
+		     title: "네이버로 회원 가입을 하시면 사이트의 이용약관에 동의를 하신것으로 간주 됩니다.",
+		     text: "",
+		     icon: "info", //"info,success,warning,error" 중 택1
+		     buttons: ["아니오", "예"],
+		}).then((YES) => {
+		     if (YES) {
+		    	 
+				  }
+		     }else{
+		    	 return false;
+		     }
+		});
+		
+// 		var result=confirm("네이버로 회원 가입을 하시면 사이트의 이용약관에 동의를 하신것으로 간주 됩니다.");
+// 		if(result){
+// 			location.href=""+url+"";
 			
-		}else{
-			return false;
-		}
+// 		}else{
+// 			return false;
+// 		}
 	}
 </script> 
 </head>      

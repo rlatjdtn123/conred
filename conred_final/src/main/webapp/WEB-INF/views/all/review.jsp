@@ -163,6 +163,7 @@
 	.ownerAnswer_update:hover {background-color: #4a83ed;}
 	
 	.main_star_table{width: 230px;}
+	.user_review_name{position: relative; top: -13px; padding-left: 10px;color:#919191;} 
 	
 </style>
 <script type="text/javascript">
@@ -201,7 +202,7 @@
 											+	'	<img src="./img/profile_default.png" class="pf"/>  '
 											+	'	<div class="info">        '
 											+	''		+ buttonChk(lists[i].user_id,lists[i].reply_seq) + ''
-											+	'		<span style="color:#919191;">닉네임: '+ lists[i].user_id +' </span><span style="float:right;color:#919191;">'+ lists[i].reply_realdate +' </span><br>'
+											+	'		<span class="user_review_name">닉네임: '+ lists[i].user_id +' </span><span style="float:right;color:#919191;">'+ lists[i].reply_realdate +' </span><br>'
 											+	'		<div class="star_table">'
 											+	'			<table class="star_score">'
 											+	'				<tr> '
@@ -252,7 +253,7 @@
 											+	'	<img src="./img/profile_default.png" class="pf"/>  '
 											+	'	<div class="info">        '
 											+	''		+ buttonChk(lists[i].user_id,lists[i].reply_seq) + ''
-											+	'		<span style="color:#919191;">닉네임: '+ lists[i].user_id +' </span><span style="float:right;color:#919191;">'+ lists[i].reply_realdate +' </span><br>'
+											+	'		<span class="user_review_name">닉네임: '+ lists[i].user_id +' </span><span style="float:right;color:#919191;">'+ lists[i].reply_realdate +' </span><br>'
 											+	'		<div class="star_table">'
 											+	'			<table class="star_score">'
 											+	'				<tr> '
@@ -363,7 +364,7 @@
 	  	
 		if(5<$("#preview").find(".preview-box").length){
 			  $("#preview").empty(); 
-			  swal("Good job!", "You clicked the button!", "success");
+			  swal("사진은 5개 까지 등록가능합니다.", "", "error");
 // 			  ("사진은 5개 까지 등록 가능합니다");
 		  }
 		
@@ -480,7 +481,7 @@
 		
 	    		 
 	    	}else if($(".modal_Btn").val()==2){
-	    		swal("서비스 이용후 댓글을 남기실수 있습니다","", "error");		
+	    		swal("서비스 이용후 댓글을 남기실수 있습니다","", "info");		
 	    	}else if($(".modal_Btn").val()==3){
 	    		swal("이용자만 가능한 기능입니다","", "error");
 	    	}else{
@@ -547,7 +548,7 @@
 		      }
 			  if(5<$("#preview").find(".preview-box").length){
 				  $("#preview").empty(); 
-				  swal("사진은 5개 까지 등록 가능합니", "success");
+				  swal("사진은 5개 까지 등록 가능합니다", "error");
 				  return false;
 			  } 
 		      
@@ -701,7 +702,7 @@
     	
     	if(5<imgCount){
     		imgTle.removeChild(imgs);
-    		swal("Good job!", "You clicked the button!", "success");
+    		swal("사진은 5개 까지 등록 가능합니다.", "", "error");
 		   return false; 
     	}
     	
@@ -1153,7 +1154,7 @@
 					<%
 						}
 					%>
-					<span style="color: #919191;">닉네임:<%=dto.getUser_id()%>
+					<span class="user_review_name">닉네임:<%=dto.getUser_id()%>
 					</span><span style="float: right; color: #919191;"><%=dto.getReply_realdate()%></span><br>
 					<div class="star_table">
 						<table class="star_score">

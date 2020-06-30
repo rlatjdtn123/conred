@@ -50,6 +50,8 @@
 	.store_title{text-align: center;}
 	.tle_final{width: 700px;border-top: 1px solid #BDBDBD;margin-left: 150px;margin-bottom: 200px;}
 	   
+	 .user_review_name{position: relative; top: -13px; padding-left: 10px;color:#919191;}  
+	   
 </style> 
 <script type="text/javascript">
 	 
@@ -86,7 +88,7 @@
 									+'<button style="margin-left: 235px;" class="buttondle"'
 									+'onclick="updateQnA('+lists[i].qna_seq+',\''+lists[i].qna_title+'\',\''+lists[i].qna_content+'\',\''+lists[i].qna_hide+'\')">수정</button>'
 									+'<button class="buttondle" onclick="deleteQnA('+lists[i].qna_seq+')">삭제</button> <button  class="content_detail buttondle">자세히 보기</button><br>'
-									+	'	<span style="color: #919191">닉네임 :'+ lists[i].user_id +' &nbsp;| '+lists[i].qna_title+' </span><span style="float: right;color: #919191">'+ lists[i].qna_realdate +'</span><br><br>   '                         
+									+	'	<span class="user_review_name">닉네임 :'+ lists[i].user_id +' &nbsp;| '+lists[i].qna_title+' </span><span style="float: right;color: #919191">'+ lists[i].qna_realdate +'</span><br><br>   '                         
 										+	'	<div class="contents">'+ lists[i].qna_content +'</div>    '
 									+	'	</div>   ' 
 									+	'	<div class="info2">     ' 
@@ -238,7 +240,7 @@
 				<img src="./img/profile_default.png" class="pf"/>
 				<div class="info">  
 					<button style="margin-left: 235px; " class="buttondle" onclick="updateQnA(<%=dto.getQna_seq()%>,'<%=dto.getQna_title()%>','<%=dto.getQna_content()%>','<%=dto.getQna_hide()%>')">수정</button> <button class="buttondle" onclick="deleteQnA(<%=dto.getQna_seq()%>)">삭제</button> <button  class="content_detail buttondle">자세히 보기</button><br>
-					<span style="color: #919191">닉네임 :<%=dto.getUser_id()%> &nbsp;| <%=dto.getQna_title()%> </span><span style="float: right;color: #919191"><%=dto.getQna_realdate()%></span><br><br>   
+					<span class="user_review_name">닉네임 :<%=dto.getUser_id()%> &nbsp;| <%=dto.getQna_title()%> </span><span style="float: right;color: #919191"><%=dto.getQna_realdate()%></span><br><br>   
 					<div class="contents"><%=dto.getQna_content()%></div>    
 				</div>   
 				<div class="info2">     

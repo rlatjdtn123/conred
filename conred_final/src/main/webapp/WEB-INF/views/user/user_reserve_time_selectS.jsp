@@ -362,7 +362,7 @@
 		
 		var store_maxdate=$("input[name=store_maxdate]").val();
 		if(resultDay>store_maxdate-1){
-			alert(store_maxdate+"일을 넘길수 없습니다."); 
+			swal(store_maxdate+"일을 넘길수 없습니다.", "", "info");//info,success,error,warning
 			$(".selector").val("");
 			$(".flatpickr-day").removeClass("selected startRange endRange inRange"); 
 			$(".day_result_box").children("span").empty();

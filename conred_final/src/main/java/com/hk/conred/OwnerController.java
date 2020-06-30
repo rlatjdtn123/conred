@@ -52,15 +52,24 @@ public class OwnerController {
 	
 	
 	@RequestMapping(value = "owner_myinfo_update.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String owner_myinfo_update(Locale locale, Model model,ODto dto,String owner_email1,String owner_email3,RedirectAttributes redirect) {
+	public String owner_myinfo_update(Locale locale, Model model,ODto dto,String owner_email1,String owner_email3,String owner_update_sex) {
 		logger.info("점주 나의정보수정{}.", locale);  
+		System.out.println("@@성별::"+owner_update_sex);
+		
+		if(owner_update_sex==null) {
+			
+		}else {
+			dto.setOwner_sex(owner_update_sex);
+		}
+		
+		
 		dto.setOwner_email(owner_email1+"@"+owner_email3);
 		boolean isS=oService.ownerUpdate(dto);
 		if(isS) {			
 			return "redirect:owner_myinfo.do"; 
 		}else {
-			redirect.addAttribute("msg", "나의정보수정 페이지 불러오기를 실패했습니다.");
-			return "redirect:error/error.jsp";
+			model.addAttribute("msg", "정보수정에 실패하셨습니다.");
+			return "error/error";
 		}
 		
 	}
@@ -68,7 +77,7 @@ public class OwnerController {
 	
 	
 	@RequestMapping(value = "owner_myinfo_delete.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String owner_myinfo_delete(Locale locale, Model model,HttpServletRequest request,RedirectAttributes redirect) {
+	public String owner_myinfo_delete(Locale locale, Model model,HttpServletRequest request) {
 		logger.info("점주 탈퇴{}.", locale);  
 		HttpSession session=request.getSession(); 
 		ODto oldto=(ODto)session.getAttribute("oldto");
@@ -77,8 +86,8 @@ public class OwnerController {
 			session.invalidate();
 			return "redirect:index.jsp"; 
 		}else {
-			redirect.addAttribute("msg", "회원탈퇴에 실패하였습니다.");
-			return "redirect:error.do";  
+			model.addAttribute("msg", "회원탈퇴에 실패하였습니다.");
+			return "error/error";  
 		}
 	}
 	
@@ -121,7 +130,22 @@ public class OwnerController {
 		return "owner/owner_mystore_reserve";
 	}
 	
+	@RequestMapping(value = "owner_mystore_reserve_success.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String owner_mystore_reserve_success(Locale locale, Model model,int store_seq) {
+		logger.info("점주 결제목록{}.", locale);
+		List<ReserveDto> list=reserveService.ownerStoreReserveSuccess(store_seq, 1);
+		model.addAttribute("list", list);
+		return "owner/owner_mystore_reserve_success";
+	}
 	
 	
-	
+	@ResponseBody
+	@RequestMapping(value = "owner_reserve_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public Map<String, List<ReserveDto>> owner_reserve_ajax(Locale locale, Model model,int store_seq,int pnum) {
+		logger.info("점주 결제목록ajax{}.", locale);
+		Map<String, List<ReserveDto>> map=new HashMap<>();
+		List<ReserveDto> list=reserveService.ownerStoreReserveSuccess(store_seq, pnum);
+		map.put("list", list);
+		return map;
+	}
 }

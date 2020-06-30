@@ -11,7 +11,7 @@
 <title>Insert title here</title>
 <style type="text/css">
 	body{min-width: 1250px;}
- 	#container{ border:1px solid rgba(225,225,225,1.00); border-bottom:1px solid #fff; border-top-width:0px; width:1000px;margin: 0 auto;height: 1000px;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/ 
+ 	#container{ border:1px solid rgba(225,225,225,1.00); border-bottom:1px solid #fff; border-top-width:0px;min-height:800px; width:1000px;margin: 0 auto;height: 1000px;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/ 
 /* 	#container{text-align:center;border:0px solid grey;border-top-width:0px; border-bottom-width:0px; width:1000px;height:auto;margin: 0 auto;} */
 /* 	
 	#navi2{box-shadow: 0px 0.5px 2px #5882FA;width:1000px;clear:both;position:relative;top:0px;text-align: center;line-height: 50px;display: inline-block;border-bottom: 1px solid #5882FA;} 
@@ -91,10 +91,10 @@
 	        <span><b>좋아요</b></span> 
 		</div>     
 		<div class="mybox_info">  
-		  	<span class="stats_result"><a onclick="location.href='user_mypage_like.do'"><%=dto.getPay_count()%></a></span><br/>
+		  	<span class="stats_result"><a onclick="location.href='owner_mystore_reserve_success.do?store_seq=<%=dto.getStore_seq()%>'"><%=dto.getPay_count()%></a></span><br/>
 		  	<span><b>결제수</b></span> 
 		</div>
-	</div>    
+	</div>     
 	<div class="mybox">  
 		<div class="mybox_info_header">매장 글 관리</div><br/>
 		<div class="mybox_info1">
@@ -134,12 +134,6 @@
 			  <span><b>문의수</b></span> 
 		</div>
 	</div> 
-	<div class="mybox icon_tle">
-		<div class="mybox_info_header" >보류</div><br/>
-		<div class="mybox_info">
-
-		</div>  
-	</div>
 </div>
 </body>
 </html>
