@@ -39,7 +39,7 @@ public class EmailOkController {
     LoggerFactory.getLogger(EmailOkController.class);
     private static final String String = null;
     
-    //이메일 인증으로 이동 (임시)
+    //이메일 인증으로 이동
     @RequestMapping(value = "email_ok.do", method = RequestMethod.GET)
 	public String admin_site(Locale locale, Model model) {
 		logger.info("이메일 인증 버튼 클릭시 인증 페이지로 이동 테스트용 {}.", locale);
@@ -51,7 +51,7 @@ public class EmailOkController {
   
     
     
-    // mailSending 코드
+        //mailSending에 관한 코드
     
     	
         @RequestMapping( value = "email_ok_start.do" , method=RequestMethod.POST )
@@ -62,7 +62,7 @@ public class EmailOkController {
             Random r = new Random();
             int dice = r.nextInt(4589362) + 49311; //이메일로 받는 인증코드 부분 (난수)
             request.getSession().setAttribute("dice", dice);
-            String setfrom = "conred7777@gamil.com";
+            String setfrom = "conred7777@gamil.com"; //보내는 사람 이메일
             String tomail = email; // 받는 사람 이메일
             String title = "회원가입 인증 이메일 입니다."; // 제목
             String content =
@@ -71,7 +71,7 @@ public class EmailOkController {
             
             System.getProperty("line.separator")+
                     
-            "안녕하세요 회원님 어디가냥저기가개! 이메일 인증 입니다"
+            "안녕하세요 회원님 어디가냥저기가개! 이메일 본인인증 서비스 입니다"
             
             +System.getProperty("line.separator")+
             
@@ -103,13 +103,15 @@ public class EmailOkController {
             
             ModelAndView mv = new ModelAndView();    //ModelAndView로 보낼 페이지를 지정하고, 보낼 값을 지정한다.
             mv.setViewName("admin/email_ok_end");     //뷰의이름
+            
+            //세션에 담았기에 주석처리
 //            mv.addObject("dice", dice);
             
             System.out.println("mv : "+mv);
  
             response_email.setContentType("text/html; charset=UTF-8");
             PrintWriter out_email = response_email.getWriter();
-            out_email.println("<script>alert('이메일이 발송되었습니다. 인증번호를 입력해주세요.');</script>");
+            out_email.println("<script>alert('이메일이 발송되었습니다. 인증번호를 입력해주세요.'); </script>");
             out_email.flush();
             
             
@@ -142,16 +144,14 @@ public class EmailOkController {
          
         ModelAndView mv = new ModelAndView();
         
-        mv.setViewName("admin/admin_site"); //user_regist.do 로 가야하나 테스트라 어드민 페이지로
+        mv.setViewName("user/user_regist"); //user_regist
         
         mv.addObject("email",email_injeung);
         
         if (email_injeung.equals(dice)) {
             
-            //인증번호가 일치할 경우 인증번호가 맞다는 창을 출력하고 회원가입창으로 이동함
-            
-            
-            
+            //인증번호가 일치할 경우 인증번호가 맞다는 창을 출력하고 회원가입창으로 이동
+                          
             mv.setViewName("admin/email_ok_end");
             
             mv.addObject("email",email_injeung);

@@ -28,7 +28,6 @@ public interface IUDao {
 	//9.사용자 블랙처리 (신고3번받으면)
 	
 	//10.네이버 아이디 로그인을 위한 유저 아이디 중복 조회
-	public String naver_confirm_id(String user_id);
-	//11.네이버 아이디 로그인후 정보가 없을때 회원가입
-	public boolean insertUserNaver(UDto dto);
+	public UDto naver_confirm_id(String user_id);
+
 }

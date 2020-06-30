@@ -44,7 +44,7 @@
 </style>
 <script type="text/javascript">
 	$(function(){
-		//이메일 작성시 나머지 메일 주소 선택 넣어주기
+		//이메일 칸 작성시 나머지 메일 주소 선택하여 넣어주기
 		$("#sel").change(function(){
 			$("input[name=user_email3]").val($(this).val());
 		});
@@ -59,7 +59,7 @@
 		});	
 		
 		
-//      이메일 필수 기능 임시로 비활성화 해놓음 회원가입 편의성 및 개발 테스트를 위해서
+		//회원 가입시 이메일 인증을 필수로 하기 위한 기능
 		$("form").eq(0).submit(function() {
 			if($("input[name=emailConfirm]").val()=='Y') {
 				return true;
@@ -71,35 +71,27 @@
 			}
 		});
 		
-		//이메일 인증버튼 클릭하면
-		$(".authBtn").click(function(){
-			var emailVal=$("input[name=user_email1]").val()+"@"+$("input[name=user_email3]").val();
-			$.ajax({
-				url:"email_ok_start.do",
-				method:"post",
-				data:{"email":emailVal},
-				dataType:"text",
-				success:function(m){// 서버로부터 응답되어 돌아오는 데이터는 "m"에 저장된다.
-					alert(m);
-				},
-				error:function(){
-					alert("인증작업(서버통신실패)");
-				}
-			}); 
-		});
+		//Ajax를 이용한 방법 보수2차
+// 		$(".authBtn").click(function(){
+// 			var emailVal=$("input[name=user_email1]").val()+"@"+$("input[name=user_email3]").val();
+// 			$.ajax({
+// 				url:"email_ok_start.do",
+// 				method:"post",
+// 				data:{"email":emailVal},
+// 				dataType:"text",
+// 				success:function(m){  //서버로부터 응답되어 돌아오는 데이터는 "m"에 저장된다.
+// 					alert(m);
+// 				},
+// 				error:function(){
+// 					alert("인증작업(서버통신실패)");
+// 				}
+// 			}); 
+// 		});
 		
 		
 })
 		
-		 
-		
-// 	//이메일 유효성 검사 참고용
-// 	function validate() {
-// 		var re2 = [0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-// 		var email = document.getElementById("email");
-// 	}
-
-
+		 	
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 	$(function(){
 	var user_id=$("input[name=user_id]");

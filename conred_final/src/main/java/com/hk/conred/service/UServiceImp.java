@@ -76,23 +76,9 @@ public class UServiceImp implements IUService{
 	}
 
 	@Override
-	public String naver_confirm_id(String user_id) {
+	public UDto naver_confirm_id(String user_id) {
 		return UDaoImp.naver_confirm_id(user_id);
 	}
-	
-	@Transactional
-	@Override
-	public boolean insertUserNaver(UDto dto,String [] category_code,String user_id) {
-		
-		UDaoImp.insertUserNaver(dto);
-		
-		return interestsDaoImp.insertInterests(category_code,user_id);
-	} 
-
-	
-
-
-	
 	
 
 }

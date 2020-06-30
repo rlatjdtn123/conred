@@ -24,25 +24,25 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import com.hk.conred.dtos.SDto;
 import com.hk.conred.dtos.UDto;
 import com.hk.conred.service.IInterestsService;
+import com.hk.conred.service.IUService;
 
 
 
-
- 
+@Controller
 public class Haekang {
 
 	
 	private static final Logger logger = LoggerFactory.getLogger(Haekang.class);
 	
-	@RequestMapping(value = "haekang.do", method = RequestMethod.GET)
-	public String Haekang(Locale locale, Model model) {
-		logger.info("테스트용 푸터 접근 {}.", locale);
+//	@RequestMapping(value = "haekang.do", method = RequestMethod.GET)
+//	public String Haekang(Locale locale, Model model) {
+//		logger.info("테스트용 푸터 접근 {}.", locale);
 	
 		
 		
-		return "test/haekang"; 
-	}
-	
+//		return "test/haekang"; 
+//	}
+	@Autowired IUService uService;
 	@Autowired IInterestsService interService ;
 	HttpSession session;
 	
@@ -64,25 +64,60 @@ public class Haekang {
 		return "index"; 
 	}
 	
-	@ResponseBody
-	@RequestMapping(value = "user_interests_recommended.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public Map<String, List<SDto>> user_interests_recommended(HttpServletRequest request, Locale locale, Model model, UDto udto, SDto sdto, String user_id, String paging) {
-		logger.info("유저 로그인시 index 페이지 관심사 추천 기능 {}.", locale); 
-			
-		HttpSession session=request.getSession();
-		UDto uldto = (UDto)session.getAttribute("uldto"); //Object(uldto객체)
-		
-		List<SDto> list = interService.user_interests_recommended(uldto.getUser_id(), paging);
-
-		System.out.println(list);   
-		model.addAttribute("list",list);//list[sDto,sDto[c,c,c,cDto,iDto[c,c]]...]
-//			                                  new SDto().getcDto().getCategory_name()
-		Map<String, List<SDto>>map=new HashMap<String, List<SDto>>();
-		map.put("list", list);
+//	@ResponseBody
+//	@RequestMapping(value = "user_interests_recommended.do", method = {RequestMethod.GET, RequestMethod.POST})
+//	public Map<String, List<SDto>> user_interests_recommended(HttpServletRequest request, Locale locale, Model model, UDto udto, SDto sdto, String user_id, String paging) {
+//		logger.info("유저 로그인시 index 페이지 관심사 추천 기능 {}.", locale); 
+//			
+//		HttpSession session=request.getSession();
+//		UDto uldto = (UDto)session.getAttribute("uldto"); //Object(uldto객체)
+//		
+//		List<SDto> list = interService.user_interests_recommended(uldto.getUser_id(), paging);
+//
+//		System.out.println(list);   
+//		model.addAttribute("list",list);//list[sDto,sDto[c,c,c,cDto,iDto[c,c]]...]
+////			                                  new SDto().getcDto().getCategory_name()
+//		Map<String, List<SDto>>map=new HashMap<String, List<SDto>>();
+//		map.put("list", list);
+//	
+//						// {list:[sdto,sdto...]}    obj.list[0].
+//		return map;  // [key:value,key:value]   -----> js : json객체형태와 유사 {key:value,key:value}
+//	}	
 	
-						// {list:[sdto,sdto...]}    obj.list[0].
-		return map;  // [key:value,key:value]   -----> js : json객체형태와 유사 {key:value,key:value}
-	}	
+	@RequestMapping(value = "user_login.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String user_login(Locale locale, Model model,HttpServletRequest request,UDto dto) {
+		logger.info("유저 로그인접근 {}.", locale);
+		HttpSession session=request.getSession();
+		UDto uldtoNaver=(UDto)session.getAttribute("uldto");//기존회원정보
+		UDto uldto=null;
+		if(uldtoNaver!=null) {
+			uldto=uService.getLogin(uldtoNaver.getUser_id(),uldtoNaver.getUser_password());
+			System.out.println("################"+uldto);
+		}else {
+			uldto=uService.getLogin(dto.getUser_id(),dto.getUser_password());			
+		}
+		
+
+			if(uldto==null) {
+				model.addAttribute("msg", "존재하지 않는 아이디입니다 다시한번 확인해주세요");
+				return "error/error";
+			}else{
+				if(uldto.getUser_out().equals("Y")){
+					model.addAttribute("msg", "탈퇴한 회원 입니다");
+					return "error/error";
+				}else if(uldto.getUser_black().equals("Y")) {
+					model.addAttribute("msg", "블랙된 회원입니다");
+					return "error/error";
+				}else {   
+					session.setAttribute("uldto", uldto);
+					return "redirect:index.do";
+				}
+			} 
+			  
+		
+			 
+	} 
+	
 	
 	
 }

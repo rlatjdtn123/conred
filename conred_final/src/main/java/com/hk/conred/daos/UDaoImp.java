@@ -81,19 +81,11 @@ public class UDaoImp implements IUDao{
 	}
 	
 	@Override
-	public String naver_confirm_id(String user_id) {
-		user_id=sqlSession.selectOne(nameSpace+"naver_confirm_id", user_id);
-		return user_id;
-	}
-	
-	@Override
-	public boolean insertUserNaver(UDto dto) {
-		int count =0;
+	public UDto naver_confirm_id(String user_id) {
+		UDto dto=sqlSession.selectOne(nameSpace+"naver_confirm_id", user_id);
+		return dto;
 		
-		count=sqlSession.insert(nameSpace+"insertUserNaver", dto);
-		return count>0?true:false; 
-	}
-	
+	}	
 	
 	 
 }

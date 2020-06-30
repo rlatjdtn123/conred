@@ -78,10 +78,12 @@
 	</select>
 
         <!--네아로를 위한 중복 아이디 조회 -->
-     <select id = "naver_confirm_id" parameterType="String" resultType="String">
-    	SELECT USER_ID
+     <select id = "naver_confirm_id" parameterType="String" resultType="UDto">
+    	<![CDATA[
+    	SELECT *
 		FROM CON_USER
 		WHERE USER_ID=#{user_id}
+		]]>
      </select>
 	
 <!-- 	<insert id="insertUserNaver" parameterType="UDto"> -->

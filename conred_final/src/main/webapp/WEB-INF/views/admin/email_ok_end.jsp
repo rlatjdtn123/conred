@@ -18,7 +18,7 @@
 		}
 	</script>
 <meta charset="UTF-8">
-<title>어디가냥저기가개! 이메일 인증 시스템</title>
+<title>어디가냥저기가개! 이메일 본인 인증</title>
 <style type="text/css" >
 	#spans{
 	 text-align: center;
@@ -48,7 +48,7 @@
 			<div id="spans">
 			<span>
 			입력하신 이메일로 받은 인증번호를 입력하라냥!<br>
-			(인증번호가 맞아야 다음 단계로 넘어가실 수 있습니다)
+			(인증번호가 일치하여야 다음 단계로 넘어가실 수 있습니다)
 			</span>
 			</div>
 			<br>
@@ -64,7 +64,7 @@
 							placeholder="  인증번호를 입력하세요. ">
 						</div> <br> <br>
 					<div style="text-align: center;" >
-					<button type="submit" name="submit">인증번호 전송</button><br/>
+					<button type="submit" name="submit">확인</button><br/>
 					</div>
 					<span>${msg}</span>
 					</td>
@@ -72,13 +72,11 @@
 				<c:if test="${confirm =='Y'}">
 					<tr>
 						<td>
-							<button type="button" onclick="confirmClose()">확인</button>
+							<button type="button" onclick="confirmClose()">완료</button>
 						</td>
 					</tr>
 				</c:if>
-			
-					
-		</table>
+		 </table>
 	</form>
 </body>
 </html>

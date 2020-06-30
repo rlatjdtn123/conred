@@ -142,7 +142,7 @@ public class LoginController {
 			String user_id=(String)jsonObj2.get("id");
 			String user_name=(String)jsonObj2.get("name");
 		    String user_email=(String)jsonObj2.get("email");
-		    String user_sex=(String)jsonObj2.get("gender");
+		    String user_sex2=(String)jsonObj2.get("gender");
 		    String user_birth=(String)jsonObj2.get("birthday");
 //회원 가입 페이지로 넘겨주려고 했으나, 바로 DB로 넘겨주고 로그인 되는 방식으로 변경함
 //		    model.addAttribute("id", id);
@@ -150,26 +150,35 @@ public class LoginController {
 //		    model.addAttribute("name", name);
 //		    model.addAttribute("email", email);
 			
-		    String confirmed_id = uService.naver_confirm_id(user_id);
-		    System.out.println(confirmed_id);
+		    UDto confirm_id = uService.naver_confirm_id(user_id);
+		    System.out.println("확인"+confirm_id);
 		    //이 패스워드는 실제 사용되지 않음 보안상 및 DB널값 방지용
-		    String user_password=UUID.randomUUID().toString().replace("-", "");
+		    String user_password="naverpassword";  //난수바꾸기
 		    
-		    UDto dto = new UDto(); 
-		    dto.setUser_id(user_id);
-		    dto.setUser_password(user_password);
-		    dto.setUser_name(user_name);
-		    dto.setUser_email(user_email);
-		    dto.setUser_sex(user_sex);
-		    dto.setUser_birth(user_birth);
-		    dto.setUser_agreement("Y");
-		    System.out.println("확인"+dto);
+		    //남자 여자 변형
+		    String user_sex = user_sex2;
+		    if(user_sex != "M") {
+		    	user_sex = "여자";
+		    }else{
+		    	user_sex = "남자";
+		    }
 		    
-		    if(confirmed_id==null) {
+		    
+		    UDto dto1 = new UDto(); 
+		    dto1.setUser_id(user_id);
+		    dto1.setUser_password(user_password);
+		    dto1.setUser_name(user_name);
+		    dto1.setUser_email(user_email);
+		    dto1.setUser_birth(user_birth);  //사용자가 선택 안했을시 테스트 필요 널포인트 익센셥
+		    dto1.setUser_sex(user_sex);
+		    dto1.setUser_agreement("Y");
+//		    System.out.println("확인"+confirm_id);
+		    
+		    if(confirm_id==null) {
 
 		    	session=request.getSession();
 		    	//dto를 세션에 담고 관심사 선택과 트랜잭션
-		    	session.setAttribute("udto", dto);
+		    	session.setAttribute("udto", dto1);
 		    	//네이버 정보로 회원가입 실행
 		    	//네이버 로그인 버튼 클릭하자마자 약관페이지 뜨고 인서트는 안하고 
 				//체크하면 관심사 체크 만들고 그다음 관심사 선택 페이지로 했어요
@@ -178,11 +187,10 @@ public class LoginController {
 		    
 		    }else{
 		    	
-//			    HttpSession session=request.getSession();
-		    	
+		            //세션을 요청하여 불러와서 session에 저장했고
 			    	session=request.getSession();
 			    	//dto를 세션에 담았고
-			    	session.setAttribute("udto", dto);
+			    	session.setAttribute("uldto", confirm_id);
 		    	
 		    	return "redirect:user_login.do";
 		    	
@@ -195,49 +203,12 @@ public class LoginController {
 			e.printStackTrace();
 		}
       
-		return "index";
+		return "redirect:index.do";
       
-  }
-//    JSONObject jsonobj = jsonparse.stringToJson(apiResult, "response");
-//    String snsId = jsonparse.JsonToString(jsonobj, "id");
-//    String name = jsonparse.JsonToString(jsonobj, "name");
-//
-//    UserVO vo = new UserVO();
-//    vo.setUser_snsId(snsId);
-//    vo.setUser_name(name);
-//
-//    System.out.println(name);
-//    try {
-//        vo = service.naverLogin(vo);
-//    } catch (Exception e) {
-//        // TODO Auto-generated catch block
-//        e.printStackTrace();
-//    }
-//    session.setAttribute("login",vo);
-//    return new ModelAndView("views/loginPost", "result", vo);
-//	@RequestMapping(value = "user_regist_category_naver.do", method = {RequestMethod.GET,RequestMethod.POST})
-//		public String user_regist_category_naver(Locale locale, Model model,String []category_code,String user_id,HttpServletRequest request) {
-//			logger.info("관심사 선택완료후 가입완료 메시지 출력페이지로 이동 네이버용{}.", locale);
-//				
-//				HttpSession session=request.getSession();
-//				UDto dto=(UDto)session.getAttribute("udto");
-////				for (int i = 0; i < category_code.length; i++) {
-////					System.out.println("@@@@@@@@@@@@@@@@@::"+category_code[i]);
-////					System.out.println("!!!!!!!!!!!!!!!!!::"+user_id[i]);
-////				}
-//			
-//				boolean isS=uService.insertUserNaver(dto, category_code,dto.getUser_id());
-//				if(isS){ 
-//					return "user/user_regist_finish";						
-//				}else {
-//					return "";
-//				}
-//		}
-		
-      
+  }      
   
 	
-   	//네이버로 오게되면  
+   	
 	@RequestMapping(value = "user_insert.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String user_insert(Locale locale, Model model,UDto dto,String user_email1,String user_email3,HttpServletRequest request) {
 		logger.info("테스트용 유저 회원가입 폼 {}.", locale);

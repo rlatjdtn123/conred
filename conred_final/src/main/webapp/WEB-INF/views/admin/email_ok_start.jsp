@@ -29,7 +29,7 @@
 						이메일 : <input type="email" name="email"
 							placeholder="  이메일주소를 입력하세요. ">
 					</div> <br> <br>
-					<button type="submit" name="submit">이메일 인증받기 (이메일 보내기)</button>
+					<button type="submit" name="submit">이메일 본인인증 시작</button>
 				</td>
 			</tr>
 

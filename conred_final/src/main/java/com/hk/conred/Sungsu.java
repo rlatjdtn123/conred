@@ -203,31 +203,31 @@ public class Sungsu {
 	 
 		
 		 
-	@RequestMapping(value = "user_login.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String user_login(Locale locale, Model model,HttpServletRequest request,UDto dto) {
-		logger.info("유저 로그인접근 {}.", locale);
-		HttpSession session=request.getSession();
-		UDto uldto=uService.getLogin(dto.getUser_id(),dto.getUser_password());
-
-			if(uldto==null) {
-				model.addAttribute("msg", "존재하지 않는 아이디입니다 다시한번 확인해주세요");
-				return "error/error";
-			}else{
-				if(uldto.getUser_out().equals("Y")){
-					model.addAttribute("msg", "탈퇴한 회원 입니다");
-					return "error/error";
-				}else if(uldto.getUser_black().equals("Y")) {
-					model.addAttribute("msg", "블랙된 회원입니다");
-					return "error/error";
-				}else {   
-					session.setAttribute("uldto", uldto);
-					return "redirect:index.do";
-				}
-			} 
-			  
-		
-			 
-	} 
+//	@RequestMapping(value = "user_login.do", method = {RequestMethod.GET,RequestMethod.POST})
+//	public String user_login(Locale locale, Model model,HttpServletRequest request,UDto dto) {
+//		logger.info("유저 로그인접근 {}.", locale);
+//		HttpSession session=request.getSession();
+//		UDto uldto=uService.getLogin(dto.getUser_id(),dto.getUser_password());
+//
+//			if(uldto==null) {
+//				model.addAttribute("msg", "존재하지 않는 아이디입니다 다시한번 확인해주세요");
+//				return "error/error";
+//			}else{
+//				if(uldto.getUser_out().equals("Y")){
+//					model.addAttribute("msg", "탈퇴한 회원 입니다");
+//					return "error/error";
+//				}else if(uldto.getUser_black().equals("Y")) {
+//					model.addAttribute("msg", "블랙된 회원입니다");
+//					return "error/error";
+//				}else {   
+//					session.setAttribute("uldto", uldto);
+//					return "redirect:index.do";
+//				}
+//			} 
+//			  
+//		
+//			 
+//	} 
 	
 	
 	@RequestMapping(value = "user_logout.do", method = {RequestMethod.GET,RequestMethod.POST})
