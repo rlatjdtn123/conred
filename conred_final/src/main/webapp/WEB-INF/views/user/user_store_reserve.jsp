@@ -141,7 +141,7 @@
 							<tr>
 								<td>${list_menu[i].menu_name}</td> 
 								<td>${list_menu[i].menu_content}</td>
-								<td>${list_menu[i].menu_price}원</td>
+							 	<td>${list_menu[i].menu_price}원</td>
 								<%
 								if(uldto!=null){
 								%>
