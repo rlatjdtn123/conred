@@ -2,6 +2,7 @@ package com.hk.conred;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.rmi.RemoteException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -949,8 +950,6 @@ public class Yoonho {
 		
 		return "owner/owner_mystore_qna"; 
 	}
-	
-
 	
 	
 }

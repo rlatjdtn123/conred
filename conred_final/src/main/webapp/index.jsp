@@ -131,44 +131,44 @@
 
 $( function() {
     var availableTags = [//박스안에 글자가 하나 입력될 때 마다 >>아작스를 실행>>해당 글자가 앞에 포함 되는지여부를 통해 알파벳순으로 orderby로데이터를가져옴>>10개씩끊어서가져온다>>10개의 데이터를 이 안에 넣으면 그 데이터들로 자동완성기능이 실행. 
-      "ActionScript",
+//       "ActionScript",
 
-      "acathexis",
-      "acathisia",
-      "acaudal",
-      "acaulescent",
-      "acauline",
-      "acausal",
-      "acausality",
-      "acc",
-      "acc.",
-      "acca",
-      "accad",
-      "accademia",
-      "accadian",
-      "accardo",
-      "accc",
-      "AppleScript",
-      "Asp",
-      "BASIC",
-      "C",
-      "C++",
-      "Clojure",
-      "COBOL",
-      "ColdFusion",
-      "Erlang",
-      "Fortran",
-      "Groovy",
-      "Haskell",
-      "Java",
-      "JavaScript",
-      "Lisp",
-      "Perl",
-      "PHP",
-      "Python",
-      "Ruby",
-      "Scala",
-      "Scheme"
+//       "acathexis",
+//       "acathisia",
+//       "acaudal",
+//       "acaulescent",
+//       "acauline",
+//       "acausal",
+//       "acausality",
+//       "acc",
+//       "acc.",
+//       "acca",
+//       "accad",
+//       "accademia",
+//       "accadian",
+//       "accardo",
+//       "accc",
+//       "AppleScript",
+//       "Asp",
+//       "BASIC",
+//       "C",
+//       "C++",
+//       "Clojure",
+//       "COBOL",
+//       "ColdFusion",
+//       "Erlang",
+//       "Fortran",
+//       "Groovy",
+//       "Haskell",
+//       "Java",
+//       "JavaScript",
+//       "Lisp",
+//       "Perl",
+//       "PHP",
+//       "Python",
+//       "Ruby",
+//       "Scala",
+//       "Scheme"
     ];
     $( "#searchbar" ).autocomplete({
       source: availableTags
@@ -258,6 +258,10 @@ function swiperObj(){
 <h1><a href="sungsu.do">성수입장</a></h1>
 <h1><a href="yoonho.do">윤호입장</a></h1>
 <h1><a href="haekang.do">해강입장</a></h1>
+<h1><a href="GetCorpState1.do">사업자테스트01</a></h1>
+<h1><a href="GetCorpState.do">사업자테스트</a></h1>
+<h1><a href="GetCorpStates.do">대량사업자테스트</a></h1>
+<h1><a href="GetCorpStateScrapRequestURL.do">사업자테스트2</a></h1>
 </div>
 
 <div id="container">
