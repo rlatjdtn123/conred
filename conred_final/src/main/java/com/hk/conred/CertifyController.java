@@ -106,7 +106,7 @@ public class CertifyController {
 		String result = barobillApiService.corpState.getCorpStateScrapRequestURL(certKey, corpNum, id, pwd);
 
 		System.out.println(result);
-//		System.out.println("사업자번호"+result.getCorpNum());
+//		System.out.println("사업자번호"+result.getCorpNum()); 
 //		System.out.println("과세구분"+result.getTaxType());
 //		System.out.println("휴폐업상태"+result.getState());
 //		System.out.println("휴폐업일자"+result.getStateDate());
