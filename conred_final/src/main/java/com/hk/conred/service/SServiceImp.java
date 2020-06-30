@@ -410,7 +410,8 @@ public class SServiceImp implements ISService {
 				String[] time_break, String[] store_photo_title, SLocaDto slocadto, HttpServletRequest request,
 				String[] dels,String[] store_photo_title_before,String[] before_seq,
 				CMainDto cmaindto,String[] clist,String[] category_code_2,String[] name,
-				String[] content,String[] price,String[] state,List<STimeDto> list_stime,String[] del_menus) {
+				String[] content,String[] price,String[] state,List<STimeDto> list_stime,String[] del_menus, String[] menu_seqs,
+				String[] category_code_3, String[] name_2, String[] content_2, String[] price_2, String[] state_2) {
 
 			MultipartHttpServletRequest multi = (MultipartHttpServletRequest)request;
 			List<MultipartFile> fileList = multi.getFiles("photos");
@@ -519,8 +520,15 @@ public class SServiceImp implements ISService {
 			
 			//위에꺼 fk오류 뜨니 delflag바꿔주기로 하자
 			//전달할 것 sdto, category_code, name, content, price, state
-			MenuDaoImp.updatemenu(sdto, category_code_2, name, content, price, state);//기존 메뉴리스트 삭제표시(delflag)
+			MenuDaoImp.updatemenu(sdto, category_code_2, name, content, price, state, menu_seqs);//기존 메뉴리스트 삭제표시(delflag)
+			System.out.println("메뉴 업데이트 됐습니다");
 			MenuDaoImp.deletemenu(del_menus);//기존 메뉴리스트 삭제표시(delflag)
+			System.out.println("메뉴 삭제업데이트 됐습니다.");
+			if(category_code_3!=null) {
+				MenuDaoImp.insertMenu(sdto, category_code_3, name_2, content_2, price_2, state_2);//얘도그대로
+				System.out.println("새 메뉴 insert 됐습니다.");
+			}
+			System.out.println("insert할 새 메뉴는 없습니다.");
 			
 //			return STimeDaoImp.insertStime(sdto,time_day,time_open,time_close,time_break);
 			return STimeDaoImp.updateStime(sdto,time_open,time_close,time_break,list_stime);

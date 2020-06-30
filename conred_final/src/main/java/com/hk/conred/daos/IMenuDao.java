@@ -22,7 +22,7 @@ public interface IMenuDao {
 	
 	//update메뉴
 	public boolean updatemenu(SDto sdto, String[] category_code_2,String[] name,
-			String[] content,String[] price,String[] state);
+			String[] content,String[] price,String[] state, String[] menu_seqs);
 
 	public boolean deletemenu(String[] del_menus);
 	

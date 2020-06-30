@@ -925,7 +925,7 @@
 // 			center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
 			center: new kakao.maps.LatLng(37.525026023695375, 126.8888353907293), //지도의 중심좌표.
 		    minLevel: 1,
-		    maxLevel: 5,
+		    maxLevel: 7,
 			level: 4 //지도의 레벨(확대, 축소 정도)
 		};
 		

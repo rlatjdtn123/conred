@@ -209,7 +209,7 @@
 <script type="text/javascript">
 	//store_info관련
 	$(document).ready(function(){
-
+		
 		
 		
 		var fileTarget = $('.filebox .upload-hidden');
@@ -266,12 +266,6 @@
 		$("body").on("click",".deladd",function(){
 			var del_menu= $(this).parent("li").find($("input[name=menu_seq_li]")).val();
 			$("#del_menus").append('<input type=\"hidden\" name=\"del_menu\" value='+del_menu+'>');
-			for (var i = 0; i < $("input[name=menu_seq]").length; i++) {
-				if($("input[name=menu_seq]").eq(i).val()==del_menu){
-					$("input[name=menu_seq]").eq(i).remove();
-				}
-			}
-// 			$("#menu_seqs").find($("input[name=menu_seq]").val("")).remove();
 		});
 		
 		$("body").on("click",".hide_menu",function(){
@@ -476,14 +470,7 @@
  	
 	//카테고리, 메뉴관련
 	$(document).ready(function(){
-		//대표카테고리 하나만 골라지게
-		$("body").on("click","input:checkbox[name=category_code]", function() {
-			
-			if($(this).prop("checked")){
-				$("input:checkbox[name=category_code]").prop("checked",false);
-				$(this).prop("checked",true);
-			}
-		});		
+		
 		//기존카테고리 체크박스에서 카테고리당 중복메뉴1개씩 없애버리기
 		//각 .menuboxes안의 li.length가 5개 이상(와 같거나 많으면)이면
 		//li.eq(4번째)를 remove
@@ -688,19 +675,7 @@
 				for (var i = 0; i < $(".big_cate").length; i++) {//현재 대분류의 갯수만큼 돌면서 내가 체크한 카테박스와 같은 이름의 대분류를 지워주기
 					if($(".big_cate").eq(i).text().indexOf(bigcatetext)!=-1){//대분류중에 카테박스에 해당하는 대분류가 있으면
 																			//다른말로는 :이번 턴의 대분류가 내가 체크한 박스의 대분류와 같으면
-						var bc =$(".big_cate").eq(i);
-						var del_menu= $(".big_cate").eq(i).parent().parent("ul").find($("input[name=menu_seq_li]")).val();
-						
-						$("#del_menus").append('<input type=\"hidden\" name=\"del_menu\" value='+del_menu+'>');
-						for (var i = 0; i < $("input[name=menu_seq]").length; i++) {
-							if($("input[name=menu_seq]").eq(i).val()==del_menu){
-								$("input[name=menu_seq]").eq(i).remove();
-							}
-						}
-// 						alert(bc.text());
-						bc.parent().parent($("menuboxes")).remove();
-// 						$(".big_cate").eq(i).parent().parent("ul").remove();
-				
+						$(".big_cate").eq(i).parent().parent("ul").remove();
 					}
 				}
 			}
@@ -725,17 +700,17 @@
 								'<span class="menu_name"></span>'+
 							'</li> '+
 							'<li>'+
-								'<input type="hidden" name="category_code_3" value="'+cateval.toUpperCase()+'">'+
-								'<input class="menu_name form-control" type="text" name="name_2" placeholder="메뉴명"/> '+
-								'<textarea rows="3" class="menubox_long form-control" type="text" name="content_2" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~"></textarea> '+
+								'<input type="hidden" name="category_code_2" value="'+cateval.toUpperCase()+'">'+
+								'<input class="menu_name form-control" type="text" name="menu_name" placeholder="메뉴명"/>'+
+								'<textarea rows="3" class="menubox_long form-control" type="text" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~"></textarea> '+
 								'<div class="menu_price">'+
 									'<div class="menu_price2">'+
 									'가격'+
-									' <input class="menu_price form-control" type="text" name="price_2" placeholder="10000"/>'+
+									' <input class="menu_price form-control" type="text" name="menu_price" placeholder="10000"/>'+
 									'</div>'+
 									'<div class="menu_reserve">'+
 									'예약'+
-									' <select class="settime form-control menu_price" name="state_2">'+
+									' <select class="settime form-control menu_price" name="menu_state">'+
 										'<option value="N">미사용</option>'+
 										'<option value="T">시간제</option>'+
 										'<option value="S">숙박제</option>'+
@@ -758,17 +733,17 @@
 // 			alert(cateval);
 			$(this).parent().parent($(".menuboxes")).append(
 			'<li>'+
-				'<input type="hidden" name="category_code_3" value="'+cateval.toUpperCase()+'"/>'+
-				'<input class="menu_name form-control" type="text" name="name_2" placeholder="멍멍개껌"/> '+
-				'<textarea rows="3" class="menubox_long form-control" type="text" name="content_2" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~"></textarea> '+
+				'<input type="hidden" name="category_code_2" value="'+cateval.toUpperCase()+'"/>'+
+				'<input class="menu_name form-control" type="text" name="menu_name" placeholder="멍멍개껌"/> '+
+				'<textarea rows="3" class="menubox_long form-control" type="text" name="menu_content" placeholder="강아지들에게 인기만점인 멍멍개껌입니다~"></textarea> '+
 				'<div class="menu_price">'+
 					'<div class="menu_price2">'+
 					'가격 '+
-					'<input class="menu_price form-control" type="text" name="price_2" placeholder="10000"/>'+
+					'<input class="menu_price form-control" type="text" name="menu_price" placeholder="10000"/>'+
 					'</div>'+
 					'<div class="menu_reserve">'+
 					'예약 '+
-					'<select class="settime form-control menu_price" name="state_2">'+
+					'<select class="settime form-control menu_price" name="menu_state">'+
 						'<option value="N">미사용</option>'+
 						'<option value="T">시간제</option>'+
 						'<option value="S">숙박제</option>'+
@@ -1461,7 +1436,6 @@
 						<div id="del_menus" style="display:none"></div>
 						
 						<!-- 메뉴 수만큼 돌아가는 for문 -->
-						<!-- Def==N인 메뉴 수만큼 돌아가는 for문으로 바꿔줘야한다. -->
 						<c:forEach var="i" begin="0" end="${list_menu.size()-1}" step="1">
 							
 								<c:choose>
@@ -1471,7 +1445,6 @@
 										<ul class="menuboxes">
 											<li>
 												<div class="big_cate">${list_menu[i].category_name}</div>
-												<input type="hidden" name="category_code_ex" value="${list_menu[i].category_code}">
 												<input type="hidden" name="category_code_ex" value="${list_menu[i].category_code}">
 												<br>
 											</li>
@@ -1677,7 +1650,7 @@
 			if($(".inputbox").eq(0).find($(".form-control")).val()==""||$(".inputbox").eq(0).find($(".form-control")).val()==" "||$(".inputbox").eq(0).find($(".form-control")).val()==null){
 				swal("매장이름을 입력해주세요.","", "info"); 
 				var scroll = $(".inputbox").eq(0).offset();
-				$('html').animate({scrollTop : scroll.top-121}, 400);
+				$('html').animate({scrollTop : scroll.top-71}, 400);
 				setTimeout(function() {
 					$(".inputbox").eq(0).find($(".form-control")).focus();
 				},1000);
@@ -1687,14 +1660,14 @@
 				swal("사진은 최소 5장을 넣어주세요.","", "info"); 
 				var scroll = $(".inputbox").eq(3).offset();
 				setTimeout(function() {
-					$('html').animate({scrollTop : scroll.top-121}, 400);
+					$('html').animate({scrollTop : scroll.top-71}, 400);
 				},30);
 				return false;
 			}
 			if($(".inputbox").eq(4).find($(".form-control")).val()==""||$(".inputbox").eq(4).find($(".form-control")).val()==" "||$(".inputbox").eq(4).find($(".form-control")).val()==null){
 				swal("매장의 간단소개를 입력해주세요.","", "info"); 
 				var scroll = $(".inputbox").eq(4).offset();
-				$('html').animate({scrollTop : scroll.top-121}, 400);
+				$('html').animate({scrollTop : scroll.top-71}, 400);
 				setTimeout(function() {
 					$(".inputbox").eq(4).find($(".form-control")).focus();
 				},900);
@@ -1703,7 +1676,7 @@
 			if($(".inputbox").eq(5).find($(".form-control")).val()==""||$(".inputbox").eq(5).find($(".form-control")).val()==" "||$(".inputbox").eq(5).find($(".form-control")).val()==null){
 				swal("매장의 소갯글를 입력해주세요.","", "info"); 
 				var scroll = $(".inputbox").eq(5).offset();
-				$('html').animate({scrollTop : scroll.top-121}, 400);
+				$('html').animate({scrollTop : scroll.top-71}, 400);
 				setTimeout(function() {
 					$(".inputbox").eq(5).find($(".form-control")).focus();
 				},850);
@@ -1713,7 +1686,7 @@
 			if($(".inputbox").eq(7).find($(".form-control")).val()==""||$(".inputbox").eq(7).find($(".form-control")).val()==" "||$(".inputbox").eq(7).find($(".form-control")).val()==null){
 				swal("매장의 전화번호를 입력해주세요.","", "info"); 
 				var scroll = $(".inputbox").eq(7).offset();
-				$('html').animate({scrollTop : scroll.top-121}, 400);
+				$('html').animate({scrollTop : scroll.top-71}, 400);
 				setTimeout(function() {
 					$(".inputbox").eq(7).find($(".form-control")).focus();
 				},750);
@@ -1722,7 +1695,7 @@
 			if($(".inputbox").eq(8).find($(".form-control")).val()==""||$(".inputbox").eq(8).find($(".form-control")).val()==" "||$(".inputbox").eq(8).find($(".form-control")).val()==null){
 				swal("담당자의 전화번호를 입력해주세요.","", "info"); 
 				var scroll = $(".inputbox").eq(8).offset();
-				$('html').animate({scrollTop : scroll.top-121}, 400);
+				$('html').animate({scrollTop : scroll.top-71}, 400);
 				setTimeout(function() {
 					$(".inputbox").eq(8).find($(".form-control")).focus();
 				},750);
@@ -1731,7 +1704,7 @@
 			if($("input[name=store_latitude]").val()==""||$("input[name=store_latitude]").val()==" "||$("input[name=store_latitude]").val()==null){
 				swal("지도에서 주소를 찾아 선택해주세요.","", "info");
 				var scroll = $(".inputbox").eq(9).offset();
-				$('html').animate({scrollTop : scroll.top-121}, 400);
+				$('html').animate({scrollTop : scroll.top-71}, 400);
 				setTimeout(function() {
 					$(".inputbox").eq(9).find($(".form-control")).eq(0).focus();
 				},750);
@@ -1740,7 +1713,7 @@
 			if($("input[name=store_address_detail]").val()==""||$("input[name=store_address_detail]").val()==" "||$("input[name=store_address_detail]").val()==null){
 				swal("상세주소를 적어주세요.","", "info");
 				var scroll = $(".inputbox").eq(9).offset();
-				$('html').animate({scrollTop : scroll.top-121}, 400);
+				$('html').animate({scrollTop : scroll.top-71}, 400);
 				setTimeout(function() {
 					$(".inputbox").eq(9).find($(".form-control")).eq(1).focus();
 				},750);
@@ -1749,7 +1722,7 @@
 			if($(".lastbox").find($(".form-control")).eq(0).val()=="none"){
 				swal("은행정보를 입력해주세요.","", "info"); 
 				var scroll = $(".inputbox").eq(11).offset();
-				$('html').animate({scrollTop : scroll.top-121}, 400);
+				$('html').animate({scrollTop : scroll.top-71}, 400);
 				setTimeout(function() {
 					$(".inputbox").eq(11).find($(".form-control")).eq(0).focus();
 				},750);
@@ -1758,82 +1731,11 @@
 			if($("input[name=store_account]").val()==""||$("input[name=store_account]").val()==" "||$("input[name=store_account]").val()==null){
 				swal("계좌번호를 입력해주세요.","", "info"); 
 				var scroll = $(".inputbox").eq(11).offset();
-				$('html').animate({scrollTop : scroll.top-121}, 400);
+				$('html').animate({scrollTop : scroll.top-71}, 400);
 				setTimeout(function() {
 					$(".inputbox").eq(11).find($(".form-control")).eq(1).focus();
 				},750);
 				return false;
-			}
-			
-			/////카테고리관련
-			
-			
-			//대표카테고리 체크박스 수만큼 돌면서 체크되어있는 카테고리의 값을 담는다
-			//만약체크가 되어있지않다면 return false
-			var selectedCate="";
-	    	var cateBoxes = $("input:checkbox[name=category_code]");
-			for (var i = 0; i < cateBoxes.length; i++) {
-				if(cateBoxes.eq(i).prop("checked")==true){
-					selectedCate=cateBoxes.eq(i).val();
-				}
-			}
-			if(selectedCate==""){
-				swal("대표카테고리 항목을 선택해주세요.","*1가지만 선택할 수 있어요. \n*세부카테고리는 다중선택 가능해요.", "info");
-				return false;
-			}
-// 			alert(selectedCate.toLowerCase());
-	    	var cateCount=0;
-	    	var cateMainCount=0;
-	    	var cateBoxesSmall = $("input:checkbox[name=category_code_small]");
-			for (var i = 0; i < cateBoxesSmall.length; i++) {
-				//모든 세부카테들을 돌면서 체크되어있는 체크박스가 있으면
-				if(cateBoxesSmall.eq(i).prop("checked")==true){
-					//일단카운트업하고
-					cateCount++;
-					//체크된 박스 중 각 세부카테들의 value안에 위에 구한 큰카테가 포함되어있다면
-					if(cateBoxesSmall.eq(i).val().indexOf(selectedCate.toLowerCase())!=-1){
-						cateMainCount++;
-					}
-				}
-			}
-// 			alert(selectedCate);
-
-			//만약 cateCount가 0이면 return false
-// 			alert("체크된 카테 수 : "+cateCount);
-			
-			//만약 cateCount가 1보다 큰데  return false
-// 			alert("체크된 카테 중 대표카테고리에 포함된 카테 수 :"+cateMainCount);
-			
-			//만약 체크된 카테가 없거나 대표카테고리에 해당하는 카테가 없으면, 둘중 어떤거든 누락이라면 return false
-	    	if(cateCount==0||cateMainCount==0){
-	    		swal("카테고리 항목을 확인해주세요.","대표종류에 해당하는 한가지 이상의 항목에 체크해주세요!", "info");
-// 	    		document.getElementsByClassName("inputbox")[13].scrollIntoView({behavior: "smooth"});
-	    		var scroll = $(".inputbox").eq(12).offset();
-				$('html').animate({scrollTop : scroll.top-121}, 400);
-				return false;
-	    	}
-			
-			if($("input[name=store_maxman]").prop("readonly")==false){
-// 				alert("최대인원수 readonly 풀린상태입니다.")
-				if($("input[name=store_maxman]").val()==0){
-// 					alert("최대인원수 readonly 풀린상태인데 값이 0입니다.")
-					swal("시간당 최대인원수를 입력해주세요.","*설명을 잘 읽고 적어주세요", "info"); 
-					setTimeout(function() {
-						$("input[name=store_maxman]").focus();
-					},1000);
-					return false;
-				}
-			}
-			if($("input[name=store_maxdate]").prop("readonly")==false){
-// 				alert("최대예약일 readonly 풀린상태입니다.")
-				if($("input[name=store_maxdate]").val()==0){
-// 					alert("최대예약일 readonly 풀린상태인데 값이 0입니다.")
-					swal("최대 예약일을 입력해주세요.","*설명을 잘 읽고 적어주세요", "info"); 
-					setTimeout(function() {
-						$("input[name=store_maxdate]").focus();
-					},1000);
-					return false;
-				}
 			}
 			
 			swal({

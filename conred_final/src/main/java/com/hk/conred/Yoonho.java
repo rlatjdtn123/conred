@@ -179,7 +179,8 @@ public class Yoonho {
 			return "owner/owner_regist_finish"; 
 		}else {
 			System.out.println("회원가입실패");
-			return ""; 
+			model.addAttribute("msg","점주 회원가입에 실패하였습니다.");
+			return "error/error"; 
 		}
 	}
 
@@ -306,7 +307,8 @@ public class Yoonho {
 //			http://localhost:8090/conred/egist_store.jsp
 		}else{
 			System.out.println("매장생성 + 사업자정보등록 :실패");
-			return ""; 
+			model.addAttribute("msg","사업자 정보 등록에 실패하였습니다.");
+			return "error/error"; 
 		}	
 	}
 	@RequestMapping(value = "owner_toUpdate_certify.do", method = {RequestMethod.GET,RequestMethod.POST})
@@ -461,7 +463,8 @@ public class Yoonho {
 			return "redirect:owner_regist_menu.do";
 		}else{
 			System.out.println("매장정보 신규등록실패~");
-			return ""; 
+			model.addAttribute("msg","매장 정보 등록에 실패하였습니다.");
+			return "error/error"; 
 		}	
 	}
 	
@@ -566,7 +569,8 @@ public class Yoonho {
 			return "redirect:owner_regist_menu.do";
 		}else{
 			System.out.println("매장정보 업데이트실패~");
-			return ""; 
+			model.addAttribute("msg","매장정보 수정에 실패하였습니다.");
+			return "error/error"; 
 		}	
 	}
 	
@@ -635,7 +639,8 @@ public class Yoonho {
 			return "redirect:owner_regist_store_finish.do"; 
 		}else{
 			System.out.println("메뉴정보 업데이트실패~");
-			return ""; 
+			model.addAttribute("msg","매뉴정보 수정에 실패하였습니다.");
+			return "error/error"; 
 		}	
 	}
 	
@@ -768,7 +773,8 @@ public class Yoonho {
 	public String owner_reupdate_store(Locale locale, Model model,SDto sdto, STimeDto stimedto,
 			String [] store_photo_title,String [] store_photo_title_before, String[] before_seq,
 			SLocaDto slocadto,String del, HttpServletRequest request,String[] category_code_2,
-			CMainDto cmaindto, CListDto clistdto, MenuDto menudto, RedirectAttributes redirect, String del_menu) {
+			CMainDto cmaindto, CListDto clistdto, MenuDto menudto, RedirectAttributes redirect, String del_menu, String menu_seq,
+			String[] category_code_3, String[] name_2, String[] content_2, String[] price_2, String[] state_2) {
 		logger.info("점주: 매장수정페이지 (상세정보, 사진, 주소, 영업시간, 카테고리(대/소), 메뉴 수정) {}.", locale);
 		
 		//insert때랑 다른점:기존의 store는 그대로 수정이고,
@@ -840,7 +846,7 @@ public class Yoonho {
 		System.out.println(del_menu);
 		String [] del_menus=null;
 		if(del_menu==null||del_menu=="") {
-			del_menu=" ";
+			del_menu="0";
 		}
 		del_menus=del_menu.split(",");
 		//여기에 추가할것
@@ -859,6 +865,7 @@ public class Yoonho {
 			System.out.println("CList 카테고리:"+clistdto.getCategory_code_small());
 			String [] clist=clistdto.getCategory_code_small().split(",");
 			//만든 메뉴
+			String [] menu_seqs= menu_seq.split(",");
 			String [] name=menudto.getMenu_name().split(",");
 			String [] content=menudto.getMenu_content().split(",");
 			String [] price=menudto.getMenu_price().split(",");
@@ -866,10 +873,23 @@ public class Yoonho {
 		
 			for (int i = 0; i < category_code_2.length; i++) {
 				System.out.println
-				("메뉴 카테고리코드: "+category_code_2[i]+"/ 메뉴명:"+name[i]+"/ 내용:"+
+				("기존 메뉴 카테고리코드: "+category_code_2[i]+"/ 메뉴명:"+name[i]+"/ 내용:"+
 						content[i]+"/ 가격:"+price[i]+"/ 예약코드:"+state[i]);
 			}
-			
+			if(category_code_3!=null) {
+				for (int i = 0; i < category_code_3.length; i++) {
+					System.out.println
+					("새 메뉴 카테고리코드: "+category_code_3[i]+"/ 메뉴명:"+name_2[i]+"/ 내용:"+
+							content_2[i]+"/ 가격:"+price_2[i]+"/ 예약코드:"+state_2[i]);
+				}
+			}
+//			else{
+//				category_code_3[0]="none";
+//				name_2[0]="none";
+//				content_2[0]="none";
+//				price_2[0]="none";
+//				state_2[0]="none";
+//			}
 			System.out.println("메뉴명: "+menudto.getMenu_name());
 			System.out.println("내용: "+menudto.getMenu_content());
 			System.out.println("가격: "+menudto.getMenu_price());
@@ -878,7 +898,8 @@ public class Yoonho {
 		//0.서비스 새로만들고 안에 같은 글 넣기
 		boolean isS=sService.reupdateStore(sdto,time_open,time_close,time_break,
 				store_photo_title,slocadto,request,dels,store_photo_title_before,before_seq,
-				cmaindto,clist,category_code_2,name,content,price,state,list_stime,del_menus);
+				cmaindto,clist,category_code_2,name,content,price,state,list_stime,del_menus,menu_seqs,
+				 category_code_3, name_2, content_2, price_2, state_2);
 		//그안에 추가할것
 		//	1.대표카테고리 수정하는 dao, sdto최대인원날짜 수정하는 dao
 		//	2.기존 세부카테고리, 메뉴 지우는 기능
@@ -892,7 +913,8 @@ public class Yoonho {
 			return "redirect:owner_reupdate_finish.do";
 		}else{
 			System.out.println("매장정보 re업데이트실패~");
-			return ""; 
+			model.addAttribute("msg","매장정보 재수정에 실패하였습니다.");
+			return "error/error"; 
 		}	
 	}
 	

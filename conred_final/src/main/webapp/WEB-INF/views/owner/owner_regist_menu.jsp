@@ -84,16 +84,16 @@
 <script type="text/javascript">
 	
 	$(document).ready(function(){
+		//대표카테고리 한개만 선택가능하게 하는 기능
 		$("body").on("click","input:checkbox[name=category_code]", function() {
 			
 			if($(this).prop("checked")){
 				$("input:checkbox[name=category_code]").prop("checked",false);
 				$(this).prop("checked",true);
 			}
-			
-			
 		});
 		
+		//대표카테ㅇㅇ?
 		var form=$("form")[0];
 	    form.onsubmit=function(){ 
 			var selectedCate="";

@@ -51,10 +51,8 @@ public class SPhotoDaoImp implements ISPhotoDao{
 	@Override
 	public boolean deleteSPhoto(String[] dels) {
 		int count=0;
-
 		System.out.println("dels:"+dels[0]);
 		Map<String, Object> map =new HashMap<>();
-		
 		map.put("arr", dels);
 		count =sqlSession.delete(namespace+"deleteSPhoto",map);
 		return count>0?true:false;

@@ -82,14 +82,11 @@
 <script type="text/javascript">
 	
 	$(document).ready(function(){
-$("body").on("click","input:checkbox[name=category_code]", function() {
-			
+		$("body").on("click","input:checkbox[name=category_code]", function() {
 			if($(this).prop("checked")){
 				$("input:checkbox[name=category_code]").prop("checked",false);
 				$(this).prop("checked",true);
 			}
-			
-			
 		});
 		
 		var form=$("form")[0];
