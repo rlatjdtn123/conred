@@ -260,18 +260,18 @@ function swiperObj(){
 </head>
 <body>
 
-<div style="position:absolute;left:0px;top:0px;">
-<h1><a href="login.do">로그인</a></h1>
-<h1><a href="home.do">테스트</a></h1>
-<h1><a href="sungsu.do">성수입장</a></h1>
-<h1><a href="yoonho.do">윤호입장</a></h1>
-<h1><a href="haekang.do">해강입장</a></h1>
-<h1><a href="GetCorpState1.do">사업자테스트01</a></h1>
-<h1><a href="GetCorpState.do">사업자테스트</a></h1>
-<h1><a href="GetCorpStates.do">대량사업자테스트</a></h1>
-<h1><a href="GetDailyBankAccountLog.do">입출금조회테스트</a></h1>
-<h1><a href="GetBankAccount.do">계좌조회테스트</a></h1>
-</div>
+<!-- <div style="position:absolute;left:0px;top:0px;"> -->
+<!-- <h1><a href="login.do">로그인</a></h1> -->
+<!-- <h1><a href="home.do">테스트</a></h1> -->
+<!-- <h1><a href="sungsu.do">성수입장</a></h1> -->
+<!-- <h1><a href="yoonho.do">윤호입장</a></h1> -->
+<!-- <h1><a href="haekang.do">해강입장</a></h1> -->
+<!-- <h1><a href="GetCorpState1.do">사업자테스트01</a></h1> -->
+<!-- <h1><a href="GetCorpState.do">사업자테스트</a></h1> -->
+<!-- <h1><a href="GetCorpStates.do">대량사업자테스트</a></h1> -->
+<!-- <h1><a href="GetDailyBankAccountLog.do">입출금조회테스트</a></h1> -->
+<!-- <h1><a href="GetBankAccount.do">계좌조회테스트</a></h1> -->
+<!-- </div> -->
 
 <div id="container">
 	<div id="message1">더 넓은 세상을 선물하세요<img id="footprint1" src="./img/footprint1.png"></div>
