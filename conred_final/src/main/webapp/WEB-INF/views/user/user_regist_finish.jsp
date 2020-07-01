@@ -29,7 +29,7 @@
 		<h2>회원가입이 <b>완료</b> 되었습니다</h2>
 	</div>
 	<div class="bigtle02">
-		<div onclick="location.href='index.jsp'" class="main_home">
+		<div onclick="location.href='index.do'" class="main_home">
 			홈으로  
 		</div>
 		<div onclick="location.href='login.do'" class="user_login">

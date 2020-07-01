@@ -84,7 +84,7 @@ public class OwnerController {
 		boolean isS=oService.ownerDelete(oldto.getOwner_id());
 		if(isS) {
 			session.invalidate();
-			return "redirect:index.jsp"; 
+			return "redirect:index.do"; 
 		}else {
 			model.addAttribute("msg", "회원탈퇴에 실패하였습니다.");
 			return "error/error";  

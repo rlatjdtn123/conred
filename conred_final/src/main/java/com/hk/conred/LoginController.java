@@ -193,7 +193,7 @@ public class LoginController {
 //		    if(jsonObj.get("name")==null) {
 //		    	user_name=" ";
 //		    }
-//		    if(jsonObj.get("email")==null) {
+//		    if(jsonObj.get("email")==null) { 
 //		    	user_email=" ";
 //		    }
 		    
@@ -352,9 +352,13 @@ public class LoginController {
 		    dto1.setOwner_birth(owner_birth);  //사용자가 선택 안했을시 테스트 필요 널포인트 익센셥
 		    dto1.setOwner_sex(owner_sex);
 		    dto1.setOwner_agreement("Y");
-//		    for (int i = 0; i < ; i++) {
-//				
-//			}
+			System.out.println("@@@:d1::"+dto1.getOwner_id());
+			System.out.println("@@@:d2::"+dto1.getOwner_password());
+			System.out.println("@@@:d3::"+dto1.getOwner_name());
+			System.out.println("@@@:d4::"+dto1.getOwner_email());
+			System.out.println("@@@:d5::"+dto1.getOwner_birth());
+			System.out.println("@@@:d6::"+dto1.getOwner_sex());
+			System.out.println("@@@:d7::"+dto1.getOwner_agreement());
 		    
 		    
 		    if(confirm_id==null) {
@@ -410,41 +414,70 @@ public class LoginController {
 		return "user/user_regist_category";
 	}	 
 	
+	@RequestMapping(value = "owner_regist_finish.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String owner_regist_finish(Locale locale, Model model) {
+		logger.info("끝 {}.", locale);	
+		return "owner/owner_regist_finish"; 
+	}	 
+	
 	
 	@RequestMapping(value = "owner_insert.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String owner_insert(Locale locale, Model model, ODto dto, String owner_email1, String owner_email2) {
+	public String owner_insert(Locale locale, Model model, ODto dto, String owner_email1, String owner_email2,HttpServletRequest request) {
 		logger.info("점주 회원정보 db에 입력 {}.", locale);
-		dto.setOwner_email(owner_email1+"@"+owner_email2);
 		
-		//성별 null일경우 String타입으로 값 받을수 있게 수정(*왜 null값이 입력이 안되는지 모르겠음)
-		if(dto.getOwner_sex()==null) {
-			dto.setOwner_sex("");
-		}
+		HttpSession session=request.getSession();
+		ODto odto=(ODto)session.getAttribute("odto");
+		System.out.println("@@odto:::"+odto);
 		
+		if(odto==null) {
+			dto.setOwner_email(owner_email1+"@"+owner_email2);
+			
+			//성별 null일경우 String타입으로 값 받을수 있게 수정(*왜 null값이 입력이 안되는지 모르겠음)
+			if(dto.getOwner_sex()==null) {
+				dto.setOwner_sex("");
+			}
+			
+			
+			boolean isS = oService.insertOwner(dto);
+			if(isS&&dto.getOwner_agreement().equals("Y")) {
+				System.out.println("회원가입성공");
+				return "redirect:owner_regist_finish.do"; 
+			}else {
+				System.out.println("회원가입실패");
+				model.addAttribute("msg","점주 회원가입에 실패하였습니다.");
+				return "error/error"; 
+			}
+			
+		}else {
+			 	
+			boolean isS=oService.insertOwner(odto);
+			if(isS){ 
+				return "redirect:owner_regist_finish.do";						
+			}else {
+				model.addAttribute("msg", "회원가입이 실패됐습니다");
+				return "error/error";  
+			}  
+
+		}  
+		 
+
+	}
 	
 		
 		
 		
-		System.out.println("o1"+dto.getOwner_id());
-		System.out.println("o2"+dto.getOwner_password());
-		System.out.println("o3"+dto.getOwner_name());
-		System.out.println("o4"+dto.getOwner_email());
-		System.out.println("o5"+dto.getOwner_birth());
-		System.out.println("o6"+dto.getOwner_sex());
-		System.out.println("o7"+dto.getOwner_regdate());
-		System.out.println("o8"+dto.getOwner_agreement());
+//		System.out.println("o1"+dto.getOwner_id());
+//		System.out.println("o2"+dto.getOwner_password());
+//		System.out.println("o3"+dto.getOwner_name());
+//		System.out.println("o4"+dto.getOwner_email());
+//		System.out.println("o5"+dto.getOwner_birth());
+//		System.out.println("o6"+dto.getOwner_sex());
+//		System.out.println("o7"+dto.getOwner_regdate());
+//		System.out.println("o8"+dto.getOwner_agreement());
 		
 		 
-		boolean isS = oService.insertOwner(dto);
-		if(isS&&dto.getOwner_agreement().equals("Y")) {
-			System.out.println("회원가입성공");
-			return "owner/owner_regist_finish"; 
-		}else {
-			System.out.println("회원가입실패");
-			model.addAttribute("msg","점주 회원가입에 실패하였습니다.");
-			return "error/error"; 
-		}
-	}
+		
+	
 	
 	 
 	

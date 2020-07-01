@@ -67,7 +67,7 @@
 				<td><%=dto.getStore_phone()%></td>
 			</tr>
 		</table>
-		<div onclick="location.href='index.jsp'" class="main_home">
+		<div onclick="location.href='index.do'" class="main_home">
 			홈으로  
 		</div>
 	</div>
