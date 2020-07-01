@@ -1,3 +1,4 @@
+<%@page import="com.hk.conred.dtos.ODto"%>
 <%@page import="com.hk.conred.dtos.UDto"%>
 <%@page import="com.hk.conred.dtos.LikeDto"%>
 <%@page import="java.util.List"%>
@@ -293,6 +294,7 @@
    LikeDto like_dto=(LikeDto)request.getAttribute("like_dto");
    UDto uldto=(UDto)session.getAttribute("uldto");
    SDto store_detail=(SDto)request.getAttribute("store_detail");
+   ODto oldto=(ODto)session.getAttribute("oldto");
 %>
 <body>
 <input type="hidden" name="session_id" value="<%=session.getAttribute("uldto")==null?"":uldto.getUser_id()%>"/>
@@ -881,9 +883,29 @@
                   </div>
                   <div class="qna_q">
                      <div><b>문의내용</b></div>
+                     <%
+                     if(oldto!=null){
+                    	 if(oldto.getOwner_id().equals(store_detail.getOwner_id())){
+                    	 %>
+                    	 <div class="rep_con_text">   
+                         	${list_qna[0].qna_content}
+                     	 </div>
+                    	 <%	 
+                    	 }else{
+                    	 %>
+                    	 <div class="rep_con_text">   
+                         	비공개글 입니다.
+                     	 </div>
+                    	 <%	 
+                    	 }
+                     }else{
+                     %>
                      <div class="rep_con_text">   
-                        ${list_qna[0].qna_content}
-                     </div>
+                  	   	비공개글 입니다.
+                   	 </div>
+                     <% 
+                     }
+                     %>
                   </div>
                </div>
                <div class="owner_reply">
@@ -913,9 +935,29 @@
                   </div>
                   <div class="qna_q">
                      <div><b>문의내용</b></div>
+                     <%
+                     if(oldto!=null){
+                    	 if(oldto.getOwner_id().equals(store_detail.getOwner_id())){
+                    	 %>
+                    	 <div class="rep_con_text">   
+                         	${list_qna[1].qna_content}
+                     	 </div>
+                    	 <%	 
+                    	 }else{
+                    	 %>
+                    	 <div class="rep_con_text">   
+                         	비공개글 입니다.
+                     	 </div>
+                    	 <%	 
+                    	 }
+                     }else{ 
+                     %>
                      <div class="rep_con_text">   
-                        ${list_qna[1].qna_content}
-                     </div>
+                  	   	비공개글 입니다.
+                   	 </div>
+                     <% 
+                     }
+                     %>
                   </div>
                </div>
                <div class="owner_reply">

@@ -508,6 +508,7 @@ public class LoginController {
 					return "error/error";
 				}else {   
 					session.setAttribute("uldto", uldto);
+					session.setMaxInactiveInterval(60*60);//1시간--사용자
 					return "redirect:index.do";
 				}
 			} 
@@ -564,7 +565,7 @@ public class LoginController {
 			if(cmain!=null) {
 				session.setAttribute("cmaindto", cmain);
 			}
-			session.setMaxInactiveInterval(60*10*6); 
+			session.setMaxInactiveInterval(60*60);//1시간 --점주
 			return "redirect:index.do"; 
 		}	
 	}
