@@ -143,7 +143,7 @@ List<UDto>list=(List<UDto>)request.getAttribute("list");
 		}           
 	%>	
 </table>
-	<button type="submit" formaction="adminMuldelUser.do" >삭제</button>
+	<button type="submit" formaction="adminMuldelUser.do" >탈퇴여부변경</button>
 </form>
 </div>
 </body>

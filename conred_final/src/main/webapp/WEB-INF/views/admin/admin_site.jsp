@@ -17,7 +17,7 @@
 <div id="container">
 
 
-<a href="admin_site_userlist.do" id="user1"><img src="img/icon/icon_admin_A test.png"></a><br>
+<a href="admin_site_userlist.do" id="user1">유저 검색/조회</a><br>
 <a href="admin_site_storelist.do">매장 검색/조회</a><br>
 <a href="admin_site_ownerlist.do">점주 검색/조회</a><br>
 

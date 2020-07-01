@@ -35,9 +35,10 @@
 				}else{
 					bool = false;
 				}
+			}
 				return bool;
-				});
-
+		});
+			
 		// 체크박스 처리: 체크가 하나라도 안되면 전체선택체크박스 해제, 모두 선택되면 체크
 		var chks = document.getElementsByName("store_seqs");
 		for (var i = 0; i < chks.length; i++) {
@@ -126,7 +127,21 @@ List<SDto>list=(List<SDto>)request.getAttribute("list");
 <%-- 							<td><%=dto.getStore_path()%></td> --%>
 <%-- 							<td><%=dto.getStore_simple_intro()%></td> --%>
 <%-- 							<td><%=dto.getStore_intro()%></td> --%>
-							<td><%=dto.getStore_state()%></td>
+							<td>
+							<%
+							String state="";
+							if(dto.getStore_state().equals("O")){ 
+								state = "영업중"; 
+							}else if(dto.getStore_state().equals("X")){ 
+								state = "점주탈퇴";
+							}else if(dto.getStore_state().equals("B")){
+								state = "휴업중";
+							}else if(dto.getStore_state().equals("C")){
+								state = "폐업";
+							}
+							%>
+							    <%=state%>
+							</td>
 <%-- 							<td><%=dto.getStore_phone()%></td> --%>
 							<td><%=dto.getStore_phone_manager()%></td>
 <%-- 							<td><%=dto.getStore_address()%></td> --%>
@@ -146,8 +161,7 @@ List<SDto>list=(List<SDto>)request.getAttribute("list");
 		</table>
 <!-- 		승인하고 싶은 매장은 선택하여 승인하고, 승인을 취소하고 싶은 매장은 선택하여 취소하는 버튼 -->
 		<button type="submit" formaction="adminMulchk.do">매장승인/승인취소</button>
-		<button type="submit" formaction="adminMuldel.do">삭제</button>
-		<button type="submit" formaction="adminMulupdown.do">등급변경(구현안됨)</button>
+		<button type="submit" formaction="adminMuldel.do">매장상태변경</button>
 	    </form>
 	</div>
  </body>

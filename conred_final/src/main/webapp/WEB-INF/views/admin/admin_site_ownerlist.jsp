@@ -124,7 +124,7 @@ List<ODto>list=(List<ODto>)request.getAttribute("list");
 				}
 			%>	
 		</table>
-			<button type="submit" formaction="adminMuldelOwner.do" >탈퇴처리</button>
+			<button type="submit" formaction="adminMuldelOwner.do" >탈퇴여부변경</button>
 		</form>
 	</div>
  </body>
