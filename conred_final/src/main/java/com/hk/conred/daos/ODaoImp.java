@@ -87,6 +87,13 @@ public class ODaoImp implements IODao {
 		return dto;
 	}
 
+	@Override
+	public ODto naver_confirm_id(String owner_id) {
+		ODto dto=sqlSession.selectOne(nameSpace+"naver_confirm_id", owner_id);
+		return dto;
+	}
+	
+
 	
 	
 	

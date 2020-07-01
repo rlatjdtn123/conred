@@ -26,9 +26,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.hk.conred.dtos.ODto;
 import com.hk.conred.dtos.SDto;
 import com.hk.conred.dtos.UDto;
 import com.hk.conred.service.IInterestsService;
+import com.hk.conred.service.IOService;
 import com.hk.conred.service.IUService;
 import com.hk.conred.NaverLoginBO;
 
@@ -44,6 +46,8 @@ public class LoginController {
     
     @Autowired
 	private IUService uService;
+    
+    private IOService oService; 
     
     @Autowired
     private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
@@ -108,7 +112,7 @@ public class LoginController {
 //  }
   
 
-  //로그인성공시 콜백페이지 작성중!!
+  //로그인성공시 콜백페이지 작성중!!   사용자
    @RequestMapping(value = "user_regist_naver.do", method = { RequestMethod.GET, RequestMethod.POST })
    public String callback(Locale locale, Model model, @RequestParam String code, @RequestParam String state, HttpSession session, HttpServletRequest request 
 		  )
@@ -130,20 +134,36 @@ public class LoginController {
       Object obj;
 		try {
 			obj = parser.parse(apiResult);
-			JSONObject jsonObj = (JSONObject) obj;
+			JSONObject jsonObj = (JSONObject) obj;	
 			System.out.println(jsonObj);
 			JSONObject jsonObj2=(JSONObject)jsonObj.get("response");
-			System.out.println(jsonObj2.get("id"));
-			System.out.println(jsonObj2.get("name"));
-			System.out.println(jsonObj2.get("email"));
-			System.out.println(jsonObj2.get("gender"));
-			System.out.println(jsonObj2.get("birthday"));
+			System.out.println("1"+jsonObj2.get("id"));
+			System.out.println("2"+jsonObj2.get("name"));
+			System.out.println("3"+jsonObj2.get("email"));
+			System.out.println("4"+jsonObj2.get("gender"));
+			System.out.println("5"+jsonObj2.get("birthday"));
 //			JSONObject jsonObjreal = new JSONObject();
 			String user_id=(String)jsonObj2.get("id");
 			String user_name=(String)jsonObj2.get("name");
 		    String user_email=(String)jsonObj2.get("email");
 		    String user_sex2=(String)jsonObj2.get("gender");
 		    String user_birth=(String)jsonObj2.get("birthday");
+		    
+		    if(jsonObj.get("gender")==null) {
+		    	user_sex2=" ";
+			}
+		    if(jsonObj.get("birthday")==null) {
+		    	user_birth=" ";
+		    }
+		    if(jsonObj.get("name")==null) {
+		    	user_name=" ";
+		    }
+		    if(jsonObj.get("email")==null) {
+		    	user_email=" ";
+		    }
+		    
+		     
+		    
 //회원 가입 페이지로 넘겨주려고 했으나, 바로 DB로 넘겨주고 로그인 되는 방식으로 변경함
 //		    model.addAttribute("id", id);
 //		    model.addAttribute("password", password);
@@ -205,7 +225,148 @@ public class LoginController {
       
 		return "redirect:index.do";
       
-  }      
+  }    
+   
+   
+   
+   
+   
+   
+   
+ //로그인성공시 콜백페이지 작성중!!    점주
+   @RequestMapping(value = "owner_regist_naver.do", method = { RequestMethod.GET, RequestMethod.POST })
+   public String owner_regist_naver(Locale locale, Model model, @RequestParam String code, @RequestParam String state, HttpSession session, HttpServletRequest request 
+		  )
+          throws IOException {
+	  logger.info("점주 - 네아로 기능 마지막단계 {}.", locale); 
+      System.out.println("여기는 callback02");
+      OAuth2AccessToken oauthToken;
+      oauthToken = naverLoginBO.getAccessToken(session, code, state);
+      //로그인 사용자 정보를 읽어온다.
+      apiResult = naverLoginBO.getUserProfile(oauthToken);
+      System.out.println(naverLoginBO.getUserProfile(oauthToken).toString());
+      model.addAttribute("result", apiResult);
+      System.out.println("result"+apiResult);
+      
+      
+      /* 네이버 로그인 성공하면서 JSON 데이터 파싱*/ //데이터 베이스에 여기서 바로 넣어준다
+      
+      JSONParser parser = new JSONParser();
+      Object obj;
+		try {
+			obj = parser.parse(apiResult);
+			JSONObject jsonObj = (JSONObject) obj;	
+			System.out.println(jsonObj);
+			JSONObject jsonObj2=(JSONObject)jsonObj.get("response");
+			System.out.println("1"+jsonObj2.get("id"));
+			System.out.println("2"+jsonObj2.get("name"));
+			System.out.println("3"+jsonObj2.get("email"));
+			System.out.println("4"+jsonObj2.get("gender"));
+			System.out.println("5"+jsonObj2.get("birthday"));
+//			JSONObject jsonObjreal = new JSONObject();
+			String owner_id=(String)jsonObj2.get("id");
+			String owner_name=(String)jsonObj2.get("name");
+		    String owner_email=(String)jsonObj2.get("email");
+		    String owner_sex2=(String)jsonObj2.get("gender");
+		    String owner_birth=(String)jsonObj2.get("birthday");
+		    
+		    if(jsonObj.get("gender")==null) {
+		    	owner_sex2=" ";
+			}
+		    if(jsonObj.get("birthday")==null) {
+		    	owner_birth=" ";
+		    }
+		    if(jsonObj.get("name")==null) {
+		    	owner_name=" ";
+		    }
+		    if(jsonObj.get("email")==null) {
+		    	owner_email=" ";
+		    }
+		    
+		     
+		    
+//회원 가입 페이지로 넘겨주려고 했으나, 바로 DB로 넘겨주고 로그인 되는 방식으로 변경함
+//		    model.addAttribute("id", id);
+//		    model.addAttribute("password", password);
+//		    model.addAttribute("name", name);
+//		    model.addAttribute("email", email);
+			
+
+		    ODto confirm_id= oService.naver_confirm_id(owner_id);
+		    System.out.println("확인"+confirm_id);
+		    //이 패스워드는 실제 사용되지 않음 보안상 및 DB널값 방지용
+		    String owner_password="naverpassword";  //난수바꾸기
+		    
+		    //남자 여자 변형
+		    String owner_sex = owner_sex2;
+		    if(owner_sex != "M") {
+		    	owner_sex = "여자";
+		    }else{
+		    	owner_sex = "남자";
+		    }
+		    
+		    
+		    
+		    ODto dto1 = new ODto();
+		    dto1.setOwner_id(owner_id);
+		    dto1.setOwner_password(owner_password);
+		    dto1.setOwner_name(owner_name);
+		    dto1.setOwner_email(owner_email);
+		    dto1.setOwner_birth(owner_birth);  //사용자가 선택 안했을시 테스트 필요 널포인트 익센셥
+		    dto1.setOwner_sex(owner_sex);
+		    dto1.setOwner_agreement("Y");
+		    
+		    
+		    if(confirm_id==null) {
+
+		    	session=request.getSession();
+		    	//dto를 세션에 담고 관심사 선택과 트랜잭션
+		    	session.setAttribute("odto", dto1);
+		    	//네이버 정보로 회원가입 실행
+		    	//네이버 로그인 버튼 클릭하자마자 약관페이지 뜨고 인서트는 안하고 
+				//체크하면 관심사 체크 만들고 그다음 관심사 선택 페이지로 했어요
+		    	
+		    	return "redirect:user_insert.do";
+		    
+		    }else{
+		    	
+		            //세션을 요청하여 불러와서 session에 저장했고
+			    	session=request.getSession();
+			    	//dto를 세션에 담았고
+			    	session.setAttribute("oldto", confirm_id);
+		    	
+		    	return "redirect:user_login.do";
+		    	
+		    }			    
+		    
+		    
+			    
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+      
+		return "redirect:index.do";
+      
+  }     
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
   
 	
    	
@@ -221,8 +382,53 @@ public class LoginController {
 		HttpSession session=request.getSession();
 		session.setAttribute("udto", dto);
 		}
+		
+		
 		return "user/user_regist_category";
 	}	 
+	 
+	
+	
+	@RequestMapping(value = "user_login.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String user_login(Locale locale, Model model,HttpServletRequest request,UDto dto) {
+		logger.info("유저 로그인접근 {}.", locale);
+		HttpSession session=request.getSession();
+		UDto uldtoNaver=(UDto)session.getAttribute("uldto");//기존회원정보
+		UDto uldto=null;
+		if(uldtoNaver!=null) {
+			uldto=uService.getLogin(uldtoNaver.getUser_id(),uldtoNaver.getUser_password());
+			System.out.println("################"+uldto);
+		}else {
+			uldto=uService.getLogin(dto.getUser_id(),dto.getUser_password());			
+		}
+		
+
+			if(uldto==null) {
+				model.addAttribute("msg", "존재하지 않는 아이디입니다 다시한번 확인해주세요");
+				return "error/error";
+			}else{
+				if(uldto.getUser_out().equals("Y")){
+					model.addAttribute("msg", "탈퇴한 회원 입니다");
+					return "error/error";
+				}else if(uldto.getUser_black().equals("Y")) {
+					model.addAttribute("msg", "블랙된 회원입니다");
+					return "error/error";
+				}else {   
+					session.setAttribute("uldto", uldto);
+					return "redirect:index.do";
+				}
+			} 
+			  
+		
+			 
+	}
+	
+	
+	
+	
+	
+	
+	
 		
 	
 }

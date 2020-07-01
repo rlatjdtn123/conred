@@ -75,5 +75,15 @@
 		SELECT OWNER_ID FROM CON_STORE WHERE STORE_SEQ =#{store_seq}
 	</select>
 	
+	
+	
+	<select id = "naver_confirm_id" parameterType="String" resultType="ODto">
+    	<![CDATA[
+    	SELECT *
+		FROM CON_OWNER
+		WHERE OWNER_ID=#{owner_id}
+		]]>
+     </select>
+	
 </mapper> 
 	 

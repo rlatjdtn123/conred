@@ -27,4 +27,7 @@ public interface IODao {
 	//10.마이스토어인포에 점주아이디
 	public ODto ownerMyStoreInfoId(int store_seq);
 	
+	//11.네이버 아이디 로그인을 위한 유저 아이디 중복 조회
+	public ODto naver_confirm_id(String owner_id);
+	
 }

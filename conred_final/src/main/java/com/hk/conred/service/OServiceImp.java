@@ -65,6 +65,11 @@ public class OServiceImp implements IOService{
 		return ODaoImp.ownerMyStoreInfoId(store_seq);
 	}
 
+	@Override
+	public ODto naver_confirm_id(String owner_id) {
+		return ODaoImp.naver_confirm_id(owner_id);
+	}
+
 	
 
 }

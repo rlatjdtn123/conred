@@ -2,7 +2,7 @@ package com.hk.conred.service;
 
 import java.util.List;
 
-
+import com.hk.conred.dtos.ODto;
 import com.hk.conred.dtos.QnaDto;
 import com.hk.conred.dtos.UDto;
 
@@ -30,6 +30,8 @@ public interface IUService {
 	
 	//10.네이버 아이디 유저 로그인을 위한 유저 아이디 중복 조회
 	public UDto naver_confirm_id(String user_id);
+	
+	
 
 	
 }
