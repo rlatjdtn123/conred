@@ -262,6 +262,7 @@ function swiperObj(){
 <h1><a href="GetCorpState.do">사업자테스트</a></h1>
 <h1><a href="GetCorpStates.do">대량사업자테스트</a></h1>
 <h1><a href="GetDailyBankAccountLog.do">입출금조회테스트</a></h1>
+<h1><a href="GetBankAccount.do">계좌조회테스트</a></h1>
 </div>
 
 <div id="container">
