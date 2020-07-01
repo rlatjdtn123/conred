@@ -1033,7 +1033,7 @@
 	}
 	%>
 	<div id="pagename">
-		<b>리뷰 현황</b>
+		<b>리뷰 목록</b>
 	</div> 
 		<%
 		if(list.size()!=0){

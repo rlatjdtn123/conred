@@ -443,6 +443,9 @@
 		}
 	}
 	%>
+	<div id="pagename">
+		<b>문의 목록</b>
+	</div> 
 	<%
 	if(list.size()!=0){
 	%>
