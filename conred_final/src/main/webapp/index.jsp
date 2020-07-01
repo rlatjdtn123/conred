@@ -15,7 +15,7 @@
 	@font-face { font-family: 'BMHANNAAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff') format('woff'); font-weight: normal; font-style: normal; }
 	@font-face { font-family: 'NEXON Lv1 Gothic OTF Light'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff') format('woff'); font-weight: normal; font-style: normal; }
 	@font-face { font-family: 'NEXON Lv1 Gothic OTF'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff'); font-weight: normal; font-style: normal; }
-	#container{background-color:#fff;border-top-width:0px; border-bottom-width:1px; width:1000px;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{background-color:#fff;border-top-width:0px; border-bottom-width:1px; width:1000px;margin: 0 auto;min-height:780px;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	
 	#message1{width:500px;text-align: center; margin:0 auto;padding-top:70px;font-size:22px;}
 	#message2{width:500px;text-align: center; margin:0 auto;padding-top:50px;font-size:22px;}
@@ -303,6 +303,12 @@ function swiperObj(){
 		</div>
 	</div>
 	
+						<c:choose>
+							<c:when test="${empty sessionScope.list}">
+											
+							</c:when>
+					
+							<c:otherwise>
 	<!--  관심사 추천 기능 부분  -->
 		<div id="slidebar">
 			<div class="slidebarbox" style="overflow: auto;">
@@ -312,11 +318,6 @@ function swiperObj(){
 				<div class="slidebars">
 <%-- 					<form action="user_interests_recommended.do" method="post"> --%>
 					<div class="slider multiple-items autoplay">
-						<c:choose>
-							<c:when test="${empty sessionScope.list}">
-											
-							</c:when>
-							<c:otherwise>
 								<div class="slider multiple-items autoplay"
 									style="width: 550px; height: 150px;">
 									<!-- Swiper -->
@@ -341,12 +342,12 @@ function swiperObj(){
 										<div class="swiper-button-prev"></div>
 									</div>
 								</div>
-							</c:otherwise>
-						</c:choose>
  					</div>
 					<span style="cursor: pointer; margin-left: 500px;" class="interestSearch">더보기</span>
 			     </div>			
 		    </div>									
+							</c:otherwise>
+						</c:choose>
 <!-- 		<div class="slidebarbox"> -->
 <!-- 			<div class="slidetitle">동물병원 랭킹~</div> -->
 <!-- 			<div class="slidebars"> -->
