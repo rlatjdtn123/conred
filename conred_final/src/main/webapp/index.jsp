@@ -335,15 +335,17 @@ function swiperObj(){
 									<div class="swiper-container">
 										<div class="swiper-wrapper">
 											<c:forEach items="${sessionScope.list}" var="dto">
-												<div class="swiper-slide"> 
-													<a href="#">
-													<img src="./upload_sphoto/${dto.spDto.store_photo_stored}"
-														style="width: 163px; height: 120px;"/>
-													</a>
-<!-- 													<h4> -->
-														<span class="phototext">${dto.store_name}</span>
-<!-- 													</h4> -->
-												</div>
+												<c:if test="${dto.store_state!='X'}">
+													<div class="swiper-slide"> 
+														<a href="#">
+														<img src="./upload_sphoto/${dto.spDto.store_photo_stored}"
+															style="width: 163px; height: 120px;" onclick="location.href='store.do?store_seq=${dto.store_seq}'"/>
+														</a>
+	<!-- 													<h4> -->
+															<span class="phototext">${dto.store_name}</span>
+	<!-- 													</h4> -->
+													</div>
+												</c:if>
 											</c:forEach>
 										</div>	
 										<!-- Add Pagination -->
