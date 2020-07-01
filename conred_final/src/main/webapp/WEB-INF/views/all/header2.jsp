@@ -21,7 +21,7 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style type="text/css">
-	html, body{margin:0px;padding:0px;width:100%;}
+	html, body{margin:0px;padding:0px;min-width:1250px;}
 	header{border-top-width:0px;border-bottom-color:lightgrey; height:70px;width:100%;}
 /* 	#logo{width:320px; display: block; margin: 0 auto;position:relative; top:0px;} */
 	#logo{background: url("./img/h2.gif");height:70px;background-size: contain;width:320px; display: block; margin: 0 auto;position:relative; top:0px;}
@@ -224,7 +224,7 @@
 			%>
 				<div id="o_tore" class="navis" onclick="location.href='store.do?store_seq=<%=sdto.getStore_seq()%>'">매장관리</div>
 				<div id="o_storeinfo" class="navis" onclick="location.href='owner_mystore_info.do?store_seq=<%=sdto.getStore_seq()%>'">매장정보</div>
-				<div id="o_reserve" class="navis" onclick="location.href='owner_mystore_reservation.do'">예약</div>
+				<div id="o_reserve" class="navis" onclick="location.href='owner_mystore_reserve.do?store_seq=<%=sdto.getStore_seq()%>'">예약현황</div>
 <!-- 						<div class="balloon_01 blink">점포등록신청이 완료되었어요!</div> -->
 			<%
 			}

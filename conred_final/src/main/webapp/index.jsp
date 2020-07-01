@@ -336,10 +336,10 @@ function swiperObj(){
 										<div class="swiper-wrapper">
 											<c:forEach items="${sessionScope.list}" var="dto">
 												<c:if test="${dto.store_state!='X'}">
-													<div class="swiper-slide"> 
+													<div class="swiper-slide"style="width: 180px!important ;"> 
 														<a href="#">
 														<img src="./upload_sphoto/${dto.spDto.store_photo_stored}"
-															style="width: 163px; height: 120px;" onclick="location.href='store.do?store_seq=${dto.store_seq}'"/>
+															style="width: 180px; height: 120px;" onclick="location.href='store.do?store_seq=${dto.store_seq}'"/>
 														</a>
 	<!-- 													<h4> -->
 															<span class="phototext">${dto.store_name}</span>
@@ -351,9 +351,9 @@ function swiperObj(){
 										<!-- Add Pagination -->
 										<div class="swiper-pagination" style="padding-top: 20px;"></div>
 										<!-- Add Arrows -->
-										<div class="swiper-button-next" style="color:#000;background-color: rgb(255,255,255,0.5);padding:5px;"></div>
-										<div class="swiper-button-prev" style="color:#000;background-color: rgb(255,255,255,0.5);padding:5px;"></div>
 									</div>
+										<div class="swiper-button-next" style="color:#000;background-color: rgb(255,255,255,0.5);padding:5px;right: -70px; top: 60px;"></div>
+										<div class="swiper-button-prev" style="color:#000;background-color: rgb(255,255,255,0.5);padding:5px;left: -70px; top: 60px;"></div>
 								</div>
  					</div>
 <!-- 					<span style="cursor: pointer; margin-left: 500px;" class="interestSearch">더보기</span> -->
