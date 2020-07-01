@@ -55,52 +55,52 @@ public class SServiceImp implements ISService {
 	public boolean insertStoreCertify(SDto sdto, HttpServletRequest request) {
 		MultipartHttpServletRequest multi = (MultipartHttpServletRequest)request;
 
-//		MultipartFile multiFile_biz=multi.getFile("biz");
-//		MultipartFile multiFile_sales=multi.getFile("sales");
-//		
-//		//originName
-//		String originName_biz=multiFile_biz.getOriginalFilename();
-//		System.out.println("biz의 원본파일명:"+originName_biz);
-//		String originName_sales=multiFile_sales.getOriginalFilename();
-//		System.out.println("sales의 원본파일명:"+originName_sales);
-//			
-//		//storedName
-//		String createUUid_biz=UUID.randomUUID().toString().replaceAll("-", "");
-//		String storedName_biz = createUUid_biz+originName_biz.substring(originName_biz.indexOf("."));
-//		System.out.println("biz의 저장파일명:"+storedName_biz);
-//		String createUUid_sales=UUID.randomUUID().toString().replaceAll("-", "");
-//		String storedName_sales = createUUid_sales+originName_sales.substring(originName_sales.indexOf("."));
-//		System.out.println("sales의 저장파일명:"+storedName_sales);
-//			
-//		//fileSize
-//		String fileSize_biz=Long.toString(multiFile_biz.getSize());
-//		System.out.println("biz의 사이즈:"+fileSize_biz);
-//		String fileSize_sales=Long.toString(multiFile_sales.getSize());
-//		System.out.println("sales의 사이즈:"+fileSize_sales);
-//		
-		//path
-//		//String path_biz="C:/Users/hkedu/git/conred/conred_final/src/main/webapp/upload_biz/";
-//		String path_biz = request.getSession().getServletContext().getRealPath("upload_biz/");
-//		System.out.println("가져온 경로:"+path_biz);
-//		//String path_sales="C:/Users/hkedu/git/conred/conred_final/src/main/webapp/upload_sales/";
-//		String path_sales = request.getSession().getServletContext().getRealPath("upload_sales/");
-//		System.out.println("가져온 경로:"+path_sales);
-//		File file_biz = new File(path_biz+storedName_biz);
-//		File file_sales = new File(path_sales+storedName_sales);
+		MultipartFile multiFile_biz=multi.getFile("biz");
+		MultipartFile multiFile_sales=multi.getFile("sales");
 		
-//		sdto.setStore_license_biz_origin(originName_biz);
-//		sdto.setStore_license_biz_stored(storedName_biz);
-//		sdto.setStore_license_biz_size(fileSize_biz);
-//		sdto.setStore_license_sales_origin(originName_sales);
-//		sdto.setStore_license_sales_stored(storedName_sales);
-//		sdto.setStore_license_sales_size(fileSize_sales);
+		//originName
+		String originName_biz=multiFile_biz.getOriginalFilename();
+		System.out.println("biz의 원본파일명:"+originName_biz);
+		String originName_sales=multiFile_sales.getOriginalFilename();
+		System.out.println("sales의 원본파일명:"+originName_sales);
 			
-		sdto.setStore_license_biz_origin("1");
-		sdto.setStore_license_biz_stored("1");
-		sdto.setStore_license_biz_size("1");
-		sdto.setStore_license_sales_origin("1");
-		sdto.setStore_license_sales_stored("1");
-		sdto.setStore_license_sales_size("1");
+		//storedName
+		String createUUid_biz=UUID.randomUUID().toString().replaceAll("-", "");
+		String storedName_biz = createUUid_biz+originName_biz.substring(originName_biz.indexOf("."));
+		System.out.println("biz의 저장파일명:"+storedName_biz);
+		String createUUid_sales=UUID.randomUUID().toString().replaceAll("-", "");
+		String storedName_sales = createUUid_sales+originName_sales.substring(originName_sales.indexOf("."));
+		System.out.println("sales의 저장파일명:"+storedName_sales);
+			
+		//fileSize
+		String fileSize_biz=Long.toString(multiFile_biz.getSize());
+		System.out.println("biz의 사이즈:"+fileSize_biz);
+		String fileSize_sales=Long.toString(multiFile_sales.getSize());
+		System.out.println("sales의 사이즈:"+fileSize_sales);
+		
+		//path
+		//String path_biz="C:/Users/hkedu/git/conred/conred_final/src/main/webapp/upload_biz/";
+		String path_biz = request.getSession().getServletContext().getRealPath("upload_biz/");
+		System.out.println("가져온 경로:"+path_biz);
+		//String path_sales="C:/Users/hkedu/git/conred/conred_final/src/main/webapp/upload_sales/";
+		String path_sales = request.getSession().getServletContext().getRealPath("upload_sales/");
+		System.out.println("가져온 경로:"+path_sales);
+		File file_biz = new File(path_biz+storedName_biz);
+		File file_sales = new File(path_sales+storedName_sales);
+		
+		sdto.setStore_license_biz_origin(originName_biz);
+		sdto.setStore_license_biz_stored(storedName_biz);
+		sdto.setStore_license_biz_size(fileSize_biz);
+		sdto.setStore_license_sales_origin(originName_sales);
+		sdto.setStore_license_sales_stored(storedName_sales);
+		sdto.setStore_license_sales_size(fileSize_sales);
+			
+//		sdto.setStore_license_biz_origin("1");
+//		sdto.setStore_license_biz_stored("1");
+//		sdto.setStore_license_biz_size("1");
+//		sdto.setStore_license_sales_origin("1");
+//		sdto.setStore_license_sales_stored("1");
+//		sdto.setStore_license_sales_size("1");
 			
 		boolean isS=false; 
 		try {
@@ -110,13 +110,13 @@ public class SServiceImp implements ISService {
 //					store_license_sales_stored, store_license_sales_size, store_owner_phone, store_agreement));
 			isS=SDaoImp.insertStoreCertify(sdto);
 			if(isS) {
-//				multiFile_biz.transferTo(file_biz);
-//				multiFile_sales.transferTo(file_sales);
+				multiFile_biz.transferTo(file_biz);
+				multiFile_sales.transferTo(file_sales);
 			}
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		return isS;
 	}

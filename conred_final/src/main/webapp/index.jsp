@@ -19,6 +19,7 @@
 	
 	#message1{width:500px;text-align: center; margin:0 auto;padding-top:70px;font-size:22px;}
 	#message2{width:500px;text-align: center; margin:0 auto;padding-top:50px;font-size:22px;}
+	#message3{width:500px;text-align: center; margin:0 auto;padding-top:50px;font-size:22px;}
 	#footprint1{width:30px;padding-left: 5px;padding-bottom: 8px;}
 
 	#search{width:550px;margin:0 auto;padding-top:60px;padding-bottom: 10px;}
@@ -41,9 +42,9 @@
 	.catetext{font-size:12px;padding-left:4px;padding-top:65px;display:inline-block;}
 	.catetext_first{font-size:12px;padding-left:4px;padding-top:20px;display:inline-block;}
 	
-	#slidebar{margin-bottom:20px;margin-top:80px; height:auto;width:100%;position:relative;}
+	#slidebar{margin-bottom:20px; height:auto;width:100%;position:relative;}
 	.slidetitle{padding-top:30px;width:550px;margin-left:220px;font-size:18px; }
-	.slidebars{border:1px solid lightgrey; width:550px; margin-left:220px;margin-top:20px; height:200px;position:relative;}
+	.slidebars{width:550px; margin-left:220px;margin-top:50px; height:200px;position:relative;}
 
 
 	#category_icon_a{background: url("img/icon/icon_A.png");width: 60px; height: 60px; border-radius: 10px; background-size: 50px;background-position: center;background-repeat: no-repeat;} 
@@ -115,6 +116,13 @@
   		top:135px;
   	}
 
+	.phototext{
+		margin-top:10px;
+		display: inline-block;
+	}
+	:root {
+    --swiper-theme-color: #000!important;
+	}
 </style>
 <!-- Swiper JS -->
 <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
@@ -310,16 +318,19 @@ function swiperObj(){
 					
 							<c:otherwise>
 	<!--  관심사 추천 기능 부분  -->
+			<div class="slidebarbox" style="overflow: auto;margin-bottom:40px;">
 		<div id="slidebar">
-			<div class="slidebarbox" style="overflow: auto;">
-				<div class="slidetitle"
-					style="border: 1px solid white; border-top-color: lightgrey; border-top-width: 1px; padding-top: 8px;">이런곳은
-					어떠세요?</div>
+<!-- 			<div class="slidetitle"> -->
+<!-- 				<div class="slidetitle"style="border: 1px solid white; border-top-color: lightgrey; border-top-width: 1px; padding-top: 8px;"> -->
+					<div id="message3">
+					이런 매장은 어때요?<img id="footprint1" src="./img/footprint1.png">
+					</div>
+<!-- 				</div> -->
 				<div class="slidebars">
 <%-- 					<form action="user_interests_recommended.do" method="post"> --%>
 					<div class="slider multiple-items autoplay">
 								<div class="slider multiple-items autoplay"
-									style="width: 550px; height: 150px;">
+									style="width: 550px; height: 170px;">
 									<!-- Swiper -->
 									<div class="swiper-container">
 										<div class="swiper-wrapper">
@@ -327,25 +338,26 @@ function swiperObj(){
 												<div class="swiper-slide"> 
 													<a href="#">
 													<img src="./upload_sphoto/${dto.spDto.store_photo_stored}"
-														style="width: 163px; height: 77%;"/>
+														style="width: 163px; height: 120px;"/>
 													</a>
-													<h4>
-														<a href="#">${dto.store_name}</a>
-													</h4>
+<!-- 													<h4> -->
+														<span class="phototext">${dto.store_name}</span>
+<!-- 													</h4> -->
 												</div>
 											</c:forEach>
 										</div>	
 										<!-- Add Pagination -->
-										<div class="swiper-pagination"></div>
+										<div class="swiper-pagination" style="padding-top: 20px;"></div>
 										<!-- Add Arrows -->
-										<div class="swiper-button-next"></div>
-										<div class="swiper-button-prev"></div>
+										<div class="swiper-button-next" style="color:#000;background-color: rgb(255,255,255,0.5);padding:5px;"></div>
+										<div class="swiper-button-prev" style="color:#000;background-color: rgb(255,255,255,0.5);padding:5px;"></div>
 									</div>
 								</div>
  					</div>
-					<span style="cursor: pointer; margin-left: 500px;" class="interestSearch">더보기</span>
+<!-- 					<span style="cursor: pointer; margin-left: 500px;" class="interestSearch">더보기</span> -->
 			     </div>			
-		    </div>									
+		    </div>			
+		    	</div>						
 							</c:otherwise>
 						</c:choose>
 <!-- 		<div class="slidebarbox"> -->
@@ -360,7 +372,7 @@ function swiperObj(){
 <!-- 			이안에매장들 -->
 <!-- 			</div> -->
 <!-- 		</div> -->
-	</div>
+
 
 </div>
 

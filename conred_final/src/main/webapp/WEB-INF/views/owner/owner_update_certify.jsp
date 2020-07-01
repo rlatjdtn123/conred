@@ -123,10 +123,9 @@
 <!-- 						<input class="numbers form-control" type="text" name="store_license_number"/> - -->
 <!-- 						<input class="numbers form-control" type="text" name="store_license_number"/> -->
 
-						<button class="btn"  type="button" title="유효한 사업자등록번호인지 조회하기">
-<!-- 						<button class="btn"  type="button" name="certify" title="유효한 사업자등록번호인지 조회하기" required="required"> -->
-							조회
-						</button>
+<!-- 						<button class="btn"  type="button" title="유효한 사업자등록번호인지 조회하기"> -->
+<!-- 							조회 -->
+<!-- 						</button> -->
 						
 						<div class="subinfo firstsub">*사업자등록번호는 10자리입니다.</div>
 						<div class="subinfo">*숫자사이  " - " 부호 생략</div>
@@ -173,17 +172,18 @@
 <%-- 						<input class="numbers form-control" type="text" name="store_owner_phone" value="${sdto.store_owner_phone}"/>-  --%>
 <!-- 						<input class="numbers form-control" type="text" name="store_owner_phone"/>-  -->
 <!-- 						<input class="numbers form-control" type="text" name="store_owner_phone"/> -->
-						<input class="btn" value="인증번호 발송" type="button" onclick=""/><!-- 온클릭안에 펑션명 + 스크립트로 펑션 만들기 -->
+
+<!-- 						<input class="btn" value="인증번호 발송" type="button" onclick=""/>온클릭안에 펑션명 + 스크립트로 펑션 만들기 -->
 						<div class="subinfo firstsub">* 숫자사이 " - " 부호 생략</div>
 					</td>
 				</tr>
-				<tr>
-					<td>인증번호 입력</td>
-					<td>
-						<input class="form-control" type="text" name="store_owner_phone_certify" required="required"/>
-						<input class="btn" value="인증완료" type="button" onclick=""/><!-- 온클릭안에 펑션명 + 스크립트로 펑션 만들기 -->
-					</td>
-				</tr>
+<!-- 				<tr> -->
+<!-- 					<td>인증번호 입력</td> -->
+<!-- 					<td> -->
+<!-- 						<input class="form-control" type="text" name="store_owner_phone_certify" required="required"/> -->
+<!-- 						<input class="btn" value="인증완료" type="button" onclick=""/>온클릭안에 펑션명 + 스크립트로 펑션 만들기 -->
+<!-- 					</td> -->
+<!-- 				</tr> -->
 				<tr>
 					<td>입점 약관</td>
 					<td>
