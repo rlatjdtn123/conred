@@ -347,18 +347,18 @@ function swiperObj(){
 					<span style="cursor: pointer; margin-left: 500px;" class="interestSearch">더보기</span>
 			     </div>			
 		    </div>									
-		<div class="slidebarbox">
-			<div class="slidetitle">동물병원 랭킹~</div>
-			<div class="slidebars">
-			이안에매장들
-			</div>
-		</div>
-		<div class="slidebarbox">
-			<div class="slidetitle">신난ㄷ나</div>
-			<div class="slidebars">
-			이안에매장들
-			</div>
-		</div>
+<!-- 		<div class="slidebarbox"> -->
+<!-- 			<div class="slidetitle">동물병원 랭킹~</div> -->
+<!-- 			<div class="slidebars"> -->
+<!-- 			이안에매장들 -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 		<div class="slidebarbox"> -->
+<!-- 			<div class="slidetitle">신난ㄷ나</div> -->
+<!-- 			<div class="slidebars"> -->
+<!-- 			이안에매장들 -->
+<!-- 			</div> -->
+<!-- 		</div> -->
 	</div>
 
 </div>
