@@ -70,6 +70,17 @@
 			return false;
 		}
 	}
+	
+	function qwe(url){
+		var result=confirm("네이버로 회원 가입을 하시면 사이트의 이용약관에 동의를 하신것으로 간주 됩니다.");
+		if(result){
+			location.href=""+url+"";
+			
+		}else{ 
+			return false;
+		}	
+	}
+	
 </script> 
 </head>      
 <body>
@@ -95,7 +106,7 @@
 					<input type="password" name="owner_password" required="required" class="tx" placeholder="비밀번호를 입력해주세요"/><br/>
 					<input type="submit" value="로그인" class="bt"/><br/>
 					<input type="button" value="회원가입" onclick="location.href='owner_regist.do'" class="bt"/><br/>
-					<input type="button" class="nv" id="naver_id_login" onclick="location.href='${url}'"/>
+					<input type="button" class="nv" id="naver_id_login" onclick="return qwe('${url02}')"/>
 					
 <%-- 					<div id="naver_id_login" style="text-align:center"><a href="${url}"> --%>
 <!-- 					<img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a></div> -->

@@ -47,9 +47,12 @@ public class LoginController {
     private NaverLoginBO naverLoginBO;
     private String apiResult = null;
     
+ 
+    
     @Autowired
 	private IUService uService;
     
+    @Autowired
     private IOService oService;
     
     @Autowired
@@ -64,36 +67,7 @@ public class LoginController {
     }
 	
 
-	@RequestMapping(value = "owner_insert.do", method = {RequestMethod.GET,RequestMethod.POST})
-	public String owner_insert(Locale locale, Model model, ODto dto, String owner_email1, String owner_email2) {
-		logger.info("점주 회원정보 db에 입력 {}.", locale);
-		dto.setOwner_email(owner_email1+"@"+owner_email2);
-		
-		//성별 null일경우 String타입으로 값 받을수 있게 수정(*왜 null값이 입력이 안되는지 모르겠음)
-		if(dto.getOwner_sex()==null) {
-			dto.setOwner_sex("");
-		}
-		
-		System.out.println(dto.getOwner_id());
-		System.out.println(dto.getOwner_password());
-		System.out.println(dto.getOwner_name());
-		System.out.println(dto.getOwner_email());
-		System.out.println(dto.getOwner_birth());
-		System.out.println(dto.getOwner_sex());
-		System.out.println(dto.getOwner_regdate());
-		System.out.println(dto.getOwner_agreement());
-		
-		
-		boolean isS = oService.insertOwner(dto);
-		if(isS&&dto.getOwner_agreement().equals("Y")) {
-			System.out.println("회원가입성공");
-			return "owner/owner_regist_finish"; 
-		}else {
-			System.out.println("회원가입실패");
-			model.addAttribute("msg","점주 회원가입에 실패하였습니다.");
-			return "error/error"; 
-		}
-	}
+	
 
     
     
@@ -103,18 +77,24 @@ public class LoginController {
 	 
 		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
         String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+//        System.out.println(naverAuthUrl.replace("user_regist_naver.do", "owner_regist_naver.do"));
+        String naverAuthUrl02 = naverAuthUrl.replace("user_regist_naver.do", "owner_regist_naver.do");
+//        String naverAuthUrl_owner = naverLoginBOOwner.getAuthorizationUrl(session);
         
         //https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=sE***************&
         //redirect_uri=http%3A%2F%2F211.63.89.90%3A8090%2Flogin_project%2Fcallback&state=e68c269c-5ba9-4c31-85da-54c16c658125
         System.out.println("네이버:" + naverAuthUrl);
+        System.out.println("네이버(오너):" + naverAuthUrl02);
         
         //네이버 
         model.addAttribute("url", naverAuthUrl);
+        model.addAttribute("url02", naverAuthUrl02);
+//        model.addAttribute("url02", naverAuthUrl_owner);
 
         /* 생성한 인증 URL을 View로 전달 */
   
 		return "all/login"; 
-	}
+	} 
 	
 //  //네이버 로그인 성공시 callback호출 메소드
 //  @RequestMapping(value = "naverSuccess", method = { RequestMethod.GET, RequestMethod.POST })
@@ -124,7 +104,7 @@ public class LoginController {
 //      OAuth2AccessToken oauthToken;
 //      oauthToken = naverLoginBO.getAccessToken(session, code, state);
 //      //로그인 사용자 정보를 읽어온다.
-//      apiResult = naverLoginBO.getUserProfile(oauthToken);
+//      apiResult = naverLoginBO.getUserProfile(oauthToken); 
 //      System.out.println(naverLoginBO.getUserProfile(oauthToken).toString());
 //      model.addAttribute("result", apiResult);
 //      System.out.println("result"+apiResult);
@@ -145,7 +125,7 @@ public class LoginController {
 //        // TODO Auto-generated catch block
 //        e.printStackTrace();
 //    }
-
+ 
 
 //    session.setAttribute("login",vo);
 //    return new ModelAndView("views/loginPost", "result", vo);
@@ -167,9 +147,9 @@ public class LoginController {
       apiResult = naverLoginBO.getUserProfile(oauthToken);
       System.out.println(naverLoginBO.getUserProfile(oauthToken).toString());
       model.addAttribute("result", apiResult);
-      System.out.println("result"+apiResult);
+      System.out.println("result"+apiResult); 
       
-      
+        
       /* 네이버 로그인 성공하면서 JSON 데이터 파싱*/ //데이터 베이스에 여기서 바로 넣어준다
       
       JSONParser parser = new JSONParser();
@@ -191,18 +171,31 @@ public class LoginController {
 		    String user_sex2=(String)jsonObj2.get("gender");
 		    String user_birth=(String)jsonObj2.get("birthday");
 		    
-		    if(jsonObj.get("gender")==null) {
-		    	user_sex2=" ";
-			}
-		    if(jsonObj.get("birthday")==null) {
+		    if(user_sex2==null) {
+		    	user_sex2=" "; 
+		    }
+		    if(user_birth==null) {
 		    	user_birth=" ";
 		    }
-		    if(jsonObj.get("name")==null) {
+		    if(user_name==null) {
 		    	user_name=" ";
 		    }
-		    if(jsonObj.get("email")==null) {
+		    if(user_email==null) {
 		    	user_email=" ";
 		    }
+//		    
+//		    if(jsonObj.get("gender")==null) {
+//		    	user_sex2=" "; 
+//			}
+//		    if(jsonObj.get("birthday")==null) {
+//		    	user_birth=" ";
+//		    }
+//		    if(jsonObj.get("name")==null) {
+//		    	user_name=" ";
+//		    }
+//		    if(jsonObj.get("email")==null) {
+//		    	user_email=" ";
+//		    }
 		    
 		     
 		    
@@ -312,16 +305,16 @@ public class LoginController {
 		    String owner_sex2=(String)jsonObj2.get("gender");
 		    String owner_birth=(String)jsonObj2.get("birthday");
 		    
-		    if(jsonObj.get("gender")==null) {
-		    	owner_sex2=" ";
-			}
-		    if(jsonObj.get("birthday")==null) {
+		    if(owner_sex2==null) {
+		    	owner_sex2=" "; 
+		    }
+		    if(owner_birth==null) {
 		    	owner_birth=" ";
 		    }
-		    if(jsonObj.get("name")==null) {
+		    if(owner_name==null) {
 		    	owner_name=" ";
 		    }
-		    if(jsonObj.get("email")==null) {
+		    if(owner_email==null) {
 		    	owner_email=" ";
 		    }
 		    
@@ -341,10 +334,12 @@ public class LoginController {
 		    
 		    //남자 여자 변형
 		    String owner_sex = owner_sex2;
-		    if(owner_sex != "M") {
+		    if(owner_sex == "F") {
 		    	owner_sex = "여자";
-		    }else{
+		    }else if(owner_sex == "M"){
 		    	owner_sex = "남자";
+		    }else {
+		    	owner_sex = " "; 
 		    }
 		    
 		    
@@ -357,6 +352,9 @@ public class LoginController {
 		    dto1.setOwner_birth(owner_birth);  //사용자가 선택 안했을시 테스트 필요 널포인트 익센셥
 		    dto1.setOwner_sex(owner_sex);
 		    dto1.setOwner_agreement("Y");
+//		    for (int i = 0; i < ; i++) {
+//				
+//			}
 		    
 		    
 		    if(confirm_id==null) {
@@ -368,7 +366,7 @@ public class LoginController {
 		    	//네이버 로그인 버튼 클릭하자마자 약관페이지 뜨고 인서트는 안하고 
 				//체크하면 관심사 체크 만들고 그다음 관심사 선택 페이지로 했어요
 		    	
-		    	return "redirect:user_insert.do";
+		    	return "redirect:owner_insert.do";
 		    
 		    }else{
 		    	
@@ -393,23 +391,6 @@ public class LoginController {
   }     
    
    
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-  
 	
    	
 	@RequestMapping(value = "user_insert.do", method = {RequestMethod.GET,RequestMethod.POST})
@@ -428,6 +409,43 @@ public class LoginController {
 		
 		return "user/user_regist_category";
 	}	 
+	
+	
+	@RequestMapping(value = "owner_insert.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String owner_insert(Locale locale, Model model, ODto dto, String owner_email1, String owner_email2) {
+		logger.info("점주 회원정보 db에 입력 {}.", locale);
+		dto.setOwner_email(owner_email1+"@"+owner_email2);
+		
+		//성별 null일경우 String타입으로 값 받을수 있게 수정(*왜 null값이 입력이 안되는지 모르겠음)
+		if(dto.getOwner_sex()==null) {
+			dto.setOwner_sex("");
+		}
+		
+	
+		
+		
+		
+		System.out.println("o1"+dto.getOwner_id());
+		System.out.println("o2"+dto.getOwner_password());
+		System.out.println("o3"+dto.getOwner_name());
+		System.out.println("o4"+dto.getOwner_email());
+		System.out.println("o5"+dto.getOwner_birth());
+		System.out.println("o6"+dto.getOwner_sex());
+		System.out.println("o7"+dto.getOwner_regdate());
+		System.out.println("o8"+dto.getOwner_agreement());
+		
+		 
+		boolean isS = oService.insertOwner(dto);
+		if(isS&&dto.getOwner_agreement().equals("Y")) {
+			System.out.println("회원가입성공");
+			return "owner/owner_regist_finish"; 
+		}else {
+			System.out.println("회원가입실패");
+			model.addAttribute("msg","점주 회원가입에 실패하였습니다.");
+			return "error/error"; 
+		}
+	}
+	
 	 
 	
 	
