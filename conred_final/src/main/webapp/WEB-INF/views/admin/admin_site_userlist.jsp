@@ -50,7 +50,8 @@
 			})
 </script>
 <style type="text/css">
-	#container{border:1px solid grey; border-top-width:0px; border-bottom-width:0px; width:1300px;margin: 0 auto; text-align: center;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{border:1px solid grey; border-top-width:0px; border-bottom-width:0px; 
+	width:1150px;margin: 0 auto; text-align: center; min-height: 900px; position: relative; top: -20px; padding-top: 20px;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	#searchbar1{width:80%;}
 	#sel{height: 34px; }
 	#searchbtn1{padding:3px;width:40px;height:35px; }
@@ -84,17 +85,16 @@ List<UDto>list=(List<UDto>)request.getAttribute("list");
 <form action="admin_user_search.do" method="post">
 		<table id="serchtable" border="0" cellpadding="0" cellspacing="0" width="970" align="center">
 			<tr>
-
-				<td align="left">
+			  <td align="left">
 					<select	name="userSearch" id="sel">
 						<option value="keyWord" ${userSearch eq "keyWord"?"selected":""}>키워드 검색</option>
 						<option value="blackUser" ${userSearch eq "blackUser"?"selected":""}>블랙유저 검색</option> 
 					</select>
 					<input value="${requestScope.searchWord}" name="searchWord" type="text" id="searchbar1" class="form-control pull-left" placeholder="안녕하세요 관리자님! 유저 관련 키워드로 검색 하세요">
 					<button type="submit" id="searchbtn1" class="btn"><img id="magnifyglass1" src="./img/magnifyglass.png"></button>
-			</td>
+			  </td>
 			</tr>
-			</table>
+		</table>
 		</form>
 		<br>
 <form id="muldel" method="post">

@@ -56,8 +56,8 @@
 </script>
 <style type="text/css">
 	#container{border:1px solid grey; border-top-width:0px;border-bottom-width:0px; 
-	width:1000px;margin: 0 auto; text-align: center;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
-	#searchbar1{width:80%;}
+	width:1150px;margin: 0 auto; text-align: center; min-height: 900px; position: relative; top: -20px; padding-top: 20px;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#searchbar1{width:730px; margin-left: 45px;}
 	#sel{height: 34px; }
 	#searchbtn1{padding:3px;width:40px;height:35px; }
 	#magnifyglass1{width:20px;}
@@ -83,6 +83,7 @@ List<SDto>list=(List<SDto>)request.getAttribute("list");
 						</select>
 						<input value="${requestScope.searchWordStore}" name="searchWordStore" type="text" id="searchbar1" class="form-control pull-left" placeholder="안녕하세요 관리자님! 매장 관련 키워드로 검색 하세요">
 						<button type="submit" id="searchbtn" class="btn"><img id="magnifyglass1" src="./img/magnifyglass.png"></button>
+					</td>
 				</tr>
 			</table>
 	</form>
