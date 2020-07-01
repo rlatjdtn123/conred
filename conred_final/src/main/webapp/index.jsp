@@ -214,7 +214,7 @@ $(function(){
 	 			
 	 		},
 	 		error:function(){
-	 				alert("로그인을 하라냥~");
+	 				alert("로그인을 해주세요.");
 	 		}
   		});
  	});
@@ -261,7 +261,7 @@ function swiperObj(){
 <h1><a href="GetCorpState1.do">사업자테스트01</a></h1>
 <h1><a href="GetCorpState.do">사업자테스트</a></h1>
 <h1><a href="GetCorpStates.do">대량사업자테스트</a></h1>
-<h1><a href="GetCorpStateScrapRequestURL.do">사업자테스트2</a></h1>
+<h1><a href="GetDailyBankAccountLog.do">입출금조회테스트</a></h1>
 </div>
 
 <div id="container">
@@ -313,7 +313,7 @@ function swiperObj(){
 					<div class="slider multiple-items autoplay">
 						<c:choose>
 							<c:when test="${empty sessionScope.list}">
-											 AI고양이 : 로그인을 하라냥~
+											
 							</c:when>
 							<c:otherwise>
 								<div class="slider multiple-items autoplay"
