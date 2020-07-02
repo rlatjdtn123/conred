@@ -497,7 +497,7 @@ public class LoginController {
 		
 
 			if(uldto==null) {
-				model.addAttribute("msg", "존재하지 않는 아이디입니다 다시한번 확인해주세요");
+				model.addAttribute("msg", "아이디와 비밀번호를 다시한번 확인해주세요");
 				return "error/error";
 			}else{
 				if(uldto.getUser_out().equals("Y")){

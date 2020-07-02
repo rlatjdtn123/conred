@@ -122,11 +122,10 @@
 					</tr> 
 					<tr> 
 						<td><span class="req"> </span>이메일</td>
-					<td> 
-						<input type="text" name="user_email1" required="required" class="user_update email1" value="<%=email[0]%>"/>@
-						<input value="<%=email[1]%>" id="email" type="text" name="user_email3" required="required" class="user_update email3"/>
+					<td>  
+						<input type="text" name="user_email1" readonly="readonly" class="user_infos email1" value="<%=email[0]%>"/>@
+						<input value="<%=email[1]%>" id="email" type="text" name="user_email3" readonly="readonly" class="user_infos email3"/>
 <!-- 						<input type="hidden" name="emailConfirm" required="required" value="N"/> -->
-						<button class="emailChk">이메일 인증</button>
 					</td>
 					</tr> 
 					<tr>   

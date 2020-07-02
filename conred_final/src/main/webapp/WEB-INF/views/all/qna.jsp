@@ -97,7 +97,7 @@
 	    		success:function(obj){
 	    			var lists=obj.list;
 	    			var idChk=obj.owner_chk;
-	    			$.each(lists, function(i){   user_id,qna_seq,qna_title,qna_content,qna_hide
+	    			$.each(lists, function(i){   //user_id,qna_seq,qna_title,qna_content,qna_hide
 				       addContent +=  '<div class="mybox">'         
 										+	'<img src="./img/profile_default.png" class="pf"/>'
 										+	'<div class="info">'

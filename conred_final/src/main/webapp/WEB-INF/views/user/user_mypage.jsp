@@ -10,7 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	#container{box-sizing:border-box; border:1px solid rgba(225,225,225,1.00); border-bottom:1px solid #fff; border-top-width:0px;  width:1000px;margin: 0 auto; }/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
+	#container{box-sizing:border-box; border:1px solid rgba(225,225,225,1.00); border-bottom:1px solid #fff; border-top-width:0px;height:1000px;  width:1000px;margin: 0 auto; }/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
 	
 	#sticky{z-index:200;position: sticky; top:71px;display: inline-block;}
    	#navi2{width:998px;clear:both;position:relative;top:0px;text-align: center;line-height: 50px;display: inline-block;border-bottom: 1px solid #585858;}
@@ -107,18 +107,6 @@
  			} 
 			%> 
 	</div>
-	<div class="mybox bottom_info">
-		<div class="mybox_info_header" >최근본 매장</div><br/>
-		<div class="mybox_info">
-			  
-		</div>
-		<div class="mybox_info">
-			  
-		</div>
-		<div class="mybox_info">
-			  
-		</div>
-	</div> 
 </div>
 </body>
 </html>
