@@ -46,39 +46,25 @@
 	
 </style> 
 <script type="text/javascript">
+	
+	//사용자 점주 네이버아이디로 로그인
+	
 	function asd(url){
-		
-// 		swal({
-// 		     title: "네이버로 회원 가입을 하시면 사이트의 이용약관에 동의를 하신것으로 간주 됩니다.",
-// 		     text: "",
-// 		     icon: "info", //"info,success,warning,error" 중 택1
-// 		     buttons: ["아니오", "예"],
-// 		}).then((YES) => {
-// 		     if (YES) {
-		    	 
-// 				  }
-// 		     }else{
-// 		    	 return false;
-// 		     }
-// 		});
-		
-		var result=confirm("네이버로 회원 가입을 하시면 사이트의 이용약관에 동의를 하신것으로 간주 됩니다.");
-		if(result){
+// 		var result=confirm("네이버로 회원 가입을 하시면 사이트의 이용약관에 동의를 하신것으로 간주 됩니다.");
+// 		if(result){
 			location.href=""+url+"";
-			
-		}else{
-			return false;
-		}
+// 		}else{
+// 			return false;
+// 		}
 	}
 	
 	function qwe(url){
-		var result=confirm("네이버로 회원 가입을 하시면 사이트의 이용약관에 동의를 하신것으로 간주 됩니다.");
-		if(result){
+// 		var result=confirm("네이버로 회원 가입을 하시면 사이트의 이용약관에 동의를 하신것으로 간주 됩니다.");
+// 		if(result){
 			location.href=""+url+"";
-			
-		}else{ 
-			return false;
-		}	
+// 		}else{ 
+// 			return false;
+// 		}	
 	}
 	
 </script> 
