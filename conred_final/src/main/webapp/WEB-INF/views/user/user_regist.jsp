@@ -45,31 +45,31 @@
 <script type="text/javascript">
 	$(function(){
 		//이메일 칸 작성시 나머지 메일 주소 선택하여 넣어주기
-		$("#sel").change(function(){
-			$("input[name=user_email3]").val($(this).val());
-		});
-		$(".authBtn").click(function(){
-			var emailVal=$("input[name=user_email1]").val()+"@"+$("input[name=user_email3]").val();
-			$("input[name=email]").val(emailVal);
-			var myForm=document.getElementById("emailform");
-			window.open("","popForm","width=600px,height=600px");
-			myForm.method="post";
-			myForm.target="popForm";
-			myForm.submit();
-		});	
+// 		$("#sel").change(function(){
+// 			$("input[name=user_email3]").val($(this).val());
+// 		});
+// 		$(".authBtn").click(function(){
+// 			var emailVal=$("input[name=user_email1]").val()+"@"+$("input[name=user_email3]").val();
+// 			$("input[name=email]").val(emailVal);
+// 			var myForm=document.getElementById("emailform");
+// 			window.open("","popForm","width=600px,height=600px");
+// 			myForm.method="post";
+// 			myForm.target="popForm";
+// 			myForm.submit();
+// 		});	
 		
 		
 		//회원 가입시 이메일 인증을 필수로 하기 위한 기능
-		$("form").eq(0).submit(function() {
-			if($("input[name=emailConfirm]").val()=='Y') {
-				return true;
-			}else{
-				alert("이메일 인증은 필수입니다");
-				$("input[name=user_email1]").focus();
-				return false;
+// 		$("form").eq(0).submit(function() {
+// 			if($("input[name=emailConfirm]").val()=='Y') {
+// 				return true;
+// 			}else{
+// 				alert("이메일 인증은 필수입니다");
+// 				$("input[name=user_email1]").focus();
+// 				return false;
 				
-			}
-		});
+// 			}
+// 		});
 		
 		//Ajax를 이용한 방법 보수2차
 // 		$(".authBtn").click(function(){
@@ -194,7 +194,7 @@
 							<option>hanmail.net</option>
 						</select>
 						<input type="hidden" name="emailConfirm" required="required" value="N"/>
-						<input class="btn authBtn" value="이메일인증" type="button" required="required" />
+<!-- 						<input class="btn authBtn" value="이메일인증" type="button" required="required" /> -->
 					</td>
 					</tr>
 					<tr>

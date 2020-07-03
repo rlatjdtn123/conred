@@ -48,19 +48,19 @@
 <script type="text/javascript">
 	$(function(){
 		//이메일 작성시 나머지 메일 주소 선택 넣어주기
-		$("#sel").change(function(){
-			$("input[name=owner_email2]").val($(this).val());
-		});
-		$(".authBtn").click(function(){
-			var emailVal=$("input[name=owner_email1]").val()+"@"+$("input[name=owner_email2]").val();
-			$("input[name=email]").val(emailVal);
-			var myForm=document.getElementById("emailform");
-			window.open("","popForm","width=600px,height=600px");
-			myForm.method="post";
-			myForm.target="popForm";
-			myForm.submit();
+// 		$("#sel").change(function(){
+// 			$("input[name=owner_email2]").val($(this).val());
+// 		});
+// 		$(".authBtn").click(function(){
+// 			var emailVal=$("input[name=owner_email1]").val()+"@"+$("input[name=owner_email2]").val();
+// 			$("input[name=email]").val(emailVal);
+// 			var myForm=document.getElementById("emailform");
+// 			window.open("","popForm","width=600px,height=600px");
+// 			myForm.method="post";
+// 			myForm.target="popForm";
+// 			myForm.submit();
 			
-		});
+// 		});
 //      이메일 필수 기능 임시로 비활성화 해놓음 회원가입 편의성 및 테스트를 위해서
 // 		$("form").eq(0).submit(function(){
 // 			if($("input[name=emailConfirm]").val()=='Y'){
@@ -177,7 +177,7 @@
 							<option>hanmail.net</option>
 						</select>
 						<input type="hidden" name="emailConfirm" required="required" value="N"/>
-						<input class="btn authBtn" value="이메일인증" type="button" required="required"/>
+<!-- 						<input class="btn authBtn" value="이메일인증" type="button" required="required"/> -->
 					</td>
 				</tr>
 				<tr>
