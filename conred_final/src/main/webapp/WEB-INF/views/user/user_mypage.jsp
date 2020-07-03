@@ -65,8 +65,7 @@
 	</div> 
 	<div id="pagename">  
 		<img src="img/icon/icon_foot.png" id="footprint1"> 
-		<b><%=uldto.getUser_id()%></b>님 환영합니다, 즐거운 하루!!<br>
-		<span>이메일 : <%=uldto.getUser_email()%></span><br><br>
+		<b><%=uldto.getUser_name()%></b>님 환영합니다, 즐거운 하루!!<br>
 	</div>    
 	<div class="mybox">   
 		<div class="mybox_info_header" >내 통계</div><br/>

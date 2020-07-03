@@ -77,8 +77,7 @@
 	</div>
 	<div id="pagename">  
 		<img src="img/icon/icon_foot.png" id="footprint1"> 
-		<b></b><%=oldto.getOwner_id()%>님 환영합니다, 즐거운 하루!!<br>
-		<span>이메일 : <%=oldto.getOwner_email()%></span><br><br>
+		<b></b><%=oldto.getOwner_name()%>님 환영합니다, 즐거운 하루!!<br>
 	</div>    
 	<div class="mybox">   
 		<div class="mybox_info_header" >매장 통계</div><br/>
