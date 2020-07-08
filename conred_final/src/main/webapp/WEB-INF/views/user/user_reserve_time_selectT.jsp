@@ -150,7 +150,7 @@
 					})
 					 
 				})
-					   
+					     
 			}
 		});
 		
@@ -182,13 +182,13 @@
 						//24시인 매장도있을경우
 					    if(open[0]=="00"&&close[0]=="00"){ 
 							for (var j = 0; j < 24; j++) {
-								if(((parseInt(times_split[0])+j)+":00")==lists[i].reserve_time&&lists[i].ct==store_maxman){
+								if(((parseInt(times_split[0])+j)+":00")==lists[i].reserve_time&&lists[i].ct<=store_maxman){
 						  			$("input[value='"+(parseInt(times_split[0])+j)+':00'+"']").css({"pointer-events":"none","background-color":"lightgrey"}).addClass("max_time");    		 
 					  			} 
-							} 
+							}  
 						}else{
 							for (var j = 0; j < ing+1; j++) {  
-						    	if(((parseInt(times_split[0])+j)+":00")==lists[i].reserve_time&&lists[i].ct==store_maxman){
+						    	if(((parseInt(times_split[0])+j)+":00")==lists[i].reserve_time&&lists[i].ct<=store_maxman){
 						  			$("input[value='"+(parseInt(times_split[0])+j)+':00'+"']").css({"pointer-events":"none","background-color":"lightgrey"}).addClass("max_time");    		 
 					  			} 
 							}
@@ -226,37 +226,37 @@
 			
 			if(getMon=="Y"){
 				if((parseInt($(this).text())+emptyDay)%7==monNum){//월
-					$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});
+					$(this).css({"pointer-events":"none","color":"#ccc","background-color":"darkgrey","border-radius":"1px"});
 				}
 			} 
 			if(getTue=="Y"){
 				if((parseInt($(this).text())+emptyDay)%7==tueNum){//화
-					$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});
+					$(this).css({"pointer-events":"none","color":"#ccc","background-color":"darkgrey","border-radius":"1px"});
 				}
 			}
 			if(getWed=="Y"){
 				if((parseInt($(this).text())+emptyDay)%7==wedNum){//수
-					$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});
+					$(this).css({"pointer-events":"none","color":"#ccc","background-color":"darkgrey","border-radius":"1px"});
 				}
 			}
 			if(getThu=="Y"){
 				if((parseInt($(this).text())+emptyDay)%7==thuNum){//목
-					$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});
+					$(this).css({"pointer-events":"none","color":"#ccc","background-color":"darkgrey","border-radius":"1px"});
 				}
 			}
 			if(getFri=="Y"){
 				if((parseInt($(this).text())+emptyDay)%7==friNum){//금
-					$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});
+					$(this).css({"pointer-events":"none","color":"#ccc","background-color":"darkgrey","border-radius":"1px"});
 				}
 			}
 			if(getSat=="Y"){
 				if((parseInt($(this).text())+emptyDay)%7==satNum){//토
-					$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});
+					$(this).css({"pointer-events":"none","color":"#ccc","background-color":"darkgrey","border-radius":"1px"});
 				}
 			}
 			if(getSun=="Y"){
 				if((parseInt($(this).text())+emptyDay)%7==sunNum){//일
-					$(this).css({"pointer-events":"none","color":"#ccc","background-color":"#f8f8f8","border-radius":"1px"});
+					$(this).css({"pointer-events":"none","color":"#ccc","background-color":"darkgrey","border-radius":"1px"});
 				}
 			}
 		});

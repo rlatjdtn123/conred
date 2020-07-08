@@ -890,29 +890,30 @@
 					</div>
 					<div class="modal-body">
 						<div class="star_bigtle">
-							<span class="star-input01">서비스 <span class="input">
-									<input type="radio" name="star-input01" id="s1" value="0.5">
-									<label for="s1" class="star_service">0.5</label> 
-									<input type="radio"name="star-input01" id="s2" value="1">
-									<label for="s2"class="star_service">1</label> 
-									<input type="radio"
-									name="star-input01" id="s3" value="1.5"><label for="s3"
-									class="star_service">1.5</label> <input type="radio"
-									name="star-input01" id="s4" value="2"><label for="s4"
-									class="star_service">2</label> <input type="radio"
-									name="star-input01" id="s5" value="2.5"><label for="s5"
-									class="star_service">2.5</label> <input type="radio"
-									name="star-input01" id="s6" value="3"><label for="s6"
-									class="star_service">3</label> <input type="radio"
-									name="star-input01" id="s7" value="3.5"><label for="s7"
-									class="star_service">3.5</label> <input type="radio"
-									name="star-input01" id="s8" value="4"><label for="s8"
-									class="star_service">4</label> <input type="radio"
-									name="star-input01" id="s9" value="4.5"><label for="s9"
-									class="star_service">4.5</label> <input type="radio"
-									name="star-input01" id="s10" value="5"><label for="s10"
-									class="star_service">5</label>
-							</span> <output for="star-input">
+							<span class="star-input01">서비스 
+								<span class="input">
+										<input type="radio" name="star-input01" id="s1" value="0.5">
+										<label for="s1" class="star_service">0.5</label> 
+										<input type="radio"name="star-input01" id="s2" value="1">
+										<label for="s2"class="star_service">1</label> 
+										<input type="radio" name="star-input01" id="s3" value="1.5">
+										<label for="s3"class="star_service">1.5</label> 
+										<input type="radio"name="star-input01" id="s4" value="2">
+										<label for="s4"class="star_service">2</label>
+										<input type="radio"name="star-input01" id="s5" value="2.5">
+										<label for="s5"class="star_service">2.5</label> 
+										<input type="radio"name="star-input01" id="s6" value="3">
+										<label for="s6"class="star_service">3</label> 
+										<input type="radio"name="star-input01" id="s7" value="3.5">
+										<label for="s7"class="star_service">3.5</label> 
+										<input type="radio"name="star-input01" id="s8" value="4">
+										<label for="s8"class="star_service">4</label> 
+										<input type="radio"name="star-input01" id="s9" value="4.5">
+										<label for="s9"class="star_service">4.5</label> 
+										<input type="radio"name="star-input01" id="s10" value="5">
+										<label for="s10"class="star_service">5</label>
+								</span> 
+								<output for="star-input">
 									<b>0</b>점
 								</output>
 							</span>
