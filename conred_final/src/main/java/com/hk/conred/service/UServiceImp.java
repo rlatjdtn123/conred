@@ -31,11 +31,9 @@ public class UServiceImp implements IUService{
 	
 	@Transactional
 	@Override
-	public boolean insertUser(UDto dto,String [] category_code,String user_id) {
-		
-		UDaoImp.insertUser(dto);
-		
-		return interestsDaoImp.insertInterests(category_code,user_id);
+	public boolean insertUser(UDto dto,String [] category_code,String user_id) {	
+		UDaoImp.insertUser(dto); //유저 회원가입	
+		return interestsDaoImp.insertInterests(category_code,user_id); // 유저 관심사 등록
 	} 
 
 	@Override

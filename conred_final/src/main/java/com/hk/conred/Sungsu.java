@@ -447,13 +447,9 @@ public class Sungsu {
 	@RequestMapping(value = "user_reserve_success.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String user_reserve_success(String msg, Locale locale, Model model,HttpServletRequest request,String imp_uid,String merchant_uid) {
 		logger.info("유저 선택메뉴 결제{}.", locale);
-		System.out.println("@@@imp_uid::"+imp_uid);
-		System.out.println("@@@merchant_uid::"+merchant_uid); 
-		System.out.println("@@@msg::"+msg); // msg담아서말고 merchant_uid받은걸로 셀렉트결과뿌려주기
 		int reserve_seq=Integer.parseInt(msg);
 		ReserveDto dto=reserveService.reserveSuccessInfo(reserve_seq);
-		model.addAttribute("dto", dto);
-		System.out.println("결제정보들@:"+dto); 
+		model.addAttribute("dto", dto);// 결제 상세 정보들
 		return "user/user_reserve_success";  
 	}
 	
@@ -695,16 +691,10 @@ public class Sungsu {
 	public String user_review_img(Locale locale, Model model,HttpServletRequest request,int store_seq,String reply_content,
 			@RequestParam("star-input01") double reply_service,@RequestParam("star-input02") double reply_price,@RequestParam("star-input03") double reply_clean,RedirectAttributes redirect ) {
 		logger.info("유저 매장 리뷰,사진등록 {}.", locale);
-		System.out.println("@@@@@@@@@@store_seq::"+store_seq);
-		System.out.println("@@@@@@@@@@reply_content::"+reply_content);
-		System.out.println("@@@@@@@@@@reply_service::"+reply_service);
-		System.out.println("@@@@@@@@@@reply_price::"+reply_price);
-		System.out.println("@@@@@@@@@@reply_clean::"+reply_clean);
 		MultipartHttpServletRequest multi=(MultipartHttpServletRequest)request;
 		List<MultipartFile> fileList=multi.getFiles("photos");
 		HttpSession session=request.getSession();
 		UDto uldto=(UDto)session.getAttribute("uldto");
-
 		List<ReplyDto> list=replyService.replyListStoreDetail(store_seq, 1);
 		ReplyDto list_avg=replyService.replyAvgStore(store_seq);
 		List<RPhotoDto> list_photo=rPhotoService.reviewPhotoList(store_seq);
@@ -713,16 +703,8 @@ public class Sungsu {
 		if(fileList.get(0).getOriginalFilename()=="") {
 			replyService.userInsertReview(uldto.getUser_id(), store_seq, reply_content, reply_service, reply_clean, reply_price); 
 			reserveService.userReviewSuccess(uldto.getUser_id(), store_seq);
-//			list=replyService.replyListStoreDetail(store_seq, 1);
-//			list_avg=replyService.replyAvgStore(store_seq); 
-//			list_photo=rPhotoService.reviewPhotoList(store_seq);
-//			model.addAttribute("list", list); 
-//			model.addAttribute("list_avg", list_avg); 	
-//			model.addAttribute("list_photo", list_photo); 	
-//			return "all/review"; 
 			redirect.addAttribute("store_seq", store_seq);
-			return "redirect:review.do";
-			
+			return "redirect:review.do";	
 		//리뷰사진 넣을때	
 		}else { 
 			replyService.userInsertReview(uldto.getUser_id(), store_seq, reply_content, reply_service, reply_clean, reply_price);
@@ -730,29 +712,24 @@ public class Sungsu {
 			List<RPhotoDto> rPhoto_list=new ArrayList<>();
 			
 			for (int i = 0; i < fileList.size(); i++) {
-				RPhotoDto dto=new RPhotoDto(); 
-				
+				RPhotoDto dto=new RPhotoDto(); 		
 				//originName
 				String originName=fileList.get(i).getOriginalFilename();
 				//storedName
 				String createUUID=UUID.randomUUID().toString().replace("-", "");
 				String storedName=createUUID+originName.substring(originName.indexOf("."));
 			 	//fileSize
-				double fileSize=fileList.get(i).getSize();
-				
+				double fileSize=fileList.get(i).getSize();		
 				//path
-				String path=request.getSession().getServletContext().getRealPath("upload_rphoto/");
-				System.out.println("@@@@@@@@사진경로::"+path);
-				File file=new File(path+storedName);
-				
+				String path=request.getSession().getServletContext().getRealPath("upload_rphoto/");//사진경로
+				File file=new File(path+storedName);		
 				//////////////////
 				dto.setReply_photo_origin(originName);
 				dto.setReply_photo_stored(storedName);
 				dto.setReply_photo_size(fileSize);
 				rPhoto_list.add(dto); 
-				
 				try {
-					System.out.println("파일업로드 시작!!");
+					System.out.println("파일업로드 시작");
 					fileList.get(i).transferTo(file);
 					System.out.println("파일업로드 성공");
 				} catch (IllegalStateException e) {
@@ -765,13 +742,6 @@ public class Sungsu {
 			
 			rPhotoService.reviewPhotoInsert(rPhoto_list);
 			reserveService.userReviewSuccess(uldto.getUser_id(), store_seq);
-//			list=replyService.replyListStoreDetail(store_seq, 1);
-//			list_avg=replyService.replyAvgStore(store_seq);
-//			list_photo=rPhotoService.reviewPhotoList(store_seq);
-//			model.addAttribute("list", list); 
-//			model.addAttribute("list_avg", list_avg); 	
-//			model.addAttribute("list_photo", list_photo); 
-//			return "all/review";
 			redirect.addAttribute("store_seq", store_seq);
 			return "redirect:review.do";
 		}
@@ -780,8 +750,8 @@ public class Sungsu {
 	
 	
 	
-	
-	@ResponseBody
+	 
+//	@ResponseBody
 	@RequestMapping(value = "store_unlike_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String store_unlike_ajax(Locale locale, Model model,String user_id,int store_seq) {
 		logger.info("사용자 매장 좋아요 취소 {}.", locale);
@@ -794,7 +764,7 @@ public class Sungsu {
 		}
 	}
 	
-	@ResponseBody
+//	@ResponseBody
 	@RequestMapping(value = "store_like_ajax.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String store_like_ajax(Locale locale, Model model,String user_id,int store_seq) {
 		logger.info("사용자 매장 좋아요 {}.", locale);

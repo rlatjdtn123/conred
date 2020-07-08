@@ -244,7 +244,6 @@
          
          if(session_id==""){
         	swal("로그인이 필요한 서비스입니다.", "", "info");//info,success,error,warning
-//             alert("로그인이 필요한 서비스입니다."); 
          }else{
             if($(this).hasClass('btn_unlike')){
                 $(this).removeClass('btn_unlike'); //좋아요 취소

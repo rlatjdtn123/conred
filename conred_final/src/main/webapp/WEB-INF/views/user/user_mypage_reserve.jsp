@@ -137,9 +137,7 @@
 		function requestPay(reserve_seq,user_id,user_email,store_address,menu_name,reserve_price){
 			///결제하기 
 			var IMP=window.IMP;
-			IMP.init('imp83419041');  
-
-			 
+			IMP.init('imp83419041');  			 
 			IMP.request_pay({
 			    pg : 'kakaopay',
 			    pay_method : 'card',
@@ -165,21 +163,11 @@
 			    		} 
 			    	}).done(function(data) {
 			    		//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
-			    	
-//		 	    		if ( everythings_fine ) {
 			    			var msg = '결제가 완료되었습니다.';
 			    			msg += '\n고유ID asd: ' + rsp.imp_uid;
 			    			msg += '\n상점 거래ID asd: ' + rsp.merchant_uid;
 			    			msg += '\결제 금액asd : ' + rsp.paid_amount;
 			    			msg += '카드 승인번호asd : ' + rsp.apply_num;
-//		 	    			location.href='test_reserve_success.do?msg='+msg;
-			    			alert(msg);
-//		 	    		} else {
-//		 	    			alert("ㅜㅜ")
-			    			//[3] 아직 제대로 결제가 되지 않았습니다.
-			    			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
-//		 	    		}
-			            
 			    	});
 			    	var msg = rsp.merchant_uid;
 			    	//성공시 이동할 페이지
@@ -187,12 +175,8 @@
 			    } else {
 			        var msg = '결제에 실패하였습니다.';
 			        msg += '에러내용 : ' + rsp.error_msg;
-
-			        alert(msg); 
 			    }
-
-			});
-			
+			});		
 		}
 	//가게이미지
 	function storeImg(reserve_seq){

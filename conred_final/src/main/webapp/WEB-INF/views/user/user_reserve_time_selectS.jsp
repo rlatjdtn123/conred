@@ -596,9 +596,9 @@
 			<input type="text" class="selector" placeholder="날짜를 선택하세요." onchange="aaa(this)"/>
 			<a class="input-button" title="toggle" data-toggle><i class="icon-calendar"></i></a>
 		</div>
-		<div class="day_result_box">예약 날짜 : <span></span><p class="gongback"> ~ </p><span></span><div onclick="reserveChk()" class="reserve_success" />예약하기</div></div>
+		<div class="day_result_box">예약 날짜 : <span></span><p class="gongback"> ~ </p><span></span><div onclick="reserveChk()" class="reserve_success" >예약하기</div></div>
 	</div>
-</form>
+</form> 
 <script type="text/javascript">
 
 $(".selector").flatpickr({  

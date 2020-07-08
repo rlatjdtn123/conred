@@ -874,8 +874,7 @@
 
 	<form action="user_store_review.do" method="post"
 		enctype="multipart/form-data">
-		<input type="hidden" name="store_seq"
-			value="<%=list.size()==0?"":list.get(0).getStore_seq()%>" />
+		<input type="hidden" name="store_seq" value="<%=list.size()==0?"":list.get(0).getStore_seq()%>" />
 		<!-- 모탈창 부분 -->
 		<div class="modal fade" id="myModal" role="dialog" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
