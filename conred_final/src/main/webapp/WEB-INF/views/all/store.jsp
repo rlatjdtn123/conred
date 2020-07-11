@@ -20,7 +20,9 @@
 <link rel="stylesheet" href="css/star_service.css">
 <link rel="stylesheet" href="css/star_price.css">
 <link rel="stylesheet" href="css/star_clean.css">
-<link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+<!-- <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css"> -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 <style type="text/css">
    body{min-width: 1250px;}
    #container{ border:1px solid rgba(225,225,225,1.00);text-align:center;border-top-width:0px; border-bottom:1px solid #fff; width:1000px;height:auto;margin: 0 auto;}/*실제로 이 안에 뭘 넣을땐 height값 빼주기*/
@@ -207,7 +209,9 @@
 
 </style>
 <script src="js/jquery-3.4.1.js"></script>
-<script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+<!-- <script src="https://unpkg.com/swiper/js/swiper.min.js"></script> -->
+<script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script type="text/javascript">
    $(function() {
       var rater1=$(".rater1").text().trim();
